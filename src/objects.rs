@@ -1,0 +1,6201 @@
+use ::c2rust_bitfields;
+#[c2rust::header_src = "internal:0"]
+pub mod internal {
+    #[c2rust::src_loc = "0:0"]
+    pub type __builtin_va_list = *mut ::core::ffi::c_char;
+}
+#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arm/_types.h:23"]
+pub mod _types_h {
+    #[c2rust::src_loc = "32:1"]
+    pub type __uint8_t = u8;
+    #[c2rust::src_loc = "34:1"]
+    pub type __uint16_t = u16;
+    #[c2rust::src_loc = "35:1"]
+    pub type __int32_t = i32;
+    #[c2rust::src_loc = "36:1"]
+    pub type __uint32_t = u32;
+    #[c2rust::src_loc = "77:1"]
+    pub type __darwin_ptrdiff_t = isize;
+    #[c2rust::src_loc = "87:1"]
+    pub type __darwin_size_t = usize;
+    #[c2rust::src_loc = "95:1"]
+    pub type __darwin_va_list = __builtin_va_list;
+    #[c2rust::src_loc = "117:1"]
+    pub type __darwin_socklen_t = __uint32_t;
+    #[c2rust::src_loc = "118:1"]
+    pub type __darwin_ssize_t = isize;
+    #[c2rust::src_loc = "119:1"]
+    pub type __darwin_time_t = ::core::ffi::c_long;
+    use super::internal::__builtin_va_list;
+}
+#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_uintptr_t.h:23"]
+pub mod _uintptr_t_h {
+    #[c2rust::src_loc = "34:1"]
+    pub type uintptr_t = usize;
+}
+#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types.h:23"]
+pub mod sys__types_h {
+    #[c2rust::src_loc = "84:1"]
+    pub type __darwin_pid_t = __int32_t;
+    #[c2rust::src_loc = "86:1"]
+    pub type __darwin_suseconds_t = __int32_t;
+    #[c2rust::src_loc = "87:1"]
+    pub type __darwin_uid_t = __uint32_t;
+    #[c2rust::src_loc = "64:9"]
+    pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
+        ::core::ptr::null_mut::<::core::ffi::c_void>();
+    use super::_types_h::{__int32_t, __uint32_t};
+}
+#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_in_addr_t.h:23"]
+pub mod _in_addr_t_h {
+    #[c2rust::src_loc = "31:1"]
+    pub type in_addr_t = __uint32_t;
+    use super::_types_h::__uint32_t;
+}
+#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_in_port_t.h:23"]
+pub mod _in_port_t_h {
+    #[c2rust::src_loc = "31:1"]
+    pub type in_port_t = __uint16_t;
+    use super::_types_h::__uint16_t;
+}
+#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_pid_t.h:23"]
+pub mod _pid_t_h {
+    #[c2rust::src_loc = "31:1"]
+    pub type pid_t = __darwin_pid_t;
+    use super::sys__types_h::__darwin_pid_t;
+}
+#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_uid_t.h:23"]
+pub mod _uid_t_h {
+    #[c2rust::src_loc = "31:1"]
+    pub type uid_t = __darwin_uid_t;
+    use super::sys__types_h::__darwin_uid_t;
+}
+#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_size_t.h:23"]
+pub mod _size_t_h {
+    #[c2rust::src_loc = "50:1"]
+    pub type size_t = __darwin_size_t;
+    use super::_types_h::__darwin_size_t;
+}
+#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_ssize_t.h:23"]
+pub mod _ssize_t_h {
+    #[c2rust::src_loc = "31:1"]
+    pub type ssize_t = __darwin_ssize_t;
+    use super::_types_h::__darwin_ssize_t;
+}
+#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_time_t.h:23"]
+pub mod _time_t_h {
+    #[c2rust::src_loc = "31:1"]
+    pub type time_t = __darwin_time_t;
+    use super::_types_h::__darwin_time_t;
+}
+#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_ptrdiff_t.h:23"]
+pub mod _ptrdiff_t_h {
+    #[c2rust::src_loc = "51:1"]
+    pub type ptrdiff_t = __darwin_ptrdiff_t;
+    use super::_types_h::__darwin_ptrdiff_t;
+}
+#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types/_uint8_t.h:23"]
+pub mod _uint8_t_h {
+    #[c2rust::src_loc = "31:1"]
+    pub type uint8_t = u8;
+}
+#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types/_uint16_t.h:23"]
+pub mod _uint16_t_h {
+    #[c2rust::src_loc = "31:1"]
+    pub type uint16_t = u16;
+}
+#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types/_uint32_t.h:23"]
+pub mod _uint32_t_h {
+    #[c2rust::src_loc = "31:1"]
+    pub type uint32_t = u32;
+}
+#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types/_uint64_t.h:23"]
+pub mod _uint64_t_h {
+    #[c2rust::src_loc = "31:1"]
+    pub type uint64_t = u64;
+}
+#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_va_list.h:23"]
+pub mod _va_list_h {
+    #[c2rust::src_loc = "44:1"]
+    pub type va_list = __darwin_va_list;
+    use super::_types_h::__darwin_va_list;
+}
+#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_timeval.h:23"]
+pub mod _timeval_h {
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "34:1"]
+    pub struct timeval {
+        pub tv_sec: __darwin_time_t,
+        pub tv_usec: __darwin_suseconds_t,
+    }
+    use super::_types_h::__darwin_time_t;
+    use super::sys__types_h::__darwin_suseconds_t;
+}
+#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/tls/tls.h:23"]
+pub mod tls_h {
+    extern "C" {
+        #[c2rust::src_loc = "66:1"]
+        pub type tls;
+    }
+}
+#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/time.h:23"]
+pub mod time_h {
+    #[c2rust::src_loc = "40:1"]
+    pub type usec_t = uint64_t;
+    #[c2rust::src_loc = "43:9"]
+    pub const USEC: usec_t = 1000000 as ::core::ffi::c_int as usec_t;
+    use super::_uint64_t_h::uint64_t;
+    extern "C" {
+        #[c2rust::src_loc = "54:1"]
+        pub fn get_cached_time() -> usec_t;
+    }
+}
+#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/list.h:23"]
+pub mod list_h {
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "35:1"]
+    pub struct List {
+        pub next: *mut List,
+        pub prev: *mut List,
+    }
+    #[inline]
+    #[c2rust::src_loc = "46:1"]
+    pub unsafe extern "C" fn list_init(mut list: *mut List) {
+        (*list).prev = list;
+        (*list).next = (*list).prev;
+    }
+    #[inline]
+    #[c2rust::src_loc = "52:1"]
+    pub unsafe extern "C" fn list_empty(mut list: *const List) -> ::core::ffi::c_int {
+        return ((*list).next == list as *mut List) as ::core::ffi::c_int;
+    }
+    #[inline]
+    #[c2rust::src_loc = "58:1"]
+    pub unsafe extern "C" fn list_prepend(mut list: *mut List, mut item: *mut List) -> *mut List {
+        (*item).next = (*list).next;
+        (*item).prev = list;
+        (*(*list).next).prev = item;
+        (*list).next = item;
+        return item;
+    }
+    #[inline]
+    #[c2rust::src_loc = "68:1"]
+    pub unsafe extern "C" fn list_append(mut list: *mut List, mut item: *mut List) -> *mut List {
+        (*item).next = list;
+        (*item).prev = (*list).prev;
+        (*(*list).prev).next = item;
+        (*list).prev = item;
+        return item;
+    }
+    #[inline]
+    #[c2rust::src_loc = "78:1"]
+    pub unsafe extern "C" fn list_del(mut item: *mut List) -> *mut List {
+        (*(*item).prev).next = (*item).next;
+        (*(*item).next).prev = (*item).prev;
+        (*item).prev = item;
+        (*item).next = (*item).prev;
+        return item;
+    }
+    #[inline]
+    #[c2rust::src_loc = "87:1"]
+    pub unsafe extern "C" fn list_pop(mut list: *mut List) -> *mut List {
+        if list_empty(list) != 0 {
+            return ::core::ptr::null_mut::<List>();
+        }
+        return list_del((*list).next);
+    }
+    #[inline]
+    #[c2rust::src_loc = "95:1"]
+    pub unsafe extern "C" fn list_first(mut list: *const List) -> *mut List {
+        if list_empty(list) != 0 {
+            return ::core::ptr::null_mut::<List>();
+        }
+        return (*list).next;
+    }
+    use super::_null_h::NULL;
+    use super::sys__types_h::__DARWIN_NULL;
+}
+#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/statlist.h:23"]
+pub mod statlist_h {
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "36:1"]
+    pub struct StatList {
+        pub head: List,
+        pub cur_count: ::core::ffi::c_int,
+    }
+    #[inline]
+    #[c2rust::src_loc = "55:1"]
+    pub unsafe extern "C" fn statlist_prepend(mut list: *mut StatList, mut item: *mut List) {
+        list_prepend(&raw mut (*list).head, item);
+        (*list).cur_count += 1;
+    }
+    #[inline]
+    #[c2rust::src_loc = "62:1"]
+    pub unsafe extern "C" fn statlist_append(mut list: *mut StatList, mut item: *mut List) {
+        list_append(&raw mut (*list).head, item);
+        (*list).cur_count += 1;
+    }
+    #[inline]
+    #[c2rust::src_loc = "69:1"]
+    pub unsafe extern "C" fn statlist_remove(mut list: *mut StatList, mut item: *mut List) {
+        list_del(item);
+        (*list).cur_count -= 1;
+    }
+    #[inline]
+    #[c2rust::src_loc = "78:1"]
+    pub unsafe extern "C" fn statlist_init(
+        mut list: *mut StatList,
+        mut name: *const ::core::ffi::c_char,
+    ) {
+        list_init(&raw mut (*list).head);
+        (*list).cur_count = 0 as ::core::ffi::c_int;
+    }
+    #[inline]
+    #[c2rust::src_loc = "88:1"]
+    pub unsafe extern "C" fn statlist_count(mut list: *const StatList) -> ::core::ffi::c_int {
+        return (*list).cur_count;
+    }
+    #[inline]
+    #[c2rust::src_loc = "95:1"]
+    pub unsafe extern "C" fn statlist_pop(mut list: *mut StatList) -> *mut List {
+        let mut item = list_pop(&raw mut (*list).head);
+        if !item.is_null() {
+            (*list).cur_count -= 1;
+        }
+        return item;
+    }
+    #[inline]
+    #[c2rust::src_loc = "108:1"]
+    pub unsafe extern "C" fn statlist_first(mut list: *const StatList) -> *mut List {
+        return list_first(&raw const (*list).head);
+    }
+    #[inline]
+    #[c2rust::src_loc = "120:1"]
+    pub unsafe extern "C" fn statlist_empty(mut list: *const StatList) -> bool {
+        return list_empty(&raw const (*list).head) != 0;
+    }
+    #[inline]
+    #[c2rust::src_loc = "138:1"]
+    pub unsafe extern "C" fn statlist_put_before(
+        mut list: *mut StatList,
+        mut item: *mut List,
+        mut pos: *mut List,
+    ) {
+        list_append(pos, item);
+        (*list).cur_count += 1;
+    }
+    use super::list_h::{
+        list_append, list_del, list_empty, list_first, list_init, list_pop, list_prepend, List,
+    };
+}
+#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/aatree.h:23"]
+pub mod aatree_h {
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "41:1"]
+    pub struct AATree {
+        pub root: *mut AANode,
+        pub count: ::core::ffi::c_int,
+        pub node_cmp: aatree_cmp_f,
+        pub release_cb: aatree_walker_f,
+    }
+    #[c2rust::src_loc = "36:1"]
+    pub type aatree_walker_f =
+        Option<unsafe extern "C" fn(*mut AANode, *mut ::core::ffi::c_void) -> ()>;
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "57:1"]
+    pub struct AANode {
+        pub left: *mut AANode,
+        pub right: *mut AANode,
+        pub level: ::core::ffi::c_int,
+    }
+    #[c2rust::src_loc = "33:1"]
+    pub type aatree_cmp_f =
+        Option<unsafe extern "C" fn(uintptr_t, *mut AANode) -> ::core::ffi::c_int>;
+    use super::_uintptr_t_h::uintptr_t;
+    extern "C" {
+        #[c2rust::src_loc = "73:1"]
+        pub fn aatree_init(tree: *mut AATree, cmpfn: aatree_cmp_f, release_cb: aatree_walker_f);
+        #[c2rust::src_loc = "76:1"]
+        pub fn aatree_search(tree: *mut AATree, value: uintptr_t) -> *mut AANode;
+        #[c2rust::src_loc = "79:1"]
+        pub fn aatree_insert(tree: *mut AATree, value: uintptr_t, node: *mut AANode);
+    }
+}
+#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_sa_family_t.h:23"]
+pub mod _sa_family_t_h {
+    #[c2rust::src_loc = "31:1"]
+    pub type sa_family_t = __uint8_t;
+    use super::_types_h::__uint8_t;
+}
+#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_socklen_t.h:23"]
+pub mod _socklen_t_h {
+    #[c2rust::src_loc = "31:1"]
+    pub type socklen_t = __darwin_socklen_t;
+    use super::_types_h::__darwin_socklen_t;
+}
+#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/socket.h:23"]
+pub mod socket_h {
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "414:1"]
+    pub struct sockaddr {
+        pub sa_len: __uint8_t,
+        pub sa_family: sa_family_t,
+        pub sa_data: [::core::ffi::c_char; 14],
+    }
+    #[c2rust::src_loc = "361:9"]
+    pub const AF_UNIX: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
+    #[c2rust::src_loc = "365:9"]
+    pub const AF_INET: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
+    #[c2rust::src_loc = "396:9"]
+    pub const AF_INET6: ::core::ffi::c_int = 30 as ::core::ffi::c_int;
+    use super::_sa_family_t_h::sa_family_t;
+    use super::_types_h::__uint8_t;
+}
+#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/un.h:23"]
+pub mod un_h {
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "76:1"]
+    pub struct sockaddr_un {
+        pub sun_len: ::core::ffi::c_uchar,
+        pub sun_family: sa_family_t,
+        pub sun_path: [::core::ffi::c_char; 104],
+    }
+    use super::_sa_family_t_h::sa_family_t;
+}
+#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/netinet/in.h:23"]
+pub mod in_h {
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "301:1"]
+    pub struct in_addr {
+        pub s_addr: in_addr_t,
+    }
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "374:1"]
+    pub struct sockaddr_in {
+        pub sin_len: __uint8_t,
+        pub sin_family: sa_family_t,
+        pub sin_port: in_port_t,
+        pub sin_addr: in_addr,
+        pub sin_zero: [::core::ffi::c_char; 8],
+    }
+    use super::_in_addr_t_h::in_addr_t;
+    use super::_in_port_t_h::in_port_t;
+    use super::_sa_family_t_h::sa_family_t;
+    use super::_types_h::__uint8_t;
+}
+#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/netinet6/in6.h:23"]
+pub mod in6_h {
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "152:9"]
+    pub struct in6_addr {
+        pub __u6_addr: C2RustUnnamed,
+    }
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "153:2"]
+    pub union C2RustUnnamed {
+        pub __u6_addr8: [__uint8_t; 16],
+        pub __u6_addr16: [__uint16_t; 8],
+        pub __u6_addr32: [__uint32_t; 4],
+    }
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "170:1"]
+    pub struct sockaddr_in6 {
+        pub sin6_len: __uint8_t,
+        pub sin6_family: sa_family_t,
+        pub sin6_port: in_port_t,
+        pub sin6_flowinfo: __uint32_t,
+        pub sin6_addr: in6_addr,
+        pub sin6_scope_id: __uint32_t,
+    }
+    use super::_in_port_t_h::in_port_t;
+    use super::_sa_family_t_h::sa_family_t;
+    use super::_types_h::{__uint16_t, __uint32_t, __uint8_t};
+}
+#[c2rust::header_src = "/opt/homebrew/Cellar/libevent/2.1.12_1/include/event2/event.h:23"]
+pub mod event_h {
+    extern "C" {
+        #[c2rust::src_loc = "217:1"]
+        pub type event_base;
+    }
+}
+#[c2rust::header_src = "/opt/homebrew/Cellar/libevent/2.1.12_1/include/event2/event_struct.h:23"]
+pub mod event_struct_h {
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "123:1"]
+    pub struct event {
+        pub ev_evcallback: event_callback,
+        pub ev_timeout_pos: C2RustUnnamed_5,
+        pub ev_fd: ::core::ffi::c_int,
+        pub ev_base: *mut event_base,
+        pub ev_: C2RustUnnamed_0,
+        pub ev_events: ::core::ffi::c_short,
+        pub ev_res: ::core::ffi::c_short,
+        pub ev_timeout: timeval,
+    }
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "135:2"]
+    pub union C2RustUnnamed_0 {
+        pub ev_io: C2RustUnnamed_3,
+        pub ev_signal: C2RustUnnamed_1,
+    }
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "143:3"]
+    pub struct C2RustUnnamed_1 {
+        pub ev_signal_next: C2RustUnnamed_2,
+        pub ev_ncalls: ::core::ffi::c_short,
+        pub ev_pncalls: *mut ::core::ffi::c_short,
+    }
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "144:4"]
+    pub struct C2RustUnnamed_2 {
+        pub le_next: *mut event,
+        pub le_prev: *mut *mut event,
+    }
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "137:3"]
+    pub struct C2RustUnnamed_3 {
+        pub ev_io_next: C2RustUnnamed_4,
+        pub ev_timeout: timeval,
+    }
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "138:4"]
+    pub struct C2RustUnnamed_4 {
+        pub le_next: *mut event,
+        pub le_prev: *mut *mut event,
+    }
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "127:2"]
+    pub union C2RustUnnamed_5 {
+        pub ev_next_with_common_timeout: C2RustUnnamed_6,
+        pub min_heap_idx: ::core::ffi::c_int,
+    }
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "128:3"]
+    pub struct C2RustUnnamed_6 {
+        pub tqe_next: *mut event,
+        pub tqe_prev: *mut *mut event,
+    }
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "107:1"]
+    pub struct event_callback {
+        pub evcb_active_next: C2RustUnnamed_8,
+        pub evcb_flags: ::core::ffi::c_short,
+        pub evcb_pri: uint8_t,
+        pub evcb_closure: uint8_t,
+        pub evcb_cb_union: C2RustUnnamed_7,
+        pub evcb_arg: *mut ::core::ffi::c_void,
+    }
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "113:9"]
+    pub union C2RustUnnamed_7 {
+        pub evcb_callback: Option<
+            unsafe extern "C" fn(
+                ::core::ffi::c_int,
+                ::core::ffi::c_short,
+                *mut ::core::ffi::c_void,
+            ) -> (),
+        >,
+        pub evcb_selfcb:
+            Option<unsafe extern "C" fn(*mut event_callback, *mut ::core::ffi::c_void) -> ()>,
+        pub evcb_evfinalize:
+            Option<unsafe extern "C" fn(*mut event, *mut ::core::ffi::c_void) -> ()>,
+        pub evcb_cbfinalize:
+            Option<unsafe extern "C" fn(*mut event_callback, *mut ::core::ffi::c_void) -> ()>,
+    }
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "108:2"]
+    pub struct C2RustUnnamed_8 {
+        pub tqe_next: *mut event_callback,
+        pub tqe_prev: *mut *mut event_callback,
+    }
+    use super::_timeval_h::timeval;
+    use super::_uint8_t_h::uint8_t;
+    use super::event_h::event_base;
+}
+#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/common/cryptohash.h:23"]
+pub mod cryptohash_h {
+    #[c2rust::src_loc = "19:9"]
+    pub type pg_cryptohash_type = ::core::ffi::c_uint;
+    #[c2rust::src_loc = "24:2"]
+    pub const PG_SHA512: pg_cryptohash_type = 3;
+    #[c2rust::src_loc = "23:2"]
+    pub const PG_SHA384: pg_cryptohash_type = 2;
+    #[c2rust::src_loc = "22:2"]
+    pub const PG_SHA256: pg_cryptohash_type = 1;
+    #[c2rust::src_loc = "21:2"]
+    pub const PG_SHA224: pg_cryptohash_type = 0;
+}
+#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/common/uthash.h:23"]
+pub mod uthash_h {
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "1072:9"]
+    pub struct UT_hash_bucket {
+        pub hh_head: *mut UT_hash_handle,
+        pub count: ::core::ffi::c_uint,
+        pub expand_mult: ::core::ffi::c_uint,
+    }
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "1129:9"]
+    pub struct UT_hash_handle {
+        pub tbl: *mut UT_hash_table,
+        pub prev: *mut ::core::ffi::c_void,
+        pub next: *mut ::core::ffi::c_void,
+        pub hh_prev: *mut UT_hash_handle,
+        pub hh_next: *mut UT_hash_handle,
+        pub key: *const ::core::ffi::c_void,
+        pub keylen: ::core::ffi::c_uint,
+        pub hashv: ::core::ffi::c_uint,
+    }
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "1096:9"]
+    pub struct UT_hash_table {
+        pub buckets: *mut UT_hash_bucket,
+        pub num_buckets: ::core::ffi::c_uint,
+        pub log2_num_buckets: ::core::ffi::c_uint,
+        pub num_items: ::core::ffi::c_uint,
+        pub tail: *mut UT_hash_handle,
+        pub hho: ptrdiff_t,
+        pub ideal_chain_maxlen: ::core::ffi::c_uint,
+        pub nonideal_items: ::core::ffi::c_uint,
+        pub ineff_expands: ::core::ffi::c_uint,
+        pub noexpand: ::core::ffi::c_uint,
+        pub signature: uint32_t,
+    }
+    use super::_ptrdiff_t_h::ptrdiff_t;
+    use super::_uint32_t_h::uint32_t;
+}
+#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/bouncer.h:23"]
+pub mod bouncer_h {
+    #[c2rust::src_loc = "70:1"]
+    pub type SocketState = ::core::ffi::c_uint;
+    #[c2rust::src_loc = "88:2"]
+    pub const SV_TESTED: SocketState = 16;
+    #[c2rust::src_loc = "87:2"]
+    pub const SV_USED: SocketState = 15;
+    #[c2rust::src_loc = "86:2"]
+    pub const SV_ACTIVE_CANCEL: SocketState = 14;
+    #[c2rust::src_loc = "85:2"]
+    pub const SV_ACTIVE: SocketState = 13;
+    #[c2rust::src_loc = "84:2"]
+    pub const SV_IDLE: SocketState = 12;
+    #[c2rust::src_loc = "83:2"]
+    pub const SV_BEING_CANCELED: SocketState = 11;
+    #[c2rust::src_loc = "82:2"]
+    pub const SV_LOGIN: SocketState = 10;
+    #[c2rust::src_loc = "81:2"]
+    pub const SV_JUSTFREE: SocketState = 9;
+    #[c2rust::src_loc = "80:2"]
+    pub const SV_FREE: SocketState = 8;
+    #[c2rust::src_loc = "78:2"]
+    pub const CL_ACTIVE_CANCEL: SocketState = 7;
+    #[c2rust::src_loc = "77:2"]
+    pub const CL_WAITING_CANCEL: SocketState = 6;
+    #[c2rust::src_loc = "76:2"]
+    pub const CL_ACTIVE: SocketState = 5;
+    #[c2rust::src_loc = "75:2"]
+    pub const CL_WAITING_LOGIN: SocketState = 4;
+    #[c2rust::src_loc = "74:2"]
+    pub const CL_WAITING: SocketState = 3;
+    #[c2rust::src_loc = "73:2"]
+    pub const CL_LOGIN: SocketState = 2;
+    #[c2rust::src_loc = "72:2"]
+    pub const CL_JUSTFREE: SocketState = 1;
+    #[c2rust::src_loc = "71:2"]
+    pub const CL_FREE: SocketState = 0;
+    #[c2rust::src_loc = "91:1"]
+    pub type PauseMode = ::core::ffi::c_uint;
+    #[c2rust::src_loc = "94:2"]
+    pub const P_SUSPEND: PauseMode = 2;
+    #[c2rust::src_loc = "93:2"]
+    pub const P_PAUSE: PauseMode = 1;
+    #[c2rust::src_loc = "92:2"]
+    pub const P_NONE: PauseMode = 0;
+    #[c2rust::src_loc = "97:1"]
+    pub type ShutDownMode = ::core::ffi::c_uint;
+    #[c2rust::src_loc = "119:2"]
+    pub const SHUTDOWN_IMMEDIATE: ShutDownMode = 3;
+    #[c2rust::src_loc = "117:2"]
+    pub const SHUTDOWN_WAIT_FOR_CLIENTS: ShutDownMode = 2;
+    #[c2rust::src_loc = "106:2"]
+    pub const SHUTDOWN_WAIT_FOR_SERVERS: ShutDownMode = 1;
+    #[c2rust::src_loc = "99:2"]
+    pub const SHUTDOWN_NONE: ShutDownMode = 0;
+    #[c2rust::src_loc = "131:1"]
+    pub type PacketCallbackFlag = ::core::ffi::c_uint;
+    #[c2rust::src_loc = "144:2"]
+    pub const CB_HANDLE_COMPLETE_PACKET: PacketCallbackFlag = 2;
+    #[c2rust::src_loc = "139:2"]
+    pub const CB_WANT_COMPLETE_PACKET: PacketCallbackFlag = 1;
+    #[c2rust::src_loc = "133:2"]
+    pub const CB_NONE: PacketCallbackFlag = 0;
+    #[c2rust::src_loc = "147:1"]
+    pub type LoadBalanceHosts = ::core::ffi::c_uint;
+    #[c2rust::src_loc = "149:2"]
+    pub const LOAD_BALANCE_HOSTS_ROUND_ROBIN: LoadBalanceHosts = 1;
+    #[c2rust::src_loc = "148:2"]
+    pub const LOAD_BALANCE_HOSTS_DISABLE: LoadBalanceHosts = 0;
+    #[derive(Copy, Clone, BitfieldStruct)]
+    #[repr(C)]
+    #[c2rust::src_loc = "663:1"]
+    pub struct PgSocket {
+        pub head: List,
+        pub cancel_head: List,
+        pub link: *mut PgSocket,
+        pub pool: *mut PgPool,
+        pub login_user_credentials: *mut PgCredentials,
+        pub id: ::core::ffi::c_ulonglong,
+        pub client_auth_type: ::core::ffi::c_int,
+        pub outstanding_requests: StatList,
+        #[bitfield(name = "state", ty = "SocketState", bits = "0..=7")]
+        #[bitfield(name = "contributes_db_client_count", ty = "bool", bits = "8..=8")]
+        #[bitfield(name = "user_connection_counted", ty = "bool", bits = "9..=9")]
+        #[bitfield(name = "ready", ty = "bool", bits = "10..=10")]
+        #[bitfield(name = "idle_tx", ty = "bool", bits = "11..=11")]
+        #[bitfield(name = "close_needed", ty = "bool", bits = "12..=12")]
+        #[bitfield(name = "setting_vars", ty = "bool", bits = "13..=13")]
+        #[bitfield(name = "exec_on_connect", ty = "bool", bits = "14..=14")]
+        #[bitfield(name = "resetting", ty = "bool", bits = "15..=15")]
+        #[bitfield(name = "copy_mode", ty = "bool", bits = "16..=16")]
+        #[bitfield(name = "wait_for_welcome", ty = "bool", bits = "17..=17")]
+        #[bitfield(name = "welcome_sent", ty = "bool", bits = "18..=18")]
+        #[bitfield(name = "wait_for_user_conn", ty = "bool", bits = "19..=19")]
+        #[bitfield(name = "wait_for_user", ty = "bool", bits = "20..=20")]
+        #[bitfield(name = "wait_for_auth", ty = "bool", bits = "21..=21")]
+        #[bitfield(name = "suspended", ty = "bool", bits = "22..=22")]
+        #[bitfield(name = "sent_wait_notification", ty = "bool", bits = "23..=23")]
+        #[bitfield(name = "admin_user", ty = "bool", bits = "24..=24")]
+        #[bitfield(name = "own_user", ty = "bool", bits = "25..=25")]
+        #[bitfield(name = "wait_for_response", ty = "bool", bits = "26..=26")]
+        #[bitfield(name = "wait_sslchar", ty = "bool", bits = "27..=27")]
+        #[bitfield(name = "query_failed", ty = "bool", bits = "28..=28")]
+        pub state_contributes_db_client_count_user_connection_counted_ready_idle_tx_close_needed_setting_vars_exec_on_connect_resetting_copy_mode_wait_for_welcome_welcome_sent_wait_for_user_conn_wait_for_user_wait_for_auth_suspended_sent_wait_notification_admin_user_own_user_wait_for_response_wait_sslchar_query_failed:
+            [u8; 4],
+        pub replication: ReplicationType,
+        pub startup_options: *mut ::core::ffi::c_char,
+        pub connect_time: usec_t,
+        pub request_time: usec_t,
+        pub query_start: usec_t,
+        pub xact_start: usec_t,
+        pub wait_start: usec_t,
+        pub cancel_key: [uint8_t; 8],
+        pub canceling_clients: StatList,
+        pub canceled_server: *mut PgSocket,
+        pub remote_addr: PgAddr,
+        pub local_addr: PgAddr,
+        pub host: *mut ::core::ffi::c_char,
+        pub c2rust_unnamed: C2RustUnnamed_9,
+        pub scram_state: ScramState,
+        pub vars: VarCache,
+        pub client_prepared_statements: *mut PgClientPreparedStatement,
+        pub server_prepared_statements: *mut PgServerPreparedStatement,
+        pub packet_cb_state: CallbackState,
+        pub sbuf: SBuf,
+    }
+    #[derive(Copy, Clone, BitfieldStruct)]
+    #[repr(C)]
+    #[c2rust::src_loc = "768:2"]
+    pub struct CallbackState {
+        #[bitfield(name = "flag", ty = "PacketCallbackFlag", bits = "0..=7")]
+        pub flag: [u8; 1],
+        #[bitfield(padding)]
+        pub c2rust_padding: [u8; 7],
+        pub pkt: PktHdr,
+    }
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "732:2"]
+    pub struct ScramState {
+        pub client_nonce: *mut ::core::ffi::c_char,
+        pub client_first_message_bare: *mut ::core::ffi::c_char,
+        pub client_final_message_without_proof: *mut ::core::ffi::c_char,
+        pub server_nonce: *mut ::core::ffi::c_char,
+        pub server_first_message: *mut ::core::ffi::c_char,
+        pub iterations: ::core::ffi::c_int,
+        pub hash_type: pg_cryptohash_type,
+        pub key_length: ::core::ffi::c_int,
+        pub salt: *mut uint8_t,
+        pub saltlen: ::core::ffi::c_int,
+        pub SaltedPassword: *mut uint8_t,
+        pub cbind_flag: ::core::ffi::c_char,
+        pub adhoc: bool,
+        pub encoded_salt: *mut ::core::ffi::c_char,
+        pub ClientKey: [uint8_t; 32],
+        pub StoredKey: [uint8_t; 32],
+        pub ServerKey: [uint8_t; 32],
+    }
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "727:2"]
+    pub union C2RustUnnamed_9 {
+        pub dns_token: *mut DNSToken,
+        pub db: *mut PgDatabase,
+    }
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "570:1"]
+    pub struct PgDatabase {
+        pub head: List,
+        pub name: [::core::ffi::c_char; 64],
+        pub peer_id: ::core::ffi::c_int,
+        pub pool: *mut PgPool,
+        pub host: *mut ::core::ffi::c_char,
+        pub port: ::core::ffi::c_int,
+        pub pool_size: ::core::ffi::c_int,
+        pub min_pool_size: ::core::ffi::c_int,
+        pub res_pool_size: ::core::ffi::c_int,
+        pub pool_mode: ::core::ffi::c_int,
+        pub max_db_client_connections: ::core::ffi::c_int,
+        pub max_db_connections: ::core::ffi::c_int,
+        pub server_lifetime: usec_t,
+        pub connect_query: *mut ::core::ffi::c_char,
+        pub load_balance_hosts: LoadBalanceHosts,
+        pub startup_params: *mut PktBuf,
+        pub dbname: *const ::core::ffi::c_char,
+        pub auth_dbname: *mut ::core::ffi::c_char,
+        pub forced_user_credentials: *mut PgCredentials,
+        pub auth_user_credentials: *mut PgCredentials,
+        pub auth_query: *mut ::core::ffi::c_char,
+        pub db_paused: bool,
+        pub db_wait_close: bool,
+        pub db_dead: bool,
+        pub db_auto: bool,
+        pub db_disabled: bool,
+        pub admin: bool,
+        pub fake: bool,
+        pub inactive_time: usec_t,
+        pub active_stamp: ::core::ffi::c_uint,
+        pub connection_count: ::core::ffi::c_int,
+        pub client_connection_count: ::core::ffi::c_int,
+        pub user_tree: AATree,
+    }
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "509:1"]
+    pub struct PgCredentials {
+        pub tree_node: AANode,
+        pub name: [::core::ffi::c_char; 128],
+        pub passwd: [::core::ffi::c_char; 2048],
+        pub mock_auth: bool,
+        pub dynamic_passwd: bool,
+        pub global_user: *mut PgGlobalUser,
+        pub scram_ClientKey: [uint8_t; 32],
+        pub scram_ServerKey: [uint8_t; 32],
+        pub scram_StoredKey: [uint8_t; 32],
+        pub scram_Iiterations: ::core::ffi::c_int,
+        pub scram_SaltKey: *mut ::core::ffi::c_char,
+        pub use_scram_keys: bool,
+        pub adhoc_scram_secrets_cached: bool,
+    }
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "549:1"]
+    pub struct PgGlobalUser {
+        pub credentials: PgCredentials,
+        pub head: List,
+        pub pool_list: List,
+        pub pool_mode: ::core::ffi::c_int,
+        pub pool_size: ::core::ffi::c_int,
+        pub res_pool_size: ::core::ffi::c_int,
+        pub transaction_timeout: usec_t,
+        pub idle_transaction_timeout: usec_t,
+        pub query_timeout: usec_t,
+        pub client_idle_timeout: usec_t,
+        pub max_user_connections: ::core::ffi::c_int,
+        pub max_user_client_connections: ::core::ffi::c_int,
+        pub connection_count: ::core::ffi::c_int,
+        pub client_connection_count: ::core::ffi::c_int,
+    }
+    #[derive(Copy, Clone, BitfieldStruct)]
+    #[repr(C)]
+    #[c2rust::src_loc = "345:1"]
+    pub struct PgPool {
+        pub head: List,
+        pub map_head: List,
+        pub db: *mut PgDatabase,
+        pub user_credentials: *mut PgCredentials,
+        pub active_client_list: StatList,
+        pub waiting_client_list: StatList,
+        pub waiting_cancel_req_list: StatList,
+        pub active_cancel_req_list: StatList,
+        pub active_server_list: StatList,
+        pub active_cancel_server_list: StatList,
+        pub being_canceled_server_list: StatList,
+        pub idle_server_list: StatList,
+        pub used_server_list: StatList,
+        pub tested_server_list: StatList,
+        pub new_server_list: StatList,
+        pub stats: PgStats,
+        pub newer_stats: PgStats,
+        pub older_stats: PgStats,
+        pub welcome_msg: *mut PktBuf,
+        pub orig_vars: VarCache,
+        pub last_lifetime_disconnect: usec_t,
+        pub last_connect_time: usec_t,
+        #[bitfield(name = "last_connect_failed", ty = "bool", bits = "0..=0")]
+        pub last_connect_failed: [u8; 1],
+        pub last_connect_failed_message: [::core::ffi::c_char; 100],
+        #[bitfield(name = "last_login_failed", ty = "bool", bits = "0..=0")]
+        #[bitfield(name = "welcome_msg_ready", ty = "bool", bits = "1..=1")]
+        pub last_login_failed_welcome_msg_ready: [u8; 1],
+        pub rrcounter: uint16_t,
+    }
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "320:1"]
+    pub struct PgStats {
+        pub server_assignment_count: uint64_t,
+        pub xact_count: uint64_t,
+        pub query_count: uint64_t,
+        pub server_bytes: uint64_t,
+        pub client_bytes: uint64_t,
+        pub xact_time: usec_t,
+        pub query_time: usec_t,
+        pub wait_time: usec_t,
+        pub ps_server_parse_count: uint64_t,
+        pub ps_client_parse_count: uint64_t,
+        pub ps_bind_count: uint64_t,
+    }
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "292:1"]
+    pub union PgAddr {
+        pub sa: sockaddr,
+        pub sin: sockaddr_in,
+        pub sin6: sockaddr_in6,
+        pub scred: sockaddr_ucreds,
+    }
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "282:1"]
+    pub struct sockaddr_ucreds {
+        pub sin: sockaddr_in,
+        pub uid: uid_t,
+        pub pid: pid_t,
+    }
+    #[c2rust::src_loc = "650:1"]
+    pub type ReplicationType = ::core::ffi::c_uint;
+    #[c2rust::src_loc = "653:2"]
+    pub const REPLICATION_PHYSICAL: ReplicationType = 2;
+    #[c2rust::src_loc = "652:2"]
+    pub const REPLICATION_LOGICAL: ReplicationType = 1;
+    #[c2rust::src_loc = "651:2"]
+    pub const REPLICATION_NONE: ReplicationType = 0;
+    #[c2rust::src_loc = "633:2"]
+    pub const RA_FAKE: ResponseAction = 2;
+    #[c2rust::src_loc = "627:2"]
+    pub const RA_SKIP: ResponseAction = 1;
+    #[c2rust::src_loc = "622:2"]
+    pub const RA_FORWARD: ResponseAction = 0;
+    #[c2rust::src_loc = "620:1"]
+    pub type ResponseAction = ::core::ffi::c_uint;
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "636:9"]
+    pub struct OutstandingRequest {
+        pub node: List,
+        pub type_0: ::core::ffi::c_char,
+        pub action: ResponseAction,
+        pub server_ps: *mut PgServerPreparedStatement,
+        pub server_ps_query_id: uint64_t,
+    }
+    #[c2rust::src_loc = "240:2"]
+    pub const AUTH_TYPE_PAM: auth_type = 7;
+    #[c2rust::src_loc = "232:1"]
+    pub type auth_type = ::core::ffi::c_uint;
+    #[c2rust::src_loc = "243:2"]
+    pub const AUTH_TYPE_REJECT: auth_type = 10;
+    #[c2rust::src_loc = "242:2"]
+    pub const AUTH_TYPE_PEER: auth_type = 9;
+    #[c2rust::src_loc = "241:2"]
+    pub const AUTH_TYPE_SCRAM_SHA_256: auth_type = 8;
+    #[c2rust::src_loc = "239:2"]
+    pub const AUTH_TYPE_LDAP: auth_type = 6;
+    #[c2rust::src_loc = "238:2"]
+    pub const AUTH_TYPE_HBA: auth_type = 5;
+    #[c2rust::src_loc = "237:2"]
+    pub const AUTH_TYPE_CERT: auth_type = 4;
+    #[c2rust::src_loc = "236:2"]
+    pub const AUTH_TYPE_MD5: auth_type = 3;
+    #[c2rust::src_loc = "235:2"]
+    pub const AUTH_TYPE_PLAIN: auth_type = 2;
+    #[c2rust::src_loc = "234:2"]
+    pub const AUTH_TYPE_TRUST: auth_type = 1;
+    #[c2rust::src_loc = "233:2"]
+    pub const AUTH_TYPE_ANY: auth_type = 0;
+    #[c2rust::src_loc = "251:9"]
+    pub const PKT_CANCEL: ::core::ffi::c_int = 80877102 as ::core::ffi::c_int;
+    #[c2rust::src_loc = "255:9"]
+    pub const POOL_SESSION: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
+    #[c2rust::src_loc = "258:9"]
+    pub const POOL_INHERIT: ::core::ffi::c_int = 3 as ::core::ffi::c_int;
+    #[c2rust::src_loc = "272:9"]
+    pub const CANCELLATION_TTL_MASK: ::core::ffi::c_int = 0x3 as ::core::ffi::c_int;
+    #[inline]
+    #[c2rust::src_loc = "303:1"]
+    pub unsafe extern "C" fn pga_is_unix(mut a: *const PgAddr) -> bool {
+        return (*a).sa.sa_family as ::core::ffi::c_int == AF_UNIX;
+    }
+    #[c2rust::src_loc = "785:9"]
+    pub const RAW_IOBUF_SIZE: ::core::ffi::c_ulong = 12 as ::core::ffi::c_ulong;
+    #[inline]
+    #[c2rust::src_loc = "917:1"]
+    pub unsafe extern "C" fn first_socket(mut slist: *mut StatList) -> *mut PgSocket {
+        if statlist_empty(slist) {
+            return ::core::ptr::null_mut::<PgSocket>();
+        }
+        return ((*slist).head.next as *mut ::core::ffi::c_char)
+            .offset(-(0 as ::core::ffi::c_ulong as isize)) as *mut PgSocket;
+    }
+    #[inline]
+    #[c2rust::src_loc = "924:1"]
+    pub unsafe extern "C" fn last_socket(mut slist: *mut StatList) -> *mut PgSocket {
+        if statlist_empty(slist) {
+            return ::core::ptr::null_mut::<PgSocket>();
+        }
+        return ((*slist).head.prev as *mut ::core::ffi::c_char)
+            .offset(-(0 as ::core::ffi::c_ulong as isize)) as *mut PgSocket;
+    }
+    use super::_null_h::NULL;
+    use super::_pid_t_h::pid_t;
+    use super::_sa_family_t_h::sa_family_t;
+    use super::_uid_t_h::uid_t;
+    use super::_uint16_t_h::uint16_t;
+    use super::_uint64_t_h::uint64_t;
+    use super::_uint8_t_h::uint8_t;
+    use super::aatree_h::{AANode, AATree};
+    use super::cryptohash_h::pg_cryptohash_type;
+    use super::dnslookup_h::{DNSContext, DNSToken};
+    use super::in6_h::sockaddr_in6;
+    use super::in_h::sockaddr_in;
+    use super::list_h::List;
+    use super::pktbuf_h::PktBuf;
+    use super::prepare_h::{PgClientPreparedStatement, PgServerPreparedStatement};
+    use super::proto_h::PktHdr;
+    use super::sbuf_h::SBuf;
+    use super::socket_h::{sockaddr, AF_UNIX};
+    use super::statlist_h::{statlist_empty, StatList};
+    use super::time_h::usec_t;
+    use super::varcache_h::VarCache;
+    extern "C" {
+                #[c2rust::src_loc = "171:1"]
+        pub static mut cf_sbuf_len: ::core::ffi::c_int;
+        #[c2rust::src_loc = "309:1"]
+        pub fn pga_set(a: *mut PgAddr, fam: ::core::ffi::c_int, port: ::core::ffi::c_int);
+        #[c2rust::src_loc = "310:1"]
+        pub fn pga_copy(a: *mut PgAddr, sa: *const sockaddr);
+        #[c2rust::src_loc = "315:1"]
+        pub fn pga_cmp_addr(a: *const PgAddr, b: *const PgAddr) -> ::core::ffi::c_int;
+        #[c2rust::src_loc = "802:1"]
+        pub static mut cf_unix_socket_dir: *mut ::core::ffi::c_char;
+        #[c2rust::src_loc = "808:1"]
+        pub static mut cf_peer_id: ::core::ffi::c_int;
+        #[c2rust::src_loc = "815:1"]
+        pub static mut cf_res_pool_timeout: usec_t;
+        #[c2rust::src_loc = "821:1"]
+        pub static mut cf_autodb_connstr: *mut ::core::ffi::c_char;
+        #[c2rust::src_loc = "827:1"]
+        pub static mut cf_server_reset_query: *mut ::core::ffi::c_char;
+        #[c2rust::src_loc = "828:1"]
+        pub static mut cf_server_reset_query_always: ::core::ffi::c_int;
+        #[c2rust::src_loc = "829:1"]
+        pub static mut cf_server_check_query: *mut ::core::ffi::c_char;
+        #[c2rust::src_loc = "831:1"]
+        pub static mut cf_server_check_delay: usec_t;
+        #[c2rust::src_loc = "833:1"]
+        pub static mut cf_server_connect_timeout: usec_t;
+        #[c2rust::src_loc = "834:1"]
+        pub static mut cf_server_login_retry: usec_t;
+        #[c2rust::src_loc = "844:1"]
+        pub static mut cf_server_round_robin: ::core::ffi::c_int;
+        #[c2rust::src_loc = "851:1"]
+        pub static mut cf_auth_type: ::core::ffi::c_int;
+        #[c2rust::src_loc = "868:1"]
+        pub static mut cf_pause_mode: ::core::ffi::c_int;
+        #[c2rust::src_loc = "869:1"]
+        pub static mut cf_shutdown: ::core::ffi::c_int;
+        #[c2rust::src_loc = "884:1"]
+        pub static mut cf_log_connections: ::core::ffi::c_int;
+        #[c2rust::src_loc = "885:1"]
+        pub static mut cf_log_disconnections: ::core::ffi::c_int;
+        #[c2rust::src_loc = "914:1"]
+        pub static mut adns: *mut DNSContext;
+    }
+}
+#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/sbuf.h:23"]
+pub mod sbuf_h {
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "71:1"]
+    pub struct SBuf {
+        pub ev: event,
+        pub wait_type: uint8_t,
+        pub pkt_action: uint8_t,
+        pub tls_state: uint8_t,
+        pub sock: ::core::ffi::c_int,
+        pub pkt_remain: ::core::ffi::c_uint,
+        pub skip_remain: ::core::ffi::c_uint,
+        pub extra_packets: MBuf,
+        pub extra_packet_queue_after: bool,
+        pub proto_cb: sbuf_cb_t,
+        pub dst: *mut SBuf,
+        pub io: *mut IOBuf,
+        pub ops: *const SBufIO,
+        pub tls: *mut tls,
+        pub tls_host: *const ::core::ffi::c_char,
+    }
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "58:1"]
+    pub struct SBufIO {
+        pub sbufio_peek:
+            Option<unsafe extern "C" fn(*mut SBuf, *mut ::core::ffi::c_void, size_t) -> ssize_t>,
+        pub sbufio_recv:
+            Option<unsafe extern "C" fn(*mut SBuf, *mut ::core::ffi::c_void, size_t) -> ssize_t>,
+        pub sbufio_send:
+            Option<unsafe extern "C" fn(*mut SBuf, *const ::core::ffi::c_void, size_t) -> ssize_t>,
+        pub sbufio_close: Option<unsafe extern "C" fn(*mut SBuf) -> ::core::ffi::c_int>,
+    }
+    #[c2rust::src_loc = "54:1"]
+    pub type sbuf_cb_t = Option<unsafe extern "C" fn(*mut SBuf, SBufEvent, *mut MBuf) -> bool>;
+    #[c2rust::src_loc = "24:9"]
+    pub type SBufEvent = ::core::ffi::c_uint;
+    #[c2rust::src_loc = "32:2"]
+    pub const SBUF_EV_TLS_READY: SBufEvent = 7;
+    #[c2rust::src_loc = "31:2"]
+    pub const SBUF_EV_PKT_CALLBACK: SBufEvent = 6;
+    #[c2rust::src_loc = "30:2"]
+    pub const SBUF_EV_FLUSH: SBufEvent = 5;
+    #[c2rust::src_loc = "29:2"]
+    pub const SBUF_EV_CONNECT_OK: SBufEvent = 4;
+    #[c2rust::src_loc = "28:2"]
+    pub const SBUF_EV_CONNECT_FAILED: SBufEvent = 3;
+    #[c2rust::src_loc = "27:2"]
+    pub const SBUF_EV_SEND_FAILED: SBufEvent = 2;
+    #[c2rust::src_loc = "26:2"]
+    pub const SBUF_EV_RECV_FAILED: SBufEvent = 1;
+    #[c2rust::src_loc = "25:2"]
+    pub const SBUF_EV_READ: SBufEvent = 0;
+    #[inline]
+    #[c2rust::src_loc = "144:1"]
+    pub unsafe extern "C" fn sbuf_is_empty(mut sbuf: *mut SBuf) -> bool {
+        return iobuf_empty((*sbuf).io) as ::core::ffi::c_int != 0
+            && (*sbuf).pkt_remain == 0 as ::core::ffi::c_uint;
+    }
+    #[inline]
+    #[c2rust::src_loc = "149:1"]
+    pub unsafe extern "C" fn sbuf_is_closed(mut sbuf: *mut SBuf) -> bool {
+        return (*sbuf).sock == 0 as ::core::ffi::c_int;
+    }
+    use super::_size_t_h::size_t;
+    use super::_socklen_t_h::socklen_t;
+    use super::_ssize_t_h::ssize_t;
+    use super::_time_t_h::time_t;
+    use super::_uint8_t_h::uint8_t;
+    use super::event_struct_h::event;
+    use super::iobuf_h::{iobuf_empty, IOBuf};
+    use super::mbuf_h::MBuf;
+    use super::pktbuf_h::PktBuf;
+    use super::socket_h::sockaddr;
+    use super::tls_h::tls;
+    extern "C" {
+        #[c2rust::src_loc = "98:1"]
+        pub fn sbuf_init(sbuf: *mut SBuf, proto_fn: sbuf_cb_t);
+        #[c2rust::src_loc = "99:1"]
+        pub fn sbuf_accept(sbuf: *mut SBuf, read_sock: ::core::ffi::c_int, is_unix: bool) -> bool;
+        #[c2rust::src_loc = "100:1"]
+        pub fn sbuf_connect(
+            sbuf: *mut SBuf,
+            sa: *const sockaddr,
+            sa_len: socklen_t,
+            timeout_sec: time_t,
+        ) -> bool;
+        #[c2rust::src_loc = "121:1"]
+        pub fn sbuf_pause(sbuf: *mut SBuf) -> bool;
+        #[c2rust::src_loc = "122:1"]
+        pub fn sbuf_continue(sbuf: *mut SBuf);
+        #[c2rust::src_loc = "123:1"]
+        pub fn sbuf_close(sbuf: *mut SBuf) -> bool;
+        #[c2rust::src_loc = "132:1"]
+        pub fn sbuf_queue_packet(sbuf: *mut SBuf, dst: *mut SBuf, pkt: *mut PktBuf) -> bool;
+        #[c2rust::src_loc = "135:1"]
+        pub fn sbuf_answer(sbuf: *mut SBuf, buf: *const ::core::ffi::c_void, len: size_t) -> bool;
+    }
+}
+#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/iobuf.h:23"]
+pub mod iobuf_h {
+    #[c2rust::src_loc = "55:1"]
+    pub type IOBuf = iobuf;
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "49:1"]
+    pub struct iobuf {
+        pub done_pos: ::core::ffi::c_uint,
+        pub parse_pos: ::core::ffi::c_uint,
+        pub recv_pos: ::core::ffi::c_uint,
+        pub buf: [uint8_t; 0],
+    }
+    #[inline]
+    #[c2rust::src_loc = "65:1"]
+    pub unsafe extern "C" fn iobuf_empty(mut io: *const IOBuf) -> bool {
+        return io.is_null() || (*io).done_pos == (*io).recv_pos;
+    }
+    #[inline]
+    #[c2rust::src_loc = "138:1"]
+    pub unsafe extern "C" fn iobuf_reset(mut io: *mut IOBuf) {
+        (*io).done_pos = 0 as ::core::ffi::c_uint;
+        (*io).parse_pos = (*io).done_pos;
+        (*io).recv_pos = (*io).parse_pos;
+    }
+    use super::_uint8_t_h::uint8_t;
+}
+#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/mbuf.h:23"]
+pub mod mbuf_h {
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "14:1"]
+    pub struct MBuf {
+        pub data: *mut uint8_t,
+        pub read_pos: ::core::ffi::c_uint,
+        pub write_pos: ::core::ffi::c_uint,
+        pub alloc_len: ::core::ffi::c_uint,
+        pub reader: bool,
+        pub fixed: bool,
+    }
+    #[inline]
+    #[c2rust::src_loc = "66:1"]
+    pub unsafe extern "C" fn mbuf_free(mut buf: *mut MBuf) {
+        if !(*buf).data.is_null() {
+            if !(*buf).fixed {
+                free((*buf).data as *mut ::core::ffi::c_void);
+            }
+            memset(
+                buf as *mut ::core::ffi::c_void,
+                0 as ::core::ffi::c_int,
+                ::core::mem::size_of::<MBuf>() as size_t,
+            );
+        }
+    }
+    use super::_malloc_h::free;
+    use super::_size_t_h::size_t;
+    use super::_string_h::memset;
+    use super::_uint8_t_h::uint8_t;
+}
+#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/proto.h:23"]
+pub mod proto_h {
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "34:1"]
+    pub struct PktHdr {
+        pub type_0: ::core::ffi::c_uint,
+        pub len: ::core::ffi::c_uint,
+        pub data: MBuf,
+    }
+    #[inline]
+    #[c2rust::src_loc = "58:1"]
+    pub unsafe extern "C" fn free_header(mut pkt: *mut PktHdr) {
+        mbuf_free(&raw mut (*pkt).data);
+        (*pkt).type_0 = 0 as ::core::ffi::c_uint;
+        (*pkt).len = 0 as ::core::ffi::c_uint;
+    }
+    use super::bouncer_h::PgSocket;
+    use super::mbuf_h::{mbuf_free, MBuf};
+    extern "C" {
+        #[c2rust::src_loc = "42:1"]
+        pub fn send_pooler_error(
+            client: *mut PgSocket,
+            send_ready: bool,
+            sqlstate: *const ::core::ffi::c_char,
+            level_fatal: bool,
+            msg: *const ::core::ffi::c_char,
+        ) -> bool;
+        #[c2rust::src_loc = "48:1"]
+        pub fn welcome_client(client: *mut PgSocket) -> bool;
+    }
+}
+#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/prepare.h:23"]
+pub mod prepare_h {
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "28:9"]
+    pub struct PgServerPreparedStatement {
+        pub query_id: uint64_t,
+        pub hh: UT_hash_handle,
+        pub ps: *mut PgPreparedStatement,
+    }
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "10:9"]
+    pub struct PgPreparedStatement {
+        pub hh: UT_hash_handle,
+        pub query_id: uint64_t,
+        pub use_count: uint32_t,
+        pub query_and_parameters_len: size_t,
+        pub stmt_name_len: uint8_t,
+        pub stmt_name: [::core::ffi::c_char; 31],
+        pub query_and_parameters: [::core::ffi::c_char; 0],
+    }
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "21:9"]
+    pub struct PgClientPreparedStatement {
+        pub hh: UT_hash_handle,
+        pub ps: *mut PgPreparedStatement,
+        pub stmt_name: [::core::ffi::c_char; 0],
+    }
+    use super::_size_t_h::size_t;
+    use super::_uint32_t_h::uint32_t;
+    use super::_uint64_t_h::uint64_t;
+    use super::_uint8_t_h::uint8_t;
+    use super::bouncer_h::PgSocket;
+    use super::uthash_h::UT_hash_handle;
+    extern "C" {
+        #[c2rust::src_loc = "43:1"]
+        pub fn free_server_prepared_statement(server_ps: *mut PgServerPreparedStatement);
+        #[c2rust::src_loc = "44:1"]
+        pub fn unregister_prepared_statement(server: *mut PgSocket, query_id: uint64_t);
+        #[c2rust::src_loc = "45:1"]
+        pub fn add_prepared_statement(
+            server: *mut PgSocket,
+            server_ps: *mut PgServerPreparedStatement,
+        ) -> bool;
+        #[c2rust::src_loc = "46:1"]
+        pub fn free_client_prepared_statements(client: *mut PgSocket);
+        #[c2rust::src_loc = "47:1"]
+        pub fn free_server_prepared_statements(server: *mut PgSocket);
+    }
+}
+#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/varcache.h:23"]
+pub mod varcache_h {
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "14:1"]
+    pub struct VarCache {
+        pub var_list: *mut *mut PStr,
+    }
+    use super::bouncer_h::PgSocket;
+    use super::strpool_h::PStr;
+    extern "C" {
+        #[c2rust::src_loc = "19:1"]
+        pub fn get_num_var_cached() -> ::core::ffi::c_int;
+        #[c2rust::src_loc = "20:1"]
+        pub fn varcache_set(
+            cache: *mut VarCache,
+            key: *const ::core::ffi::c_char,
+            value: *const ::core::ffi::c_char,
+        ) -> bool;
+        #[c2rust::src_loc = "21:1"]
+        pub fn varcache_apply(
+            server: *mut PgSocket,
+            client: *mut PgSocket,
+            changes_p: *mut bool,
+        ) -> bool;
+        #[c2rust::src_loc = "24:1"]
+        pub fn varcache_clean(cache: *mut VarCache);
+    }
+}
+#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/strpool.h:23"]
+pub mod strpool_h {
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "37:1"]
+    pub struct PStr {
+        pub pool: *mut StrPool,
+        pub len: size_t,
+        pub refcnt: ::core::ffi::c_int,
+        pub str_0: [::core::ffi::c_char; 0],
+    }
+    use super::_size_t_h::size_t;
+    extern "C" {
+        #[c2rust::src_loc = "34:1"]
+        pub type StrPool;
+    }
+}
+#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/pktbuf.h:23"]
+pub mod pktbuf_h {
+    #[derive(Copy, Clone, BitfieldStruct)]
+    #[repr(C)]
+    #[c2rust::src_loc = "26:1"]
+    pub struct PktBuf {
+        pub buf: *mut uint8_t,
+        pub buf_len: ::core::ffi::c_int,
+        pub write_pos: ::core::ffi::c_int,
+        pub pktlen_pos: ::core::ffi::c_int,
+        pub send_pos: ::core::ffi::c_int,
+        pub ev: *mut event,
+        pub queued_dst: *mut PgSocket,
+        #[bitfield(name = "failed", ty = "bool", bits = "0..=0")]
+        #[bitfield(name = "sending", ty = "bool", bits = "1..=1")]
+        #[bitfield(name = "fixed_buf", ty = "bool", bits = "2..=2")]
+        pub failed_sending_fixed_buf: [u8; 1],
+        #[bitfield(padding)]
+        pub c2rust_padding: [u8; 7],
+    }
+    use super::_uint64_t_h::uint64_t;
+    use super::_uint8_t_h::uint8_t;
+    use super::bouncer_h::PgSocket;
+    use super::event_struct_h::event;
+    extern "C" {
+        #[c2rust::src_loc = "45:1"]
+        pub fn pktbuf_static(buf: *mut PktBuf, data: *mut uint8_t, len: ::core::ffi::c_int);
+        #[c2rust::src_loc = "47:1"]
+        pub fn pktbuf_free(buf: *mut PktBuf);
+        #[c2rust::src_loc = "56:1"]
+        pub fn pktbuf_send_immediate(buf: *mut PktBuf, sk: *mut PgSocket) -> bool;
+        #[c2rust::src_loc = "66:1"]
+        pub fn pktbuf_put_uint64(buf: *mut PktBuf, val: uint64_t);
+        #[c2rust::src_loc = "76:1"]
+        pub fn pktbuf_write_generic(
+            buf: *mut PktBuf,
+            type_0: ::core::ffi::c_int,
+            fmt: *const ::core::ffi::c_char,
+            ...
+        );
+    }
+}
+#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/dnslookup.h:23"]
+pub mod dnslookup_h {
+    #[c2rust::src_loc = "23:1"]
+    pub type adns_callback_f = Option<
+        unsafe extern "C" fn(*mut ::core::ffi::c_void, *const sockaddr, ::core::ffi::c_int) -> (),
+    >;
+    use super::socket_h::sockaddr;
+    extern "C" {
+        #[c2rust::src_loc = "20:1"]
+        pub type DNSToken;
+        #[c2rust::src_loc = "19:1"]
+        pub type DNSContext;
+        #[c2rust::src_loc = "29:1"]
+        pub fn adns_resolve(
+            ctx: *mut DNSContext,
+            name: *const ::core::ffi::c_char,
+            cb_func: adns_callback_f,
+            arg: *mut ::core::ffi::c_void,
+        ) -> *mut DNSToken;
+        #[c2rust::src_loc = "31:1"]
+        pub fn adns_cancel(ctx: *mut DNSContext, tk: *mut DNSToken);
+    }
+}
+#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/logging.h:23"]
+pub mod logging_h {
+    #[c2rust::src_loc = "47:1"]
+    pub type LogLevel = ::core::ffi::c_uint;
+    #[c2rust::src_loc = "54:2"]
+    pub const LG_NOISE: LogLevel = 6;
+    #[c2rust::src_loc = "53:2"]
+    pub const LG_DEBUG: LogLevel = 5;
+    #[c2rust::src_loc = "52:2"]
+    pub const LG_INFO: LogLevel = 4;
+    #[c2rust::src_loc = "51:2"]
+    pub const LG_STATS: LogLevel = 3;
+    #[c2rust::src_loc = "50:2"]
+    pub const LG_WARNING: LogLevel = 2;
+    #[c2rust::src_loc = "49:2"]
+    pub const LG_ERROR: LogLevel = 1;
+    #[c2rust::src_loc = "48:2"]
+    pub const LG_FATAL: LogLevel = 0;
+    extern "C" {
+        #[c2rust::src_loc = "85:1"]
+        pub static mut cf_verbose: ::core::ffi::c_int;
+        #[c2rust::src_loc = "117:1"]
+        pub fn log_generic(
+            level: LogLevel,
+            ctx: *mut ::core::ffi::c_void,
+            s: *const ::core::ffi::c_char,
+            ...
+        );
+        #[c2rust::src_loc = "120:1"]
+        pub fn log_fatal(
+            file: *const ::core::ffi::c_char,
+            line: ::core::ffi::c_int,
+            func: *const ::core::ffi::c_char,
+            show_perror: bool,
+            ctx: *mut ::core::ffi::c_void,
+            s: *const ::core::ffi::c_char,
+            ...
+        );
+    }
+}
+#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/cxalloc.h:23"]
+pub mod cxalloc_h {
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "53:1"]
+    pub struct CxOps {
+        pub c_alloc: Option<
+            unsafe extern "C" fn(*mut ::core::ffi::c_void, size_t) -> *mut ::core::ffi::c_void,
+        >,
+        pub c_realloc: Option<
+            unsafe extern "C" fn(
+                *mut ::core::ffi::c_void,
+                *mut ::core::ffi::c_void,
+                size_t,
+            ) -> *mut ::core::ffi::c_void,
+        >,
+        pub c_free:
+            Option<unsafe extern "C" fn(*mut ::core::ffi::c_void, *mut ::core::ffi::c_void) -> ()>,
+        pub c_destroy: Option<unsafe extern "C" fn(*mut ::core::ffi::c_void) -> ()>,
+    }
+    #[derive(Copy, Clone)]
+    #[repr(C)]
+    #[c2rust::src_loc = "79:1"]
+    pub struct CxMem {
+        pub ops: *const CxOps,
+        pub ctx: *mut ::core::ffi::c_void,
+    }
+    use super::_size_t_h::size_t;
+    extern "C" {
+        #[c2rust::src_loc = "143:1"]
+        pub static cx_libc_allocator: CxMem;
+    }
+}
+#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/objects.h:23"]
+pub mod objects_h {
+    extern "C" {
+        #[c2rust::src_loc = "27:8"]
+        pub type Slab;
+    }
+}
+#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/slab.h:28"]
+pub mod slab_h {
+    #[c2rust::src_loc = "41:1"]
+    pub type slab_init_fn = Option<unsafe extern "C" fn(*mut ::core::ffi::c_void) -> ()>;
+    use super::cxalloc_h::CxMem;
+    use super::objects_h::Slab;
+    extern "C" {
+        #[c2rust::src_loc = "44:1"]
+        pub fn slab_create(
+            name: *const ::core::ffi::c_char,
+            obj_size: ::core::ffi::c_uint,
+            align: ::core::ffi::c_uint,
+            init_func: slab_init_fn,
+            cx: *const CxMem,
+        ) -> *mut Slab;
+        #[c2rust::src_loc = "49:1"]
+        pub fn slab_destroy(slab: *mut Slab);
+        #[c2rust::src_loc = "52:1"]
+        pub fn slab_alloc(slab: *mut Slab) -> *mut ::core::ffi::c_void;
+        #[c2rust::src_loc = "55:1"]
+        pub fn slab_free(slab: *mut Slab, obj: *mut ::core::ffi::c_void);
+        #[c2rust::src_loc = "64:1"]
+        pub fn slab_active_count(slab: *const Slab) -> ::core::ffi::c_int;
+    }
+}
+#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libkern/arm/_OSByteOrder.h:23"]
+pub mod _OSByteOrder_h {
+    #[inline]
+    #[c2rust::src_loc = "48:1"]
+    pub unsafe extern "C" fn _OSSwapInt16(mut _data: __uint16_t) -> __uint16_t {
+        return ((_data as ::core::ffi::c_int) << 8 as ::core::ffi::c_int
+            | _data as ::core::ffi::c_int >> 8 as ::core::ffi::c_int) as __uint16_t;
+    }
+    use super::_types_h::__uint16_t;
+}
+#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_stdio.h:23"]
+pub mod _stdio_h {
+    use super::_size_t_h::size_t;
+    use super::internal::__builtin_va_list;
+    extern "C" {
+        #[c2rust::src_loc = "435:1"]
+        pub fn snprintf(
+            __str: *mut ::core::ffi::c_char,
+            __size: size_t,
+            __format: *const ::core::ffi::c_char,
+            ...
+        ) -> ::core::ffi::c_int;
+        #[c2rust::src_loc = "438:1"]
+        pub fn vsnprintf(
+            __str: *mut ::core::ffi::c_char,
+            __size: size_t,
+            __format: *const ::core::ffi::c_char,
+            _: ::core::ffi::VaList,
+        ) -> ::core::ffi::c_int;
+    }
+}
+#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_null.h:23"]
+pub mod _null_h {
+    #[c2rust::src_loc = "49:9"]
+    pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
+    use super::sys__types_h::__DARWIN_NULL;
+}
+#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/socket.h:23"]
+pub mod usual_socket_h {
+    use super::_size_t_h::size_t;
+    use super::socket_h::sockaddr;
+    extern "C" {
+        #[c2rust::src_loc = "103:1"]
+        pub fn sa2str(
+            sa: *const sockaddr,
+            buf: *mut ::core::ffi::c_char,
+            buflen: size_t,
+        ) -> *const ::core::ffi::c_char;
+    }
+}
+#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_string.h:23"]
+pub mod _string_h {
+    use super::_size_t_h::size_t;
+    extern "C" {
+        #[c2rust::src_loc = "75:1"]
+        pub fn memcmp(
+            __s1: *const ::core::ffi::c_void,
+            __s2: *const ::core::ffi::c_void,
+            __n: size_t,
+        ) -> ::core::ffi::c_int;
+        #[c2rust::src_loc = "77:1"]
+        pub fn memcpy(
+            __dst: *mut ::core::ffi::c_void,
+            __src: *const ::core::ffi::c_void,
+            __n: size_t,
+        ) -> *mut ::core::ffi::c_void;
+        #[c2rust::src_loc = "83:1"]
+        pub fn memset(
+            __b: *mut ::core::ffi::c_void,
+            __c: ::core::ffi::c_int,
+            __len: size_t,
+        ) -> *mut ::core::ffi::c_void;
+        #[c2rust::src_loc = "88:1"]
+        pub fn strchr(
+            __s: *const ::core::ffi::c_char,
+            __c: ::core::ffi::c_int,
+        ) -> *mut ::core::ffi::c_char;
+        #[c2rust::src_loc = "89:1"]
+        pub fn strcmp(
+            __s1: *const ::core::ffi::c_char,
+            __s2: *const ::core::ffi::c_char,
+        ) -> ::core::ffi::c_int;
+        #[c2rust::src_loc = "95:1"]
+        pub fn strerror(__errnum: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;
+        #[c2rust::src_loc = "96:1"]
+        pub fn strlen(__s: *const ::core::ffi::c_char) -> size_t;
+        #[c2rust::src_loc = "111:1"]
+        pub fn strtok(
+            __str: *mut ::core::ffi::c_char,
+            __sep: *const ::core::ffi::c_char,
+        ) -> *mut ::core::ffi::c_char;
+        #[c2rust::src_loc = "202:1"]
+        pub fn strlcpy(
+            __dst: *mut ::core::ffi::c_char,
+            __source: *const ::core::ffi::c_char,
+            __size: size_t,
+        ) -> ::core::ffi::c_ulong;
+    }
+}
+#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/util.h:23"]
+pub mod util_h {
+    use super::bouncer_h::PgSocket;
+    extern "C" {
+        #[c2rust::src_loc = "53:1"]
+        pub fn fill_remote_addr(sk: *mut PgSocket, fd: ::core::ffi::c_int, is_unix: bool);
+        #[c2rust::src_loc = "54:1"]
+        pub fn fill_local_addr(sk: *mut PgSocket, fd: ::core::ffi::c_int, is_unix: bool);
+    }
+}
+#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/admin.h:23"]
+pub mod admin_h {
+    use super::bouncer_h::PgSocket;
+    extern "C" {
+        #[c2rust::src_loc = "27:1"]
+        pub fn admin_handle_cancel(client: *mut PgSocket);
+    }
+}
+#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/client.h:23"]
+pub mod client_h {
+    use super::bouncer_h::PgSocket;
+    use super::mbuf_h::MBuf;
+    use super::sbuf_h::{SBuf, SBufEvent, SBUF_EV_READ};
+    extern "C" {
+        #[c2rust::src_loc = "19:1"]
+        pub fn client_proto(sbuf: *mut SBuf, evtype: SBufEvent, pkt: *mut MBuf) -> bool;
+        #[c2rust::src_loc = "20:1"]
+        pub fn set_pool(
+            client: *mut PgSocket,
+            dbname: *const ::core::ffi::c_char,
+            username: *const ::core::ffi::c_char,
+            password: *const ::core::ffi::c_char,
+            takeover: bool,
+        ) -> bool;
+        #[c2rust::src_loc = "24:1"]
+        pub fn sending_auth_query(client: *mut PgSocket) -> bool;
+    }
+}
+#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/server.h:23"]
+pub mod server_h {
+    use super::bouncer_h::{PgDatabase, PgGlobalUser, PgPool, PgSocket};
+    use super::mbuf_h::MBuf;
+    use super::sbuf_h::{SBuf, SBufEvent, SBUF_EV_READ};
+    use super::time_h::usec_t;
+    extern "C" {
+        #[c2rust::src_loc = "19:1"]
+        pub fn server_proto(sbuf: *mut SBuf, evtype: SBufEvent, pkt: *mut MBuf) -> bool;
+        #[c2rust::src_loc = "22:1"]
+        pub fn connection_pool_mode(connection: *mut PgSocket) -> ::core::ffi::c_int;
+        #[c2rust::src_loc = "24:1"]
+        pub fn pool_pool_size(pool: *mut PgPool) -> ::core::ffi::c_int;
+        #[c2rust::src_loc = "26:1"]
+        pub fn pool_server_lifetime(pool: *mut PgPool) -> usec_t;
+        #[c2rust::src_loc = "28:1"]
+        pub fn pool_res_pool_size(pool: *mut PgPool) -> ::core::ffi::c_int;
+        #[c2rust::src_loc = "29:1"]
+        pub fn database_max_connections(db: *mut PgDatabase) -> ::core::ffi::c_int;
+        #[c2rust::src_loc = "31:1"]
+        pub fn user_max_connections(user: *mut PgGlobalUser) -> ::core::ffi::c_int;
+    }
+}
+#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/scram.h:24"]
+pub mod scram_h {
+    use super::bouncer_h::ScramState;
+    extern "C" {
+        #[c2rust::src_loc = "26:1"]
+        pub fn free_scram_state(state: *mut ScramState);
+    }
+}
+#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/janitor.h:23"]
+pub mod janitor_h {
+    use super::aatree_h::AATree;
+    use super::bouncer_h::PgDatabase;
+    extern "C" {
+        #[c2rust::src_loc = "26:1"]
+        pub fn kill_database(db: *mut PgDatabase);
+        #[c2rust::src_loc = "27:1"]
+        pub fn kill_peer(db: *mut PgDatabase);
+        #[c2rust::src_loc = "28:1"]
+        pub fn clear_user_tree_cached_scram_keys(tree: *mut AATree);
+    }
+}
+#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/malloc/_malloc.h:23"]
+pub mod _malloc_h {
+    extern "C" {
+        #[c2rust::src_loc = "56:1"]
+        pub fn free(_: *mut ::core::ffi::c_void);
+    }
+}
+#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_stdlib.h:23"]
+pub mod _stdlib_h {
+    extern "C" {
+        #[c2rust::src_loc = "160:1"]
+        pub fn exit(_: ::core::ffi::c_int) -> !;
+    }
+}
+#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/errno.h:23"]
+pub mod errno_h {
+    extern "C" {
+        #[c2rust::src_loc = "80:1"]
+        pub fn __error() -> *mut ::core::ffi::c_int;
+    }
+}
+#[c2rust::header_src = "/opt/homebrew/Cellar/llvm/21.1.8/lib/clang/21/include/stdbool.h:23"]
+pub mod stdbool_h {
+    #[c2rust::src_loc = "25:9"]
+    pub const true_0: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
+    #[c2rust::src_loc = "26:9"]
+    pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
+}
+#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arpa/inet.h:23"]
+pub mod inet_h {
+    extern "C" {
+        #[c2rust::src_loc = "81:1"]
+        pub fn inet_pton(
+            _: ::core::ffi::c_int,
+            _: *const ::core::ffi::c_char,
+            _: *mut ::core::ffi::c_void,
+        ) -> ::core::ffi::c_int;
+    }
+}
+#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/common/protocol.h:23"]
+pub mod protocol_h {
+    #[c2rust::src_loc = "20:9"]
+    pub const PqMsg_Close: ::core::ffi::c_int = 'C' as i32;
+    #[c2rust::src_loc = "25:9"]
+    pub const PqMsg_Parse: ::core::ffi::c_int = 'P' as i32;
+    #[c2rust::src_loc = "26:9"]
+    pub const PqMsg_Query: ::core::ffi::c_int = 'Q' as i32;
+    #[c2rust::src_loc = "28:9"]
+    pub const PqMsg_Terminate: ::core::ffi::c_int = 'X' as i32;
+    #[c2rust::src_loc = "38:9"]
+    pub const PqMsg_ParseComplete: ::core::ffi::c_int = '1' as i32;
+    #[c2rust::src_loc = "40:9"]
+    pub const PqMsg_CloseComplete: ::core::ffi::c_int = '3' as i32;
+}
+#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/loader.h:23"]
+pub mod loader_h {
+    extern "C" {
+        #[c2rust::src_loc = "20:1"]
+        pub fn parse_database(
+            base: *mut ::core::ffi::c_void,
+            name: *const ::core::ffi::c_char,
+            connstr: *const ::core::ffi::c_char,
+        ) -> bool;
+    }
+}
+#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/err.h:26"]
+pub mod err_h {
+    extern "C" {
+        #[c2rust::src_loc = "65:1"]
+        pub fn xstrdup(s: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
+    }
+}
+#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/safeio.h:27"]
+pub mod safeio_h {
+    extern "C" {
+        #[c2rust::src_loc = "35:1"]
+        pub fn safe_close(fd: ::core::ffi::c_int) -> ::core::ffi::c_int;
+    }
+}
+pub use self::_OSByteOrder_h::_OSSwapInt16;
+pub use self::_in_addr_t_h::in_addr_t;
+pub use self::_in_port_t_h::in_port_t;
+use self::_malloc_h::free;
+pub use self::_null_h::NULL;
+pub use self::_pid_t_h::pid_t;
+pub use self::_ptrdiff_t_h::ptrdiff_t;
+pub use self::_sa_family_t_h::sa_family_t;
+pub use self::_size_t_h::size_t;
+pub use self::_socklen_t_h::socklen_t;
+pub use self::_ssize_t_h::ssize_t;
+use self::_stdio_h::{snprintf, vsnprintf};
+use self::_stdlib_h::exit;
+use self::_string_h::{memcmp, memcpy, memset, strchr, strcmp, strerror, strlcpy, strlen, strtok};
+pub use self::_time_t_h::time_t;
+pub use self::_timeval_h::timeval;
+pub use self::_types_h::{
+    __darwin_ptrdiff_t, __darwin_size_t, __darwin_socklen_t, __darwin_ssize_t, __darwin_time_t,
+    __darwin_va_list, __int32_t, __uint16_t, __uint32_t, __uint8_t,
+};
+pub use self::_uid_t_h::uid_t;
+pub use self::_uint16_t_h::uint16_t;
+pub use self::_uint32_t_h::uint32_t;
+pub use self::_uint64_t_h::uint64_t;
+pub use self::_uint8_t_h::uint8_t;
+pub use self::_uintptr_t_h::uintptr_t;
+pub use self::_va_list_h::va_list;
+pub use self::aatree_h::{
+    aatree_cmp_f, aatree_init, aatree_insert, aatree_search, aatree_walker_f, AANode, AATree,
+};
+use self::admin_h::admin_handle_cancel;
+pub use self::bouncer_h::{
+    adns, auth_type, cf_auth_type, cf_autodb_connstr, cf_log_connections, cf_log_disconnections,
+    cf_pause_mode, cf_peer_id, cf_res_pool_timeout, cf_sbuf_len, cf_server_check_delay,
+    cf_server_check_query, cf_server_connect_timeout, cf_server_login_retry, cf_server_reset_query,
+    cf_server_reset_query_always, cf_server_round_robin, cf_shutdown, cf_unix_socket_dir,
+    first_socket, last_socket, pga_cmp_addr, pga_copy, pga_is_unix, pga_set, sockaddr_ucreds,
+    C2RustUnnamed_9, CallbackState, LoadBalanceHosts, OutstandingRequest, PacketCallbackFlag,
+    PauseMode, PgAddr, PgCredentials, PgDatabase, PgGlobalUser, PgPool, PgSocket, PgStats,
+    ReplicationType, ResponseAction, ScramState, ShutDownMode, SocketState, AUTH_TYPE_ANY,
+    AUTH_TYPE_CERT, AUTH_TYPE_HBA, AUTH_TYPE_LDAP, AUTH_TYPE_MD5, AUTH_TYPE_PAM, AUTH_TYPE_PEER,
+    AUTH_TYPE_PLAIN, AUTH_TYPE_REJECT, AUTH_TYPE_SCRAM_SHA_256, AUTH_TYPE_TRUST,
+    CANCELLATION_TTL_MASK, CB_HANDLE_COMPLETE_PACKET, CB_NONE, CB_WANT_COMPLETE_PACKET, CL_ACTIVE,
+    CL_ACTIVE_CANCEL, CL_FREE, CL_JUSTFREE, CL_LOGIN, CL_WAITING, CL_WAITING_CANCEL,
+    CL_WAITING_LOGIN, LOAD_BALANCE_HOSTS_DISABLE, LOAD_BALANCE_HOSTS_ROUND_ROBIN, PKT_CANCEL,
+    POOL_INHERIT, POOL_SESSION, P_NONE, P_PAUSE, P_SUSPEND, RAW_IOBUF_SIZE, RA_FAKE, RA_FORWARD,
+    RA_SKIP, REPLICATION_LOGICAL, REPLICATION_NONE, REPLICATION_PHYSICAL, SHUTDOWN_IMMEDIATE,
+    SHUTDOWN_NONE, SHUTDOWN_WAIT_FOR_CLIENTS, SHUTDOWN_WAIT_FOR_SERVERS, SV_ACTIVE,
+    SV_ACTIVE_CANCEL, SV_BEING_CANCELED, SV_FREE, SV_IDLE, SV_JUSTFREE, SV_LOGIN, SV_TESTED,
+    SV_USED,
+};
+use self::client_h::{client_proto, sending_auth_query, set_pool};
+pub use self::cryptohash_h::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
+pub use self::cxalloc_h::{cx_libc_allocator, CxMem, CxOps};
+pub use self::dnslookup_h::{adns_callback_f, adns_cancel, adns_resolve, DNSContext, DNSToken};
+use self::err_h::xstrdup;
+use self::errno_h::__error;
+use self::event_h::event_base;
+pub use self::event_struct_h::{
+    event, event_callback, C2RustUnnamed_0, C2RustUnnamed_1, C2RustUnnamed_2, C2RustUnnamed_3,
+    C2RustUnnamed_4, C2RustUnnamed_5, C2RustUnnamed_6, C2RustUnnamed_7, C2RustUnnamed_8,
+};
+pub use self::in6_h::{in6_addr, sockaddr_in6, C2RustUnnamed};
+pub use self::in_h::{in_addr, sockaddr_in};
+use self::inet_h::inet_pton;
+pub use self::internal::__builtin_va_list;
+pub use self::iobuf_h::{iobuf, iobuf_empty, iobuf_reset, IOBuf};
+use self::janitor_h::{clear_user_tree_cached_scram_keys, kill_database, kill_peer};
+pub use self::list_h::{
+    list_append, list_del, list_empty, list_first, list_init, list_pop, list_prepend, List,
+};
+use self::loader_h::parse_database;
+pub use self::logging_h::{
+    cf_verbose, log_fatal, log_generic, LogLevel, LG_DEBUG, LG_ERROR, LG_FATAL, LG_INFO, LG_NOISE,
+    LG_STATS, LG_WARNING,
+};
+pub use self::mbuf_h::{mbuf_free, MBuf};
+use self::objects_h::Slab;
+pub use self::pktbuf_h::{
+    pktbuf_free, pktbuf_put_uint64, pktbuf_send_immediate, pktbuf_static, pktbuf_write_generic,
+    PktBuf,
+};
+pub use self::prepare_h::{
+    add_prepared_statement, free_client_prepared_statements, free_server_prepared_statement,
+    free_server_prepared_statements, unregister_prepared_statement, PgClientPreparedStatement,
+    PgPreparedStatement, PgServerPreparedStatement,
+};
+pub use self::proto_h::{free_header, send_pooler_error, welcome_client, PktHdr};
+pub use self::protocol_h::{
+    PqMsg_Close, PqMsg_CloseComplete, PqMsg_Parse, PqMsg_ParseComplete, PqMsg_Query,
+    PqMsg_Terminate,
+};
+use self::safeio_h::safe_close;
+pub use self::sbuf_h::{
+    sbuf_accept, sbuf_answer, sbuf_cb_t, sbuf_close, sbuf_connect, sbuf_continue, sbuf_init,
+    sbuf_is_closed, sbuf_is_empty, sbuf_pause, sbuf_queue_packet, SBuf, SBufEvent, SBufIO,
+    SBUF_EV_CONNECT_FAILED, SBUF_EV_CONNECT_OK, SBUF_EV_FLUSH, SBUF_EV_PKT_CALLBACK, SBUF_EV_READ,
+    SBUF_EV_RECV_FAILED, SBUF_EV_SEND_FAILED, SBUF_EV_TLS_READY,
+};
+use self::scram_h::free_scram_state;
+use self::server_h::{
+    connection_pool_mode, database_max_connections, pool_pool_size, pool_res_pool_size,
+    pool_server_lifetime, server_proto, user_max_connections,
+};
+pub use self::slab_h::{
+    slab_active_count, slab_alloc, slab_create, slab_destroy, slab_free, slab_init_fn,
+};
+pub use self::socket_h::{sockaddr, AF_INET, AF_INET6, AF_UNIX};
+pub use self::statlist_h::{
+    statlist_append, statlist_count, statlist_empty, statlist_first, statlist_init, statlist_pop,
+    statlist_prepend, statlist_put_before, statlist_remove, StatList,
+};
+pub use self::stdbool_h::{false_0, true_0};
+pub use self::strpool_h::{PStr, StrPool};
+pub use self::sys__types_h::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
+pub use self::time_h::{get_cached_time, usec_t, USEC};
+use self::tls_h::tls;
+pub use self::un_h::sockaddr_un;
+use self::usual_socket_h::sa2str;
+pub use self::uthash_h::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
+use self::util_h::{fill_local_addr, fill_remote_addr};
+pub use self::varcache_h::{
+    get_num_var_cached, varcache_apply, varcache_clean, varcache_set, VarCache,
+};
+#[no_mangle]
+#[c2rust::src_loc = "31:1"]
+pub static mut user_list: StatList = StatList {
+    head: List {
+        next: ::core::ptr::null::<List>() as *mut List,
+        prev: ::core::ptr::null::<List>() as *mut List,
+    },
+    cur_count: 0,
+};
+#[no_mangle]
+#[c2rust::src_loc = "32:1"]
+pub static mut database_list: StatList = StatList {
+    head: List {
+        next: ::core::ptr::null::<List>() as *mut List,
+        prev: ::core::ptr::null::<List>() as *mut List,
+    },
+    cur_count: 0,
+};
+#[no_mangle]
+#[c2rust::src_loc = "33:1"]
+pub static mut pool_list: StatList = StatList {
+    head: List {
+        next: ::core::ptr::null::<List>() as *mut List,
+        prev: ::core::ptr::null::<List>() as *mut List,
+    },
+    cur_count: 0,
+};
+#[no_mangle]
+#[c2rust::src_loc = "34:1"]
+pub static mut peer_list: StatList = StatList {
+    head: List {
+        next: ::core::ptr::null::<List>() as *mut List,
+        prev: ::core::ptr::null::<List>() as *mut List,
+    },
+    cur_count: 0,
+};
+#[no_mangle]
+#[c2rust::src_loc = "35:1"]
+pub static mut peer_pool_list: StatList = StatList {
+    head: List {
+        next: ::core::ptr::null::<List>() as *mut List,
+        prev: ::core::ptr::null::<List>() as *mut List,
+    },
+    cur_count: 0,
+};
+#[no_mangle]
+#[c2rust::src_loc = "38:1"]
+pub static mut user_tree: AATree = AATree {
+    root: ::core::ptr::null::<AANode>() as *mut AANode,
+    count: 0,
+    node_cmp: None,
+    release_cb: None,
+};
+#[no_mangle]
+#[c2rust::src_loc = "46:1"]
+pub static mut pam_user_tree: AATree = AATree {
+    root: ::core::ptr::null::<AANode>() as *mut AANode,
+    count: 0,
+    node_cmp: None,
+    release_cb: None,
+};
+#[no_mangle]
+#[c2rust::src_loc = "53:1"]
+pub static mut prepared_statements: *mut PgPreparedStatement =
+    ::core::ptr::null::<PgPreparedStatement>() as *mut PgPreparedStatement;
+#[no_mangle]
+#[c2rust::src_loc = "60:1"]
+pub static mut login_client_list: StatList = StatList {
+    head: List {
+        next: ::core::ptr::null::<List>() as *mut List,
+        prev: ::core::ptr::null::<List>() as *mut List,
+    },
+    cur_count: 0,
+};
+#[no_mangle]
+#[c2rust::src_loc = "62:1"]
+pub static mut server_cache: *mut Slab = ::core::ptr::null::<Slab>() as *mut Slab;
+#[no_mangle]
+#[c2rust::src_loc = "63:1"]
+pub static mut client_cache: *mut Slab = ::core::ptr::null::<Slab>() as *mut Slab;
+#[no_mangle]
+#[c2rust::src_loc = "64:1"]
+pub static mut db_cache: *mut Slab = ::core::ptr::null::<Slab>() as *mut Slab;
+#[no_mangle]
+#[c2rust::src_loc = "65:1"]
+pub static mut peer_cache: *mut Slab = ::core::ptr::null::<Slab>() as *mut Slab;
+#[no_mangle]
+#[c2rust::src_loc = "66:1"]
+pub static mut peer_pool_cache: *mut Slab = ::core::ptr::null::<Slab>() as *mut Slab;
+#[no_mangle]
+#[c2rust::src_loc = "67:1"]
+pub static mut pool_cache: *mut Slab = ::core::ptr::null::<Slab>() as *mut Slab;
+#[no_mangle]
+#[c2rust::src_loc = "68:1"]
+pub static mut user_cache: *mut Slab = ::core::ptr::null::<Slab>() as *mut Slab;
+#[no_mangle]
+#[c2rust::src_loc = "69:1"]
+pub static mut credentials_cache: *mut Slab = ::core::ptr::null::<Slab>() as *mut Slab;
+#[no_mangle]
+#[c2rust::src_loc = "70:1"]
+pub static mut iobuf_cache: *mut Slab = ::core::ptr::null::<Slab>() as *mut Slab;
+#[no_mangle]
+#[c2rust::src_loc = "71:1"]
+pub static mut outstanding_request_cache: *mut Slab = ::core::ptr::null::<Slab>() as *mut Slab;
+#[no_mangle]
+#[c2rust::src_loc = "72:1"]
+pub static mut var_list_cache: *mut Slab = ::core::ptr::null::<Slab>() as *mut Slab;
+#[no_mangle]
+#[c2rust::src_loc = "73:1"]
+pub static mut server_prepared_statement_cache: *mut Slab =
+    ::core::ptr::null::<Slab>() as *mut Slab;
+#[no_mangle]
+#[c2rust::src_loc = "74:1"]
+pub static mut last_pgsocket_id: ::core::ffi::c_ulonglong = 0;
+#[c2rust::src_loc = "81:1"]
+static mut justfree_client_list: StatList = StatList {
+    head: List {
+        next: ::core::ptr::null::<List>() as *mut List,
+        prev: ::core::ptr::null::<List>() as *mut List,
+    },
+    cur_count: 0,
+};
+#[c2rust::src_loc = "82:1"]
+static mut justfree_server_list: StatList = StatList {
+    head: List {
+        next: ::core::ptr::null::<List>() as *mut List,
+        prev: ::core::ptr::null::<List>() as *mut List,
+    },
+    cur_count: 0,
+};
+#[no_mangle]
+#[c2rust::src_loc = "85:1"]
+pub static mut autodatabase_idle_list: StatList = StatList {
+    head: List {
+        next: ::core::ptr::null::<List>() as *mut List,
+        prev: ::core::ptr::null::<List>() as *mut List,
+    },
+    cur_count: 0,
+};
+#[no_mangle]
+#[c2rust::src_loc = "87:1"]
+pub static mut replication_type_parameters: [*const ::core::ffi::c_char; 3] = [
+    b"no\0" as *const u8 as *const ::core::ffi::c_char,
+    b"database\0" as *const u8 as *const ::core::ffi::c_char,
+    b"yes\0" as *const u8 as *const ::core::ffi::c_char,
+];
+#[no_mangle]
+#[c2rust::src_loc = "94:1"]
+pub unsafe extern "C" fn get_active_client_count() -> ::core::ffi::c_int {
+    return slab_active_count(client_cache);
+}
+#[no_mangle]
+#[c2rust::src_loc = "100:1"]
+pub unsafe extern "C" fn get_active_server_count() -> ::core::ffi::c_int {
+    return slab_active_count(server_cache);
+}
+#[c2rust::src_loc = "105:1"]
+unsafe extern "C" fn construct_client(mut obj: *mut ::core::ffi::c_void) {
+    let mut client = obj as *mut PgSocket;
+    memset(
+        client as *mut ::core::ffi::c_void,
+        0 as ::core::ffi::c_int,
+        ::core::mem::size_of::<PgSocket>() as size_t,
+    );
+    list_init(&raw mut (*client).head);
+    sbuf_init(
+        &raw mut (*client).sbuf,
+        Some(client_proto as unsafe extern "C" fn(*mut SBuf, SBufEvent, *mut MBuf) -> bool),
+    );
+    (*client).vars.var_list = slab_alloc(var_list_cache) as *mut *mut PStr;
+    (*client).set_state(CL_FREE as SocketState);
+    (*client).client_prepared_statements = ::core::ptr::null_mut::<PgClientPreparedStatement>();
+    last_pgsocket_id = last_pgsocket_id.wrapping_add(1);
+    (*client).id = last_pgsocket_id;
+}
+#[c2rust::src_loc = "118:1"]
+unsafe extern "C" fn construct_server(mut obj: *mut ::core::ffi::c_void) {
+    let mut server = obj as *mut PgSocket;
+    memset(
+        server as *mut ::core::ffi::c_void,
+        0 as ::core::ffi::c_int,
+        ::core::mem::size_of::<PgSocket>() as size_t,
+    );
+    list_init(&raw mut (*server).head);
+    sbuf_init(
+        &raw mut (*server).sbuf,
+        Some(server_proto as unsafe extern "C" fn(*mut SBuf, SBufEvent, *mut MBuf) -> bool),
+    );
+    (*server).vars.var_list = slab_alloc(var_list_cache) as *mut *mut PStr;
+    (*server).set_state(SV_FREE as SocketState);
+    (*server).server_prepared_statements = ::core::ptr::null_mut::<PgServerPreparedStatement>();
+    (*server).host = ::core::ptr::null_mut::<::core::ffi::c_char>();
+    statlist_init(
+        &raw mut (*server).outstanding_requests,
+        b"outstanding_requests\0" as *const u8 as *const ::core::ffi::c_char,
+    );
+    last_pgsocket_id = last_pgsocket_id.wrapping_add(1);
+    (*server).id = last_pgsocket_id;
+}
+#[c2rust::src_loc = "135:1"]
+unsafe extern "C" fn global_user_node_cmp(
+    mut userptr: uintptr_t,
+    mut node: *mut AANode,
+) -> ::core::ffi::c_int {
+    let mut name = userptr as *const ::core::ffi::c_char;
+    let mut global_user = (node as *mut ::core::ffi::c_char)
+        .offset(-(0 as ::core::ffi::c_ulong as isize))
+        as *mut PgGlobalUser;
+    return strcmp(
+        name,
+        &raw mut (*global_user).credentials.name as *mut ::core::ffi::c_char,
+    );
+}
+#[c2rust::src_loc = "143:1"]
+unsafe extern "C" fn credentials_node_cmp(
+    mut userptr: uintptr_t,
+    mut node: *mut AANode,
+) -> ::core::ffi::c_int {
+    let mut name = userptr as *const ::core::ffi::c_char;
+    let mut credentials = (node as *mut ::core::ffi::c_char)
+        .offset(-(0 as ::core::ffi::c_ulong as isize))
+        as *mut PgCredentials;
+    return strcmp(
+        name,
+        &raw mut (*credentials).name as *mut ::core::ffi::c_char,
+    );
+}
+#[c2rust::src_loc = "151:1"]
+unsafe extern "C" fn credentials_node_release(
+    mut node: *mut AANode,
+    mut arg: *mut ::core::ffi::c_void,
+) {
+    let mut user = (node as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        as *mut PgCredentials;
+    slab_free(credentials_cache, user as *mut ::core::ffi::c_void);
+}
+#[no_mangle]
+#[c2rust::src_loc = "158:1"]
+pub unsafe extern "C" fn init_objects() {
+    aatree_init(
+        &raw mut user_tree,
+        Some(
+            global_user_node_cmp
+                as unsafe extern "C" fn(uintptr_t, *mut AANode) -> ::core::ffi::c_int,
+        ),
+        None,
+    );
+    aatree_init(
+        &raw mut pam_user_tree,
+        Some(
+            credentials_node_cmp
+                as unsafe extern "C" fn(uintptr_t, *mut AANode) -> ::core::ffi::c_int,
+        ),
+        None,
+    );
+    user_cache = slab_create(
+        b"user_cache\0" as *const u8 as *const ::core::ffi::c_char,
+        ::core::mem::size_of::<PgGlobalUser>() as ::core::ffi::c_uint,
+        0 as ::core::ffi::c_uint,
+        None,
+        &raw const cx_libc_allocator,
+    );
+    credentials_cache = slab_create(
+        b"credentials_cache\0" as *const u8 as *const ::core::ffi::c_char,
+        ::core::mem::size_of::<PgCredentials>() as ::core::ffi::c_uint,
+        0 as ::core::ffi::c_uint,
+        None,
+        &raw const cx_libc_allocator,
+    );
+    db_cache = slab_create(
+        b"db_cache\0" as *const u8 as *const ::core::ffi::c_char,
+        ::core::mem::size_of::<PgDatabase>() as ::core::ffi::c_uint,
+        0 as ::core::ffi::c_uint,
+        None,
+        &raw const cx_libc_allocator,
+    );
+    peer_cache = slab_create(
+        b"peer_cache\0" as *const u8 as *const ::core::ffi::c_char,
+        ::core::mem::size_of::<PgDatabase>() as ::core::ffi::c_uint,
+        0 as ::core::ffi::c_uint,
+        None,
+        &raw const cx_libc_allocator,
+    );
+    peer_pool_cache = slab_create(
+        b"peer_pool_cache\0" as *const u8 as *const ::core::ffi::c_char,
+        ::core::mem::size_of::<PgPool>() as ::core::ffi::c_uint,
+        0 as ::core::ffi::c_uint,
+        None,
+        &raw const cx_libc_allocator,
+    );
+    pool_cache = slab_create(
+        b"pool_cache\0" as *const u8 as *const ::core::ffi::c_char,
+        ::core::mem::size_of::<PgPool>() as ::core::ffi::c_uint,
+        0 as ::core::ffi::c_uint,
+        None,
+        &raw const cx_libc_allocator,
+    );
+    outstanding_request_cache = slab_create(
+        b"outstanding_request_cache\0" as *const u8 as *const ::core::ffi::c_char,
+        ::core::mem::size_of::<OutstandingRequest>() as ::core::ffi::c_uint,
+        0 as ::core::ffi::c_uint,
+        None,
+        &raw const cx_libc_allocator,
+    );
+    if user_cache.is_null()
+        || db_cache.is_null()
+        || peer_cache.is_null()
+        || peer_pool_cache.is_null()
+        || pool_cache.is_null()
+    {
+        let mut _log_ctx = NULL;
+        log_fatal(
+            b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+            171 as ::core::ffi::c_int,
+            b"init_objects\0" as *const u8 as *const ::core::ffi::c_char,
+            false_0 != 0,
+            _log_ctx,
+            b"cannot create initial caches\0" as *const u8 as *const ::core::ffi::c_char,
+        );
+        exit(1 as ::core::ffi::c_int);
+    }
+}
+#[c2rust::src_loc = "174:1"]
+unsafe extern "C" fn do_iobuf_reset(mut arg: *mut ::core::ffi::c_void) {
+    let mut io = arg as *mut IOBuf;
+    iobuf_reset(io);
+}
+#[no_mangle]
+#[c2rust::src_loc = "181:1"]
+pub unsafe extern "C" fn init_caches() {
+    server_cache = slab_create(
+        b"server_cache\0" as *const u8 as *const ::core::ffi::c_char,
+        ::core::mem::size_of::<PgSocket>() as ::core::ffi::c_uint,
+        0 as ::core::ffi::c_uint,
+        Some(construct_server as unsafe extern "C" fn(*mut ::core::ffi::c_void) -> ()),
+        &raw const cx_libc_allocator,
+    );
+    client_cache = slab_create(
+        b"client_cache\0" as *const u8 as *const ::core::ffi::c_char,
+        ::core::mem::size_of::<PgSocket>() as ::core::ffi::c_uint,
+        0 as ::core::ffi::c_uint,
+        Some(construct_client as unsafe extern "C" fn(*mut ::core::ffi::c_void) -> ()),
+        &raw const cx_libc_allocator,
+    );
+    iobuf_cache = slab_create(
+        b"iobuf_cache\0" as *const u8 as *const ::core::ffi::c_char,
+        RAW_IOBUF_SIZE.wrapping_add(cf_sbuf_len as ::core::ffi::c_ulong) as ::core::ffi::c_uint,
+        0 as ::core::ffi::c_uint,
+        Some(do_iobuf_reset as unsafe extern "C" fn(*mut ::core::ffi::c_void) -> ()),
+        &raw const cx_libc_allocator,
+    );
+    var_list_cache = slab_create(
+        b"var_list_cache\0" as *const u8 as *const ::core::ffi::c_char,
+        (::core::mem::size_of::<*mut PStr>() as usize).wrapping_mul(get_num_var_cached() as usize)
+            as ::core::ffi::c_uint,
+        0 as ::core::ffi::c_uint,
+        None,
+        &raw const cx_libc_allocator,
+    );
+    server_prepared_statement_cache = slab_create(
+        b"server_prepared_statement_cache\0" as *const u8 as *const ::core::ffi::c_char,
+        ::core::mem::size_of::<PgServerPreparedStatement>() as ::core::ffi::c_uint,
+        0 as ::core::ffi::c_uint,
+        None,
+        &raw const cx_libc_allocator,
+    );
+}
+#[c2rust::src_loc = "191:1"]
+unsafe extern "C" fn client_free(mut client: *mut PgSocket) {
+    free_client_prepared_statements(client);
+    varcache_clean(&raw mut (*client).vars);
+    slab_free(
+        var_list_cache,
+        (*client).vars.var_list as *mut ::core::ffi::c_void,
+    );
+    slab_free(client_cache, client as *mut ::core::ffi::c_void);
+}
+#[c2rust::src_loc = "200:1"]
+unsafe extern "C" fn server_free(mut server: *mut PgSocket) {
+    let mut el = ::core::ptr::null_mut::<List>();
+    let mut tmp_l = ::core::ptr::null_mut::<List>();
+    let mut request = ::core::ptr::null_mut::<OutstandingRequest>();
+    el = (*server).outstanding_requests.head.next;
+    tmp_l = (*(*server).outstanding_requests.head.next).next;
+    while el != &raw mut (*server).outstanding_requests.head {
+        request = (el as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+            as *mut OutstandingRequest;
+        statlist_remove(&raw mut (*server).canceling_clients, el);
+        if !(*request).server_ps.is_null() {
+            free_server_prepared_statement((*request).server_ps);
+        }
+        slab_free(
+            outstanding_request_cache,
+            request as *mut ::core::ffi::c_void,
+        );
+        el = tmp_l;
+        tmp_l = (*tmp_l).next;
+    }
+    free_server_prepared_statements(server);
+    free((*server).host as *mut ::core::ffi::c_void);
+    varcache_clean(&raw mut (*server).vars);
+    slab_free(
+        var_list_cache,
+        (*server).vars.var_list as *mut ::core::ffi::c_void,
+    );
+    slab_free(server_cache, server as *mut ::core::ffi::c_void);
+}
+#[no_mangle]
+#[c2rust::src_loc = "222:1"]
+pub unsafe extern "C" fn change_client_state(mut client: *mut PgSocket, mut newstate: SocketState) {
+    let mut pool = (*client).pool;
+    let mut current_block_14: u64;
+    match (*client).state() as ::core::ffi::c_int {
+        0 => {
+            current_block_14 = 17833034027772472439;
+        }
+        1 => {
+            statlist_remove(&raw mut justfree_client_list, &raw mut (*client).head);
+            current_block_14 = 17833034027772472439;
+        }
+        2 => {
+            if newstate as ::core::ffi::c_uint
+                == CL_WAITING as ::core::ffi::c_int as ::core::ffi::c_uint
+            {
+                newstate = CL_WAITING_LOGIN;
+            }
+            statlist_remove(&raw mut login_client_list, &raw mut (*client).head);
+            current_block_14 = 17833034027772472439;
+        }
+        4 => {
+            if newstate as ::core::ffi::c_uint
+                == CL_ACTIVE as ::core::ffi::c_int as ::core::ffi::c_uint
+            {
+                newstate = CL_LOGIN;
+            }
+            current_block_14 = 2284361961084658740;
+        }
+        3 => {
+            current_block_14 = 2284361961084658740;
+        }
+        5 => {
+            statlist_remove(&raw mut (*pool).active_client_list, &raw mut (*client).head);
+            current_block_14 = 17833034027772472439;
+        }
+        7 => {
+            statlist_remove(
+                &raw mut (*pool).active_cancel_req_list,
+                &raw mut (*client).head,
+            );
+            current_block_14 = 17833034027772472439;
+        }
+        6 => {
+            statlist_remove(
+                &raw mut (*pool).waiting_cancel_req_list,
+                &raw mut (*client).head,
+            );
+            current_block_14 = 17833034027772472439;
+        }
+        _ => {
+            let mut _log_ctx = NULL;
+            log_fatal(
+                b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+                256 as ::core::ffi::c_int,
+                b"change_client_state\0" as *const u8 as *const ::core::ffi::c_char,
+                false_0 != 0,
+                _log_ctx,
+                b"bad cur client state: %d\0" as *const u8 as *const ::core::ffi::c_char,
+                (*client).state() as ::core::ffi::c_int,
+            );
+            exit(1 as ::core::ffi::c_int);
+        }
+    }
+    match current_block_14 {
+        2284361961084658740 => {
+            (*client).set_sent_wait_notification((false_0 != 0) as bool);
+            statlist_remove(
+                &raw mut (*pool).waiting_client_list,
+                &raw mut (*client).head,
+            );
+        }
+        _ => {}
+    }
+    (*client).set_state(newstate as SocketState);
+    match (*client).state() as ::core::ffi::c_int {
+        0 => {
+            client_free(client);
+        }
+        1 => {
+            statlist_append(&raw mut justfree_client_list, &raw mut (*client).head);
+        }
+        2 => {
+            statlist_append(&raw mut login_client_list, &raw mut (*client).head);
+        }
+        3 | 4 => {
+            (*client).wait_start = get_cached_time();
+            statlist_append(
+                &raw mut (*pool).waiting_client_list,
+                &raw mut (*client).head,
+            );
+        }
+        5 => {
+            statlist_append(&raw mut (*pool).active_client_list, &raw mut (*client).head);
+        }
+        7 => {
+            statlist_append(
+                &raw mut (*pool).active_cancel_req_list,
+                &raw mut (*client).head,
+            );
+        }
+        6 => {
+            statlist_append(
+                &raw mut (*pool).waiting_cancel_req_list,
+                &raw mut (*client).head,
+            );
+        }
+        _ => {
+            let mut _log_ctx_0 = NULL;
+            log_fatal(
+                b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+                287 as ::core::ffi::c_int,
+                b"change_client_state\0" as *const u8 as *const ::core::ffi::c_char,
+                false_0 != 0,
+                _log_ctx_0,
+                b"bad new client state: %d\0" as *const u8 as *const ::core::ffi::c_char,
+                (*client).state() as ::core::ffi::c_int,
+            );
+            exit(1 as ::core::ffi::c_int);
+        }
+    };
+}
+#[no_mangle]
+#[c2rust::src_loc = "292:1"]
+pub unsafe extern "C" fn change_server_state(mut server: *mut PgSocket, mut newstate: SocketState) {
+    let mut pool = (*server).pool;
+    match (*server).state() as ::core::ffi::c_int {
+        8 => {}
+        9 => {
+            statlist_remove(&raw mut justfree_server_list, &raw mut (*server).head);
+        }
+        10 => {
+            statlist_remove(&raw mut (*pool).new_server_list, &raw mut (*server).head);
+        }
+        15 => {
+            statlist_remove(&raw mut (*pool).used_server_list, &raw mut (*server).head);
+        }
+        16 => {
+            statlist_remove(&raw mut (*pool).tested_server_list, &raw mut (*server).head);
+        }
+        11 => {
+            statlist_remove(
+                &raw mut (*pool).being_canceled_server_list,
+                &raw mut (*server).head,
+            );
+        }
+        12 => {
+            statlist_remove(&raw mut (*pool).idle_server_list, &raw mut (*server).head);
+        }
+        13 => {
+            statlist_remove(&raw mut (*pool).active_server_list, &raw mut (*server).head);
+        }
+        14 => {
+            statlist_remove(
+                &raw mut (*pool).active_cancel_server_list,
+                &raw mut (*server).head,
+            );
+        }
+        _ => {
+            let mut _log_ctx = NULL;
+            log_fatal(
+                b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+                325 as ::core::ffi::c_int,
+                b"change_server_state\0" as *const u8 as *const ::core::ffi::c_char,
+                false_0 != 0,
+                _log_ctx,
+                b"bad old server state: %d\0" as *const u8 as *const ::core::ffi::c_char,
+                (*server).state() as ::core::ffi::c_int,
+            );
+            exit(1 as ::core::ffi::c_int);
+        }
+    }
+    (*server).set_state(newstate as SocketState);
+    match (*server).state() as ::core::ffi::c_int {
+        8 => {
+            server_free(server);
+        }
+        9 => {
+            statlist_append(&raw mut justfree_server_list, &raw mut (*server).head);
+        }
+        10 => {
+            statlist_append(&raw mut (*pool).new_server_list, &raw mut (*server).head);
+        }
+        15 => {
+            statlist_prepend(&raw mut (*pool).used_server_list, &raw mut (*server).head);
+        }
+        16 => {
+            statlist_append(&raw mut (*pool).tested_server_list, &raw mut (*server).head);
+        }
+        11 => {
+            statlist_append(
+                &raw mut (*pool).being_canceled_server_list,
+                &raw mut (*server).head,
+            );
+        }
+        12 => {
+            if (*server).close_needed() as ::core::ffi::c_int != 0 || cf_server_round_robin != 0 {
+                statlist_append(&raw mut (*pool).idle_server_list, &raw mut (*server).head);
+            } else {
+                statlist_prepend(&raw mut (*pool).idle_server_list, &raw mut (*server).head);
+            }
+        }
+        13 => {
+            statlist_append(&raw mut (*pool).active_server_list, &raw mut (*server).head);
+        }
+        14 => {
+            statlist_append(
+                &raw mut (*pool).active_cancel_server_list,
+                &raw mut (*server).head,
+            );
+        }
+        _ => {
+            let mut _log_ctx_0 = NULL;
+            log_fatal(
+                b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+                367 as ::core::ffi::c_int,
+                b"change_server_state\0" as *const u8 as *const ::core::ffi::c_char,
+                false_0 != 0,
+                _log_ctx_0,
+                b"bad server state: %d\0" as *const u8 as *const ::core::ffi::c_char,
+                (*server).state() as ::core::ffi::c_int,
+            );
+            exit(1 as ::core::ffi::c_int);
+        }
+    };
+}
+#[c2rust::src_loc = "372:1"]
+unsafe extern "C" fn cmp_pool(mut i1: *mut List, mut i2: *mut List) -> ::core::ffi::c_int {
+    let mut p1 = (i1 as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        as *mut PgPool;
+    let mut p2 = (i2 as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        as *mut PgPool;
+    if (*p1).db != (*p2).db {
+        return strcmp(
+            &raw mut (*(*p1).db).name as *mut ::core::ffi::c_char,
+            &raw mut (*(*p2).db).name as *mut ::core::ffi::c_char,
+        );
+    }
+    if (*p1).user_credentials != (*p2).user_credentials {
+        if (*p1).user_credentials.is_null() {
+            return 1 as ::core::ffi::c_int;
+        }
+        if (*p2).user_credentials.is_null() {
+            return -(1 as ::core::ffi::c_int);
+        }
+        return strcmp(
+            &raw mut (*(*p1).user_credentials).name as *mut ::core::ffi::c_char,
+            &raw mut (*(*p2).user_credentials).name as *mut ::core::ffi::c_char,
+        );
+    }
+    return 0 as ::core::ffi::c_int;
+}
+#[c2rust::src_loc = "391:1"]
+unsafe extern "C" fn cmp_peer_pool(mut i1: *mut List, mut i2: *mut List) -> ::core::ffi::c_int {
+    let mut p1 = (i1 as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        as *mut PgPool;
+    let mut p2 = (i2 as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        as *mut PgPool;
+    if (*p1).db != (*p2).db {
+        return (*(*p1).db).peer_id - (*(*p2).db).peer_id;
+    }
+    return 0 as ::core::ffi::c_int;
+}
+#[c2rust::src_loc = "401:1"]
+unsafe extern "C" fn cmp_user(mut i1: *mut List, mut i2: *mut List) -> ::core::ffi::c_int {
+    let mut u1 = (i1 as *mut ::core::ffi::c_char).offset(-(2336 as ::core::ffi::c_ulong as isize))
+        as *mut PgGlobalUser;
+    let mut u2 = (i2 as *mut ::core::ffi::c_char).offset(-(2336 as ::core::ffi::c_ulong as isize))
+        as *mut PgGlobalUser;
+    return strcmp(
+        &raw mut (*u1).credentials.name as *mut ::core::ffi::c_char,
+        &raw mut (*u2).credentials.name as *mut ::core::ffi::c_char,
+    );
+}
+#[c2rust::src_loc = "409:1"]
+unsafe extern "C" fn cmp_peer(mut i1: *mut List, mut i2: *mut List) -> ::core::ffi::c_int {
+    let mut db1 = (i1 as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        as *mut PgDatabase;
+    let mut db2 = (i2 as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        as *mut PgDatabase;
+    return (*db1).peer_id - (*db2).peer_id;
+}
+#[c2rust::src_loc = "418:1"]
+unsafe extern "C" fn cmp_database(mut i1: *mut List, mut i2: *mut List) -> ::core::ffi::c_int {
+    let mut db1 = (i1 as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        as *mut PgDatabase;
+    let mut db2 = (i2 as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        as *mut PgDatabase;
+    return strcmp(
+        &raw mut (*db1).name as *mut ::core::ffi::c_char,
+        &raw mut (*db2).name as *mut ::core::ffi::c_char,
+    );
+}
+#[c2rust::src_loc = "426:1"]
+unsafe extern "C" fn put_in_order(
+    mut newitem: *mut List,
+    mut list: *mut StatList,
+    mut cmpfn: Option<unsafe extern "C" fn(*mut List, *mut List) -> ::core::ffi::c_int>,
+) {
+    let mut res: ::core::ffi::c_int = 0;
+    let mut item = ::core::ptr::null_mut::<List>();
+    item = (*list).head.next;
+    while item != &raw mut (*list).head {
+        res = cmpfn.expect("non-null function pointer")(item, newitem);
+        if res == 0 as ::core::ffi::c_int {
+            let mut _log_ctx = NULL;
+            log_fatal(
+                b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+                435 as ::core::ffi::c_int,
+                b"put_in_order\0" as *const u8 as *const ::core::ffi::c_char,
+                false_0 != 0,
+                _log_ctx,
+                b"put_in_order: found existing elem\0" as *const u8 as *const ::core::ffi::c_char,
+            );
+            exit(1 as ::core::ffi::c_int);
+        } else if res > 0 as ::core::ffi::c_int {
+            statlist_put_before(list, newitem, item);
+            return;
+        }
+        item = (*item).next;
+    }
+    statlist_append(list, newitem);
+}
+#[no_mangle]
+#[c2rust::src_loc = "445:1"]
+pub unsafe extern "C" fn add_peer(
+    mut name: *const ::core::ffi::c_char,
+    mut peer_id: ::core::ffi::c_int,
+) -> *mut PgDatabase {
+    let mut peer = find_peer(peer_id);
+    if peer.is_null() {
+        peer = slab_alloc(peer_cache) as *mut PgDatabase;
+        if peer.is_null() {
+            return ::core::ptr::null_mut::<PgDatabase>();
+        }
+        list_init(&raw mut (*peer).head);
+        (*peer).peer_id = peer_id;
+        put_in_order(
+            &raw mut (*peer).head,
+            &raw mut peer_list,
+            Some(cmp_peer as unsafe extern "C" fn(*mut List, *mut List) -> ::core::ffi::c_int),
+        );
+    }
+    return peer;
+}
+#[no_mangle]
+#[c2rust::src_loc = "464:1"]
+pub unsafe extern "C" fn add_database(mut name: *const ::core::ffi::c_char) -> *mut PgDatabase {
+    let mut db = find_database(name);
+    if db.is_null() {
+        db = slab_alloc(db_cache) as *mut PgDatabase;
+        if db.is_null() {
+            return ::core::ptr::null_mut::<PgDatabase>();
+        }
+        list_init(&raw mut (*db).head);
+        if strlcpy(
+            &raw mut (*db).name as *mut ::core::ffi::c_char,
+            name,
+            ::core::mem::size_of::<[::core::ffi::c_char; 64]>() as size_t,
+        ) as usize
+            >= ::core::mem::size_of::<[::core::ffi::c_char; 64]>() as usize
+        {
+            let mut _log_ctx = NULL;
+            log_generic(
+                LG_WARNING,
+                _log_ctx,
+                b"too long db name: %s\0" as *const u8 as *const ::core::ffi::c_char,
+                name,
+            );
+            slab_free(db_cache, db as *mut ::core::ffi::c_void);
+            return ::core::ptr::null_mut::<PgDatabase>();
+        }
+        aatree_init(
+            &raw mut (*db).user_tree,
+            Some(
+                credentials_node_cmp
+                    as unsafe extern "C" fn(uintptr_t, *mut AANode) -> ::core::ffi::c_int,
+            ),
+            Some(
+                credentials_node_release
+                    as unsafe extern "C" fn(*mut AANode, *mut ::core::ffi::c_void) -> (),
+            ),
+        );
+        put_in_order(
+            &raw mut (*db).head,
+            &raw mut database_list,
+            Some(cmp_database as unsafe extern "C" fn(*mut List, *mut List) -> ::core::ffi::c_int),
+        );
+    }
+    return db;
+}
+#[no_mangle]
+#[c2rust::src_loc = "488:1"]
+pub unsafe extern "C" fn register_auto_database(
+    mut name: *const ::core::ffi::c_char,
+) -> *mut PgDatabase {
+    let mut db = ::core::ptr::null_mut::<PgDatabase>();
+    if cf_autodb_connstr.is_null() {
+        return ::core::ptr::null_mut::<PgDatabase>();
+    }
+    if !parse_database(NULL, name, cf_autodb_connstr) {
+        return ::core::ptr::null_mut::<PgDatabase>();
+    }
+    db = find_database(name);
+    if !db.is_null() {
+        (*db).db_auto = true_0 != 0;
+    }
+    return db;
+}
+#[no_mangle]
+#[c2rust::src_loc = "506:1"]
+pub unsafe extern "C" fn update_global_user_passwd(
+    mut user: *mut PgGlobalUser,
+    mut passwd: *const ::core::ffi::c_char,
+) -> *mut PgGlobalUser {
+    passwd = if !passwd.is_null() {
+        passwd
+    } else {
+        b"\0" as *const u8 as *const ::core::ffi::c_char
+    };
+    let mut needed = strlcpy(
+        &raw mut (*user).credentials.passwd as *mut ::core::ffi::c_char,
+        passwd,
+        ::core::mem::size_of::<[::core::ffi::c_char; 2048]>() as size_t,
+    ) as size_t;
+    if (needed >= ::core::mem::size_of::<[::core::ffi::c_char; 2048]>() as usize)
+        as ::core::ffi::c_int as ::core::ffi::c_long
+        != 0
+    {
+        let mut _log_ctx = NULL;
+        log_generic(
+            LG_WARNING,
+            _log_ctx,
+            b"bug in %s:%d - string truncated\0" as *const u8 as *const ::core::ffi::c_char,
+            b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+            510 as ::core::ffi::c_int,
+        );
+    }
+    (*user).credentials.dynamic_passwd = strlen(passwd) == 0 as size_t;
+    return user;
+}
+#[c2rust::src_loc = "515:1"]
+unsafe extern "C" fn add_new_global_user(
+    mut name: *const ::core::ffi::c_char,
+    mut passwd: *const ::core::ffi::c_char,
+) -> *mut PgGlobalUser {
+    let mut user = slab_alloc(user_cache) as *mut PgGlobalUser;
+    if user.is_null() {
+        return ::core::ptr::null_mut::<PgGlobalUser>();
+    }
+    (*user).credentials.global_user = user;
+    list_init(&raw mut (*user).head);
+    list_init(&raw mut (*user).pool_list);
+    let mut needed = strlcpy(
+        &raw mut (*user).credentials.name as *mut ::core::ffi::c_char,
+        name,
+        ::core::mem::size_of::<[::core::ffi::c_char; 128]>() as size_t,
+    ) as size_t;
+    if (needed >= ::core::mem::size_of::<[::core::ffi::c_char; 128]>() as usize)
+        as ::core::ffi::c_int as ::core::ffi::c_long
+        != 0
+    {
+        let mut _log_ctx = NULL;
+        log_generic(
+            LG_WARNING,
+            _log_ctx,
+            b"bug in %s:%d - string truncated\0" as *const u8 as *const ::core::ffi::c_char,
+            b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+            526 as ::core::ffi::c_int,
+        );
+    }
+    put_in_order(
+        &raw mut (*user).head,
+        &raw mut user_list,
+        Some(cmp_user as unsafe extern "C" fn(*mut List, *mut List) -> ::core::ffi::c_int),
+    );
+    aatree_insert(
+        &raw mut user_tree,
+        &raw mut (*user).credentials.name as *mut ::core::ffi::c_char as uintptr_t,
+        &raw mut (*user).credentials.tree_node,
+    );
+    (*user).pool_mode = POOL_INHERIT;
+    (*user).pool_size = -(1 as ::core::ffi::c_int);
+    (*user).res_pool_size = -(1 as ::core::ffi::c_int);
+    return update_global_user_passwd(user, passwd);
+}
+#[no_mangle]
+#[c2rust::src_loc = "541:1"]
+pub unsafe extern "C" fn add_dynamic_credentials(
+    mut db: *mut PgDatabase,
+    mut name: *const ::core::ffi::c_char,
+    mut passwd: *const ::core::ffi::c_char,
+) -> *mut PgCredentials {
+    let mut credentials = ::core::ptr::null_mut::<PgCredentials>();
+    let mut node = ::core::ptr::null_mut::<AANode>();
+    node = aatree_search(&raw mut (*db).user_tree, name as uintptr_t);
+    credentials = if !node.is_null() {
+        (node as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+            as *mut PgCredentials
+    } else {
+        ::core::ptr::null_mut::<PgCredentials>()
+    };
+    if credentials.is_null() {
+        credentials = slab_alloc(credentials_cache) as *mut PgCredentials;
+        if credentials.is_null() {
+            return ::core::ptr::null_mut::<PgCredentials>();
+        }
+        let mut needed = strlcpy(
+            &raw mut (*credentials).name as *mut ::core::ffi::c_char,
+            name,
+            ::core::mem::size_of::<[::core::ffi::c_char; 128]>() as size_t,
+        ) as size_t;
+        if (needed >= ::core::mem::size_of::<[::core::ffi::c_char; 128]>() as usize)
+            as ::core::ffi::c_int as ::core::ffi::c_long
+            != 0
+        {
+            let mut _log_ctx = NULL;
+            log_generic(
+                LG_WARNING,
+                _log_ctx,
+                b"bug in %s:%d - string truncated\0" as *const u8 as *const ::core::ffi::c_char,
+                b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+                558 as ::core::ffi::c_int,
+            );
+        }
+        (*credentials).global_user =
+            find_or_add_new_global_user(name, ::core::ptr::null::<::core::ffi::c_char>());
+        if (*credentials).global_user.is_null() {
+            slab_free(credentials_cache, credentials as *mut ::core::ffi::c_void);
+            return ::core::ptr::null_mut::<PgCredentials>();
+        }
+        aatree_insert(
+            &raw mut (*db).user_tree,
+            &raw mut (*credentials).name as *mut ::core::ffi::c_char as uintptr_t,
+            &raw mut (*credentials).tree_node,
+        );
+    }
+    let mut needed_0 = strlcpy(
+        &raw mut (*credentials).passwd as *mut ::core::ffi::c_char,
+        passwd,
+        ::core::mem::size_of::<[::core::ffi::c_char; 2048]>() as size_t,
+    ) as size_t;
+    if (needed_0 >= ::core::mem::size_of::<[::core::ffi::c_char; 2048]>() as usize)
+        as ::core::ffi::c_int as ::core::ffi::c_long
+        != 0
+    {
+        let mut _log_ctx_0 = NULL;
+        log_generic(
+            LG_WARNING,
+            _log_ctx_0,
+            b"bug in %s:%d - string truncated\0" as *const u8 as *const ::core::ffi::c_char,
+            b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+            569 as ::core::ffi::c_int,
+        );
+    }
+    (*credentials).dynamic_passwd = true_0 != 0;
+    return credentials;
+}
+#[no_mangle]
+#[c2rust::src_loc = "576:1"]
+pub unsafe extern "C" fn add_pam_credentials(
+    mut name: *const ::core::ffi::c_char,
+    mut passwd: *const ::core::ffi::c_char,
+) -> *mut PgCredentials {
+    let mut credentials = ::core::ptr::null_mut::<PgCredentials>();
+    let mut node = ::core::ptr::null_mut::<AANode>();
+    node = aatree_search(&raw mut pam_user_tree, name as uintptr_t);
+    credentials = if !node.is_null() {
+        (node as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+            as *mut PgCredentials
+    } else {
+        ::core::ptr::null_mut::<PgCredentials>()
+    };
+    if credentials.is_null() {
+        credentials = slab_alloc(credentials_cache) as *mut PgCredentials;
+        if credentials.is_null() {
+            return ::core::ptr::null_mut::<PgCredentials>();
+        }
+        let mut needed = strlcpy(
+            &raw mut (*credentials).name as *mut ::core::ffi::c_char,
+            name,
+            ::core::mem::size_of::<[::core::ffi::c_char; 128]>() as size_t,
+        ) as size_t;
+        if (needed >= ::core::mem::size_of::<[::core::ffi::c_char; 128]>() as usize)
+            as ::core::ffi::c_int as ::core::ffi::c_long
+            != 0
+        {
+            let mut _log_ctx = NULL;
+            log_generic(
+                LG_WARNING,
+                _log_ctx,
+                b"bug in %s:%d - string truncated\0" as *const u8 as *const ::core::ffi::c_char,
+                b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+                589 as ::core::ffi::c_int,
+            );
+        }
+        (*credentials).global_user =
+            find_or_add_new_global_user(name, ::core::ptr::null::<::core::ffi::c_char>());
+        if (*credentials).global_user.is_null() {
+            slab_free(credentials_cache, credentials as *mut ::core::ffi::c_void);
+            return ::core::ptr::null_mut::<PgCredentials>();
+        }
+        aatree_insert(
+            &raw mut pam_user_tree,
+            &raw mut (*credentials).name as *mut ::core::ffi::c_char as uintptr_t,
+            &raw mut (*credentials).tree_node,
+        );
+    }
+    if !passwd.is_null() {
+        let mut needed_0 = strlcpy(
+            &raw mut (*credentials).passwd as *mut ::core::ffi::c_char,
+            passwd,
+            ::core::mem::size_of::<[::core::ffi::c_char; 2048]>() as size_t,
+        ) as size_t;
+        if (needed_0 >= ::core::mem::size_of::<[::core::ffi::c_char; 2048]>() as usize)
+            as ::core::ffi::c_int as ::core::ffi::c_long
+            != 0
+        {
+            let mut _log_ctx_0 = NULL;
+            log_generic(
+                LG_WARNING,
+                _log_ctx_0,
+                b"bug in %s:%d - string truncated\0" as *const u8 as *const ::core::ffi::c_char,
+                b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+                600 as ::core::ffi::c_int,
+            );
+        }
+    }
+    return credentials;
+}
+#[no_mangle]
+#[c2rust::src_loc = "605:1"]
+pub unsafe extern "C" fn force_user_credentials(
+    mut db: *mut PgDatabase,
+    mut name: *const ::core::ffi::c_char,
+    mut passwd: *const ::core::ffi::c_char,
+) -> *mut PgCredentials {
+    let mut credentials = (*db).forced_user_credentials;
+    if credentials.is_null() {
+        credentials = slab_alloc(credentials_cache) as *mut PgCredentials;
+        if credentials.is_null() {
+            return ::core::ptr::null_mut::<PgCredentials>();
+        }
+        (*credentials).global_user =
+            find_or_add_new_global_user(name, ::core::ptr::null::<::core::ffi::c_char>());
+        if (*credentials).global_user.is_null() {
+            slab_free(credentials_cache, credentials as *mut ::core::ffi::c_void);
+            return ::core::ptr::null_mut::<PgCredentials>();
+        }
+    }
+    let mut needed = strlcpy(
+        &raw mut (*credentials).name as *mut ::core::ffi::c_char,
+        name,
+        ::core::mem::size_of::<[::core::ffi::c_char; 128]>() as size_t,
+    ) as size_t;
+    if (needed >= ::core::mem::size_of::<[::core::ffi::c_char; 128]>() as usize)
+        as ::core::ffi::c_int as ::core::ffi::c_long
+        != 0
+    {
+        let mut _log_ctx = NULL;
+        log_generic(
+            LG_WARNING,
+            _log_ctx,
+            b"bug in %s:%d - string truncated\0" as *const u8 as *const ::core::ffi::c_char,
+            b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+            619 as ::core::ffi::c_int,
+        );
+    }
+    let mut needed_0 = strlcpy(
+        &raw mut (*credentials).passwd as *mut ::core::ffi::c_char,
+        passwd,
+        ::core::mem::size_of::<[::core::ffi::c_char; 2048]>() as size_t,
+    ) as size_t;
+    if (needed_0 >= ::core::mem::size_of::<[::core::ffi::c_char; 2048]>() as usize)
+        as ::core::ffi::c_int as ::core::ffi::c_long
+        != 0
+    {
+        let mut _log_ctx_0 = NULL;
+        log_generic(
+            LG_WARNING,
+            _log_ctx_0,
+            b"bug in %s:%d - string truncated\0" as *const u8 as *const ::core::ffi::c_char,
+            b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+            620 as ::core::ffi::c_int,
+        );
+    }
+    (*db).forced_user_credentials = credentials;
+    return credentials;
+}
+#[no_mangle]
+#[c2rust::src_loc = "626:1"]
+pub unsafe extern "C" fn find_peer(mut peer_id: ::core::ffi::c_int) -> *mut PgDatabase {
+    let mut item = ::core::ptr::null_mut::<List>();
+    let mut peer = ::core::ptr::null_mut::<PgDatabase>();
+    item = peer_list.head.next;
+    while item != &raw mut peer_list.head {
+        peer = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+            as *mut PgDatabase;
+        if (*peer).peer_id == peer_id {
+            return peer;
+        }
+        item = (*item).next;
+    }
+    return ::core::ptr::null_mut::<PgDatabase>();
+}
+#[no_mangle]
+#[c2rust::src_loc = "639:1"]
+pub unsafe extern "C" fn find_database(mut name: *const ::core::ffi::c_char) -> *mut PgDatabase {
+    let mut item = ::core::ptr::null_mut::<List>();
+    let mut tmp = ::core::ptr::null_mut::<List>();
+    let mut db = ::core::ptr::null_mut::<PgDatabase>();
+    item = database_list.head.next;
+    while item != &raw mut database_list.head {
+        db = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+            as *mut PgDatabase;
+        if strcmp(&raw mut (*db).name as *mut ::core::ffi::c_char, name) == 0 as ::core::ffi::c_int
+        {
+            return db;
+        }
+        item = (*item).next;
+    }
+    item = autodatabase_idle_list.head.next;
+    tmp = (*autodatabase_idle_list.head.next).next;
+    while item != &raw mut autodatabase_idle_list.head {
+        db = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+            as *mut PgDatabase;
+        if strcmp(&raw mut (*db).name as *mut ::core::ffi::c_char, name) == 0 as ::core::ffi::c_int
+        {
+            (*db).inactive_time = 0 as usec_t;
+            statlist_remove(&raw mut autodatabase_idle_list, &raw mut (*db).head);
+            put_in_order(
+                &raw mut (*db).head,
+                &raw mut database_list,
+                Some(
+                    cmp_database
+                        as unsafe extern "C" fn(*mut List, *mut List) -> ::core::ffi::c_int,
+                ),
+            );
+            return db;
+        }
+        item = tmp;
+        tmp = (*tmp).next;
+    }
+    return ::core::ptr::null_mut::<PgDatabase>();
+}
+#[no_mangle]
+#[c2rust::src_loc = "665:1"]
+pub unsafe extern "C" fn find_or_register_database(
+    mut connection: *mut PgSocket,
+    mut name: *const ::core::ffi::c_char,
+) -> *mut PgDatabase {
+    let mut db = find_database(name);
+    if db.is_null() {
+        db = register_auto_database(name);
+        if !db.is_null() {
+            log_generic(
+                LG_INFO,
+                connection as *mut ::core::ffi::c_void,
+                b"registered new auto-database: %s\0" as *const u8 as *const ::core::ffi::c_char,
+                name,
+            );
+        }
+    }
+    return db;
+}
+#[no_mangle]
+#[c2rust::src_loc = "679:1"]
+pub unsafe extern "C" fn find_global_user(
+    mut name: *const ::core::ffi::c_char,
+) -> *mut PgGlobalUser {
+    let mut user = ::core::ptr::null_mut::<PgGlobalUser>();
+    let mut node = ::core::ptr::null_mut::<AANode>();
+    node = aatree_search(&raw mut user_tree, name as uintptr_t);
+    user = if !node.is_null() {
+        (node as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+            as *mut PgCredentials as *mut PgGlobalUser
+    } else {
+        ::core::ptr::null_mut::<PgGlobalUser>()
+    };
+    return user;
+}
+#[no_mangle]
+#[c2rust::src_loc = "690:1"]
+pub unsafe extern "C" fn find_global_credentials(
+    mut name: *const ::core::ffi::c_char,
+) -> *mut PgCredentials {
+    let mut user = find_global_user(name);
+    if user.is_null() {
+        return ::core::ptr::null_mut::<PgCredentials>();
+    }
+    return &raw mut (*user).credentials;
+}
+#[c2rust::src_loc = "700:1"]
+unsafe extern "C" fn new_pool(
+    mut db: *mut PgDatabase,
+    mut user_credentials: *mut PgCredentials,
+) -> *mut PgPool {
+    let mut pool = ::core::ptr::null_mut::<PgPool>();
+    pool = slab_alloc(pool_cache) as *mut PgPool;
+    if pool.is_null() {
+        return ::core::ptr::null_mut::<PgPool>();
+    }
+    list_init(&raw mut (*pool).head);
+    list_init(&raw mut (*pool).map_head);
+    (*pool).orig_vars.var_list = slab_alloc(var_list_cache) as *mut *mut PStr;
+    (*pool).user_credentials = user_credentials;
+    (*pool).db = db;
+    statlist_init(
+        &raw mut (*pool).active_client_list,
+        b"active_client_list\0" as *const u8 as *const ::core::ffi::c_char,
+    );
+    statlist_init(
+        &raw mut (*pool).waiting_client_list,
+        b"waiting_client_list\0" as *const u8 as *const ::core::ffi::c_char,
+    );
+    statlist_init(
+        &raw mut (*pool).active_server_list,
+        b"active_server_list\0" as *const u8 as *const ::core::ffi::c_char,
+    );
+    statlist_init(
+        &raw mut (*pool).idle_server_list,
+        b"idle_server_list\0" as *const u8 as *const ::core::ffi::c_char,
+    );
+    statlist_init(
+        &raw mut (*pool).tested_server_list,
+        b"tested_server_list\0" as *const u8 as *const ::core::ffi::c_char,
+    );
+    statlist_init(
+        &raw mut (*pool).used_server_list,
+        b"used_server_list\0" as *const u8 as *const ::core::ffi::c_char,
+    );
+    statlist_init(
+        &raw mut (*pool).new_server_list,
+        b"new_server_list\0" as *const u8 as *const ::core::ffi::c_char,
+    );
+    statlist_init(
+        &raw mut (*pool).waiting_cancel_req_list,
+        b"waiting_cancel_req_list\0" as *const u8 as *const ::core::ffi::c_char,
+    );
+    statlist_init(
+        &raw mut (*pool).active_cancel_req_list,
+        b"active_cancel_req_list\0" as *const u8 as *const ::core::ffi::c_char,
+    );
+    statlist_init(
+        &raw mut (*pool).active_cancel_server_list,
+        b"active_cancel_server_list\0" as *const u8 as *const ::core::ffi::c_char,
+    );
+    statlist_init(
+        &raw mut (*pool).being_canceled_server_list,
+        b"being_canceled_server_list\0" as *const u8 as *const ::core::ffi::c_char,
+    );
+    list_append(
+        &raw mut (*(*user_credentials).global_user).pool_list,
+        &raw mut (*pool).map_head,
+    );
+    put_in_order(
+        &raw mut (*pool).head,
+        &raw mut pool_list,
+        Some(cmp_pool as unsafe extern "C" fn(*mut List, *mut List) -> ::core::ffi::c_int),
+    );
+    return pool;
+}
+#[c2rust::src_loc = "743:1"]
+unsafe extern "C" fn new_peer_pool(mut db: *mut PgDatabase) -> *mut PgPool {
+    let mut pool = ::core::ptr::null_mut::<PgPool>();
+    pool = slab_alloc(peer_pool_cache) as *mut PgPool;
+    if pool.is_null() {
+        return ::core::ptr::null_mut::<PgPool>();
+    }
+    list_init(&raw mut (*pool).head);
+    list_init(&raw mut (*pool).map_head);
+    (*pool).orig_vars.var_list = slab_alloc(var_list_cache) as *mut *mut PStr;
+    (*pool).db = db;
+    statlist_init(
+        &raw mut (*pool).new_server_list,
+        b"new_server_list\0" as *const u8 as *const ::core::ffi::c_char,
+    );
+    statlist_init(
+        &raw mut (*pool).waiting_cancel_req_list,
+        b"waiting_cancel_req_list\0" as *const u8 as *const ::core::ffi::c_char,
+    );
+    statlist_init(
+        &raw mut (*pool).active_cancel_req_list,
+        b"active_cancel_req_list\0" as *const u8 as *const ::core::ffi::c_char,
+    );
+    statlist_init(
+        &raw mut (*pool).active_cancel_server_list,
+        b"active_cancel_server_list\0" as *const u8 as *const ::core::ffi::c_char,
+    );
+    put_in_order(
+        &raw mut (*pool).head,
+        &raw mut peer_pool_list,
+        Some(cmp_peer_pool as unsafe extern "C" fn(*mut List, *mut List) -> ::core::ffi::c_int),
+    );
+    return pool;
+}
+#[no_mangle]
+#[c2rust::src_loc = "768:1"]
+pub unsafe extern "C" fn get_pool(
+    mut db: *mut PgDatabase,
+    mut user_credentials: *mut PgCredentials,
+) -> *mut PgPool {
+    let mut item = ::core::ptr::null_mut::<List>();
+    let mut pool = ::core::ptr::null_mut::<PgPool>();
+    if db.is_null() || user_credentials.is_null() {
+        return ::core::ptr::null_mut::<PgPool>();
+    }
+    item = (*(*user_credentials).global_user).pool_list.next;
+    while item != &raw mut (*(*user_credentials).global_user).pool_list {
+        pool = (item as *mut ::core::ffi::c_char).offset(-(16 as ::core::ffi::c_ulong as isize))
+            as *mut PgPool;
+        if (*pool).db == db {
+            return pool;
+        }
+        item = (*item).next;
+    }
+    return new_pool(db, user_credentials);
+}
+#[no_mangle]
+#[c2rust::src_loc = "786:1"]
+pub unsafe extern "C" fn get_peer_pool(mut db: *mut PgDatabase) -> *mut PgPool {
+    if db.is_null() {
+        return ::core::ptr::null_mut::<PgPool>();
+    }
+    if (*db).pool.is_null() {
+        (*db).pool = new_peer_pool(db) as *mut PgPool;
+    }
+    return (*db).pool as *mut PgPool;
+}
+#[c2rust::src_loc = "797:1"]
+unsafe extern "C" fn pause_client(mut client: *mut PgSocket) {
+    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+        log_generic(
+            LG_DEBUG,
+            client as *mut ::core::ffi::c_void,
+            b"pause_client\0" as *const u8 as *const ::core::ffi::c_char,
+        );
+    }
+    if cf_shutdown == SHUTDOWN_WAIT_FOR_SERVERS as ::core::ffi::c_int {
+        disconnect_client(
+            client,
+            true_0 != 0,
+            b"server shutting down\0" as *const u8 as *const ::core::ffi::c_char,
+        );
+        return;
+    }
+    change_client_state(client, CL_WAITING);
+    if !sbuf_pause(&raw mut (*client).sbuf) {
+        disconnect_client(
+            client,
+            true_0 != 0,
+            b"pause failed\0" as *const u8 as *const ::core::ffi::c_char,
+        );
+    }
+}
+#[c2rust::src_loc = "818:1"]
+unsafe extern "C" fn pause_cancel_request(mut client: *mut PgSocket) {
+    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+        log_generic(
+            LG_DEBUG,
+            client as *mut ::core::ffi::c_void,
+            b"pause_cancel_request\0" as *const u8 as *const ::core::ffi::c_char,
+        );
+    }
+    change_client_state(client, CL_WAITING_CANCEL);
+    if !sbuf_pause(&raw mut (*client).sbuf) {
+        disconnect_client(
+            client,
+            true_0 != 0,
+            b"pause cancel request failed\0" as *const u8 as *const ::core::ffi::c_char,
+        );
+    }
+}
+#[no_mangle]
+#[c2rust::src_loc = "830:1"]
+pub unsafe extern "C" fn activate_client(mut client: *mut PgSocket) {
+    (*(*client).pool).stats.wait_time = (*(*client).pool)
+        .stats
+        .wait_time
+        .wrapping_add(get_cached_time().wrapping_sub((*client).wait_start));
+    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+        log_generic(
+            LG_DEBUG,
+            client as *mut ::core::ffi::c_void,
+            b"activate_client\0" as *const u8 as *const ::core::ffi::c_char,
+        );
+    }
+    change_client_state(client, CL_ACTIVE);
+    sbuf_continue(&raw mut (*client).sbuf);
+}
+#[no_mangle]
+#[c2rust::src_loc = "861:1"]
+pub unsafe extern "C" fn check_fast_fail(mut client: *mut PgSocket) -> bool {
+    let mut cnt: ::core::ffi::c_int = 0;
+    let mut pool = (*client).pool;
+    if pool.is_null() {
+        return true_0 != 0;
+    }
+    if !(*pool).last_login_failed() {
+        return true_0 != 0;
+    }
+    cnt = statlist_count(&raw mut (*pool).active_server_list)
+        + statlist_count(&raw mut (*pool).being_canceled_server_list)
+        + statlist_count(&raw mut (*pool).idle_server_list)
+        + statlist_count(&raw mut (*pool).tested_server_list)
+        + statlist_count(&raw mut (*pool).used_server_list)
+        + statlist_count(&raw mut (*pool).new_server_list)
+        + statlist_count(&raw mut (*pool).active_cancel_server_list)
+        - statlist_count(&raw mut (*pool).new_server_list);
+    if cnt != 0 {
+        return true_0 != 0;
+    }
+    disconnect_client(
+        client,
+        true_0 != 0,
+        b"server login has been failing, cached error: %s (server_login_retry)\0" as *const u8
+            as *const ::core::ffi::c_char,
+        &raw mut (*pool).last_connect_failed_message as *mut ::core::ffi::c_char,
+    );
+    launch_new_connection(pool, true_0 != 0);
+    return false_0 != 0;
+}
+#[no_mangle]
+#[c2rust::src_loc = "895:1"]
+pub unsafe extern "C" fn find_server(mut client: *mut PgSocket) -> bool {
+    let mut pool = (*client).pool;
+    let mut server = ::core::ptr::null_mut::<PgSocket>();
+    let mut res: bool = false;
+    let mut varchange = false_0 != 0;
+    (*client).wait_start = 0 as usec_t;
+    if !(*client).link.is_null() {
+        return true_0 != 0;
+    }
+    if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+        log_generic(
+            LG_NOISE,
+            client as *mut ::core::ffi::c_void,
+            b"find_server: client had no linked server yet\0" as *const u8
+                as *const ::core::ffi::c_char,
+        );
+    }
+    if cf_pause_mode == P_PAUSE as ::core::ffi::c_int
+        || (*(*pool).db).db_paused as ::core::ffi::c_int != 0
+    {
+        server = ::core::ptr::null_mut::<PgSocket>();
+    } else if (*client).replication as ::core::ffi::c_uint != 0 && !sending_auth_query(client) {
+        launch_new_connection(pool, true_0 != 0);
+        server = ::core::ptr::null_mut::<PgSocket>();
+    } else {
+        loop {
+            server = first_socket(&raw mut (*pool).idle_server_list);
+            if server.is_null() {
+                break;
+            }
+            if (*server).close_needed() {
+                disconnect_server(
+                    server,
+                    true_0 != 0,
+                    b"obsolete connection\0" as *const u8 as *const ::core::ffi::c_char,
+                );
+            } else {
+                if (*server).ready() {
+                    break;
+                }
+                disconnect_server(
+                    server,
+                    true_0 != 0,
+                    b"idle server got dirty\0" as *const u8 as *const ::core::ffi::c_char,
+                );
+            }
+        }
+        if server.is_null() && !check_fast_fail(client) {
+            return false_0 != 0;
+        }
+    }
+    if !server.is_null() && !sending_auth_query(client) {
+        res = varcache_apply(server, client, &raw mut varchange);
+        if !res {
+            disconnect_server(
+                server,
+                true_0 != 0,
+                b"var change failed\0" as *const u8 as *const ::core::ffi::c_char,
+            );
+            server = ::core::ptr::null_mut::<PgSocket>();
+        }
+    }
+    if !server.is_null() {
+        if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        {
+            log_generic(
+                LG_NOISE,
+                client as *mut ::core::ffi::c_void,
+                b"linking client to S-%p\0" as *const u8 as *const ::core::ffi::c_char,
+                server,
+            );
+        }
+        (*client).link = server;
+        (*server).link = client;
+        (*(*server).pool).stats.server_assignment_count = (*(*server).pool)
+            .stats
+            .server_assignment_count
+            .wrapping_add(1);
+        change_server_state(server, SV_ACTIVE);
+        if varchange {
+            (*server).set_setting_vars((true_0 != 0) as bool);
+            (*server).set_ready((false_0 != 0) as bool);
+            res = false_0 != 0;
+            if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
+                != 0
+            {
+                log_generic(
+                    LG_NOISE,
+                    client as *mut ::core::ffi::c_void,
+                    b"pausing client while applying vars\0" as *const u8
+                        as *const ::core::ffi::c_char,
+                );
+            }
+            if !sbuf_pause(&raw mut (*client).sbuf) {
+                disconnect_client(
+                    client,
+                    true_0 != 0,
+                    b"pause failed\0" as *const u8 as *const ::core::ffi::c_char,
+                );
+            }
+        } else {
+            res = true_0 != 0;
+        }
+    } else {
+        pause_client(client);
+        res = false_0 != 0;
+    }
+    return res;
+}
+#[c2rust::src_loc = "986:1"]
+unsafe extern "C" fn reuse_on_release(mut server: *mut PgSocket) -> bool {
+    let mut res = true_0 != 0;
+    let mut pool = (*server).pool;
+    let mut client = ::core::ptr::null_mut::<PgSocket>();
+    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+        log_generic(
+            LG_DEBUG,
+            server as *mut ::core::ffi::c_void,
+            b"reuse_on_release: replication %d\0" as *const u8 as *const ::core::ffi::c_char,
+            (*server).replication as ::core::ffi::c_uint,
+        );
+    }
+    client = first_socket(&raw mut (*pool).waiting_client_list);
+    if !client.is_null()
+        && ((*client).replication as u64 == 0
+            || sending_auth_query(client) as ::core::ffi::c_int != 0)
+    {
+        activate_client(client);
+        if (*server).state() as ::core::ffi::c_int == SV_FREE as ::core::ffi::c_int
+            || (*server).state() as ::core::ffi::c_int == SV_JUSTFREE as ::core::ffi::c_int
+        {
+            res = false_0 != 0;
+        }
+    }
+    return res;
+}
+#[no_mangle]
+#[c2rust::src_loc = "1008:1"]
+pub unsafe extern "C" fn queue_fake_response(
+    mut client: *mut PgSocket,
+    mut request_type: ::core::ffi::c_char,
+) -> bool {
+    let mut res = true_0 != 0;
+    let mut server = (*client).link;
+    if request_type as ::core::ffi::c_int == PqMsg_Parse {
+        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        {
+            log_generic(
+                LG_DEBUG,
+                client as *mut ::core::ffi::c_void,
+                b"Queuing fake ParseComplete packet\0" as *const u8 as *const ::core::ffi::c_char,
+            );
+        }
+        let mut _data: [uint8_t; 5] = [0; 5];
+        let mut _buf = PktBuf {
+            buf: ::core::ptr::null_mut::<uint8_t>(),
+            buf_len: 0,
+            write_pos: 0,
+            pktlen_pos: 0,
+            send_pos: 0,
+            ev: ::core::ptr::null_mut::<event>(),
+            queued_dst: ::core::ptr::null_mut::<PgSocket>(),
+            failed_sending_fixed_buf: [0; 1],
+            c2rust_padding: [0; 7],
+        };
+        pktbuf_static(
+            &raw mut _buf,
+            &raw mut _data as *mut uint8_t,
+            ::core::mem::size_of::<[uint8_t; 5]>() as ::core::ffi::c_int,
+        );
+        pktbuf_write_generic(
+            &raw mut _buf,
+            PqMsg_ParseComplete,
+            b"\0" as *const u8 as *const ::core::ffi::c_char,
+        );
+        res = sbuf_queue_packet(
+            &raw mut (*server).sbuf,
+            &raw mut (*client).sbuf,
+            &raw mut _buf,
+        );
+    } else if request_type as ::core::ffi::c_int == PqMsg_Close {
+        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        {
+            log_generic(
+                LG_DEBUG,
+                client as *mut ::core::ffi::c_void,
+                b"Queuing fake CloseComplete packet\0" as *const u8 as *const ::core::ffi::c_char,
+            );
+        }
+        let mut _data_0: [uint8_t; 5] = [0; 5];
+        let mut _buf_0 = PktBuf {
+            buf: ::core::ptr::null_mut::<uint8_t>(),
+            buf_len: 0,
+            write_pos: 0,
+            pktlen_pos: 0,
+            send_pos: 0,
+            ev: ::core::ptr::null_mut::<event>(),
+            queued_dst: ::core::ptr::null_mut::<PgSocket>(),
+            failed_sending_fixed_buf: [0; 1],
+            c2rust_padding: [0; 7],
+        };
+        pktbuf_static(
+            &raw mut _buf_0,
+            &raw mut _data_0 as *mut uint8_t,
+            ::core::mem::size_of::<[uint8_t; 5]>() as ::core::ffi::c_int,
+        );
+        pktbuf_write_generic(
+            &raw mut _buf_0,
+            PqMsg_CloseComplete,
+            b"\0" as *const u8 as *const ::core::ffi::c_char,
+        );
+        res = sbuf_queue_packet(
+            &raw mut (*server).sbuf,
+            &raw mut (*client).sbuf,
+            &raw mut _buf_0,
+        );
+    } else {
+        let mut _log_ctx = NULL;
+        log_fatal(
+            b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+            1021 as ::core::ffi::c_int,
+            b"queue_fake_response\0" as *const u8 as *const ::core::ffi::c_char,
+            false_0 != 0,
+            _log_ctx,
+            b"Unknown fake request type %c\0" as *const u8 as *const ::core::ffi::c_char,
+            request_type as ::core::ffi::c_int,
+        );
+        exit(1 as ::core::ffi::c_int);
+    }
+    return res;
+}
+#[no_mangle]
+#[c2rust::src_loc = "1027:1"]
+pub unsafe extern "C" fn find_or_add_new_global_user(
+    mut name: *const ::core::ffi::c_char,
+    mut passwd: *const ::core::ffi::c_char,
+) -> *mut PgGlobalUser {
+    let mut user = find_global_user(name);
+    if user.is_null() {
+        user = add_new_global_user(name, passwd);
+    }
+    return user;
+}
+#[no_mangle]
+#[c2rust::src_loc = "1038:1"]
+pub unsafe extern "C" fn find_or_add_new_global_credentials(
+    mut name: *const ::core::ffi::c_char,
+    mut passwd: *const ::core::ffi::c_char,
+) -> *mut PgCredentials {
+    let mut user = find_or_add_new_global_user(name, passwd);
+    if user.is_null() {
+        return ::core::ptr::null_mut::<PgCredentials>();
+    }
+    return &raw mut (*user).credentials;
+}
+#[no_mangle]
+#[c2rust::src_loc = "1054:1"]
+pub unsafe extern "C" fn add_outstanding_request(
+    mut client: *mut PgSocket,
+    mut type_0: ::core::ffi::c_char,
+    mut action: ResponseAction,
+) -> bool {
+    let mut request = ::core::ptr::null_mut::<OutstandingRequest>();
+    let mut server = (*client).link;
+    if action as ::core::ffi::c_uint == RA_FAKE as ::core::ffi::c_int as ::core::ffi::c_uint
+        && statlist_empty(&raw mut (*server).outstanding_requests) as ::core::ffi::c_int != 0
+    {
+        if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        {
+            log_generic(
+                LG_NOISE,
+                client as *mut ::core::ffi::c_void,
+                b"add_outstanding_request: queueing fake response right away %c\0" as *const u8
+                    as *const ::core::ffi::c_char,
+                type_0 as ::core::ffi::c_int,
+            );
+        }
+        return queue_fake_response(client, type_0);
+    }
+    request = slab_alloc(outstanding_request_cache) as *mut OutstandingRequest;
+    if request.is_null() {
+        return false_0 != 0;
+    }
+    (*request).type_0 = type_0;
+    (*request).action = action;
+    statlist_append(
+        &raw mut (*server).outstanding_requests,
+        &raw mut (*request).node,
+    );
+    if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+        log_generic(
+            LG_NOISE,
+            client as *mut ::core::ffi::c_void,
+            b"add_outstanding_request: added %c, still outstanding %d\0" as *const u8
+                as *const ::core::ffi::c_char,
+            type_0 as ::core::ffi::c_int,
+            statlist_count(&raw mut (*(*client).link).outstanding_requests),
+        );
+    }
+    return true_0 != 0;
+}
+#[no_mangle]
+#[c2rust::src_loc = "1092:1"]
+pub unsafe extern "C" fn pop_outstanding_request(
+    mut server: *mut PgSocket,
+    mut types: *const ::core::ffi::c_char,
+    mut skip: *mut bool,
+) -> bool {
+    let mut request = ::core::ptr::null_mut::<OutstandingRequest>();
+    let mut item = statlist_first(&raw mut (*server).outstanding_requests);
+    if item.is_null() {
+        return false_0 != 0;
+    }
+    request = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        as *mut OutstandingRequest;
+    if (*request).action as ::core::ffi::c_uint
+        == RA_FAKE as ::core::ffi::c_int as ::core::ffi::c_uint
+    {
+        log_generic(
+            LG_WARNING,
+            server as *mut ::core::ffi::c_void,
+            b"pop_outstanding_request: unexpected fake request of type %c\0" as *const u8
+                as *const ::core::ffi::c_char,
+            (*request).type_0 as ::core::ffi::c_int,
+        );
+        return false_0 != 0;
+    }
+    if strchr(
+        types as *const ::core::ffi::c_char,
+        (*request).type_0 as ::core::ffi::c_int,
+    )
+    .is_null()
+    {
+        return false_0 != 0;
+    }
+    statlist_pop(&raw mut (*server).outstanding_requests);
+    if !skip.is_null() {
+        *skip = (*request).action as ::core::ffi::c_uint
+            == RA_SKIP as ::core::ffi::c_int as ::core::ffi::c_uint;
+    }
+    if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+        log_generic(
+            LG_NOISE,
+            server as *mut ::core::ffi::c_void,
+            b"pop_outstanding_request: popped %c, still outstanding %d, skip %d\0" as *const u8
+                as *const ::core::ffi::c_char,
+            (*request).type_0 as ::core::ffi::c_int,
+            statlist_count(&raw mut (*server).outstanding_requests),
+            ((*request).action as ::core::ffi::c_uint
+                == RA_SKIP as ::core::ffi::c_int as ::core::ffi::c_uint)
+                as ::core::ffi::c_int,
+        );
+    }
+    if !(*request).server_ps.is_null() {
+        free_server_prepared_statement((*request).server_ps);
+    }
+    slab_free(
+        outstanding_request_cache,
+        request as *mut ::core::ffi::c_void,
+    );
+    return true_0 != 0;
+}
+#[no_mangle]
+#[c2rust::src_loc = "1129:1"]
+pub unsafe extern "C" fn clear_outstanding_requests_until(
+    mut server: *mut PgSocket,
+    mut types: *const ::core::ffi::c_char,
+) -> bool {
+    let mut item = ::core::ptr::null_mut::<List>();
+    let mut tmp = ::core::ptr::null_mut::<List>();
+    item = (*server).outstanding_requests.head.next;
+    tmp = (*(*server).outstanding_requests.head.next).next;
+    while item != &raw mut (*server).outstanding_requests.head {
+        let mut request = (item as *mut ::core::ffi::c_char)
+            .offset(-(0 as ::core::ffi::c_ulong as isize))
+            as *mut OutstandingRequest;
+        let mut type_0 = (*request).type_0;
+        if type_0 as ::core::ffi::c_int == PqMsg_Parse
+            && (*request).server_ps_query_id > 0 as uint64_t
+        {
+            unregister_prepared_statement(server, (*request).server_ps_query_id);
+            if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
+                != 0
+            {
+                log_generic(
+                    LG_NOISE,
+                    server as *mut ::core::ffi::c_void,
+                    b"failed prepared statement 'PGBOUNCER_%llu' removed from server cache, %d cached items\0"
+                        as *const u8 as *const ::core::ffi::c_char,
+                    (*request).server_ps_query_id,
+                    if !(*server).server_prepared_statements.is_null() {
+                        (*(*(*server).server_prepared_statements).hh.tbl).num_items
+                    } else {
+                        0 as ::core::ffi::c_uint
+                    },
+                );
+            }
+        } else if type_0 as ::core::ffi::c_int == PqMsg_Close && !(*request).server_ps.is_null() {
+            if !add_prepared_statement(server, (*request).server_ps) {
+                if !(*server).link.is_null() {
+                    disconnect_client(
+                        (*server).link,
+                        true_0 != 0,
+                        b"out of memory\0" as *const u8 as *const ::core::ffi::c_char,
+                    );
+                }
+                disconnect_server(
+                    server,
+                    true_0 != 0,
+                    b"out of memory\0" as *const u8 as *const ::core::ffi::c_char,
+                );
+                return false_0 != 0;
+            }
+            if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
+                != 0
+            {
+                log_generic(
+                    LG_NOISE,
+                    server as *mut ::core::ffi::c_void,
+                    b"prepared statement '%s' added back to server cache, %d cached items\0"
+                        as *const u8 as *const ::core::ffi::c_char,
+                    &raw mut (*(*(*request).server_ps).ps).stmt_name as *mut ::core::ffi::c_char,
+                    if !(*server).server_prepared_statements.is_null() {
+                        (*(*(*server).server_prepared_statements).hh.tbl).num_items
+                    } else {
+                        0 as ::core::ffi::c_uint
+                    },
+                );
+            }
+        }
+        statlist_remove(&raw mut (*server).outstanding_requests, item);
+        slab_free(
+            outstanding_request_cache,
+            request as *mut ::core::ffi::c_void,
+        );
+        if !strchr(
+            types as *const ::core::ffi::c_char,
+            type_0 as ::core::ffi::c_int,
+        )
+        .is_null()
+        {
+            break;
+        }
+        item = tmp;
+        tmp = (*tmp).next;
+    }
+    if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+        log_generic(
+            LG_NOISE,
+            server as *mut ::core::ffi::c_void,
+            b"clear_outstanding_requests_until_sync: still outstanding %d\0" as *const u8
+                as *const ::core::ffi::c_char,
+            statlist_count(&raw mut (*server).outstanding_requests),
+        );
+    }
+    return true_0 != 0;
+}
+#[c2rust::src_loc = "1164:1"]
+unsafe extern "C" fn reset_on_release(mut server: *mut PgSocket) -> bool {
+    let mut res: bool = false;
+    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+        log_generic(
+            LG_DEBUG,
+            server as *mut ::core::ffi::c_void,
+            b"resetting: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            cf_server_reset_query,
+        );
+    }
+    let mut _data: [uint8_t; 512] = [0; 512];
+    let mut _buf = PktBuf {
+        buf: ::core::ptr::null_mut::<uint8_t>(),
+        buf_len: 0,
+        write_pos: 0,
+        pktlen_pos: 0,
+        send_pos: 0,
+        ev: ::core::ptr::null_mut::<event>(),
+        queued_dst: ::core::ptr::null_mut::<PgSocket>(),
+        failed_sending_fixed_buf: [0; 1],
+        c2rust_padding: [0; 7],
+    };
+    pktbuf_static(
+        &raw mut _buf,
+        &raw mut _data as *mut uint8_t,
+        ::core::mem::size_of::<[uint8_t; 512]>() as ::core::ffi::c_int,
+    );
+    pktbuf_write_generic(
+        &raw mut _buf,
+        PqMsg_Query,
+        b"s\0" as *const u8 as *const ::core::ffi::c_char,
+        cf_server_reset_query,
+    );
+    res = pktbuf_send_immediate(&raw mut _buf, server);
+    if !res {
+        disconnect_server(
+            server,
+            false_0 != 0,
+            b"reset query failed\0" as *const u8 as *const ::core::ffi::c_char,
+        );
+    }
+    return res;
+}
+#[no_mangle]
+#[c2rust::src_loc = "1177:1"]
+pub unsafe extern "C" fn life_over(mut server: *mut PgSocket) -> bool {
+    let mut pool = (*server).pool;
+    let mut lifetime_kill_gap: usec_t = 0 as usec_t;
+    let mut now = get_cached_time();
+    let mut age: usec_t = now.wrapping_sub((*server).connect_time);
+    let mut last_kill: usec_t = now.wrapping_sub((*pool).last_lifetime_disconnect);
+    let mut server_lifetime = pool_server_lifetime(pool);
+    if age < server_lifetime {
+        return false_0 != 0;
+    }
+    if pool_pool_size(pool) > 0 as ::core::ffi::c_int {
+        lifetime_kill_gap = server_lifetime.wrapping_div(pool_pool_size(pool) as usec_t);
+    }
+    if last_kill >= lifetime_kill_gap {
+        return true_0 != 0;
+    }
+    return false_0 != 0;
+}
+#[no_mangle]
+#[c2rust::src_loc = "1204:1"]
+pub unsafe extern "C" fn release_server(mut server: *mut PgSocket) -> bool {
+    let mut pool = (*server).pool;
+    let mut newstate = SV_IDLE;
+    let mut cancel_item = ::core::ptr::null_mut::<List>();
+    let mut tmp = ::core::ptr::null_mut::<List>();
+    match (*server).state() as ::core::ffi::c_int {
+        11 | 13 => {
+            if !(*server).link.is_null() {
+                (*(*server).link).link = ::core::ptr::null_mut::<PgSocket>();
+                (*server).link = ::core::ptr::null_mut::<PgSocket>();
+            }
+            if *cf_server_reset_query as ::core::ffi::c_int != 0
+                && (cf_server_reset_query_always != 0
+                    || connection_pool_mode(server) == POOL_SESSION)
+            {
+                newstate = SV_TESTED;
+            } else if cf_server_check_delay == 0 as usec_t
+                && *cf_server_check_query as ::core::ffi::c_int != 0
+            {
+                newstate = SV_USED;
+            }
+        }
+        15 | 16 => {}
+        10 => {
+            (*pool).set_last_login_failed((false_0 != 0) as bool);
+            (*pool).set_last_connect_failed((false_0 != 0) as bool);
+        }
+        _ => {
+            let mut _log_ctx = NULL;
+            log_fatal(
+                b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+                1241 as ::core::ffi::c_int,
+                b"release_server\0" as *const u8 as *const ::core::ffi::c_char,
+                false_0 != 0,
+                _log_ctx,
+                b"bad server state: %d\0" as *const u8 as *const ::core::ffi::c_char,
+                (*server).state() as ::core::ffi::c_int,
+            );
+            exit(1 as ::core::ffi::c_int);
+        }
+    }
+    cancel_item = (*server).canceling_clients.head.next;
+    tmp = (*(*server).canceling_clients.head.next).next;
+    while cancel_item != &raw mut (*server).canceling_clients.head {
+        let mut cancel_client = (cancel_item as *mut ::core::ffi::c_char)
+            .offset(-(16 as ::core::ffi::c_ulong as isize))
+            as *mut PgSocket;
+        if (*cancel_client).state() as ::core::ffi::c_int == CL_WAITING_CANCEL as ::core::ffi::c_int
+        {
+            (*cancel_client).canceled_server = ::core::ptr::null_mut::<PgSocket>();
+            statlist_remove(&raw mut (*server).canceling_clients, cancel_item);
+        }
+        cancel_item = tmp;
+        tmp = (*tmp).next;
+    }
+    if (*server).state() as ::core::ffi::c_int != SV_LOGIN as ::core::ffi::c_int
+        && life_over(server) as ::core::ffi::c_int != 0
+    {
+        disconnect_server(
+            server,
+            true_0 != 0,
+            b"server lifetime over\0" as *const u8 as *const ::core::ffi::c_char,
+        );
+        (*pool).last_lifetime_disconnect = get_cached_time();
+        return false_0 != 0;
+    }
+    if statlist_count(&raw mut (*server).outstanding_requests) > 0 as ::core::ffi::c_int {
+        disconnect_server(
+            server,
+            true_0 != 0,
+            b"client disconnected with queries in progress\0" as *const u8
+                as *const ::core::ffi::c_char,
+        );
+        return true_0 != 0;
+    }
+    if (*server).close_needed() {
+        disconnect_server(
+            server,
+            true_0 != 0,
+            b"close_needed\0" as *const u8 as *const ::core::ffi::c_char,
+        );
+        return false_0 != 0;
+    }
+    if statlist_count(&raw mut (*server).canceling_clients) > 0 as ::core::ffi::c_int {
+        change_server_state(server, SV_BEING_CANCELED);
+        return true_0 != 0;
+    }
+    if (*server).replication as u64 != 0 {
+        if !(*server).link.is_null() {
+            if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
+                != 0
+            {
+                log_generic(
+                    LG_DEBUG,
+                    server as *mut ::core::ffi::c_void,
+                    b"release_server: new replication connection ready\0" as *const u8
+                        as *const ::core::ffi::c_char,
+                );
+            }
+            change_server_state(server, SV_ACTIVE);
+            activate_client((*server).link);
+            return true_0 != 0;
+        } else {
+            disconnect_server(
+                server,
+                true_0 != 0,
+                b"replication client was closed\0" as *const u8 as *const ::core::ffi::c_char,
+            );
+            return false_0 != 0;
+        }
+    }
+    if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+        log_generic(
+            LG_NOISE,
+            server as *mut ::core::ffi::c_void,
+            b"release_server: new state=%d\0" as *const u8 as *const ::core::ffi::c_char,
+            newstate as ::core::ffi::c_uint,
+        );
+    }
+    change_server_state(server, newstate);
+    if newstate as ::core::ffi::c_uint == SV_IDLE as ::core::ffi::c_int as ::core::ffi::c_uint {
+        return reuse_on_release(server);
+    } else if newstate as ::core::ffi::c_uint
+        == SV_TESTED as ::core::ffi::c_int as ::core::ffi::c_uint
+    {
+        return reset_on_release(server);
+    }
+    return true_0 != 0;
+}
+#[c2rust::src_loc = "1314:1"]
+unsafe extern "C" fn unlink_server(
+    mut server: *mut PgSocket,
+    mut reason: *const ::core::ffi::c_char,
+) {
+    let mut client = ::core::ptr::null_mut::<PgSocket>();
+    if (*server).link.is_null() {
+        return;
+    }
+    client = (*server).link;
+    (*client).link = ::core::ptr::null_mut::<PgSocket>();
+    (*server).link = ::core::ptr::null_mut::<PgSocket>();
+    if (*client).state() as ::core::ffi::c_int == CL_ACTIVE as ::core::ffi::c_int
+        || (*client).state() as ::core::ffi::c_int == CL_WAITING as ::core::ffi::c_int
+    {
+        disconnect_client(
+            client,
+            true_0 != 0,
+            b"%s\0" as *const u8 as *const ::core::ffi::c_char,
+            reason,
+        );
+    } else if (*client).state() as ::core::ffi::c_int == CL_ACTIVE_CANCEL as ::core::ffi::c_int {
+        disconnect_client(
+            client,
+            false_0 != 0,
+            b"successfully sent cancel request\0" as *const u8 as *const ::core::ffi::c_char,
+        );
+    } else {
+        disconnect_client(
+            client,
+            true_0 != 0,
+            b"bouncer config error\0" as *const u8 as *const ::core::ffi::c_char,
+        );
+    };
+}
+#[no_mangle]
+#[c2rust::src_loc = "1344:1"]
+pub unsafe extern "C" fn disconnect_server(
+    mut server: *mut PgSocket,
+    mut send_term: bool,
+    mut reason: *const ::core::ffi::c_char,
+    mut args: ...
+) {
+    let mut now = get_cached_time();
+    let mut buf: [::core::ffi::c_char; 128] = [0; 128];
+    let mut ap: ::core::ffi::VaListImpl;
+    let mut cancel_item = ::core::ptr::null_mut::<List>();
+    let mut tmp = ::core::ptr::null_mut::<List>();
+    if server.is_null() {
+        return;
+    }
+    ap = args.clone();
+    vsnprintf(
+        &raw mut buf as *mut ::core::ffi::c_char,
+        ::core::mem::size_of::<[::core::ffi::c_char; 128]>() as size_t,
+        reason,
+        ap.as_va_list(),
+    );
+    reason = &raw mut buf as *mut ::core::ffi::c_char;
+    if cf_log_disconnections != 0 {
+        log_generic(
+            LG_INFO,
+            server as *mut ::core::ffi::c_void,
+            b"closing because: %s (age=%llus)\0" as *const u8 as *const ::core::ffi::c_char,
+            reason,
+            now.wrapping_sub((*server).connect_time).wrapping_div(USEC),
+        );
+    }
+    match (*server).state() as ::core::ffi::c_int {
+        14 | 13 => {
+            unlink_server(server, reason);
+        }
+        16 | 15 | 12 | 11 => {}
+        10 => {
+            if !(*server).ready() {
+                (*(*server).pool).set_last_login_failed((true_0 != 0) as bool);
+                (*(*server).pool).set_last_connect_failed((true_0 != 0) as bool);
+                let mut needed = strlcpy(
+                    &raw mut (*(*server).pool).last_connect_failed_message
+                        as *mut ::core::ffi::c_char,
+                    reason,
+                    ::core::mem::size_of::<[::core::ffi::c_char; 100]>() as size_t,
+                ) as size_t;
+                if (needed >= ::core::mem::size_of::<[::core::ffi::c_char; 100]>() as usize)
+                    as ::core::ffi::c_int as ::core::ffi::c_long
+                    != 0
+                {
+                    let mut _log_ctx = NULL;
+                    log_generic(
+                        LG_WARNING,
+                        _log_ctx,
+                        b"bug in %s:%d - string truncated\0" as *const u8
+                            as *const ::core::ffi::c_char,
+                        b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+                        1383 as ::core::ffi::c_int,
+                    );
+                }
+            } else {
+                (*(*server).pool).set_last_connect_failed((false_0 != 0) as bool);
+                send_term = false_0 != 0;
+            }
+            if (*server).replication as u64 != 0 {
+                unlink_server(server, reason);
+            }
+        }
+        _ => {
+            let mut _log_ctx_0 = NULL;
+            log_fatal(
+                b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+                1398 as ::core::ffi::c_int,
+                b"disconnect_server\0" as *const u8 as *const ::core::ffi::c_char,
+                false_0 != 0,
+                _log_ctx_0,
+                b"bad server state: %d, %s\0" as *const u8 as *const ::core::ffi::c_char,
+                (*server).state() as ::core::ffi::c_int,
+                reason,
+            );
+            exit(1 as ::core::ffi::c_int);
+        }
+    }
+    cancel_item = (*server).canceling_clients.head.next;
+    tmp = (*(*server).canceling_clients.head.next).next;
+    while cancel_item != &raw mut (*server).canceling_clients.head {
+        let mut cancel_client = (cancel_item as *mut ::core::ffi::c_char)
+            .offset(-(16 as ::core::ffi::c_ulong as isize))
+            as *mut PgSocket;
+        (*cancel_client).canceled_server = ::core::ptr::null_mut::<PgSocket>();
+        statlist_remove(&raw mut (*server).canceling_clients, cancel_item);
+        cancel_item = tmp;
+        tmp = (*tmp).next;
+    }
+    if send_term {
+        static mut pkt_term: [uint8_t; 5] = [
+            PqMsg_Terminate as uint8_t,
+            0 as ::core::ffi::c_int as uint8_t,
+            0 as ::core::ffi::c_int as uint8_t,
+            0 as ::core::ffi::c_int as uint8_t,
+            4 as ::core::ffi::c_int as uint8_t,
+        ];
+        let mut _ignore = sbuf_answer(
+            &raw mut (*server).sbuf,
+            &raw const pkt_term as *const uint8_t as *const ::core::ffi::c_void,
+            ::core::mem::size_of::<[uint8_t; 5]>() as size_t,
+        );
+    }
+    if !(*server).c2rust_unnamed.dns_token.is_null() {
+        adns_cancel(adns, (*server).c2rust_unnamed.dns_token);
+        (*server).c2rust_unnamed.dns_token = ::core::ptr::null_mut::<DNSToken>();
+    }
+    free_scram_state(&raw mut (*server).scram_state);
+    (*(*(*server).pool).db).connection_count -= 1;
+    if !(*(*server).pool).user_credentials.is_null() {
+        (*(*(*(*server).pool).user_credentials).global_user).connection_count -= 1;
+    }
+    change_server_state(server, SV_JUSTFREE);
+    if !sbuf_close(&raw mut (*server).sbuf) {
+        let mut _log_ctx_1 = NULL;
+        if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        {
+            log_generic(
+                LG_NOISE,
+                _log_ctx_1,
+                b"sbuf_close failed, retry later\0" as *const u8 as *const ::core::ffi::c_char,
+            );
+        }
+    }
+}
+#[no_mangle]
+#[c2rust::src_loc = "1441:1"]
+pub unsafe extern "C" fn disconnect_client(
+    mut client: *mut PgSocket,
+    mut notify: bool,
+    mut reason: *const ::core::ffi::c_char,
+    mut args: ...
+) {
+    if !reason.is_null() {
+        let mut buf: [::core::ffi::c_char; 128] = [0; 128];
+        let mut ap: ::core::ffi::VaListImpl;
+        ap = args.clone();
+        vsnprintf(
+            &raw mut buf as *mut ::core::ffi::c_char,
+            ::core::mem::size_of::<[::core::ffi::c_char; 128]>() as size_t,
+            reason,
+            ap.as_va_list(),
+        );
+        disconnect_client_sqlstate(
+            client,
+            notify,
+            ::core::ptr::null::<::core::ffi::c_char>(),
+            &raw mut buf as *mut ::core::ffi::c_char,
+        );
+    } else {
+        disconnect_client_sqlstate(
+            client,
+            notify,
+            ::core::ptr::null::<::core::ffi::c_char>(),
+            reason,
+        );
+    };
+}
+#[no_mangle]
+#[c2rust::src_loc = "1465:1"]
+pub unsafe extern "C" fn disconnect_client_sqlstate(
+    mut client: *mut PgSocket,
+    mut notify: bool,
+    mut sqlstate: *const ::core::ffi::c_char,
+    mut reason: *const ::core::ffi::c_char,
+) {
+    let mut now = get_cached_time();
+    if !(*client).c2rust_unnamed.db.is_null()
+        && (*client).contributes_db_client_count() as ::core::ffi::c_int != 0
+    {
+        (*(*client).c2rust_unnamed.db).client_connection_count -= 1;
+    }
+    if !(*client).login_user_credentials.is_null() {
+        if !(*(*client).login_user_credentials).global_user.is_null()
+            && (*client).user_connection_counted() as ::core::ffi::c_int != 0
+        {
+            (*(*(*client).login_user_credentials).global_user).client_connection_count -= 1;
+        }
+    }
+    if cf_log_disconnections != 0 && !reason.is_null() {
+        log_generic(
+            LG_INFO,
+            client as *mut ::core::ffi::c_void,
+            b"closing because: %s (age=%llus)\0" as *const u8 as *const ::core::ffi::c_char,
+            reason,
+            now.wrapping_sub((*client).connect_time).wrapping_div(USEC),
+        );
+    }
+    match (*client).state() as ::core::ffi::c_int {
+        5 | 2 => {
+            if !(*client).link.is_null() {
+                let mut server = (*client).link;
+                if !(*server).ready() {
+                    (*server).link = ::core::ptr::null_mut::<PgSocket>();
+                    (*client).link = ::core::ptr::null_mut::<PgSocket>();
+                    disconnect_server(
+                        server,
+                        true_0 != 0,
+                        b"client disconnect while server was not ready\0" as *const u8
+                            as *const ::core::ffi::c_char,
+                    );
+                } else if statlist_count(&raw mut (*server).outstanding_requests)
+                    > 0 as ::core::ffi::c_int
+                {
+                    (*server).link = ::core::ptr::null_mut::<PgSocket>();
+                    (*client).link = ::core::ptr::null_mut::<PgSocket>();
+                    disconnect_server(
+                        server,
+                        true_0 != 0,
+                        b"client disconnected with query in progress\0" as *const u8
+                            as *const ::core::ffi::c_char,
+                    );
+                } else if !sbuf_is_empty(&raw mut (*server).sbuf) {
+                    (*server).link = ::core::ptr::null_mut::<PgSocket>();
+                    (*client).link = ::core::ptr::null_mut::<PgSocket>();
+                    disconnect_server(
+                        server,
+                        true_0 != 0,
+                        b"client disconnect before everything was sent to the server\0" as *const u8
+                            as *const ::core::ffi::c_char,
+                    );
+                } else {
+                    release_server(server);
+                }
+            }
+        }
+        7 | 6 => {
+            if !(*client).link.is_null() {
+                let mut server_0 = (*client).link;
+                (*server_0).link = ::core::ptr::null_mut::<PgSocket>();
+                (*client).link = ::core::ptr::null_mut::<PgSocket>();
+                (*server_0).set_ready((true_0 != 0) as bool);
+                disconnect_server(
+                    server_0,
+                    false_0 != 0,
+                    b"client gave up on cancel request, so we also give up forwarding to server\0"
+                        as *const u8 as *const ::core::ffi::c_char,
+                );
+            }
+            if !(*client).canceled_server.is_null() {
+                let mut canceled_server = (*client).canceled_server;
+                statlist_remove(
+                    &raw mut (*canceled_server).canceling_clients,
+                    &raw mut (*client).cancel_head,
+                );
+                (*client).canceled_server = ::core::ptr::null_mut::<PgSocket>();
+                if (*canceled_server).state() as ::core::ffi::c_int
+                    == SV_BEING_CANCELED as ::core::ffi::c_int
+                    && statlist_count(&raw mut (*canceled_server).canceling_clients)
+                        == 0 as ::core::ffi::c_int
+                {
+                    release_server(canceled_server);
+                }
+            }
+        }
+        3 | 4 => {
+            if (*client).replication as ::core::ffi::c_uint != 0 && !(*client).link.is_null() {
+                let mut server_1 = (*client).link;
+                (*server_1).link = ::core::ptr::null_mut::<PgSocket>();
+                (*client).link = ::core::ptr::null_mut::<PgSocket>();
+                disconnect_server(
+                    server_1,
+                    false_0 != 0,
+                    b"replication client disconnected\0" as *const u8 as *const ::core::ffi::c_char,
+                );
+            }
+        }
+        _ => {
+            let mut _log_ctx = NULL;
+            log_fatal(
+                b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+                1580 as ::core::ffi::c_int,
+                b"disconnect_client_sqlstate\0" as *const u8 as *const ::core::ffi::c_char,
+                false_0 != 0,
+                _log_ctx,
+                b"bad client state: %d, %s\0" as *const u8 as *const ::core::ffi::c_char,
+                (*client).state() as ::core::ffi::c_int,
+                if !reason.is_null() {
+                    reason
+                } else {
+                    b"NULL\0" as *const u8 as *const ::core::ffi::c_char
+                },
+            );
+            exit(1 as ::core::ffi::c_int);
+        }
+    }
+    if notify as ::core::ffi::c_int != 0
+        && !reason.is_null()
+        && (*client).state() as ::core::ffi::c_int != CL_WAITING_CANCEL as ::core::ffi::c_int
+    {
+        send_pooler_error(client, false_0 != 0, sqlstate, true_0 != 0, reason);
+    }
+    free_header(&raw mut (*client).packet_cb_state.pkt);
+    free_scram_state(&raw mut (*client).scram_state);
+    if !(*client).login_user_credentials.is_null()
+        && (*(*client).login_user_credentials).mock_auth as ::core::ffi::c_int != 0
+    {
+        free((*client).login_user_credentials as *mut ::core::ffi::c_void);
+        (*client).login_user_credentials = ::core::ptr::null_mut::<PgCredentials>();
+    }
+    if !(*client).c2rust_unnamed.db.is_null()
+        && (*(*client).c2rust_unnamed.db).fake as ::core::ffi::c_int != 0
+    {
+        free((*client).c2rust_unnamed.db as *mut ::core::ffi::c_void);
+        (*client).c2rust_unnamed.db = ::core::ptr::null_mut::<PgDatabase>();
+    }
+    free((*client).startup_options as *mut ::core::ffi::c_void);
+    (*client).startup_options = ::core::ptr::null_mut::<::core::ffi::c_char>();
+    change_client_state(client, CL_JUSTFREE);
+    if !sbuf_close(&raw mut (*client).sbuf) {
+        let mut _log_ctx_0 = NULL;
+        if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        {
+            log_generic(
+                LG_NOISE,
+                _log_ctx_0,
+                b"sbuf_close failed, retry later\0" as *const u8 as *const ::core::ffi::c_char,
+            );
+        }
+    }
+}
+#[c2rust::src_loc = "1615:1"]
+unsafe extern "C" fn connect_server(
+    mut server: *mut PgSocket,
+    mut sa: *const sockaddr,
+    mut salen: ::core::ffi::c_int,
+) {
+    let mut res: bool = false;
+    memset(
+        &raw mut (*server).remote_addr as *mut ::core::ffi::c_void,
+        0 as ::core::ffi::c_int,
+        ::core::mem::size_of::<PgAddr>() as size_t,
+    );
+    if (*sa).sa_family as ::core::ffi::c_int == AF_UNIX {
+        pga_set(
+            &raw mut (*server).remote_addr,
+            AF_UNIX,
+            (*(*(*server).pool).db).port,
+        );
+    } else {
+        pga_copy(&raw mut (*server).remote_addr, sa);
+    }
+    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+        log_generic(
+            LG_DEBUG,
+            server as *mut ::core::ffi::c_void,
+            b"launching new connection to server\0" as *const u8 as *const ::core::ffi::c_char,
+        );
+    }
+    res = sbuf_connect(
+        &raw mut (*server).sbuf,
+        sa,
+        salen as socklen_t,
+        cf_server_connect_timeout.wrapping_div(USEC) as time_t,
+    );
+    if !res {
+        let mut _log_ctx = NULL;
+        if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        {
+            log_generic(
+                LG_NOISE,
+                _log_ctx,
+                b"failed to launch new connection\0" as *const u8 as *const ::core::ffi::c_char,
+            );
+        }
+    }
+}
+#[c2rust::src_loc = "1636:1"]
+unsafe extern "C" fn dns_callback(
+    mut arg: *mut ::core::ffi::c_void,
+    mut sa: *const sockaddr,
+    mut salen: ::core::ffi::c_int,
+) {
+    let mut server = arg as *mut PgSocket;
+    let mut db = (*(*server).pool).db as *mut PgDatabase;
+    let mut sa_in = sockaddr_in {
+        sin_len: 0,
+        sin_family: 0,
+        sin_port: 0,
+        sin_addr: in_addr { s_addr: 0 },
+        sin_zero: [0; 8],
+    };
+    let mut sa_in6 = sockaddr_in6 {
+        sin6_len: 0,
+        sin6_family: 0,
+        sin6_port: 0,
+        sin6_flowinfo: 0,
+        sin6_addr: in6_addr {
+            __u6_addr: C2RustUnnamed {
+                __u6_addr8: [0; 16],
+            },
+        },
+        sin6_scope_id: 0,
+    };
+    (*server).c2rust_unnamed.dns_token = ::core::ptr::null_mut::<DNSToken>();
+    if sa.is_null() {
+        disconnect_server(
+            server as *mut PgSocket,
+            true_0 != 0,
+            b"server DNS lookup failed\0" as *const u8 as *const ::core::ffi::c_char,
+        );
+        return;
+    } else if (*sa).sa_family as ::core::ffi::c_int == AF_INET {
+        let mut buf: [::core::ffi::c_char; 64] = [0; 64];
+        memcpy(
+            &raw mut sa_in as *mut ::core::ffi::c_void,
+            sa as *const ::core::ffi::c_void,
+            ::core::mem::size_of::<sockaddr_in>() as size_t,
+        );
+        sa_in.sin_port = (if 0 != 0 {
+            (((*db).port as __uint16_t as ::core::ffi::c_uint & 0xff00 as ::core::ffi::c_uint)
+                >> 8 as ::core::ffi::c_int
+                | ((*db).port as __uint16_t as ::core::ffi::c_uint & 0xff as ::core::ffi::c_uint)
+                    << 8 as ::core::ffi::c_int) as __uint16_t as ::core::ffi::c_int
+        } else {
+            _OSSwapInt16((*db).port as __uint16_t) as ::core::ffi::c_int
+        }) as __uint16_t as in_port_t;
+        sa = &raw mut sa_in as *mut sockaddr;
+        salen = ::core::mem::size_of::<sockaddr_in>() as ::core::ffi::c_int;
+        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        {
+            log_generic(
+                LG_DEBUG,
+                server as *mut ::core::ffi::c_void,
+                b"dns_callback: inet4: %s\0" as *const u8 as *const ::core::ffi::c_char,
+                sa2str(
+                    sa,
+                    &raw mut buf as *mut ::core::ffi::c_char,
+                    ::core::mem::size_of::<[::core::ffi::c_char; 64]>() as size_t,
+                ),
+            );
+        }
+    } else if (*sa).sa_family as ::core::ffi::c_int == AF_INET6 {
+        let mut buf_0: [::core::ffi::c_char; 64] = [0; 64];
+        memcpy(
+            &raw mut sa_in6 as *mut ::core::ffi::c_void,
+            sa as *const ::core::ffi::c_void,
+            ::core::mem::size_of::<sockaddr_in6>() as size_t,
+        );
+        sa_in6.sin6_port = (if 0 != 0 {
+            (((*db).port as __uint16_t as ::core::ffi::c_uint & 0xff00 as ::core::ffi::c_uint)
+                >> 8 as ::core::ffi::c_int
+                | ((*db).port as __uint16_t as ::core::ffi::c_uint & 0xff as ::core::ffi::c_uint)
+                    << 8 as ::core::ffi::c_int) as __uint16_t as ::core::ffi::c_int
+        } else {
+            _OSSwapInt16((*db).port as __uint16_t) as ::core::ffi::c_int
+        }) as __uint16_t as in_port_t;
+        sa = &raw mut sa_in6 as *mut sockaddr;
+        salen = ::core::mem::size_of::<sockaddr_in6>() as ::core::ffi::c_int;
+        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        {
+            log_generic(
+                LG_DEBUG,
+                server as *mut ::core::ffi::c_void,
+                b"dns_callback: inet6: %s\0" as *const u8 as *const ::core::ffi::c_char,
+                sa2str(
+                    sa,
+                    &raw mut buf_0 as *mut ::core::ffi::c_char,
+                    ::core::mem::size_of::<[::core::ffi::c_char; 64]>() as size_t,
+                ),
+            );
+        }
+    } else {
+        disconnect_server(
+            server as *mut PgSocket,
+            true_0 != 0,
+            b"unknown address family: %d\0" as *const u8 as *const ::core::ffi::c_char,
+            (*sa).sa_family as ::core::ffi::c_int,
+        );
+        return;
+    }
+    connect_server(server, sa, salen);
+}
+#[c2rust::src_loc = "1672:1"]
+unsafe extern "C" fn dns_connect(mut server: *mut PgSocket) {
+    let mut current_block: u64;
+    let mut sa_un = sockaddr_un {
+        sun_len: 0,
+        sun_family: 0,
+        sun_path: [0; 104],
+    };
+    let mut sa_in = sockaddr_in {
+        sin_len: 0,
+        sin_family: 0,
+        sin_port: 0,
+        sin_addr: in_addr { s_addr: 0 },
+        sin_zero: [0; 8],
+    };
+    let mut sa_in6 = sockaddr_in6 {
+        sin6_len: 0,
+        sin6_family: 0,
+        sin6_port: 0,
+        sin6_flowinfo: 0,
+        sin6_addr: in6_addr {
+            __u6_addr: C2RustUnnamed {
+                __u6_addr8: [0; 16],
+            },
+        },
+        sin6_scope_id: 0,
+    };
+    let mut sa = ::core::ptr::null_mut::<sockaddr>();
+    let mut db = (*(*server).pool).db as *mut PgDatabase;
+    let mut host = ::core::ptr::null::<::core::ffi::c_char>();
+    let mut sa_len: ::core::ffi::c_int = 0;
+    let mut res: ::core::ffi::c_int = 0;
+    let mut host_copy = ::core::ptr::null_mut::<::core::ffi::c_char>();
+    if !(*db).host.is_null() && !strchr((*db).host, ',' as i32).is_null() {
+        let mut count = 1 as ::core::ffi::c_int;
+        let mut n: ::core::ffi::c_int = 0;
+        if (*(*(*server).pool).db).load_balance_hosts as ::core::ffi::c_uint
+            == LOAD_BALANCE_HOSTS_DISABLE as ::core::ffi::c_int as ::core::ffi::c_uint
+            && (*(*server).pool).last_connect_failed() as ::core::ffi::c_int != 0
+        {
+            (*(*server).pool).rrcounter = (*(*server).pool).rrcounter.wrapping_add(1);
+        }
+        let mut p: *const ::core::ffi::c_char = (*db).host;
+        while *p != 0 {
+            if *p as ::core::ffi::c_int == ',' as i32 {
+                count += 1;
+            }
+            p = p.offset(1);
+        }
+        host_copy = xstrdup((*db).host);
+        host = strtok(host_copy, b",\0" as *const u8 as *const ::core::ffi::c_char);
+        n = 0 as ::core::ffi::c_int;
+        while !host.is_null() {
+            if (*(*server).pool).rrcounter as ::core::ffi::c_int % count == n {
+                break;
+            }
+            host = strtok(
+                ::core::ptr::null_mut::<::core::ffi::c_char>(),
+                b",\0" as *const u8 as *const ::core::ffi::c_char,
+            );
+            n += 1;
+        }
+        if (*(*(*server).pool).db).load_balance_hosts as ::core::ffi::c_uint
+            == LOAD_BALANCE_HOSTS_ROUND_ROBIN as ::core::ffi::c_int as ::core::ffi::c_uint
+        {
+            (*(*server).pool).rrcounter = (*(*server).pool).rrcounter.wrapping_add(1);
+        }
+    } else {
+        host = (*db).host;
+    }
+    if !host.is_null() {
+        (*server).host = xstrdup(host);
+    }
+    if host.is_null()
+        || *host.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int == '/' as i32
+        || *host.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int == '@' as i32
+    {
+        let mut unix_dir = ::core::ptr::null::<::core::ffi::c_char>();
+        memset(
+            &raw mut sa_un as *mut ::core::ffi::c_void,
+            0 as ::core::ffi::c_int,
+            ::core::mem::size_of::<sockaddr_un>() as size_t,
+        );
+        sa_un.sun_family = AF_UNIX as sa_family_t;
+        unix_dir = if !host.is_null() {
+            host
+        } else {
+            cf_unix_socket_dir as *const ::core::ffi::c_char
+        };
+        if unix_dir.is_null() || *unix_dir == 0 {
+            let mut _log_ctx = NULL;
+            log_generic(
+                LG_ERROR,
+                _log_ctx,
+                b"unix socket dir not configured: %s\0" as *const u8 as *const ::core::ffi::c_char,
+                &raw mut (*db).name as *mut ::core::ffi::c_char,
+            );
+            disconnect_server(
+                server as *mut PgSocket,
+                false_0 != 0,
+                b"cannot connect\0" as *const u8 as *const ::core::ffi::c_char,
+            );
+            current_block = 6484020372121692021;
+        } else {
+            snprintf(
+                &raw mut sa_un.sun_path as *mut ::core::ffi::c_char,
+                ::core::mem::size_of::<[::core::ffi::c_char; 104]>() as size_t,
+                b"%s/.s.PGSQL.%d\0" as *const u8 as *const ::core::ffi::c_char,
+                unix_dir,
+                (*db).port,
+            );
+            if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
+                != 0
+            {
+                log_generic(
+                    LG_NOISE,
+                    server as *mut ::core::ffi::c_void,
+                    b"unix socket: %s\0" as *const u8 as *const ::core::ffi::c_char,
+                    &raw mut sa_un.sun_path as *mut ::core::ffi::c_char,
+                );
+            }
+            if *unix_dir.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                == '@' as i32
+            {
+                sa_len = (2 as size_t)
+                    .wrapping_add(strlen(&raw mut sa_un.sun_path as *mut ::core::ffi::c_char))
+                    as ::core::ffi::c_int;
+                sa_un.sun_path[0 as ::core::ffi::c_int as usize] =
+                    '\0' as i32 as ::core::ffi::c_char;
+            } else {
+                sa_len = ::core::mem::size_of::<sockaddr_un>() as ::core::ffi::c_int;
+            }
+            sa = &raw mut sa_un as *mut sockaddr;
+            res = 1 as ::core::ffi::c_int;
+            current_block = 6072622540298447352;
+        }
+    } else {
+        if !strchr(host, ':' as i32).is_null() {
+            if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
+                != 0
+            {
+                log_generic(
+                    LG_NOISE,
+                    server as *mut ::core::ffi::c_void,
+                    b"inet6 socket: %s\0" as *const u8 as *const ::core::ffi::c_char,
+                    host,
+                );
+            }
+            memset(
+                &raw mut sa_in6 as *mut ::core::ffi::c_void,
+                0 as ::core::ffi::c_int,
+                ::core::mem::size_of::<sockaddr_in6>() as size_t,
+            );
+            sa_in6.sin6_family = AF_INET6 as sa_family_t;
+            res = inet_pton(
+                AF_INET6,
+                host,
+                &raw mut sa_in6.sin6_addr as *mut ::core::ffi::c_void,
+            );
+            sa_in6.sin6_port = (if 0 != 0 {
+                (((*db).port as __uint16_t as ::core::ffi::c_uint & 0xff00 as ::core::ffi::c_uint)
+                    >> 8 as ::core::ffi::c_int
+                    | ((*db).port as __uint16_t as ::core::ffi::c_uint
+                        & 0xff as ::core::ffi::c_uint)
+                        << 8 as ::core::ffi::c_int) as __uint16_t
+                    as ::core::ffi::c_int
+            } else {
+                _OSSwapInt16((*db).port as __uint16_t) as ::core::ffi::c_int
+            }) as __uint16_t as in_port_t;
+            sa = &raw mut sa_in6 as *mut sockaddr;
+            sa_len = ::core::mem::size_of::<sockaddr_in6>() as ::core::ffi::c_int;
+        } else {
+            if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
+                != 0
+            {
+                log_generic(
+                    LG_NOISE,
+                    server as *mut ::core::ffi::c_void,
+                    b"inet socket: %s\0" as *const u8 as *const ::core::ffi::c_char,
+                    host,
+                );
+            }
+            memset(
+                &raw mut sa_in as *mut ::core::ffi::c_void,
+                0 as ::core::ffi::c_int,
+                ::core::mem::size_of::<sockaddr_in>() as size_t,
+            );
+            sa_in.sin_family = AF_INET as sa_family_t;
+            res = inet_pton(
+                AF_INET,
+                host,
+                &raw mut sa_in.sin_addr as *mut ::core::ffi::c_void,
+            );
+            sa_in.sin_port = (if 0 != 0 {
+                (((*db).port as __uint16_t as ::core::ffi::c_uint & 0xff00 as ::core::ffi::c_uint)
+                    >> 8 as ::core::ffi::c_int
+                    | ((*db).port as __uint16_t as ::core::ffi::c_uint
+                        & 0xff as ::core::ffi::c_uint)
+                        << 8 as ::core::ffi::c_int) as __uint16_t
+                    as ::core::ffi::c_int
+            } else {
+                _OSSwapInt16((*db).port as __uint16_t) as ::core::ffi::c_int
+            }) as __uint16_t as in_port_t;
+            sa = &raw mut sa_in as *mut sockaddr;
+            sa_len = ::core::mem::size_of::<sockaddr_in>() as ::core::ffi::c_int;
+        }
+        current_block = 6072622540298447352;
+    }
+    match current_block {
+        6072622540298447352 => {
+            if res != 1 as ::core::ffi::c_int {
+                let mut tk = ::core::ptr::null_mut::<DNSToken>();
+                if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int
+                    as ::core::ffi::c_long
+                    != 0
+                {
+                    log_generic(
+                        LG_NOISE,
+                        server as *mut ::core::ffi::c_void,
+                        b"dns socket: %s\0" as *const u8 as *const ::core::ffi::c_char,
+                        host,
+                    );
+                }
+                tk = adns_resolve(
+                    adns,
+                    host,
+                    Some(
+                        dns_callback
+                            as unsafe extern "C" fn(
+                                *mut ::core::ffi::c_void,
+                                *const sockaddr,
+                                ::core::ffi::c_int,
+                            ) -> (),
+                    ),
+                    server as *mut ::core::ffi::c_void,
+                );
+                if !tk.is_null() {
+                    (*server).c2rust_unnamed.dns_token = tk;
+                }
+            } else {
+                connect_server(server, sa, sa_len);
+            }
+        }
+        _ => {}
+    }
+    free(host_copy as *mut ::core::ffi::c_void);
+}
+#[no_mangle]
+#[c2rust::src_loc = "1773:1"]
+pub unsafe extern "C" fn compare_connections_by_time(
+    mut lhs: *mut PgSocket,
+    mut rhs: *mut PgSocket,
+) -> *mut PgSocket {
+    if lhs.is_null() {
+        return rhs;
+    }
+    if rhs.is_null() {
+        return lhs;
+    }
+    return if (*lhs).request_time < (*rhs).request_time {
+        lhs
+    } else {
+        rhs
+    };
+}
+#[no_mangle]
+#[c2rust::src_loc = "1783:1"]
+pub unsafe extern "C" fn evict_connection(mut db: *mut PgDatabase) -> bool {
+    let mut item = ::core::ptr::null_mut::<List>();
+    let mut pool = ::core::ptr::null_mut::<PgPool>();
+    let mut oldest_connection = ::core::ptr::null_mut::<PgSocket>();
+    item = pool_list.head.next;
+    while item != &raw mut pool_list.head {
+        pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+            as *mut PgPool;
+        if !((*pool).db != db) {
+            oldest_connection = compare_connections_by_time(
+                oldest_connection,
+                last_socket(&raw mut (*pool).idle_server_list),
+            );
+            if statlist_empty(&raw mut (*pool).waiting_client_list) {
+                oldest_connection = compare_connections_by_time(
+                    oldest_connection,
+                    last_socket(&raw mut (*pool).used_server_list),
+                );
+                oldest_connection = compare_connections_by_time(
+                    oldest_connection,
+                    last_socket(&raw mut (*pool).tested_server_list),
+                );
+            }
+        }
+        item = (*item).next;
+    }
+    if !oldest_connection.is_null() {
+        disconnect_server(
+            oldest_connection,
+            true_0 != 0,
+            b"evicted\0" as *const u8 as *const ::core::ffi::c_char,
+        );
+        return true_0 != 0;
+    }
+    return false_0 != 0;
+}
+#[no_mangle]
+#[c2rust::src_loc = "1809:1"]
+pub unsafe extern "C" fn evict_pool_connection(mut pool: *mut PgPool) -> bool {
+    let mut oldest_connection = ::core::ptr::null_mut::<PgSocket>();
+    oldest_connection = compare_connections_by_time(
+        oldest_connection,
+        last_socket(&raw mut (*pool).idle_server_list),
+    );
+    if !oldest_connection.is_null() {
+        disconnect_server(
+            oldest_connection,
+            true_0 != 0,
+            b"evicted\0" as *const u8 as *const ::core::ffi::c_char,
+        );
+        return true_0 != 0;
+    }
+    return false_0 != 0;
+}
+#[no_mangle]
+#[c2rust::src_loc = "1824:1"]
+pub unsafe extern "C" fn evict_user_connection(mut user_credentials: *mut PgCredentials) -> bool {
+    let mut item = ::core::ptr::null_mut::<List>();
+    let mut pool = ::core::ptr::null_mut::<PgPool>();
+    let mut oldest_connection = ::core::ptr::null_mut::<PgSocket>();
+    item = pool_list.head.next;
+    while item != &raw mut pool_list.head {
+        pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+            as *mut PgPool;
+        if !((*pool).user_credentials != user_credentials) {
+            oldest_connection = compare_connections_by_time(
+                oldest_connection,
+                last_socket(&raw mut (*pool).idle_server_list),
+            );
+            if statlist_empty(&raw mut (*pool).waiting_client_list) {
+                oldest_connection = compare_connections_by_time(
+                    oldest_connection,
+                    last_socket(&raw mut (*pool).used_server_list),
+                );
+                oldest_connection = compare_connections_by_time(
+                    oldest_connection,
+                    last_socket(&raw mut (*pool).tested_server_list),
+                );
+            }
+        }
+        item = (*item).next;
+    }
+    if !oldest_connection.is_null() {
+        disconnect_server(
+            oldest_connection,
+            true_0 != 0,
+            b"evicted\0" as *const u8 as *const ::core::ffi::c_char,
+        );
+        return true_0 != 0;
+    }
+    return false_0 != 0;
+}
+#[no_mangle]
+#[c2rust::src_loc = "1858:1"]
+pub unsafe extern "C" fn launch_new_connection(mut pool: *mut PgPool, mut evict_if_needed: bool) {
+    let mut current_block: u64;
+    let mut server = ::core::ptr::null_mut::<PgSocket>();
+    let mut max: ::core::ffi::c_int = 0;
+    let mut _log_ctx = NULL;
+    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+        log_generic(
+            LG_DEBUG,
+            _log_ctx,
+            b"launch_new_connection: start\0" as *const u8 as *const ::core::ffi::c_char,
+        );
+    }
+    if !statlist_empty(&raw mut (*pool).new_server_list) {
+        let mut _log_ctx_0 = NULL;
+        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        {
+            log_generic(
+                LG_DEBUG,
+                _log_ctx_0,
+                b"launch_new_connection: already progress\0" as *const u8
+                    as *const ::core::ffi::c_char,
+            );
+        }
+        return;
+    }
+    if (*pool).last_connect_failed() {
+        let mut now = get_cached_time();
+        if now.wrapping_sub((*pool).last_connect_time) < cf_server_login_retry {
+            let mut _log_ctx_1 = NULL;
+            if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
+                != 0
+            {
+                log_generic(
+                    LG_DEBUG,
+                    _log_ctx_1,
+                    b"launch_new_connection: last failed, not launching new connection yet, still waiting %llu s\0"
+                        as *const u8 as *const ::core::ffi::c_char,
+                    cf_server_login_retry
+                        .wrapping_sub(now.wrapping_sub((*pool).last_connect_time))
+                        .wrapping_div(1000000 as ::core::ffi::c_int as usec_t),
+                );
+            }
+            return;
+        }
+    }
+    max = statlist_count(&raw mut (*pool).active_server_list)
+        + statlist_count(&raw mut (*pool).being_canceled_server_list)
+        + statlist_count(&raw mut (*pool).idle_server_list)
+        + statlist_count(&raw mut (*pool).tested_server_list)
+        + statlist_count(&raw mut (*pool).used_server_list)
+        + statlist_count(&raw mut (*pool).new_server_list)
+        + statlist_count(&raw mut (*pool).active_cancel_server_list);
+    if (*(*pool).db).peer_id != 0 {
+        if !(max < pool_pool_size(pool)) {
+            let mut _log_ctx_2 = NULL;
+            if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
+                != 0
+            {
+                log_generic(
+                    LG_DEBUG,
+                    _log_ctx_2,
+                    b"launch_new_connection: peer pool full (%d >= %d)\0" as *const u8
+                        as *const ::core::ffi::c_char,
+                    max,
+                    pool_pool_size(pool),
+                );
+            }
+            return;
+        }
+    } else if !statlist_empty(&raw mut (*pool).waiting_cancel_req_list)
+        && max < 2 as ::core::ffi::c_int * pool_pool_size(pool)
+    {
+        let mut _log_ctx_3 = NULL;
+        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        {
+            log_generic(
+                LG_DEBUG,
+                _log_ctx_3,
+                b"launch_new_connection: bypass pool limitations for cancel request\0" as *const u8
+                    as *const ::core::ffi::c_char,
+            );
+        }
+    } else {
+        if pool_pool_size(pool) > 0 as ::core::ffi::c_int {
+            if max >= pool_pool_size(pool) && (*pool).welcome_msg_ready() as ::core::ffi::c_int != 0
+            {
+                let mut c = first_socket(&raw mut (*pool).waiting_client_list);
+                if cf_res_pool_timeout != 0 && pool_res_pool_size(pool) != 0 {
+                    let mut now_0 = get_cached_time();
+                    if !c.is_null() && now_0.wrapping_sub((*c).request_time) >= cf_res_pool_timeout
+                    {
+                        if max < pool_pool_size(pool) + pool_res_pool_size(pool) {
+                            log_generic(
+                                LG_WARNING,
+                                c as *mut ::core::ffi::c_void,
+                                b"taking connection from reserve_pool\0" as *const u8
+                                    as *const ::core::ffi::c_char,
+                            );
+                            current_block = 14785029078859074793;
+                        } else {
+                            current_block = 5529461102203738653;
+                        }
+                    } else {
+                        current_block = 5529461102203738653;
+                    }
+                } else {
+                    current_block = 5529461102203738653;
+                }
+                match current_block {
+                    14785029078859074793 => {}
+                    _ => {
+                        if !c.is_null()
+                            && (*c).replication as ::core::ffi::c_uint != 0
+                            && !sending_auth_query(c)
+                        {
+                            while evict_if_needed as ::core::ffi::c_int != 0
+                                && pool_pool_size(pool) >= max
+                            {
+                                if !evict_pool_connection(pool) {
+                                    break;
+                                }
+                            }
+                            if pool_pool_size(pool) < max {
+                                current_block = 14785029078859074793;
+                            } else {
+                                current_block = 12997042908615822766;
+                            }
+                        } else {
+                            current_block = 12997042908615822766;
+                        }
+                        match current_block {
+                            14785029078859074793 => {}
+                            _ => {
+                                let mut _log_ctx_4 = NULL;
+                                if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int
+                                    as ::core::ffi::c_long
+                                    != 0
+                                {
+                                    log_generic(
+                                        LG_DEBUG,
+                                        _log_ctx_4,
+                                        b"launch_new_connection: pool full (%d >= %d)\0"
+                                            as *const u8
+                                            as *const ::core::ffi::c_char,
+                                        max,
+                                        pool_pool_size(pool),
+                                    );
+                                }
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        max = database_max_connections((*pool).db);
+        if max > 0 as ::core::ffi::c_int {
+            while evict_if_needed as ::core::ffi::c_int != 0
+                && (*(*pool).db).connection_count >= max
+            {
+                if !evict_connection((*pool).db) {
+                    break;
+                }
+            }
+            if (*(*pool).db).connection_count >= max {
+                let mut _log_ctx_5 = NULL;
+                if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int
+                    as ::core::ffi::c_long
+                    != 0
+                {
+                    log_generic(
+                        LG_DEBUG,
+                        _log_ctx_5,
+                        b"launch_new_connection: database '%s' full (%d >= %d)\0" as *const u8
+                            as *const ::core::ffi::c_char,
+                        &raw mut (*(*pool).db).name as *mut ::core::ffi::c_char,
+                        (*(*pool).db).connection_count,
+                        max,
+                    );
+                }
+                return;
+            }
+        }
+        max = user_max_connections((*(*pool).user_credentials).global_user);
+        if max > 0 as ::core::ffi::c_int {
+            while evict_if_needed as ::core::ffi::c_int != 0
+                && (*(*(*pool).user_credentials).global_user).connection_count >= max
+            {
+                if !evict_user_connection((*pool).user_credentials) {
+                    break;
+                }
+            }
+            if (*(*(*pool).user_credentials).global_user).connection_count >= max {
+                let mut _log_ctx_6 = NULL;
+                if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int
+                    as ::core::ffi::c_long
+                    != 0
+                {
+                    log_generic(
+                        LG_DEBUG,
+                        _log_ctx_6,
+                        b"launch_new_connection: user '%s' full (%d >= %d)\0" as *const u8
+                            as *const ::core::ffi::c_char,
+                        &raw mut (*(*pool).user_credentials).name as *mut ::core::ffi::c_char,
+                        (*(*(*pool).user_credentials).global_user).connection_count,
+                        max,
+                    );
+                }
+                return;
+            }
+        }
+    }
+    server = slab_alloc(server_cache) as *mut PgSocket;
+    if server.is_null() {
+        let mut _log_ctx_7 = NULL;
+        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        {
+            log_generic(
+                LG_DEBUG,
+                _log_ctx_7,
+                b"launch_new_connection: no memory\0" as *const u8 as *const ::core::ffi::c_char,
+            );
+        }
+        return;
+    }
+    (*server).pool = pool;
+    (*server).login_user_credentials = (*(*server).pool).user_credentials;
+    (*server).connect_time = get_cached_time();
+    statlist_init(
+        &raw mut (*server).canceling_clients,
+        b"canceling_clients\0" as *const u8 as *const ::core::ffi::c_char,
+    );
+    (*pool).last_connect_time = get_cached_time();
+    change_server_state(server, SV_LOGIN);
+    (*(*pool).db).connection_count += 1;
+    if !(*pool).user_credentials.is_null() {
+        (*(*(*pool).user_credentials).global_user).connection_count += 1;
+    }
+    dns_connect(server as *mut PgSocket);
+}
+#[no_mangle]
+#[c2rust::src_loc = "1999:1"]
+pub unsafe extern "C" fn accept_client(
+    mut sock: ::core::ffi::c_int,
+    mut is_unix: bool,
+) -> *mut PgSocket {
+    let mut res: bool = false;
+    let mut client = ::core::ptr::null_mut::<PgSocket>();
+    client = slab_alloc(client_cache) as *mut PgSocket;
+    if client.is_null() {
+        let mut _log_ctx = NULL;
+        log_generic(
+            LG_WARNING,
+            _log_ctx,
+            b"cannot allocate client struct\0" as *const u8 as *const ::core::ffi::c_char,
+        );
+        safe_close(sock);
+        return ::core::ptr::null_mut::<PgSocket>();
+    }
+    (*client).request_time = get_cached_time();
+    (*client).connect_time = (*client).request_time;
+    (*client).query_start = 0 as usec_t;
+    fill_remote_addr(client, sock, is_unix);
+    fill_local_addr(client, sock, is_unix);
+    change_client_state(client, CL_LOGIN);
+    res = sbuf_accept(&raw mut (*client).sbuf, sock, is_unix);
+    if !res {
+        if cf_log_connections != 0 {
+            if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
+                != 0
+            {
+                log_generic(
+                    LG_DEBUG,
+                    client as *mut ::core::ffi::c_void,
+                    b"failed connection attempt\0" as *const u8 as *const ::core::ffi::c_char,
+                );
+            }
+        }
+        return ::core::ptr::null_mut::<PgSocket>();
+    }
+    return client;
+}
+#[no_mangle]
+#[c2rust::src_loc = "2033:1"]
+pub unsafe extern "C" fn finish_client_login(mut client: *mut PgSocket) -> bool {
+    if (*(*client).c2rust_unnamed.db).fake {
+        if cf_log_connections != 0 {
+            log_generic(
+                LG_INFO,
+                client as *mut ::core::ffi::c_void,
+                b"login failed: db=%s user=%s\0" as *const u8 as *const ::core::ffi::c_char,
+                &raw mut (*(*client).c2rust_unnamed.db).name as *mut ::core::ffi::c_char,
+                &raw mut (*(*client).login_user_credentials).name as *mut ::core::ffi::c_char,
+            );
+        }
+        disconnect_client(
+            client,
+            true_0 != 0,
+            b"no such database: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            &raw mut (*(*client).c2rust_unnamed.db).name as *mut ::core::ffi::c_char,
+        );
+        return false_0 != 0;
+    }
+    if (*(*client).c2rust_unnamed.db).db_disabled {
+        disconnect_client(
+            client,
+            true_0 != 0,
+            b"database \"%s\" is disabled\0" as *const u8 as *const ::core::ffi::c_char,
+            &raw mut (*(*client).c2rust_unnamed.db).name as *mut ::core::ffi::c_char,
+        );
+        return false_0 != 0;
+    }
+    if cf_shutdown != 0
+        && strcmp(
+            b"pgbouncer\0" as *const u8 as *const ::core::ffi::c_char,
+            &raw mut (*(*client).c2rust_unnamed.db).name as *mut ::core::ffi::c_char,
+        ) != 0
+    {
+        disconnect_client(
+            client,
+            true_0 != 0,
+            b"pooler is shutting down\0" as *const u8 as *const ::core::ffi::c_char,
+        );
+        return false_0 != 0;
+    }
+    match (*client).state() as ::core::ffi::c_int {
+        2 => {
+            change_client_state(client, CL_ACTIVE);
+        }
+        5 => {}
+        _ => {
+            let mut _log_ctx = NULL;
+            log_fatal(
+                b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+                2058 as ::core::ffi::c_int,
+                b"finish_client_login\0" as *const u8 as *const ::core::ffi::c_char,
+                false_0 != 0,
+                _log_ctx,
+                b"bad client state: %d\0" as *const u8 as *const ::core::ffi::c_char,
+                (*client).state() as ::core::ffi::c_int,
+            );
+            exit(1 as ::core::ffi::c_int);
+        }
+    }
+    (*client).set_wait_for_auth((false_0 != 0) as bool);
+    if !(*(*client).pool).welcome_msg_ready() {
+        let mut _log_ctx_0 = NULL;
+        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        {
+            log_generic(
+                LG_DEBUG,
+                _log_ctx_0,
+                b"finish_client_login: no welcome message, pause\0" as *const u8
+                    as *const ::core::ffi::c_char,
+            );
+        }
+        (*client).set_wait_for_welcome((true_0 != 0) as bool);
+        pause_client(client);
+        if cf_pause_mode == P_NONE as ::core::ffi::c_int {
+            launch_new_connection((*client).pool, true_0 != 0);
+        }
+        return false_0 != 0;
+    }
+    (*client).set_wait_for_welcome((false_0 != 0) as bool);
+    if !welcome_client(client) {
+        return false_0 != 0;
+    }
+    (*client).set_welcome_sent((true_0 != 0) as bool);
+    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+        log_generic(
+            LG_DEBUG,
+            client as *mut ::core::ffi::c_void,
+            b"logged in\0" as *const u8 as *const ::core::ffi::c_char,
+        );
+    }
+    return true_0 != 0;
+}
+#[c2rust::src_loc = "2084:1"]
+unsafe extern "C" fn accept_cancel_request_for_peer(
+    mut peer_id: ::core::ffi::c_int,
+    mut req: *mut PgSocket,
+) {
+    let mut peer = ::core::ptr::null_mut::<PgDatabase>();
+    let mut pool = ::core::ptr::null_mut::<PgPool>();
+    let mut ttl = (*req).cancel_key[7 as ::core::ffi::c_int as usize] as ::core::ffi::c_int
+        & CANCELLATION_TTL_MASK;
+    if ttl == 0 as ::core::ffi::c_int {
+        disconnect_client(
+            req,
+            false_0 != 0,
+            b"failed to forward cancel request because its TTL was exhausted\0" as *const u8
+                as *const ::core::ffi::c_char,
+        );
+        return;
+    }
+    (*req).cancel_key[7 as ::core::ffi::c_int as usize] =
+        (*req).cancel_key[7 as ::core::ffi::c_int as usize].wrapping_sub(1);
+    peer = find_peer(peer_id);
+    if peer.is_null() {
+        disconnect_client(
+            req,
+            false_0 != 0,
+            b"could not find peer to forward request to\0" as *const u8
+                as *const ::core::ffi::c_char,
+        );
+        return;
+    }
+    let mut _log_ctx = NULL;
+    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+        log_generic(
+            LG_DEBUG,
+            _log_ctx,
+            b"forwarding cancellation request to peer %d\0" as *const u8
+                as *const ::core::ffi::c_char,
+            peer_id,
+        );
+    }
+    pool = get_peer_pool(peer);
+    if pool.is_null() {
+        disconnect_client(
+            req,
+            false_0 != 0,
+            b"out of memory\0" as *const u8 as *const ::core::ffi::c_char,
+        );
+        return;
+    }
+    (*req).pool = pool;
+    pause_cancel_request(req);
+    launch_new_connection(pool, true_0 != 0);
+}
+#[no_mangle]
+#[c2rust::src_loc = "2140:1"]
+pub unsafe extern "C" fn accept_cancel_request(mut req: *mut PgSocket) {
+    let mut pitem = ::core::ptr::null_mut::<List>();
+    let mut citem = ::core::ptr::null_mut::<List>();
+    let mut pool = ::core::ptr::null_mut::<PgPool>();
+    let mut server = ::core::ptr::null_mut::<PgSocket>();
+    let mut client = ::core::ptr::null_mut::<PgSocket>();
+    let mut main_client = ::core::ptr::null_mut::<PgSocket>();
+    let mut peering_enabled = false_0 != 0;
+    peering_enabled = cf_peer_id > 0 as ::core::ffi::c_int;
+    if peering_enabled {
+        let mut peer_id = (*req).cancel_key[1 as ::core::ffi::c_int as usize] as ::core::ffi::c_int
+            + (((*req).cancel_key[2 as ::core::ffi::c_int as usize] as ::core::ffi::c_int)
+                << 8 as ::core::ffi::c_int);
+        let mut needs_forwarding_to_peer = cf_peer_id != peer_id;
+        if needs_forwarding_to_peer {
+            accept_cancel_request_for_peer(peer_id, req);
+            return;
+        }
+        (*req).cancel_key[7 as ::core::ffi::c_int as usize] =
+            ((*req).cancel_key[7 as ::core::ffi::c_int as usize] as ::core::ffi::c_int
+                | CANCELLATION_TTL_MASK) as uint8_t;
+    }
+    pitem = pool_list.head.next;
+    's_45: while pitem != &raw mut pool_list.head {
+        pool = (pitem as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+            as *mut PgPool;
+        citem = (*pool).active_client_list.head.next;
+        while citem != &raw mut (*pool).active_client_list.head {
+            client = (citem as *mut ::core::ffi::c_char)
+                .offset(-(0 as ::core::ffi::c_ulong as isize))
+                as *mut PgSocket;
+            if memcmp(
+                &raw mut (*client).cancel_key as *mut uint8_t as *const ::core::ffi::c_void,
+                &raw mut (*req).cancel_key as *mut uint8_t as *const ::core::ffi::c_void,
+                8 as size_t,
+            ) == 0 as ::core::ffi::c_int
+            {
+                main_client = client;
+                break 's_45;
+            } else {
+                citem = (*citem).next;
+            }
+        }
+        citem = (*pool).waiting_client_list.head.next;
+        while citem != &raw mut (*pool).waiting_client_list.head {
+            client = (citem as *mut ::core::ffi::c_char)
+                .offset(-(0 as ::core::ffi::c_ulong as isize))
+                as *mut PgSocket;
+            if memcmp(
+                &raw mut (*client).cancel_key as *mut uint8_t as *const ::core::ffi::c_void,
+                &raw mut (*req).cancel_key as *mut uint8_t as *const ::core::ffi::c_void,
+                8 as size_t,
+            ) == 0 as ::core::ffi::c_int
+            {
+                main_client = client;
+                break 's_45;
+            } else {
+                citem = (*citem).next;
+            }
+        }
+        pitem = (*pitem).next;
+    }
+    if main_client.is_null() {
+        disconnect_client(
+            req,
+            false_0 != 0,
+            b"failed cancel request\0" as *const u8 as *const ::core::ffi::c_char,
+        );
+        return;
+    }
+    if (*(*(*main_client).pool).db).admin {
+        disconnect_client(
+            req,
+            false_0 != 0,
+            b"cancel request for console client\0" as *const u8 as *const ::core::ffi::c_char,
+        );
+        admin_handle_cancel(main_client);
+        return;
+    }
+    if (*main_client).link.is_null() {
+        disconnect_client(
+            req,
+            false_0 != 0,
+            b"cancel request for idle client\0" as *const u8 as *const ::core::ffi::c_char,
+        );
+        return;
+    }
+    server = (*main_client).link;
+    if (*server).setting_vars() {
+        disconnect_client(
+            req,
+            false_0 != 0,
+            b"ignoring cancel request for server that is setting vars\0" as *const u8
+                as *const ::core::ffi::c_char,
+        );
+        return;
+    }
+    (*req).canceled_server = server;
+    statlist_append(
+        &raw mut (*server).canceling_clients,
+        &raw mut (*req).cancel_head,
+    );
+    (*req).pool = pool;
+    pause_cancel_request(req);
+    launch_new_connection(pool, true_0 != 0);
+}
+#[no_mangle]
+#[c2rust::src_loc = "2251:1"]
+pub unsafe extern "C" fn forward_cancel_request(mut server: *mut PgSocket) {
+    let mut res: bool = false;
+    let mut req = first_socket(&raw mut (*(*server).pool).waiting_cancel_req_list);
+    let mut forwarding_to_peer = (*(*(*server).pool).db).peer_id != 0 as ::core::ffi::c_int;
+    (*server).link = req;
+    (*req).link = server;
+    if !forwarding_to_peer {
+        if (*req).canceled_server.is_null() {
+            disconnect_client(
+                req,
+                false_0 != 0,
+                b"not sending cancel request for client that is now idle\0" as *const u8
+                    as *const ::core::ffi::c_char,
+            );
+            return;
+        }
+    }
+    if forwarding_to_peer {
+        let mut _data: [uint8_t; 16] = [0; 16];
+        let mut _buf = PktBuf {
+            buf: ::core::ptr::null_mut::<uint8_t>(),
+            buf_len: 0,
+            write_pos: 0,
+            pktlen_pos: 0,
+            send_pos: 0,
+            ev: ::core::ptr::null_mut::<event>(),
+            queued_dst: ::core::ptr::null_mut::<PgSocket>(),
+            failed_sending_fixed_buf: [0; 1],
+            c2rust_padding: [0; 7],
+        };
+        pktbuf_static(
+            &raw mut _buf,
+            &raw mut _data as *mut uint8_t,
+            ::core::mem::size_of::<[uint8_t; 16]>() as ::core::ffi::c_int,
+        );
+        pktbuf_write_generic(
+            &raw mut _buf,
+            PKT_CANCEL,
+            b"b\0" as *const u8 as *const ::core::ffi::c_char,
+            &raw mut (*req).cancel_key as *mut uint8_t,
+            8 as ::core::ffi::c_int,
+        );
+        res = pktbuf_send_immediate(&raw mut _buf, server);
+    } else {
+        let mut _data_0: [uint8_t; 16] = [0; 16];
+        let mut _buf_0 = PktBuf {
+            buf: ::core::ptr::null_mut::<uint8_t>(),
+            buf_len: 0,
+            write_pos: 0,
+            pktlen_pos: 0,
+            send_pos: 0,
+            ev: ::core::ptr::null_mut::<event>(),
+            queued_dst: ::core::ptr::null_mut::<PgSocket>(),
+            failed_sending_fixed_buf: [0; 1],
+            c2rust_padding: [0; 7],
+        };
+        pktbuf_static(
+            &raw mut _buf_0,
+            &raw mut _data_0 as *mut uint8_t,
+            ::core::mem::size_of::<[uint8_t; 16]>() as ::core::ffi::c_int,
+        );
+        pktbuf_write_generic(
+            &raw mut _buf_0,
+            PKT_CANCEL,
+            b"b\0" as *const u8 as *const ::core::ffi::c_char,
+            &raw mut (*(*req).canceled_server).cancel_key as *mut uint8_t,
+            8 as ::core::ffi::c_int,
+        );
+        res = pktbuf_send_immediate(&raw mut _buf_0, server);
+    }
+    if !res {
+        log_generic(
+            LG_WARNING,
+            req as *mut ::core::ffi::c_void,
+            b"sending cancel request failed: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            strerror(*__error()),
+        );
+        disconnect_client(
+            req,
+            false_0 != 0,
+            b"failed to send cancel request\0" as *const u8 as *const ::core::ffi::c_char,
+        );
+        return;
+    }
+    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+        log_generic(
+            LG_DEBUG,
+            req as *mut ::core::ffi::c_void,
+            b"started sending cancel request\0" as *const u8 as *const ::core::ffi::c_char,
+        );
+    }
+    change_client_state(req, CL_ACTIVE_CANCEL);
+    change_server_state(server, SV_ACTIVE_CANCEL);
+    sbuf_continue(&raw mut (*server).sbuf);
+}
+#[no_mangle]
+#[c2rust::src_loc = "2296:1"]
+pub unsafe extern "C" fn use_client_socket(
+    mut fd: ::core::ffi::c_int,
+    mut addr: *mut PgAddr,
+    mut dbname: *const ::core::ffi::c_char,
+    mut username: *const ::core::ffi::c_char,
+    mut ckey: uint64_t,
+    mut oldfd: ::core::ffi::c_int,
+    mut linkfd: ::core::ffi::c_int,
+    mut client_enc: *const ::core::ffi::c_char,
+    mut std_string: *const ::core::ffi::c_char,
+    mut datestyle: *const ::core::ffi::c_char,
+    mut timezone: *const ::core::ffi::c_char,
+    mut password: *const ::core::ffi::c_char,
+    mut scram_client_key: *const ::core::ffi::c_char,
+    mut scram_client_key_len: ::core::ffi::c_int,
+    mut scram_server_key: *const ::core::ffi::c_char,
+    mut scram_server_key_len: ::core::ffi::c_int,
+) -> bool {
+    let mut db = find_database(dbname);
+    let mut client = ::core::ptr::null_mut::<PgSocket>();
+    let mut tmp = PktBuf {
+        buf: ::core::ptr::null_mut::<uint8_t>(),
+        buf_len: 0,
+        write_pos: 0,
+        pktlen_pos: 0,
+        send_pos: 0,
+        ev: ::core::ptr::null_mut::<event>(),
+        queued_dst: ::core::ptr::null_mut::<PgSocket>(),
+        failed_sending_fixed_buf: [0; 1],
+        c2rust_padding: [0; 7],
+    };
+    if db.is_null() {
+        db = register_auto_database(dbname);
+        if db.is_null() {
+            return true_0 != 0;
+        }
+    }
+    if !scram_client_key.is_null() || !scram_server_key.is_null() {
+        let mut credentials = ::core::ptr::null_mut::<PgCredentials>();
+        if scram_client_key.is_null() || scram_server_key.is_null() {
+            let mut _log_ctx = NULL;
+            log_generic(
+                LG_ERROR,
+                _log_ctx,
+                b"incomplete SCRAM key data\0" as *const u8 as *const ::core::ffi::c_char,
+            );
+            return false_0 != 0;
+        }
+        if ::core::mem::size_of::<[uint8_t; 32]>() as usize != scram_client_key_len as usize
+            || ::core::mem::size_of::<[uint8_t; 32]>() as usize != scram_server_key_len as usize
+        {
+            let mut _log_ctx_0 = NULL;
+            log_generic(
+                LG_ERROR,
+                _log_ctx_0,
+                b"incompatible SCRAM key data\0" as *const u8 as *const ::core::ffi::c_char,
+            );
+            return false_0 != 0;
+        }
+        if !(*db).forced_user_credentials.is_null() {
+            let mut _log_ctx_1 = NULL;
+            log_generic(
+                LG_ERROR,
+                _log_ctx_1,
+                b"SCRAM key data received for forced user\0" as *const u8
+                    as *const ::core::ffi::c_char,
+            );
+            return false_0 != 0;
+        }
+        if cf_auth_type == AUTH_TYPE_PAM as ::core::ffi::c_int {
+            let mut _log_ctx_2 = NULL;
+            log_generic(
+                LG_ERROR,
+                _log_ctx_2,
+                b"SCRAM key data received for PAM user\0" as *const u8
+                    as *const ::core::ffi::c_char,
+            );
+            return false_0 != 0;
+        }
+        credentials = find_global_credentials(username);
+        if credentials.is_null() && !(*db).auth_user_credentials.is_null() {
+            credentials = add_dynamic_credentials(db, username, password);
+        }
+        if credentials.is_null() {
+            return false_0 != 0;
+        }
+        memcpy(
+            &raw mut (*credentials).scram_ClientKey as *mut uint8_t as *mut ::core::ffi::c_void,
+            scram_client_key as *const ::core::ffi::c_void,
+            ::core::mem::size_of::<[uint8_t; 32]>() as size_t,
+        );
+        memcpy(
+            &raw mut (*credentials).scram_ServerKey as *mut uint8_t as *mut ::core::ffi::c_void,
+            scram_server_key as *const ::core::ffi::c_void,
+            ::core::mem::size_of::<[uint8_t; 32]>() as size_t,
+        );
+        (*credentials).use_scram_keys = true_0 != 0;
+    }
+    client = accept_client(fd, pga_is_unix(addr));
+    if client.is_null() {
+        return false_0 != 0;
+    }
+    (*client).set_suspended((true_0 != 0) as bool);
+    if !set_pool(client, dbname, username, password, true_0 != 0) {
+        return false_0 != 0;
+    }
+    change_client_state(client, CL_ACTIVE);
+    pktbuf_static(
+        &raw mut tmp,
+        &raw mut (*client).cancel_key as *mut uint8_t,
+        8 as ::core::ffi::c_int,
+    );
+    pktbuf_put_uint64(&raw mut tmp, ckey);
+    (*client).request_time = oldfd as usec_t;
+    (*client).query_start = linkfd as usec_t;
+    varcache_set(
+        &raw mut (*client).vars,
+        b"client_encoding\0" as *const u8 as *const ::core::ffi::c_char,
+        client_enc,
+    );
+    varcache_set(
+        &raw mut (*client).vars,
+        b"standard_conforming_strings\0" as *const u8 as *const ::core::ffi::c_char,
+        std_string,
+    );
+    varcache_set(
+        &raw mut (*client).vars,
+        b"datestyle\0" as *const u8 as *const ::core::ffi::c_char,
+        datestyle,
+    );
+    varcache_set(
+        &raw mut (*client).vars,
+        b"timezone\0" as *const u8 as *const ::core::ffi::c_char,
+        timezone,
+    );
+    return true_0 != 0;
+}
+#[no_mangle]
+#[c2rust::src_loc = "2374:1"]
+pub unsafe extern "C" fn use_server_socket(
+    mut fd: ::core::ffi::c_int,
+    mut addr: *mut PgAddr,
+    mut dbname: *const ::core::ffi::c_char,
+    mut username: *const ::core::ffi::c_char,
+    mut ckey: uint64_t,
+    mut oldfd: ::core::ffi::c_int,
+    mut linkfd: ::core::ffi::c_int,
+    mut client_enc: *const ::core::ffi::c_char,
+    mut std_string: *const ::core::ffi::c_char,
+    mut datestyle: *const ::core::ffi::c_char,
+    mut timezone: *const ::core::ffi::c_char,
+    mut password: *const ::core::ffi::c_char,
+    mut scram_client_key: *const ::core::ffi::c_char,
+    mut scram_client_key_len: ::core::ffi::c_int,
+    mut scram_server_key: *const ::core::ffi::c_char,
+    mut scram_server_key_len: ::core::ffi::c_int,
+) -> bool {
+    let mut db = find_database(dbname);
+    let mut credentials = ::core::ptr::null_mut::<PgCredentials>();
+    let mut pool = ::core::ptr::null_mut::<PgPool>();
+    let mut server = ::core::ptr::null_mut::<PgSocket>();
+    let mut tmp = PktBuf {
+        buf: ::core::ptr::null_mut::<uint8_t>(),
+        buf_len: 0,
+        write_pos: 0,
+        pktlen_pos: 0,
+        send_pos: 0,
+        ev: ::core::ptr::null_mut::<event>(),
+        queued_dst: ::core::ptr::null_mut::<PgSocket>(),
+        failed_sending_fixed_buf: [0; 1],
+        c2rust_padding: [0; 7],
+    };
+    let mut res: bool = false;
+    if db.is_null() {
+        db = register_auto_database(dbname);
+        if db.is_null() {
+            return true_0 != 0;
+        }
+    }
+    if !(*db).forced_user_credentials.is_null() {
+        credentials = (*db).forced_user_credentials;
+    } else if cf_auth_type == AUTH_TYPE_PAM as ::core::ffi::c_int {
+        credentials = add_pam_credentials(username, password);
+    } else {
+        credentials = find_global_credentials(username);
+    }
+    if credentials.is_null() && !(*db).auth_user_credentials.is_null() {
+        credentials = add_dynamic_credentials(db, username, password);
+    }
+    pool = get_pool(db, credentials);
+    if pool.is_null() {
+        return false_0 != 0;
+    }
+    server = slab_alloc(server_cache) as *mut PgSocket;
+    if server.is_null() {
+        return false_0 != 0;
+    }
+    res = sbuf_accept(&raw mut (*server).sbuf, fd, pga_is_unix(addr));
+    if !res {
+        return false_0 != 0;
+    }
+    (*db).connection_count += 1;
+    (*server).set_suspended((true_0 != 0) as bool);
+    (*server).pool = pool;
+    (*server).login_user_credentials = credentials;
+    (*server).request_time = get_cached_time();
+    (*server).connect_time = (*server).request_time;
+    (*server).query_start = 0 as usec_t;
+    statlist_init(
+        &raw mut (*server).canceling_clients,
+        b"canceling_clients\0" as *const u8 as *const ::core::ffi::c_char,
+    );
+    fill_remote_addr(server, fd, pga_is_unix(addr));
+    fill_local_addr(server, fd, pga_is_unix(addr));
+    if linkfd != 0 {
+        (*server).set_ready((false_0 != 0) as bool);
+        change_server_state(server, SV_ACTIVE);
+    } else {
+        (*server).set_ready((true_0 != 0) as bool);
+        change_server_state(server, SV_IDLE);
+    }
+    pktbuf_static(
+        &raw mut tmp,
+        &raw mut (*server).cancel_key as *mut uint8_t,
+        8 as ::core::ffi::c_int,
+    );
+    pktbuf_put_uint64(&raw mut tmp, ckey);
+    (*server).request_time = oldfd as usec_t;
+    (*server).query_start = linkfd as usec_t;
+    varcache_set(
+        &raw mut (*server).vars,
+        b"client_encoding\0" as *const u8 as *const ::core::ffi::c_char,
+        client_enc,
+    );
+    varcache_set(
+        &raw mut (*server).vars,
+        b"standard_conforming_strings\0" as *const u8 as *const ::core::ffi::c_char,
+        std_string,
+    );
+    varcache_set(
+        &raw mut (*server).vars,
+        b"datestyle\0" as *const u8 as *const ::core::ffi::c_char,
+        datestyle,
+    );
+    varcache_set(
+        &raw mut (*server).vars,
+        b"timezone\0" as *const u8 as *const ::core::ffi::c_char,
+        timezone,
+    );
+    return true_0 != 0;
+}
+#[no_mangle]
+#[c2rust::src_loc = "2455:1"]
+pub unsafe extern "C" fn for_each_server(
+    mut pool: *mut PgPool,
+    mut func: Option<unsafe extern "C" fn(*mut PgSocket) -> ()>,
+) {
+    let mut item = ::core::ptr::null_mut::<List>();
+    item = (*pool).idle_server_list.head.next;
+    while item != &raw mut (*pool).idle_server_list.head {
+        func.expect("non-null function pointer")(
+            (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+                as *mut PgSocket,
+        );
+        item = (*item).next;
+    }
+    item = (*pool).used_server_list.head.next;
+    while item != &raw mut (*pool).used_server_list.head {
+        func.expect("non-null function pointer")(
+            (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+                as *mut PgSocket,
+        );
+        item = (*item).next;
+    }
+    item = (*pool).tested_server_list.head.next;
+    while item != &raw mut (*pool).tested_server_list.head {
+        func.expect("non-null function pointer")(
+            (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+                as *mut PgSocket,
+        );
+        item = (*item).next;
+    }
+    item = (*pool).active_server_list.head.next;
+    while item != &raw mut (*pool).active_server_list.head {
+        func.expect("non-null function pointer")(
+            (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+                as *mut PgSocket,
+        );
+        item = (*item).next;
+    }
+    item = (*pool).new_server_list.head.next;
+    while item != &raw mut (*pool).new_server_list.head {
+        func.expect("non-null function pointer")(
+            (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+                as *mut PgSocket,
+        );
+        item = (*item).next;
+    }
+}
+#[c2rust::src_loc = "2480:1"]
+unsafe extern "C" fn for_each_server_filtered(
+    mut pool: *mut PgPool,
+    mut func: Option<unsafe extern "C" fn(*mut PgSocket) -> ()>,
+    mut filter: Option<unsafe extern "C" fn(*mut PgSocket, *mut ::core::ffi::c_void) -> bool>,
+    mut filter_arg: *mut ::core::ffi::c_void,
+) {
+    let mut item = ::core::ptr::null_mut::<List>();
+    let mut sk = ::core::ptr::null_mut::<PgSocket>();
+    item = (*pool).idle_server_list.head.next;
+    while item != &raw mut (*pool).idle_server_list.head {
+        sk = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+            as *mut PgSocket;
+        if filter.expect("non-null function pointer")(sk, filter_arg) {
+            func.expect("non-null function pointer")(sk);
+        }
+        item = (*item).next;
+    }
+    item = (*pool).used_server_list.head.next;
+    while item != &raw mut (*pool).used_server_list.head {
+        sk = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+            as *mut PgSocket;
+        if filter.expect("non-null function pointer")(sk, filter_arg) {
+            func.expect("non-null function pointer")(sk);
+        }
+        item = (*item).next;
+    }
+    item = (*pool).tested_server_list.head.next;
+    while item != &raw mut (*pool).tested_server_list.head {
+        sk = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+            as *mut PgSocket;
+        if filter.expect("non-null function pointer")(sk, filter_arg) {
+            func.expect("non-null function pointer")(sk);
+        }
+        item = (*item).next;
+    }
+    item = (*pool).active_server_list.head.next;
+    while item != &raw mut (*pool).active_server_list.head {
+        sk = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+            as *mut PgSocket;
+        if filter.expect("non-null function pointer")(sk, filter_arg) {
+            func.expect("non-null function pointer")(sk);
+        }
+        item = (*item).next;
+    }
+    item = (*pool).new_server_list.head.next;
+    while item != &raw mut (*pool).new_server_list.head {
+        sk = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+            as *mut PgSocket;
+        if filter.expect("non-null function pointer")(sk, filter_arg) {
+            func.expect("non-null function pointer")(sk);
+        }
+        item = (*item).next;
+    }
+}
+#[c2rust::src_loc = "2517:1"]
+unsafe extern "C" fn tag_dirty(mut sk: *mut PgSocket) {
+    (*sk).set_close_needed((true_0 != 0) as bool);
+}
+#[no_mangle]
+#[c2rust::src_loc = "2522:1"]
+pub unsafe extern "C" fn tag_pool_dirty(mut pool: *mut PgPool) {
+    let mut item = ::core::ptr::null_mut::<List>();
+    let mut tmp = ::core::ptr::null_mut::<List>();
+    let mut server = ::core::ptr::null_mut::<PgSocket>();
+    if (*(*pool).db).admin {
+        return;
+    }
+    if !(*pool).welcome_msg.is_null() {
+        pktbuf_free((*pool).welcome_msg as *mut PktBuf);
+        (*pool).welcome_msg = ::core::ptr::null_mut::<PktBuf>();
+    }
+    (*pool).set_welcome_msg_ready((false_0 != 0) as bool);
+    for_each_server(
+        pool,
+        Some(tag_dirty as unsafe extern "C" fn(*mut PgSocket) -> ()),
+    );
+    item = (*pool).new_server_list.head.next;
+    tmp = (*(*pool).new_server_list.head.next).next;
+    while item != &raw mut (*pool).new_server_list.head {
+        server = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+            as *mut PgSocket as *mut PgSocket;
+        disconnect_server(
+            server as *mut PgSocket,
+            true_0 != 0,
+            b"connect string changed\0" as *const u8 as *const ::core::ffi::c_char,
+        );
+        item = tmp;
+        tmp = (*tmp).next;
+    }
+}
+#[no_mangle]
+#[c2rust::src_loc = "2552:1"]
+pub unsafe extern "C" fn tag_database_dirty(mut db: *mut PgDatabase) {
+    let mut item = ::core::ptr::null_mut::<List>();
+    let mut pool = ::core::ptr::null_mut::<PgPool>();
+    item = pool_list.head.next;
+    while item != &raw mut pool_list.head {
+        pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+            as *mut PgPool;
+        if (*pool).db == db {
+            tag_pool_dirty(pool);
+        }
+        item = (*item).next;
+    }
+}
+#[no_mangle]
+#[c2rust::src_loc = "2564:1"]
+pub unsafe extern "C" fn tag_autodb_dirty() {
+    let mut item = ::core::ptr::null_mut::<List>();
+    let mut tmp = ::core::ptr::null_mut::<List>();
+    let mut db = ::core::ptr::null_mut::<PgDatabase>();
+    let mut pool = ::core::ptr::null_mut::<PgPool>();
+    item = database_list.head.next;
+    while item != &raw mut database_list.head {
+        db = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+            as *mut PgDatabase;
+        if (*db).db_auto {
+            register_auto_database(&raw mut (*db).name as *mut ::core::ffi::c_char);
+        }
+        item = (*item).next;
+    }
+    item = autodatabase_idle_list.head.next;
+    tmp = (*autodatabase_idle_list.head.next).next;
+    while item != &raw mut autodatabase_idle_list.head {
+        db = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+            as *mut PgDatabase;
+        if (*db).db_auto {
+            register_auto_database(&raw mut (*db).name as *mut ::core::ffi::c_char);
+        }
+        item = tmp;
+        tmp = (*tmp).next;
+    }
+    item = pool_list.head.next;
+    while item != &raw mut pool_list.head {
+        pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+            as *mut PgPool;
+        if (*(*pool).db).db_auto {
+            tag_pool_dirty(pool);
+        }
+        item = (*item).next;
+    }
+}
+#[c2rust::src_loc = "2593:1"]
+unsafe extern "C" fn server_remote_addr_filter(
+    mut sk: *mut PgSocket,
+    mut arg: *mut ::core::ffi::c_void,
+) -> bool {
+    let mut addr = arg as *mut PgAddr;
+    return pga_cmp_addr(&raw mut (*sk).remote_addr, addr) == 0 as ::core::ffi::c_int;
+}
+#[no_mangle]
+#[c2rust::src_loc = "2600:1"]
+pub unsafe extern "C" fn tag_host_addr_dirty(
+    mut host: *const ::core::ffi::c_char,
+    mut sa: *const sockaddr,
+) {
+    let mut item = ::core::ptr::null_mut::<List>();
+    let mut pool = ::core::ptr::null_mut::<PgPool>();
+    let mut addr = PgAddr {
+        sa: sockaddr {
+            sa_len: 0,
+            sa_family: 0,
+            sa_data: [0; 14],
+        },
+    };
+    memset(
+        &raw mut addr as *mut ::core::ffi::c_void,
+        0 as ::core::ffi::c_int,
+        ::core::mem::size_of::<PgAddr>() as size_t,
+    );
+    pga_copy(&raw mut addr, sa);
+    item = pool_list.head.next;
+    while item != &raw mut pool_list.head {
+        pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+            as *mut PgPool;
+        if !(*(*pool).db).host.is_null()
+            && strcmp(host, (*(*pool).db).host) == 0 as ::core::ffi::c_int
+        {
+            for_each_server_filtered(
+                pool,
+                Some(tag_dirty as unsafe extern "C" fn(*mut PgSocket) -> ()),
+                Some(
+                    server_remote_addr_filter
+                        as unsafe extern "C" fn(*mut PgSocket, *mut ::core::ffi::c_void) -> bool,
+                ),
+                &raw mut addr as *mut ::core::ffi::c_void,
+            );
+        }
+        item = (*item).next;
+    }
+}
+#[no_mangle]
+#[c2rust::src_loc = "2618:1"]
+pub unsafe extern "C" fn reuse_just_freed_objects() {
+    let mut tmp = ::core::ptr::null_mut::<List>();
+    let mut item = ::core::ptr::null_mut::<List>();
+    let mut sk = ::core::ptr::null_mut::<PgSocket>();
+    let mut close_works = true_0 != 0;
+    item = justfree_client_list.head.next;
+    tmp = (*justfree_client_list.head.next).next;
+    while item != &raw mut justfree_client_list.head {
+        sk = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+            as *mut PgSocket;
+        if sbuf_is_closed(&raw mut (*sk).sbuf) {
+            change_client_state(sk, CL_FREE);
+        } else if close_works {
+            close_works = sbuf_close(&raw mut (*sk).sbuf);
+        }
+        item = tmp;
+        tmp = (*tmp).next;
+    }
+    item = justfree_server_list.head.next;
+    tmp = (*justfree_server_list.head.next).next;
+    while item != &raw mut justfree_server_list.head {
+        sk = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+            as *mut PgSocket;
+        if sbuf_is_closed(&raw mut (*sk).sbuf) {
+            change_server_state(sk, SV_FREE);
+        } else if close_works {
+            close_works = sbuf_close(&raw mut (*sk).sbuf);
+        }
+        item = tmp;
+        tmp = (*tmp).next;
+    }
+}
+#[no_mangle]
+#[c2rust::src_loc = "2649:1"]
+pub unsafe extern "C" fn objects_cleanup() {
+    let mut item = ::core::ptr::null_mut::<List>();
+    let mut tmp = ::core::ptr::null_mut::<List>();
+    let mut db = ::core::ptr::null_mut::<PgDatabase>();
+    reuse_just_freed_objects();
+    reuse_just_freed_objects();
+    item = autodatabase_idle_list.head.next;
+    tmp = (*autodatabase_idle_list.head.next).next;
+    while item != &raw mut autodatabase_idle_list.head {
+        db = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+            as *mut PgDatabase;
+        kill_database(db);
+        item = tmp;
+        tmp = (*tmp).next;
+    }
+    item = database_list.head.next;
+    tmp = (*database_list.head.next).next;
+    while item != &raw mut database_list.head {
+        db = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+            as *mut PgDatabase;
+        kill_database(db);
+        item = tmp;
+        tmp = (*tmp).next;
+    }
+    item = peer_list.head.next;
+    tmp = (*peer_list.head.next).next;
+    while item != &raw mut peer_list.head {
+        let mut peer = (item as *mut ::core::ffi::c_char)
+            .offset(-(0 as ::core::ffi::c_ulong as isize))
+            as *mut PgDatabase;
+        kill_peer(peer);
+        item = tmp;
+        tmp = (*tmp).next;
+    }
+    item = justfree_server_list.head.next;
+    tmp = (*justfree_server_list.head.next).next;
+    while item != &raw mut justfree_server_list.head {
+        let mut server = (item as *mut ::core::ffi::c_char)
+            .offset(-(0 as ::core::ffi::c_ulong as isize))
+            as *mut PgSocket;
+        server_free(server);
+        item = tmp;
+        tmp = (*tmp).next;
+    }
+    item = justfree_client_list.head.next;
+    tmp = (*justfree_client_list.head.next).next;
+    while item != &raw mut justfree_client_list.head {
+        let mut client = (item as *mut ::core::ffi::c_char)
+            .offset(-(0 as ::core::ffi::c_ulong as isize))
+            as *mut PgSocket;
+        client_free(client);
+        item = tmp;
+        tmp = (*tmp).next;
+    }
+    clear_user_tree_cached_scram_keys(&raw mut user_tree);
+    memset(
+        &raw mut login_client_list as *mut ::core::ffi::c_void,
+        0 as ::core::ffi::c_int,
+        ::core::mem::size_of::<StatList>() as size_t,
+    );
+    memset(
+        &raw mut user_list as *mut ::core::ffi::c_void,
+        0 as ::core::ffi::c_int,
+        ::core::mem::size_of::<StatList>() as size_t,
+    );
+    memset(
+        &raw mut database_list as *mut ::core::ffi::c_void,
+        0 as ::core::ffi::c_int,
+        ::core::mem::size_of::<StatList>() as size_t,
+    );
+    memset(
+        &raw mut pool_list as *mut ::core::ffi::c_void,
+        0 as ::core::ffi::c_int,
+        ::core::mem::size_of::<StatList>() as size_t,
+    );
+    memset(
+        &raw mut pam_user_tree as *mut ::core::ffi::c_void,
+        0 as ::core::ffi::c_int,
+        ::core::mem::size_of::<AATree>() as size_t,
+    );
+    memset(
+        &raw mut user_tree as *mut ::core::ffi::c_void,
+        0 as ::core::ffi::c_int,
+        ::core::mem::size_of::<AATree>() as size_t,
+    );
+    memset(
+        &raw mut autodatabase_idle_list as *mut ::core::ffi::c_void,
+        0 as ::core::ffi::c_int,
+        ::core::mem::size_of::<StatList>() as size_t,
+    );
+    slab_destroy(server_cache);
+    server_cache = ::core::ptr::null_mut::<Slab>();
+    slab_destroy(client_cache);
+    client_cache = ::core::ptr::null_mut::<Slab>();
+    slab_destroy(db_cache);
+    db_cache = ::core::ptr::null_mut::<Slab>();
+    slab_destroy(peer_cache);
+    peer_cache = ::core::ptr::null_mut::<Slab>();
+    slab_destroy(peer_pool_cache);
+    peer_pool_cache = ::core::ptr::null_mut::<Slab>();
+    slab_destroy(pool_cache);
+    pool_cache = ::core::ptr::null_mut::<Slab>();
+    slab_destroy(user_cache);
+    user_cache = ::core::ptr::null_mut::<Slab>();
+    slab_destroy(credentials_cache);
+    credentials_cache = ::core::ptr::null_mut::<Slab>();
+    slab_destroy(iobuf_cache);
+    iobuf_cache = ::core::ptr::null_mut::<Slab>();
+    slab_destroy(outstanding_request_cache);
+    outstanding_request_cache = ::core::ptr::null_mut::<Slab>();
+    slab_destroy(var_list_cache);
+    var_list_cache = ::core::ptr::null_mut::<Slab>();
+    slab_destroy(server_prepared_statement_cache);
+    server_prepared_statement_cache = ::core::ptr::null_mut::<Slab>();
+}
+unsafe extern "C" fn run_static_initializers() {
+    user_list = StatList {
+        head: List {
+            next: &raw mut user_list.head,
+            prev: &raw mut user_list.head,
+        },
+        cur_count: 0 as ::core::ffi::c_int,
+    };
+    pool_list = StatList {
+        head: List {
+            next: &raw mut pool_list.head,
+            prev: &raw mut pool_list.head,
+        },
+        cur_count: 0 as ::core::ffi::c_int,
+    };
+    peer_pool_list = StatList {
+        head: List {
+            next: &raw mut peer_pool_list.head,
+            prev: &raw mut peer_pool_list.head,
+        },
+        cur_count: 0 as ::core::ffi::c_int,
+    };
+    database_list = StatList {
+        head: List {
+            next: &raw mut database_list.head,
+            prev: &raw mut database_list.head,
+        },
+        cur_count: 0 as ::core::ffi::c_int,
+    };
+    peer_list = StatList {
+        head: List {
+            next: &raw mut peer_list.head,
+            prev: &raw mut peer_list.head,
+        },
+        cur_count: 0 as ::core::ffi::c_int,
+    };
+    autodatabase_idle_list = StatList {
+        head: List {
+            next: &raw mut autodatabase_idle_list.head,
+            prev: &raw mut autodatabase_idle_list.head,
+        },
+        cur_count: 0 as ::core::ffi::c_int,
+    };
+    login_client_list = StatList {
+        head: List {
+            next: &raw mut login_client_list.head,
+            prev: &raw mut login_client_list.head,
+        },
+        cur_count: 0 as ::core::ffi::c_int,
+    };
+    justfree_server_list = StatList {
+        head: List {
+            next: &raw mut justfree_server_list.head,
+            prev: &raw mut justfree_server_list.head,
+        },
+        cur_count: 0 as ::core::ffi::c_int,
+    };
+    justfree_client_list = StatList {
+        head: List {
+            next: &raw mut justfree_client_list.head,
+            prev: &raw mut justfree_client_list.head,
+        },
+        cur_count: 0 as ::core::ffi::c_int,
+    };
+}
+#[used]
+#[cfg_attr(target_os = "linux", link_section = ".init_array")]
+#[cfg_attr(target_os = "windows", link_section = ".CRT$XIB")]
+#[cfg_attr(target_os = "macos", link_section = "__DATA,__mod_init_func")]
+static INIT_ARRAY: [unsafe extern "C" fn(); 1] = [run_static_initializers];
