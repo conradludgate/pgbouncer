@@ -1,4 +1,3 @@
-use ::c2rust_bitfields;
 #[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arm/_types.h:23"]
 pub mod _types_h {
     #[c2rust::src_loc = "32:1"]
@@ -1020,7 +1019,7 @@ pub mod bouncer_h {
         return (*a).sa.sa_family as ::core::ffi::c_int == AF_UNIX;
     }
     use super::_pid_t_h::pid_t;
-    use super::_sa_family_t_h::sa_family_t;
+
     use super::_uid_t_h::uid_t;
     use super::_uint16_t_h::uint16_t;
     use super::_uint64_t_h::uint64_t;
@@ -1041,7 +1040,7 @@ pub mod bouncer_h {
     use super::time_h::usec_t;
     use super::varcache_h::VarCache;
     extern "C" {
-                #[c2rust::src_loc = "66:1"]
+        #[c2rust::src_loc = "66:1"]
         pub static mut pgb_event_base: *mut event_base;
         #[c2rust::src_loc = "308:1"]
         pub fn pga_port(a: *const PgAddr) -> ::core::ffi::c_int;
@@ -1524,7 +1523,7 @@ pub use self::bouncer_h::{
     SV_BEING_CANCELED, SV_FREE, SV_IDLE, SV_JUSTFREE, SV_LOGIN, SV_TESTED, SV_USED,
 };
 pub use self::cryptohash_h::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
-use self::dnslookup_h::DNSToken;
+
 pub use self::errno_h::{__error, EAGAIN, ECONNABORTED, EINVAL};
 pub use self::event_h::{
     event_add, event_assign, event_base, event_callback_fn, event_del, EV_PERSIST, EV_READ,
@@ -1572,7 +1571,7 @@ pub use self::sys__types_h::{
 };
 use self::system_h::change_file_mode;
 pub use self::time_h::usec_t;
-use self::tls_h::tls;
+
 pub use self::un_h::sockaddr_un;
 use self::unistd_h::unlink;
 use self::usual_socket_h::sa2str;
@@ -2040,7 +2039,7 @@ unsafe extern "C" fn create_unix_socket(
     }
 }
 #[c2rust::src_loc = "291:1"]
-unsafe extern "C" fn tune_accept(mut sock: ::core::ffi::c_int, mut on: bool) {
+unsafe extern "C" fn tune_accept(mut _sock: ::core::ffi::c_int, mut on: bool) {
     let mut act = if on as ::core::ffi::c_int != 0 {
         b"install\0" as *const u8 as *const ::core::ffi::c_char
     } else {
@@ -2079,9 +2078,9 @@ pub unsafe extern "C" fn pooler_tune_accept(mut on: bool) {
 }
 #[c2rust::src_loc = "326:1"]
 unsafe extern "C" fn err_wait_func(
-    mut sock: ::core::ffi::c_int,
-    mut flags: ::core::ffi::c_short,
-    mut arg: *mut ::core::ffi::c_void,
+    mut _sock: ::core::ffi::c_int,
+    mut _flags: ::core::ffi::c_short,
+    mut _arg: *mut ::core::ffi::c_void,
 ) {
     if cf_pause_mode != P_SUSPEND as ::core::ffi::c_int {
         resume_pooler();
@@ -2361,7 +2360,7 @@ pub unsafe extern "C" fn per_loop_pooler_maint() {
 }
 #[c2rust::src_loc = "491:1"]
 unsafe extern "C" fn parse_addr(
-    mut arg: *mut ::core::ffi::c_void,
+    mut _arg: *mut ::core::ffi::c_void,
     mut addr: *const ::core::ffi::c_char,
 ) -> bool {
     let mut res: ::core::ffi::c_int = 0;

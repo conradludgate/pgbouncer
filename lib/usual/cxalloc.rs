@@ -55,7 +55,7 @@ pub mod cxalloc_h {
 #[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_stdio.h:19"]
 pub mod _stdio_h {
     use super::_size_t_h::size_t;
-    use super::internal::__builtin_va_list;
+
     extern "C" {
         #[c2rust::src_loc = "438:1"]
         pub fn vsnprintf(
@@ -307,14 +307,14 @@ pub unsafe extern "C" fn cx_vasprintf(
 }
 #[c2rust::src_loc = "146:1"]
 unsafe extern "C" fn libc_alloc(
-    mut ctx: *mut ::core::ffi::c_void,
+    mut _ctx: *mut ::core::ffi::c_void,
     mut len: size_t,
 ) -> *mut ::core::ffi::c_void {
     return malloc(len);
 }
 #[c2rust::src_loc = "151:1"]
 unsafe extern "C" fn libc_realloc(
-    mut ctx: *mut ::core::ffi::c_void,
+    mut _ctx: *mut ::core::ffi::c_void,
     mut ptr: *mut ::core::ffi::c_void,
     mut len: size_t,
 ) -> *mut ::core::ffi::c_void {
@@ -322,7 +322,7 @@ unsafe extern "C" fn libc_realloc(
 }
 #[c2rust::src_loc = "156:1"]
 unsafe extern "C" fn libc_free(
-    mut ctx: *mut ::core::ffi::c_void,
+    mut _ctx: *mut ::core::ffi::c_void,
     mut ptr: *mut ::core::ffi::c_void,
 ) {
     free(ptr);

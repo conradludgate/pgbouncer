@@ -1,4 +1,3 @@
-use ::c2rust_bitfields;
 #[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arm/_types.h:19"]
 pub mod _types_h {
     #[c2rust::src_loc = "32:1"]
@@ -759,7 +758,7 @@ pub mod bouncer_h {
     use super::time_h::usec_t;
     use super::varcache_h::VarCache;
     extern "C" {
-                #[c2rust::src_loc = "66:1"]
+        #[c2rust::src_loc = "66:1"]
         pub static mut pgb_event_base: *mut event_base;
         #[c2rust::src_loc = "865:1"]
         pub static mut cf_stats_period: ::core::ffi::c_int;
@@ -1028,7 +1027,7 @@ pub mod admin_h {
 }
 #[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/objects.h:19"]
 pub mod objects_h {
-    use super::list_h::List;
+
     use super::statlist_h::StatList;
     extern "C" {
         #[c2rust::src_loc = "21:1"]
@@ -1087,7 +1086,7 @@ pub use self::bouncer_h::{
     SV_TESTED, SV_USED,
 };
 pub use self::cryptohash_h::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
-use self::dnslookup_h::DNSToken;
+
 use self::errno_h::__error;
 pub use self::event_h::{event_add, event_assign, event_base, event_callback_fn, EV_PERSIST};
 pub use self::event_struct_h::{
@@ -1121,7 +1120,7 @@ pub use self::stdbool_h::true_0;
 pub use self::strpool_h::{PStr, StrPool};
 pub use self::sys__types_h::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
 pub use self::time_h::{get_cached_time, usec_t, USEC};
-use self::tls_h::tls;
+
 pub use self::uthash_h::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 pub use self::varcache_h::VarCache;
 #[c2rust::src_loc = "21:1"]
@@ -1433,7 +1432,7 @@ pub unsafe extern "C" fn admin_database_stats(
 unsafe extern "C" fn write_stats_totals(
     mut buf: *mut PktBuf,
     mut stat: *mut PgStats,
-    mut old: *mut PgStats,
+    mut _old: *mut PgStats,
     mut dbname: *mut ::core::ffi::c_char,
 ) {
     pktbuf_write_DataRow(
@@ -1903,9 +1902,9 @@ pub unsafe extern "C" fn show_stat_totals(
 }
 #[c2rust::src_loc = "354:1"]
 unsafe extern "C" fn refresh_stats(
-    mut s: ::core::ffi::c_int,
-    mut flags: ::core::ffi::c_short,
-    mut arg: *mut ::core::ffi::c_void,
+    mut _s: ::core::ffi::c_int,
+    mut _flags: ::core::ffi::c_short,
+    mut _arg: *mut ::core::ffi::c_void,
 ) {
     let mut item = ::core::ptr::null_mut::<List>();
     let mut pool = ::core::ptr::null_mut::<PgPool>();

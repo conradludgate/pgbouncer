@@ -1,4 +1,3 @@
-use ::c2rust_bitfields;
 #[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arm/_types.h:27"]
 pub mod _types_h {
     #[c2rust::src_loc = "32:1"]
@@ -970,7 +969,7 @@ pub mod bouncer_h {
     use super::time_h::usec_t;
     use super::varcache_h::VarCache;
     extern "C" {
-                #[c2rust::src_loc = "66:1"]
+        #[c2rust::src_loc = "66:1"]
         pub static mut pgb_event_base: *mut event_base;
         #[c2rust::src_loc = "171:1"]
         pub static mut cf_sbuf_len: ::core::ffi::c_int;
@@ -1473,7 +1472,7 @@ pub mod logging_h {
 #[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/objects.h:27"]
 pub mod objects_h {
     use super::bouncer_h::{PgPool, PgSocket};
-    use super::list_h::List;
+
     use super::statlist_h::StatList;
     extern "C" {
         #[c2rust::src_loc = "27:8"]
@@ -1622,7 +1621,7 @@ pub mod util_h {
 }
 pub use self::_in_addr_t_h::in_addr_t;
 pub use self::_in_port_t_h::in_port_t;
-use self::_malloc_h::free;
+
 pub use self::_null_h::NULL;
 pub use self::_pid_t_h::pid_t;
 pub use self::_ptrdiff_t_h::ptrdiff_t;
@@ -1631,7 +1630,7 @@ pub use self::_size_t_h::size_t;
 pub use self::_socklen_t_h::socklen_t;
 pub use self::_ssize_t_h::ssize_t;
 use self::_stdlib_h::exit;
-use self::_string_h::{memcpy, memmove, memset, strerror};
+use self::_string_h::{memset, strerror};
 pub use self::_time_t_h::time_t;
 pub use self::_timeval_h::timeval;
 pub use self::_types_h::{
@@ -1666,7 +1665,7 @@ pub use self::bouncer_h::{
     SV_USED,
 };
 pub use self::cryptohash_h::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
-use self::dnslookup_h::DNSToken;
+
 pub use self::errno_h::{__error, EAGAIN, EINPROGRESS, EIO};
 pub use self::event_h::{
     event_add, event_assign, event_base, event_callback_fn, event_del, EV_PERSIST, EV_READ,
@@ -1692,7 +1691,7 @@ pub use self::mbuf_h::{
     mbuf_avail_for_read, mbuf_free, mbuf_init_fixed_reader, mbuf_make_room, mbuf_rewind_writer,
     mbuf_write, MBuf,
 };
-use self::objects_h::{disconnect_client, iobuf_cache, pool_list, tag_pool_dirty, Slab};
+use self::objects_h::{disconnect_client, iobuf_cache, pool_list, tag_pool_dirty};
 pub use self::pktbuf_h::{pktbuf_free, PktBuf};
 pub use self::prepare_h::{
     PgClientPreparedStatement, PgPreparedStatement, PgServerPreparedStatement,
@@ -2266,8 +2265,8 @@ unsafe extern "C" fn sbuf_wait_for_data_forced(mut sbuf: *mut SBuf) -> bool {
 }
 #[c2rust::src_loc = "567:1"]
 unsafe extern "C" fn sbuf_send_cb(
-    mut sock: ::core::ffi::c_int,
-    mut flags: ::core::ffi::c_short,
+    mut _sock: ::core::ffi::c_int,
+    mut _flags: ::core::ffi::c_short,
     mut arg: *mut ::core::ffi::c_void,
 ) {
     let mut sbuf = arg as *mut SBuf;
@@ -2706,8 +2705,8 @@ unsafe extern "C" fn sbuf_actual_recv(mut sbuf: *mut SBuf, mut len: size_t) -> b
 }
 #[c2rust::src_loc = "947:1"]
 unsafe extern "C" fn sbuf_recv_cb(
-    mut sock: ::core::ffi::c_int,
-    mut flags: ::core::ffi::c_short,
+    mut _sock: ::core::ffi::c_int,
+    mut _flags: ::core::ffi::c_short,
     mut arg: *mut ::core::ffi::c_void,
 ) {
     let mut sbuf = arg as *mut SBuf;
@@ -2847,7 +2846,7 @@ unsafe extern "C" fn sbuf_after_connect_check(mut sbuf: *mut SBuf) -> bool {
 }
 #[c2rust::src_loc = "1083:1"]
 unsafe extern "C" fn sbuf_connect_cb(
-    mut sock: ::core::ffi::c_int,
+    mut _sock: ::core::ffi::c_int,
     mut flags: ::core::ffi::c_short,
     mut arg: *mut ::core::ffi::c_void,
 ) {
@@ -3400,8 +3399,8 @@ unsafe extern "C" fn handle_tls_handshake(mut sbuf: *mut SBuf) -> bool {
 }
 #[c2rust::src_loc = "1409:1"]
 unsafe extern "C" fn sbuf_tls_handshake_cb(
-    mut fd: ::core::ffi::c_int,
-    mut flags: ::core::ffi::c_short,
+    mut _fd: ::core::ffi::c_int,
+    mut _flags: ::core::ffi::c_short,
     mut _sbuf: *mut ::core::ffi::c_void,
 ) {
     let mut sbuf = _sbuf as *mut SBuf;
@@ -3495,9 +3494,9 @@ pub unsafe extern "C" fn sbuf_tls_connect(
 }
 #[c2rust::src_loc = "1484:1"]
 unsafe extern "C" fn tls_sbufio_peek(
-    mut sbuf: *mut SBuf,
-    mut buf: *mut ::core::ffi::c_void,
-    mut len: size_t,
+    mut _sbuf: *mut SBuf,
+    mut _buf: *mut ::core::ffi::c_void,
+    mut _len: size_t,
 ) -> ssize_t {
     return -(1 as ::core::ffi::c_int) as ssize_t;
 }
@@ -3649,8 +3648,8 @@ unsafe extern "C" fn handle_possible_direct_tls_startup(
 }
 #[c2rust::src_loc = "1573:1"]
 unsafe extern "C" fn sbuf_possible_direct_tls_startup_cb(
-    mut fd: ::core::ffi::c_int,
-    mut flags: ::core::ffi::c_short,
+    mut _fd: ::core::ffi::c_int,
+    mut _flags: ::core::ffi::c_short,
     mut _sbuf: *mut ::core::ffi::c_void,
 ) {
     let mut peek_byte: [uint8_t; 1] = [0; 1];

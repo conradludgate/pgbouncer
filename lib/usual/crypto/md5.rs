@@ -118,7 +118,7 @@ pub use self::endian_h::usual_le32enc;
 pub use self::md5_h::{md5_ctx, MD5_BLOCK_LENGTH, MD5_DIGEST_LENGTH};
 #[inline]
 #[c2rust::src_loc = "31:1"]
-unsafe extern "C" fn swap_words(mut w: *mut uint32_t, mut n: ::core::ffi::c_int) {}
+unsafe extern "C" fn swap_words(mut _w: *mut uint32_t, mut _n: ::core::ffi::c_int) {}
 #[c2rust::src_loc = "51:1"]
 unsafe extern "C" fn md5_mix(mut ctx: *mut md5_ctx, mut X: *const uint32_t) {
     let mut a: uint32_t = 0;

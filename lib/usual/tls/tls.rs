@@ -515,7 +515,7 @@ pub mod limits_h {
 }
 #[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_stdio.h:18"]
 pub mod _stdio_h {
-    use super::_va_list_h::va_list;
+
     extern "C" {
         #[c2rust::src_loc = "471:1"]
         pub fn asprintf(
@@ -1096,7 +1096,7 @@ pub unsafe extern "C" fn tls_configure_keypair(
 unsafe extern "C" fn tls_info_callback(
     mut ssl: *const SSL,
     mut where_0: ::core::ffi::c_int,
-    mut rc: ::core::ffi::c_int,
+    mut _rc: ::core::ffi::c_int,
 ) {
     let mut ctx = SSL_get_ex_data(ssl, 0 as ::core::ffi::c_int) as *mut tls;
     if SSL_version(ssl) < TLS1_3_VERSION {

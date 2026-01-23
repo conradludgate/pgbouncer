@@ -112,7 +112,7 @@ pub mod _stdio_h {
     #[c2rust::src_loc = "201:9"]
     pub const _IONBF: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
     use super::_size_t_h::size_t;
-    use super::internal::__builtin_va_list;
+
     use super::sys__types_h::__darwin_off_t;
     extern "C" {
         #[c2rust::src_loc = "103:1"]
@@ -313,7 +313,7 @@ pub mod _ctype_h {
     pub unsafe extern "C" fn isspace(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
         return __istype(_c as __darwin_ct_rune_t, _CTYPE_S as ::core::ffi::c_ulong);
     }
-    use super::_types_h::{__darwin_ct_rune_t, __uint32_t};
+    use super::_types_h::__darwin_ct_rune_t;
     use super::runetype_h::_DefaultRuneLocale;
     extern "C" {
         #[c2rust::src_loc = "153:1"]

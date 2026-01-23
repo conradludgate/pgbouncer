@@ -1,4 +1,3 @@
-use ::c2rust_bitfields;
 #[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arm/_types.h:23"]
 pub mod _types_h {
     #[c2rust::src_loc = "32:1"]
@@ -954,7 +953,7 @@ pub mod bouncer_h {
     use super::time_h::usec_t;
     use super::varcache_h::VarCache;
     extern "C" {
-                #[c2rust::src_loc = "821:1"]
+        #[c2rust::src_loc = "821:1"]
         pub static mut cf_autodb_connstr: *mut ::core::ffi::c_char;
         #[c2rust::src_loc = "852:1"]
         pub static mut cf_auth_file: *mut ::core::ffi::c_char;
@@ -1228,7 +1227,7 @@ pub mod _ctype_h {
     pub unsafe extern "C" fn isspace(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
         return __istype(_c as __darwin_ct_rune_t, _CTYPE_S as ::core::ffi::c_ulong);
     }
-    use super::_types_h::{__darwin_ct_rune_t, __uint32_t};
+    use super::_types_h::__darwin_ct_rune_t;
     use super::runetype_h::_DefaultRuneLocale;
     extern "C" {
         #[c2rust::src_loc = "153:1"]
@@ -1274,7 +1273,7 @@ pub mod _string_h {
 #[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/objects.h:23"]
 pub mod objects_h {
     use super::bouncer_h::{PgCredentials, PgDatabase, PgGlobalUser};
-    use super::list_h::List;
+
     use super::statlist_h::StatList;
     extern "C" {
         #[c2rust::src_loc = "19:1"]
@@ -1425,9 +1424,9 @@ pub use self::bouncer_h::{
 pub use self::cfparser_h::{cf_set_lookup, CfLookup, CfValue};
 pub use self::cryptohash_h::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
 pub use self::ctype_h::safe_isspace;
-use self::dnslookup_h::DNSToken;
+
 use self::errno_h::__error;
-use self::event_h::event_base;
+
 pub use self::event_struct_h::{
     event, event_callback, C2RustUnnamed_0, C2RustUnnamed_1, C2RustUnnamed_2, C2RustUnnamed_3,
     C2RustUnnamed_4, C2RustUnnamed_5, C2RustUnnamed_6, C2RustUnnamed_7, C2RustUnnamed_8,
@@ -1472,7 +1471,7 @@ pub use self::sys__types_h::{
     __DARWIN_NULL,
 };
 pub use self::time_h::{usec_t, USEC};
-use self::tls_h::tls;
+
 pub use self::uthash_h::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 use self::util_h::check_reserved_database;
 pub use self::varcache_h::VarCache;
@@ -1642,7 +1641,7 @@ unsafe extern "C" fn set_autodb(mut connstr: *const ::core::ffi::c_char) -> bool
 #[no_mangle]
 #[c2rust::src_loc = "172:1"]
 pub unsafe extern "C" fn parse_peer(
-    mut base: *mut ::core::ffi::c_void,
+    mut _base: *mut ::core::ffi::c_void,
     mut name: *const ::core::ffi::c_char,
     mut connstr: *const ::core::ffi::c_char,
 ) -> bool {
@@ -1786,7 +1785,7 @@ pub unsafe extern "C" fn parse_peer(
 #[no_mangle]
 #[c2rust::src_loc = "247:1"]
 pub unsafe extern "C" fn parse_database(
-    mut base: *mut ::core::ffi::c_void,
+    mut _base: *mut ::core::ffi::c_void,
     mut name: *const ::core::ffi::c_char,
     mut connstr: *const ::core::ffi::c_char,
 ) -> bool {
@@ -2237,7 +2236,7 @@ pub unsafe extern "C" fn parse_database(
 #[no_mangle]
 #[c2rust::src_loc = "498:1"]
 pub unsafe extern "C" fn parse_user(
-    mut base: *mut ::core::ffi::c_void,
+    mut _base: *mut ::core::ffi::c_void,
     mut name: *const ::core::ffi::c_char,
     mut connstr: *const ::core::ffi::c_char,
 ) -> bool {

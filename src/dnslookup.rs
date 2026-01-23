@@ -131,8 +131,6 @@ pub mod list_h {
         }
         return (*list).next;
     }
-    use super::_null_h::NULL;
-    use super::sys__types_h::__DARWIN_NULL;
 }
 #[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/statlist.h:19"]
 pub mod statlist_h {
@@ -159,7 +157,7 @@ pub mod statlist_h {
     #[c2rust::src_loc = "78:1"]
     pub unsafe extern "C" fn statlist_init(
         mut list: *mut StatList,
-        mut name: *const ::core::ffi::c_char,
+        mut _name: *const ::core::ffi::c_char,
     ) {
         list_init(&raw mut (*list).head);
         (*list).cur_count = 0 as ::core::ffi::c_int;
@@ -928,7 +926,7 @@ unsafe extern "C" fn req_reset(mut req: *mut DNSRequest) {
     (*req).result = (*req).current;
 }
 #[c2rust::src_loc = "799:1"]
-unsafe extern "C" fn req_free(mut node: *mut AANode, mut arg: *mut ::core::ffi::c_void) {
+unsafe extern "C" fn req_free(mut node: *mut AANode, mut _arg: *mut ::core::ffi::c_void) {
     let mut ucb = ::core::ptr::null_mut::<DNSToken>();
     let mut req = ::core::ptr::null_mut::<DNSRequest>();
     let mut el = ::core::ptr::null_mut::<List>();
@@ -1204,7 +1202,7 @@ unsafe extern "C" fn got_result_gai(
 }
 #[no_mangle]
 #[c2rust::src_loc = "979:1"]
-pub unsafe extern "C" fn adns_cancel(mut ctx: *mut DNSContext, mut tk: *mut DNSToken) {
+pub unsafe extern "C" fn adns_cancel(mut _ctx: *mut DNSContext, mut tk: *mut DNSToken) {
     list_del(&raw mut (*tk).node);
     memset(
         tk as *mut ::core::ffi::c_void,
@@ -1228,7 +1226,7 @@ pub unsafe extern "C" fn adns_info(
     *pending = 0 as ::core::ffi::c_int;
 }
 #[c2rust::src_loc = "998:1"]
-unsafe extern "C" fn zone_item_free(mut n: *mut AANode, mut arg: *mut ::core::ffi::c_void) {
+unsafe extern "C" fn zone_item_free(mut n: *mut AANode, mut _arg: *mut ::core::ffi::c_void) {
     let mut z = (n as *mut ::core::ffi::c_char).offset(-(16 as ::core::ffi::c_ulong as isize))
         as *mut DNSZone;
     list_del(&raw mut (*z).lnode);
@@ -1320,8 +1318,8 @@ unsafe extern "C" fn zone_register(mut ctx: *mut DNSContext, mut req: *mut DNSRe
 }
 #[c2rust::src_loc = "1067:1"]
 unsafe extern "C" fn zone_timer(
-    mut fd: ::core::ffi::c_int,
-    mut flg: ::core::ffi::c_short,
+    mut _fd: ::core::ffi::c_int,
+    mut _flg: ::core::ffi::c_short,
     mut arg: *mut ::core::ffi::c_void,
 ) {
     let mut ctx = arg as *mut DNSContext;
@@ -1526,4 +1524,4 @@ pub unsafe extern "C" fn adns_walk_zones(
 }
 #[no_mangle]
 #[c2rust::src_loc = "1210:1"]
-pub unsafe extern "C" fn adns_per_loop(mut ctx: *mut DNSContext) {}
+pub unsafe extern "C" fn adns_per_loop(mut _ctx: *mut DNSContext) {}

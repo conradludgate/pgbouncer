@@ -1,4 +1,3 @@
-use ::c2rust_bitfields;
 #[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arm/_types.h:23"]
 pub mod _types_h {
     #[c2rust::src_loc = "32:1"]
@@ -1233,8 +1232,7 @@ pub use self::bouncer_h::{
 pub use self::cryptohash_h::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
 pub use self::ctype_h::safe_tolower;
 pub use self::cxalloc_h::{cx_libc_allocator, CxMem, CxOps};
-use self::dnslookup_h::DNSToken;
-use self::event_h::event_base;
+
 pub use self::event_struct_h::{
     event, event_callback, C2RustUnnamed_0, C2RustUnnamed_1, C2RustUnnamed_2, C2RustUnnamed_3,
     C2RustUnnamed_4, C2RustUnnamed_5, C2RustUnnamed_6, C2RustUnnamed_7, C2RustUnnamed_8,
@@ -1275,7 +1273,7 @@ pub use self::strpool_h::{
 };
 pub use self::sys__types_h::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
 pub use self::time_h::usec_t;
-use self::tls_h::tls;
+
 pub use self::uthash_h::{
     UT_hash_bucket, UT_hash_handle, UT_hash_table, HASH_BKT_CAPACITY_THRESH,
     HASH_INITIAL_NUM_BUCKETS, HASH_INITIAL_NUM_BUCKETS_LOG2, HASH_SIGNATURE,
@@ -2081,7 +2079,7 @@ unsafe extern "C" fn init_var_lookup_from_config(
                             .log2_num_buckets
                             .wrapping_add(1 as ::core::ffi::c_uint))
                     .wrapping_add(
-                        (if (*(*lookup).hh.tbl).num_items
+                        if (*(*lookup).hh.tbl).num_items
                             & (*(*lookup).hh.tbl)
                                 .num_buckets
                                 .wrapping_mul(2 as ::core::ffi::c_uint)
@@ -2091,7 +2089,7 @@ unsafe extern "C" fn init_var_lookup_from_config(
                             1 as ::core::ffi::c_uint
                         } else {
                             0 as ::core::ffi::c_uint
-                        }),
+                        },
                     );
                     (*(*lookup).hh.tbl).nonideal_items = 0 as ::core::ffi::c_uint;
                     _he_bkt_i = 0 as ::core::ffi::c_uint;
@@ -2676,7 +2674,7 @@ pub unsafe extern "C" fn init_var_lookup(
                             .log2_num_buckets
                             .wrapping_add(1 as ::core::ffi::c_uint))
                     .wrapping_add(
-                        (if (*(*lookup).hh.tbl).num_items
+                        if (*(*lookup).hh.tbl).num_items
                             & (*(*lookup).hh.tbl)
                                 .num_buckets
                                 .wrapping_mul(2 as ::core::ffi::c_uint)
@@ -2686,7 +2684,7 @@ pub unsafe extern "C" fn init_var_lookup(
                             1 as ::core::ffi::c_uint
                         } else {
                             0 as ::core::ffi::c_uint
-                        }),
+                        },
                     );
                     (*(*lookup).hh.tbl).nonideal_items = 0 as ::core::ffi::c_uint;
                     _he_bkt_i = 0 as ::core::ffi::c_uint;

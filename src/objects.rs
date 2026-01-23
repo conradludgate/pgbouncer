@@ -1,4 +1,3 @@
-use ::c2rust_bitfields;
 #[c2rust::header_src = "internal:0"]
 pub mod internal {
     #[c2rust::src_loc = "0:0"]
@@ -214,8 +213,6 @@ pub mod list_h {
         }
         return (*list).next;
     }
-    use super::_null_h::NULL;
-    use super::sys__types_h::__DARWIN_NULL;
 }
 #[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/statlist.h:23"]
 pub mod statlist_h {
@@ -248,7 +245,7 @@ pub mod statlist_h {
     #[c2rust::src_loc = "78:1"]
     pub unsafe extern "C" fn statlist_init(
         mut list: *mut StatList,
-        mut name: *const ::core::ffi::c_char,
+        mut _name: *const ::core::ffi::c_char,
     ) {
         list_init(&raw mut (*list).head);
         (*list).cur_count = 0 as ::core::ffi::c_int;
@@ -981,9 +978,9 @@ pub mod bouncer_h {
         return ((*slist).head.prev as *mut ::core::ffi::c_char)
             .offset(-(0 as ::core::ffi::c_ulong as isize)) as *mut PgSocket;
     }
-    use super::_null_h::NULL;
+
     use super::_pid_t_h::pid_t;
-    use super::_sa_family_t_h::sa_family_t;
+
     use super::_uid_t_h::uid_t;
     use super::_uint16_t_h::uint16_t;
     use super::_uint64_t_h::uint64_t;
@@ -1003,7 +1000,7 @@ pub mod bouncer_h {
     use super::time_h::usec_t;
     use super::varcache_h::VarCache;
     extern "C" {
-                #[c2rust::src_loc = "171:1"]
+        #[c2rust::src_loc = "171:1"]
         pub static mut cf_sbuf_len: ::core::ffi::c_int;
         #[c2rust::src_loc = "309:1"]
         pub fn pga_set(a: *mut PgAddr, fam: ::core::ffi::c_int, port: ::core::ffi::c_int);
@@ -1519,7 +1516,7 @@ pub mod _OSByteOrder_h {
 #[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_stdio.h:23"]
 pub mod _stdio_h {
     use super::_size_t_h::size_t;
-    use super::internal::__builtin_va_list;
+
     extern "C" {
         #[c2rust::src_loc = "435:1"]
         pub fn snprintf(
@@ -1627,7 +1624,7 @@ pub mod admin_h {
 pub mod client_h {
     use super::bouncer_h::PgSocket;
     use super::mbuf_h::MBuf;
-    use super::sbuf_h::{SBuf, SBufEvent, SBUF_EV_READ};
+    use super::sbuf_h::{SBuf, SBufEvent};
     extern "C" {
         #[c2rust::src_loc = "19:1"]
         pub fn client_proto(sbuf: *mut SBuf, evtype: SBufEvent, pkt: *mut MBuf) -> bool;
@@ -1647,7 +1644,7 @@ pub mod client_h {
 pub mod server_h {
     use super::bouncer_h::{PgDatabase, PgGlobalUser, PgPool, PgSocket};
     use super::mbuf_h::MBuf;
-    use super::sbuf_h::{SBuf, SBufEvent, SBUF_EV_READ};
+    use super::sbuf_h::{SBuf, SBufEvent};
     use super::time_h::usec_t;
     extern "C" {
         #[c2rust::src_loc = "19:1"]
@@ -1823,7 +1820,7 @@ pub use self::cxalloc_h::{cx_libc_allocator, CxMem, CxOps};
 pub use self::dnslookup_h::{adns_callback_f, adns_cancel, adns_resolve, DNSContext, DNSToken};
 use self::err_h::xstrdup;
 use self::errno_h::__error;
-use self::event_h::event_base;
+
 pub use self::event_struct_h::{
     event, event_callback, C2RustUnnamed_0, C2RustUnnamed_1, C2RustUnnamed_2, C2RustUnnamed_3,
     C2RustUnnamed_4, C2RustUnnamed_5, C2RustUnnamed_6, C2RustUnnamed_7, C2RustUnnamed_8,
@@ -1882,7 +1879,7 @@ pub use self::stdbool_h::{false_0, true_0};
 pub use self::strpool_h::{PStr, StrPool};
 pub use self::sys__types_h::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
 pub use self::time_h::{get_cached_time, usec_t, USEC};
-use self::tls_h::tls;
+
 pub use self::un_h::sockaddr_un;
 use self::usual_socket_h::sa2str;
 pub use self::uthash_h::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
@@ -2120,7 +2117,7 @@ unsafe extern "C" fn credentials_node_cmp(
 #[c2rust::src_loc = "151:1"]
 unsafe extern "C" fn credentials_node_release(
     mut node: *mut AANode,
-    mut arg: *mut ::core::ffi::c_void,
+    mut _arg: *mut ::core::ffi::c_void,
 ) {
     let mut user = (node as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
         as *mut PgCredentials;
@@ -2624,7 +2621,7 @@ unsafe extern "C" fn put_in_order(
 #[no_mangle]
 #[c2rust::src_loc = "445:1"]
 pub unsafe extern "C" fn add_peer(
-    mut name: *const ::core::ffi::c_char,
+    mut _name: *const ::core::ffi::c_char,
     mut peer_id: ::core::ffi::c_int,
 ) -> *mut PgDatabase {
     let mut peer = find_peer(peer_id);
@@ -5639,10 +5636,10 @@ pub unsafe extern "C" fn use_server_socket(
     mut datestyle: *const ::core::ffi::c_char,
     mut timezone: *const ::core::ffi::c_char,
     mut password: *const ::core::ffi::c_char,
-    mut scram_client_key: *const ::core::ffi::c_char,
-    mut scram_client_key_len: ::core::ffi::c_int,
-    mut scram_server_key: *const ::core::ffi::c_char,
-    mut scram_server_key_len: ::core::ffi::c_int,
+    mut _scram_client_key: *const ::core::ffi::c_char,
+    mut _scram_client_key_len: ::core::ffi::c_int,
+    mut _scram_server_key: *const ::core::ffi::c_char,
+    mut _scram_server_key_len: ::core::ffi::c_int,
 ) -> bool {
     let mut db = find_database(dbname);
     let mut credentials = ::core::ptr::null_mut::<PgCredentials>();

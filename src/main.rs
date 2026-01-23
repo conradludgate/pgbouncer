@@ -1118,7 +1118,7 @@ pub mod bouncer_h {
     use super::time_h::usec_t;
     use super::varcache_h::VarCache;
     extern "C" {
-                #[c2rust::src_loc = "842:1"]
+        #[c2rust::src_loc = "842:1"]
         pub static mut any_user_level_timeout_set: bool;
         #[c2rust::src_loc = "843:1"]
         pub static mut any_user_level_client_timeout_set: bool;
@@ -1518,7 +1518,7 @@ pub mod _string_h {
 #[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/util.h:23"]
 pub mod util_h {
     use super::cfparser_h::CfValue;
-    use super::logging_h::{LogLevel, LG_FATAL};
+    use super::logging_h::LogLevel;
     extern "C" {
         #[c2rust::src_loc = "26:1"]
         pub fn log_socket_prefix(
@@ -1535,7 +1535,7 @@ pub mod util_h {
 }
 #[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/objects.h:23"]
 pub mod objects_h {
-    use super::list_h::List;
+
     use super::statlist_h::StatList;
     extern "C" {
         #[c2rust::src_loc = "19:1"]
@@ -1872,9 +1872,7 @@ pub use self::cfparser_h::{
 };
 pub use self::config_h::{PACKAGE_BUGREPORT, PACKAGE_NAME, PACKAGE_STRING, PACKAGE_URL};
 pub use self::cryptohash_h::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
-use self::dnslookup_h::{
-    adns_create_context, adns_get_backend, adns_per_loop, DNSContext, DNSToken,
-};
+use self::dnslookup_h::{adns_create_context, adns_get_backend, adns_per_loop, DNSContext};
 use self::err_h::xstrdup;
 pub use self::errno_h::{__error, EINTR, ENOENT, ESRCH};
 pub use self::event_h::{
@@ -1935,7 +1933,7 @@ pub use self::sys__types_h::{
 use self::system_h::change_user;
 use self::takeover_h::{takeover_finish, takeover_init};
 pub use self::time_h::{reset_time_cache, usec_t};
-use self::tls_h::{tls, tls_backend_version};
+use self::tls_h::tls_backend_version;
 pub use self::un_h::sockaddr_un;
 use self::unistd_h::{
     _exit, close, dup2, fork, getpid, getuid, optarg, optind, read, setsid, unlink,
@@ -2781,9 +2779,9 @@ static mut ev_sigint: event = event {
 };
 #[c2rust::src_loc = "535:1"]
 unsafe extern "C" fn handle_sigterm(
-    mut sock: ::core::ffi::c_int,
-    mut flags: ::core::ffi::c_short,
-    mut arg: *mut ::core::ffi::c_void,
+    mut _sock: ::core::ffi::c_int,
+    mut _flags: ::core::ffi::c_short,
+    mut _arg: *mut ::core::ffi::c_void,
 ) {
     if cf_shutdown != 0 {
         let mut _log_ctx = NULL;
@@ -2827,9 +2825,9 @@ unsafe extern "C" fn handle_sigterm(
 }
 #[c2rust::src_loc = "552:1"]
 unsafe extern "C" fn handle_sigint(
-    mut sock: ::core::ffi::c_int,
-    mut flags: ::core::ffi::c_short,
-    mut arg: *mut ::core::ffi::c_void,
+    mut _sock: ::core::ffi::c_int,
+    mut _flags: ::core::ffi::c_short,
+    mut _arg: *mut ::core::ffi::c_void,
 ) {
     if cf_shutdown != 0 {
         let mut _log_ctx = NULL;
@@ -3042,9 +3040,9 @@ static mut ev_sighup: event = event {
 };
 #[c2rust::src_loc = "577:1"]
 unsafe extern "C" fn handle_sigquit(
-    mut sock: ::core::ffi::c_int,
-    mut flags: ::core::ffi::c_short,
-    mut arg: *mut ::core::ffi::c_void,
+    mut _sock: ::core::ffi::c_int,
+    mut _flags: ::core::ffi::c_short,
+    mut _arg: *mut ::core::ffi::c_void,
 ) {
     let mut _log_ctx = NULL;
     log_generic(
@@ -3056,9 +3054,9 @@ unsafe extern "C" fn handle_sigquit(
 }
 #[c2rust::src_loc = "584:1"]
 unsafe extern "C" fn handle_sigusr1(
-    mut sock: ::core::ffi::c_int,
-    mut flags: ::core::ffi::c_short,
-    mut arg: *mut ::core::ffi::c_void,
+    mut _sock: ::core::ffi::c_int,
+    mut _flags: ::core::ffi::c_short,
+    mut _arg: *mut ::core::ffi::c_void,
 ) {
     if cf_pause_mode == P_NONE as ::core::ffi::c_int {
         let mut _log_ctx = NULL;
@@ -3080,9 +3078,9 @@ unsafe extern "C" fn handle_sigusr1(
 }
 #[c2rust::src_loc = "594:1"]
 unsafe extern "C" fn handle_sigusr2(
-    mut sock: ::core::ffi::c_int,
-    mut flags: ::core::ffi::c_short,
-    mut arg: *mut ::core::ffi::c_void,
+    mut _sock: ::core::ffi::c_int,
+    mut _flags: ::core::ffi::c_short,
+    mut _arg: *mut ::core::ffi::c_void,
 ) {
     if cf_shutdown != 0 {
         let mut _log_ctx = NULL;
@@ -3131,9 +3129,9 @@ unsafe extern "C" fn handle_sigusr2(
 unsafe extern "C" fn notify_reloading() {}
 #[c2rust::src_loc = "632:1"]
 unsafe extern "C" fn handle_sighup(
-    mut sock: ::core::ffi::c_int,
-    mut flags: ::core::ffi::c_short,
-    mut arg: *mut ::core::ffi::c_void,
+    mut _sock: ::core::ffi::c_int,
+    mut _flags: ::core::ffi::c_short,
+    mut _arg: *mut ::core::ffi::c_void,
 ) {
     let mut _log_ctx = NULL;
     log_generic(

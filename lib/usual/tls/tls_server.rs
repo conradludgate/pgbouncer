@@ -417,7 +417,7 @@ pub unsafe extern "C" fn tls_server() -> *mut tls {
 }
 #[no_mangle]
 #[c2rust::src_loc = "41:1"]
-pub unsafe extern "C" fn tls_server_conn(mut ctx: *mut tls) -> *mut tls {
+pub unsafe extern "C" fn tls_server_conn(mut _ctx: *mut tls) -> *mut tls {
     let mut conn_ctx = ::core::ptr::null_mut::<tls>();
     conn_ctx = tls_new();
     if conn_ctx.is_null() {
@@ -442,12 +442,12 @@ static mut alpn_protos: [::core::ffi::c_uchar; 11] = [
 ];
 #[c2rust::src_loc = "67:1"]
 unsafe extern "C" fn alpn_cb(
-    mut ssl: *mut SSL,
+    mut _ssl: *mut SSL,
     mut out: *mut *const ::core::ffi::c_uchar,
     mut outlen: *mut ::core::ffi::c_uchar,
     mut in_0: *const ::core::ffi::c_uchar,
     mut inlen: ::core::ffi::c_uint,
-    mut userdata: *mut ::core::ffi::c_void,
+    mut _userdata: *mut ::core::ffi::c_void,
 ) -> ::core::ffi::c_int {
     let mut retval: ::core::ffi::c_int = 0;
     retval = SSL_select_next_proto(

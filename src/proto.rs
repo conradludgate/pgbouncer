@@ -1,4 +1,3 @@
-use ::c2rust_bitfields;
 #[c2rust::header_src = "internal:0"]
 pub mod internal {
     #[c2rust::src_loc = "0:0"]
@@ -763,7 +762,7 @@ pub mod bouncer_h {
         return ((*slist).head.next as *mut ::core::ffi::c_char)
             .offset(-(0 as ::core::ffi::c_ulong as isize)) as *mut PgSocket;
     }
-    use super::_null_h::NULL;
+
     use super::_pid_t_h::pid_t;
     use super::_uid_t_h::uid_t;
     use super::_uint16_t_h::uint16_t;
@@ -784,7 +783,7 @@ pub mod bouncer_h {
     use super::time_h::usec_t;
     use super::varcache_h::VarCache;
     extern "C" {
-                #[c2rust::src_loc = "656:1"]
+        #[c2rust::src_loc = "656:1"]
         pub static mut replication_type_parameters: [*const ::core::ffi::c_char; 3];
         #[c2rust::src_loc = "808:1"]
         pub static mut cf_peer_id: ::core::ffi::c_int;
@@ -1460,7 +1459,7 @@ pub use self::_size_t_h::size_t;
 pub use self::_ssize_t_h::ssize_t;
 use self::_stdio_h::sscanf;
 use self::_stdlib_h::{atoi, atoll, exit};
-use self::_string_h::{memchr, memcpy, memmove, strcmp, strlen, strncmp};
+use self::_string_h::{memcpy, memmove, strcmp, strlen, strncmp};
 pub use self::_timeval_h::timeval;
 pub use self::_types_h::{
     __darwin_ptrdiff_t, __darwin_size_t, __darwin_ssize_t, __darwin_time_t, __darwin_va_list,
@@ -1488,8 +1487,7 @@ pub use self::bouncer_h::{
 };
 use self::client_h::sending_auth_query;
 pub use self::cryptohash_h::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
-use self::dnslookup_h::DNSToken;
-use self::event_h::event_base;
+
 pub use self::event_struct_h::{
     event, event_callback, C2RustUnnamed_0, C2RustUnnamed_1, C2RustUnnamed_2, C2RustUnnamed_3,
     C2RustUnnamed_4, C2RustUnnamed_5, C2RustUnnamed_6, C2RustUnnamed_7, C2RustUnnamed_8,
@@ -1540,7 +1538,7 @@ pub use self::stdbool_h::{false_0, true_0};
 pub use self::strpool_h::{PStr, StrPool};
 pub use self::sys__types_h::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
 pub use self::time_h::usec_t;
-use self::tls_h::tls;
+
 pub use self::uthash_h::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 use self::util_h::{get_random_bytes, pg_md5_encrypt};
 pub use self::varcache_h::{

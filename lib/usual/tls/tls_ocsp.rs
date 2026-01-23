@@ -1215,7 +1215,7 @@ unsafe extern "C" fn tls_ocsp_verify_response(
 #[c2rust::src_loc = "347:1"]
 pub unsafe extern "C" fn tls_ocsp_verify_callback(
     mut ssl: *mut SSL,
-    mut arg: *mut ::core::ffi::c_void,
+    mut _arg: *mut ::core::ffi::c_void,
 ) -> ::core::ffi::c_int {
     let mut resp = ::core::ptr::null_mut::<OCSP_RESPONSE>();
     let mut extra_certs = ::core::ptr::null_mut::<stack_st_X509>();
@@ -1272,7 +1272,7 @@ pub unsafe extern "C" fn tls_ocsp_verify_callback(
 #[c2rust::src_loc = "389:1"]
 pub unsafe extern "C" fn tls_ocsp_stapling_callback(
     mut ssl: *mut SSL,
-    mut arg: *mut ::core::ffi::c_void,
+    mut _arg: *mut ::core::ffi::c_void,
 ) -> ::core::ffi::c_int {
     let mut current_block: u64;
     let mut ctx = ::core::ptr::null_mut::<tls>();

@@ -175,7 +175,7 @@ pub struct StrPool {
 }
 #[c2rust::src_loc = "34:1"]
 unsafe extern "C" fn get_key(
-    mut ctx: *mut ::core::ffi::c_void,
+    mut _ctx: *mut ::core::ffi::c_void,
     mut obj: *mut ::core::ffi::c_void,
     mut dst_p: *mut *const ::core::ffi::c_void,
 ) -> size_t {
@@ -185,7 +185,7 @@ unsafe extern "C" fn get_key(
 }
 #[c2rust::src_loc = "42:1"]
 unsafe extern "C" fn free_str(
-    mut arg: *mut ::core::ffi::c_void,
+    mut _arg: *mut ::core::ffi::c_void,
     mut obj: *mut ::core::ffi::c_void,
 ) -> bool {
     let mut p = obj as *mut PStr;

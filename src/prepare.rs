@@ -1,4 +1,3 @@
-use ::c2rust_bitfields;
 #[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arm/_types.h:9"]
 pub mod _types_h {
     #[c2rust::src_loc = "32:1"]
@@ -145,7 +144,6 @@ pub mod list_h {
         }
         return (*list).prev;
     }
-    use super::_null_h::NULL;
 }
 #[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/statlist.h:9"]
 pub mod statlist_h {
@@ -779,7 +777,7 @@ pub mod bouncer_h {
     use super::time_h::usec_t;
     use super::varcache_h::VarCache;
     extern "C" {
-                #[c2rust::src_loc = "907:1"]
+        #[c2rust::src_loc = "907:1"]
         pub static mut cf_max_prepared_statements: ::core::ffi::c_int;
     }
 }
@@ -1055,7 +1053,7 @@ pub mod logging_h {
 }
 #[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/objects.h:9"]
 pub mod objects_h {
-    use super::bouncer_h::{PgSocket, ResponseAction, RA_FORWARD};
+    use super::bouncer_h::{PgSocket, ResponseAction};
     use super::prepare_h::PgPreparedStatement;
     extern "C" {
         #[c2rust::src_loc = "27:8"]
@@ -1262,8 +1260,7 @@ pub use self::bouncer_h::{
     SV_BEING_CANCELED, SV_FREE, SV_IDLE, SV_JUSTFREE, SV_LOGIN, SV_TESTED, SV_USED,
 };
 pub use self::cryptohash_h::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
-use self::dnslookup_h::DNSToken;
-use self::event_h::event_base;
+
 pub use self::event_struct_h::{
     event, event_callback, C2RustUnnamed_0, C2RustUnnamed_1, C2RustUnnamed_2, C2RustUnnamed_3,
     C2RustUnnamed_4, C2RustUnnamed_5, C2RustUnnamed_6, C2RustUnnamed_7, C2RustUnnamed_8,
@@ -1283,7 +1280,7 @@ pub use self::messages_h::{
 };
 use self::objects_h::{
     add_outstanding_request, disconnect_client, disconnect_server, prepared_statements,
-    server_prepared_statement_cache, Slab,
+    server_prepared_statement_cache,
 };
 pub use self::pktbuf_h::{
     pktbuf_put_bytes, pktbuf_put_char, pktbuf_put_string, pktbuf_put_uint32, pktbuf_send_immediate,
@@ -1309,7 +1306,7 @@ pub use self::stdbool_h::{false_0, true_0};
 pub use self::strpool_h::{PStr, StrPool};
 pub use self::sys__types_h::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
 pub use self::time_h::usec_t;
-use self::tls_h::tls;
+
 pub use self::uthash_h::{
     UT_hash_bucket, UT_hash_handle, UT_hash_table, HASH_BKT_CAPACITY_THRESH,
     HASH_INITIAL_NUM_BUCKETS, HASH_INITIAL_NUM_BUCKETS_LOG2, HASH_SIGNATURE,
@@ -1578,7 +1575,7 @@ unsafe extern "C" fn get_prepared_statement(
                         .log2_num_buckets
                         .wrapping_add(1 as ::core::ffi::c_uint))
                 .wrapping_add(
-                    (if (*(*ps).hh.tbl).num_items
+                    if (*(*ps).hh.tbl).num_items
                         & (*(*ps).hh.tbl)
                             .num_buckets
                             .wrapping_mul(2 as ::core::ffi::c_uint)
@@ -1588,7 +1585,7 @@ unsafe extern "C" fn get_prepared_statement(
                         1 as ::core::ffi::c_uint
                     } else {
                         0 as ::core::ffi::c_uint
-                    }),
+                    },
                 );
                 (*(*ps).hh.tbl).nonideal_items = 0 as ::core::ffi::c_uint;
                 _he_bkt_i = 0 as ::core::ffi::c_uint;
@@ -2110,7 +2107,7 @@ pub unsafe extern "C" fn add_prepared_statement(
                         .log2_num_buckets
                         .wrapping_add(1 as ::core::ffi::c_uint))
                 .wrapping_add(
-                    (if (*(*server_ps).hh.tbl).num_items
+                    if (*(*server_ps).hh.tbl).num_items
                         & (*(*server_ps).hh.tbl)
                             .num_buckets
                             .wrapping_mul(2 as ::core::ffi::c_uint)
@@ -2120,7 +2117,7 @@ pub unsafe extern "C" fn add_prepared_statement(
                         1 as ::core::ffi::c_uint
                     } else {
                         0 as ::core::ffi::c_uint
-                    }),
+                    },
                 );
                 (*(*server_ps).hh.tbl).nonideal_items = 0 as ::core::ffi::c_uint;
                 _he_bkt_i = 0 as ::core::ffi::c_uint;
@@ -2710,7 +2707,7 @@ pub unsafe extern "C" fn handle_parse_command(
                                 .log2_num_buckets
                                 .wrapping_add(1 as ::core::ffi::c_uint))
                         .wrapping_add(
-                            (if (*(*client_ps).hh.tbl).num_items
+                            if (*(*client_ps).hh.tbl).num_items
                                 & (*(*client_ps).hh.tbl)
                                     .num_buckets
                                     .wrapping_mul(2 as ::core::ffi::c_uint)
@@ -2720,7 +2717,7 @@ pub unsafe extern "C" fn handle_parse_command(
                                 1 as ::core::ffi::c_uint
                             } else {
                                 0 as ::core::ffi::c_uint
-                            }),
+                            },
                         );
                         (*(*client_ps).hh.tbl).nonideal_items = 0 as ::core::ffi::c_uint;
                         _he_bkt_i = 0 as ::core::ffi::c_uint;

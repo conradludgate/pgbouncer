@@ -1,4 +1,3 @@
-use ::c2rust_bitfields;
 #[c2rust::header_src = "internal:0"]
 pub mod internal {
     #[c2rust::src_loc = "0:0"]
@@ -915,9 +914,9 @@ pub mod bouncer_h {
         return ((*slist).head.next as *mut ::core::ffi::c_char)
             .offset(-(0 as ::core::ffi::c_ulong as isize)) as *mut PgSocket;
     }
-    use super::_null_h::NULL;
+
     use super::_pid_t_h::pid_t;
-    use super::_sa_family_t_h::sa_family_t;
+
     use super::_uid_t_h::uid_t;
     use super::_uint16_t_h::uint16_t;
     use super::_uint64_t_h::uint64_t;
@@ -939,7 +938,7 @@ pub mod bouncer_h {
     use super::time_h::usec_t;
     use super::varcache_h::VarCache;
     extern "C" {
-                #[c2rust::src_loc = "66:1"]
+        #[c2rust::src_loc = "66:1"]
         pub static mut pgb_event_base: *mut event_base;
         #[c2rust::src_loc = "308:1"]
         pub fn pga_port(a: *const PgAddr) -> ::core::ffi::c_int;
@@ -1556,7 +1555,7 @@ pub mod slab_h {
 #[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/objects.h:23"]
 pub mod objects_h {
     use super::bouncer_h::{PgCredentials, PgDatabase, PgGlobalUser, PgPool, PgSocket};
-    use super::list_h::List;
+
     use super::statlist_h::StatList;
     extern "C" {
         #[c2rust::src_loc = "27:8"]
@@ -1631,7 +1630,7 @@ pub mod pooler_h {
 #[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_stdio.h:23"]
 pub mod _stdio_h {
     use super::_size_t_h::size_t;
-    use super::internal::__builtin_va_list;
+
     extern "C" {
         #[c2rust::src_loc = "282:1"]
         pub fn sscanf(
@@ -1921,7 +1920,7 @@ pub use self::_socklen_t_h::socklen_t;
 pub use self::_ssize_t_h::ssize_t;
 use self::_stdio_h::{snprintf, sscanf, vsnprintf};
 use self::_stdlib_h::exit;
-use self::_string_h::{memchr, memcpy, memset, strchr, strcmp, strerror, strlen, strstr};
+use self::_string_h::{memcpy, memset, strchr, strcmp, strerror, strlen, strstr};
 use self::_strings_h::strcasecmp;
 pub use self::_timeval_h::timeval;
 pub use self::_types_h::{
@@ -1964,7 +1963,7 @@ pub use self::dnslookup_h::{
 };
 pub use self::endian_h::{usual_be32dec, usual_bswap32};
 use self::errno_h::__error;
-use self::event_h::{event_base, event_base_loopbreak};
+use self::event_h::event_base_loopbreak;
 pub use self::event_struct_h::{
     event, event_callback, C2RustUnnamed_0, C2RustUnnamed_1, C2RustUnnamed_2, C2RustUnnamed_3,
     C2RustUnnamed_4, C2RustUnnamed_5, C2RustUnnamed_6, C2RustUnnamed_7, C2RustUnnamed_8,
@@ -1988,7 +1987,7 @@ use self::objects_h::{
     add_database, client_cache, database_list, disconnect_client, find_database, find_global_user,
     find_or_add_new_global_user, find_or_register_database, force_user_credentials, get_pool,
     login_client_list, peer_list, peer_pool_list, pool_list, server_cache, tag_database_dirty,
-    user_list, Slab,
+    user_list,
 };
 pub use self::pktbuf_h::{
     pktbuf_dynamic, pktbuf_put_string, pktbuf_send_immediate, pktbuf_send_queued, pktbuf_static,
@@ -2028,7 +2027,7 @@ pub use self::sys__types_h::{
     __DARWIN_NULL,
 };
 pub use self::time_h::{get_cached_time, usec_t, USEC};
-use self::tls_h::{tls, tls_get_connection_info};
+use self::tls_h::tls_get_connection_info;
 use self::unistd_h::{getpeereid, getuid};
 use self::usual_socket_h::{sa2str, socket_set_nonblocking};
 pub use self::uthash_h::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
@@ -2354,7 +2353,7 @@ unsafe extern "C" fn fake_show(
 unsafe extern "C" fn fake_set(
     mut admin: *mut PgSocket,
     mut key: *const ::core::ffi::c_char,
-    mut val: *const ::core::ffi::c_char,
+    mut _val: *const ::core::ffi::c_char,
 ) -> bool {
     let mut buf = ::core::ptr::null_mut::<PktBuf>();
     let mut p = ::core::ptr::null::<FakeParam>();
@@ -2791,7 +2790,7 @@ unsafe extern "C" fn show_fds_from_list(mut admin: *mut PgSocket, mut list: *mut
 #[c2rust::src_loc = "418:1"]
 unsafe extern "C" fn admin_show_fds(
     mut admin: *mut PgSocket,
-    mut arg: *const ::core::ffi::c_char,
+    mut _arg: *const ::core::ffi::c_char,
 ) -> bool {
     let mut item = ::core::ptr::null_mut::<List>();
     let mut pool = ::core::ptr::null_mut::<PgPool>();
@@ -2894,7 +2893,7 @@ unsafe extern "C" fn admin_show_fds(
 #[c2rust::src_loc = "480:1"]
 unsafe extern "C" fn admin_show_databases(
     mut admin: *mut PgSocket,
-    mut arg: *const ::core::ffi::c_char,
+    mut _arg: *const ::core::ffi::c_char,
 ) -> bool {
     let mut db = ::core::ptr::null_mut::<PgDatabase>();
     let mut item = ::core::ptr::null_mut::<List>();
@@ -3020,7 +3019,7 @@ unsafe extern "C" fn admin_show_databases(
 #[c2rust::src_loc = "542:1"]
 unsafe extern "C" fn admin_show_peers(
     mut admin: *mut PgSocket,
-    mut arg: *const ::core::ffi::c_char,
+    mut _arg: *const ::core::ffi::c_char,
 ) -> bool {
     let mut peer = ::core::ptr::null_mut::<PgDatabase>();
     let mut item = ::core::ptr::null_mut::<List>();
@@ -3069,7 +3068,7 @@ unsafe extern "C" fn admin_show_peers(
 #[c2rust::src_loc = "569:1"]
 unsafe extern "C" fn admin_show_lists(
     mut admin: *mut PgSocket,
-    mut arg: *const ::core::ffi::c_char,
+    mut _arg: *const ::core::ffi::c_char,
 ) -> bool {
     let mut buf = pktbuf_dynamic(256 as ::core::ffi::c_int);
     if buf.is_null() {
@@ -3190,7 +3189,7 @@ unsafe extern "C" fn admin_show_lists(
 #[c2rust::src_loc = "601:1"]
 unsafe extern "C" fn admin_show_users(
     mut admin: *mut PgSocket,
-    mut arg: *const ::core::ffi::c_char,
+    mut _arg: *const ::core::ffi::c_char,
 ) -> bool {
     let mut item = ::core::ptr::null_mut::<List>();
     let mut buf = pktbuf_dynamic(256 as ::core::ffi::c_int);
@@ -3535,7 +3534,7 @@ unsafe extern "C" fn show_socket_list(
 #[c2rust::src_loc = "760:1"]
 unsafe extern "C" fn admin_show_clients(
     mut admin: *mut PgSocket,
-    mut arg: *const ::core::ffi::c_char,
+    mut _arg: *const ::core::ffi::c_char,
 ) -> bool {
     let mut item = ::core::ptr::null_mut::<List>();
     let mut pool = ::core::ptr::null_mut::<PgPool>();
@@ -3606,7 +3605,7 @@ unsafe extern "C" fn admin_show_clients(
 #[c2rust::src_loc = "793:1"]
 unsafe extern "C" fn admin_show_servers(
     mut admin: *mut PgSocket,
-    mut arg: *const ::core::ffi::c_char,
+    mut _arg: *const ::core::ffi::c_char,
 ) -> bool {
     let mut item = ::core::ptr::null_mut::<List>();
     let mut pool = ::core::ptr::null_mut::<PgPool>();
@@ -3696,7 +3695,7 @@ unsafe extern "C" fn admin_show_servers(
 #[c2rust::src_loc = "826:1"]
 unsafe extern "C" fn admin_show_sockets(
     mut admin: *mut PgSocket,
-    mut arg: *const ::core::ffi::c_char,
+    mut _arg: *const ::core::ffi::c_char,
 ) -> bool {
     let mut item = ::core::ptr::null_mut::<List>();
     let mut pool = ::core::ptr::null_mut::<PgPool>();
@@ -3791,7 +3790,7 @@ unsafe extern "C" fn show_active_socket_list(
 #[c2rust::src_loc = "866:1"]
 unsafe extern "C" fn admin_show_active_sockets(
     mut admin: *mut PgSocket,
-    mut arg: *const ::core::ffi::c_char,
+    mut _arg: *const ::core::ffi::c_char,
 ) -> bool {
     let mut item = ::core::ptr::null_mut::<List>();
     let mut pool = ::core::ptr::null_mut::<PgPool>();
@@ -3861,7 +3860,7 @@ unsafe extern "C" fn admin_show_active_sockets(
 #[c2rust::src_loc = "896:1"]
 unsafe extern "C" fn admin_show_pools(
     mut admin: *mut PgSocket,
-    mut arg: *const ::core::ffi::c_char,
+    mut _arg: *const ::core::ffi::c_char,
 ) -> bool {
     let mut item = ::core::ptr::null_mut::<List>();
     let mut pool = ::core::ptr::null_mut::<PgPool>();
@@ -3968,7 +3967,7 @@ unsafe extern "C" fn admin_show_pools(
 #[c2rust::src_loc = "965:1"]
 unsafe extern "C" fn admin_show_peer_pools(
     mut admin: *mut PgSocket,
-    mut arg: *const ::core::ffi::c_char,
+    mut _arg: *const ::core::ffi::c_char,
 ) -> bool {
     let mut item = ::core::ptr::null_mut::<List>();
     let mut pool = ::core::ptr::null_mut::<PgPool>();
@@ -4035,7 +4034,7 @@ unsafe extern "C" fn slab_stat_cb(
 #[c2rust::src_loc = "1007:1"]
 unsafe extern "C" fn admin_show_mem(
     mut admin: *mut PgSocket,
-    mut arg: *const ::core::ffi::c_char,
+    mut _arg: *const ::core::ffi::c_char,
 ) -> bool {
     let mut buf = ::core::ptr::null_mut::<PktBuf>();
     buf = pktbuf_dynamic(256 as ::core::ffi::c_int);
@@ -4078,7 +4077,7 @@ unsafe extern "C" fn admin_show_mem(
 #[c2rust::src_loc = "1024:1"]
 unsafe extern "C" fn admin_show_state(
     mut admin: *mut PgSocket,
-    mut arg: *const ::core::ffi::c_char,
+    mut _arg: *const ::core::ffi::c_char,
 ) -> bool {
     let mut buf = ::core::ptr::null_mut::<PktBuf>();
     buf = pktbuf_dynamic(64 as ::core::ffi::c_int);
@@ -4178,7 +4177,7 @@ unsafe extern "C" fn dns_name_cb(
 #[c2rust::src_loc = "1072:1"]
 unsafe extern "C" fn admin_show_dns_hosts(
     mut admin: *mut PgSocket,
-    mut arg: *const ::core::ffi::c_char,
+    mut _arg: *const ::core::ffi::c_char,
 ) -> bool {
     let mut buf = ::core::ptr::null_mut::<PktBuf>();
     buf = pktbuf_dynamic(256 as ::core::ffi::c_int);
@@ -4235,7 +4234,7 @@ unsafe extern "C" fn dns_zone_cb(
 #[c2rust::src_loc = "1095:1"]
 unsafe extern "C" fn admin_show_dns_zones(
     mut admin: *mut PgSocket,
-    mut arg: *const ::core::ffi::c_char,
+    mut _arg: *const ::core::ffi::c_char,
 ) -> bool {
     let mut buf = ::core::ptr::null_mut::<PktBuf>();
     buf = pktbuf_dynamic(256 as ::core::ffi::c_int);
@@ -4298,7 +4297,7 @@ unsafe extern "C" fn show_one_param(
 #[c2rust::src_loc = "1119:1"]
 unsafe extern "C" fn admin_show_config(
     mut admin: *mut PgSocket,
-    mut arg: *const ::core::ffi::c_char,
+    mut _arg: *const ::core::ffi::c_char,
 ) -> bool {
     let mut buf = ::core::ptr::null_mut::<PktBuf>();
     buf = pktbuf_dynamic(256 as ::core::ffi::c_int);
@@ -5083,7 +5082,7 @@ unsafe extern "C" fn copy_arg(
 #[c2rust::src_loc = "1580:1"]
 unsafe extern "C" fn admin_show_help(
     mut admin: *mut PgSocket,
-    mut arg: *const ::core::ffi::c_char,
+    mut _arg: *const ::core::ffi::c_char,
 ) -> bool {
     let mut res: bool = false;
     let mut _data: [uint8_t; 512] = [0; 512];
@@ -5123,7 +5122,7 @@ unsafe extern "C" fn admin_show_help(
 #[c2rust::src_loc = "1610:1"]
 unsafe extern "C" fn admin_show_version(
     mut admin: *mut PgSocket,
-    mut arg: *const ::core::ffi::c_char,
+    mut _arg: *const ::core::ffi::c_char,
 ) -> bool {
     let mut buf = ::core::ptr::null_mut::<PktBuf>();
     buf = pktbuf_dynamic(128 as ::core::ffi::c_int);
@@ -5154,28 +5153,28 @@ unsafe extern "C" fn admin_show_version(
 #[c2rust::src_loc = "1628:1"]
 unsafe extern "C" fn admin_show_stats(
     mut admin: *mut PgSocket,
-    mut arg: *const ::core::ffi::c_char,
+    mut _arg: *const ::core::ffi::c_char,
 ) -> bool {
     return admin_database_stats(admin, &raw mut pool_list);
 }
 #[c2rust::src_loc = "1633:1"]
 unsafe extern "C" fn admin_show_stats_totals(
     mut admin: *mut PgSocket,
-    mut arg: *const ::core::ffi::c_char,
+    mut _arg: *const ::core::ffi::c_char,
 ) -> bool {
     return admin_database_stats_totals(admin, &raw mut pool_list);
 }
 #[c2rust::src_loc = "1638:1"]
 unsafe extern "C" fn admin_show_stats_averages(
     mut admin: *mut PgSocket,
-    mut arg: *const ::core::ffi::c_char,
+    mut _arg: *const ::core::ffi::c_char,
 ) -> bool {
     return admin_database_stats_averages(admin, &raw mut pool_list);
 }
 #[c2rust::src_loc = "1643:1"]
 unsafe extern "C" fn admin_show_totals(
     mut admin: *mut PgSocket,
-    mut arg: *const ::core::ffi::c_char,
+    mut _arg: *const ::core::ffi::c_char,
 ) -> bool {
     return show_stat_totals(admin, &raw mut pool_list);
 }

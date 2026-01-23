@@ -1,4 +1,3 @@
-use ::c2rust_bitfields;
 #[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arm/_types.h:23"]
 pub mod _types_h {
     #[c2rust::src_loc = "32:1"]
@@ -166,8 +165,6 @@ pub mod list_h {
         }
         return list_del((*list).next);
     }
-    use super::_null_h::NULL;
-    use super::sys__types_h::__DARWIN_NULL;
 }
 #[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/statlist.h:23"]
 pub mod statlist_h {
@@ -812,7 +809,7 @@ pub mod bouncer_h {
         return (*a).sa.sa_family as ::core::ffi::c_int == AF_UNIX;
     }
     use super::_pid_t_h::pid_t;
-    use super::_sa_family_t_h::sa_family_t;
+
     use super::_uid_t_h::uid_t;
     use super::_uint16_t_h::uint16_t;
     use super::_uint64_t_h::uint64_t;
@@ -832,7 +829,7 @@ pub mod bouncer_h {
     use super::time_h::usec_t;
     use super::varcache_h::VarCache;
     extern "C" {
-                #[c2rust::src_loc = "313:1"]
+        #[c2rust::src_loc = "313:1"]
         pub fn pga_str(
             a: *const PgAddr,
             dst: *mut ::core::ffi::c_char,
@@ -1082,7 +1079,7 @@ pub mod proto_h {
         }) as ::core::ffi::c_char;
     }
     use super::_uint32_t_h::uint32_t;
-    use super::_uint8_t_h::uint8_t;
+
     use super::bouncer_h::{PgPool, PgSocket};
     use super::mbuf_h::{mbuf_avail_for_read, mbuf_written, MBuf};
     use super::stdbool_h::{false_0, true_0};
@@ -1484,7 +1481,7 @@ pub use self::_sa_family_t_h::sa_family_t;
 pub use self::_size_t_h::size_t;
 pub use self::_ssize_t_h::ssize_t;
 use self::_stdlib_h::exit;
-use self::_string_h::{memchr, memcpy, strcmp};
+use self::_string_h::{memcpy, strcmp};
 pub use self::_timeval_h::timeval;
 pub use self::_types_h::{
     __darwin_ptrdiff_t, __darwin_size_t, __darwin_ssize_t, __darwin_time_t, __int32_t, __uint16_t,
@@ -1514,8 +1511,7 @@ pub use self::bouncer_h::{
 };
 use self::client_h::handle_auth_query_response;
 pub use self::cryptohash_h::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
-use self::dnslookup_h::DNSToken;
-use self::event_h::event_base;
+
 pub use self::event_struct_h::{
     event, event_callback, C2RustUnnamed_0, C2RustUnnamed_1, C2RustUnnamed_2, C2RustUnnamed_3,
     C2RustUnnamed_4, C2RustUnnamed_5, C2RustUnnamed_6, C2RustUnnamed_7, C2RustUnnamed_8,
@@ -1535,7 +1531,7 @@ pub use self::mbuf_h::{
 use self::objects_h::{
     clear_outstanding_requests_until, disconnect_client, disconnect_client_sqlstate,
     disconnect_server, forward_cancel_request, outstanding_request_cache, pop_outstanding_request,
-    queue_fake_response, release_server, Slab,
+    queue_fake_response, release_server,
 };
 pub use self::pktbuf_h::{pktbuf_send_immediate, pktbuf_static, pktbuf_write_generic, PktBuf};
 pub use self::prepare_h::{
@@ -1571,7 +1567,7 @@ pub use self::strpool_h::{PStr, StrPool};
 pub use self::sys__types_h::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
 use self::takeover_h::{takeover_login, takeover_login_failed};
 pub use self::time_h::{get_cached_time, usec_t};
-use self::tls_h::{tls, tls_get_connection_info};
+use self::tls_h::tls_get_connection_info;
 pub use self::uthash_h::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 use self::util_h::fill_local_addr;
 pub use self::varcache_h::{varcache_set, varcache_set_canonical, VarCache};

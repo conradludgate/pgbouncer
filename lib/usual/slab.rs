@@ -95,7 +95,7 @@ pub mod statlist_h {
     #[c2rust::src_loc = "78:1"]
     pub unsafe extern "C" fn statlist_init(
         mut list: *mut StatList,
-        mut name: *const ::core::ffi::c_char,
+        mut _name: *const ::core::ffi::c_char,
     ) {
         list_init(&raw mut (*list).head);
         (*list).cur_count = 0 as ::core::ffi::c_int;
@@ -171,8 +171,6 @@ pub mod list_h {
         }
         return list_del((*list).next);
     }
-    use super::_null_h::NULL;
-    use super::sys__types_h::__DARWIN_NULL;
 }
 #[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arm/_param.h:19"]
 pub mod _param_h {

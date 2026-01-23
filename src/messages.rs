@@ -1,4 +1,3 @@
-use ::c2rust_bitfields;
 #[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arm/_types.h:1"]
 pub mod _types_h {
     #[c2rust::src_loc = "32:1"]
@@ -725,8 +724,7 @@ pub mod bouncer_h {
     use super::statlist_h::StatList;
     use super::time_h::usec_t;
     use super::varcache_h::VarCache;
-    extern "C" {
-            }
+    extern "C" {}
 }
 #[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/sbuf.h:1"]
 pub mod sbuf_h {
@@ -1131,7 +1129,7 @@ pub use self::_ptrdiff_t_h::ptrdiff_t;
 pub use self::_sa_family_t_h::sa_family_t;
 pub use self::_size_t_h::size_t;
 pub use self::_ssize_t_h::ssize_t;
-use self::_string_h::{memchr, strlen};
+use self::_string_h::strlen;
 pub use self::_timeval_h::timeval;
 pub use self::_types_h::{
     __darwin_ptrdiff_t, __darwin_size_t, __darwin_ssize_t, __darwin_time_t, __int32_t, __uint16_t,
@@ -1154,8 +1152,7 @@ pub use self::bouncer_h::{
     SV_BEING_CANCELED, SV_FREE, SV_IDLE, SV_JUSTFREE, SV_LOGIN, SV_TESTED, SV_USED,
 };
 pub use self::cryptohash_h::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
-use self::dnslookup_h::DNSToken;
-use self::event_h::event_base;
+
 pub use self::event_struct_h::{
     event, event_callback, C2RustUnnamed_0, C2RustUnnamed_1, C2RustUnnamed_2, C2RustUnnamed_3,
     C2RustUnnamed_4, C2RustUnnamed_5, C2RustUnnamed_6, C2RustUnnamed_7, C2RustUnnamed_8,
@@ -1193,7 +1190,7 @@ pub use self::stdbool_h::{false_0, true_0};
 pub use self::strpool_h::{PStr, StrPool};
 pub use self::sys__types_h::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t};
 pub use self::time_h::usec_t;
-use self::tls_h::tls;
+
 pub use self::uthash_h::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 pub use self::varcache_h::VarCache;
 #[no_mangle]

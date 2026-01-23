@@ -1,4 +1,3 @@
-use ::c2rust_bitfields;
 #[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arm/_types.h:23"]
 pub mod _types_h {
     #[c2rust::src_loc = "32:1"]
@@ -754,8 +753,7 @@ pub mod bouncer_h {
     use super::statlist_h::StatList;
     use super::time_h::usec_t;
     use super::varcache_h::VarCache;
-    extern "C" {
-            }
+    extern "C" {}
 }
 #[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/sbuf.h:23"]
 pub mod sbuf_h {
@@ -1002,7 +1000,7 @@ pub mod scram_h {
 pub mod hmac_h {
     use super::_size_t_h::size_t;
     use super::_uint8_t_h::uint8_t;
-    use super::cryptohash_h::{pg_cryptohash_type, PG_SHA224};
+    use super::cryptohash_h::pg_cryptohash_type;
     extern "C" {
         #[c2rust::src_loc = "21:9"]
         pub type pg_hmac_ctx;
@@ -1155,7 +1153,7 @@ pub mod scram_common_h {
     #[c2rust::src_loc = "45:9"]
     pub const SCRAM_DEFAULT_SALT_LEN: ::core::ffi::c_int = 16 as ::core::ffi::c_int;
     use super::_uint8_t_h::uint8_t;
-    use super::cryptohash_h::{pg_cryptohash_type, PG_SHA224};
+    use super::cryptohash_h::pg_cryptohash_type;
     use super::sha2_h::PG_SHA256_DIGEST_LENGTH;
     extern "C" {
         #[c2rust::src_loc = "53:1"]
@@ -1295,9 +1293,9 @@ pub use self::cryptohash_h::{
     pg_cryptohash_free, pg_cryptohash_init, pg_cryptohash_type, pg_cryptohash_update, PG_SHA224,
     PG_SHA256, PG_SHA384, PG_SHA512,
 };
-use self::dnslookup_h::DNSToken;
+
 use self::errno_h::__error;
-use self::event_h::event_base;
+
 pub use self::event_struct_h::{
     event, event_callback, C2RustUnnamed_0, C2RustUnnamed_1, C2RustUnnamed_2, C2RustUnnamed_3,
     C2RustUnnamed_4, C2RustUnnamed_5, C2RustUnnamed_6, C2RustUnnamed_7, C2RustUnnamed_8,
@@ -1344,7 +1342,7 @@ pub use self::stdbool_h::{false_0, true_0};
 pub use self::strpool_h::{PStr, StrPool};
 pub use self::sys__types_h::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
 pub use self::time_h::usec_t;
-use self::tls_h::tls;
+
 pub use self::uthash_h::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 pub use self::util_h::{get_random_bytes, MD5_PASSWD_LEN};
 pub use self::varcache_h::VarCache;

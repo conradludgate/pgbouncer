@@ -745,7 +745,7 @@ pub unsafe extern "C" fn tls_host_port(
 unsafe extern "C" fn tls_password_cb(
     mut buf: *mut ::core::ffi::c_char,
     mut size: ::core::ffi::c_int,
-    mut rwflag: ::core::ffi::c_int,
+    mut _rwflag: ::core::ffi::c_int,
     mut u: *mut ::core::ffi::c_void,
 ) -> ::core::ffi::c_int {
     let mut len: size_t = 0;

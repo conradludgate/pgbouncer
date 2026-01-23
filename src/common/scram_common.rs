@@ -62,7 +62,7 @@ pub mod cryptohash_h {
 pub mod hmac_h {
     use super::_size_t_h::size_t;
     use super::_uint8_t_h::uint8_t;
-    use super::cryptohash_h::{pg_cryptohash_type, PG_SHA224};
+    use super::cryptohash_h::pg_cryptohash_type;
     extern "C" {
         #[c2rust::src_loc = "21:9"]
         pub type pg_hmac_ctx;

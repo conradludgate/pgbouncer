@@ -113,7 +113,7 @@ pub unsafe extern "C" fn parse_bool_with_len(
             if pg_strncasecmp(
                 value,
                 b"on\0" as *const u8 as *const ::core::ffi::c_char,
-                (if len > 2 as size_t { len } else { 2 as size_t }),
+                if len > 2 as size_t { len } else { 2 as size_t },
             ) == 0 as ::core::ffi::c_int
             {
                 if !result.is_null() {
@@ -123,7 +123,7 @@ pub unsafe extern "C" fn parse_bool_with_len(
             } else if pg_strncasecmp(
                 value,
                 b"off\0" as *const u8 as *const ::core::ffi::c_char,
-                (if len > 2 as size_t { len } else { 2 as size_t }),
+                if len > 2 as size_t { len } else { 2 as size_t },
             ) == 0 as ::core::ffi::c_int
             {
                 if !result.is_null() {

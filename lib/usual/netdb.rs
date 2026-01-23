@@ -127,10 +127,10 @@ pub use self::usual_netdb_h::usual_gaicb;
 #[no_mangle]
 #[c2rust::src_loc = "209:1"]
 pub unsafe extern "C" fn usual_getaddrinfo_a(
-    mut mode: ::core::ffi::c_int,
-    mut list: *mut *mut usual_gaicb,
-    mut nitems: ::core::ffi::c_int,
-    mut sevp: *mut sigevent,
+    mut _mode: ::core::ffi::c_int,
+    mut _list: *mut *mut usual_gaicb,
+    mut _nitems: ::core::ffi::c_int,
+    mut _sevp: *mut sigevent,
 ) -> ::core::ffi::c_int {
     *__error() = ENOSYS;
     return EAI_SYSTEM;

@@ -1,4 +1,3 @@
-use ::c2rust_bitfields;
 #[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arm/_types.h:28"]
 pub mod _types_h {
     #[c2rust::src_loc = "32:1"]
@@ -896,7 +895,7 @@ pub mod bouncer_h {
         return (*a).sa.sa_family as ::core::ffi::c_int == AF_UNIX;
     }
     use super::_pid_t_h::pid_t;
-    use super::_sa_family_t_h::sa_family_t;
+
     use super::_uid_t_h::uid_t;
     use super::_uint16_t_h::uint16_t;
     use super::_uint64_t_h::uint64_t;
@@ -916,7 +915,7 @@ pub mod bouncer_h {
     use super::time_h::usec_t;
     use super::varcache_h::VarCache;
     extern "C" {
-                #[c2rust::src_loc = "309:1"]
+        #[c2rust::src_loc = "309:1"]
         pub fn pga_set(a: *mut PgAddr, fam: ::core::ffi::c_int, port: ::core::ffi::c_int);
         #[c2rust::src_loc = "311:1"]
         pub fn pga_pton(
@@ -1320,7 +1319,7 @@ pub mod _string_h {
 pub mod objects_h {
     use super::_uint64_t_h::uint64_t;
     use super::bouncer_h::{PgAddr, PgCredentials, PgDatabase, PgPool, PgSocket};
-    use super::list_h::List;
+
     use super::statlist_h::StatList;
     extern "C" {
         #[c2rust::src_loc = "21:1"]
@@ -1494,7 +1493,7 @@ pub use self::_size_t_h::size_t;
 pub use self::_socklen_t_h::socklen_t;
 pub use self::_ssize_t_h::ssize_t;
 use self::_stdlib_h::exit;
-use self::_string_h::{memchr, memcpy, memset, strcmp, strerror, strncmp};
+use self::_string_h::{memcpy, memset, strcmp, strerror, strncmp};
 pub use self::_timespec_h::timespec;
 pub use self::_timeval_h::timeval;
 pub use self::_types_h::{
@@ -1520,7 +1519,7 @@ pub use self::bouncer_h::{
     SV_FREE, SV_IDLE, SV_JUSTFREE, SV_LOGIN, SV_TESTED, SV_USED,
 };
 pub use self::cryptohash_h::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
-use self::dnslookup_h::DNSToken;
+
 pub use self::errno_h::{__error, EAGAIN, ENOENT};
 pub use self::event_h::{event_base, event_callback_fn};
 pub use self::event_struct_h::{
@@ -1572,7 +1571,7 @@ pub use self::sys__types_h::{
     __darwin_useconds_t, __DARWIN_NULL,
 };
 pub use self::time_h::{get_cached_time, usec_t, USEC};
-use self::tls_h::tls;
+
 use self::unistd_h::usleep;
 use self::usual_socket_h::socket_set_nonblocking;
 pub use self::uthash_h::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
@@ -2331,7 +2330,7 @@ unsafe extern "C" fn takeover_parse_data(
 #[c2rust::src_loc = "306:1"]
 unsafe extern "C" fn takeover_recv_cb(
     mut sock: ::core::ffi::c_int,
-    mut flags: ::core::ffi::c_short,
+    mut _flags: ::core::ffi::c_short,
     mut arg: *mut ::core::ffi::c_void,
 ) {
     let mut bouncer = (arg as *mut ::core::ffi::c_char)

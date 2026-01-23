@@ -794,8 +794,8 @@ unsafe extern "C" fn load_dh_buffer(
 #[c2rust::src_loc = "92:1"]
 unsafe extern "C" fn dh_auto_cb(
     mut s: *mut SSL,
-    mut is_export: ::core::ffi::c_int,
-    mut keylength: ::core::ffi::c_int,
+    mut _is_export: ::core::ffi::c_int,
+    mut _keylength: ::core::ffi::c_int,
 ) -> *mut DH {
     let mut pk = ::core::ptr::null_mut::<EVP_PKEY>();
     let mut bits: ::core::ffi::c_int = 0;

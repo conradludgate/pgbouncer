@@ -400,7 +400,7 @@ pub mod bouncer_h {
         return (*a).sa.sa_family as ::core::ffi::c_int == AF_UNIX;
     }
     use super::_pid_t_h::pid_t;
-    use super::_sa_family_t_h::sa_family_t;
+
     use super::_uid_t_h::uid_t;
     use super::in6_h::sockaddr_in6;
     use super::in_h::sockaddr_in;
@@ -633,7 +633,7 @@ pub mod _ctype_h {
     pub unsafe extern "C" fn isspace(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
         return __istype(_c as __darwin_ct_rune_t, _CTYPE_S as ::core::ffi::c_ulong);
     }
-    use super::_types_h::{__darwin_ct_rune_t, __uint32_t};
+    use super::_types_h::__darwin_ct_rune_t;
     use super::runetype_h::_DefaultRuneLocale;
     extern "C" {
         #[c2rust::src_loc = "153:1"]
@@ -884,7 +884,7 @@ pub unsafe extern "C" fn strset_new(mut cx: *const CxMem) -> *mut StrSet {
 }
 #[c2rust::src_loc = "72:1"]
 unsafe extern "C" fn strset_node_key(
-    mut ctx: *mut ::core::ffi::c_void,
+    mut _ctx: *mut ::core::ffi::c_void,
     mut obj: *mut ::core::ffi::c_void,
     mut ptr_p: *mut *const ::core::ffi::c_void,
 ) -> size_t {

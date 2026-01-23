@@ -379,7 +379,7 @@ pub mod _ctype_h {
     pub unsafe extern "C" fn isspace(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
         return __istype(_c as __darwin_ct_rune_t, _CTYPE_S as ::core::ffi::c_ulong);
     }
-    use super::_types_h::{__darwin_ct_rune_t, __uint32_t};
+    use super::_types_h::__darwin_ct_rune_t;
     use super::runetype_h::_DefaultRuneLocale;
     extern "C" {
         #[c2rust::src_loc = "153:1"]

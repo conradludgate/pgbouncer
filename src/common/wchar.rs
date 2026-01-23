@@ -295,12 +295,10 @@ pub mod _null_h {
     use super::sys__types_h::__DARWIN_NULL;
 }
 #[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/common/ascii.h:22"]
-pub mod ascii_h {
-    use super::simd_h::Vector8;
-}
+pub mod ascii_h {}
 #[c2rust::header_src = "/opt/homebrew/Cellar/llvm/21.1.8/lib/clang/21/include/arm_neon.h:22"]
 pub mod arm_neon_h {
-    use super::_uint8_t_h::uint8_t;
+
     pub use ::core::arch::aarch64::uint8x16_t;
     pub use ::core::arch::aarch64::{vceqq_u8, vdupq_n_u8, vmaxvq_u8, vorrq_u8};
 }
@@ -384,7 +382,7 @@ unsafe extern "C" fn pg_ascii2wchar_with_len(
     return cnt;
 }
 #[c2rust::src_loc = "88:1"]
-unsafe extern "C" fn pg_ascii_mblen(mut s: *const ::core::ffi::c_uchar) -> ::core::ffi::c_int {
+unsafe extern "C" fn pg_ascii_mblen(mut _s: *const ::core::ffi::c_uchar) -> ::core::ffi::c_int {
     return 1 as ::core::ffi::c_int;
 }
 #[c2rust::src_loc = "94:1"]
@@ -3005,7 +3003,7 @@ unsafe extern "C" fn pg_wchar2single_with_len(
     return cnt;
 }
 #[c2rust::src_loc = "879:1"]
-unsafe extern "C" fn pg_latin1_mblen(mut s: *const ::core::ffi::c_uchar) -> ::core::ffi::c_int {
+unsafe extern "C" fn pg_latin1_mblen(mut _s: *const ::core::ffi::c_uchar) -> ::core::ffi::c_int {
     return 1 as ::core::ffi::c_int;
 }
 #[c2rust::src_loc = "885:1"]
@@ -3128,8 +3126,8 @@ unsafe extern "C" fn pg_gb18030_dsplen(mut s: *const ::core::ffi::c_uchar) -> ::
 }
 #[c2rust::src_loc = "1066:1"]
 unsafe extern "C" fn pg_ascii_verifychar(
-    mut s: *const ::core::ffi::c_uchar,
-    mut len: ::core::ffi::c_int,
+    mut _s: *const ::core::ffi::c_uchar,
+    mut _len: ::core::ffi::c_int,
 ) -> ::core::ffi::c_int {
     return 1 as ::core::ffi::c_int;
 }
@@ -3500,8 +3498,8 @@ unsafe extern "C" fn pg_mule_verifystr(
 }
 #[c2rust::src_loc = "1413:1"]
 unsafe extern "C" fn pg_latin1_verifychar(
-    mut s: *const ::core::ffi::c_uchar,
-    mut len: ::core::ffi::c_int,
+    mut _s: *const ::core::ffi::c_uchar,
+    mut _len: ::core::ffi::c_int,
 ) -> ::core::ffi::c_int {
     return 1 as ::core::ffi::c_int;
 }

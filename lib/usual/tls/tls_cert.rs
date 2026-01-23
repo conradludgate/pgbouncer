@@ -1566,7 +1566,7 @@ unsafe extern "C" fn map_bits(mut map: *const [uint32_t; 2], mut input: uint32_t
 }
 #[c2rust::src_loc = "427:1"]
 unsafe extern "C" fn tls_get_key_usage(
-    mut ctx: *mut tls,
+    mut _ctx: *mut tls,
     mut cert: *mut tls_cert,
     mut x509: *mut X509,
 ) -> ::core::ffi::c_int {
@@ -1621,7 +1621,7 @@ unsafe extern "C" fn tls_get_key_usage(
 }
 #[c2rust::src_loc = "457:1"]
 unsafe extern "C" fn tls_get_ext_key_usage(
-    mut ctx: *mut tls,
+    mut _ctx: *mut tls,
     mut cert: *mut tls_cert,
     mut x509: *mut X509,
 ) -> ::core::ffi::c_int {

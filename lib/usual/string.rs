@@ -118,7 +118,7 @@ pub mod statlist_h {
     #[c2rust::src_loc = "78:1"]
     pub unsafe extern "C" fn statlist_init(
         mut list: *mut StatList,
-        mut name: *const ::core::ffi::c_char,
+        mut _name: *const ::core::ffi::c_char,
     ) {
         list_init(&raw mut (*list).head);
         (*list).cur_count = 0 as ::core::ffi::c_int;
@@ -185,7 +185,6 @@ pub mod list_h {
         }
         return list_del((*list).next);
     }
-    use super::_null_h::NULL;
 }
 #[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/mbuf.h:29"]
 pub mod mbuf_h {
@@ -266,7 +265,7 @@ pub mod mbuf_h {
         return true_0 != 0;
     }
     use super::_malloc_h::free;
-    use super::_null_h::NULL;
+
     use super::_size_t_h::size_t;
     use super::_string_h::{memcpy, memset};
     use super::_uint8_t_h::uint8_t;
@@ -527,7 +526,7 @@ pub mod _ctype_h {
     pub unsafe extern "C" fn isspace(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
         return __istype(_c as __darwin_ct_rune_t, _CTYPE_S as ::core::ffi::c_ulong);
     }
-    use super::_types_h::{__darwin_ct_rune_t, __uint32_t};
+    use super::_types_h::__darwin_ct_rune_t;
     use super::runetype_h::_DefaultRuneLocale;
     extern "C" {
         #[c2rust::src_loc = "153:1"]
@@ -536,7 +535,7 @@ pub mod _ctype_h {
 }
 #[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/xlocale/_stdlib.h:23"]
 pub mod _stdlib_h {
-    use super::_locale_t_h::{_xlocale, locale_t};
+    use super::_locale_t_h::locale_t;
     extern "C" {
         #[c2rust::src_loc = "48:1"]
         pub fn strtod_l(
@@ -573,7 +572,7 @@ pub mod _locale_h {
     #[c2rust::src_loc = "86:9"]
     pub const LC_TIME_MASK: ::core::ffi::c_int =
         (1 as ::core::ffi::c_int) << 5 as ::core::ffi::c_int;
-    use super::_locale_t_h::{_xlocale, locale_t};
+    use super::_locale_t_h::locale_t;
     extern "C" {
         #[c2rust::src_loc = "100:1"]
         pub fn newlocale(
@@ -644,7 +643,7 @@ pub use self::_locale_h::{
     LC_NUMERIC_MASK, LC_TIME_MASK,
 };
 pub use self::_locale_t_h::{_xlocale, locale_t};
-use self::_malloc_h::free;
+
 pub use self::_nl_item_h::nl_item;
 pub use self::_null_h::NULL;
 pub use self::_rsize_t_h::rsize_t;
@@ -653,8 +652,8 @@ pub use self::_ssize_t_h::ssize_t;
 use self::_stdio_h::snprintf;
 use self::_stdlib_h::strtod_l;
 use self::_string_h::{
-    memchr, memcmp, memcpy, memmove, memset, memset_s, strcmp, strerror_r, strlcpy, strlen,
-    strnlen, strrchr,
+    memchr, memcmp, memcpy, memmove, memset_s, strcmp, strerror_r, strlcpy, strlen, strnlen,
+    strrchr,
 };
 pub use self::_types_h::{
     __darwin_ct_rune_t, __darwin_rune_t, __darwin_size_t, __darwin_ssize_t, __darwin_wchar_t,

@@ -1,4 +1,3 @@
-use ::c2rust_bitfields;
 #[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arm/_types.h:23"]
 pub mod _types_h {
     #[c2rust::src_loc = "32:1"]
@@ -831,7 +830,7 @@ pub mod bouncer_h {
         return ((*slist).head.next as *mut ::core::ffi::c_char)
             .offset(-(0 as ::core::ffi::c_ulong as isize)) as *mut PgSocket;
     }
-    use super::_null_h::NULL;
+
     use super::_pid_t_h::pid_t;
     use super::_uid_t_h::uid_t;
     use super::_uint16_t_h::uint16_t;
@@ -853,7 +852,7 @@ pub mod bouncer_h {
     use super::time_h::usec_t;
     use super::varcache_h::VarCache;
     extern "C" {
-                #[c2rust::src_loc = "66:1"]
+        #[c2rust::src_loc = "66:1"]
         pub static mut pgb_event_base: *mut event_base;
         #[c2rust::src_loc = "798:1"]
         pub static mut cf_query_wait_notify: ::core::ffi::c_ulong;
@@ -1177,8 +1176,8 @@ pub mod logging_h {
 }
 #[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/objects.h:23"]
 pub mod objects_h {
-    use super::bouncer_h::{PgCredentials, PgDatabase, PgPool, PgSocket, SocketState, CL_FREE};
-    use super::list_h::List;
+    use super::bouncer_h::{PgCredentials, PgDatabase, PgPool, PgSocket, SocketState};
+
     use super::statlist_h::StatList;
     extern "C" {
         #[c2rust::src_loc = "27:8"]
@@ -1376,7 +1375,7 @@ pub use self::bouncer_h::{
     SV_USED,
 };
 pub use self::cryptohash_h::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
-use self::dnslookup_h::{adns_zone_cache_maint, DNSContext, DNSToken};
+use self::dnslookup_h::adns_zone_cache_maint;
 use self::errno_h::__error;
 pub use self::event_h::{
     event_add, event_assign, event_base, event_base_loopbreak, event_callback_fn, EV_PERSIST,
@@ -1399,7 +1398,7 @@ use self::objects_h::{
     db_cache, disconnect_client, disconnect_server, get_active_client_count,
     get_active_server_count, get_pool, launch_new_connection, life_over, login_client_list,
     peer_cache, peer_list, peer_pool_cache, peer_pool_list, pool_cache, pool_list, release_server,
-    var_list_cache, Slab,
+    var_list_cache,
 };
 pub use self::pktbuf_h::{
     pktbuf_dynamic, pktbuf_free, pktbuf_send_immediate, pktbuf_send_queued, pktbuf_static,
@@ -1429,7 +1428,7 @@ pub use self::stdbool_h::{false_0, true_0};
 pub use self::strpool_h::{PStr, StrPool};
 pub use self::sys__types_h::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
 pub use self::time_h::{get_cached_time, usec_t, USEC};
-use self::tls_h::tls;
+
 pub use self::uthash_h::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 pub use self::varcache_h::{varcache_clean, VarCache};
 #[c2rust::src_loc = "28:1"]
@@ -2470,9 +2469,9 @@ unsafe extern "C" fn cleanup_inactive_autodatabases() {
 }
 #[c2rust::src_loc = "755:1"]
 unsafe extern "C" fn do_full_maint(
-    mut sock: ::core::ffi::c_int,
-    mut flags: ::core::ffi::c_short,
-    mut arg: *mut ::core::ffi::c_void,
+    mut _sock: ::core::ffi::c_int,
+    mut _flags: ::core::ffi::c_short,
+    mut _arg: *mut ::core::ffi::c_void,
 ) {
     let mut item = ::core::ptr::null_mut::<List>();
     let mut tmp = ::core::ptr::null_mut::<List>();
@@ -2762,7 +2761,7 @@ pub unsafe extern "C" fn config_postprocess() {
     }
 }
 #[c2rust::src_loc = "979:1"]
-unsafe extern "C" fn clean_cached_scram(mut n: *mut AANode, mut arg: *mut ::core::ffi::c_void) {
+unsafe extern "C" fn clean_cached_scram(mut n: *mut AANode, mut _arg: *mut ::core::ffi::c_void) {
     let mut user = (n as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
         as *mut PgCredentials;
     if !(*user).scram_SaltKey.is_null() {

@@ -130,7 +130,7 @@ pub unsafe extern "C" fn strtoint(
 #[c2rust::src_loc = "80:1"]
 pub unsafe extern "C" fn pg_clean_ascii(
     mut str: *const ::core::ffi::c_char,
-    mut alloc_flags: ::core::ffi::c_int,
+    mut _alloc_flags: ::core::ffi::c_int,
 ) -> *mut ::core::ffi::c_char {
     let mut dstlen: size_t = 0;
     let mut dst = ::core::ptr::null_mut::<::core::ffi::c_char>();

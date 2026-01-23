@@ -1,4 +1,3 @@
-use ::c2rust_bitfields;
 #[c2rust::header_src = "internal:0"]
 pub mod internal {
     #[c2rust::src_loc = "0:0"]
@@ -780,7 +779,7 @@ pub mod bouncer_h {
     use super::time_h::usec_t;
     use super::varcache_h::VarCache;
     extern "C" {
-                #[c2rust::src_loc = "66:1"]
+        #[c2rust::src_loc = "66:1"]
         pub static mut pgb_event_base: *mut event_base;
     }
 }
@@ -1164,7 +1163,7 @@ pub mod protocol_h {
 pub use self::_in_addr_t_h::in_addr_t;
 pub use self::_in_port_t_h::in_port_t;
 pub use self::_int64_t_h::int64_t;
-use self::_malloc_h::{calloc, free, malloc, realloc};
+use self::_malloc_h::{free, malloc, realloc};
 pub use self::_null_h::NULL;
 pub use self::_pid_t_h::pid_t;
 pub use self::_ptrdiff_t_h::ptrdiff_t;
@@ -1199,7 +1198,7 @@ pub use self::bouncer_h::{
     SV_TESTED, SV_USED,
 };
 pub use self::cryptohash_h::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
-use self::dnslookup_h::DNSToken;
+
 pub use self::errno_h::{__error, EAGAIN};
 pub use self::event_h::{event_add, event_assign, event_base, event_callback_fn, EV_WRITE};
 pub use self::event_struct_h::{
@@ -1236,7 +1235,7 @@ pub use self::stdbool_h::{false_0, true_0};
 pub use self::strpool_h::{PStr, StrPool};
 pub use self::sys__types_h::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
 pub use self::time_h::{format_time_s, usec_t};
-use self::tls_h::tls;
+
 pub use self::uthash_h::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 pub use self::varcache_h::VarCache;
 #[c2rust::src_loc = "29:9"]

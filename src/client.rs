@@ -1,4 +1,3 @@
-use ::c2rust_bitfields;
 #[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arm/_types.h:23"]
 pub mod _types_h {
     #[c2rust::src_loc = "32:1"]
@@ -884,7 +883,7 @@ pub mod bouncer_h {
         return p;
     }
     use super::_pid_t_h::pid_t;
-    use super::_sa_family_t_h::sa_family_t;
+
     use super::_uid_t_h::uid_t;
     use super::_uint16_t_h::uint16_t;
     use super::_uint64_t_h::uint64_t;
@@ -905,7 +904,7 @@ pub mod bouncer_h {
     use super::time_h::usec_t;
     use super::varcache_h::VarCache;
     extern "C" {
-                #[c2rust::src_loc = "171:1"]
+        #[c2rust::src_loc = "171:1"]
         pub static mut cf_sbuf_len: ::core::ffi::c_int;
         #[c2rust::src_loc = "314:1"]
         pub fn pga_details(
@@ -1259,7 +1258,7 @@ pub mod mbuf_h {
         );
     }
     use super::_malloc_h::free;
-    use super::_null_h::NULL;
+
     use super::_size_t_h::size_t;
     use super::_string_h::{memchr, memcpy, memset};
     use super::_uint16_t_h::uint16_t;
@@ -1330,7 +1329,7 @@ pub mod proto_h {
         }) as ::core::ffi::c_char;
     }
     use super::_uint32_t_h::uint32_t;
-    use super::_uint8_t_h::uint8_t;
+
     use super::mbuf_h::{mbuf_avail_for_read, mbuf_free, mbuf_written, MBuf};
     use super::stdbool_h::{false_0, true_0};
     extern "C" {
@@ -1695,7 +1694,7 @@ pub mod hba_h {
     #[c2rust::src_loc = "21:9"]
     pub const NAME_ALL: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
     use super::_uint8_t_h::uint8_t;
-    use super::bouncer_h::{PgAddr, ReplicationType, REPLICATION_NONE};
+    use super::bouncer_h::{PgAddr, ReplicationType};
     use super::list_h::List;
     extern "C" {
         #[c2rust::src_loc = "41:2"]
@@ -1764,7 +1763,7 @@ pub mod _ctype_h {
     pub unsafe extern "C" fn isspace(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
         return __istype(_c as __darwin_ct_rune_t, _CTYPE_S as ::core::ffi::c_ulong);
     }
-    use super::_types_h::{__darwin_ct_rune_t, __uint32_t};
+    use super::_types_h::__darwin_ct_rune_t;
     use super::runetype_h::_DefaultRuneLocale;
     extern "C" {
         #[c2rust::src_loc = "153:1"]
@@ -1883,7 +1882,7 @@ pub mod admin_h {
 #[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/objects.h:23"]
 pub mod objects_h {
     use super::bouncer_h::{
-        PgCredentials, PgDatabase, PgGlobalUser, PgPool, PgSocket, ResponseAction, RA_FORWARD,
+        PgCredentials, PgDatabase, PgGlobalUser, PgPool, PgSocket, ResponseAction,
     };
     extern "C" {
         #[c2rust::src_loc = "45:1"]
@@ -2079,7 +2078,7 @@ pub use self::_size_t_h::size_t;
 pub use self::_ssize_t_h::ssize_t;
 use self::_stdio_h::snprintf;
 use self::_stdlib_h::exit;
-use self::_string_h::{memchr, memcpy, memset, strchr, strcmp, strdup, strlcpy, strlen, strncmp};
+use self::_string_h::{memcpy, memset, strchr, strcmp, strdup, strlcpy, strlen, strncmp};
 pub use self::_timeval_h::timeval;
 pub use self::_types_h::{
     __darwin_ct_rune_t, __darwin_ptrdiff_t, __darwin_rune_t, __darwin_size_t, __darwin_ssize_t,
@@ -2114,8 +2113,7 @@ pub use self::bouncer_h::{
 use self::builtins_h::parse_bool;
 pub use self::cryptohash_h::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
 pub use self::ctype_h::safe_isspace;
-use self::dnslookup_h::DNSToken;
-use self::event_h::event_base;
+
 pub use self::event_struct_h::{
     event, event_callback, C2RustUnnamed_0, C2RustUnnamed_1, C2RustUnnamed_2, C2RustUnnamed_3,
     C2RustUnnamed_4, C2RustUnnamed_5, C2RustUnnamed_6, C2RustUnnamed_7, C2RustUnnamed_8,
@@ -2200,7 +2198,7 @@ pub use self::sys__types_h::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_
 use self::system_h::check_unix_peer_name;
 pub use self::time_h::{get_cached_time, usec_t};
 use self::tls_h::{
-    tls, tls_get_connection_info, tls_peer_cert_contains_name, tls_peer_cert_provided,
+    tls_get_connection_info, tls_peer_cert_contains_name, tls_peer_cert_provided,
     tls_peer_cert_subject,
 };
 pub use self::uthash_h::{UT_hash_bucket, UT_hash_handle, UT_hash_table};

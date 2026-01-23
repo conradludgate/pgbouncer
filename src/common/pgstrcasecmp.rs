@@ -116,7 +116,7 @@ pub mod _ctype_h {
     pub unsafe extern "C" fn tolower(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
         return __tolower(_c as __darwin_ct_rune_t) as ::core::ffi::c_int;
     }
-    use super::_types_h::{__darwin_ct_rune_t, __uint32_t};
+    use super::_types_h::__darwin_ct_rune_t;
     use super::runetype_h::_DefaultRuneLocale;
     extern "C" {
         #[c2rust::src_loc = "153:1"]

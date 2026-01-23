@@ -1,4 +1,3 @@
-use ::c2rust_bitfields;
 #[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arm/_types.h:23"]
 pub mod _types_h {
     #[c2rust::src_loc = "32:1"]
@@ -869,7 +868,7 @@ pub mod bouncer_h {
         return (*a).sa.sa_family as ::core::ffi::c_int == AF_UNIX;
     }
     use super::_pid_t_h::pid_t;
-    use super::_sa_family_t_h::sa_family_t;
+
     use super::_uid_t_h::uid_t;
     use super::_uint16_t_h::uint16_t;
     use super::_uint64_t_h::uint64_t;
@@ -889,7 +888,7 @@ pub mod bouncer_h {
     use super::time_h::usec_t;
     use super::varcache_h::VarCache;
     extern "C" {
-                #[c2rust::src_loc = "806:1"]
+        #[c2rust::src_loc = "806:1"]
         pub static mut cf_listen_port: ::core::ffi::c_int;
         #[c2rust::src_loc = "876:1"]
         pub static mut cf_tcp_keepalive: ::core::ffi::c_int;
@@ -1227,7 +1226,7 @@ pub mod _ctype_h {
     pub unsafe extern "C" fn isspace(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
         return __istype(_c as __darwin_ct_rune_t, _CTYPE_S as ::core::ffi::c_ulong);
     }
-    use super::_types_h::{__darwin_ct_rune_t, __uint32_t};
+    use super::_types_h::__darwin_ct_rune_t;
     use super::runetype_h::_DefaultRuneLocale;
     extern "C" {
         #[c2rust::src_loc = "153:1"]
@@ -1467,10 +1466,10 @@ pub use self::cfparser_h::{cf_set_str, CfValue};
 pub use self::cryptohash_h::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
 use self::csrandom_h::csrandom_bytes;
 pub use self::ctype_h::safe_isspace;
-use self::dnslookup_h::DNSToken;
+
 use self::err_h::{ERR_clear_error, ERR_get_error, ERR_reason_error_string};
 pub use self::errno_h::{__error, EINVAL, ENOSYS};
-use self::event_h::{event_add, event_base};
+use self::event_h::event_add;
 pub use self::event_struct_h::{
     event, event_callback, C2RustUnnamed_0, C2RustUnnamed_1, C2RustUnnamed_2, C2RustUnnamed_3,
     C2RustUnnamed_4, C2RustUnnamed_5, C2RustUnnamed_6, C2RustUnnamed_7, C2RustUnnamed_8,
@@ -1514,7 +1513,7 @@ pub use self::sys__types_h::{
 };
 pub use self::tcp_h::TCP_NODELAY;
 pub use self::time_h::usec_t;
-use self::tls_h::tls;
+
 pub use self::types_h::{evp_md_ctx_st, evp_md_st, EVP_MD, EVP_MD_CTX};
 use self::unistd_h::{geteuid, gethostname, getpid};
 use self::usual_socket_h::{socket_set_keepalive, socket_setup, usual_getpeercreds};
@@ -1530,7 +1529,7 @@ pub struct timer_slot {
 #[no_mangle]
 #[c2rust::src_loc = "35:1"]
 pub unsafe extern "C" fn log_socket_prefix(
-    mut lev: LogLevel,
+    mut _lev: LogLevel,
     mut ctx: *mut ::core::ffi::c_void,
     mut dst: *mut ::core::ffi::c_char,
     mut dstlen: ::core::ffi::c_uint,
