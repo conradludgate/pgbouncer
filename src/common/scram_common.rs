@@ -121,7 +121,7 @@ pub mod endian_h {
     #[inline]
     #[c2rust::src_loc = "144:1"]
     pub unsafe extern "C" fn usual_bswap32(mut x: uint32_t) -> uint32_t {
-        return x.swap_bytes();
+        x.swap_bytes()
     }
     use super::_uint32_t_h::uint32_t;
 }
@@ -247,7 +247,7 @@ pub unsafe extern "C" fn scram_SaltedPassword(
         }
         j = 0 as ::core::ffi::c_int;
         while j < key_length {
-            let ref mut fresh0 = *result.offset(j as isize);
+            let fresh0 = &mut *result.offset(j as isize);
             *fresh0 =
                 (*fresh0 as ::core::ffi::c_int ^ Ui[j as usize] as ::core::ffi::c_int) as uint8_t;
             j += 1;
@@ -260,7 +260,7 @@ pub unsafe extern "C" fn scram_SaltedPassword(
         i += 1;
     }
     pg_hmac_free(hmac_ctx);
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }
 #[no_mangle]
 #[c2rust::src_loc = "103:1"]
@@ -286,7 +286,7 @@ pub unsafe extern "C" fn scram_H(
         return -(1 as ::core::ffi::c_int);
     }
     pg_cryptohash_free(ctx);
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }
 #[no_mangle]
 #[c2rust::src_loc = "133:1"]
@@ -315,7 +315,7 @@ pub unsafe extern "C" fn scram_ClientKey(
         return -(1 as ::core::ffi::c_int);
     }
     pg_hmac_free(ctx);
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }
 #[no_mangle]
 #[c2rust::src_loc = "163:1"]
@@ -344,7 +344,7 @@ pub unsafe extern "C" fn scram_ServerKey(
         return -(1 as ::core::ffi::c_int);
     }
     pg_hmac_free(ctx);
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }
 #[no_mangle]
 #[c2rust::src_loc = "200:1"]
@@ -464,5 +464,5 @@ pub unsafe extern "C" fn scram_build_secret(
     let fresh3 = p;
     p = p.offset(1);
     *fresh3 = '\0' as i32 as ::core::ffi::c_char;
-    return result;
+    result
 }

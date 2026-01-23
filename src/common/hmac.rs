@@ -201,7 +201,7 @@ pub unsafe extern "C" fn pg_hmac_create(mut type_0: pg_cryptohash_type) -> *mut 
         free(ctx as *mut ::core::ffi::c_void);
         return ::core::ptr::null_mut::<pg_hmac_ctx>();
     }
-    return ctx;
+    ctx
 }
 #[no_mangle]
 #[c2rust::src_loc = "127:1"]
@@ -289,7 +289,7 @@ pub unsafe extern "C" fn pg_hmac_init(
     if !shrinkbuf.is_null() {
         free(shrinkbuf as *mut ::core::ffi::c_void);
     }
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }
 #[no_mangle]
 #[c2rust::src_loc = "212:1"]
@@ -306,7 +306,7 @@ pub unsafe extern "C" fn pg_hmac_update(
         (*ctx).errreason = pg_cryptohash_error((*ctx).hash);
         return -(1 as ::core::ffi::c_int);
     }
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }
 #[no_mangle]
 #[c2rust::src_loc = "233:1"]
@@ -351,7 +351,7 @@ pub unsafe extern "C" fn pg_hmac_final(
         return -(1 as ::core::ffi::c_int);
     }
     free(h as *mut ::core::ffi::c_void);
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }
 #[no_mangle]
 #[c2rust::src_loc = "278:1"]
@@ -381,5 +381,5 @@ pub unsafe extern "C" fn pg_hmac_error(mut ctx: *mut pg_hmac_ctx) -> *const ::co
         1 => return b"out of memory\0" as *const u8 as *const ::core::ffi::c_char,
         _ => {}
     }
-    return b"success\0" as *const u8 as *const ::core::ffi::c_char;
+    b"success\0" as *const u8 as *const ::core::ffi::c_char
 }

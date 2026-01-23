@@ -113,13 +113,13 @@ pub mod bits_h {
     #[inline]
     #[c2rust::src_loc = "107:1"]
     pub unsafe extern "C" fn usual_fls(mut x: ::core::ffi::c_int) -> ::core::ffi::c_int {
-        return (if x == 0 as ::core::ffi::c_int {
-            0 as usize
+        (if x == 0 as ::core::ffi::c_int {
+            0_usize
         } else {
-            (8 as usize)
-                .wrapping_mul(::core::mem::size_of::<::core::ffi::c_int>() as usize)
+            8_usize
+                .wrapping_mul(::core::mem::size_of::<::core::ffi::c_int>())
                 .wrapping_sub((x as ::core::ffi::c_uint).leading_zeros() as i32 as usize)
-        }) as ::core::ffi::c_int;
+        }) as ::core::ffi::c_int
     }
 }
 pub use self::_null_h::NULL;
@@ -157,20 +157,19 @@ pub const MAX_KEY: ::core::ffi::c_ulong = SIZE_MAX.wrapping_div(8 as ::core::ffi
 #[inline]
 #[c2rust::src_loc = "63:1"]
 unsafe extern "C" fn is_node(mut ptr: *mut ::core::ffi::c_void) -> bool {
-    return ptr as uintptr_t & 1 as ::core::ffi::c_int as uintptr_t == 0 as uintptr_t;
+    ptr as uintptr_t & 1 as ::core::ffi::c_int as uintptr_t == 0 as uintptr_t
 }
 #[inline]
 #[c2rust::src_loc = "69:1"]
 unsafe extern "C" fn set_external(mut obj: *const ::core::ffi::c_void) -> *mut ::core::ffi::c_void {
-    return (obj as uintptr_t | 1 as ::core::ffi::c_int as uintptr_t) as *mut ::core::ffi::c_void;
+    (obj as uintptr_t | 1 as ::core::ffi::c_int as uintptr_t) as *mut ::core::ffi::c_void
 }
 #[inline]
 #[c2rust::src_loc = "75:1"]
 unsafe extern "C" fn get_external(
     mut extval: *mut ::core::ffi::c_void,
 ) -> *mut ::core::ffi::c_void {
-    return (extval as uintptr_t & !(1 as ::core::ffi::c_int) as uintptr_t)
-        as *mut ::core::ffi::c_void;
+    (extval as uintptr_t & !(1 as ::core::ffi::c_int) as uintptr_t) as *mut ::core::ffi::c_void
 }
 #[inline]
 #[c2rust::src_loc = "81:1"]
@@ -182,9 +181,8 @@ unsafe extern "C" fn get_bit(
     let mut pos: size_t = bitpos.wrapping_div(8 as size_t);
     let mut bit =
         (7 as size_t).wrapping_sub(bitpos.wrapping_rem(8 as size_t)) as ::core::ffi::c_uint;
-    return (pos < klen
-        && *key.offset(pos as isize) as ::core::ffi::c_int & (1 as ::core::ffi::c_int) << bit != 0)
-        as ::core::ffi::c_int as ::core::ffi::c_uint;
+    (pos < klen && *key.add(pos) as ::core::ffi::c_int & (1 as ::core::ffi::c_int) << bit != 0)
+        as ::core::ffi::c_int as ::core::ffi::c_uint
 }
 #[inline]
 #[c2rust::src_loc = "89:1"]
@@ -193,7 +191,7 @@ unsafe extern "C" fn get_key(
     mut obj: *mut ::core::ffi::c_void,
     mut key_p: *mut *const ::core::ffi::c_void,
 ) -> size_t {
-    return (*tree).obj_key_cb.expect("non-null function pointer")((*tree).cb_ctx, obj, key_p);
+    (*tree).obj_key_cb.expect("non-null function pointer")((*tree).cb_ctx, obj, key_p)
 }
 #[inline]
 #[c2rust::src_loc = "95:1"]
@@ -206,7 +204,7 @@ unsafe extern "C" fn key_matches(
     let mut o_key = ::core::ptr::null::<::core::ffi::c_void>();
     let mut o_klen: size_t = 0;
     o_klen = get_key(tree, obj, &raw mut o_key);
-    return o_klen == klen && memcmp(key, o_key, klen) == 0 as ::core::ffi::c_int;
+    o_klen == klen && memcmp(key, o_key, klen) == 0 as ::core::ffi::c_int
 }
 #[c2rust::src_loc = "104:1"]
 unsafe extern "C" fn find_crit_bit(
@@ -225,12 +223,12 @@ unsafe extern "C" fn find_crit_bit(
     let mut maxlen: size_t = if alen > blen { alen } else { blen };
     i = 0 as size_t;
     loop {
-        if !(i < minlen) {
+        if i >= minlen {
             current_block = 2473556513754201174;
             break;
         }
-        av = *a.offset(i as isize);
-        bv = *b.offset(i as isize);
+        av = *a.add(i);
+        bv = *b.add(i);
         if av as ::core::ffi::c_int != bv as ::core::ffi::c_int {
             current_block = 6683740114474407808;
             break;
@@ -242,12 +240,12 @@ unsafe extern "C" fn find_crit_bit(
             2473556513754201174 => {
                 if i < maxlen {
                     av = (if i < alen {
-                        *a.offset(i as isize) as ::core::ffi::c_int
+                        *a.add(i) as ::core::ffi::c_int
                     } else {
                         0 as ::core::ffi::c_int
                     }) as ::core::ffi::c_uchar;
                     bv = (if i < blen {
-                        *b.offset(i as isize) as ::core::ffi::c_int
+                        *b.add(i) as ::core::ffi::c_int
                     } else {
                         0 as ::core::ffi::c_int
                     }) as ::core::ffi::c_uchar;
@@ -282,7 +280,7 @@ unsafe extern "C" fn raw_lookup(
         bit = get_bit((*node).bitpos, key as *const ::core::ffi::c_uchar, klen);
         node = (*node).child[bit as usize];
     }
-    return get_external(node as *mut ::core::ffi::c_void);
+    get_external(node as *mut ::core::ffi::c_void)
 }
 #[no_mangle]
 #[c2rust::src_loc = "156:1"]
@@ -299,7 +297,7 @@ pub unsafe extern "C" fn cbtree_lookup(
     if key_matches(tree, obj, key, klen) {
         return obj;
     }
-    return NULL;
+    NULL
 }
 #[c2rust::src_loc = "179:1"]
 unsafe extern "C" fn new_node(mut tree: *mut CBTree) -> *mut Node {
@@ -312,7 +310,7 @@ unsafe extern "C" fn new_node(mut tree: *mut CBTree) -> *mut Node {
         0 as ::core::ffi::c_int,
         ::core::mem::size_of::<Node>() as size_t,
     );
-    return node;
+    node
 }
 #[c2rust::src_loc = "189:1"]
 unsafe extern "C" fn insert_first(
@@ -320,7 +318,7 @@ unsafe extern "C" fn insert_first(
     mut obj: *mut ::core::ffi::c_void,
 ) -> bool {
     (*tree).root = set_external(obj) as *mut Node;
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "196:1"]
 unsafe extern "C" fn insert_at(
@@ -348,7 +346,7 @@ unsafe extern "C" fn insert_at(
     (*node).child[bit as usize] = set_external(obj) as *mut Node;
     (*node).child[(bit ^ 1 as ::core::ffi::c_uint) as usize] = *pos;
     *pos = node;
-    return true_0 != 0;
+    true_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "220:1"]
@@ -380,7 +378,7 @@ pub unsafe extern "C" fn cbtree_insert(
     if newbit == SAME_KEY as size_t {
         return false_0 != 0;
     }
-    return insert_at(tree, newbit, key, klen, obj);
+    insert_at(tree, newbit, key, klen, obj)
 }
 #[no_mangle]
 #[c2rust::src_loc = "251:1"]
@@ -416,7 +414,7 @@ pub unsafe extern "C" fn cbtree_delete(
     } else {
         (*tree).root = ::core::ptr::null_mut::<Node>();
     }
-    return true_0 != 0;
+    true_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "293:1"]
@@ -435,7 +433,7 @@ pub unsafe extern "C" fn cbtree_create(
     (*tree).obj_key_cb = obj_key_cb;
     (*tree).obj_free_cb = obj_free_cb;
     (*tree).cx = cx;
-    return tree;
+    tree
 }
 #[c2rust::src_loc = "310:1"]
 unsafe extern "C" fn destroy_node(mut tree: *mut CBTree, mut node: *mut Node) {
@@ -469,7 +467,7 @@ unsafe extern "C" fn walk(
             get_external(node as *mut ::core::ffi::c_void),
         );
     }
-    return walk(
+    walk(
         (*node).child[0 as ::core::ffi::c_int as usize],
         cb_func,
         cb_arg,
@@ -480,7 +478,7 @@ unsafe extern "C" fn walk(
             cb_func,
             cb_arg,
         ) as ::core::ffi::c_int
-            != 0;
+            != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "343:1"]
@@ -492,5 +490,5 @@ pub unsafe extern "C" fn cbtree_walk(
     if (*tree).root.is_null() {
         return true_0 != 0;
     }
-    return walk((*tree).root, cb_func, cb_arg);
+    walk((*tree).root, cb_func, cb_arg)
 }

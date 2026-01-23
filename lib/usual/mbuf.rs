@@ -74,5 +74,5 @@ pub unsafe extern "C" fn mbuf_make_room(mut buf: *mut MBuf, mut len: ::core::ffi
     }
     (*buf).data = ptr as *mut uint8_t;
     (*buf).alloc_len = new_alloc;
-    return true_0 != 0;
+    true_0 != 0
 }

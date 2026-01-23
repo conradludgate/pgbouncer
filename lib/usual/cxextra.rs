@@ -81,7 +81,7 @@ pub mod list_h {
         (*item).prev = (*list).prev;
         (*(*list).prev).next = item;
         (*list).prev = item;
-        return item;
+        item
     }
     #[inline]
     #[c2rust::src_loc = "78:1"]
@@ -90,7 +90,7 @@ pub mod list_h {
         (*(*item).next).prev = (*item).prev;
         (*item).prev = item;
         (*item).next = (*item).prev;
-        return item;
+        item
     }
 }
 #[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_null.h:6"]
@@ -121,7 +121,7 @@ pub mod _string_h {
 pub mod _param_h {
     #[c2rust::src_loc = "17:9"]
     pub const __DARWIN_ALIGNBYTES: usize =
-        (::core::mem::size_of::<__darwin_size_t>() as usize).wrapping_sub(1 as usize);
+        ::core::mem::size_of::<__darwin_size_t>().wrapping_sub(1_usize);
     use super::_types_h::__darwin_size_t;
 }
 #[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types.h:6"]
@@ -147,7 +147,7 @@ pub mod bits_h {
     #[inline]
     #[c2rust::src_loc = "35:1"]
     pub unsafe extern "C" fn is_power_of_2(mut n: ::core::ffi::c_uint) -> bool {
-        return n > 0 as ::core::ffi::c_uint && n & n.wrapping_sub(1 as ::core::ffi::c_uint) == 0;
+        n > 0 as ::core::ffi::c_uint && n & n.wrapping_sub(1 as ::core::ffi::c_uint) == 0
     }
 }
 pub use self::_null_h::NULL;
@@ -207,7 +207,7 @@ unsafe extern "C" fn p_move(
     mut p: *const ::core::ffi::c_void,
     mut ofs: ::core::ffi::c_int,
 ) -> *mut ::core::ffi::c_void {
-    return (p as *mut ::core::ffi::c_char).offset(ofs as isize) as *mut ::core::ffi::c_void;
+    (p as *mut ::core::ffi::c_char).offset(ofs as isize) as *mut ::core::ffi::c_void
 }
 #[c2rust::src_loc = "26:1"]
 unsafe extern "C" fn nofail_alloc(
@@ -218,7 +218,7 @@ unsafe extern "C" fn nofail_alloc(
     if p.is_null() {
         exit(1 as ::core::ffi::c_int);
     }
-    return p;
+    p
 }
 #[c2rust::src_loc = "34:1"]
 unsafe extern "C" fn nofail_realloc(
@@ -230,7 +230,7 @@ unsafe extern "C" fn nofail_realloc(
     if p.is_null() {
         exit(1 as ::core::ffi::c_int);
     }
-    return p;
+    p
 }
 #[c2rust::src_loc = "42:1"]
 unsafe extern "C" fn nofail_free(
@@ -290,23 +290,23 @@ unsafe extern "C" fn new_seg(mut pool: *mut CxPool, mut nsize: size_t) -> *mut C
         return ::core::ptr::null_mut::<CxPoolSeg>();
     }
     ptr = seg as *mut ::core::ffi::c_uchar;
-    (*seg).seg_start = ((ptr.offset(
-        (::core::mem::size_of::<CxPoolSeg>().wrapping_add(
+    (*seg).seg_start = ((ptr.add(
+        ::core::mem::size_of::<CxPoolSeg>().wrapping_add(
             (::core::mem::size_of::<__darwin_size_t>() as __darwin_size_t)
                 .wrapping_sub(1 as __darwin_size_t),
         ) & !(::core::mem::size_of::<__darwin_size_t>() as __darwin_size_t)
-            .wrapping_sub(1 as __darwin_size_t)) as isize,
+            .wrapping_sub(1 as __darwin_size_t),
     ) as uintptr_t)
         .wrapping_add((*pool).align as uintptr_t)
         .wrapping_sub(1 as ::core::ffi::c_int as uintptr_t)
         & !((*pool).align as uintptr_t).wrapping_sub(1 as ::core::ffi::c_int as uintptr_t))
         as *mut ::core::ffi::c_void as *mut ::core::ffi::c_uchar;
     (*seg).seg_pos = (*seg).seg_start;
-    (*seg).seg_end = (seg as *mut ::core::ffi::c_uchar).offset(alloc as isize);
+    (*seg).seg_end = (seg as *mut ::core::ffi::c_uchar).add(alloc);
     (*seg).prev = (*pool).last;
     (*pool).last = seg;
     (*pool).last_ptr = ::core::ptr::null_mut::<::core::ffi::c_uchar>();
-    return seg;
+    seg
 }
 #[c2rust::src_loc = "106:1"]
 unsafe extern "C" fn pool_alloc(
@@ -322,11 +322,11 @@ unsafe extern "C" fn pool_alloc(
         .wrapping_sub(1 as ::core::ffi::c_int as uintptr_t)
         & !((*pool).align as uintptr_t).wrapping_sub(1 as ::core::ffi::c_int as uintptr_t))
         as size_t;
-    if !seg.is_null() && (*seg).seg_pos.offset(size as isize) <= (*seg).seg_end {
+    if !seg.is_null() && (*seg).seg_pos.add(size) <= (*seg).seg_end {
         ptr = (*seg).seg_pos as *mut ::core::ffi::c_void;
-        (*seg).seg_pos = (*seg).seg_pos.offset(size as isize);
+        (*seg).seg_pos = (*seg).seg_pos.add(size);
         (*pool).last_ptr = ptr as *mut ::core::ffi::c_uchar;
-        return ptr;
+        ptr
     } else {
         nsize = (if !seg.is_null() {
             2 as ::core::ffi::c_long
@@ -342,10 +342,10 @@ unsafe extern "C" fn pool_alloc(
             return NULL;
         }
         ptr = (*seg).seg_pos as *mut ::core::ffi::c_void;
-        (*seg).seg_pos = (*seg).seg_pos.offset(size as isize);
+        (*seg).seg_pos = (*seg).seg_pos.add(size);
         (*pool).last_ptr = ptr as *mut ::core::ffi::c_uchar;
-        return ptr;
-    };
+        ptr
+    }
 }
 #[c2rust::src_loc = "134:1"]
 unsafe extern "C" fn pool_free(
@@ -378,7 +378,7 @@ unsafe extern "C" fn pool_guess_old_len(
         }
         seg = (*seg).prev;
     }
-    return 0 as size_t;
+    0 as size_t
 }
 #[c2rust::src_loc = "160:1"]
 unsafe extern "C" fn pool_realloc(
@@ -403,17 +403,17 @@ unsafe extern "C" fn pool_realloc(
         return p as *mut ::core::ffi::c_void;
     }
     olen = (*seg).seg_pos.offset_from(p) as ::core::ffi::c_long as size_t;
-    if (*seg).seg_pos.offset(-(olen as isize)).offset(len as isize) <= (*seg).seg_end {
-        (*seg).seg_pos = p.offset(len as isize);
-        return p as *mut ::core::ffi::c_void;
+    if (*seg).seg_pos.offset(-(olen as isize)).add(len) <= (*seg).seg_end {
+        (*seg).seg_pos = p.add(len);
+        p as *mut ::core::ffi::c_void
     } else {
         p = pool_alloc(ctx, len) as *mut ::core::ffi::c_uchar;
         if p.is_null() {
             return NULL;
         }
         memcpy(p as *mut ::core::ffi::c_void, ptr, olen);
-        return p as *mut ::core::ffi::c_void;
-    };
+        p as *mut ::core::ffi::c_void
+    }
 }
 #[c2rust::src_loc = "191:1"]
 unsafe extern "C" fn pool_destroy(mut ctx: *mut ::core::ffi::c_void) {
@@ -477,7 +477,7 @@ pub unsafe extern "C" fn cx_new_pool_from_area(
     mut align: ::core::ffi::c_uint,
 ) -> *const CxMem {
     let mut head = ::core::ptr::null_mut::<CxPool>();
-    if size < ::core::mem::size_of::<CxPool>() as usize {
+    if size < ::core::mem::size_of::<CxPool>() {
         return ::core::ptr::null::<CxMem>();
     }
     if align == 0 as ::core::ffi::c_uint {
@@ -503,8 +503,8 @@ pub unsafe extern "C" fn cx_new_pool_from_area(
         & !(align as uintptr_t).wrapping_sub(1 as ::core::ffi::c_int as uintptr_t))
         as *mut ::core::ffi::c_void as *mut ::core::ffi::c_uchar;
     (*head).first_seg.seg_pos = (*head).first_seg.seg_start;
-    (*head).first_seg.seg_end = (head as *mut ::core::ffi::c_uchar).offset(size as isize);
-    return &raw mut (*head).this;
+    (*head).first_seg.seg_end = (head as *mut ::core::ffi::c_uchar).add(size);
+    &raw mut (*head).this
 }
 #[no_mangle]
 #[c2rust::src_loc = "247:1"]
@@ -518,13 +518,12 @@ pub unsafe extern "C" fn cx_new_pool(
     if initial_size < 1024 as size_t {
         initial_size = 1024 as size_t;
     }
-    size =
-        (::core::mem::size_of::<CxPool>() as usize).wrapping_add(initial_size as usize) as size_t;
+    size = ::core::mem::size_of::<CxPool>().wrapping_add(initial_size) as size_t;
     area = cx_alloc(parent, size);
     if area.is_null() {
         return ::core::ptr::null::<CxMem>();
     }
-    return cx_new_pool_from_area(parent, area, size, true_0 != 0, align);
+    cx_new_pool_from_area(parent, area, size, true_0 != 0, align)
 }
 #[c2rust::src_loc = "268:9"]
 pub const TREE_HDR: ::core::ffi::c_int = ::core::mem::size_of::<CxTreeItem>() as ::core::ffi::c_int;
@@ -541,7 +540,7 @@ unsafe extern "C" fn tree_alloc(
     }
     list_init(&raw mut (*item).node);
     list_append(&raw mut (*tree).alloc_list, &raw mut (*item).node);
-    return p_move(item as *const ::core::ffi::c_void, TREE_HDR);
+    p_move(item as *const ::core::ffi::c_void, TREE_HDR)
 }
 #[c2rust::src_loc = "297:1"]
 unsafe extern "C" fn tree_realloc(
@@ -561,11 +560,11 @@ unsafe extern "C" fn tree_realloc(
     ) as *mut CxTreeItem;
     if !item2.is_null() {
         list_append(&raw mut (*t).alloc_list, &raw mut (*item2).node);
-        return p_move(item2 as *const ::core::ffi::c_void, TREE_HDR);
+        p_move(item2 as *const ::core::ffi::c_void, TREE_HDR)
     } else {
         list_append(&raw mut (*t).alloc_list, &raw mut (*item).node);
-        return NULL;
-    };
+        NULL
+    }
 }
 #[c2rust::src_loc = "314:1"]
 unsafe extern "C" fn tree_free(
@@ -655,5 +654,5 @@ pub unsafe extern "C" fn cx_new_tree(mut cx: *const CxMem) -> *const CxMem {
     if !parent.is_null() {
         list_append(&raw mut (*parent).subtree_list, &raw mut (*t).subtree_node);
     }
-    return &raw mut (*t).this;
+    &raw mut (*t).this
 }

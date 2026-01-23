@@ -387,21 +387,21 @@ pub mod x509_h {
     pub unsafe extern "C" fn ossl_check_const_X509_INFO_sk_type(
         mut sk: *const stack_st_X509_INFO,
     ) -> *const OPENSSL_STACK {
-        return sk as *const OPENSSL_STACK;
+        sk as *const OPENSSL_STACK
     }
     #[inline]
     #[c2rust::src_loc = "398:1"]
     pub unsafe extern "C" fn ossl_check_X509_INFO_sk_type(
         mut sk: *mut stack_st_X509_INFO,
     ) -> *mut OPENSSL_STACK {
-        return sk as *mut OPENSSL_STACK;
+        sk as *mut OPENSSL_STACK
     }
     #[inline]
     #[c2rust::src_loc = "398:1"]
     pub unsafe extern "C" fn ossl_check_X509_INFO_freefunc_type(
         mut fr: sk_X509_INFO_freefunc,
     ) -> OPENSSL_sk_freefunc {
-        return ::core::mem::transmute::<sk_X509_INFO_freefunc, OPENSSL_sk_freefunc>(fr);
+        ::core::mem::transmute::<sk_X509_INFO_freefunc, OPENSSL_sk_freefunc>(fr)
     }
     use super::evp_h::EVP_CIPHER_INFO;
     use super::stack_h::{OPENSSL_sk_freefunc, OPENSSL_STACK};
@@ -627,8 +627,7 @@ pub mod err_h {
         if errcode & ERR_SYSTEM_FLAG as ::core::ffi::c_ulong != 0 as ::core::ffi::c_ulong {
             return ERR_LIB_SYS;
         }
-        return (errcode >> ERR_LIB_OFFSET & ERR_LIB_MASK as ::core::ffi::c_ulong)
-            as ::core::ffi::c_int;
+        (errcode >> ERR_LIB_OFFSET & ERR_LIB_MASK as ::core::ffi::c_ulong) as ::core::ffi::c_int
     }
     #[inline]
     #[c2rust::src_loc = "255:1"]
@@ -638,7 +637,7 @@ pub mod err_h {
         if errcode & ERR_SYSTEM_FLAG as ::core::ffi::c_ulong != 0 as ::core::ffi::c_ulong {
             return (errcode & ERR_SYSTEM_MASK as ::core::ffi::c_ulong) as ::core::ffi::c_int;
         }
-        return (errcode & ERR_REASON_MASK as ::core::ffi::c_ulong) as ::core::ffi::c_int;
+        (errcode & ERR_REASON_MASK as ::core::ffi::c_ulong) as ::core::ffi::c_int
     }
     use super::limits_h::INT_MAX;
     extern "C" {
@@ -789,7 +788,7 @@ unsafe extern "C" fn load_dh_buffer(
     if !ctx.is_null() {
         (*ctx).used_dh_bits = DH_size(dh) * 8 as ::core::ffi::c_int;
     }
-    return dh;
+    dh
 }
 #[c2rust::src_loc = "92:1"]
 unsafe extern "C" fn dh_auto_cb(
@@ -816,11 +815,11 @@ unsafe extern "C" fn dh_auto_cb(
             &raw const file_dh4096 as *const ::core::ffi::c_char,
         );
     }
-    return load_dh_buffer(
+    load_dh_buffer(
         ctx,
         &raw mut dh2048,
         &raw const file_dh2048 as *const ::core::ffi::c_char,
-    );
+    )
 }
 #[no_mangle]
 #[c2rust::src_loc = "108:1"]
@@ -844,7 +843,7 @@ pub unsafe extern "C" fn SSL_CTX_set_dh_auto(
         );
     }
     SSL_CTX_set_options(ctx, SSL_OP_SINGLE_DH_USE as uint64_t);
-    return 1 as ::core::ffi::c_long;
+    1 as ::core::ffi::c_long
 }
 #[c2rust::src_loc = "128:1"]
 static mut ecdh_cache: *mut EC_KEY = ::core::ptr::null::<EC_KEY>() as *mut EC_KEY;
@@ -873,7 +872,7 @@ pub unsafe extern "C" fn get_ecdh_curve_nid(
         *nid = curve_nid;
         return true_0 != 0;
     }
-    return false_0 != 0;
+    false_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "205:1"]
@@ -884,7 +883,7 @@ pub unsafe extern "C" fn SSL_CTX_set_ecdh_auto(
     if onoff != 0 {
         SSL_CTX_set_options(ctx, SSL_OP_SINGLE_ECDH_USE as uint64_t);
     }
-    return 1 as ::core::ffi::c_long;
+    1 as ::core::ffi::c_long
 }
 #[no_mangle]
 #[c2rust::src_loc = "218:1"]
@@ -964,7 +963,7 @@ pub unsafe extern "C" fn SSL_CTX_use_certificate_chain_mem(
     if !bio.is_null() {
         BIO_free(bio);
     }
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }
 #[no_mangle]
 #[c2rust::src_loc = "313:1"]
@@ -995,7 +994,7 @@ pub unsafe extern "C" fn SSL_CTX_load_verify_mem(
             nstack = OPENSSL_sk_num(ossl_check_const_X509_INFO_sk_type(stack));
             i = 0 as ::core::ffi::c_int;
             loop {
-                if !(i < nstack) {
+                if i >= nstack {
                     current_block = 11050875288958768710;
                     break;
                 }
@@ -1034,7 +1033,7 @@ pub unsafe extern "C" fn SSL_CTX_load_verify_mem(
         );
     }
     ret == 0;
-    return ret;
+    ret
 }
 #[c2rust::src_loc = "358:1"]
 unsafe extern "C" fn parse2num(
@@ -1059,7 +1058,7 @@ unsafe extern "C" fn parse2num(
         }
     }
     *str_p = ::core::ptr::null::<::core::ffi::c_char>();
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }
 #[no_mangle]
 #[c2rust::src_loc = "372:1"]
@@ -1094,7 +1093,7 @@ pub unsafe extern "C" fn asn1_time_parse(
         src as *const ::core::ffi::c_void,
         len,
     );
-    buf[len as usize] = '\0' as i32 as ::core::ffi::c_char;
+    buf[len] = '\0' as i32 as ::core::ffi::c_char;
     year = parse2num(
         &raw mut s,
         0 as ::core::ffi::c_int,
@@ -1102,9 +1101,9 @@ pub unsafe extern "C" fn asn1_time_parse(
     );
     if utctime != 0 {
         if year < 50 as ::core::ffi::c_int {
-            year = 2000 as ::core::ffi::c_int + year;
+            year += 2000 as ::core::ffi::c_int;
         } else {
-            year = 1900 as ::core::ffi::c_int + year;
+            year += 1900 as ::core::ffi::c_int;
         }
     } else {
         year = year * 100 as ::core::ffi::c_int
@@ -1174,7 +1173,7 @@ pub unsafe extern "C" fn asn1_time_parse(
             }
         }
     }
-    return -(1 as ::core::ffi::c_int);
+    -(1 as ::core::ffi::c_int)
 }
 #[no_mangle]
 #[c2rust::src_loc = "432:1"]
@@ -1232,5 +1231,5 @@ pub unsafe extern "C" fn tls_asn1_parse_time(
         return -(1 as ::core::ffi::c_int);
     }
     *dst = tval;
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }

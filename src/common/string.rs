@@ -109,8 +109,8 @@ pub unsafe extern "C" fn pg_str_endswith(
     if elen > slen {
         return false_0 != 0;
     }
-    str = str.offset(slen.wrapping_sub(elen) as isize);
-    return strcmp(str, end) == 0 as ::core::ffi::c_int;
+    str = str.add(slen.wrapping_sub(elen));
+    strcmp(str, end) == 0 as ::core::ffi::c_int
 }
 #[no_mangle]
 #[c2rust::src_loc = "45:1"]
@@ -124,7 +124,7 @@ pub unsafe extern "C" fn strtoint(
     if val != val as ::core::ffi::c_int as ::core::ffi::c_long {
         *__error() = ERANGE;
     }
-    return val as ::core::ffi::c_int;
+    val as ::core::ffi::c_int
 }
 #[no_mangle]
 #[c2rust::src_loc = "80:1"]
@@ -149,20 +149,20 @@ pub unsafe extern "C" fn pg_clean_ascii(
             || *p as ::core::ffi::c_int > 126 as ::core::ffi::c_int
         {
             snprintf(
-                dst.offset(i as isize) as *mut ::core::ffi::c_char,
+                dst.add(i) as *mut ::core::ffi::c_char,
                 dstlen.wrapping_sub(i),
                 b"\\x%02x\0" as *const u8 as *const ::core::ffi::c_char,
                 *p as ::core::ffi::c_uchar as ::core::ffi::c_int,
             );
             i = i.wrapping_add(4 as size_t);
         } else {
-            *dst.offset(i as isize) = *p;
+            *dst.add(i) = *p;
             i = i.wrapping_add(1);
         }
         p = p.offset(1);
     }
-    *dst.offset(i as isize) = '\0' as i32 as ::core::ffi::c_char;
-    return dst;
+    *dst.add(i) = '\0' as i32 as ::core::ffi::c_char;
+    dst
 }
 #[no_mangle]
 #[c2rust::src_loc = "127:1"]
@@ -173,7 +173,7 @@ pub unsafe extern "C" fn pg_is_ascii(mut str: *const ::core::ffi::c_char) -> boo
         }
         str = str.offset(1);
     }
-    return true_0 != 0;
+    true_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "149:1"]
@@ -188,5 +188,5 @@ pub unsafe extern "C" fn pg_strip_crlf(mut str: *mut ::core::ffi::c_char) -> ::c
         len -= 1;
         *str.offset(len as isize) = '\0' as i32 as ::core::ffi::c_char;
     }
-    return len;
+    len
 }

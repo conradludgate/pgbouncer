@@ -73,28 +73,28 @@ static mut _nil: AANode = unsafe {
 #[c2rust::src_loc = "73:1"]
 unsafe extern "C" fn skew(mut x: *mut Node) -> *mut Node {
     let mut y = (*x).left as *mut Node;
-    if (*x).level == (*y).level && x != &raw const _nil as *mut AANode {
+    if (*x).level == (*y).level && !std::ptr::eq(x, &raw const _nil) {
         (*x).left = (*y).right;
         (*y).right = x as *mut AANode;
         return y;
     }
-    return x;
+    x
 }
 #[inline]
 #[c2rust::src_loc = "93:1"]
 unsafe extern "C" fn split(mut x: *mut Node) -> *mut Node {
     let mut y = (*x).right as *mut Node;
-    if (*x).level == (*(*y).right).level && x != &raw const _nil as *mut AANode {
+    if (*x).level == (*(*y).right).level && !std::ptr::eq(x, &raw const _nil) {
         (*x).right = (*y).left;
         (*y).left = x as *mut AANode;
         (*y).level += 1;
         return y;
     }
-    return x;
+    x
 }
 #[c2rust::src_loc = "106:1"]
 unsafe extern "C" fn rebalance_on_insert(mut current: *mut Node) -> *mut Node {
-    return split(skew(current));
+    split(skew(current))
 }
 #[c2rust::src_loc = "112:1"]
 unsafe extern "C" fn rebalance_on_remove(mut current: *mut Node) -> *mut Node {
@@ -111,7 +111,7 @@ unsafe extern "C" fn rebalance_on_remove(mut current: *mut Node) -> *mut Node {
         current = split(current);
         (*current).right = split((*current).right as *mut Node) as *mut AANode;
     }
-    return current;
+    current
 }
 #[c2rust::src_loc = "140:1"]
 unsafe extern "C" fn insert_sub(
@@ -121,7 +121,7 @@ unsafe extern "C" fn insert_sub(
     mut node: *mut Node,
 ) -> *mut Node {
     let mut cmp: ::core::ffi::c_int = 0;
-    if current == &raw const _nil as *mut AANode {
+    if std::ptr::eq(current, &raw const _nil) {
         (*node).right = &raw const _nil as *mut AANode;
         (*node).left = (*node).right;
         (*node).level = 1 as ::core::ffi::c_int;
@@ -138,7 +138,7 @@ unsafe extern "C" fn insert_sub(
     } else {
         return current;
     }
-    return rebalance_on_insert(current);
+    rebalance_on_insert(current)
 }
 #[no_mangle]
 #[c2rust::src_loc = "170:1"]
@@ -155,19 +155,19 @@ unsafe extern "C" fn steal_leftmost(
     mut current: *mut Node,
     mut save_p: *mut *mut Node,
 ) -> *mut Node {
-    if (*current).left == &raw const _nil as *mut AANode {
+    if std::ptr::eq((*current).left, &raw const _nil) {
         *save_p = current;
         return (*current).right as *mut Node;
     }
     (*current).left = steal_leftmost(tree, (*current).left as *mut Node, save_p) as *mut AANode;
-    return rebalance_on_remove(current);
+    rebalance_on_remove(current)
 }
 #[c2rust::src_loc = "192:1"]
 unsafe extern "C" fn drop_this_node(mut tree: *mut Tree, mut old: *mut Node) -> *mut Node {
     let mut new = &raw const _nil as *mut Node;
-    if (*old).left == &raw const _nil as *mut AANode {
+    if std::ptr::eq((*old).left, &raw const _nil) {
         new = (*old).right as *mut Node;
-    } else if (*old).right == &raw const _nil as *mut AANode {
+    } else if std::ptr::eq((*old).right, &raw const _nil) {
         new = (*old).left as *mut Node;
     } else {
         (*old).right = steal_leftmost(tree, (*old).right as *mut Node, &raw mut new) as *mut AANode;
@@ -180,7 +180,7 @@ unsafe extern "C" fn drop_this_node(mut tree: *mut Tree, mut old: *mut Node) -> 
         );
     }
     (*tree).count -= 1;
-    return new;
+    new
 }
 #[c2rust::src_loc = "220:1"]
 unsafe extern "C" fn remove_sub(
@@ -189,7 +189,7 @@ unsafe extern "C" fn remove_sub(
     mut value: uintptr_t,
 ) -> *mut Node {
     let mut cmp: ::core::ffi::c_int = 0;
-    if current == &raw const _nil as *mut AANode {
+    if std::ptr::eq(current, &raw const _nil) {
         return current;
     }
     cmp = (*tree).node_cmp.expect("non-null function pointer")(value, current as *mut AANode);
@@ -200,7 +200,7 @@ unsafe extern "C" fn remove_sub(
     } else {
         current = drop_this_node(tree, current);
     }
-    return rebalance_on_remove(current);
+    rebalance_on_remove(current)
 }
 #[no_mangle]
 #[c2rust::src_loc = "239:1"]
@@ -214,7 +214,7 @@ unsafe extern "C" fn walk_sub(
     mut walker: aatree_walker_f,
     mut arg: *mut ::core::ffi::c_void,
 ) {
-    if current == &raw const _nil as *mut AANode {
+    if std::ptr::eq(current, &raw const _nil) {
         return;
     }
     match wtype as ::core::ffi::c_uint {
@@ -274,7 +274,7 @@ pub unsafe extern "C" fn aatree_init(
 #[c2rust::src_loc = "301:1"]
 pub unsafe extern "C" fn aatree_search(mut tree: *mut Tree, mut value: uintptr_t) -> *mut AANode {
     let mut current = (*tree).root as *mut Node;
-    while current != &raw const _nil as *mut AANode {
+    while !std::ptr::eq(current, &raw const _nil) {
         let mut cmp =
             (*tree).node_cmp.expect("non-null function pointer")(value, current as *mut AANode);
         if cmp > 0 as ::core::ffi::c_int {
@@ -285,5 +285,5 @@ pub unsafe extern "C" fn aatree_search(mut tree: *mut Tree, mut value: uintptr_t
             return current as *mut AANode;
         }
     }
-    return ::core::ptr::null_mut::<AANode>();
+    ::core::ptr::null_mut::<AANode>()
 }

@@ -106,7 +106,7 @@ pub unsafe extern "C" fn keccak_prng_init(
     }
     (*prng).extracting = false_0 != 0;
     (*prng).have_data = false_0 != 0;
-    return true_0 != 0;
+    true_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "30:1"]
@@ -143,5 +143,5 @@ pub unsafe extern "C" fn keccak_prng_extract(
         (*prng).extracting = true_0 != 0;
     }
     keccak_squeeze(&raw mut (*prng).ctx, data as *mut uint8_t, len);
-    return true_0 != 0;
+    true_0 != 0
 }

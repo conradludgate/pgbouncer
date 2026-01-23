@@ -140,7 +140,7 @@ pub mod list_h {
     #[inline]
     #[c2rust::src_loc = "52:1"]
     pub unsafe extern "C" fn list_empty(mut list: *const List) -> ::core::ffi::c_int {
-        return ((*list).next == list as *mut List) as ::core::ffi::c_int;
+        std::ptr::eq((*list).next, list) as ::core::ffi::c_int
     }
     #[inline]
     #[c2rust::src_loc = "68:1"]
@@ -149,7 +149,7 @@ pub mod list_h {
         (*item).prev = (*list).prev;
         (*(*list).prev).next = item;
         (*list).prev = item;
-        return item;
+        item
     }
     #[inline]
     #[c2rust::src_loc = "78:1"]
@@ -158,7 +158,7 @@ pub mod list_h {
         (*(*item).next).prev = (*item).prev;
         (*item).prev = item;
         (*item).next = (*item).prev;
-        return item;
+        item
     }
 }
 #[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/statlist.h:23"]
@@ -185,12 +185,12 @@ pub mod statlist_h {
     #[inline]
     #[c2rust::src_loc = "88:1"]
     pub unsafe extern "C" fn statlist_count(mut list: *const StatList) -> ::core::ffi::c_int {
-        return (*list).cur_count;
+        (*list).cur_count
     }
     #[inline]
     #[c2rust::src_loc = "120:1"]
     pub unsafe extern "C" fn statlist_empty(mut list: *const StatList) -> bool {
-        return list_empty(&raw const (*list).head) != 0;
+        list_empty(&raw const (*list).head) != 0
     }
     use super::list_h::{list_append, list_del, list_empty, List};
 }
@@ -827,8 +827,8 @@ pub mod bouncer_h {
         if statlist_empty(slist) {
             return ::core::ptr::null_mut::<PgSocket>();
         }
-        return ((*slist).head.next as *mut ::core::ffi::c_char)
-            .offset(-(0 as ::core::ffi::c_ulong as isize)) as *mut PgSocket;
+        ((*slist).head.next as *mut ::core::ffi::c_char)
+            .offset(-(0 as ::core::ffi::c_ulong as isize)) as *mut PgSocket
     }
 
     use super::_pid_t_h::pid_t;
@@ -959,8 +959,8 @@ pub mod sbuf_h {
     #[inline]
     #[c2rust::src_loc = "144:1"]
     pub unsafe extern "C" fn sbuf_is_empty(mut sbuf: *mut SBuf) -> bool {
-        return iobuf_empty((*sbuf).io) as ::core::ffi::c_int != 0
-            && (*sbuf).pkt_remain == 0 as ::core::ffi::c_uint;
+        iobuf_empty((*sbuf).io) as ::core::ffi::c_int != 0
+            && (*sbuf).pkt_remain == 0 as ::core::ffi::c_uint
     }
     use super::_size_t_h::size_t;
     use super::_ssize_t_h::ssize_t;
@@ -992,7 +992,7 @@ pub mod iobuf_h {
     #[inline]
     #[c2rust::src_loc = "65:1"]
     pub unsafe extern "C" fn iobuf_empty(mut io: *const IOBuf) -> bool {
-        return io.is_null() || (*io).done_pos == (*io).recv_pos;
+        io.is_null() || (*io).done_pos == (*io).recv_pos
     }
     use super::_uint8_t_h::uint8_t;
 }
@@ -1530,10 +1530,8 @@ pub unsafe extern "C" fn suspend_socket(mut sk: *mut PgSocket, mut force_suspend
     if (*sk).suspended() {
         return true_0 != 0;
     }
-    if sbuf_is_empty(&raw mut (*sk).sbuf) {
-        if sbuf_pause(&raw mut (*sk).sbuf) {
-            (*sk).set_suspended((true_0 != 0) as bool);
-        }
+    if sbuf_is_empty(&raw mut (*sk).sbuf) && sbuf_pause(&raw mut (*sk).sbuf) {
+        (*sk).set_suspended(true_0 != 0);
     }
     if (*sk).suspended() as ::core::ffi::c_int != 0 || !force_suspend {
         return (*sk).suspended();
@@ -1551,7 +1549,7 @@ pub unsafe extern "C" fn suspend_socket(mut sk: *mut PgSocket, mut force_suspend
             b"suspend_timeout\0" as *const u8 as *const ::core::ffi::c_char,
         );
     }
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "77:1"]
 unsafe extern "C" fn suspend_socket_list(
@@ -1573,7 +1571,7 @@ unsafe extern "C" fn suspend_socket_list(
         item = tmp;
         tmp = (*tmp).next;
     }
-    return active;
+    active
 }
 #[c2rust::src_loc = "92:1"]
 unsafe extern "C" fn resume_socket_list(mut list: *mut StatList) {
@@ -1586,7 +1584,7 @@ unsafe extern "C" fn resume_socket_list(mut list: *mut StatList) {
         sk = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
             as *mut PgSocket;
         if (*sk).suspended() {
-            (*sk).set_suspended((false_0 != 0) as bool);
+            (*sk).set_suspended(false_0 != 0);
             sbuf_continue(&raw mut (*sk).sbuf);
         }
         item = tmp;
@@ -1779,7 +1777,7 @@ unsafe extern "C" fn per_loop_activate(mut pool: *mut PgPool) {
                     b"Sending queue warning failed\0" as *const u8 as *const ::core::ffi::c_char,
                 );
             }
-            (*client).set_sent_wait_notification((true_0 != 0) as bool);
+            (*client).set_sent_wait_notification(true_0 != 0);
         }
         if (*client).replication as u64 != 0 {
             launch_new_connection(pool, true_0 != 0);
@@ -1824,7 +1822,7 @@ unsafe extern "C" fn per_loop_pause(mut pool: *mut PgPool) -> ::core::ffi::c_int
     );
     active += statlist_count(&raw mut (*pool).active_server_list);
     active += statlist_count(&raw mut (*pool).tested_server_list);
-    return active;
+    active
 }
 #[c2rust::src_loc = "271:1"]
 unsafe extern "C" fn per_loop_suspend(
@@ -1854,7 +1852,7 @@ unsafe extern "C" fn per_loop_suspend(
                 as *const ::core::ffi::c_char,
         );
     }
-    return active;
+    active
 }
 #[c2rust::src_loc = "300:1"]
 unsafe extern "C" fn count_close_needed(mut server_list: *mut StatList) -> ::core::ffi::c_int {
@@ -1870,7 +1868,7 @@ unsafe extern "C" fn count_close_needed(mut server_list: *mut StatList) -> ::cor
         }
         item = (*item).next;
     }
-    return count;
+    count
 }
 #[c2rust::src_loc = "318:1"]
 unsafe extern "C" fn per_loop_wait_close(mut pool: *mut PgPool) -> ::core::ffi::c_int {
@@ -1883,7 +1881,7 @@ unsafe extern "C" fn per_loop_wait_close(mut pool: *mut PgPool) -> ::core::ffi::
     count += count_close_needed(&raw mut (*pool).new_server_list);
     count += count_close_needed(&raw mut (*pool).tested_server_list);
     count += count_close_needed(&raw mut (*pool).used_server_list);
-    return count;
+    count
 }
 #[no_mangle]
 #[c2rust::src_loc = "337:1"]
@@ -1956,13 +1954,8 @@ pub unsafe extern "C" fn per_loop_maint() {
             current_block_28 = 17500079516916021833;
         }
     }
-    match current_block_28 {
-        13345507216710712890 => {
-            if active_count == 0 {
-                admin_pause_done();
-            }
-        }
-        _ => {}
+    if current_block_28 == 13345507216710712890 && active_count == 0 {
+        admin_pause_done();
     }
     if partial_wait as ::core::ffi::c_int != 0 && waiting_count == 0 {
         admin_wait_close_done();
@@ -2182,10 +2175,9 @@ unsafe extern "C" fn check_unused_servers(
             );
         } else if idle_test as ::core::ffi::c_int != 0
             && *cf_server_check_query as ::core::ffi::c_int != 0
+            && idle > cf_server_check_delay
         {
-            if idle > cf_server_check_delay {
-                change_server_state(server, SV_USED);
-            }
+            change_server_state(server, SV_USED);
         }
         item = tmp;
         tmp = (*tmp).next;
@@ -2458,7 +2450,7 @@ unsafe extern "C" fn cleanup_inactive_autodatabases() {
             as *mut PgDatabase;
         if !(*db).db_paused {
             age = now.wrapping_sub((*db).inactive_time);
-            if !(age > cf_autodb_idle_timeout) {
+            if age <= cf_autodb_idle_timeout {
                 break;
             }
             kill_database(db);
@@ -2505,8 +2497,7 @@ unsafe extern "C" fn do_full_maint(
             pool_client_maint(pool);
             if (*(*pool).db).db_auto as ::core::ffi::c_int != 0
                 && (*(*pool).db).inactive_time == 0 as usec_t
-            {
-                if statlist_count(&raw mut (*pool).active_client_list)
+                && (statlist_count(&raw mut (*pool).active_client_list)
                     + statlist_count(&raw mut (*pool).waiting_client_list)
                     > 0 as ::core::ffi::c_int
                     || statlist_count(&raw mut (*pool).active_server_list)
@@ -2516,10 +2507,9 @@ unsafe extern "C" fn do_full_maint(
                         + statlist_count(&raw mut (*pool).used_server_list)
                         + statlist_count(&raw mut (*pool).new_server_list)
                         + statlist_count(&raw mut (*pool).active_cancel_server_list)
-                        > 0 as ::core::ffi::c_int
-                {
-                    (*(*pool).db).active_stamp = seq;
-                }
+                        > 0 as ::core::ffi::c_int)
+            {
+                (*(*pool).db).active_stamp = seq;
             }
         }
         item = tmp;
@@ -2540,12 +2530,13 @@ unsafe extern "C" fn do_full_maint(
     while item != &raw mut database_list.head {
         db = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
             as *mut PgDatabase;
-        if (*db).db_auto as ::core::ffi::c_int != 0 && (*db).inactive_time == 0 as usec_t {
-            if !((*db).active_stamp == seq) {
-                (*db).inactive_time = get_cached_time();
-                statlist_remove(&raw mut database_list, &raw mut (*db).head);
-                statlist_append(&raw mut autodatabase_idle_list, &raw mut (*db).head);
-            }
+        if (*db).db_auto as ::core::ffi::c_int != 0
+            && (*db).inactive_time == 0 as usec_t
+            && ((*db).active_stamp != seq)
+        {
+            (*db).inactive_time = get_cached_time();
+            statlist_remove(&raw mut database_list, &raw mut (*db).head);
+            statlist_append(&raw mut autodatabase_idle_list, &raw mut (*db).head);
         }
         item = tmp;
         tmp = (*tmp).next;

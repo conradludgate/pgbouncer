@@ -47,7 +47,7 @@ pub unsafe extern "C" fn parse_bool(
     mut value: *const ::core::ffi::c_char,
     mut result: *mut bool,
 ) -> bool {
-    return parse_bool_with_len(value, strlen(value), result);
+    parse_bool_with_len(value, strlen(value), result)
 }
 #[no_mangle]
 #[c2rust::src_loc = "32:1"]
@@ -153,5 +153,5 @@ pub unsafe extern "C" fn parse_bool_with_len(
     if !result.is_null() {
         *result = false_0 != 0;
     }
-    return false_0 != 0;
+    false_0 != 0
 }

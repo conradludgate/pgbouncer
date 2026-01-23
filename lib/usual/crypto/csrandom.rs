@@ -34,7 +34,7 @@ pub use self::_uint32_t_h::uint32_t;
 #[no_mangle]
 #[c2rust::src_loc = "33:1"]
 pub unsafe extern "C" fn csrandom() -> uint32_t {
-    return arc4random();
+    arc4random()
 }
 #[no_mangle]
 #[c2rust::src_loc = "38:1"]
@@ -44,5 +44,5 @@ pub unsafe extern "C" fn csrandom_bytes(mut buf: *mut ::core::ffi::c_void, mut n
 #[no_mangle]
 #[c2rust::src_loc = "43:1"]
 pub unsafe extern "C" fn csrandom_range(mut upper_bound: uint32_t) -> uint32_t {
-    return arc4random_uniform(upper_bound);
+    arc4random_uniform(upper_bound)
 }

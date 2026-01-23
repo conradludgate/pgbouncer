@@ -64,7 +64,7 @@ pub mod endian_h {
             p,
             ::core::mem::size_of::<uint32_t>() as size_t,
         );
-        return tmp;
+        tmp
     }
     use super::_size_t_h::size_t;
     use super::_string_h::memcpy;
@@ -75,7 +75,7 @@ pub mod bits_h {
     #[inline]
     #[c2rust::src_loc = "50:1"]
     pub unsafe extern "C" fn rol32(mut v: uint32_t, mut s: ::core::ffi::c_int) -> uint32_t {
-        return v << s | v >> 32 as ::core::ffi::c_int - s;
+        v << s | v >> (32 as ::core::ffi::c_int - s)
     }
     use super::_uint32_t_h::uint32_t;
 }

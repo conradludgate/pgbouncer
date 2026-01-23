@@ -844,9 +844,9 @@ pub mod sbuf_h {
         mut buf: *const ::core::ffi::c_void,
         mut len: size_t,
     ) -> ssize_t {
-        return (*(*sbuf).ops)
+        (*(*sbuf).ops)
             .sbufio_send
-            .expect("non-null function pointer")(sbuf, buf, len);
+            .expect("non-null function pointer")(sbuf, buf, len)
     }
     use super::_size_t_h::size_t;
     use super::_ssize_t_h::ssize_t;
@@ -1082,7 +1082,7 @@ pub mod base_h {
     #[inline]
     #[c2rust::src_loc = "303:1"]
     pub unsafe extern "C" fn zmalloc(mut len: size_t) -> *mut ::core::ffi::c_void {
-        return calloc(1 as size_t, len);
+        calloc(1 as size_t, len)
     }
     use super::_malloc_h::calloc;
     use super::_size_t_h::size_t;
@@ -1304,16 +1304,16 @@ pub unsafe extern "C" fn pktbuf_dynamic(mut start_len: ::core::ffi::c_int) -> *m
         return ::core::ptr::null_mut::<PktBuf>();
     }
     (*buf).buf_len = start_len;
-    return buf;
+    buf
 }
 #[no_mangle]
 #[c2rust::src_loc = "83:1"]
 pub unsafe extern "C" fn pktbuf_reset(mut pkt: *mut PktBuf) {
-    (*pkt).set_failed((false_0 != 0) as bool);
+    (*pkt).set_failed(false_0 != 0);
     (*pkt).write_pos = 0 as ::core::ffi::c_int;
     (*pkt).pktlen_pos = 0 as ::core::ffi::c_int;
     (*pkt).send_pos = 0 as ::core::ffi::c_int;
-    (*pkt).set_sending((false_0 != 0) as bool);
+    (*pkt).set_sending(false_0 != 0);
 }
 #[no_mangle]
 #[c2rust::src_loc = "92:1"]
@@ -1329,7 +1329,7 @@ pub unsafe extern "C" fn pktbuf_static(
     );
     (*buf).buf = data;
     (*buf).buf_len = len;
-    (*buf).set_fixed_buf((true_0 != 0) as bool);
+    (*buf).set_fixed_buf(true_0 != 0);
 }
 #[no_mangle]
 #[c2rust::src_loc = "100:1"]
@@ -1347,7 +1347,7 @@ pub unsafe extern "C" fn pktbuf_temp() -> *mut PktBuf {
         exit(1 as ::core::ffi::c_int);
     }
     pktbuf_reset(temp_pktbuf as *mut PktBuf);
-    return temp_pktbuf as *mut PktBuf;
+    temp_pktbuf as *mut PktBuf
 }
 #[no_mangle]
 #[c2rust::src_loc = "110:1"]
@@ -1384,7 +1384,7 @@ pub unsafe extern "C" fn pktbuf_send_immediate(
             );
         }
     }
-    return res == amount as ssize_t;
+    res == amount as ssize_t
 }
 #[c2rust::src_loc = "131:1"]
 unsafe extern "C" fn pktbuf_send_func(
@@ -1468,23 +1468,23 @@ unsafe extern "C" fn pktbuf_send_func(
 pub unsafe extern "C" fn pktbuf_send_queued(mut buf: *mut PktBuf, mut sk: *mut PgSocket) -> bool {
     if (*buf).failed() {
         pktbuf_free(buf);
-        return send_pooler_error(
+        send_pooler_error(
             sk,
             true_0 != 0,
             ::core::ptr::null::<::core::ffi::c_char>(),
             false_0 != 0,
             b"result prepare failed\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        )
     } else {
-        (*buf).set_sending((true_0 != 0) as bool);
+        (*buf).set_sending(true_0 != 0);
         (*buf).queued_dst = sk;
         pktbuf_send_func(
             (*sk).sbuf.sock,
             EV_WRITE as ::core::ffi::c_short,
             buf as *mut ::core::ffi::c_void,
         );
-        return true_0 != 0;
-    };
+        true_0 != 0
+    }
 }
 #[c2rust::src_loc = "183:1"]
 unsafe extern "C" fn make_room(mut buf: *mut PktBuf, mut len: ::core::ffi::c_int) {
@@ -1498,11 +1498,11 @@ unsafe extern "C" fn make_room(mut buf: *mut PktBuf, mut len: ::core::ffi::c_int
         return;
     }
     if (*buf).fixed_buf() {
-        (*buf).set_failed((true_0 != 0) as bool);
+        (*buf).set_failed(true_0 != 0);
         return;
     }
     while newlen < need {
-        newlen = newlen * 2 as ::core::ffi::c_int;
+        newlen *= 2 as ::core::ffi::c_int;
     }
     let mut _log_ctx = NULL;
     if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
@@ -1517,7 +1517,7 @@ unsafe extern "C" fn make_room(mut buf: *mut PktBuf, mut len: ::core::ffi::c_int
     }
     ptr = realloc((*buf).buf as *mut ::core::ffi::c_void, newlen as size_t);
     if ptr.is_null() {
-        (*buf).set_failed((true_0 != 0) as bool);
+        (*buf).set_failed(true_0 != 0);
     } else {
         (*buf).buf = ptr as *mut uint8_t;
         (*buf).buf_len = newlen;
@@ -1531,7 +1531,7 @@ pub unsafe extern "C" fn pktbuf_put_char(mut buf: *mut PktBuf, mut val: ::core::
         return;
     }
     let fresh0 = (*buf).write_pos;
-    (*buf).write_pos = (*buf).write_pos + 1;
+    (*buf).write_pos += 1;
     *(*buf).buf.offset(fresh0 as isize) = val as uint8_t;
 }
 #[no_mangle]
@@ -1542,11 +1542,11 @@ pub unsafe extern "C" fn pktbuf_put_uint16(mut buf: *mut PktBuf, mut val: uint16
         return;
     }
     let fresh1 = (*buf).write_pos;
-    (*buf).write_pos = (*buf).write_pos + 1;
+    (*buf).write_pos += 1;
     *(*buf).buf.offset(fresh1 as isize) = (val as ::core::ffi::c_int >> 8 as ::core::ffi::c_int
         & 255 as ::core::ffi::c_int) as uint8_t;
     let fresh2 = (*buf).write_pos;
-    (*buf).write_pos = (*buf).write_pos + 1;
+    (*buf).write_pos += 1;
     *(*buf).buf.offset(fresh2 as isize) =
         (val as ::core::ffi::c_int & 255 as ::core::ffi::c_int) as uint8_t;
 }
@@ -1809,7 +1809,7 @@ pub unsafe extern "C" fn pktbuf_write_DataRow(
                 let mut required: size_t = (2 as ::core::ffi::c_int
                     + blen * 2 as ::core::ffi::c_int
                     + 1 as ::core::ffi::c_int) as size_t;
-                if required > ::core::mem::size_of::<[::core::ffi::c_char; 100]>() as usize {
+                if required > ::core::mem::size_of::<[::core::ffi::c_char; 100]>() {
                     let mut _log_ctx = NULL;
                     log_fatal(
                         b"src/pktbuf.c\0" as *const u8 as *const ::core::ffi::c_char,

@@ -892,7 +892,7 @@ pub mod bouncer_h {
     #[inline]
     #[c2rust::src_loc = "303:1"]
     pub unsafe extern "C" fn pga_is_unix(mut a: *const PgAddr) -> bool {
-        return (*a).sa.sa_family as ::core::ffi::c_int == AF_UNIX;
+        (*a).sa.sa_family as ::core::ffi::c_int == AF_UNIX
     }
     use super::_pid_t_h::pid_t;
 
@@ -1045,12 +1045,12 @@ pub mod mbuf_h {
     #[inline]
     #[c2rust::src_loc = "99:1"]
     pub unsafe extern "C" fn mbuf_avail_for_read(mut buf: *const MBuf) -> ::core::ffi::c_uint {
-        return (*buf).write_pos.wrapping_sub((*buf).read_pos);
+        (*buf).write_pos.wrapping_sub((*buf).read_pos)
     }
     #[inline]
     #[c2rust::src_loc = "113:1"]
     pub unsafe extern "C" fn mbuf_written(mut buf: *const MBuf) -> ::core::ffi::c_uint {
-        return (*buf).write_pos;
+        (*buf).write_pos
     }
     #[inline]
     #[c2rust::src_loc = "231:1"]
@@ -1072,7 +1072,7 @@ pub mod mbuf_h {
         (*buf).read_pos =
             nul.offset(1 as ::core::ffi::c_int as isize)
                 .offset_from((*buf).data) as ::core::ffi::c_long as ::core::ffi::c_uint;
-        return true_0 != 0;
+        true_0 != 0
     }
     use super::_size_t_h::size_t;
     use super::_string_h::memchr;
@@ -1092,16 +1092,16 @@ pub mod proto_h {
     #[inline]
     #[c2rust::src_loc = "66:1"]
     pub unsafe extern "C" fn incomplete_pkt(mut pkt: *const PktHdr) -> bool {
-        return mbuf_written(&raw const (*pkt).data) != (*pkt).len;
+        mbuf_written(&raw const (*pkt).data) != (*pkt).len
     }
     #[inline]
     #[c2rust::src_loc = "102:1"]
     pub unsafe extern "C" fn pkt_desc(mut pkt: *const PktHdr) -> ::core::ffi::c_char {
-        return (if (*pkt).type_0 > 256 as ::core::ffi::c_uint {
+        (if (*pkt).type_0 > 256 as ::core::ffi::c_uint {
             '!' as i32 as ::core::ffi::c_uint
         } else {
             (*pkt).type_0
-        }) as ::core::ffi::c_char;
+        }) as ::core::ffi::c_char
     }
     use super::mbuf_h::{mbuf_written, MBuf};
     extern "C" {
@@ -1381,7 +1381,7 @@ pub mod objects_h {
 pub mod _param_h {
     #[c2rust::src_loc = "20:14"]
     pub const __DARWIN_ALIGNBYTES32: usize =
-        (::core::mem::size_of::<__uint32_t>() as usize).wrapping_sub(1 as usize);
+        ::core::mem::size_of::<__uint32_t>().wrapping_sub(1_usize);
     use super::_types_h::__uint32_t;
 }
 #[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/safeio.h:30"]
@@ -1695,10 +1695,8 @@ pub unsafe extern "C" fn takeover_finish() {
                 st_lspare: 0,
                 st_qspare: [0; 2],
             };
-            if stat(cf_pidfile, &raw mut st) < 0 as ::core::ffi::c_int {
-                if *__error() == ENOENT {
-                    break;
-                }
+            if stat(cf_pidfile, &raw mut st) < 0 as ::core::ffi::c_int && *__error() == ENOENT {
+                break;
             }
             usleep(USEC.wrapping_div(10 as usec_t) as useconds_t);
         }
@@ -1777,9 +1775,9 @@ unsafe extern "C" fn takeover_load_fd(mut pkt: *mut MBuf, mut cmsg: *const cmsgh
     {
         memcpy(
             &raw mut fd as *mut ::core::ffi::c_void,
-            (cmsg as *mut ::core::ffi::c_uchar).offset(
-                (::core::mem::size_of::<cmsghdr>().wrapping_add(__DARWIN_ALIGNBYTES32)
-                    & !__DARWIN_ALIGNBYTES32) as isize,
+            (cmsg as *mut ::core::ffi::c_uchar).add(
+                ::core::mem::size_of::<cmsghdr>().wrapping_add(__DARWIN_ALIGNBYTES32)
+                    & !__DARWIN_ALIGNBYTES32,
             ) as *const ::core::ffi::c_void,
             ::core::mem::size_of::<::core::ffi::c_int>() as size_t,
         );
@@ -2160,7 +2158,7 @@ unsafe extern "C" fn takeover_parse_data(
         },
     };
     cmsg = if (*msg).msg_controllen != 0 {
-        if (*msg).msg_controllen as usize >= ::core::mem::size_of::<cmsghdr>() as usize {
+        if (*msg).msg_controllen as usize >= ::core::mem::size_of::<cmsghdr>() {
             (*msg).msg_control as *mut cmsghdr
         } else {
             ::core::ptr::null_mut::<cmsghdr>()
@@ -2224,32 +2222,30 @@ unsafe extern "C" fn takeover_parse_data(
                 if !cmsg.is_null() {
                     takeover_load_fd(&raw mut pkt.data, cmsg);
                     cmsg = if (cmsg as *mut ::core::ffi::c_char).is_null() {
-                        if (*msg).msg_controllen as usize
-                            >= ::core::mem::size_of::<cmsghdr>() as usize
-                        {
+                        if (*msg).msg_controllen as usize >= ::core::mem::size_of::<cmsghdr>() {
                             (*msg).msg_control as *mut cmsghdr
                         } else {
                             ::core::ptr::null_mut::<cmsghdr>()
                         }
                     } else if (cmsg as *mut ::core::ffi::c_uchar)
-                        .offset(
-                            (((*cmsg).cmsg_len as __darwin_size_t)
+                        .add(
+                            ((*cmsg).cmsg_len as __darwin_size_t)
                                 .wrapping_add(__DARWIN_ALIGNBYTES32)
-                                & !__DARWIN_ALIGNBYTES32) as isize,
+                                & !__DARWIN_ALIGNBYTES32,
                         )
-                        .offset(
-                            (::core::mem::size_of::<cmsghdr>().wrapping_add(__DARWIN_ALIGNBYTES32)
-                                & !__DARWIN_ALIGNBYTES32) as isize,
+                        .add(
+                            ::core::mem::size_of::<cmsghdr>().wrapping_add(__DARWIN_ALIGNBYTES32)
+                                & !__DARWIN_ALIGNBYTES32,
                         )
                         > ((*msg).msg_control as *mut ::core::ffi::c_uchar)
                             .offset((*msg).msg_controllen as isize)
                     {
                         ::core::ptr::null_mut::<cmsghdr>()
                     } else {
-                        (cmsg as *mut ::core::ffi::c_uchar).offset(
-                            (((*cmsg).cmsg_len as __darwin_size_t)
+                        (cmsg as *mut ::core::ffi::c_uchar).add(
+                            ((*cmsg).cmsg_len as __darwin_size_t)
                                 .wrapping_add(__DARWIN_ALIGNBYTES32)
-                                & !__DARWIN_ALIGNBYTES32) as isize,
+                                & !__DARWIN_ALIGNBYTES32,
                         ) as *mut ::core::ffi::c_void as *mut cmsghdr
                     };
                 } else {
@@ -2365,7 +2361,7 @@ unsafe extern "C" fn takeover_recv_cb(
         ::core::mem::size_of::<msghdr>() as size_t,
     );
     io.iov_base = &raw mut data_buf as *mut uint8_t as *mut ::core::ffi::c_void;
-    io.iov_len = ::core::mem::size_of::<[uint8_t; 2048]>() as usize as size_t;
+    io.iov_len = ::core::mem::size_of::<[uint8_t; 2048]>() as size_t;
     msg.msg_iov = &raw mut io;
     msg.msg_iovlen = 1 as ::core::ffi::c_int;
     msg.msg_control = &raw mut cnt_buf as *mut uint8_t as *mut ::core::ffi::c_void;
@@ -2487,7 +2483,7 @@ pub unsafe extern "C" fn takeover_login(mut bouncer: *mut PgSocket) -> bool {
         );
         exit(1 as ::core::ffi::c_int);
     }
-    return res;
+    res
 }
 #[no_mangle]
 #[c2rust::src_loc = "361:1"]

@@ -442,7 +442,7 @@ pub unsafe extern "C" fn load_file(
     if !len_p.is_null() {
         *len_p = res as size_t;
     }
-    return buf as *mut ::core::ffi::c_void;
+    buf as *mut ::core::ffi::c_void
 }
 #[no_mangle]
 #[c2rust::src_loc = "81:1"]
@@ -472,7 +472,7 @@ pub unsafe extern "C" fn foreach_line(
     }
     fclose(f);
     free(ln as *mut ::core::ffi::c_void);
-    return ok;
+    ok
 }
 #[no_mangle]
 #[c2rust::src_loc = "109:1"]
@@ -512,7 +512,7 @@ pub unsafe extern "C" fn file_size(mut fn_0: *const ::core::ffi::c_char) -> ssiz
     if stat(fn_0, &raw mut st) < 0 as ::core::ffi::c_int {
         return -(1 as ::core::ffi::c_int) as ssize_t;
     }
-    return st.st_size as ssize_t;
+    st.st_size as ssize_t
 }
 #[no_mangle]
 #[c2rust::src_loc = "123:1"]
@@ -579,7 +579,7 @@ pub unsafe extern "C" fn map_file(
         close((*m).fd);
         return -(1 as ::core::ffi::c_int);
     }
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }
 #[no_mangle]
 #[c2rust::src_loc = "143:1"]

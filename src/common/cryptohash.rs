@@ -204,7 +204,7 @@ pub unsafe extern "C" fn pg_cryptohash_create(
     );
     (*ctx).type_0 = type_0;
     (*ctx).error = PG_CRYPTOHASH_ERROR_NONE;
-    return ctx;
+    ctx
 }
 #[no_mangle]
 #[c2rust::src_loc = "91:1"]
@@ -227,7 +227,7 @@ pub unsafe extern "C" fn pg_cryptohash_init(mut ctx: *mut pg_cryptohash_ctx) -> 
         }
         _ => {}
     }
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }
 #[no_mangle]
 #[c2rust::src_loc = "121:1"]
@@ -254,7 +254,7 @@ pub unsafe extern "C" fn pg_cryptohash_update(
         }
         _ => {}
     }
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }
 #[no_mangle]
 #[c2rust::src_loc = "151:1"]
@@ -297,7 +297,7 @@ pub unsafe extern "C" fn pg_cryptohash_final(
         }
         _ => {}
     }
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }
 #[no_mangle]
 #[c2rust::src_loc = "201:1"]
@@ -326,5 +326,5 @@ pub unsafe extern "C" fn pg_cryptohash_error(
         }
         _ => {}
     }
-    return b"success\0" as *const u8 as *const ::core::ffi::c_char;
+    b"success\0" as *const u8 as *const ::core::ffi::c_char
 }

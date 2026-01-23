@@ -930,7 +930,7 @@ pub mod bouncer_h {
         while *p as ::core::ffi::c_int != 0 && *p as ::core::ffi::c_int == ' ' as i32 {
             p = p.offset(1);
         }
-        return p;
+        p
     }
     use super::_pid_t_h::pid_t;
     use super::_uid_t_h::uid_t;
@@ -1206,8 +1206,7 @@ pub mod _ctype_h {
     #[inline]
     #[c2rust::src_loc = "139:1"]
     pub unsafe extern "C" fn isascii(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
-        return (_c & !(0x7f as ::core::ffi::c_int) == 0 as ::core::ffi::c_int)
-            as ::core::ffi::c_int;
+        (_c & !(0x7f as ::core::ffi::c_int) == 0 as ::core::ffi::c_int) as ::core::ffi::c_int
     }
     #[inline]
     #[c2rust::src_loc = "157:1"]
@@ -1215,17 +1214,17 @@ pub mod _ctype_h {
         mut _c: __darwin_ct_rune_t,
         mut _f: ::core::ffi::c_ulong,
     ) -> ::core::ffi::c_int {
-        return if isascii(_c as ::core::ffi::c_int) != 0 {
+        if isascii(_c as ::core::ffi::c_int) != 0 {
             (_DefaultRuneLocale.__runetype[_c as usize] as ::core::ffi::c_ulong & _f != 0)
                 as ::core::ffi::c_int
         } else {
             (__maskrune(_c, _f) != 0) as ::core::ffi::c_int
-        };
+        }
     }
     #[inline]
     #[c2rust::src_loc = "271:1"]
     pub unsafe extern "C" fn isspace(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
-        return __istype(_c as __darwin_ct_rune_t, _CTYPE_S as ::core::ffi::c_ulong);
+        __istype(_c as __darwin_ct_rune_t, _CTYPE_S as ::core::ffi::c_ulong)
     }
     use super::_types_h::__darwin_ct_rune_t;
     use super::runetype_h::_DefaultRuneLocale;
@@ -1239,7 +1238,7 @@ pub mod ctype_h {
     #[inline]
     #[c2rust::src_loc = "105:1"]
     pub unsafe extern "C" fn safe_isspace(mut c: ::core::ffi::c_int) -> ::core::ffi::c_int {
-        return isspace(c as ::core::ffi::c_uchar as ::core::ffi::c_int);
+        isspace(c as ::core::ffi::c_uchar as ::core::ffi::c_int)
     }
     use super::_ctype_h::isspace;
 }
@@ -1501,7 +1500,7 @@ unsafe extern "C" fn cstr_get_key(
         return ::core::ptr::null_mut::<::core::ffi::c_char>();
     }
     *end = 0 as ::core::ffi::c_char;
-    return p.offset(1 as ::core::ffi::c_int as isize);
+    p.offset(1 as ::core::ffi::c_int as isize)
 }
 #[c2rust::src_loc = "54:1"]
 unsafe extern "C" fn cstr_unquote_value(
@@ -1513,7 +1512,7 @@ unsafe extern "C" fn cstr_unquote_value(
             return ::core::ptr::null_mut::<::core::ffi::c_char>();
         }
         if *p.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int == '\'' as i32 {
-            if !(*p.offset(1 as ::core::ffi::c_int as isize) as ::core::ffi::c_int == '\'' as i32) {
+            if *p.offset(1 as ::core::ffi::c_int as isize) as ::core::ffi::c_int != '\'' as i32 {
                 break;
             }
             p = p.offset(1);
@@ -1525,7 +1524,7 @@ unsafe extern "C" fn cstr_unquote_value(
         *fresh1 = *fresh0;
     }
     *s = 0 as ::core::ffi::c_char;
-    return p.offset(1 as ::core::ffi::c_int as isize);
+    p.offset(1 as ::core::ffi::c_int as isize)
 }
 #[c2rust::src_loc = "75:1"]
 unsafe extern "C" fn cstr_get_value(
@@ -1555,7 +1554,7 @@ unsafe extern "C" fn cstr_get_value(
     {
         return ::core::ptr::null_mut::<::core::ffi::c_char>();
     }
-    return p;
+    p
 }
 #[c2rust::src_loc = "103:1"]
 unsafe extern "C" fn cstr_get_pair(
@@ -1587,7 +1586,7 @@ unsafe extern "C" fn cstr_get_pair(
             *val_p,
         );
     }
-    return cstr_skip_ws(p);
+    cstr_skip_ws(p)
 }
 #[c2rust::src_loc = "130:1"]
 unsafe extern "C" fn set_param_value(
@@ -1614,7 +1613,7 @@ unsafe extern "C" fn set_param_value(
     } else {
         *old_value = ::core::ptr::null_mut::<::core::ffi::c_char>();
     }
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "151:1"]
 unsafe extern "C" fn set_autodb(mut connstr: *const ::core::ffi::c_char) -> bool {
@@ -1636,7 +1635,7 @@ unsafe extern "C" fn set_autodb(mut connstr: *const ::core::ffi::c_char) -> bool
         }
         free(old as *mut ::core::ffi::c_void);
     }
-    return true_0 != 0;
+    true_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "172:1"]
@@ -1682,7 +1681,7 @@ pub unsafe extern "C" fn parse_peer(
     }
     p = tmp_connstr;
     loop {
-        if !(*p != 0) {
+        if *p == 0 {
             current_block = 6417057564578538666;
             break;
         }
@@ -1712,7 +1711,7 @@ pub unsafe extern "C" fn parse_peer(
                 == 0 as ::core::ffi::c_int
             {
                 port = atoi(val);
-                if !(port == 0 as ::core::ffi::c_int) {
+                if port != 0 as ::core::ffi::c_int {
                     continue;
                 }
                 let mut _log_ctx_2 = NULL;
@@ -1744,43 +1743,38 @@ pub unsafe extern "C" fn parse_peer(
             }
         }
     }
-    match current_block {
-        6417057564578538666 => {
-            if host.is_null() {
-                let mut _log_ctx_4 = NULL;
+    if current_block == 6417057564578538666 {
+        if host.is_null() {
+            let mut _log_ctx_4 = NULL;
+            log_generic(
+                LG_ERROR,
+                _log_ctx_4,
+                b"host was not provided for peer %d\0" as *const u8 as *const ::core::ffi::c_char,
+                peer_id,
+            );
+        } else {
+            peer = add_peer(name, peer_id);
+            if peer.is_null() {
+                let mut _log_ctx_5 = NULL;
                 log_generic(
                     LG_ERROR,
-                    _log_ctx_4,
-                    b"host was not provided for peer %d\0" as *const u8
-                        as *const ::core::ffi::c_char,
-                    peer_id,
+                    _log_ctx_5,
+                    b"cannot create peer, no memory?\0" as *const u8 as *const ::core::ffi::c_char,
                 );
             } else {
-                peer = add_peer(name, peer_id);
-                if peer.is_null() {
-                    let mut _log_ctx_5 = NULL;
-                    log_generic(
-                        LG_ERROR,
-                        _log_ctx_5,
-                        b"cannot create peer, no memory?\0" as *const u8
-                            as *const ::core::ffi::c_char,
-                    );
-                } else {
-                    (*peer).db_dead = false_0 != 0;
-                    free((*peer).host as *mut ::core::ffi::c_void);
-                    (*peer).host = host;
-                    (*peer).port = port;
-                    (*peer).pool_size = pool_size;
-                    free(tmp_connstr as *mut ::core::ffi::c_void);
-                    return true_0 != 0;
-                }
+                (*peer).db_dead = false_0 != 0;
+                free((*peer).host as *mut ::core::ffi::c_void);
+                (*peer).host = host;
+                (*peer).port = port;
+                (*peer).pool_size = pool_size;
+                free(tmp_connstr as *mut ::core::ffi::c_void);
+                return true_0 != 0;
             }
         }
-        _ => {}
     }
     free(tmp_connstr as *mut ::core::ffi::c_void);
     free(host as *mut ::core::ffi::c_void);
-    return false_0 != 0;
+    false_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "247:1"]
@@ -1862,7 +1856,7 @@ pub unsafe extern "C" fn parse_database(
     }
     p = tmp_connstr;
     loop {
-        if !(*p != 0) {
+        if *p == 0 {
             current_block = 2705889988320590074;
             break;
         }
@@ -1896,7 +1890,7 @@ pub unsafe extern "C" fn parse_database(
                 == 0 as ::core::ffi::c_int
             {
                 port = atoi(val);
-                if !(port == 0 as ::core::ffi::c_int) {
+                if port != 0 as ::core::ffi::c_int {
                     continue;
                 }
                 let mut _log_ctx_2 = NULL;
@@ -2059,179 +2053,173 @@ pub unsafe extern "C" fn parse_database(
             }
         }
     }
-    match current_block {
-        2705889988320590074 => {
-            db = add_database(name);
-            if db.is_null() {
-                let mut _log_ctx_6 = NULL;
-                log_generic(
-                    LG_ERROR,
-                    _log_ctx_6,
-                    b"cannot create database, no memory?\0" as *const u8
-                        as *const ::core::ffi::c_char,
-                );
-            } else {
-                (*db).db_dead = false_0 != 0;
-                (*db).db_auto = false_0 != 0;
-                (*db).inactive_time = 0 as usec_t;
-                if !(*db).dbname.is_null() {
-                    let mut changed = false_0 != 0;
-                    if strcmp((*db).dbname, dbname) != 0 as ::core::ffi::c_int {
-                        changed = true_0 != 0;
-                    } else if !strcmpeq(host, (*db).host) {
-                        changed = true_0 != 0;
-                    } else if port != (*db).port {
-                        changed = true_0 != 0;
-                    } else if !username.is_null() && (*db).forced_user_credentials.is_null() {
-                        changed = true_0 != 0;
-                    } else if !username.is_null()
-                        && strcmp(
-                            username,
-                            &raw mut (*(*db).forced_user_credentials).name
-                                as *mut ::core::ffi::c_char,
-                        ) != 0 as ::core::ffi::c_int
-                    {
-                        changed = true_0 != 0;
-                    } else if username.is_null() && !(*db).forced_user_credentials.is_null() {
-                        changed = true_0 != 0;
-                    } else if !strcmpeq(connect_query, (*db).connect_query) {
-                        changed = true_0 != 0;
-                    } else if !strcmpeq((*db).auth_dbname, auth_dbname) {
-                        changed = true_0 != 0;
-                    } else if !strcmpeq((*db).auth_query, auth_query) {
-                        changed = true_0 != 0;
-                    } else if load_balance_hosts as ::core::ffi::c_uint
-                        != (*db).load_balance_hosts as ::core::ffi::c_uint
-                    {
-                        changed = true_0 != 0;
-                    }
-                    if changed {
-                        tag_database_dirty(db);
-                    }
+    if current_block == 2705889988320590074 {
+        db = add_database(name);
+        if db.is_null() {
+            let mut _log_ctx_6 = NULL;
+            log_generic(
+                LG_ERROR,
+                _log_ctx_6,
+                b"cannot create database, no memory?\0" as *const u8 as *const ::core::ffi::c_char,
+            );
+        } else {
+            (*db).db_dead = false_0 != 0;
+            (*db).db_auto = false_0 != 0;
+            (*db).inactive_time = 0 as usec_t;
+            if !(*db).dbname.is_null() {
+                let mut changed = false_0 != 0;
+                if strcmp((*db).dbname, dbname) != 0 as ::core::ffi::c_int {
+                    changed = true_0 != 0;
+                } else if !strcmpeq(host, (*db).host) {
+                    changed = true_0 != 0;
+                } else if port != (*db).port {
+                    changed = true_0 != 0;
+                } else if !username.is_null() && (*db).forced_user_credentials.is_null() {
+                    changed = true_0 != 0;
+                } else if !username.is_null()
+                    && strcmp(
+                        username,
+                        &raw mut (*(*db).forced_user_credentials).name as *mut ::core::ffi::c_char,
+                    ) != 0 as ::core::ffi::c_int
+                {
+                    changed = true_0 != 0;
+                } else if username.is_null() && !(*db).forced_user_credentials.is_null() {
+                    changed = true_0 != 0;
+                } else if !strcmpeq(connect_query, (*db).connect_query) {
+                    changed = true_0 != 0;
+                } else if !strcmpeq((*db).auth_dbname, auth_dbname) {
+                    changed = true_0 != 0;
+                } else if !strcmpeq((*db).auth_query, auth_query) {
+                    changed = true_0 != 0;
+                } else if load_balance_hosts as ::core::ffi::c_uint
+                    != (*db).load_balance_hosts as ::core::ffi::c_uint
+                {
+                    changed = true_0 != 0;
                 }
-                free((*db).host as *mut ::core::ffi::c_void);
-                (*db).host = host;
-                host = ::core::ptr::null_mut::<::core::ffi::c_char>();
-                (*db).port = port;
-                (*db).pool_size = pool_size;
-                (*db).min_pool_size = min_pool_size;
-                (*db).res_pool_size = res_pool_size;
-                (*db).pool_mode = pool_mode;
-                (*db).max_db_client_connections = max_db_client_connections;
-                (*db).max_db_connections = max_db_connections;
-                (*db).server_lifetime = server_lifetime;
-                (*db).load_balance_hosts = load_balance_hosts;
-                free((*db).connect_query as *mut ::core::ffi::c_void);
-                (*db).connect_query = connect_query;
-                connect_query = ::core::ptr::null_mut::<::core::ffi::c_char>();
-                if set_param_value(&raw mut (*db).auth_dbname, auth_dbname) {
-                    if set_param_value(&raw mut (*db).auth_query, auth_query) {
-                        if !(*db).startup_params.is_null() {
-                            msg = (*db).startup_params as *mut PktBuf;
-                            pktbuf_reset(msg as *mut PktBuf);
-                        } else {
-                            msg = pktbuf_dynamic(128 as ::core::ffi::c_int);
-                            if msg.is_null() {
-                                let mut _log_ctx_7 = NULL;
-                                log_generic(
-                                    LG_FATAL,
-                                    _log_ctx_7,
-                                    b"out of memory\0" as *const u8 as *const ::core::ffi::c_char,
-                                );
-                                exit(1 as ::core::ffi::c_int);
-                            }
-                            (*db).startup_params = msg as *mut PktBuf;
-                        }
-                        pktbuf_put_string(
-                            msg,
-                            b"database\0" as *const u8 as *const ::core::ffi::c_char,
+                if changed {
+                    tag_database_dirty(db);
+                }
+            }
+            free((*db).host as *mut ::core::ffi::c_void);
+            (*db).host = host;
+            host = ::core::ptr::null_mut::<::core::ffi::c_char>();
+            (*db).port = port;
+            (*db).pool_size = pool_size;
+            (*db).min_pool_size = min_pool_size;
+            (*db).res_pool_size = res_pool_size;
+            (*db).pool_mode = pool_mode;
+            (*db).max_db_client_connections = max_db_client_connections;
+            (*db).max_db_connections = max_db_connections;
+            (*db).server_lifetime = server_lifetime;
+            (*db).load_balance_hosts = load_balance_hosts;
+            free((*db).connect_query as *mut ::core::ffi::c_void);
+            (*db).connect_query = connect_query;
+            connect_query = ::core::ptr::null_mut::<::core::ffi::c_char>();
+            if set_param_value(&raw mut (*db).auth_dbname, auth_dbname)
+                && set_param_value(&raw mut (*db).auth_query, auth_query)
+            {
+                if !(*db).startup_params.is_null() {
+                    msg = (*db).startup_params as *mut PktBuf;
+                    pktbuf_reset(msg as *mut PktBuf);
+                } else {
+                    msg = pktbuf_dynamic(128 as ::core::ffi::c_int);
+                    if msg.is_null() {
+                        let mut _log_ctx_7 = NULL;
+                        log_generic(
+                            LG_FATAL,
+                            _log_ctx_7,
+                            b"out of memory\0" as *const u8 as *const ::core::ffi::c_char,
                         );
-                        dbname_ofs = (*msg).write_pos;
-                        pktbuf_put_string(msg, dbname);
-                        if !client_encoding.is_null() {
-                            pktbuf_put_string(
-                                msg,
-                                b"client_encoding\0" as *const u8 as *const ::core::ffi::c_char,
-                            );
-                            pktbuf_put_string(msg, client_encoding);
-                        }
-                        if !datestyle.is_null() {
-                            pktbuf_put_string(
-                                msg,
-                                b"datestyle\0" as *const u8 as *const ::core::ffi::c_char,
-                            );
-                            pktbuf_put_string(msg, datestyle);
-                        }
-                        if !timezone.is_null() {
-                            pktbuf_put_string(
-                                msg,
-                                b"timezone\0" as *const u8 as *const ::core::ffi::c_char,
-                            );
-                            pktbuf_put_string(msg, timezone);
-                        }
-                        if !appname.is_null() {
-                            pktbuf_put_string(
-                                msg,
-                                b"application_name\0" as *const u8 as *const ::core::ffi::c_char,
-                            );
-                            pktbuf_put_string(msg, appname);
-                        }
-                        if !auth_username.is_null() {
-                            (*db).auth_user_credentials = find_or_add_new_global_credentials(
-                                auth_username,
-                                b"\0" as *const u8 as *const ::core::ffi::c_char,
-                            );
-                            if (*db).auth_user_credentials.is_null() {
-                                current_block = 17902695515181753043;
-                            } else {
-                                current_block = 10405920230221879620;
+                        exit(1 as ::core::ffi::c_int);
+                    }
+                    (*db).startup_params = msg as *mut PktBuf;
+                }
+                pktbuf_put_string(
+                    msg,
+                    b"database\0" as *const u8 as *const ::core::ffi::c_char,
+                );
+                dbname_ofs = (*msg).write_pos;
+                pktbuf_put_string(msg, dbname);
+                if !client_encoding.is_null() {
+                    pktbuf_put_string(
+                        msg,
+                        b"client_encoding\0" as *const u8 as *const ::core::ffi::c_char,
+                    );
+                    pktbuf_put_string(msg, client_encoding);
+                }
+                if !datestyle.is_null() {
+                    pktbuf_put_string(
+                        msg,
+                        b"datestyle\0" as *const u8 as *const ::core::ffi::c_char,
+                    );
+                    pktbuf_put_string(msg, datestyle);
+                }
+                if !timezone.is_null() {
+                    pktbuf_put_string(
+                        msg,
+                        b"timezone\0" as *const u8 as *const ::core::ffi::c_char,
+                    );
+                    pktbuf_put_string(msg, timezone);
+                }
+                if !appname.is_null() {
+                    pktbuf_put_string(
+                        msg,
+                        b"application_name\0" as *const u8 as *const ::core::ffi::c_char,
+                    );
+                    pktbuf_put_string(msg, appname);
+                }
+                if !auth_username.is_null() {
+                    (*db).auth_user_credentials = find_or_add_new_global_credentials(
+                        auth_username,
+                        b"\0" as *const u8 as *const ::core::ffi::c_char,
+                    );
+                    if (*db).auth_user_credentials.is_null() {
+                        current_block = 17902695515181753043;
+                    } else {
+                        current_block = 10405920230221879620;
+                    }
+                } else {
+                    if !(*db).auth_user_credentials.is_null() {
+                        (*db).auth_user_credentials = ::core::ptr::null_mut::<PgCredentials>();
+                    }
+                    current_block = 10405920230221879620;
+                }
+                match current_block {
+                    17902695515181753043 => {}
+                    _ => {
+                        if !username.is_null() {
+                            if force_user_credentials(db, username, password).is_null() {
+                                let mut _log_ctx_8 = NULL;
+                                log_generic(
+                                    LG_WARNING,
+                                    _log_ctx_8,
+                                    b"db setup failed, trying to continue\0" as *const u8
+                                        as *const ::core::ffi::c_char,
+                                );
                             }
-                        } else {
-                            if !(*db).auth_user_credentials.is_null() {
-                                (*db).auth_user_credentials =
-                                    ::core::ptr::null_mut::<PgCredentials>();
-                            }
-                            current_block = 10405920230221879620;
+                        } else if !(*db).forced_user_credentials.is_null() {
+                            let mut _log_ctx_9 = NULL;
+                            log_generic(
+                                LG_WARNING,
+                                _log_ctx_9,
+                                b"losing forced user not supported, keeping old setting\0"
+                                    as *const u8
+                                    as *const ::core::ffi::c_char,
+                            );
                         }
-                        match current_block {
-                            17902695515181753043 => {}
-                            _ => {
-                                if !username.is_null() {
-                                    if force_user_credentials(db, username, password).is_null() {
-                                        let mut _log_ctx_8 = NULL;
-                                        log_generic(
-                                            LG_WARNING,
-                                            _log_ctx_8,
-                                            b"db setup failed, trying to continue\0" as *const u8
-                                                as *const ::core::ffi::c_char,
-                                        );
-                                    }
-                                } else if !(*db).forced_user_credentials.is_null() {
-                                    let mut _log_ctx_9 = NULL;
-                                    log_generic(
-                                        LG_WARNING,
-                                        _log_ctx_9,
-                                        b"losing forced user not supported, keeping old setting\0"
-                                            as *const u8
-                                            as *const ::core::ffi::c_char,
-                                    );
-                                }
-                                (*db).dbname = ((*msg).buf as *mut ::core::ffi::c_char)
-                                    .offset(dbname_ofs as isize);
-                                free(tmp_connstr as *mut ::core::ffi::c_void);
-                                return true_0 != 0;
-                            }
-                        }
+                        (*db).dbname =
+                            ((*msg).buf as *mut ::core::ffi::c_char).offset(dbname_ofs as isize);
+                        free(tmp_connstr as *mut ::core::ffi::c_void);
+                        return true_0 != 0;
                     }
                 }
             }
         }
-        _ => {}
     }
     free(tmp_connstr as *mut ::core::ffi::c_void);
     free(host as *mut ::core::ffi::c_void);
     free(connect_query as *mut ::core::ffi::c_void);
-    return false_0 != 0;
+    false_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "498:1"]
@@ -2276,7 +2264,7 @@ pub unsafe extern "C" fn parse_user(
     }
     p = tmp_connstr;
     loop {
-        if !(*p != 0) {
+        if *p == 0 {
             current_block = 7990025728955927862;
             break;
         }
@@ -2377,35 +2365,31 @@ pub unsafe extern "C" fn parse_user(
             }
         }
     }
-    match current_block {
-        7990025728955927862 => {
-            user =
-                find_or_add_new_global_user(name, b"\0" as *const u8 as *const ::core::ffi::c_char);
-            if user.is_null() {
-                let mut _log_ctx_3 = NULL;
-                log_generic(
-                    LG_ERROR,
-                    _log_ctx_3,
-                    b"cannot create user, no memory?\0" as *const u8 as *const ::core::ffi::c_char,
-                );
-            } else {
-                (*user).pool_mode = pool_mode;
-                (*user).pool_size = pool_size;
-                (*user).res_pool_size = res_pool_size;
-                (*user).max_user_connections = max_user_connections;
-                (*user).idle_transaction_timeout = idle_transaction_timeout;
-                (*user).transaction_timeout = transaction_timeout;
-                (*user).query_timeout = query_timeout;
-                (*user).client_idle_timeout = client_idle_timeout;
-                (*user).max_user_client_connections = max_user_client_connections;
-                free(tmp_connstr as *mut ::core::ffi::c_void);
-                return true_0 != 0;
-            }
+    if current_block == 7990025728955927862 {
+        user = find_or_add_new_global_user(name, b"\0" as *const u8 as *const ::core::ffi::c_char);
+        if user.is_null() {
+            let mut _log_ctx_3 = NULL;
+            log_generic(
+                LG_ERROR,
+                _log_ctx_3,
+                b"cannot create user, no memory?\0" as *const u8 as *const ::core::ffi::c_char,
+            );
+        } else {
+            (*user).pool_mode = pool_mode;
+            (*user).pool_size = pool_size;
+            (*user).res_pool_size = res_pool_size;
+            (*user).max_user_connections = max_user_connections;
+            (*user).idle_transaction_timeout = idle_transaction_timeout;
+            (*user).transaction_timeout = transaction_timeout;
+            (*user).query_timeout = query_timeout;
+            (*user).client_idle_timeout = client_idle_timeout;
+            (*user).max_user_client_connections = max_user_client_connections;
+            free(tmp_connstr as *mut ::core::ffi::c_void);
+            return true_0 != 0;
         }
-        _ => {}
     }
     free(tmp_connstr as *mut ::core::ffi::c_void);
-    return false_0 != 0;
+    false_0 != 0
 }
 #[c2rust::src_loc = "592:1"]
 unsafe extern "C" fn find_quote(
@@ -2424,7 +2408,7 @@ unsafe extern "C" fn find_quote(
         }
         p = p.offset(2 as ::core::ffi::c_int as isize);
     }
-    return p;
+    p
 }
 #[c2rust::src_loc = "606:1"]
 unsafe extern "C" fn copy_quoted(
@@ -2588,7 +2572,7 @@ unsafe extern "C" fn auth_loaded(mut fn_0: *const ::core::ffi::c_char) -> bool {
     }
     cache = cur;
     cache_set = true_0 != 0;
-    return false_0 != 0;
+    false_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "677:1"]
@@ -2596,7 +2580,7 @@ pub unsafe extern "C" fn loader_users_check() -> bool {
     if auth_loaded(cf_auth_file) {
         return true_0 != 0;
     }
-    return load_auth_file(cf_auth_file);
+    load_auth_file(cf_auth_file)
 }
 #[c2rust::src_loc = "685:1"]
 unsafe extern "C" fn disable_users() {
@@ -2736,5 +2720,5 @@ pub unsafe extern "C" fn load_auth_file(mut fn_0: *const ::core::ffi::c_char) ->
         }
     }
     free(buf as *mut ::core::ffi::c_void);
-    return true_0 != 0;
+    true_0 != 0
 }

@@ -88,8 +88,7 @@ pub mod _ctype_h {
     #[inline]
     #[c2rust::src_loc = "139:1"]
     pub unsafe extern "C" fn isascii(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
-        return (_c & !(0x7f as ::core::ffi::c_int) == 0 as ::core::ffi::c_int)
-            as ::core::ffi::c_int;
+        (_c & !(0x7f as ::core::ffi::c_int) == 0 as ::core::ffi::c_int) as ::core::ffi::c_int
     }
     #[inline]
     #[c2rust::src_loc = "157:1"]
@@ -97,24 +96,24 @@ pub mod _ctype_h {
         mut _c: __darwin_ct_rune_t,
         mut _f: ::core::ffi::c_ulong,
     ) -> ::core::ffi::c_int {
-        return if isascii(_c as ::core::ffi::c_int) != 0 {
+        if isascii(_c as ::core::ffi::c_int) != 0 {
             (_DefaultRuneLocale.__runetype[_c as usize] as ::core::ffi::c_ulong & _f != 0)
                 as ::core::ffi::c_int
         } else {
             (__maskrune(_c, _f) != 0) as ::core::ffi::c_int
-        };
+        }
     }
     #[no_mangle]
     #[inline]
     #[linkage = "external"]
     #[c2rust::src_loc = "277:1"]
     pub unsafe extern "C" fn isupper(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
-        return __istype(_c as __darwin_ct_rune_t, _CTYPE_U as ::core::ffi::c_ulong);
+        __istype(_c as __darwin_ct_rune_t, _CTYPE_U as ::core::ffi::c_ulong)
     }
     #[inline]
     #[c2rust::src_loc = "296:1"]
     pub unsafe extern "C" fn tolower(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
-        return __tolower(_c as __darwin_ct_rune_t) as ::core::ffi::c_int;
+        __tolower(_c as __darwin_ct_rune_t) as ::core::ffi::c_int
     }
     use super::_types_h::__darwin_ct_rune_t;
     use super::runetype_h::_DefaultRuneLocale;
@@ -130,12 +129,12 @@ pub mod ctype_h {
     #[inline]
     #[c2rust::src_loc = "110:1"]
     pub unsafe extern "C" fn safe_isupper(mut c: ::core::ffi::c_int) -> ::core::ffi::c_int {
-        return isupper(c as ::core::ffi::c_uchar as ::core::ffi::c_int);
+        isupper(c as ::core::ffi::c_uchar as ::core::ffi::c_int)
     }
     #[inline]
     #[c2rust::src_loc = "120:1"]
     pub unsafe extern "C" fn safe_tolower(mut c: ::core::ffi::c_int) -> ::core::ffi::c_int {
-        return tolower(c as ::core::ffi::c_uchar as ::core::ffi::c_int);
+        tolower(c as ::core::ffi::c_uchar as ::core::ffi::c_int)
     }
     use super::_ctype_h::{isupper, tolower};
 }
@@ -164,7 +163,7 @@ pub unsafe extern "C" fn pg_strncasecmp(
     loop {
         let fresh0 = n;
         n = n.wrapping_sub(1);
-        if !(fresh0 > 0 as size_t) {
+        if fresh0 <= 0 as size_t {
             break;
         }
         let fresh1 = s1;
@@ -198,5 +197,5 @@ pub unsafe extern "C" fn pg_strncasecmp(
             break;
         }
     }
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }

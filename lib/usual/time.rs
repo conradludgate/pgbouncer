@@ -170,7 +170,7 @@ pub unsafe extern "C" fn format_time_ms(
             }) as isize,
         ),
     );
-    return dest;
+    dest
 }
 #[no_mangle]
 #[c2rust::src_loc = "48:1"]
@@ -223,7 +223,7 @@ pub unsafe extern "C" fn format_time_s(
             }) as isize,
         ),
     );
-    return dest;
+    dest
 }
 #[no_mangle]
 #[c2rust::src_loc = "69:1"]
@@ -233,9 +233,9 @@ pub unsafe extern "C" fn get_time_usec() -> usec_t {
         tv_usec: 0,
     };
     gettimeofday(&raw mut tv, NULL);
-    return (tv.tv_sec as usec_t)
+    (tv.tv_sec as usec_t)
         .wrapping_mul(USEC)
-        .wrapping_add(tv.tv_usec as usec_t);
+        .wrapping_add(tv.tv_usec as usec_t)
 }
 #[c2rust::src_loc = "76:1"]
 static mut _time_cache: usec_t = 0;
@@ -245,7 +245,7 @@ pub unsafe extern "C" fn get_cached_time() -> usec_t {
     if _time_cache == 0 {
         _time_cache = get_time_usec();
     }
-    return _time_cache;
+    _time_cache
 }
 #[no_mangle]
 #[c2rust::src_loc = "87:1"]

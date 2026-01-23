@@ -174,7 +174,7 @@ pub unsafe extern "C" fn tls_peer_cert_hash(mut ctx: *mut tls) -> *const ::core:
     if !(*ctx).conninfo.is_null() {
         return (*(*ctx).conninfo).hash;
     }
-    return ::core::ptr::null::<::core::ffi::c_char>();
+    ::core::ptr::null::<::core::ffi::c_char>()
 }
 #[no_mangle]
 #[c2rust::src_loc = "35:1"]
@@ -182,7 +182,7 @@ pub unsafe extern "C" fn tls_peer_cert_issuer(mut ctx: *mut tls) -> *const ::cor
     if !(*ctx).conninfo.is_null() {
         return (*(*ctx).conninfo).issuer;
     }
-    return ::core::ptr::null::<::core::ffi::c_char>();
+    ::core::ptr::null::<::core::ffi::c_char>()
 }
 #[no_mangle]
 #[c2rust::src_loc = "42:1"]
@@ -190,12 +190,12 @@ pub unsafe extern "C" fn tls_peer_cert_subject(mut ctx: *mut tls) -> *const ::co
     if !(*ctx).conninfo.is_null() {
         return (*(*ctx).conninfo).subject;
     }
-    return ::core::ptr::null::<::core::ffi::c_char>();
+    ::core::ptr::null::<::core::ffi::c_char>()
 }
 #[no_mangle]
 #[c2rust::src_loc = "49:1"]
 pub unsafe extern "C" fn tls_peer_cert_provided(mut ctx: *mut tls) -> ::core::ffi::c_int {
-    return ((*ctx).ssl_peer_cert != NULL as *mut X509) as ::core::ffi::c_int;
+    ((*ctx).ssl_peer_cert != NULL as *mut X509) as ::core::ffi::c_int
 }
 #[no_mangle]
 #[c2rust::src_loc = "54:1"]
@@ -206,8 +206,8 @@ pub unsafe extern "C" fn tls_peer_cert_contains_name(
     if (*ctx).ssl_peer_cert.is_null() {
         return 0 as ::core::ffi::c_int;
     }
-    return (tls_check_name(ctx, (*ctx).ssl_peer_cert, name) == 0 as ::core::ffi::c_int)
-        as ::core::ffi::c_int;
+    (tls_check_name(ctx, (*ctx).ssl_peer_cert, name) == 0 as ::core::ffi::c_int)
+        as ::core::ffi::c_int
 }
 #[no_mangle]
 #[c2rust::src_loc = "62:1"]
@@ -218,7 +218,7 @@ pub unsafe extern "C" fn tls_peer_cert_notbefore(mut ctx: *mut tls) -> time_t {
     if (*ctx).conninfo.is_null() {
         return -(1 as ::core::ffi::c_int) as time_t;
     }
-    return (*(*ctx).conninfo).notbefore;
+    (*(*ctx).conninfo).notbefore
 }
 #[no_mangle]
 #[c2rust::src_loc = "71:1"]
@@ -229,5 +229,5 @@ pub unsafe extern "C" fn tls_peer_cert_notafter(mut ctx: *mut tls) -> time_t {
     if (*ctx).conninfo.is_null() {
         return -(1 as ::core::ffi::c_int) as time_t;
     }
-    return (*(*ctx).conninfo).notafter;
+    (*(*ctx).conninfo).notafter
 }

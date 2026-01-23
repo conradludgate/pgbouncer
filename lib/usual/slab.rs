@@ -103,7 +103,7 @@ pub mod statlist_h {
     #[inline]
     #[c2rust::src_loc = "88:1"]
     pub unsafe extern "C" fn statlist_count(mut list: *const StatList) -> ::core::ffi::c_int {
-        return (*list).cur_count;
+        (*list).cur_count
     }
     #[inline]
     #[c2rust::src_loc = "95:1"]
@@ -112,7 +112,7 @@ pub mod statlist_h {
         if !item.is_null() {
             (*list).cur_count -= 1;
         }
-        return item;
+        item
     }
     use super::list_h::{list_append, list_del, list_init, list_pop, list_prepend, List};
 }
@@ -134,7 +134,7 @@ pub mod list_h {
     #[inline]
     #[c2rust::src_loc = "52:1"]
     pub unsafe extern "C" fn list_empty(mut list: *const List) -> ::core::ffi::c_int {
-        return ((*list).next == list as *mut List) as ::core::ffi::c_int;
+        std::ptr::eq((*list).next, list) as ::core::ffi::c_int
     }
     #[inline]
     #[c2rust::src_loc = "58:1"]
@@ -143,7 +143,7 @@ pub mod list_h {
         (*item).prev = list;
         (*(*list).next).prev = item;
         (*list).next = item;
-        return item;
+        item
     }
     #[inline]
     #[c2rust::src_loc = "68:1"]
@@ -152,7 +152,7 @@ pub mod list_h {
         (*item).prev = (*list).prev;
         (*(*list).prev).next = item;
         (*list).prev = item;
-        return item;
+        item
     }
     #[inline]
     #[c2rust::src_loc = "78:1"]
@@ -161,7 +161,7 @@ pub mod list_h {
         (*(*item).next).prev = (*item).prev;
         (*item).prev = item;
         (*item).next = (*item).prev;
-        return item;
+        item
     }
     #[inline]
     #[c2rust::src_loc = "87:1"]
@@ -169,14 +169,14 @@ pub mod list_h {
         if list_empty(list) != 0 {
             return ::core::ptr::null_mut::<List>();
         }
-        return list_del((*list).next);
+        list_del((*list).next)
     }
 }
 #[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arm/_param.h:19"]
 pub mod _param_h {
     #[c2rust::src_loc = "17:9"]
     pub const __DARWIN_ALIGNBYTES: usize =
-        (::core::mem::size_of::<__darwin_size_t>() as usize).wrapping_sub(1 as usize);
+        ::core::mem::size_of::<__darwin_size_t>().wrapping_sub(1_usize);
     use super::_types_h::__darwin_size_t;
 }
 #[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_string.h:21"]
@@ -278,9 +278,9 @@ unsafe extern "C" fn init_slab(
     (*slab).total_count = 0 as ::core::ffi::c_uint;
     (*slab).init_func = init_func;
     (*slab).cx = cx;
-    if slen as usize >= ::core::mem::size_of::<[::core::ffi::c_char; 32]>() as usize {
-        slen = (::core::mem::size_of::<[::core::ffi::c_char; 32]>() as usize)
-            .wrapping_sub(1 as usize) as ::core::ffi::c_uint;
+    if slen as usize >= ::core::mem::size_of::<[::core::ffi::c_char; 32]>() {
+        slen = ::core::mem::size_of::<[::core::ffi::c_char; 32]>().wrapping_sub(1_usize)
+            as ::core::ffi::c_uint;
     }
     memcpy(
         &raw mut (*slab).name as *mut ::core::ffi::c_char as *mut ::core::ffi::c_void,
@@ -288,7 +288,7 @@ unsafe extern "C" fn init_slab(
         slen as size_t,
     );
     (*slab).name[slen as usize] = 0 as ::core::ffi::c_char;
-    if (align as usize) < ::core::mem::size_of::<::core::ffi::c_long>() as usize {
+    if (align as usize) < ::core::mem::size_of::<::core::ffi::c_long>() {
         align = 0 as ::core::ffi::c_uint;
     }
     if align == 0 as ::core::ffi::c_uint {
@@ -301,7 +301,7 @@ unsafe extern "C" fn init_slab(
             & !(align as uintptr_t).wrapping_sub(1 as ::core::ffi::c_int as uintptr_t))
             as ::core::ffi::c_uint;
     }
-    if ((*slab).final_size as usize) < ::core::mem::size_of::<List>() as usize {
+    if ((*slab).final_size as usize) < ::core::mem::size_of::<List>() {
         (*slab).final_size = ::core::mem::size_of::<List>() as ::core::ffi::c_uint;
     }
     slab_list_append(slab);
@@ -320,7 +320,7 @@ pub unsafe extern "C" fn slab_create(
     if !slab.is_null() {
         init_slab(slab, name, obj_size, align, init_func, cx);
     }
-    return slab;
+    slab
 }
 #[no_mangle]
 #[c2rust::src_loc = "117:1"]
@@ -367,8 +367,7 @@ unsafe extern "C" fn grow(mut slab: *mut Slab) {
         return;
     }
     list_init(&raw mut (*frag).head);
-    area = (frag as *mut ::core::ffi::c_char)
-        .offset(::core::mem::size_of::<SlabFrag>() as usize as isize);
+    area = (frag as *mut ::core::ffi::c_char).add(::core::mem::size_of::<SlabFrag>());
     i = 0 as ::core::ffi::c_uint;
     while i < count {
         let mut obj =
@@ -400,7 +399,7 @@ pub unsafe extern "C" fn slab_alloc(mut slab: *mut Slab) -> *mut ::core::ffi::c_
             );
         }
     }
-    return item as *mut ::core::ffi::c_void;
+    item as *mut ::core::ffi::c_void
 }
 #[no_mangle]
 #[c2rust::src_loc = "186:1"]
@@ -412,17 +411,17 @@ pub unsafe extern "C" fn slab_free(mut slab: *mut Slab, mut obj: *mut ::core::ff
 #[no_mangle]
 #[c2rust::src_loc = "194:1"]
 pub unsafe extern "C" fn slab_total_count(mut slab: *const Slab) -> ::core::ffi::c_int {
-    return (*slab).total_count as ::core::ffi::c_int;
+    (*slab).total_count as ::core::ffi::c_int
 }
 #[no_mangle]
 #[c2rust::src_loc = "200:1"]
 pub unsafe extern "C" fn slab_free_count(mut slab: *const Slab) -> ::core::ffi::c_int {
-    return statlist_count(&raw const (*slab).freelist);
+    statlist_count(&raw const (*slab).freelist)
 }
 #[no_mangle]
 #[c2rust::src_loc = "206:1"]
 pub unsafe extern "C" fn slab_active_count(mut slab: *const Slab) -> ::core::ffi::c_int {
-    return slab_total_count(slab) - slab_free_count(slab);
+    slab_total_count(slab) - slab_free_count(slab)
 }
 #[c2rust::src_loc = "211:1"]
 unsafe extern "C" fn run_slab_stats(

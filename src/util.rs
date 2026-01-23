@@ -860,12 +860,12 @@ pub mod bouncer_h {
     #[inline]
     #[c2rust::src_loc = "299:1"]
     pub unsafe extern "C" fn pga_family(mut a: *const PgAddr) -> ::core::ffi::c_uint {
-        return (*a).sa.sa_family as ::core::ffi::c_uint;
+        (*a).sa.sa_family as ::core::ffi::c_uint
     }
     #[inline]
     #[c2rust::src_loc = "303:1"]
     pub unsafe extern "C" fn pga_is_unix(mut a: *const PgAddr) -> bool {
-        return (*a).sa.sa_family as ::core::ffi::c_int == AF_UNIX;
+        (*a).sa.sa_family as ::core::ffi::c_int == AF_UNIX
     }
     use super::_pid_t_h::pid_t;
 
@@ -1160,14 +1160,14 @@ pub mod _OSByteOrder_h {
     #[inline]
     #[c2rust::src_loc = "48:1"]
     pub unsafe extern "C" fn _OSSwapInt16(mut _data: __uint16_t) -> __uint16_t {
-        return ((_data as ::core::ffi::c_int) << 8 as ::core::ffi::c_int
-            | _data as ::core::ffi::c_int >> 8 as ::core::ffi::c_int) as __uint16_t;
+        ((_data as ::core::ffi::c_int) << 8 as ::core::ffi::c_int
+            | _data as ::core::ffi::c_int >> 8 as ::core::ffi::c_int) as __uint16_t
     }
     #[inline]
     #[c2rust::src_loc = "58:1"]
     pub unsafe extern "C" fn _OSSwapInt32(mut _data: __uint32_t) -> __uint32_t {
         _data = _data.swap_bytes() as __uint32_t;
-        return _data;
+        _data
     }
     use super::_types_h::{__uint16_t, __uint32_t};
 }
@@ -1205,8 +1205,7 @@ pub mod _ctype_h {
     #[inline]
     #[c2rust::src_loc = "139:1"]
     pub unsafe extern "C" fn isascii(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
-        return (_c & !(0x7f as ::core::ffi::c_int) == 0 as ::core::ffi::c_int)
-            as ::core::ffi::c_int;
+        (_c & !(0x7f as ::core::ffi::c_int) == 0 as ::core::ffi::c_int) as ::core::ffi::c_int
     }
     #[inline]
     #[c2rust::src_loc = "157:1"]
@@ -1214,17 +1213,17 @@ pub mod _ctype_h {
         mut _c: __darwin_ct_rune_t,
         mut _f: ::core::ffi::c_ulong,
     ) -> ::core::ffi::c_int {
-        return if isascii(_c as ::core::ffi::c_int) != 0 {
+        if isascii(_c as ::core::ffi::c_int) != 0 {
             (_DefaultRuneLocale.__runetype[_c as usize] as ::core::ffi::c_ulong & _f != 0)
                 as ::core::ffi::c_int
         } else {
             (__maskrune(_c, _f) != 0) as ::core::ffi::c_int
-        };
+        }
     }
     #[inline]
     #[c2rust::src_loc = "271:1"]
     pub unsafe extern "C" fn isspace(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
-        return __istype(_c as __darwin_ct_rune_t, _CTYPE_S as ::core::ffi::c_ulong);
+        __istype(_c as __darwin_ct_rune_t, _CTYPE_S as ::core::ffi::c_ulong)
     }
     use super::_types_h::__darwin_ct_rune_t;
     use super::runetype_h::_DefaultRuneLocale;
@@ -1238,7 +1237,7 @@ pub mod ctype_h {
     #[inline]
     #[c2rust::src_loc = "105:1"]
     pub unsafe extern "C" fn safe_isspace(mut c: ::core::ffi::c_int) -> ::core::ffi::c_int {
-        return isspace(c as ::core::ffi::c_uchar as ::core::ffi::c_int);
+        isspace(c as ::core::ffi::c_uchar as ::core::ffi::c_int)
     }
     use super::_ctype_h::isspace;
 }
@@ -1601,7 +1600,7 @@ pub unsafe extern "C" fn log_socket_prefix(
                 port,
             );
         }
-        return snprintf(
+        snprintf(
             dst,
             dstlen as size_t,
             b"%c-%p: %s/%s@[%s]:%d \0" as *const u8 as *const ::core::ffi::c_char,
@@ -1611,7 +1610,7 @@ pub unsafe extern "C" fn log_socket_prefix(
             user,
             host,
             port,
-        );
+        )
     } else {
         if peer_id != 0 {
             return snprintf(
@@ -1625,7 +1624,7 @@ pub unsafe extern "C" fn log_socket_prefix(
                 port,
             );
         }
-        return snprintf(
+        snprintf(
             dst,
             dstlen as size_t,
             b"%c-%p: %s/%s@%s:%d \0" as *const u8 as *const ::core::ffi::c_char,
@@ -1635,8 +1634,8 @@ pub unsafe extern "C" fn log_socket_prefix(
             user,
             host,
             port,
-        );
-    };
+        )
+    }
 }
 #[no_mangle]
 #[c2rust::src_loc = "83:1"]
@@ -1677,7 +1676,7 @@ pub unsafe extern "C" fn bin2hex(
         i = i.wrapping_add(1);
     }
     *dst.offset(j as isize) = 0 as ::core::ffi::c_char;
-    return dst;
+    dst
 }
 #[c2rust::src_loc = "103:1"]
 unsafe extern "C" fn hash2hex(mut hash: *const uint8_t, mut dst: *mut ::core::ffi::c_char) {
@@ -1711,30 +1710,26 @@ pub unsafe extern "C" fn pg_md5_encrypt(
         );
         return false_0 != 0;
     }
-    if !(EVP_DigestInit(mdctx, EVP_md5()) == 0) {
-        if !(EVP_DigestUpdate(mdctx, part1 as *const ::core::ffi::c_void, strlen(part1)) == 0) {
-            if !(EVP_DigestUpdate(mdctx, part2 as *const ::core::ffi::c_void, part2len) == 0) {
-                if !(EVP_DigestFinal_ex(
-                    mdctx,
-                    &raw mut hash as *mut ::core::ffi::c_uchar,
-                    ::core::ptr::null_mut::<::core::ffi::c_uint>(),
-                ) == 0)
-                {
-                    EVP_MD_CTX_free(mdctx);
-                    memcpy(
-                        dest as *mut ::core::ffi::c_void,
-                        b"md5\0" as *const u8 as *const ::core::ffi::c_char
-                            as *const ::core::ffi::c_void,
-                        3 as size_t,
-                    );
-                    hash2hex(
-                        &raw mut hash as *mut uint8_t,
-                        dest.offset(3 as ::core::ffi::c_int as isize),
-                    );
-                    return true_0 != 0;
-                }
-            }
-        }
+    if (EVP_DigestInit(mdctx, EVP_md5()) != 0)
+        && (EVP_DigestUpdate(mdctx, part1 as *const ::core::ffi::c_void, strlen(part1)) != 0)
+        && (EVP_DigestUpdate(mdctx, part2 as *const ::core::ffi::c_void, part2len) != 0)
+        && (EVP_DigestFinal_ex(
+            mdctx,
+            &raw mut hash as *mut ::core::ffi::c_uchar,
+            ::core::ptr::null_mut::<::core::ffi::c_uint>(),
+        ) != 0)
+    {
+        EVP_MD_CTX_free(mdctx);
+        memcpy(
+            dest as *mut ::core::ffi::c_void,
+            b"md5\0" as *const u8 as *const ::core::ffi::c_char as *const ::core::ffi::c_void,
+            3 as size_t,
+        );
+        hash2hex(
+            &raw mut hash as *mut uint8_t,
+            dest.offset(3 as ::core::ffi::c_int as isize),
+        );
+        return true_0 != 0;
     }
     let mut _log_ctx_0 = NULL;
     log_generic(
@@ -1744,7 +1739,7 @@ pub unsafe extern "C" fn pg_md5_encrypt(
         ERR_reason_error_string(ERR_get_error()),
     );
     EVP_MD_CTX_free(mdctx);
-    return false_0 != 0;
+    false_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "156:1"]
@@ -1824,7 +1819,7 @@ pub unsafe extern "C" fn tune_socket(mut sock: ::core::ffi::c_int, mut is_unix: 
                             &raw mut val as *const ::core::ffi::c_void,
                             ::core::mem::size_of::<::core::ffi::c_int>() as socklen_t,
                         );
-                        if !(res < 0 as ::core::ffi::c_int) {
+                        if res >= 0 as ::core::ffi::c_int {
                             return true_0 != 0;
                         }
                     }
@@ -1841,7 +1836,7 @@ pub unsafe extern "C" fn tune_socket(mut sock: ::core::ffi::c_int, mut is_unix: 
         sock,
         strerror(*__error()),
     );
-    return false_0 != 0;
+    false_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "243:1"]
@@ -1873,7 +1868,7 @@ pub unsafe extern "C" fn strlist_contains(
             break;
         }
     }
-    return true_0 != 0;
+    true_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "275:1"]
@@ -1993,7 +1988,7 @@ pub unsafe extern "C" fn safe_evtimer_add(mut ev: *mut event, mut tv: *mut timev
         exit(1 as ::core::ffi::c_int);
     }
     let fresh2 = timer_backup_used;
-    timer_backup_used = timer_backup_used + 1;
+    timer_backup_used += 1;
     ts = (&raw mut timer_backup_list as *mut timer_slot).offset(fresh2 as isize) as *mut timer_slot;
     (*ts).ev = ev;
     (*ts).tv = *tv;
@@ -2016,24 +2011,24 @@ pub unsafe extern "C" fn rescue_timers() {
 #[c2rust::src_loc = "374:1"]
 pub unsafe extern "C" fn pga_port(mut a: *const PgAddr) -> ::core::ffi::c_int {
     if (*a).sa.sa_family as ::core::ffi::c_int == AF_INET6 {
-        return (if 0 != 0 {
+        (if 0 != 0 {
             (((*a).sin6.sin6_port as ::core::ffi::c_uint & 0xff00 as ::core::ffi::c_uint)
                 >> 8 as ::core::ffi::c_int
                 | ((*a).sin6.sin6_port as ::core::ffi::c_uint & 0xff as ::core::ffi::c_uint)
                     << 8 as ::core::ffi::c_int) as __uint16_t as ::core::ffi::c_int
         } else {
             _OSSwapInt16((*a).sin6.sin6_port as __uint16_t) as ::core::ffi::c_int
-        }) as __uint16_t as ::core::ffi::c_int;
+        }) as __uint16_t as ::core::ffi::c_int
     } else {
-        return (if 0 != 0 {
+        (if 0 != 0 {
             (((*a).sin.sin_port as ::core::ffi::c_uint & 0xff00 as ::core::ffi::c_uint)
                 >> 8 as ::core::ffi::c_int
                 | ((*a).sin.sin_port as ::core::ffi::c_uint & 0xff as ::core::ffi::c_uint)
                     << 8 as ::core::ffi::c_int) as __uint16_t as ::core::ffi::c_int
         } else {
             _OSSwapInt16((*a).sin.sin_port as __uint16_t) as ::core::ffi::c_int
-        }) as __uint16_t as ::core::ffi::c_int;
-    };
+        }) as __uint16_t as ::core::ffi::c_int
+    }
 }
 #[no_mangle]
 #[c2rust::src_loc = "384:1"]
@@ -2109,20 +2104,16 @@ pub unsafe extern "C" fn pga_cmp_addr(
         return pga_family(a).wrapping_sub(pga_family(b)) as ::core::ffi::c_int;
     }
     match pga_family(a) {
-        2 => {
-            return memcmp(
-                &raw const (*a).sin.sin_addr as *const ::core::ffi::c_void,
-                &raw const (*b).sin.sin_addr as *const ::core::ffi::c_void,
-                ::core::mem::size_of::<in_addr>() as size_t,
-            );
-        }
-        30 => {
-            return memcmp(
-                &raw const (*a).sin6.sin6_addr as *const ::core::ffi::c_void,
-                &raw const (*b).sin6.sin6_addr as *const ::core::ffi::c_void,
-                ::core::mem::size_of::<in6_addr>() as size_t,
-            );
-        }
+        2 => memcmp(
+            &raw const (*a).sin.sin_addr as *const ::core::ffi::c_void,
+            &raw const (*b).sin.sin_addr as *const ::core::ffi::c_void,
+            ::core::mem::size_of::<in_addr>() as size_t,
+        ),
+        30 => memcmp(
+            &raw const (*a).sin6.sin6_addr as *const ::core::ffi::c_void,
+            &raw const (*b).sin6.sin6_addr as *const ::core::ffi::c_void,
+            ::core::mem::size_of::<in6_addr>() as size_t,
+        ),
         _ => {
             let mut _log_ctx = NULL;
             log_generic(
@@ -2130,9 +2121,9 @@ pub unsafe extern "C" fn pga_cmp_addr(
                 _log_ctx,
                 b"pga_cmp_addr: unsupported family\0" as *const u8 as *const ::core::ffi::c_char,
             );
-            return 0 as ::core::ffi::c_int;
+            0 as ::core::ffi::c_int
         }
-    };
+    }
 }
 #[no_mangle]
 #[c2rust::src_loc = "430:1"]
@@ -2176,7 +2167,7 @@ pub unsafe extern "C" fn pga_ntop(
         res = b"(err-ntop)\0" as *const u8 as *const ::core::ffi::c_char;
     }
     strlcpy(dst, res, dstlen as size_t);
-    return dst;
+    dst
 }
 #[no_mangle]
 #[c2rust::src_loc = "458:1"]
@@ -2222,7 +2213,7 @@ pub unsafe extern "C" fn pga_pton(
     if res == 0 as ::core::ffi::c_int {
         *__error() = EINVAL;
     }
-    return res > 0 as ::core::ffi::c_int;
+    res > 0 as ::core::ffi::c_int
 }
 #[no_mangle]
 #[c2rust::src_loc = "478:1"]
@@ -2263,7 +2254,7 @@ pub unsafe extern "C" fn pga_str(
             pga_port(a),
         );
     }
-    return dst;
+    dst
 }
 #[c2rust::src_loc = "492:1"]
 unsafe extern "C" fn cached_hostname() -> *const ::core::ffi::c_char {
@@ -2282,7 +2273,7 @@ unsafe extern "C" fn cached_hostname() -> *const ::core::ffi::c_char {
             );
         }
     }
-    return &raw mut cache as *mut ::core::ffi::c_char;
+    &raw mut cache as *mut ::core::ffi::c_char
 }
 #[no_mangle]
 #[c2rust::src_loc = "505:1"]
@@ -2324,7 +2315,7 @@ pub unsafe extern "C" fn pga_details(
             pga_port(a),
         );
     }
-    return dst;
+    dst
 }
 #[no_mangle]
 #[c2rust::src_loc = "519:1"]
@@ -2343,7 +2334,7 @@ pub unsafe extern "C" fn cf_set_authdb(
         );
         return false_0 != 0;
     }
-    return cf_set_str(cv, value);
+    cf_set_str(cv, value)
 }
 #[no_mangle]
 #[c2rust::src_loc = "528:1"]
@@ -2356,5 +2347,5 @@ pub unsafe extern "C" fn check_reserved_database(mut value: *const ::core::ffi::
     {
         return false_0 != 0;
     }
-    return true_0 != 0;
+    true_0 != 0
 }

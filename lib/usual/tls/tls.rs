@@ -694,7 +694,7 @@ pub unsafe extern "C" fn tls_init() -> ::core::ffi::c_int {
         return -(1 as ::core::ffi::c_int);
     }
     tls_initialised = 1 as ::core::ffi::c_int;
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }
 #[no_mangle]
 #[c2rust::src_loc = "58:1"]
@@ -710,7 +710,7 @@ pub unsafe extern "C" fn tls_deinit() {
 #[no_mangle]
 #[c2rust::src_loc = "81:1"]
 pub unsafe extern "C" fn tls_error(mut ctx: *mut tls) -> *const ::core::ffi::c_char {
-    return (*ctx).error.msg;
+    (*ctx).error.msg
 }
 #[c2rust::src_loc = "86:1"]
 unsafe extern "C" fn tls_error_vset(
@@ -744,7 +744,7 @@ unsafe extern "C" fn tls_error_vset(
         }
     }
     free(errmsg as *mut ::core::ffi::c_void);
-    return rv;
+    rv
 }
 #[no_mangle]
 #[c2rust::src_loc = "118:1"]
@@ -759,7 +759,7 @@ pub unsafe extern "C" fn tls_error_set(
     errnum = *__error();
     ap = args.clone();
     rv = tls_error_vset(error, errnum, fmt, ap.as_va_list());
-    return rv;
+    rv
 }
 #[no_mangle]
 #[c2rust::src_loc = "132:1"]
@@ -772,7 +772,7 @@ pub unsafe extern "C" fn tls_error_setx(
     let mut rv: ::core::ffi::c_int = 0;
     ap = args.clone();
     rv = tls_error_vset(error, -(1 as ::core::ffi::c_int), fmt, ap.as_va_list());
-    return rv;
+    rv
 }
 #[no_mangle]
 #[c2rust::src_loc = "144:1"]
@@ -787,7 +787,7 @@ pub unsafe extern "C" fn tls_config_set_error(
     errnum = *__error();
     ap = args.clone();
     rv = tls_error_vset(&raw mut (*config).error, errnum, fmt, ap.as_va_list());
-    return rv;
+    rv
 }
 #[no_mangle]
 #[c2rust::src_loc = "158:1"]
@@ -805,7 +805,7 @@ pub unsafe extern "C" fn tls_config_set_errorx(
         fmt,
         ap.as_va_list(),
     );
-    return rv;
+    rv
 }
 #[no_mangle]
 #[c2rust::src_loc = "170:1"]
@@ -820,7 +820,7 @@ pub unsafe extern "C" fn tls_set_error(
     errnum = *__error();
     ap = args.clone();
     rv = tls_error_vset(&raw mut (*ctx).error, errnum, fmt, ap.as_va_list());
-    return rv;
+    rv
 }
 #[no_mangle]
 #[c2rust::src_loc = "184:1"]
@@ -838,7 +838,7 @@ pub unsafe extern "C" fn tls_set_errorx(
         fmt,
         ap.as_va_list(),
     );
-    return rv;
+    rv
 }
 #[no_mangle]
 #[c2rust::src_loc = "196:1"]
@@ -879,7 +879,7 @@ pub unsafe extern "C" fn tls_set_error_libssl(
     } else {
         free(old as *mut ::core::ffi::c_void);
     }
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }
 #[no_mangle]
 #[c2rust::src_loc = "224:1"]
@@ -891,7 +891,7 @@ pub unsafe extern "C" fn tls_new() -> *mut tls {
     }
     (*ctx).config = tls_config_default;
     tls_reset(ctx);
-    return ctx;
+    ctx
 }
 #[no_mangle]
 #[c2rust::src_loc = "238:1"]
@@ -906,7 +906,7 @@ pub unsafe extern "C" fn tls_configure(
     if (*ctx).flags & TLS_SERVER as uint32_t != 0 as uint32_t {
         return tls_configure_server(ctx);
     }
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }
 #[no_mangle]
 #[c2rust::src_loc = "251:1"]
@@ -953,131 +953,128 @@ pub unsafe extern "C" fn tls_configure_keypair(
     } else {
         current_block = 17216689946888361452;
     }
-    match current_block {
-        17216689946888361452 => {
-            if !(*keypair).key_mem.is_null() {
-                if (*keypair).key_len > INT_MAX as size_t {
+    if current_block == 17216689946888361452 {
+        if !(*keypair).key_mem.is_null() {
+            if (*keypair).key_len > INT_MAX as size_t {
+                tls_set_errorx(
+                    ctx,
+                    b"key too long\0" as *const u8 as *const ::core::ffi::c_char,
+                );
+                current_block = 8709731486888603138;
+            } else {
+                bio = BIO_new_mem_buf(
+                    (*keypair).key_mem as *const ::core::ffi::c_void,
+                    (*keypair).key_len as ::core::ffi::c_int,
+                );
+                if bio.is_null() {
                     tls_set_errorx(
                         ctx,
-                        b"key too long\0" as *const u8 as *const ::core::ffi::c_char,
+                        b"failed to create buffer\0" as *const u8 as *const ::core::ffi::c_char,
                     );
                     current_block = 8709731486888603138;
                 } else {
-                    bio = BIO_new_mem_buf(
-                        (*keypair).key_mem as *const ::core::ffi::c_void,
-                        (*keypair).key_len as ::core::ffi::c_int,
+                    pkey = PEM_read_bio_PrivateKey(
+                        bio,
+                        ::core::ptr::null_mut::<*mut EVP_PKEY>(),
+                        None,
+                        NULL,
                     );
-                    if bio.is_null() {
+                    if pkey.is_null() {
                         tls_set_errorx(
                             ctx,
-                            b"failed to create buffer\0" as *const u8 as *const ::core::ffi::c_char,
+                            b"failed to read private key\0" as *const u8
+                                as *const ::core::ffi::c_char,
+                        );
+                        current_block = 8709731486888603138;
+                    } else if SSL_CTX_use_PrivateKey(ssl_ctx, pkey) != 1 as ::core::ffi::c_int {
+                        tls_set_errorx(
+                            ctx,
+                            b"failed to load private key\0" as *const u8
+                                as *const ::core::ffi::c_char,
                         );
                         current_block = 8709731486888603138;
                     } else {
-                        pkey = PEM_read_bio_PrivateKey(
-                            bio,
-                            ::core::ptr::null_mut::<*mut EVP_PKEY>(),
-                            None,
-                            NULL,
-                        );
-                        if pkey.is_null() {
-                            tls_set_errorx(
-                                ctx,
-                                b"failed to read private key\0" as *const u8
-                                    as *const ::core::ffi::c_char,
-                            );
-                            current_block = 8709731486888603138;
-                        } else if SSL_CTX_use_PrivateKey(ssl_ctx, pkey) != 1 as ::core::ffi::c_int {
-                            tls_set_errorx(
-                                ctx,
-                                b"failed to load private key\0" as *const u8
-                                    as *const ::core::ffi::c_char,
-                            );
-                            current_block = 8709731486888603138;
-                        } else {
-                            BIO_free(bio);
-                            bio = ::core::ptr::null_mut::<BIO>();
-                            EVP_PKEY_free(pkey);
-                            pkey = ::core::ptr::null_mut::<EVP_PKEY>();
-                            current_block = 4808432441040389987;
-                        }
+                        BIO_free(bio);
+                        bio = ::core::ptr::null_mut::<BIO>();
+                        EVP_PKEY_free(pkey);
+                        pkey = ::core::ptr::null_mut::<EVP_PKEY>();
+                        current_block = 4808432441040389987;
                     }
                 }
-            } else {
-                current_block = 4808432441040389987;
             }
-            match current_block {
-                8709731486888603138 => {}
-                _ => {
-                    if !(*keypair).cert_file.is_null() {
-                        if SSL_CTX_use_certificate_chain_file(ssl_ctx, (*keypair).cert_file)
-                            != 1 as ::core::ffi::c_int
-                        {
-                            let mut errstr =
-                                b"unknown error\0" as *const u8 as *const ::core::ffi::c_char;
-                            let mut err: ::core::ffi::c_ulong = 0;
-                            err = ERR_peek_error();
-                            if err != 0 as ::core::ffi::c_ulong {
-                                errstr = ERR_reason_error_string(err);
-                            }
-                            tls_set_errorx(
-                                ctx,
-                                b"failed to load certificate file \"%s\": %s\0" as *const u8
-                                    as *const ::core::ffi::c_char,
-                                (*keypair).cert_file,
-                                errstr,
-                            );
-                            current_block = 8709731486888603138;
-                        } else {
-                            current_block = 6669252993407410313;
+        } else {
+            current_block = 4808432441040389987;
+        }
+        match current_block {
+            8709731486888603138 => {}
+            _ => {
+                if !(*keypair).cert_file.is_null() {
+                    if SSL_CTX_use_certificate_chain_file(ssl_ctx, (*keypair).cert_file)
+                        != 1 as ::core::ffi::c_int
+                    {
+                        let mut errstr =
+                            b"unknown error\0" as *const u8 as *const ::core::ffi::c_char;
+                        let mut err: ::core::ffi::c_ulong = 0;
+                        err = ERR_peek_error();
+                        if err != 0 as ::core::ffi::c_ulong {
+                            errstr = ERR_reason_error_string(err);
                         }
+                        tls_set_errorx(
+                            ctx,
+                            b"failed to load certificate file \"%s\": %s\0" as *const u8
+                                as *const ::core::ffi::c_char,
+                            (*keypair).cert_file,
+                            errstr,
+                        );
+                        current_block = 8709731486888603138;
                     } else {
                         current_block = 6669252993407410313;
                     }
-                    match current_block {
-                        8709731486888603138 => {}
-                        _ => {
-                            if !(*keypair).key_file.is_null() {
-                                if SSL_CTX_use_PrivateKey_file(
-                                    ssl_ctx,
-                                    (*keypair).key_file,
-                                    SSL_FILETYPE_PEM,
-                                ) != 1 as ::core::ffi::c_int
-                                {
-                                    let mut errstr_0 = b"unknown error\0" as *const u8
-                                        as *const ::core::ffi::c_char;
-                                    let mut err_0: ::core::ffi::c_ulong = 0;
-                                    err_0 = ERR_peek_error();
-                                    if err_0 != 0 as ::core::ffi::c_ulong {
-                                        errstr_0 = ERR_reason_error_string(err_0);
-                                    }
-                                    tls_set_errorx(
-                                        ctx,
-                                        b"failed to load private key file \"%s\": %s\0" as *const u8
-                                            as *const ::core::ffi::c_char,
-                                        (*keypair).key_file,
-                                        errstr_0,
-                                    );
-                                    current_block = 8709731486888603138;
-                                } else {
-                                    current_block = 5494826135382683477;
+                } else {
+                    current_block = 6669252993407410313;
+                }
+                match current_block {
+                    8709731486888603138 => {}
+                    _ => {
+                        if !(*keypair).key_file.is_null() {
+                            if SSL_CTX_use_PrivateKey_file(
+                                ssl_ctx,
+                                (*keypair).key_file,
+                                SSL_FILETYPE_PEM,
+                            ) != 1 as ::core::ffi::c_int
+                            {
+                                let mut errstr_0 =
+                                    b"unknown error\0" as *const u8 as *const ::core::ffi::c_char;
+                                let mut err_0: ::core::ffi::c_ulong = 0;
+                                err_0 = ERR_peek_error();
+                                if err_0 != 0 as ::core::ffi::c_ulong {
+                                    errstr_0 = ERR_reason_error_string(err_0);
                                 }
+                                tls_set_errorx(
+                                    ctx,
+                                    b"failed to load private key file \"%s\": %s\0" as *const u8
+                                        as *const ::core::ffi::c_char,
+                                    (*keypair).key_file,
+                                    errstr_0,
+                                );
+                                current_block = 8709731486888603138;
                             } else {
                                 current_block = 5494826135382683477;
                             }
-                            match current_block {
-                                8709731486888603138 => {}
-                                _ => {
-                                    if SSL_CTX_check_private_key(ssl_ctx) != 1 as ::core::ffi::c_int
-                                    {
-                                        tls_set_errorx(
-                                            ctx,
-                                            b"private/public key mismatch\0" as *const u8
-                                                as *const ::core::ffi::c_char,
-                                        );
-                                    } else {
-                                        return 0 as ::core::ffi::c_int;
-                                    }
+                        } else {
+                            current_block = 5494826135382683477;
+                        }
+                        match current_block {
+                            8709731486888603138 => {}
+                            _ => {
+                                if SSL_CTX_check_private_key(ssl_ctx) != 1 as ::core::ffi::c_int {
+                                    tls_set_errorx(
+                                        ctx,
+                                        b"private/public key mismatch\0" as *const u8
+                                            as *const ::core::ffi::c_char,
+                                    );
+                                } else {
+                                    return 0 as ::core::ffi::c_int;
                                 }
                             }
                         }
@@ -1085,12 +1082,11 @@ pub unsafe extern "C" fn tls_configure_keypair(
                 }
             }
         }
-        _ => {}
     }
     EVP_PKEY_free(pkey);
     X509_free(cert);
     BIO_free(bio);
-    return 1 as ::core::ffi::c_int;
+    1 as ::core::ffi::c_int
 }
 #[c2rust::src_loc = "346:1"]
 unsafe extern "C" fn tls_info_callback(
@@ -1099,12 +1095,11 @@ unsafe extern "C" fn tls_info_callback(
     mut _rc: ::core::ffi::c_int,
 ) {
     let mut ctx = SSL_get_ex_data(ssl, 0 as ::core::ffi::c_int) as *mut tls;
-    if SSL_version(ssl) < TLS1_3_VERSION {
-        if where_0 & SSL_CB_HANDSHAKE_START != 0 {
-            if (*ctx).state & TLS_HANDSHAKE_COMPLETE as uint32_t != 0 {
-                (*ctx).state |= TLS_DO_ABORT as uint32_t;
-            }
-        }
+    if SSL_version(ssl) < TLS1_3_VERSION
+        && where_0 & SSL_CB_HANDSHAKE_START != 0
+        && (*ctx).state & TLS_HANDSHAKE_COMPLETE as uint32_t != 0
+    {
+        (*ctx).state |= TLS_DO_ABORT as uint32_t;
     }
 }
 #[c2rust::src_loc = "375:1"]
@@ -1127,7 +1122,7 @@ unsafe extern "C" fn tls_do_abort(mut ctx: *mut tls) -> ::core::ffi::c_int {
         ctx,
         b"unexpected handshake, closing connection\0" as *const u8 as *const ::core::ffi::c_char,
     );
-    return -(1 as ::core::ffi::c_int);
+    -(1 as ::core::ffi::c_int)
 }
 #[c2rust::src_loc = "391:1"]
 unsafe extern "C" fn get_min_ssl_version(mut protocols: uint32_t) -> ::core::ffi::c_int {
@@ -1143,7 +1138,7 @@ unsafe extern "C" fn get_min_ssl_version(mut protocols: uint32_t) -> ::core::ffi
     if protocols & TLS_PROTOCOL_TLSv1_3 as uint32_t != 0 {
         return TLS1_3_VERSION;
     }
-    return TLS1_VERSION;
+    TLS1_VERSION
 }
 #[c2rust::src_loc = "404:1"]
 unsafe extern "C" fn get_max_ssl_version(mut protocols: uint32_t) -> ::core::ffi::c_int {
@@ -1159,7 +1154,7 @@ unsafe extern "C" fn get_max_ssl_version(mut protocols: uint32_t) -> ::core::ffi
     if protocols & TLS_PROTOCOL_TLSv1_0 as uint32_t != 0 {
         return TLS1_VERSION;
     }
-    return TLS1_3_VERSION;
+    TLS1_3_VERSION
 }
 #[no_mangle]
 #[c2rust::src_loc = "418:1"]
@@ -1248,55 +1243,52 @@ pub unsafe extern "C" fn tls_configure_ssl(mut ctx: *mut tls) -> ::core::ffi::c_
     } else {
         current_block = 17833034027772472439;
     }
-    match current_block {
-        17833034027772472439 => {
-            if (*(*ctx).config).protocols & TLS_PROTOCOL_TLSv1_3 as uint32_t != 0
-                && !(*(*ctx).config).cipher_suites.is_null()
-                && strlen((*(*ctx).config).cipher_suites) > 0 as size_t
+    if current_block == 17833034027772472439 {
+        if (*(*ctx).config).protocols & TLS_PROTOCOL_TLSv1_3 as uint32_t != 0
+            && !(*(*ctx).config).cipher_suites.is_null()
+            && strlen((*(*ctx).config).cipher_suites) > 0 as size_t
+        {
+            if SSL_CTX_set_ciphersuites((*ctx).ssl_ctx, (*(*ctx).config).cipher_suites)
+                != 1 as ::core::ffi::c_int
             {
-                if SSL_CTX_set_ciphersuites((*ctx).ssl_ctx, (*(*ctx).config).cipher_suites)
-                    != 1 as ::core::ffi::c_int
-                {
-                    tls_set_errorx(
-                        ctx,
-                        b"failed to set the TLSv1.3 cipher suites\0" as *const u8
-                            as *const ::core::ffi::c_char,
-                    );
-                    current_block = 8237318671472554270;
-                } else {
-                    current_block = 224731115979188411;
-                }
+                tls_set_errorx(
+                    ctx,
+                    b"failed to set the TLSv1.3 cipher suites\0" as *const u8
+                        as *const ::core::ffi::c_char,
+                );
+                current_block = 8237318671472554270;
             } else {
                 current_block = 224731115979188411;
             }
-            match current_block {
-                8237318671472554270 => {}
-                _ => {
-                    SSL_CTX_set_info_callback(
-                        (*ctx).ssl_ctx,
-                        Some(
-                            tls_info_callback
-                                as unsafe extern "C" fn(
-                                    *const SSL,
-                                    ::core::ffi::c_int,
-                                    ::core::ffi::c_int,
-                                ) -> (),
-                        ),
+        } else {
+            current_block = 224731115979188411;
+        }
+        match current_block {
+            8237318671472554270 => {}
+            _ => {
+                SSL_CTX_set_info_callback(
+                    (*ctx).ssl_ctx,
+                    Some(
+                        tls_info_callback
+                            as unsafe extern "C" fn(
+                                *const SSL,
+                                ::core::ffi::c_int,
+                                ::core::ffi::c_int,
+                            ) -> (),
+                    ),
+                );
+                if (*(*ctx).config).verify_time == 0 as ::core::ffi::c_int {
+                    let mut vfp = SSL_CTX_get0_param((*ctx).ssl_ctx);
+                    X509_VERIFY_PARAM_set_flags(
+                        vfp,
+                        X509_V_FLAG_NO_CHECK_TIME as ::core::ffi::c_ulong,
                     );
-                    if (*(*ctx).config).verify_time == 0 as ::core::ffi::c_int {
-                        let mut vfp = SSL_CTX_get0_param((*ctx).ssl_ctx);
-                        X509_VERIFY_PARAM_set_flags(
-                            vfp,
-                            X509_V_FLAG_NO_CHECK_TIME as ::core::ffi::c_ulong,
-                        );
-                    }
-                    return 0 as ::core::ffi::c_int;
                 }
+                return 0 as ::core::ffi::c_int;
             }
         }
-        _ => {}
     }
-    return -(1 as ::core::ffi::c_int);
+    -(1 as ::core::ffi::c_int)
 }
 #[no_mangle]
 #[c2rust::src_loc = "493:1"]
@@ -1349,14 +1341,14 @@ pub unsafe extern "C" fn tls_configure_ssl_verify(
         current_block = 13109137661213826276;
     }
     match current_block {
-        16323917377200177085 => return -(1 as ::core::ffi::c_int),
+        16323917377200177085 => -(1 as ::core::ffi::c_int),
         _ => {
             if (*(*ctx).config).verify_depth >= 0 as ::core::ffi::c_int {
                 SSL_CTX_set_verify_depth((*ctx).ssl_ctx, (*(*ctx).config).verify_depth);
             }
-            return 0 as ::core::ffi::c_int;
+            0 as ::core::ffi::c_int
         }
-    };
+    }
 }
 #[no_mangle]
 #[c2rust::src_loc = "529:1"]
@@ -1408,9 +1400,9 @@ pub unsafe extern "C" fn tls_ssl_error(
     let mut ssl_err: ::core::ffi::c_int = 0;
     ssl_err = SSL_get_error(ssl_conn, ssl_ret);
     match ssl_err {
-        SSL_ERROR_NONE | SSL_ERROR_ZERO_RETURN => return 0 as ::core::ffi::c_int,
-        SSL_ERROR_WANT_READ => return -(2 as ::core::ffi::c_int),
-        SSL_ERROR_WANT_WRITE => return -(3 as ::core::ffi::c_int),
+        SSL_ERROR_NONE | SSL_ERROR_ZERO_RETURN => 0 as ::core::ffi::c_int,
+        SSL_ERROR_WANT_READ => -(2 as ::core::ffi::c_int),
+        SSL_ERROR_WANT_WRITE => -(3 as ::core::ffi::c_int),
         SSL_ERROR_SYSCALL => {
             err = ERR_peek_error();
             if err != 0 as ::core::ffi::c_ulong {
@@ -1430,7 +1422,7 @@ pub unsafe extern "C" fn tls_ssl_error(
                 prefix,
                 errstr,
             );
-            return -(1 as ::core::ffi::c_int);
+            -(1 as ::core::ffi::c_int)
         }
         SSL_ERROR_SSL => {
             err = ERR_peek_error();
@@ -1443,7 +1435,7 @@ pub unsafe extern "C" fn tls_ssl_error(
                 prefix,
                 errstr,
             );
-            return -(1 as ::core::ffi::c_int);
+            -(1 as ::core::ffi::c_int)
         }
         SSL_ERROR_WANT_CONNECT | SSL_ERROR_WANT_ACCEPT | SSL_ERROR_WANT_X509_LOOKUP | _ => {
             tls_set_errorx(
@@ -1452,9 +1444,9 @@ pub unsafe extern "C" fn tls_ssl_error(
                 prefix,
                 ssl_err,
             );
-            return -(1 as ::core::ffi::c_int);
+            -(1 as ::core::ffi::c_int)
         }
-    };
+    }
 }
 #[no_mangle]
 #[c2rust::src_loc = "621:1"]
@@ -1485,7 +1477,7 @@ pub unsafe extern "C" fn tls_handshake(mut ctx: *mut tls) -> ::core::ffi::c_int 
         }
     }
     *__error() = 0 as ::core::ffi::c_int;
-    return rv;
+    rv
 }
 #[no_mangle]
 #[c2rust::src_loc = "650:1"]
@@ -1536,7 +1528,7 @@ pub unsafe extern "C" fn tls_read(
         }
     }
     *__error() = 0 as ::core::ffi::c_int;
-    return rv;
+    rv
 }
 #[no_mangle]
 #[c2rust::src_loc = "683:1"]
@@ -1587,7 +1579,7 @@ pub unsafe extern "C" fn tls_write(
         }
     }
     *__error() = 0 as ::core::ffi::c_int;
-    return rv;
+    rv
 }
 #[no_mangle]
 #[c2rust::src_loc = "716:1"]
@@ -1627,26 +1619,22 @@ pub unsafe extern "C" fn tls_close(mut ctx: *mut tls) -> ::core::ffi::c_int {
             12672191506162062702 => {}
             _ => {
                 if (*ctx).socket != -(1 as ::core::ffi::c_int) {
-                    if shutdown((*ctx).socket, SHUT_RDWR) != 0 as ::core::ffi::c_int {
-                        if rv == 0 as ::core::ffi::c_int
-                            && *__error() != ENOTCONN
-                            && *__error() != ECONNRESET
-                        {
-                            tls_set_error(
-                                ctx,
-                                b"shutdown\0" as *const u8 as *const ::core::ffi::c_char,
-                            );
-                            rv = -(1 as ::core::ffi::c_int);
-                        }
+                    if shutdown((*ctx).socket, SHUT_RDWR) != 0 as ::core::ffi::c_int
+                        && rv == 0 as ::core::ffi::c_int
+                        && *__error() != ENOTCONN
+                        && *__error() != ECONNRESET
+                    {
+                        tls_set_error(
+                            ctx,
+                            b"shutdown\0" as *const u8 as *const ::core::ffi::c_char,
+                        );
+                        rv = -(1 as ::core::ffi::c_int);
                     }
-                    if close((*ctx).socket) != 0 as ::core::ffi::c_int {
-                        if rv == 0 as ::core::ffi::c_int {
-                            tls_set_error(
-                                ctx,
-                                b"close\0" as *const u8 as *const ::core::ffi::c_char,
-                            );
-                            rv = -(1 as ::core::ffi::c_int);
-                        }
+                    if close((*ctx).socket) != 0 as ::core::ffi::c_int
+                        && rv == 0 as ::core::ffi::c_int
+                    {
+                        tls_set_error(ctx, b"close\0" as *const u8 as *const ::core::ffi::c_char);
+                        rv = -(1 as ::core::ffi::c_int);
                     }
                     (*ctx).socket = -(1 as ::core::ffi::c_int);
                 }
@@ -1661,7 +1649,7 @@ pub unsafe extern "C" fn tls_close(mut ctx: *mut tls) -> ::core::ffi::c_int {
         }
     }
     *__error() = 0 as ::core::ffi::c_int;
-    return rv;
+    rv
 }
 #[c2rust::src_loc = "766:1"]
 unsafe extern "C" fn tls_mem_equal(
@@ -1683,7 +1671,7 @@ unsafe extern "C" fn tls_mem_equal(
     {
         return false_0 != 0;
     }
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "775:1"]
 unsafe extern "C" fn tls_keypair_equal(
@@ -1712,7 +1700,7 @@ unsafe extern "C" fn tls_keypair_equal(
     ) {
         return false_0 != 0;
     }
-    return true_0 != 0;
+    true_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "788:1"]
@@ -1727,7 +1715,7 @@ pub unsafe extern "C" fn tls_keypair_list_equal(
         tkp1 = (*tkp1).next;
         tkp2 = (*tkp2).next;
     }
-    return tkp1.is_null() && tkp2.is_null();
+    tkp1.is_null() && tkp2.is_null()
 }
 #[no_mangle]
 #[c2rust::src_loc = "798:1"]
@@ -1797,5 +1785,5 @@ pub unsafe extern "C" fn tls_config_equal(
     if (*tc1).verify_time != (*tc2).verify_time {
         return false_0 != 0;
     }
-    return true_0 != 0;
+    true_0 != 0
 }

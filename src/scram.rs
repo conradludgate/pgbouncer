@@ -1374,7 +1374,7 @@ unsafe extern "C" fn is_scram_printable(mut p: *mut ::core::ffi::c_char) -> bool
         }
         p = p.offset(1);
     }
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "72:1"]
 unsafe extern "C" fn sanitize_char(mut c: ::core::ffi::c_char) -> *mut ::core::ffi::c_char {
@@ -1396,7 +1396,7 @@ unsafe extern "C" fn sanitize_char(mut c: ::core::ffi::c_char) -> *mut ::core::f
             c as ::core::ffi::c_uchar as ::core::ffi::c_int,
         );
     }
-    return &raw mut buf as *mut ::core::ffi::c_char;
+    &raw mut buf as *mut ::core::ffi::c_char
 }
 #[c2rust::src_loc = "86:1"]
 unsafe extern "C" fn read_attr_value(
@@ -1438,7 +1438,7 @@ unsafe extern "C" fn read_attr_value(
     } else {
         *input = end;
     }
-    return begin;
+    begin
 }
 #[c2rust::src_loc = "124:1"]
 unsafe extern "C" fn read_any_attr(
@@ -1486,7 +1486,7 @@ unsafe extern "C" fn read_any_attr(
     } else {
         *input = end;
     }
-    return begin;
+    begin
 }
 #[c2rust::src_loc = "166:1"]
 unsafe extern "C" fn parse_scram_secret(
@@ -1530,86 +1530,84 @@ unsafe extern "C" fn parse_scram_secret(
                             ::core::ptr::null_mut::<::core::ffi::c_char>(),
                             b"\0" as *const u8 as *const ::core::ffi::c_char,
                         );
-                        if !serverkey_str.is_null() {
-                            if !(strcmp(
+                        if !serverkey_str.is_null()
+                            && (strcmp(
                                 scheme_str,
                                 b"SCRAM-SHA-256\0" as *const u8 as *const ::core::ffi::c_char,
-                            ) != 0 as ::core::ffi::c_int)
+                            ) == 0 as ::core::ffi::c_int)
+                        {
+                            *__error() = 0 as ::core::ffi::c_int;
+                            *iterations =
+                                strtol(iterations_str, &raw mut p, 10 as ::core::ffi::c_int)
+                                    as ::core::ffi::c_int;
+                            if !(*p as ::core::ffi::c_int != 0
+                                || *__error() != 0 as ::core::ffi::c_int)
                             {
-                                *__error() = 0 as ::core::ffi::c_int;
-                                *iterations =
-                                    strtol(iterations_str, &raw mut p, 10 as ::core::ffi::c_int)
-                                        as ::core::ffi::c_int;
-                                if !(*p as ::core::ffi::c_int != 0
-                                    || *__error() != 0 as ::core::ffi::c_int)
-                                {
-                                    decoded_len =
-                                        pg_b64_dec_len(strlen(salt_str) as ::core::ffi::c_int);
-                                    decoded_salt_buf =
-                                        malloc(decoded_len as size_t) as *mut uint8_t;
-                                    if !decoded_salt_buf.is_null() {
-                                        decoded_len = pg_b64_decode(
-                                            salt_str,
-                                            strlen(salt_str) as ::core::ffi::c_int,
-                                            decoded_salt_buf,
-                                            decoded_len,
-                                        );
-                                        free(decoded_salt_buf as *mut ::core::ffi::c_void);
-                                        if !(decoded_len < 0 as ::core::ffi::c_int) {
-                                            *salt = strdup(salt_str);
-                                            if !(*salt).is_null() {
-                                                decoded_len = pg_b64_dec_len(
-                                                    strlen(storedkey_str) as ::core::ffi::c_int
+                                decoded_len =
+                                    pg_b64_dec_len(strlen(salt_str) as ::core::ffi::c_int);
+                                decoded_salt_buf = malloc(decoded_len as size_t) as *mut uint8_t;
+                                if !decoded_salt_buf.is_null() {
+                                    decoded_len = pg_b64_decode(
+                                        salt_str,
+                                        strlen(salt_str) as ::core::ffi::c_int,
+                                        decoded_salt_buf,
+                                        decoded_len,
+                                    );
+                                    free(decoded_salt_buf as *mut ::core::ffi::c_void);
+                                    if decoded_len >= 0 as ::core::ffi::c_int {
+                                        *salt = strdup(salt_str);
+                                        if !(*salt).is_null() {
+                                            decoded_len = pg_b64_dec_len(
+                                                strlen(storedkey_str) as ::core::ffi::c_int
+                                            );
+                                            decoded_stored_buf =
+                                                malloc(decoded_len as size_t) as *mut uint8_t;
+                                            if !decoded_stored_buf.is_null() {
+                                                decoded_len = pg_b64_decode(
+                                                    storedkey_str,
+                                                    strlen(storedkey_str) as ::core::ffi::c_int,
+                                                    decoded_stored_buf,
+                                                    decoded_len,
                                                 );
-                                                decoded_stored_buf =
-                                                    malloc(decoded_len as size_t) as *mut uint8_t;
-                                                if !decoded_stored_buf.is_null() {
-                                                    decoded_len = pg_b64_decode(
-                                                        storedkey_str,
-                                                        strlen(storedkey_str) as ::core::ffi::c_int,
-                                                        decoded_stored_buf,
-                                                        decoded_len,
+                                                if decoded_len == SCRAM_SHA_256_KEY_LEN {
+                                                    memcpy(
+                                                        stored_key as *mut ::core::ffi::c_void,
+                                                        decoded_stored_buf
+                                                            as *const ::core::ffi::c_void,
+                                                        SCRAM_SHA_256_KEY_LEN as size_t,
                                                     );
-                                                    if !(decoded_len != SCRAM_SHA_256_KEY_LEN) {
-                                                        memcpy(
-                                                            stored_key as *mut ::core::ffi::c_void,
-                                                            decoded_stored_buf
-                                                                as *const ::core::ffi::c_void,
-                                                            SCRAM_SHA_256_KEY_LEN as size_t,
+                                                    decoded_len =
+                                                        pg_b64_dec_len(strlen(serverkey_str)
+                                                            as ::core::ffi::c_int);
+                                                    decoded_server_buf =
+                                                        malloc(decoded_len as size_t)
+                                                            as *mut uint8_t;
+                                                    if !decoded_server_buf.is_null() {
+                                                        decoded_len = pg_b64_decode(
+                                                            serverkey_str,
+                                                            strlen(serverkey_str)
+                                                                as ::core::ffi::c_int,
+                                                            decoded_server_buf,
+                                                            decoded_len,
                                                         );
-                                                        decoded_len =
-                                                            pg_b64_dec_len(strlen(serverkey_str)
-                                                                as ::core::ffi::c_int);
-                                                        decoded_server_buf =
-                                                            malloc(decoded_len as size_t)
-                                                                as *mut uint8_t;
-                                                        if !decoded_server_buf.is_null() {
-                                                            decoded_len = pg_b64_decode(
-                                                                serverkey_str,
-                                                                strlen(serverkey_str)
-                                                                    as ::core::ffi::c_int,
-                                                                decoded_server_buf,
-                                                                decoded_len,
+                                                        if decoded_len == SCRAM_SHA_256_KEY_LEN {
+                                                            memcpy(
+                                                                server_key
+                                                                    as *mut ::core::ffi::c_void,
+                                                                decoded_server_buf
+                                                                    as *const ::core::ffi::c_void,
+                                                                SCRAM_SHA_256_KEY_LEN as size_t,
                                                             );
-                                                            if !(decoded_len
-                                                                != SCRAM_SHA_256_KEY_LEN)
-                                                            {
-                                                                memcpy(
-                                                                    server_key as *mut ::core::ffi::c_void,
-                                                                    decoded_server_buf as *const ::core::ffi::c_void,
-                                                                    SCRAM_SHA_256_KEY_LEN as size_t,
-                                                                );
-                                                                free(
-                                                                    decoded_stored_buf
-                                                                        as *mut ::core::ffi::c_void,
-                                                                );
-                                                                free(
-                                                                    decoded_server_buf
-                                                                        as *mut ::core::ffi::c_void,
-                                                                );
-                                                                free(s as *mut ::core::ffi::c_void);
-                                                                return true_0 != 0;
-                                                            }
+                                                            free(
+                                                                decoded_stored_buf
+                                                                    as *mut ::core::ffi::c_void,
+                                                            );
+                                                            free(
+                                                                decoded_server_buf
+                                                                    as *mut ::core::ffi::c_void,
+                                                            );
+                                                            free(s as *mut ::core::ffi::c_void);
+                                                            return true_0 != 0;
                                                         }
                                                     }
                                                 }
@@ -1629,7 +1627,7 @@ unsafe extern "C" fn parse_scram_secret(
     free(s as *mut ::core::ffi::c_void);
     free(*salt as *mut ::core::ffi::c_void);
     *salt = ::core::ptr::null_mut::<::core::ffi::c_char>();
-    return false_0 != 0;
+    false_0 != 0
 }
 #[c2rust::src_loc = "262:9"]
 pub const MD5_PASSWD_CHARSET: [::core::ffi::c_char; 17] = unsafe {
@@ -1668,7 +1666,7 @@ pub unsafe extern "C" fn get_password_type(
         return PASSWORD_TYPE_SCRAM_SHA_256;
     }
     free(encoded_salt as *mut ::core::ffi::c_void);
-    return PASSWORD_TYPE_PLAINTEXT;
+    PASSWORD_TYPE_PLAINTEXT
 }
 #[no_mangle]
 #[c2rust::src_loc = "291:1"]
@@ -1692,7 +1690,7 @@ pub unsafe extern "C" fn build_client_first_message(
             (*state).client_nonce,
             encoded_len,
         );
-        if !(encoded_len < 0 as ::core::ffi::c_int) {
+        if encoded_len >= 0 as ::core::ffi::c_int {
             *(*state).client_nonce.offset(encoded_len as isize) =
                 '\0' as i32 as ::core::ffi::c_char;
             len = (8 as size_t)
@@ -1717,7 +1715,7 @@ pub unsafe extern "C" fn build_client_first_message(
     free(result as *mut ::core::ffi::c_void);
     free((*state).client_nonce as *mut ::core::ffi::c_void);
     free((*state).client_first_message_bare as *mut ::core::ffi::c_void);
-    return ::core::ptr::null_mut::<::core::ffi::c_char>();
+    ::core::ptr::null_mut::<::core::ffi::c_char>()
 }
 #[no_mangle]
 #[c2rust::src_loc = "331:1"]
@@ -1737,33 +1735,33 @@ pub unsafe extern "C" fn build_client_final_message(
         (*state).server_nonce,
     );
     (*state).client_final_message_without_proof = strdup(&raw mut buf as *mut ::core::ffi::c_char);
-    if !(*state).client_final_message_without_proof.is_null() {
-        if calculate_client_proof(
+    if !(*state).client_final_message_without_proof.is_null()
+        && calculate_client_proof(
             server,
             credentials,
             &raw mut buf as *mut ::core::ffi::c_char,
             &raw mut client_proof as *mut uint8_t,
-        ) {
-            len = strlcat(
-                &raw mut buf as *mut ::core::ffi::c_char,
-                b",p=\0" as *const u8 as *const ::core::ffi::c_char,
-                ::core::mem::size_of::<[::core::ffi::c_char; 512]>() as size_t,
-            ) as size_t;
-            enclen = pg_b64_enc_len(::core::mem::size_of::<[uint8_t; 32]>() as ::core::ffi::c_int);
-            enclen = pg_b64_encode(
-                &raw mut client_proof as *mut uint8_t,
-                SCRAM_SHA_256_KEY_LEN,
-                (&raw mut buf as *mut ::core::ffi::c_char).offset(len as isize),
-                enclen,
-            );
-            if !(enclen < 0 as ::core::ffi::c_int) {
-                len = len.wrapping_add(enclen as size_t);
-                buf[len as usize] = '\0' as i32 as ::core::ffi::c_char;
-                return strdup(&raw mut buf as *mut ::core::ffi::c_char);
-            }
+        )
+    {
+        len = strlcat(
+            &raw mut buf as *mut ::core::ffi::c_char,
+            b",p=\0" as *const u8 as *const ::core::ffi::c_char,
+            ::core::mem::size_of::<[::core::ffi::c_char; 512]>() as size_t,
+        ) as size_t;
+        enclen = pg_b64_enc_len(::core::mem::size_of::<[uint8_t; 32]>() as ::core::ffi::c_int);
+        enclen = pg_b64_encode(
+            &raw mut client_proof as *mut uint8_t,
+            SCRAM_SHA_256_KEY_LEN,
+            (&raw mut buf as *mut ::core::ffi::c_char).add(len),
+            enclen,
+        );
+        if enclen >= 0 as ::core::ffi::c_int {
+            len = len.wrapping_add(enclen as size_t);
+            buf[len as usize] = '\0' as i32 as ::core::ffi::c_char;
+            return strdup(&raw mut buf as *mut ::core::ffi::c_char);
         }
     }
-    return ::core::ptr::null_mut::<::core::ffi::c_char>();
+    ::core::ptr::null_mut::<::core::ffi::c_char>()
 }
 #[no_mangle]
 #[c2rust::src_loc = "365:1"]
@@ -1852,7 +1850,7 @@ pub unsafe extern "C" fn read_server_first_message(
         );
         return false_0 != 0;
     }
-    return true_0 != 0;
+    true_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "428:1"]
@@ -1915,7 +1913,7 @@ pub unsafe extern "C" fn read_server_final_message(
         }
     }
     free(decoded_server_signature as *mut ::core::ffi::c_void);
-    return false_0 != 0;
+    false_0 != 0
 }
 #[c2rust::src_loc = "470:1"]
 unsafe extern "C" fn calculate_client_proof(
@@ -2087,7 +2085,7 @@ unsafe extern "C" fn calculate_client_proof(
     }
     free(prep_password as *mut ::core::ffi::c_void);
     pg_hmac_free(ctx);
-    return false_0 != 0;
+    false_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "555:1"]
@@ -2193,7 +2191,7 @@ pub unsafe extern "C" fn verify_server_signature(
     } else {
         *match_0 = true_0 != 0;
     }
-    return true_0 != 0;
+    true_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "619:1"]
@@ -2236,90 +2234,84 @@ pub unsafe extern "C" fn read_client_first_message(
             current_block = 5151340100945259836;
         }
     }
-    match current_block {
-        8515828400728868193 => {
-            if *input as ::core::ffi::c_int != ',' as i32 {
+    if current_block == 8515828400728868193 {
+        if *input as ::core::ffi::c_int != ',' as i32 {
+            log_generic(
+                LG_ERROR,
+                client as *mut ::core::ffi::c_void,
+                b"malformed SCRAM message (comma expected, but found character \"%s\")\0"
+                    as *const u8 as *const ::core::ffi::c_char,
+                sanitize_char(*input),
+            );
+        } else {
+            input = input.offset(1);
+            if *input as ::core::ffi::c_int == 'a' as i32 {
                 log_generic(
                     LG_ERROR,
                     client as *mut ::core::ffi::c_void,
-                    b"malformed SCRAM message (comma expected, but found character \"%s\")\0"
+                    b"client uses authorization identity, but it is not supported\0" as *const u8
+                        as *const ::core::ffi::c_char,
+                );
+            } else if *input as ::core::ffi::c_int != ',' as i32 {
+                log_generic(
+                    LG_ERROR,
+                    client as *mut ::core::ffi::c_void,
+                    b"malformed SCRAM message (unexpected attribute \"%s\" in client-first-message)\0"
                         as *const u8 as *const ::core::ffi::c_char,
                     sanitize_char(*input),
                 );
             } else {
                 input = input.offset(1);
-                if *input as ::core::ffi::c_int == 'a' as i32 {
-                    log_generic(
-                        LG_ERROR,
-                        client as *mut ::core::ffi::c_void,
-                        b"client uses authorization identity, but it is not supported\0"
-                            as *const u8 as *const ::core::ffi::c_char,
-                    );
-                } else if *input as ::core::ffi::c_int != ',' as i32 {
-                    log_generic(
-                        LG_ERROR,
-                        client as *mut ::core::ffi::c_void,
-                        b"malformed SCRAM message (unexpected attribute \"%s\" in client-first-message)\0"
-                            as *const u8 as *const ::core::ffi::c_char,
-                        sanitize_char(*input),
-                    );
-                } else {
-                    input = input.offset(1);
-                    client_first_message_bare = strdup(input);
-                    if !client_first_message_bare.is_null() {
-                        if *input as ::core::ffi::c_int == 'm' as i32 {
-                            log_generic(
-                                LG_ERROR,
-                                client as *mut ::core::ffi::c_void,
-                                b"client requires an unsupported SCRAM extension\0" as *const u8
-                                    as *const ::core::ffi::c_char,
-                            );
-                        } else {
-                            read_attr_value(
-                                client,
-                                &raw mut input,
-                                'n' as i32 as ::core::ffi::c_char,
-                            );
-                            client_nonce = read_attr_value(
-                                client,
-                                &raw mut input,
-                                'r' as i32 as ::core::ffi::c_char,
-                            );
-                            if !client_nonce.is_null() {
-                                if !is_scram_printable(client_nonce) {
-                                    log_generic(
-                                        LG_ERROR,
-                                        client as *mut ::core::ffi::c_void,
-                                        b"non-printable characters in SCRAM nonce\0" as *const u8
-                                            as *const ::core::ffi::c_char,
-                                    );
-                                } else {
-                                    client_nonce_copy = strdup(client_nonce);
-                                    if !client_nonce_copy.is_null() {
-                                        loop {
-                                            if !(*input as ::core::ffi::c_int != '\0' as i32) {
-                                                current_block = 13550086250199790493;
-                                                break;
-                                            }
-                                            if read_any_attr(
-                                                client,
-                                                &raw mut input,
-                                                ::core::ptr::null_mut::<::core::ffi::c_char>(),
-                                            )
-                                            .is_null()
-                                            {
-                                                current_block = 5151340100945259836;
-                                                break;
-                                            }
+                client_first_message_bare = strdup(input);
+                if !client_first_message_bare.is_null() {
+                    if *input as ::core::ffi::c_int == 'm' as i32 {
+                        log_generic(
+                            LG_ERROR,
+                            client as *mut ::core::ffi::c_void,
+                            b"client requires an unsupported SCRAM extension\0" as *const u8
+                                as *const ::core::ffi::c_char,
+                        );
+                    } else {
+                        read_attr_value(client, &raw mut input, 'n' as i32 as ::core::ffi::c_char);
+                        client_nonce = read_attr_value(
+                            client,
+                            &raw mut input,
+                            'r' as i32 as ::core::ffi::c_char,
+                        );
+                        if !client_nonce.is_null() {
+                            if !is_scram_printable(client_nonce) {
+                                log_generic(
+                                    LG_ERROR,
+                                    client as *mut ::core::ffi::c_void,
+                                    b"non-printable characters in SCRAM nonce\0" as *const u8
+                                        as *const ::core::ffi::c_char,
+                                );
+                            } else {
+                                client_nonce_copy = strdup(client_nonce);
+                                if !client_nonce_copy.is_null() {
+                                    loop {
+                                        if *input as ::core::ffi::c_int == '\0' as i32 {
+                                            current_block = 13550086250199790493;
+                                            break;
                                         }
-                                        match current_block {
-                                            5151340100945259836 => {}
-                                            _ => {
-                                                (*state).client_first_message_bare =
-                                                    client_first_message_bare;
-                                                (*state).client_nonce = client_nonce_copy;
-                                                return true_0 != 0;
-                                            }
+                                        if read_any_attr(
+                                            client,
+                                            &raw mut input,
+                                            ::core::ptr::null_mut::<::core::ffi::c_char>(),
+                                        )
+                                        .is_null()
+                                        {
+                                            current_block = 5151340100945259836;
+                                            break;
+                                        }
+                                    }
+                                    match current_block {
+                                        5151340100945259836 => {}
+                                        _ => {
+                                            (*state).client_first_message_bare =
+                                                client_first_message_bare;
+                                            (*state).client_nonce = client_nonce_copy;
+                                            return true_0 != 0;
                                         }
                                     }
                                 }
@@ -2329,11 +2321,10 @@ pub unsafe extern "C" fn read_client_first_message(
                 }
             }
         }
-        _ => {}
     }
     free(client_first_message_bare as *mut ::core::ffi::c_void);
     free(client_nonce_copy as *mut ::core::ffi::c_void);
-    return false_0 != 0;
+    false_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "705:1"]
@@ -2449,7 +2440,7 @@ pub unsafe extern "C" fn read_client_final_message(
         }
     }
     free(proof as *mut ::core::ffi::c_void);
-    return false_0 != 0;
+    false_0 != 0
 }
 #[c2rust::src_loc = "788:1"]
 unsafe extern "C" fn build_adhoc_scram_secret(
@@ -2464,7 +2455,7 @@ unsafe extern "C" fn build_adhoc_scram_secret(
     let mut salted_password: [uint8_t; 32] = [0; 32];
     let mut errstr = ::core::ptr::null::<::core::ffi::c_char>();
     rc = pg_saslprep(plain_password, &raw mut prep_password);
-    if !(rc as ::core::ffi::c_int == SASLPREP_OOM as ::core::ffi::c_int) {
+    if rc as ::core::ffi::c_int != SASLPREP_OOM as ::core::ffi::c_int {
         if rc as ::core::ffi::c_int == SASLPREP_SUCCESS as ::core::ffi::c_int {
             password = prep_password;
         } else {
@@ -2486,7 +2477,7 @@ unsafe extern "C" fn build_adhoc_scram_secret(
                 (*state).encoded_salt,
                 encoded_len,
             );
-            if !(encoded_len < 0 as ::core::ffi::c_int) {
+            if encoded_len >= 0 as ::core::ffi::c_int {
                 *(*state).encoded_salt.offset(encoded_len as isize) =
                     '\0' as i32 as ::core::ffi::c_char;
                 scram_SaltedPassword(
@@ -2526,7 +2517,7 @@ unsafe extern "C" fn build_adhoc_scram_secret(
         }
     }
     free(prep_password as *mut ::core::ffi::c_void);
-    return false_0 != 0;
+    false_0 != 0
 }
 #[c2rust::src_loc = "841:1"]
 unsafe extern "C" fn scram_mock_salt(
@@ -2584,7 +2575,7 @@ unsafe extern "C" fn scram_mock_salt(
         &raw mut sha_digest as *mut uint8_t as *const ::core::ffi::c_void,
         SCRAM_DEFAULT_SALT_LEN as size_t,
     );
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "881:1"]
 unsafe extern "C" fn build_mock_scram_secret(
@@ -2605,14 +2596,14 @@ unsafe extern "C" fn build_mock_scram_secret(
                 (*state).encoded_salt,
                 encoded_len,
             );
-            if !(encoded_len < 0 as ::core::ffi::c_int) {
+            if encoded_len >= 0 as ::core::ffi::c_int {
                 *(*state).encoded_salt.offset(encoded_len as isize) =
                     '\0' as i32 as ::core::ffi::c_char;
                 return true_0 != 0;
             }
         }
     }
-    return false_0 != 0;
+    false_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "904:1"]
@@ -2756,52 +2747,49 @@ pub unsafe extern "C" fn build_server_first_message(
             }
         }
     }
-    match current_block {
-        5601891728916014340 => {
-            get_random_bytes(&raw mut raw_nonce as *mut uint8_t, SCRAM_RAW_NONCE_LEN);
-            encoded_len = pg_b64_enc_len(SCRAM_RAW_NONCE_LEN);
-            (*state).server_nonce = malloc((encoded_len + 1 as ::core::ffi::c_int) as size_t)
-                as *mut ::core::ffi::c_char;
-            if !(*state).server_nonce.is_null() {
-                encoded_len = pg_b64_encode(
-                    &raw mut raw_nonce as *mut uint8_t,
-                    SCRAM_RAW_NONCE_LEN,
-                    (*state).server_nonce,
-                    encoded_len,
-                );
-                if !(encoded_len < 0 as ::core::ffi::c_int) {
-                    *(*state).server_nonce.offset(encoded_len as isize) =
-                        '\0' as i32 as ::core::ffi::c_char;
-                    len = (2 as size_t)
-                        .wrapping_add(strlen((*state).client_nonce))
-                        .wrapping_add(strlen((*state).server_nonce))
-                        .wrapping_add(3 as size_t)
-                        .wrapping_add(strlen((*state).encoded_salt))
-                        .wrapping_add(3 as size_t)
-                        .wrapping_add(10 as size_t)
-                        .wrapping_add(1 as size_t);
-                    result = malloc(len) as *mut ::core::ffi::c_char;
-                    if !result.is_null() {
-                        snprintf(
-                            result,
-                            len,
-                            b"r=%s%s,s=%s,i=%u\0" as *const u8 as *const ::core::ffi::c_char,
-                            (*state).client_nonce,
-                            (*state).server_nonce,
-                            (*state).encoded_salt,
-                            (*state).iterations,
-                        );
-                        (*state).server_first_message = result;
-                        return result;
-                    }
+    if current_block == 5601891728916014340 {
+        get_random_bytes(&raw mut raw_nonce as *mut uint8_t, SCRAM_RAW_NONCE_LEN);
+        encoded_len = pg_b64_enc_len(SCRAM_RAW_NONCE_LEN);
+        (*state).server_nonce =
+            malloc((encoded_len + 1 as ::core::ffi::c_int) as size_t) as *mut ::core::ffi::c_char;
+        if !(*state).server_nonce.is_null() {
+            encoded_len = pg_b64_encode(
+                &raw mut raw_nonce as *mut uint8_t,
+                SCRAM_RAW_NONCE_LEN,
+                (*state).server_nonce,
+                encoded_len,
+            );
+            if encoded_len >= 0 as ::core::ffi::c_int {
+                *(*state).server_nonce.offset(encoded_len as isize) =
+                    '\0' as i32 as ::core::ffi::c_char;
+                len = (2 as size_t)
+                    .wrapping_add(strlen((*state).client_nonce))
+                    .wrapping_add(strlen((*state).server_nonce))
+                    .wrapping_add(3 as size_t)
+                    .wrapping_add(strlen((*state).encoded_salt))
+                    .wrapping_add(3 as size_t)
+                    .wrapping_add(10 as size_t)
+                    .wrapping_add(1 as size_t);
+                result = malloc(len) as *mut ::core::ffi::c_char;
+                if !result.is_null() {
+                    snprintf(
+                        result,
+                        len,
+                        b"r=%s%s,s=%s,i=%u\0" as *const u8 as *const ::core::ffi::c_char,
+                        (*state).client_nonce,
+                        (*state).server_nonce,
+                        (*state).encoded_salt,
+                        (*state).iterations,
+                    );
+                    (*state).server_first_message = result;
+                    return result;
                 }
             }
         }
-        _ => {}
     }
     free((*state).server_nonce as *mut ::core::ffi::c_void);
     free((*state).server_first_message as *mut ::core::ffi::c_void);
-    return ::core::ptr::null_mut::<::core::ffi::c_char>();
+    ::core::ptr::null_mut::<::core::ffi::c_char>()
 }
 #[c2rust::src_loc = "988:1"]
 unsafe extern "C" fn compute_server_signature(
@@ -2887,7 +2875,7 @@ unsafe extern "C" fn compute_server_signature(
     }
     *server_signature_base64.offset(siglen as isize) = '\0' as i32 as ::core::ffi::c_char;
     pg_hmac_free(ctx);
-    return server_signature_base64;
+    server_signature_base64
 }
 #[no_mangle]
 #[c2rust::src_loc = "1039:1"]
@@ -2903,7 +2891,7 @@ pub unsafe extern "C" fn build_server_final_message(
         len = (2 as size_t)
             .wrapping_add(strlen(server_signature))
             .wrapping_add(1 as size_t);
-        if !(len >= INT_MAX as size_t) {
+        if len < INT_MAX as size_t {
             result = malloc(len) as *mut ::core::ffi::c_char;
             if !result.is_null() {
                 snprintf(
@@ -2918,7 +2906,7 @@ pub unsafe extern "C" fn build_server_final_message(
         }
     }
     free(server_signature as *mut ::core::ffi::c_void);
-    return ::core::ptr::null_mut::<::core::ffi::c_char>();
+    ::core::ptr::null_mut::<::core::ffi::c_char>()
 }
 #[no_mangle]
 #[c2rust::src_loc = "1073:1"]
@@ -2941,14 +2929,14 @@ pub unsafe extern "C" fn verify_final_nonce(
         return false_0 != 0;
     }
     if memcmp(
-        client_final_nonce.offset(client_nonce_len as isize) as *const ::core::ffi::c_void,
+        client_final_nonce.add(client_nonce_len) as *const ::core::ffi::c_void,
         (*state).server_nonce as *const ::core::ffi::c_void,
         server_nonce_len,
     ) != 0 as ::core::ffi::c_int
     {
         return false_0 != 0;
     }
-    return true_0 != 0;
+    true_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "1089:1"]
@@ -3045,7 +3033,7 @@ pub unsafe extern "C" fn verify_client_proof(
         return false_0 != 0;
     }
     pg_hmac_free(ctx);
-    return true_0 != 0;
+    true_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "1147:1"]
@@ -3131,5 +3119,5 @@ pub unsafe extern "C" fn scram_verify_plain_password(
     free(encoded_salt as *mut ::core::ffi::c_void);
     free(salt as *mut ::core::ffi::c_void);
     free(prep_password as *mut ::core::ffi::c_void);
-    return result;
+    result
 }

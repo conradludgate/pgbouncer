@@ -400,7 +400,7 @@ pub mod statlist_h {
     #[inline]
     #[c2rust::src_loc = "88:1"]
     pub unsafe extern "C" fn statlist_count(mut list: *const StatList) -> ::core::ffi::c_int {
-        return (*list).cur_count;
+        (*list).cur_count
     }
     use super::list_h::List;
 }
@@ -1557,11 +1557,11 @@ pub mod include_signal_h {
     #[inline(always)]
     #[c2rust::src_loc = "116:1"]
     pub unsafe extern "C" fn __sigbits(mut __signo: ::core::ffi::c_int) -> ::core::ffi::c_int {
-        return if __signo > __DARWIN_NSIG {
+        if __signo > __DARWIN_NSIG {
             0 as ::core::ffi::c_int
         } else {
-            (1 as ::core::ffi::c_int) << __signo - 1 as ::core::ffi::c_int
-        };
+            (1 as ::core::ffi::c_int) << (__signo - 1 as ::core::ffi::c_int)
+        }
     }
     use super::_pid_t_h::pid_t;
     use super::_sigset_t_h::sigset_t;
@@ -2533,12 +2533,12 @@ pub unsafe extern "C" fn set_config_param(
     mut key: *const ::core::ffi::c_char,
     mut val: *const ::core::ffi::c_char,
 ) -> bool {
-    return cf_set(
+    cf_set(
         &raw mut main_config,
         b"pgbouncer\0" as *const u8 as *const ::core::ffi::c_char,
         key,
         val,
-    );
+    )
 }
 #[no_mangle]
 #[c2rust::src_loc = "396:1"]
@@ -2592,7 +2592,7 @@ unsafe extern "C" fn set_defer_accept(
     {
         pooler_tune_accept(*p != 0);
     }
-    return ok;
+    ok
 }
 #[c2rust::src_loc = "423:1"]
 unsafe extern "C" fn set_dbs_dead(mut flag: bool) {
@@ -2602,10 +2602,8 @@ unsafe extern "C" fn set_dbs_dead(mut flag: bool) {
     while item != &raw mut database_list.head {
         db = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
             as *mut PgDatabase;
-        if !(*db).admin {
-            if !(*db).db_auto {
-                (*db).db_dead = flag;
-            }
+        if !(*db).admin && !(*db).db_auto {
+            (*db).db_dead = flag;
         }
         item = (*item).next;
     }
@@ -2627,7 +2625,7 @@ unsafe extern "C" fn requires_auth_file(mut auth_type: ::core::ffi::c_int) -> bo
     if auth_type == AUTH_TYPE_PAM as ::core::ffi::c_int {
         return false_0 != 0;
     }
-    return auth_type >= AUTH_TYPE_TRUST as ::core::ffi::c_int;
+    auth_type >= AUTH_TYPE_TRUST as ::core::ffi::c_int
 }
 #[no_mangle]
 #[c2rust::src_loc = "459:1"]
@@ -2691,7 +2689,7 @@ pub unsafe extern "C" fn load_config() -> bool {
     if main_config.loaded {
         reset_logging();
     }
-    return ok;
+    ok
 }
 #[c2rust::src_loc = "532:1"]
 static mut ev_sigterm: event = event {
@@ -3465,33 +3463,32 @@ unsafe extern "C" fn check_pidfile() {
         );
         exit(1 as ::core::ffi::c_int);
     }
-    if !(res == 0 as ::core::ffi::c_int) {
+    if res != 0 as ::core::ffi::c_int {
         buf[res as usize] = 0 as ::core::ffi::c_char;
         pid = atol(&raw mut buf as *mut ::core::ffi::c_char) as pid_t;
-        if !(pid <= 0 as pid_t) {
-            if !(kill(pid, 0 as ::core::ffi::c_int) >= 0 as ::core::ffi::c_int) {
-                if !(*__error() != ESRCH) {
-                    let mut _log_ctx_1 = NULL;
-                    log_generic(
-                        LG_INFO,
-                        _log_ctx_1,
-                        b"stale pidfile, removing\0" as *const u8 as *const ::core::ffi::c_char,
-                    );
-                    err = unlink(cf_pidfile);
-                    if err != 0 as ::core::ffi::c_int {
-                        let mut _log_ctx_2 = NULL;
-                        log_generic(
-                            LG_FATAL,
-                            _log_ctx_2,
-                            b"could not remove stale pidfile: %s\0" as *const u8
-                                as *const ::core::ffi::c_char,
-                            strerror(*__error()),
-                        );
-                        exit(1 as ::core::ffi::c_int);
-                    }
-                    return;
-                }
+        if (pid > 0 as pid_t)
+            && (kill(pid, 0 as ::core::ffi::c_int) < 0 as ::core::ffi::c_int)
+            && (*__error() == ESRCH)
+        {
+            let mut _log_ctx_1 = NULL;
+            log_generic(
+                LG_INFO,
+                _log_ctx_1,
+                b"stale pidfile, removing\0" as *const u8 as *const ::core::ffi::c_char,
+            );
+            err = unlink(cf_pidfile);
+            if err != 0 as ::core::ffi::c_int {
+                let mut _log_ctx_2 = NULL;
+                log_generic(
+                    LG_FATAL,
+                    _log_ctx_2,
+                    b"could not remove stale pidfile: %s\0" as *const u8
+                        as *const ::core::ffi::c_char,
+                    strerror(*__error()),
+                );
+                exit(1 as ::core::ffi::c_int);
             }
+            return;
         }
     }
     let mut _log_ctx_3 = NULL;
@@ -3669,23 +3666,21 @@ unsafe extern "C" fn check_old_process_unix() -> bool {
     if res < 0 as ::core::ffi::c_int {
         return false_0 != 0;
     }
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "881:1"]
 unsafe extern "C" fn main_loop_once() {
     let mut err: ::core::ffi::c_int = 0;
     reset_time_cache();
     err = event_base_loop(pgb_event_base, EVLOOP_ONCE);
-    if err < 0 as ::core::ffi::c_int {
-        if *__error() != EINTR {
-            let mut _log_ctx = NULL;
-            log_generic(
-                LG_WARNING,
-                _log_ctx,
-                b"event_loop failed: %s\0" as *const u8 as *const ::core::ffi::c_char,
-                strerror(*__error()),
-            );
-        }
+    if err < 0 as ::core::ffi::c_int && *__error() != EINTR {
+        let mut _log_ctx = NULL;
+        log_generic(
+            LG_WARNING,
+            _log_ctx,
+            b"event_loop failed: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            strerror(*__error()),
+        );
     }
     ldap_poll();
     pam_poll();
@@ -3825,7 +3820,7 @@ unsafe fn main_0(
             &raw const long_options as *const option,
             &raw mut long_idx,
         );
-        if !(c != -(1 as ::core::ffi::c_int)) {
+        if c == -(1 as ::core::ffi::c_int) {
             break;
         }
         match c {
@@ -4013,7 +4008,7 @@ unsafe fn main_0(
     while cf_shutdown != SHUTDOWN_IMMEDIATE as ::core::ffi::c_int {
         main_loop_once();
     }
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }
 pub fn main() {
     let mut args_strings: Vec<Vec<u8>> = ::std::env::args()

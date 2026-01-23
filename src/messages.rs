@@ -819,12 +819,12 @@ pub mod mbuf_h {
     #[inline]
     #[c2rust::src_loc = "99:1"]
     pub unsafe extern "C" fn mbuf_avail_for_read(mut buf: *const MBuf) -> ::core::ffi::c_uint {
-        return (*buf).write_pos.wrapping_sub((*buf).read_pos);
+        (*buf).write_pos.wrapping_sub((*buf).read_pos)
     }
     #[inline]
     #[c2rust::src_loc = "113:1"]
     pub unsafe extern "C" fn mbuf_written(mut buf: *const MBuf) -> ::core::ffi::c_uint {
-        return (*buf).write_pos;
+        (*buf).write_pos
     }
     #[inline]
     #[c2rust::src_loc = "162:1"]
@@ -838,7 +838,7 @@ pub mod mbuf_h {
         let fresh0 = (*buf).read_pos;
         (*buf).read_pos = (*buf).read_pos.wrapping_add(1);
         *dst_p = *(*buf).data.offset(fresh0 as isize) as ::core::ffi::c_char;
-        return true_0 != 0;
+        true_0 != 0
     }
     #[inline]
     #[c2rust::src_loc = "171:1"]
@@ -858,7 +858,7 @@ pub mod mbuf_h {
         (*buf).read_pos = (*buf).read_pos.wrapping_add(1);
         b = *(*buf).data.offset(fresh2 as isize) as ::core::ffi::c_uint;
         *dst_p = (a << 8 as ::core::ffi::c_int | b) as uint16_t;
-        return true_0 != 0;
+        true_0 != 0
     }
     #[inline]
     #[c2rust::src_loc = "210:1"]
@@ -872,7 +872,7 @@ pub mod mbuf_h {
         }
         *dst_p = (*buf).data.offset((*buf).read_pos as isize);
         (*buf).read_pos = (*buf).read_pos.wrapping_add(len);
-        return true_0 != 0;
+        true_0 != 0
     }
     #[inline]
     #[c2rust::src_loc = "231:1"]
@@ -894,7 +894,7 @@ pub mod mbuf_h {
         (*buf).read_pos =
             nul.offset(1 as ::core::ffi::c_int as isize)
                 .offset_from((*buf).data) as ::core::ffi::c_long as ::core::ffi::c_uint;
-        return true_0 != 0;
+        true_0 != 0
     }
     use super::_size_t_h::size_t;
     use super::_string_h::memchr;
@@ -915,7 +915,7 @@ pub mod proto_h {
     #[inline]
     #[c2rust::src_loc = "66:1"]
     pub unsafe extern "C" fn incomplete_pkt(mut pkt: *const PktHdr) -> bool {
-        return mbuf_written(&raw const (*pkt).data) != (*pkt).len;
+        mbuf_written(&raw const (*pkt).data) != (*pkt).len
     }
     use super::mbuf_h::{mbuf_written, MBuf};
 }
@@ -1228,7 +1228,7 @@ pub unsafe extern "C" fn inspect_parse_packet(
             statement,
         );
     }
-    return PS_HANDLE_FULL_PACKET;
+    PS_HANDLE_FULL_PACKET
 }
 #[no_mangle]
 #[c2rust::src_loc = "21:1"]
@@ -1269,7 +1269,7 @@ pub unsafe extern "C" fn inspect_bind_packet(
             statement,
         );
     }
-    return PS_HANDLE;
+    PS_HANDLE
 }
 #[no_mangle]
 #[c2rust::src_loc = "42:1"]
@@ -1327,7 +1327,7 @@ pub unsafe extern "C" fn inspect_describe_or_close_packet(
             statement,
         );
     }
-    return PS_HANDLE;
+    PS_HANDLE
 }
 #[no_mangle]
 #[c2rust::src_loc = "74:1"]
@@ -1341,25 +1341,24 @@ pub unsafe extern "C" fn unmarshall_parse_packet(
     let mut num_parameters: uint16_t = 0;
     let mut parameter_types_bytes = ::core::ptr::null::<uint8_t>();
     let mut parameters_length: size_t = 0;
-    if mbuf_get_string(&raw mut (*pkt).data, &raw mut statement) {
-        if mbuf_get_string(&raw mut (*pkt).data, &raw mut query) {
-            if mbuf_get_uint16be(&raw mut (*pkt).data, &raw mut num_parameters) {
-                parameters_length = (num_parameters as size_t).wrapping_mul(4 as size_t);
-                if mbuf_get_bytes(
-                    &raw mut (*pkt).data,
-                    parameters_length as ::core::ffi::c_uint,
-                    &raw mut parameter_types_bytes,
-                ) {
-                    (*parse_packet).len = (*pkt).len;
-                    (*parse_packet).name = statement;
-                    (*parse_packet).query_and_parameters_len = strlen(query)
-                        .wrapping_add(1 as size_t)
-                        .wrapping_add(::core::mem::size_of::<uint16_t>() as size_t)
-                        .wrapping_add(parameters_length);
-                    (*parse_packet).query_and_parameters = query;
-                    return true_0 != 0;
-                }
-            }
+    if mbuf_get_string(&raw mut (*pkt).data, &raw mut statement)
+        && mbuf_get_string(&raw mut (*pkt).data, &raw mut query)
+        && mbuf_get_uint16be(&raw mut (*pkt).data, &raw mut num_parameters)
+    {
+        parameters_length = (num_parameters as size_t).wrapping_mul(4 as size_t);
+        if mbuf_get_bytes(
+            &raw mut (*pkt).data,
+            parameters_length as ::core::ffi::c_uint,
+            &raw mut parameter_types_bytes,
+        ) {
+            (*parse_packet).len = (*pkt).len;
+            (*parse_packet).name = statement;
+            (*parse_packet).query_and_parameters_len = strlen(query)
+                .wrapping_add(1 as size_t)
+                .wrapping_add(::core::mem::size_of::<uint16_t>() as size_t)
+                .wrapping_add(parameters_length);
+            (*parse_packet).query_and_parameters = query;
+            return true_0 != 0;
         }
     }
     disconnect_client(
@@ -1367,7 +1366,7 @@ pub unsafe extern "C" fn unmarshall_parse_packet(
         true_0 != 0,
         b"broken Parse packet\0" as *const u8 as *const ::core::ffi::c_char,
     );
-    return false_0 != 0;
+    false_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "120:1"]
@@ -1378,20 +1377,20 @@ pub unsafe extern "C" fn unmarshall_bind_packet(
 ) -> bool {
     let mut portal = ::core::ptr::null::<::core::ffi::c_char>();
     let mut statement = ::core::ptr::null::<::core::ffi::c_char>();
-    if mbuf_get_string(&raw mut (*pkt).data, &raw mut portal) {
-        if mbuf_get_string(&raw mut (*pkt).data, &raw mut statement) {
-            (*bind_packet).len = (*pkt).len;
-            (*bind_packet).portal = portal;
-            (*bind_packet).name = statement;
-            return true_0 != 0;
-        }
+    if mbuf_get_string(&raw mut (*pkt).data, &raw mut portal)
+        && mbuf_get_string(&raw mut (*pkt).data, &raw mut statement)
+    {
+        (*bind_packet).len = (*pkt).len;
+        (*bind_packet).portal = portal;
+        (*bind_packet).name = statement;
+        return true_0 != 0;
     }
     disconnect_client(
         client,
         true_0 != 0,
         b"broken Bind packet\0" as *const u8 as *const ::core::ffi::c_char,
     );
-    return false_0 != 0;
+    false_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "149:1"]
@@ -1405,19 +1404,19 @@ pub unsafe extern "C" fn unmarshall_describe_packet(
     if incomplete_pkt(pkt) {
         return false_0 != 0;
     }
-    if mbuf_get_char(&raw mut (*pkt).data, &raw mut describe) {
-        if mbuf_get_string(&raw mut (*pkt).data, &raw mut statement) {
-            (*describe_packet).type_0 = describe;
-            (*describe_packet).name = statement;
-            return true_0 != 0;
-        }
+    if mbuf_get_char(&raw mut (*pkt).data, &raw mut describe)
+        && mbuf_get_string(&raw mut (*pkt).data, &raw mut statement)
+    {
+        (*describe_packet).type_0 = describe;
+        (*describe_packet).name = statement;
+        return true_0 != 0;
     }
     disconnect_client(
         client,
         true_0 != 0,
         b"broken Describe packet\0" as *const u8 as *const ::core::ffi::c_char,
     );
-    return false_0 != 0;
+    false_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "180:1"]
@@ -1431,39 +1430,38 @@ pub unsafe extern "C" fn unmarshall_close_packet(
     if incomplete_pkt(pkt) {
         return false_0 != 0;
     }
-    if mbuf_get_char(&raw mut (*pkt).data, &raw mut type_0) {
-        if mbuf_get_string(&raw mut (*pkt).data, &raw mut name) {
-            (*close_packet).type_0 = type_0;
-            (*close_packet).name = name;
-            if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
-            {
-                log_generic(
-                    LG_NOISE,
-                    client as *mut ::core::ffi::c_void,
-                    b"unmarshall_close_packet: type=%c, len=%d, S/P=%c, name=%s\0" as *const u8
-                        as *const ::core::ffi::c_char,
-                    (*pkt).type_0,
-                    (*pkt).len,
-                    type_0 as ::core::ffi::c_int,
-                    name,
-                );
-            }
-            return true_0 != 0;
+    if mbuf_get_char(&raw mut (*pkt).data, &raw mut type_0)
+        && mbuf_get_string(&raw mut (*pkt).data, &raw mut name)
+    {
+        (*close_packet).type_0 = type_0;
+        (*close_packet).name = name;
+        if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        {
+            log_generic(
+                LG_NOISE,
+                client as *mut ::core::ffi::c_void,
+                b"unmarshall_close_packet: type=%c, len=%d, S/P=%c, name=%s\0" as *const u8
+                    as *const ::core::ffi::c_char,
+                (*pkt).type_0,
+                (*pkt).len,
+                type_0 as ::core::ffi::c_int,
+                name,
+            );
         }
+        return true_0 != 0;
     }
     disconnect_client(
         client,
         true_0 != 0,
         b"broken Close packet\0" as *const u8 as *const ::core::ffi::c_char,
     );
-    return false_0 != 0;
+    false_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "205:1"]
 pub unsafe extern "C" fn is_close_named_statement_packet(
     mut close_packet: *mut PgClosePacket,
 ) -> bool {
-    return (*close_packet).type_0 as ::core::ffi::c_int == 'S' as i32
-        && *(*close_packet).name as ::core::ffi::c_int != 0;
+    (*close_packet).type_0 as ::core::ffi::c_int == 'S' as i32
+        && *(*close_packet).name as ::core::ffi::c_int != 0
 }

@@ -133,5 +133,5 @@ pub unsafe extern "C" fn usual_getaddrinfo_a(
     mut _sevp: *mut sigevent,
 ) -> ::core::ffi::c_int {
     *__error() = ENOSYS;
-    return EAI_SYSTEM;
+    EAI_SYSTEM
 }

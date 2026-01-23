@@ -196,14 +196,14 @@ pub unsafe extern "C" fn pg_b64_encode(
     s = src;
     p = dst;
     loop {
-        if !(s < end) {
+        if s >= end {
             current_block = 7651349459974463963;
             break;
         }
         buf |= ((*s as ::core::ffi::c_int) << (pos << 3 as ::core::ffi::c_int)) as uint32_t;
         pos -= 1;
         s = s.offset(1);
-        if !(pos < 0 as ::core::ffi::c_int) {
+        if pos >= 0 as ::core::ffi::c_int {
             continue;
         }
         if p.offset_from(dst) as ::core::ffi::c_long + 4 as ::core::ffi::c_long
@@ -227,53 +227,48 @@ pub unsafe extern "C" fn pg_b64_encode(
         pos = 2 as ::core::ffi::c_int;
         buf = 0 as uint32_t;
     }
-    match current_block {
-        7651349459974463963 => {
-            if pos != 2 as ::core::ffi::c_int {
-                if p.offset_from(dst) as ::core::ffi::c_long + 4 as ::core::ffi::c_long
-                    > dstlen as ::core::ffi::c_long
-                {
-                    current_block = 5042550662117864494;
-                } else {
-                    let fresh4 = p;
-                    p = p.offset(1);
-                    *fresh4 =
-                        _base64[(buf >> 18 as ::core::ffi::c_int & 0x3f as uint32_t) as usize];
-                    let fresh5 = p;
-                    p = p.offset(1);
-                    *fresh5 =
-                        _base64[(buf >> 12 as ::core::ffi::c_int & 0x3f as uint32_t) as usize];
-                    let fresh6 = p;
-                    p = p.offset(1);
-                    *fresh6 = (if pos == 0 as ::core::ffi::c_int {
-                        _base64[(buf >> 6 as ::core::ffi::c_int & 0x3f as uint32_t) as usize]
-                            as ::core::ffi::c_int
-                    } else {
-                        '=' as i32
-                    }) as ::core::ffi::c_char;
-                    let fresh7 = p;
-                    p = p.offset(1);
-                    *fresh7 = '=' as i32 as ::core::ffi::c_char;
-                    current_block = 15652330335145281839;
-                }
+    if current_block == 7651349459974463963 {
+        if pos != 2 as ::core::ffi::c_int {
+            if p.offset_from(dst) as ::core::ffi::c_long + 4 as ::core::ffi::c_long
+                > dstlen as ::core::ffi::c_long
+            {
+                current_block = 5042550662117864494;
             } else {
+                let fresh4 = p;
+                p = p.offset(1);
+                *fresh4 = _base64[(buf >> 18 as ::core::ffi::c_int & 0x3f as uint32_t) as usize];
+                let fresh5 = p;
+                p = p.offset(1);
+                *fresh5 = _base64[(buf >> 12 as ::core::ffi::c_int & 0x3f as uint32_t) as usize];
+                let fresh6 = p;
+                p = p.offset(1);
+                *fresh6 = (if pos == 0 as ::core::ffi::c_int {
+                    _base64[(buf >> 6 as ::core::ffi::c_int & 0x3f as uint32_t) as usize]
+                        as ::core::ffi::c_int
+                } else {
+                    '=' as i32
+                }) as ::core::ffi::c_char;
+                let fresh7 = p;
+                p = p.offset(1);
+                *fresh7 = '=' as i32 as ::core::ffi::c_char;
                 current_block = 15652330335145281839;
             }
-            match current_block {
-                5042550662117864494 => {}
-                _ => {
-                    return p.offset_from(dst) as ::core::ffi::c_long as ::core::ffi::c_int;
-                }
+        } else {
+            current_block = 15652330335145281839;
+        }
+        match current_block {
+            5042550662117864494 => {}
+            _ => {
+                return p.offset_from(dst) as ::core::ffi::c_long as ::core::ffi::c_int;
             }
         }
-        _ => {}
     }
     memset(
         dst as *mut ::core::ffi::c_void,
         0 as ::core::ffi::c_int,
         dstlen as size_t,
     );
-    return -(1 as ::core::ffi::c_int);
+    -(1 as ::core::ffi::c_int)
 }
 #[no_mangle]
 #[c2rust::src_loc = "111:1"]
@@ -293,7 +288,7 @@ pub unsafe extern "C" fn pg_b64_decode(
     let mut pos = 0 as ::core::ffi::c_int;
     let mut end = 0 as ::core::ffi::c_int;
     loop {
-        if !(s < srcend) {
+        if s >= srcend {
             current_block = 3437258052017859086;
             break;
         }
@@ -334,7 +329,7 @@ pub unsafe extern "C" fn pg_b64_decode(
         }
         buf = (buf << 6 as ::core::ffi::c_int).wrapping_add(b as uint32_t);
         pos += 1;
-        if !(pos == 4 as ::core::ffi::c_int) {
+        if pos != 4 as ::core::ffi::c_int {
             continue;
         }
         if p.offset_from(dst) as ::core::ffi::c_long + 1 as ::core::ffi::c_long
@@ -371,28 +366,23 @@ pub unsafe extern "C" fn pg_b64_decode(
         buf = 0 as uint32_t;
         pos = 0 as ::core::ffi::c_int;
     }
-    match current_block {
-        3437258052017859086 => {
-            if !(pos != 0 as ::core::ffi::c_int) {
-                return p.offset_from(dst) as ::core::ffi::c_long as ::core::ffi::c_int;
-            }
-        }
-        _ => {}
+    if current_block == 3437258052017859086 && (pos == 0 as ::core::ffi::c_int) {
+        return p.offset_from(dst) as ::core::ffi::c_long as ::core::ffi::c_int;
     }
     memset(
         dst as *mut ::core::ffi::c_void,
         0 as ::core::ffi::c_int,
         dstlen as size_t,
     );
-    return -(1 as ::core::ffi::c_int);
+    -(1 as ::core::ffi::c_int)
 }
 #[no_mangle]
 #[c2rust::src_loc = "219:1"]
 pub unsafe extern "C" fn pg_b64_enc_len(mut srclen: ::core::ffi::c_int) -> ::core::ffi::c_int {
-    return (srclen + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int * 4 as ::core::ffi::c_int;
+    (srclen + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int * 4 as ::core::ffi::c_int
 }
 #[no_mangle]
 #[c2rust::src_loc = "234:1"]
 pub unsafe extern "C" fn pg_b64_dec_len(mut srclen: ::core::ffi::c_int) -> ::core::ffi::c_int {
-    return srclen * 3 as ::core::ffi::c_int >> 2 as ::core::ffi::c_int;
+    (srclen * 3 as ::core::ffi::c_int) >> 2 as ::core::ffi::c_int
 }

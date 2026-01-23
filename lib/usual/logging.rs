@@ -281,7 +281,7 @@ pub mod ctype_h {
     #[inline]
     #[c2rust::src_loc = "105:1"]
     pub unsafe extern "C" fn safe_isspace(mut c: ::core::ffi::c_int) -> ::core::ffi::c_int {
-        return isspace(c as ::core::ffi::c_uchar as ::core::ffi::c_int);
+        isspace(c as ::core::ffi::c_uchar as ::core::ffi::c_int)
     }
     use super::_ctype_h::isspace;
 }
@@ -292,8 +292,7 @@ pub mod _ctype_h {
     #[inline]
     #[c2rust::src_loc = "139:1"]
     pub unsafe extern "C" fn isascii(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
-        return (_c & !(0x7f as ::core::ffi::c_int) == 0 as ::core::ffi::c_int)
-            as ::core::ffi::c_int;
+        (_c & !(0x7f as ::core::ffi::c_int) == 0 as ::core::ffi::c_int) as ::core::ffi::c_int
     }
     #[inline]
     #[c2rust::src_loc = "157:1"]
@@ -301,17 +300,17 @@ pub mod _ctype_h {
         mut _c: __darwin_ct_rune_t,
         mut _f: ::core::ffi::c_ulong,
     ) -> ::core::ffi::c_int {
-        return if isascii(_c as ::core::ffi::c_int) != 0 {
+        if isascii(_c as ::core::ffi::c_int) != 0 {
             (_DefaultRuneLocale.__runetype[_c as usize] as ::core::ffi::c_ulong & _f != 0)
                 as ::core::ffi::c_int
         } else {
             (__maskrune(_c, _f) != 0) as ::core::ffi::c_int
-        };
+        }
     }
     #[inline]
     #[c2rust::src_loc = "271:1"]
     pub unsafe extern "C" fn isspace(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
-        return __istype(_c as __darwin_ct_rune_t, _CTYPE_S as ::core::ffi::c_ulong);
+        __istype(_c as __darwin_ct_rune_t, _CTYPE_S as ::core::ffi::c_ulong)
     }
     use super::_types_h::__darwin_ct_rune_t;
     use super::runetype_h::_DefaultRuneLocale;
@@ -656,130 +655,122 @@ pub unsafe extern "C" fn log_generic(
         } else {
             if pfxlen >= ::core::mem::size_of::<[::core::ffi::c_char; 2048]>() as ::core::ffi::c_int
             {
-                pfxlen = (::core::mem::size_of::<[::core::ffi::c_char; 2048]>() as usize)
-                    .wrapping_sub(1 as usize) as ::core::ffi::c_int;
+                pfxlen = ::core::mem::size_of::<[::core::ffi::c_char; 2048]>().wrapping_sub(1_usize)
+                    as ::core::ffi::c_int;
             }
             current_block = 10886091980245723256;
         }
     } else {
         current_block = 10886091980245723256;
     }
-    match current_block {
-        10886091980245723256 => {
-            ap = args.clone();
-            vsnprintf(
-                (&raw mut buf as *mut ::core::ffi::c_char).offset(pfxlen as isize),
-                (::core::mem::size_of::<[::core::ffi::c_char; 2048]>() as size_t)
-                    .wrapping_sub(pfxlen as size_t),
-                fmt,
-                ap.as_va_list(),
-            );
-            if !strchr(msg, '\n' as i32).is_null() {
-                let mut dst = &raw mut buf2 as *mut ::core::ffi::c_char;
-                while *msg as ::core::ffi::c_int != 0
-                    && (dst.offset_from(&raw mut buf2 as *mut ::core::ffi::c_char)
-                        as ::core::ffi::c_long)
-                        < (::core::mem::size_of::<[::core::ffi::c_char; 2048]>()
-                            as ::core::ffi::c_int
-                            - 2 as ::core::ffi::c_int)
-                            as ::core::ffi::c_long
-                {
-                    let fresh0 = dst;
+    if current_block == 10886091980245723256 {
+        ap = args.clone();
+        vsnprintf(
+            (&raw mut buf as *mut ::core::ffi::c_char).offset(pfxlen as isize),
+            (::core::mem::size_of::<[::core::ffi::c_char; 2048]>() as size_t)
+                .wrapping_sub(pfxlen as size_t),
+            fmt,
+            ap.as_va_list(),
+        );
+        if !strchr(msg, '\n' as i32).is_null() {
+            let mut dst = &raw mut buf2 as *mut ::core::ffi::c_char;
+            while *msg as ::core::ffi::c_int != 0
+                && (dst.offset_from(&raw mut buf2 as *mut ::core::ffi::c_char)
+                    as ::core::ffi::c_long)
+                    < (::core::mem::size_of::<[::core::ffi::c_char; 2048]>() as ::core::ffi::c_int
+                        - 2 as ::core::ffi::c_int) as ::core::ffi::c_long
+            {
+                let fresh0 = dst;
+                dst = dst.offset(1);
+                *fresh0 = *msg;
+                if *msg as ::core::ffi::c_int == '\n' as i32 {
+                    let fresh1 = dst;
                     dst = dst.offset(1);
-                    *fresh0 = *msg;
-                    if *msg as ::core::ffi::c_int == '\n' as i32 {
-                        let fresh1 = dst;
-                        dst = dst.offset(1);
-                        *fresh1 = '\t' as i32 as ::core::ffi::c_char;
-                    }
-                    msg = msg.offset(1);
+                    *fresh1 = '\t' as i32 as ::core::ffi::c_char;
                 }
-                while dst > &raw mut buf2 as *mut ::core::ffi::c_char
-                    && safe_isspace(
-                        *dst.offset(-(1 as ::core::ffi::c_int) as isize) as ::core::ffi::c_int
-                    ) != 0
-                {
-                    dst = dst.offset(-1);
-                }
-                *dst = 0 as ::core::ffi::c_char;
-                msg = &raw mut buf2 as *mut ::core::ffi::c_char;
+                msg = msg.offset(1);
             }
-            format_time_ms(
-                0 as usec_t,
-                &raw mut timebuf as *mut ::core::ffi::c_char,
-                ::core::mem::size_of::<[::core::ffi::c_char; 64]>() as ::core::ffi::c_uint,
-            );
-            if log_file.is_null()
-                && !cf_logfile.is_null()
-                && *cf_logfile.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int != 0
+            while dst > &raw mut buf2 as *mut ::core::ffi::c_char
+                && safe_isspace(
+                    *dst.offset(-(1 as ::core::ffi::c_int) as isize) as ::core::ffi::c_int
+                ) != 0
             {
-                log_file = fopen(
-                    cf_logfile,
-                    b"a\0" as *const u8 as *const ::core::ffi::c_char,
-                ) as *mut FILE;
-                if !log_file.is_null() {
-                    setvbuf(
-                        log_file,
-                        ::core::ptr::null_mut::<::core::ffi::c_char>(),
-                        _IONBF,
-                        0 as size_t,
-                    );
-                } else {
-                    fprintf(
-                        __stderrp,
-                        b"%s %u %s Cannot open logfile: '%s': %s\n\0" as *const u8
-                            as *const ::core::ffi::c_char,
-                        &raw mut timebuf as *mut ::core::ffi::c_char,
-                        pid,
-                        log_level_list[0 as ::core::ffi::c_int as usize].tag,
-                        cf_logfile,
-                        usual_strerror_r(
-                            *__error(),
-                            &raw mut ebuf as *mut ::core::ffi::c_char,
-                            ::core::mem::size_of::<[::core::ffi::c_char; 256]>() as size_t,
-                        ),
-                    );
-                    exit(1 as ::core::ffi::c_int);
-                }
+                dst = dst.offset(-1);
             }
-            if cf_quiet == 0
-                && level as ::core::ffi::c_uint <= cf_stderr_level as ::core::ffi::c_uint
-            {
+            *dst = 0 as ::core::ffi::c_char;
+            msg = &raw mut buf2 as *mut ::core::ffi::c_char;
+        }
+        format_time_ms(
+            0 as usec_t,
+            &raw mut timebuf as *mut ::core::ffi::c_char,
+            ::core::mem::size_of::<[::core::ffi::c_char; 64]>() as ::core::ffi::c_uint,
+        );
+        if log_file.is_null()
+            && !cf_logfile.is_null()
+            && *cf_logfile.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int != 0
+        {
+            log_file = fopen(
+                cf_logfile,
+                b"a\0" as *const u8 as *const ::core::ffi::c_char,
+            ) as *mut FILE;
+            if !log_file.is_null() {
+                setvbuf(
+                    log_file,
+                    ::core::ptr::null_mut::<::core::ffi::c_char>(),
+                    _IONBF,
+                    0 as size_t,
+                );
+            } else {
                 fprintf(
                     __stderrp,
-                    b"%s [%u] %s %s\n\0" as *const u8 as *const ::core::ffi::c_char,
+                    b"%s %u %s Cannot open logfile: '%s': %s\n\0" as *const u8
+                        as *const ::core::ffi::c_char,
                     &raw mut timebuf as *mut ::core::ffi::c_char,
                     pid,
-                    (*lev).tag,
-                    msg,
+                    log_level_list[0 as ::core::ffi::c_int as usize].tag,
+                    cf_logfile,
+                    usual_strerror_r(
+                        *__error(),
+                        &raw mut ebuf as *mut ::core::ffi::c_char,
+                        ::core::mem::size_of::<[::core::ffi::c_char; 256]>() as size_t,
+                    ),
                 );
-            }
-            if !log_file.is_null()
-                && level as ::core::ffi::c_uint <= cf_logfile_level as ::core::ffi::c_uint
-            {
-                fprintf(
-                    log_file,
-                    b"%s [%u] %s %s\n\0" as *const u8 as *const ::core::ffi::c_char,
-                    &raw mut timebuf as *mut ::core::ffi::c_char,
-                    pid,
-                    (*lev).tag,
-                    msg,
-                );
-            }
-            if cf_syslog != 0
-                && level as ::core::ffi::c_uint <= cf_syslog_level as ::core::ffi::c_uint
-            {
-                if !syslog_started {
-                    start_syslog();
-                }
-                syslog(
-                    (*lev).syslog_prio,
-                    b"%s\0" as *const u8 as *const ::core::ffi::c_char,
-                    msg,
-                );
+                exit(1 as ::core::ffi::c_int);
             }
         }
-        _ => {}
+        if cf_quiet == 0 && level as ::core::ffi::c_uint <= cf_stderr_level as ::core::ffi::c_uint {
+            fprintf(
+                __stderrp,
+                b"%s [%u] %s %s\n\0" as *const u8 as *const ::core::ffi::c_char,
+                &raw mut timebuf as *mut ::core::ffi::c_char,
+                pid,
+                (*lev).tag,
+                msg,
+            );
+        }
+        if !log_file.is_null()
+            && level as ::core::ffi::c_uint <= cf_logfile_level as ::core::ffi::c_uint
+        {
+            fprintf(
+                log_file,
+                b"%s [%u] %s %s\n\0" as *const u8 as *const ::core::ffi::c_char,
+                &raw mut timebuf as *mut ::core::ffi::c_char,
+                pid,
+                (*lev).tag,
+                msg,
+            );
+        }
+        if cf_syslog != 0 && level as ::core::ffi::c_uint <= cf_syslog_level as ::core::ffi::c_uint
+        {
+            if !syslog_started {
+                start_syslog();
+            }
+            syslog(
+                (*lev).syslog_prio,
+                b"%s\0" as *const u8 as *const ::core::ffi::c_char,
+                msg,
+            );
+        }
     }
     if old_errno != *__error() {
         *__error() = old_errno;

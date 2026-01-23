@@ -153,7 +153,7 @@ pub mod list_h {
     #[inline]
     #[c2rust::src_loc = "52:1"]
     pub unsafe extern "C" fn list_empty(mut list: *const List) -> ::core::ffi::c_int {
-        return ((*list).next == list as *mut List) as ::core::ffi::c_int;
+        std::ptr::eq((*list).next, list) as ::core::ffi::c_int
     }
 }
 #[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/statlist.h:23"]
@@ -168,7 +168,7 @@ pub mod statlist_h {
     #[inline]
     #[c2rust::src_loc = "120:1"]
     pub unsafe extern "C" fn statlist_empty(mut list: *const StatList) -> bool {
-        return list_empty(&raw const (*list).head) != 0;
+        list_empty(&raw const (*list).head) != 0
     }
     use super::list_h::{list_empty, List};
 }
@@ -759,8 +759,8 @@ pub mod bouncer_h {
         if statlist_empty(slist) {
             return ::core::ptr::null_mut::<PgSocket>();
         }
-        return ((*slist).head.next as *mut ::core::ffi::c_char)
-            .offset(-(0 as ::core::ffi::c_ulong as isize)) as *mut PgSocket;
+        ((*slist).head.next as *mut ::core::ffi::c_char)
+            .offset(-(0 as ::core::ffi::c_ulong as isize)) as *mut PgSocket
     }
 
     use super::_pid_t_h::pid_t;
@@ -900,7 +900,7 @@ pub mod mbuf_h {
     #[inline]
     #[c2rust::src_loc = "99:1"]
     pub unsafe extern "C" fn mbuf_avail_for_read(mut buf: *const MBuf) -> ::core::ffi::c_uint {
-        return (*buf).write_pos.wrapping_sub((*buf).read_pos);
+        (*buf).write_pos.wrapping_sub((*buf).read_pos)
     }
     #[inline]
     #[c2rust::src_loc = "152:1"]
@@ -911,7 +911,7 @@ pub mod mbuf_h {
         let fresh0 = (*buf).read_pos;
         (*buf).read_pos = (*buf).read_pos.wrapping_add(1);
         *dst_p = *(*buf).data.offset(fresh0 as isize);
-        return true_0 != 0;
+        true_0 != 0
     }
     #[inline]
     #[c2rust::src_loc = "171:1"]
@@ -931,7 +931,7 @@ pub mod mbuf_h {
         (*buf).read_pos = (*buf).read_pos.wrapping_add(1);
         b = *(*buf).data.offset(fresh2 as isize) as ::core::ffi::c_uint;
         *dst_p = (a << 8 as ::core::ffi::c_int | b) as uint16_t;
-        return true_0 != 0;
+        true_0 != 0
     }
     #[inline]
     #[c2rust::src_loc = "184:1"]
@@ -962,7 +962,7 @@ pub mod mbuf_h {
             | b << 16 as ::core::ffi::c_int
             | c << 8 as ::core::ffi::c_int
             | d) as uint32_t;
-        return true_0 != 0;
+        true_0 != 0
     }
     #[inline]
     #[c2rust::src_loc = "210:1"]
@@ -976,7 +976,7 @@ pub mod mbuf_h {
         }
         *dst_p = (*buf).data.offset((*buf).read_pos as isize);
         (*buf).read_pos = (*buf).read_pos.wrapping_add(len);
-        return true_0 != 0;
+        true_0 != 0
     }
     #[inline]
     #[c2rust::src_loc = "221:1"]
@@ -990,7 +990,7 @@ pub mod mbuf_h {
         }
         *dst_p = ((*buf).data as *mut ::core::ffi::c_char).offset((*buf).read_pos as isize);
         (*buf).read_pos = (*buf).read_pos.wrapping_add(len);
-        return true_0 != 0;
+        true_0 != 0
     }
     #[inline]
     #[c2rust::src_loc = "231:1"]
@@ -1012,7 +1012,7 @@ pub mod mbuf_h {
         (*buf).read_pos =
             nul.offset(1 as ::core::ffi::c_int as isize)
                 .offset_from((*buf).data) as ::core::ffi::c_long as ::core::ffi::c_uint;
-        return true_0 != 0;
+        true_0 != 0
     }
     #[inline]
     #[c2rust::src_loc = "324:1"]
@@ -1035,7 +1035,7 @@ pub mod mbuf_h {
             len,
         );
         (*src).read_pos = (*src).read_pos.wrapping_add(len);
-        return true_0 != 0;
+        true_0 != 0
     }
     use super::_size_t_h::size_t;
     use super::_string_h::memchr;
@@ -1676,7 +1676,7 @@ pub unsafe extern "C" fn get_header(mut data: *mut MBuf, mut pkt: *mut PktHdr) -
     if !mbuf_slice(data, avail, &raw mut (*pkt).data) {
         return false_0 != 0;
     }
-    return mbuf_get_bytes(&raw mut (*pkt).data, got, &raw mut ptr);
+    mbuf_get_bytes(&raw mut (*pkt).data, got, &raw mut ptr)
 }
 #[no_mangle]
 #[c2rust::src_loc = "153:1"]
@@ -1740,7 +1740,7 @@ pub unsafe extern "C" fn send_pooler_error(
             'I' as i32,
         );
     }
-    return pktbuf_send_immediate(&raw mut buf, client);
+    pktbuf_send_immediate(&raw mut buf, client)
 }
 #[no_mangle]
 #[c2rust::src_loc = "173:1"]
@@ -1842,7 +1842,7 @@ pub unsafe extern "C" fn add_welcome_parameter(
             val,
         );
     }
-    return !(*msg).failed();
+    !(*msg).failed()
 }
 #[no_mangle]
 #[c2rust::src_loc = "242:1"]
@@ -1851,7 +1851,7 @@ pub unsafe extern "C" fn finish_welcome_msg(mut server: *mut PgSocket) {
     if (*pool).welcome_msg_ready() {
         return;
     }
-    (*pool).set_welcome_msg_ready((true_0 != 0) as bool);
+    (*pool).set_welcome_msg_ready(true_0 != 0);
 }
 #[no_mangle]
 #[c2rust::src_loc = "250:1"]
@@ -1921,7 +1921,7 @@ pub unsafe extern "C" fn welcome_client(mut client: *mut PgSocket) -> bool {
         );
         return false_0 != 0;
     }
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "327:1"]
 unsafe extern "C" fn get_srv_psw(mut server: *mut PgSocket) -> *mut PgCredentials {
@@ -1936,7 +1936,7 @@ unsafe extern "C" fn get_srv_psw(mut server: *mut PgSocket) -> *mut PgCredential
             return c2;
         }
     }
-    return credentials;
+    credentials
 }
 #[c2rust::src_loc = "342:1"]
 unsafe extern "C" fn send_password(
@@ -1968,7 +1968,7 @@ unsafe extern "C" fn send_password(
         enc_psw,
     );
     res = pktbuf_send_immediate(&raw mut _buf, server);
-    return res;
+    res
 }
 #[c2rust::src_loc = "349:1"]
 unsafe extern "C" fn login_clear_psw(mut server: *mut PgSocket) -> bool {
@@ -1980,10 +1980,10 @@ unsafe extern "C" fn login_clear_psw(mut server: *mut PgSocket) -> bool {
             b"P: send clear password\0" as *const u8 as *const ::core::ffi::c_char,
         );
     }
-    return send_password(
+    send_password(
         server,
         &raw mut (*credentials).passwd as *mut ::core::ffi::c_char,
-    );
+    )
 }
 #[c2rust::src_loc = "356:1"]
 unsafe extern "C" fn login_md5_psw(mut server: *mut PgSocket, mut salt: *const uint8_t) -> bool {
@@ -2040,7 +2040,7 @@ unsafe extern "C" fn login_md5_psw(mut server: *mut PgSocket, mut salt: *const u
     ) {
         return false_0 != 0;
     }
-    return send_password(server, &raw mut txt as *mut ::core::ffi::c_char);
+    send_password(server, &raw mut txt as *mut ::core::ffi::c_char)
 }
 #[c2rust::src_loc = "384:1"]
 unsafe extern "C" fn login_scram_sha_256(mut server: *mut PgSocket) -> bool {
@@ -2140,7 +2140,7 @@ unsafe extern "C" fn login_scram_sha_256(mut server: *mut PgSocket) -> bool {
     );
     res = pktbuf_send_immediate(&raw mut _buf, server);
     free(client_first_message as *mut ::core::ffi::c_void);
-    return res;
+    res
 }
 #[c2rust::src_loc = "424:1"]
 unsafe extern "C" fn login_scram_sha_256_cont(
@@ -2194,7 +2194,7 @@ unsafe extern "C" fn login_scram_sha_256_cont(
     if !read_server_first_message(server, input) {
         free(ibuf as *mut ::core::ffi::c_void);
         free(client_final_message as *mut ::core::ffi::c_void);
-        return false_0 != 0;
+        false_0 != 0
     } else {
         client_final_message = build_client_final_message(server, credentials);
         free(ibuf as *mut ::core::ffi::c_void);
@@ -2241,8 +2241,8 @@ unsafe extern "C" fn login_scram_sha_256_cont(
         );
         res = pktbuf_send_immediate(&raw mut _buf, server);
         free(client_final_message as *mut ::core::ffi::c_void);
-        return res;
-    };
+        res
+    }
 }
 #[c2rust::src_loc = "469:1"]
 unsafe extern "C" fn login_scram_sha_256_final(
@@ -2319,7 +2319,7 @@ unsafe extern "C" fn login_scram_sha_256_final(
         }
     }
     free(ibuf as *mut ::core::ffi::c_void);
-    return false_0 != 0;
+    false_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "512:1"]
@@ -2483,7 +2483,7 @@ pub unsafe extern "C" fn answer_authreq(mut server: *mut PgSocket, mut pkt: *mut
             res = false_0 != 0;
         }
     }
-    return res;
+    res
 }
 #[no_mangle]
 #[c2rust::src_loc = "598:1"]
@@ -2540,7 +2540,7 @@ pub unsafe extern "C" fn send_startup_packet(mut server: *mut PgSocket) -> bool 
         (*client).link = server;
         (*server).link = client;
     }
-    return true_0 != 0;
+    true_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "665:1"]
@@ -2569,7 +2569,7 @@ pub unsafe extern "C" fn send_sslreq_packet(mut server: *mut PgSocket) -> bool {
         b"\0" as *const u8 as *const ::core::ffi::c_char,
     );
     res = pktbuf_send_immediate(&raw mut _buf, server) as ::core::ffi::c_int;
-    return res != 0;
+    res != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "681:1"]
@@ -2589,7 +2589,7 @@ pub unsafe extern "C" fn scan_text_result(
     ap = args.clone();
     let mut i = 0 as ::core::ffi::c_uint;
     loop {
-        if !(i < asked) {
+        if i >= asked {
             current_block = 11793792312832361944;
             break;
         }
@@ -2708,7 +2708,7 @@ pub unsafe extern "C" fn scan_text_result(
         i = i.wrapping_add(1);
     }
     match current_block {
-        11793792312832361944 => return ncol as ::core::ffi::c_int,
-        _ => return -(1 as ::core::ffi::c_int),
-    };
+        11793792312832361944 => ncol as ::core::ffi::c_int,
+        _ => -(1 as ::core::ffi::c_int),
+    }
 }

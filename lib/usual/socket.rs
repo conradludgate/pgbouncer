@@ -183,8 +183,8 @@ pub mod _OSByteOrder_h {
     #[inline]
     #[c2rust::src_loc = "48:1"]
     pub unsafe extern "C" fn _OSSwapInt16(mut _data: __uint16_t) -> __uint16_t {
-        return ((_data as ::core::ffi::c_int) << 8 as ::core::ffi::c_int
-            | _data as ::core::ffi::c_int >> 8 as ::core::ffi::c_int) as __uint16_t;
+        ((_data as ::core::ffi::c_int) << 8 as ::core::ffi::c_int
+            | _data as ::core::ffi::c_int >> 8 as ::core::ffi::c_int) as __uint16_t
     }
     use super::_types_h::__uint16_t;
 }
@@ -321,7 +321,7 @@ pub unsafe extern "C" fn socket_set_nonblocking(
     if fcntl(fd, F_SETFL, flags) < 0 as ::core::ffi::c_int {
         return false_0 != 0;
     }
-    return true_0 != 0;
+    true_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "54:1"]
@@ -345,7 +345,7 @@ pub unsafe extern "C" fn socket_setup(mut sock: ::core::ffi::c_int, mut non_bloc
     if !socket_set_nonblocking(sock, non_block) {
         return false_0 != 0;
     }
-    return true_0 != 0;
+    true_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "78:1"]
@@ -419,7 +419,7 @@ pub unsafe extern "C" fn socket_set_keepalive(
             return false_0 != 0;
         }
     }
-    return true_0 != 0;
+    true_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "152:1"]
@@ -519,7 +519,7 @@ pub unsafe extern "C" fn sa2str(
             );
         }
     }
-    return dst;
+    dst
 }
 #[no_mangle]
 #[c2rust::src_loc = "207:1"]
@@ -530,9 +530,9 @@ pub unsafe extern "C" fn usual_getpeercreds(
     mut pid_p: *mut pid_t,
 ) -> ::core::ffi::c_int {
     *pid_p = 0 as ::core::ffi::c_int as pid_t;
-    return if getpeereid(fd, uid_p, gid_p) == 0 as ::core::ffi::c_int {
+    if getpeereid(fd, uid_p, gid_p) == 0 as ::core::ffi::c_int {
         0 as ::core::ffi::c_int
     } else {
         -(1 as ::core::ffi::c_int)
-    };
+    }
 }

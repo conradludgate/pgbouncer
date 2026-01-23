@@ -141,7 +141,7 @@ pub unsafe extern "C" fn cx_alloc(
     if cx.is_null() {
         cx = &raw const cx_libc_allocator;
     }
-    return (*(*cx).ops).c_alloc.expect("non-null function pointer")((*cx).ctx, len);
+    (*(*cx).ops).c_alloc.expect("non-null function pointer")((*cx).ctx, len)
 }
 #[no_mangle]
 #[c2rust::src_loc = "37:1"]
@@ -160,7 +160,7 @@ pub unsafe extern "C" fn cx_realloc(
         cx_free(cx, ptr);
         return NULL;
     }
-    return (*(*cx).ops).c_realloc.expect("non-null function pointer")((*cx).ctx, ptr, len);
+    (*(*cx).ops).c_realloc.expect("non-null function pointer")((*cx).ctx, ptr, len)
 }
 #[no_mangle]
 #[c2rust::src_loc = "50:1"]
@@ -193,7 +193,7 @@ pub unsafe extern "C" fn cx_alloc0(
     if !p.is_null() {
         memset(p, 0 as ::core::ffi::c_int, len);
     }
-    return p;
+    p
 }
 #[no_mangle]
 #[c2rust::src_loc = "75:1"]
@@ -206,7 +206,7 @@ pub unsafe extern "C" fn cx_memdup(
     if !p.is_null() {
         memcpy(p, src, len);
     }
-    return p;
+    p
 }
 #[no_mangle]
 #[c2rust::src_loc = "83:1"]
@@ -214,11 +214,11 @@ pub unsafe extern "C" fn cx_strdup(
     mut cx: *const CxMem,
     mut s: *const ::core::ffi::c_char,
 ) -> *mut ::core::ffi::c_void {
-    return cx_memdup(
+    cx_memdup(
         cx,
         s as *const ::core::ffi::c_void,
         strlen(s).wrapping_add(1 as size_t),
-    );
+    )
 }
 #[no_mangle]
 #[c2rust::src_loc = "88:1"]
@@ -231,7 +231,7 @@ pub unsafe extern "C" fn cx_sprintf(
     let mut ap: ::core::ffi::VaListImpl;
     ap = args.clone();
     res = cx_vsprintf(cx, fmt, ap.as_va_list());
-    return res;
+    res
 }
 #[no_mangle]
 #[c2rust::src_loc = "98:1"]
@@ -242,7 +242,7 @@ pub unsafe extern "C" fn cx_vsprintf(
 ) -> *mut ::core::ffi::c_char {
     let mut res = ::core::ptr::null_mut::<::core::ffi::c_char>();
     cx_vasprintf(cx, &raw mut res, fmt, ap.as_va_list());
-    return res;
+    res
 }
 #[no_mangle]
 #[c2rust::src_loc = "105:1"]
@@ -256,7 +256,7 @@ pub unsafe extern "C" fn cx_asprintf(
     let mut ap: ::core::ffi::VaListImpl;
     ap = args.clone();
     res = cx_vasprintf(cx, dst_p, fmt, ap.as_va_list());
-    return res;
+    res
 }
 #[no_mangle]
 #[c2rust::src_loc = "115:1"]
@@ -284,7 +284,7 @@ pub unsafe extern "C" fn cx_vasprintf(
     if dst.is_null() {
         return -(1 as ::core::ffi::c_int);
     }
-    if (res as size_t) < ::core::mem::size_of::<[::core::ffi::c_char; 128]>() as usize {
+    if (res as size_t) < ::core::mem::size_of::<[::core::ffi::c_char; 128]>() {
         memcpy(
             dst as *mut ::core::ffi::c_void,
             &raw mut buf as *mut ::core::ffi::c_char as *const ::core::ffi::c_void,
@@ -303,14 +303,14 @@ pub unsafe extern "C" fn cx_vasprintf(
         }
     }
     *dst_p = dst;
-    return res;
+    res
 }
 #[c2rust::src_loc = "146:1"]
 unsafe extern "C" fn libc_alloc(
     mut _ctx: *mut ::core::ffi::c_void,
     mut len: size_t,
 ) -> *mut ::core::ffi::c_void {
-    return malloc(len);
+    malloc(len)
 }
 #[c2rust::src_loc = "151:1"]
 unsafe extern "C" fn libc_realloc(
@@ -318,7 +318,7 @@ unsafe extern "C" fn libc_realloc(
     mut ptr: *mut ::core::ffi::c_void,
     mut len: size_t,
 ) -> *mut ::core::ffi::c_void {
-    return realloc(ptr, len);
+    realloc(ptr, len)
 }
 #[c2rust::src_loc = "156:1"]
 unsafe extern "C" fn libc_free(

@@ -1050,5 +1050,5 @@ pub unsafe extern "C" fn pam_auth_begin(
 #[no_mangle]
 #[c2rust::src_loc = "421:1"]
 pub unsafe extern "C" fn pam_poll() -> ::core::ffi::c_int {
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }

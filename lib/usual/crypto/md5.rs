@@ -74,7 +74,7 @@ pub mod bits_h {
     #[inline]
     #[c2rust::src_loc = "50:1"]
     pub unsafe extern "C" fn rol32(mut v: uint32_t, mut s: ::core::ffi::c_int) -> uint32_t {
-        return v << s | v >> 32 as ::core::ffi::c_int - s;
+        v << s | v >> (32 as ::core::ffi::c_int - s)
     }
     use super::_uint32_t_h::uint32_t;
 }
@@ -709,5 +709,5 @@ static mut md5: DigestInfo = unsafe {
 #[no_mangle]
 #[c2rust::src_loc = "210:1"]
 pub unsafe extern "C" fn digest_MD5() -> *const DigestInfo {
-    return &raw const md5;
+    &raw const md5
 }

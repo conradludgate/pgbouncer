@@ -13,7 +13,7 @@ pub mod list_h {
     #[inline]
     #[c2rust::src_loc = "52:1"]
     pub unsafe extern "C" fn list_empty(mut list: *const List) -> ::core::ffi::c_int {
-        return ((*list).next == list as *mut List) as ::core::ffi::c_int;
+        std::ptr::eq((*list).next, list) as ::core::ffi::c_int
     }
 }
 #[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_null.h:19"]
@@ -55,7 +55,7 @@ unsafe extern "C" fn merge(
         tail = e;
     }
     (*tail).next = if !p.is_null() { p } else { q };
-    return (*(&raw mut res as *mut List)).next;
+    (*(&raw mut res as *mut List)).next
 }
 #[no_mangle]
 #[c2rust::src_loc = "46:1"]

@@ -499,10 +499,10 @@ pub mod pgutil_kwlookup_h {
         let mut hval = len as ::core::ffi::c_uint;
         let mut current_block_3: u64;
         match hval {
-            8 | 7 | 6 => {
+            6..=8 => {
                 current_block_3 = 3907860993030533457;
             }
-            5 | 4 | 3 | 2 => {
+            2..=5 => {
                 current_block_3 = 17908814879015121377;
             }
             1 => {
@@ -517,36 +517,30 @@ pub mod pgutil_kwlookup_h {
                 current_block_3 = 3907860993030533457;
             }
         }
-        match current_block_3 {
-            3907860993030533457 => {
-                hval = hval.wrapping_add(
-                    asso_values[*str.offset(5 as ::core::ffi::c_int as isize)
-                        as ::core::ffi::c_uchar as usize]
-                        as ::core::ffi::c_uint,
-                );
-                current_block_3 = 17908814879015121377;
-            }
-            _ => {}
+        if current_block_3 == 3907860993030533457 {
+            hval = hval.wrapping_add(
+                asso_values
+                    [*str.offset(5 as ::core::ffi::c_int as isize) as ::core::ffi::c_uchar as usize]
+                    as ::core::ffi::c_uint,
+            );
+            current_block_3 = 17908814879015121377;
         }
-        match current_block_3 {
-            17908814879015121377 => {
-                hval = hval.wrapping_add(
-                    asso_values[*str.offset(1 as ::core::ffi::c_int as isize)
-                        as ::core::ffi::c_uchar as usize]
-                        as ::core::ffi::c_uint,
-                );
-            }
-            _ => {}
+        if current_block_3 == 17908814879015121377 {
+            hval = hval.wrapping_add(
+                asso_values
+                    [*str.offset(1 as ::core::ffi::c_int as isize) as ::core::ffi::c_uchar as usize]
+                    as ::core::ffi::c_uint,
+            );
         }
         hval = hval.wrapping_add(
             asso_values
                 [*str.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_uchar as usize]
                 as ::core::ffi::c_uint,
         );
-        return hval.wrapping_add(
-            asso_values[*str.offset(len.wrapping_sub(1 as size_t) as isize) as ::core::ffi::c_uchar
-                as usize] as ::core::ffi::c_uint,
-        );
+        hval.wrapping_add(
+            asso_values[*str.add(len.wrapping_sub(1 as size_t)) as ::core::ffi::c_uchar as usize]
+                as ::core::ffi::c_uint,
+        )
     }
     #[no_mangle]
     #[c2rust::src_loc = "97:1"]
@@ -948,7 +942,7 @@ pub mod pgutil_kwlookup_h {
                 }
             }
         }
-        return ::core::ptr::null::<::core::ffi::c_char>();
+        ::core::ptr::null::<::core::ffi::c_char>()
     }
     use super::_size_t_h::size_t;
     use super::_string_h::strcmp;
@@ -1064,7 +1058,7 @@ pub mod ctype_h {
     #[inline]
     #[c2rust::src_loc = "105:1"]
     pub unsafe extern "C" fn safe_isspace(mut c: ::core::ffi::c_int) -> ::core::ffi::c_int {
-        return isspace(c as ::core::ffi::c_uchar as ::core::ffi::c_int);
+        isspace(c as ::core::ffi::c_uchar as ::core::ffi::c_int)
     }
     use super::_ctype_h::isspace;
 }
@@ -1075,8 +1069,7 @@ pub mod _ctype_h {
     #[inline]
     #[c2rust::src_loc = "139:1"]
     pub unsafe extern "C" fn isascii(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
-        return (_c & !(0x7f as ::core::ffi::c_int) == 0 as ::core::ffi::c_int)
-            as ::core::ffi::c_int;
+        (_c & !(0x7f as ::core::ffi::c_int) == 0 as ::core::ffi::c_int) as ::core::ffi::c_int
     }
     #[inline]
     #[c2rust::src_loc = "157:1"]
@@ -1084,17 +1077,17 @@ pub mod _ctype_h {
         mut _c: __darwin_ct_rune_t,
         mut _f: ::core::ffi::c_ulong,
     ) -> ::core::ffi::c_int {
-        return if isascii(_c as ::core::ffi::c_int) != 0 {
+        if isascii(_c as ::core::ffi::c_int) != 0 {
             (_DefaultRuneLocale.__runetype[_c as usize] as ::core::ffi::c_ulong & _f != 0)
                 as ::core::ffi::c_int
         } else {
             (__maskrune(_c, _f) != 0) as ::core::ffi::c_int
-        };
+        }
     }
     #[inline]
     #[c2rust::src_loc = "271:1"]
     pub unsafe extern "C" fn isspace(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
-        return __istype(_c as __darwin_ct_rune_t, _CTYPE_S as ::core::ffi::c_ulong);
+        __istype(_c as __darwin_ct_rune_t, _CTYPE_S as ::core::ffi::c_ulong)
     }
     use super::_types_h::__darwin_ct_rune_t;
     use super::runetype_h::_DefaultRuneLocale;
@@ -1204,19 +1197,19 @@ pub unsafe extern "C" fn pg_quote_literal(
     dst = dst.offset(1);
     *fresh5 = '\'' as i32 as ::core::ffi::c_char;
     *dst = 0 as ::core::ffi::c_char;
-    return true_0 != 0;
+    true_0 != 0
 }
 #[inline]
 #[c2rust::src_loc = "58:1"]
 unsafe extern "C" fn id_start(mut c: ::core::ffi::c_uchar) -> bool {
-    return c as ::core::ffi::c_int >= 'a' as i32 && c as ::core::ffi::c_int <= 'z' as i32
-        || c as ::core::ffi::c_int == '_' as i32;
+    c as ::core::ffi::c_int >= 'a' as i32 && c as ::core::ffi::c_int <= 'z' as i32
+        || c as ::core::ffi::c_int == '_' as i32
 }
 #[inline]
 #[c2rust::src_loc = "63:1"]
 unsafe extern "C" fn id_body(mut c: ::core::ffi::c_uchar) -> bool {
-    return id_start(c) as ::core::ffi::c_int != 0
-        || c as ::core::ffi::c_int >= '0' as i32 && c as ::core::ffi::c_int <= '9' as i32;
+    id_start(c) as ::core::ffi::c_int != 0
+        || c as ::core::ffi::c_int >= '0' as i32 && c as ::core::ffi::c_int <= '9' as i32
 }
 #[no_mangle]
 #[c2rust::src_loc = "69:1"]
@@ -1299,7 +1292,7 @@ pub unsafe extern "C" fn pg_quote_ident(
     dst = dst.offset(1);
     *fresh13 = '"' as i32 as ::core::ffi::c_char;
     *dst = 0 as ::core::ffi::c_char;
-    return true_0 != 0;
+    true_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "113:1"]
@@ -1338,7 +1331,7 @@ pub unsafe extern "C" fn pg_quote_fqident(
     if !pg_quote_ident(_dst, _src, dstlen) {
         return false_0 != 0;
     }
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "146:1"]
 unsafe extern "C" fn parse_value(
@@ -1423,7 +1416,7 @@ unsafe extern "C" fn parse_value(
         cx_free(cx, str as *mut ::core::ffi::c_void);
         return false_0 != 0;
     }
-    return true_0 != 0;
+    true_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "196:1"]
@@ -1455,7 +1448,7 @@ pub unsafe extern "C" fn pg_parse_array(
         return ::core::ptr::null_mut::<StrList>();
     }
     's_48: loop {
-        if !(*s != 0) {
+        if *s == 0 {
             current_block = 9853141518545631134;
             break;
         }
@@ -1466,11 +1459,9 @@ pub unsafe extern "C" fn pg_parse_array(
                 current_block = 398846161464620410;
                 break;
             }
-            if !val.is_null() {
-                if !parse_value(lst, val, s, cx) {
-                    current_block = 398846161464620410;
-                    break;
-                }
+            if !val.is_null() && !parse_value(lst, val, s, cx) {
+                current_block = 398846161464620410;
+                break;
             }
             return lst;
         } else {
@@ -1508,7 +1499,7 @@ pub unsafe extern "C" fn pg_parse_array(
                         }
                     }
                 } else {
-                    if !(c == '\\' as i32 as ::core::ffi::c_uint) {
+                    if c != '\\' as i32 as ::core::ffi::c_uint {
                         continue;
                     }
                     if *s == 0 {
@@ -1520,23 +1511,19 @@ pub unsafe extern "C" fn pg_parse_array(
             }
         }
     }
-    match current_block {
-        9853141518545631134 => {
-            if !(*s.offset(-(1 as ::core::ffi::c_int) as isize) as ::core::ffi::c_int != '}' as i32)
-            {
-                return lst;
-            }
-        }
-        _ => {}
+    if current_block == 9853141518545631134
+        && (*s.offset(-(1 as ::core::ffi::c_int) as isize) as ::core::ffi::c_int == '}' as i32)
+    {
+        return lst;
     }
     strlist_free(lst);
-    return ::core::ptr::null_mut::<StrList>();
+    ::core::ptr::null_mut::<StrList>()
 }
 #[no_mangle]
 #[c2rust::src_loc = "286:1"]
 pub unsafe extern "C" fn pg_is_reserved_word(mut str: *const ::core::ffi::c_char) -> bool {
     let mut kw = pg_keyword_lookup_real(str, strlen(str));
-    return !kw.is_null();
+    !kw.is_null()
 }
 unsafe extern "C" fn run_static_initializers() {
     wordlist = [

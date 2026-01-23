@@ -663,7 +663,7 @@ use self::unistd_h::{close, read};
 #[no_mangle]
 #[c2rust::src_loc = "30:1"]
 pub unsafe extern "C" fn tls_backend_version() -> *const ::core::ffi::c_char {
-    return OpenSSL_version(OPENSSL_VERSION);
+    OpenSSL_version(OPENSSL_VERSION)
 }
 #[no_mangle]
 #[c2rust::src_loc = "43:1"]
@@ -728,18 +728,15 @@ pub unsafe extern "C" fn tls_host_port(
             }
         }
     }
-    match current_block {
-        4597018210457273307 => {
-            free(*host as *mut ::core::ffi::c_void);
-            *host = ::core::ptr::null_mut::<::core::ffi::c_char>();
-            free(*port as *mut ::core::ffi::c_void);
-            *port = ::core::ptr::null_mut::<::core::ffi::c_char>();
-            rv = -(1 as ::core::ffi::c_int);
-        }
-        _ => {}
+    if current_block == 4597018210457273307 {
+        free(*host as *mut ::core::ffi::c_void);
+        *host = ::core::ptr::null_mut::<::core::ffi::c_char>();
+        free(*port as *mut ::core::ffi::c_void);
+        *port = ::core::ptr::null_mut::<::core::ffi::c_char>();
+        rv = -(1 as ::core::ffi::c_int);
     }
     free(s as *mut ::core::ffi::c_void);
-    return rv;
+    rv
 }
 #[c2rust::src_loc = "95:1"]
 unsafe extern "C" fn tls_password_cb(
@@ -761,7 +758,7 @@ unsafe extern "C" fn tls_password_cb(
     if len >= size as size_t {
         return 0 as ::core::ffi::c_int;
     }
-    return len as ::core::ffi::c_int;
+    len as ::core::ffi::c_int
 }
 #[no_mangle]
 #[c2rust::src_loc = "107:1"]
@@ -908,13 +905,13 @@ pub unsafe extern "C" fn tls_load_file(
             if !key.is_null() {
                 EVP_PKEY_free(key);
             }
-            return ::core::ptr::null_mut::<uint8_t>();
+            ::core::ptr::null_mut::<uint8_t>()
         }
         _ => {
             *len = size;
-            return buf;
+            buf
         }
-    };
+    }
 }
 #[no_mangle]
 #[c2rust::src_loc = "176:1"]
@@ -1003,7 +1000,7 @@ pub unsafe extern "C" fn tls_get_connection_info(
         ocsp_info = (*ctx).ocsp_result;
         ocsp_pfx = b"/OCSP=\0" as *const u8 as *const ::core::ffi::c_char;
     }
-    return snprintf(
+    snprintf(
         buf,
         buflen,
         b"%s/%s%s%s%s\0" as *const u8 as *const ::core::ffi::c_char,
@@ -1012,5 +1009,5 @@ pub unsafe extern "C" fn tls_get_connection_info(
         &raw mut dh as *mut ::core::ffi::c_char,
         ocsp_pfx,
         ocsp_info,
-    ) as ssize_t;
+    ) as ssize_t
 }

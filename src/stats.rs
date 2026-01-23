@@ -1426,7 +1426,7 @@ pub unsafe extern "C" fn admin_database_stats(
         buf,
         b"SHOW\0" as *const u8 as *const ::core::ffi::c_char,
     );
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "175:1"]
 unsafe extern "C" fn write_stats_totals(
@@ -1549,7 +1549,7 @@ pub unsafe extern "C" fn admin_database_stats_totals(
         buf,
         b"SHOW\0" as *const u8 as *const ::core::ffi::c_char,
     );
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "235:1"]
 unsafe extern "C" fn write_stats_averages(
@@ -1686,7 +1686,7 @@ pub unsafe extern "C" fn admin_database_stats_averages(
         buf,
         b"SHOW\0" as *const u8 as *const ::core::ffi::c_char,
     );
-    return true_0 != 0;
+    true_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "297:1"]
@@ -1898,7 +1898,7 @@ pub unsafe extern "C" fn show_stat_totals(
         buf,
         b"SHOW\0" as *const u8 as *const ::core::ffi::c_char,
     );
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "354:1"]
 unsafe extern "C" fn refresh_stats(

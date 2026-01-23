@@ -139,7 +139,7 @@ pub unsafe extern "C" fn digest_new(
     (*impl_0).init.expect("non-null function pointer")(
         &raw mut (*ctx).state as *mut uint64_t as *mut ::core::ffi::c_void,
     );
-    return ctx;
+    ctx
 }
 #[no_mangle]
 #[c2rust::src_loc = "45:1"]
@@ -186,10 +186,10 @@ pub unsafe extern "C" fn digest_free(mut ctx: *mut DigestContext) {
 #[no_mangle]
 #[c2rust::src_loc = "69:1"]
 pub unsafe extern "C" fn digest_block_len(mut ctx: *mut DigestContext) -> ::core::ffi::c_uint {
-    return (*(*ctx).impl_0).block_len as ::core::ffi::c_uint;
+    (*(*ctx).impl_0).block_len as ::core::ffi::c_uint
 }
 #[no_mangle]
 #[c2rust::src_loc = "74:1"]
 pub unsafe extern "C" fn digest_result_len(mut ctx: *mut DigestContext) -> ::core::ffi::c_uint {
-    return (*(*ctx).impl_0).result_len as ::core::ffi::c_uint;
+    (*(*ctx).impl_0).result_len as ::core::ffi::c_uint
 }

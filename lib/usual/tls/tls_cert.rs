@@ -317,14 +317,14 @@ pub mod asn1_h {
     pub unsafe extern "C" fn ossl_check_ASN1_OBJECT_sk_type(
         mut sk: *mut stack_st_ASN1_OBJECT,
     ) -> *mut OPENSSL_STACK {
-        return sk as *mut OPENSSL_STACK;
+        sk as *mut OPENSSL_STACK
     }
     #[inline]
     #[c2rust::src_loc = "635:1"]
     pub unsafe extern "C" fn ossl_check_ASN1_OBJECT_freefunc_type(
         mut fr: sk_ASN1_OBJECT_freefunc,
     ) -> OPENSSL_sk_freefunc {
-        return ::core::mem::transmute::<sk_ASN1_OBJECT_freefunc, OPENSSL_sk_freefunc>(fr);
+        ::core::mem::transmute::<sk_ASN1_OBJECT_freefunc, OPENSSL_sk_freefunc>(fr)
     }
     use super::stack_h::{OPENSSL_sk_freefunc, OPENSSL_STACK};
     use super::types_h::{
@@ -441,21 +441,21 @@ pub mod x509v3_h {
     pub unsafe extern "C" fn ossl_check_const_GENERAL_NAME_sk_type(
         mut sk: *const stack_st_GENERAL_NAME,
     ) -> *const OPENSSL_STACK {
-        return sk as *const OPENSSL_STACK;
+        sk as *const OPENSSL_STACK
     }
     #[inline]
     #[c2rust::src_loc = "237:1"]
     pub unsafe extern "C" fn ossl_check_GENERAL_NAME_freefunc_type(
         mut fr: sk_GENERAL_NAME_freefunc,
     ) -> OPENSSL_sk_freefunc {
-        return ::core::mem::transmute::<sk_GENERAL_NAME_freefunc, OPENSSL_sk_freefunc>(fr);
+        ::core::mem::transmute::<sk_GENERAL_NAME_freefunc, OPENSSL_sk_freefunc>(fr)
     }
     #[inline]
     #[c2rust::src_loc = "237:1"]
     pub unsafe extern "C" fn ossl_check_GENERAL_NAME_sk_type(
         mut sk: *mut stack_st_GENERAL_NAME,
     ) -> *mut OPENSSL_STACK {
-        return sk as *mut OPENSSL_STACK;
+        sk as *mut OPENSSL_STACK
     }
     #[c2rust::src_loc = "674:10"]
     pub const KU_DIGITAL_SIGNATURE: ::core::ffi::c_int = X509v3_KU_DIGITAL_SIGNATURE;
@@ -963,7 +963,7 @@ unsafe extern "C" fn tls_parse_bigint(
         ctx,
         b"cannot parse serial\0" as *const u8 as *const ::core::ffi::c_char,
     );
-    return -(1 as ::core::ffi::c_int);
+    -(1 as ::core::ffi::c_int)
 }
 #[c2rust::src_loc = "87:1"]
 unsafe extern "C" fn check_invalid_bytes(
@@ -978,7 +978,7 @@ unsafe extern "C" fn check_invalid_bytes(
     let mut c: ::core::ffi::c_uint = 0;
     i = 0 as ::core::ffi::c_uint;
     loop {
-        if !(i < len) {
+        if i >= len {
             current_block = 9606288038608642794;
             break;
         }
@@ -1035,9 +1035,9 @@ unsafe extern "C" fn check_invalid_bytes(
         }
     }
     match current_block {
-        17825605587671619221 => return -(1 as ::core::ffi::c_int),
-        _ => return 0 as ::core::ffi::c_int,
-    };
+        17825605587671619221 => -(1 as ::core::ffi::c_int),
+        _ => 0 as ::core::ffi::c_int,
+    }
 }
 #[c2rust::src_loc = "122:1"]
 unsafe extern "C" fn tls_parse_asn1string(
@@ -1163,13 +1163,13 @@ unsafe extern "C" fn tls_parse_asn1string(
                                     as *const ::core::ffi::c_char,
                                 desc,
                             );
-                        } else if !(check_invalid_bytes(
+                        } else if check_invalid_bytes(
                             ctx,
                             data,
                             len as ::core::ffi::c_uint,
                             ascii_only,
                             desc,
-                        ) < 0 as ::core::ffi::c_int)
+                        ) >= 0 as ::core::ffi::c_int
                         {
                             cstr = malloc((len + 1 as ::core::ffi::c_int) as size_t)
                                 as *mut ::core::ffi::c_char;
@@ -1195,7 +1195,7 @@ unsafe extern "C" fn tls_parse_asn1string(
         }
     }
     ASN1_STRING_free(a1utf);
-    return ret;
+    ret
 }
 #[c2rust::src_loc = "217:1"]
 unsafe extern "C" fn tls_cert_get_dname_string(
@@ -1228,7 +1228,7 @@ unsafe extern "C" fn tls_cert_get_dname_string(
     if len < 0 as ::core::ffi::c_int {
         return -(1 as ::core::ffi::c_int);
     }
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }
 #[c2rust::src_loc = "240:1"]
 unsafe extern "C" fn tls_load_alt_ia5string(
@@ -1270,7 +1270,7 @@ unsafe extern "C" fn tls_load_alt_ia5string(
     (*slot).name_value = data as *const ::core::ffi::c_void;
     (*slot).name_type = slot_type;
     (*cert).subject_alt_name_count += 1;
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }
 #[c2rust::src_loc = "269:1"]
 unsafe extern "C" fn tls_load_alt_ipaddr(
@@ -1315,7 +1315,7 @@ unsafe extern "C" fn tls_load_alt_ipaddr(
         len as size_t,
     );
     (*cert).subject_alt_name_count += 1;
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }
 #[c2rust::src_loc = "308:1"]
 unsafe extern "C" fn tls_cert_get_altnames(
@@ -1351,7 +1351,7 @@ unsafe extern "C" fn tls_cert_get_altnames(
         } else {
             i = 0 as ::core::ffi::c_int;
             loop {
-                if !(i < count) {
+                if i >= count {
                     current_block = 17478428563724192186;
                     break;
                 }
@@ -1412,7 +1412,7 @@ unsafe extern "C" fn tls_cert_get_altnames(
             GENERAL_NAME_free as unsafe extern "C" fn(*mut GENERAL_NAME) -> (),
         )),
     );
-    return rv;
+    rv
 }
 #[c2rust::src_loc = "355:1"]
 unsafe extern "C" fn tls_get_dname(
@@ -1496,7 +1496,7 @@ unsafe extern "C" fn tls_get_dname(
             b"organizationalUnitName\0" as *const u8 as *const ::core::ffi::c_char,
         );
     }
-    return ret;
+    ret
 }
 #[c2rust::src_loc = "387:1"]
 unsafe extern "C" fn tls_get_basic_constraints(
@@ -1542,14 +1542,11 @@ unsafe extern "C" fn tls_get_basic_constraints(
         (*cert).basic_constraints_pathlen = -(1 as ::core::ffi::c_int);
         current_block = 7746791466490516765;
     }
-    match current_block {
-        7746791466490516765 => {
-            ret = 0 as ::core::ffi::c_int;
-        }
-        _ => {}
+    if current_block == 7746791466490516765 {
+        ret = 0 as ::core::ffi::c_int;
     }
     BASIC_CONSTRAINTS_free(bc);
-    return ret;
+    ret
 }
 #[c2rust::src_loc = "417:1"]
 unsafe extern "C" fn map_bits(mut map: *const [uint32_t; 2], mut input: uint32_t) -> uint32_t {
@@ -1562,7 +1559,7 @@ unsafe extern "C" fn map_bits(mut map: *const [uint32_t; 2], mut input: uint32_t
         }
         i = i.wrapping_add(1);
     }
-    return out;
+    out
 }
 #[c2rust::src_loc = "427:1"]
 unsafe extern "C" fn tls_get_key_usage(
@@ -1617,7 +1614,7 @@ unsafe extern "C" fn tls_get_key_usage(
         &raw const ku_map as *const [uint32_t; 2],
         X509_get_key_usage(x509),
     );
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }
 #[c2rust::src_loc = "457:1"]
 unsafe extern "C" fn tls_get_ext_key_usage(
@@ -1664,7 +1661,7 @@ unsafe extern "C" fn tls_get_ext_key_usage(
         &raw const xku_map as *const [uint32_t; 2],
         X509_get_extended_key_usage(x509),
     );
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }
 #[c2rust::src_loc = "486:1"]
 unsafe extern "C" fn tls_load_extensions(
@@ -1684,7 +1681,7 @@ unsafe extern "C" fn tls_load_extensions(
     if ret == 0 as ::core::ffi::c_int {
         ret = tls_cert_get_altnames(ctx, cert, x509);
     }
-    return ret;
+    ret
 }
 #[c2rust::src_loc = "506:1"]
 unsafe extern "C" fn tls_calc_fingerprint(
@@ -1734,7 +1731,7 @@ unsafe extern "C" fn tls_calc_fingerprint(
     if !outlen.is_null() {
         *outlen = mdlen as size_t;
     }
-    return res;
+    res
 }
 #[c2rust::src_loc = "545:1"]
 unsafe extern "C" fn check_verify_error(mut ctx: *mut tls, mut cert: *mut tls_cert) {
@@ -1840,7 +1837,7 @@ pub unsafe extern "C" fn tls_parse_cert(
         }
     }
     tls_cert_free(cert);
-    return ret;
+    ret
 }
 #[no_mangle]
 #[c2rust::src_loc = "615:1"]
@@ -1865,7 +1862,7 @@ pub unsafe extern "C" fn tls_get_peer_cert(
         check_verify_error(ctx, *cert_p);
     }
     ERR_clear_error();
-    return res;
+    res
 }
 #[c2rust::src_loc = "635:1"]
 unsafe extern "C" fn tls_cert_free_dname(mut dname: *mut tls_cert_dname) {

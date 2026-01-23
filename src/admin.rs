@@ -211,7 +211,7 @@ pub mod list_h {
     #[inline]
     #[c2rust::src_loc = "52:1"]
     pub unsafe extern "C" fn list_empty(mut list: *const List) -> ::core::ffi::c_int {
-        return ((*list).next == list as *mut List) as ::core::ffi::c_int;
+        std::ptr::eq((*list).next, list) as ::core::ffi::c_int
     }
 }
 #[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/statlist.h:23"]
@@ -226,12 +226,12 @@ pub mod statlist_h {
     #[inline]
     #[c2rust::src_loc = "88:1"]
     pub unsafe extern "C" fn statlist_count(mut list: *const StatList) -> ::core::ffi::c_int {
-        return (*list).cur_count;
+        (*list).cur_count
     }
     #[inline]
     #[c2rust::src_loc = "120:1"]
     pub unsafe extern "C" fn statlist_empty(mut list: *const StatList) -> bool {
-        return list_empty(&raw const (*list).head) != 0;
+        list_empty(&raw const (*list).head) != 0
     }
     use super::list_h::{list_empty, List};
 }
@@ -903,7 +903,7 @@ pub mod bouncer_h {
     #[inline]
     #[c2rust::src_loc = "303:1"]
     pub unsafe extern "C" fn pga_is_unix(mut a: *const PgAddr) -> bool {
-        return (*a).sa.sa_family as ::core::ffi::c_int == AF_UNIX;
+        (*a).sa.sa_family as ::core::ffi::c_int == AF_UNIX
     }
     #[inline]
     #[c2rust::src_loc = "917:1"]
@@ -911,8 +911,8 @@ pub mod bouncer_h {
         if statlist_empty(slist) {
             return ::core::ptr::null_mut::<PgSocket>();
         }
-        return ((*slist).head.next as *mut ::core::ffi::c_char)
-            .offset(-(0 as ::core::ffi::c_ulong as isize)) as *mut PgSocket;
+        ((*slist).head.next as *mut ::core::ffi::c_char)
+            .offset(-(0 as ::core::ffi::c_ulong as isize)) as *mut PgSocket
     }
 
     use super::_pid_t_h::pid_t;
@@ -1057,8 +1057,8 @@ pub mod sbuf_h {
     #[inline]
     #[c2rust::src_loc = "144:1"]
     pub unsafe extern "C" fn sbuf_is_empty(mut sbuf: *mut SBuf) -> bool {
-        return iobuf_empty((*sbuf).io) as ::core::ffi::c_int != 0
-            && (*sbuf).pkt_remain == 0 as ::core::ffi::c_uint;
+        iobuf_empty((*sbuf).io) as ::core::ffi::c_int != 0
+            && (*sbuf).pkt_remain == 0 as ::core::ffi::c_uint
     }
     #[inline]
     #[c2rust::src_loc = "168:1"]
@@ -1067,9 +1067,9 @@ pub mod sbuf_h {
         mut buf: *const ::core::ffi::c_void,
         mut len: size_t,
     ) -> ssize_t {
-        return (*(*sbuf).ops)
+        (*(*sbuf).ops)
             .sbufio_send
-            .expect("non-null function pointer")(sbuf, buf, len);
+            .expect("non-null function pointer")(sbuf, buf, len)
     }
     use super::_size_t_h::size_t;
     use super::_ssize_t_h::ssize_t;
@@ -1101,17 +1101,17 @@ pub mod iobuf_h {
     #[inline]
     #[c2rust::src_loc = "65:1"]
     pub unsafe extern "C" fn iobuf_empty(mut io: *const IOBuf) -> bool {
-        return io.is_null() || (*io).done_pos == (*io).recv_pos;
+        io.is_null() || (*io).done_pos == (*io).recv_pos
     }
     #[inline]
     #[c2rust::src_loc = "71:1"]
     pub unsafe extern "C" fn iobuf_amount_pending(mut buf: *const IOBuf) -> ::core::ffi::c_uint {
-        return (*buf).parse_pos.wrapping_sub((*buf).done_pos);
+        (*buf).parse_pos.wrapping_sub((*buf).done_pos)
     }
     #[inline]
     #[c2rust::src_loc = "77:1"]
     pub unsafe extern "C" fn iobuf_amount_parse(mut buf: *const IOBuf) -> ::core::ffi::c_uint {
-        return (*buf).recv_pos.wrapping_sub((*buf).parse_pos);
+        (*buf).recv_pos.wrapping_sub((*buf).parse_pos)
     }
     use super::_uint8_t_h::uint8_t;
 }
@@ -1145,12 +1145,12 @@ pub mod mbuf_h {
     #[inline]
     #[c2rust::src_loc = "99:1"]
     pub unsafe extern "C" fn mbuf_avail_for_read(mut buf: *const MBuf) -> ::core::ffi::c_uint {
-        return (*buf).write_pos.wrapping_sub((*buf).read_pos);
+        (*buf).write_pos.wrapping_sub((*buf).read_pos)
     }
     #[inline]
     #[c2rust::src_loc = "113:1"]
     pub unsafe extern "C" fn mbuf_written(mut buf: *const MBuf) -> ::core::ffi::c_uint {
-        return (*buf).write_pos;
+        (*buf).write_pos
     }
     #[inline]
     #[c2rust::src_loc = "184:1"]
@@ -1181,7 +1181,7 @@ pub mod mbuf_h {
             | b << 16 as ::core::ffi::c_int
             | c << 8 as ::core::ffi::c_int
             | d) as uint32_t;
-        return true_0 != 0;
+        true_0 != 0
     }
     #[inline]
     #[c2rust::src_loc = "199:1"]
@@ -1195,7 +1195,7 @@ pub mod mbuf_h {
             return false_0 != 0;
         }
         *dst_p = (a as uint64_t) << 32 as ::core::ffi::c_int | b as uint64_t;
-        return true_0 != 0;
+        true_0 != 0
     }
     #[inline]
     #[c2rust::src_loc = "231:1"]
@@ -1217,7 +1217,7 @@ pub mod mbuf_h {
         (*buf).read_pos =
             nul.offset(1 as ::core::ffi::c_int as isize)
                 .offset_from((*buf).data) as ::core::ffi::c_long as ::core::ffi::c_uint;
-        return true_0 != 0;
+        true_0 != 0
     }
     use super::_size_t_h::size_t;
     use super::_string_h::memchr;
@@ -1239,16 +1239,16 @@ pub mod proto_h {
     #[inline]
     #[c2rust::src_loc = "66:1"]
     pub unsafe extern "C" fn incomplete_pkt(mut pkt: *const PktHdr) -> bool {
-        return mbuf_written(&raw const (*pkt).data) != (*pkt).len;
+        mbuf_written(&raw const (*pkt).data) != (*pkt).len
     }
     #[inline]
     #[c2rust::src_loc = "102:1"]
     pub unsafe extern "C" fn pkt_desc(mut pkt: *const PktHdr) -> ::core::ffi::c_char {
-        return (if (*pkt).type_0 > 256 as ::core::ffi::c_uint {
+        (if (*pkt).type_0 > 256 as ::core::ffi::c_uint {
             '!' as i32 as ::core::ffi::c_uint
         } else {
             (*pkt).type_0
-        }) as ::core::ffi::c_char;
+        }) as ::core::ffi::c_char
     }
     use super::bouncer_h::PgSocket;
     use super::mbuf_h::{mbuf_written, MBuf};
@@ -1775,7 +1775,7 @@ pub mod endian_h {
     #[inline]
     #[c2rust::src_loc = "144:1"]
     pub unsafe extern "C" fn usual_bswap32(mut x: uint32_t) -> uint32_t {
-        return x.swap_bytes();
+        x.swap_bytes()
     }
     #[inline]
     #[c2rust::src_loc = "250:1"]
@@ -1786,7 +1786,7 @@ pub mod endian_h {
             p,
             ::core::mem::size_of::<uint32_t>() as size_t,
         );
-        return usual_bswap32(tmp);
+        usual_bswap32(tmp)
     }
     use super::_size_t_h::size_t;
     use super::_string_h::memcpy;
@@ -1809,7 +1809,7 @@ pub mod safeio_h {
 pub mod _param_h {
     #[c2rust::src_loc = "20:14"]
     pub const __DARWIN_ALIGNBYTES32: usize =
-        (::core::mem::size_of::<__uint32_t>() as usize).wrapping_sub(1 as usize);
+        ::core::mem::size_of::<__uint32_t>().wrapping_sub(1_usize);
     use super::_types_h::__uint32_t;
 }
 #[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/janitor.h:23"]
@@ -2124,7 +2124,7 @@ pub unsafe extern "C" fn admin_cleanup() {
 }
 #[c2rust::src_loc = "83:1"]
 unsafe extern "C" fn syntax_error(mut admin: *mut PgSocket) -> bool {
-    return admin_error(
+    admin_error(
         admin,
         b"invalid command '%s', use SHOW HELP;\0" as *const u8 as *const ::core::ffi::c_char,
         if !current_query.is_null() {
@@ -2132,7 +2132,7 @@ unsafe extern "C" fn syntax_error(mut admin: *mut PgSocket) -> bool {
         } else {
             b"<no query>\0" as *const u8 as *const ::core::ffi::c_char
         },
-    );
+    )
 }
 #[c2rust::src_loc = "89:1"]
 unsafe extern "C" fn exec_cmd(
@@ -2147,7 +2147,7 @@ unsafe extern "C" fn exec_cmd(
         }
         lookup = lookup.offset(1);
     }
-    return syntax_error(admin);
+    syntax_error(admin)
 }
 #[no_mangle]
 #[c2rust::src_loc = "99:1"]
@@ -2182,7 +2182,7 @@ pub unsafe extern "C" fn admin_error(
             &raw mut str as *mut ::core::ffi::c_char,
         );
     }
-    return res;
+    res
 }
 #[c2rust::src_loc = "115:1"]
 unsafe extern "C" fn count_paused_databases() -> ::core::ffi::c_int {
@@ -2196,7 +2196,7 @@ unsafe extern "C" fn count_paused_databases() -> ::core::ffi::c_int {
         cnt += (*db).db_paused as ::core::ffi::c_int;
         item = (*item).next;
     }
-    return cnt;
+    cnt
 }
 #[c2rust::src_loc = "128:1"]
 unsafe extern "C" fn count_db_active(mut db: *mut PgDatabase) -> ::core::ffi::c_int {
@@ -2207,7 +2207,7 @@ unsafe extern "C" fn count_db_active(mut db: *mut PgDatabase) -> ::core::ffi::c_
     while item != &raw mut pool_list.head {
         pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
             as *mut PgPool;
-        if !((*pool).db != db) {
+        if (*pool).db == db {
             cnt += statlist_count(&raw mut (*pool).active_server_list)
                 + statlist_count(&raw mut (*pool).being_canceled_server_list)
                 + statlist_count(&raw mut (*pool).idle_server_list)
@@ -2218,7 +2218,7 @@ unsafe extern "C" fn count_db_active(mut db: *mut PgDatabase) -> ::core::ffi::c_
         }
         item = (*item).next;
     }
-    return cnt;
+    cnt
 }
 #[no_mangle]
 #[c2rust::src_loc = "143:1"]
@@ -2239,7 +2239,7 @@ pub unsafe extern "C" fn admin_flush(
         b"c\0" as *const u8 as *const ::core::ffi::c_char,
         'I' as i32,
     );
-    return pktbuf_send_queued(buf, admin);
+    pktbuf_send_queued(buf, admin)
 }
 #[no_mangle]
 #[c2rust::src_loc = "150:1"]
@@ -2276,7 +2276,7 @@ pub unsafe extern "C" fn admin_ready(
         b"c\0" as *const u8 as *const ::core::ffi::c_char,
         'I' as i32,
     );
-    return pktbuf_send_immediate(&raw mut buf, admin);
+    pktbuf_send_immediate(&raw mut buf, admin)
 }
 #[c2rust::src_loc = "169:1"]
 static mut fake_param_list: [FakeParam; 6] = [
@@ -2347,7 +2347,7 @@ unsafe extern "C" fn fake_show(
             );
         }
     }
-    return got;
+    got
 }
 #[c2rust::src_loc = "205:1"]
 unsafe extern "C" fn fake_set(
@@ -2392,7 +2392,7 @@ unsafe extern "C" fn fake_set(
             );
         }
     }
-    return got;
+    got
 }
 #[c2rust::src_loc = "231:1"]
 unsafe extern "C" fn admin_set(
@@ -2415,22 +2415,21 @@ unsafe extern "C" fn admin_set(
                     b"no mem\0" as *const u8 as *const ::core::ffi::c_char,
                 );
             }
-            if !strstr(key, b"_tls_\0" as *const u8 as *const ::core::ffi::c_char).is_null()
-                || !strstr(key, b"_tls13_\0" as *const u8 as *const ::core::ffi::c_char).is_null()
+            if (!strstr(key, b"_tls_\0" as *const u8 as *const ::core::ffi::c_char).is_null()
+                || !strstr(key, b"_tls13_\0" as *const u8 as *const ::core::ffi::c_char).is_null())
+                && !sbuf_tls_setup()
             {
-                if !sbuf_tls_setup() {
-                    pktbuf_write_generic(
-                        buf,
-                        PqMsg_NoticeResponse,
-                        b"sscss\0" as *const u8 as *const ::core::ffi::c_char,
-                        b"SNOTICE\0" as *const u8 as *const ::core::ffi::c_char,
-                        b"C00000\0" as *const u8 as *const ::core::ffi::c_char,
-                        'M' as i32,
-                        b"TLS settings could not be applied, still using old configuration\0"
-                            as *const u8 as *const ::core::ffi::c_char,
-                        b"\0" as *const u8 as *const ::core::ffi::c_char,
-                    );
-                }
+                pktbuf_write_generic(
+                    buf,
+                    PqMsg_NoticeResponse,
+                    b"sscss\0" as *const u8 as *const ::core::ffi::c_char,
+                    b"SNOTICE\0" as *const u8 as *const ::core::ffi::c_char,
+                    b"C00000\0" as *const u8 as *const ::core::ffi::c_char,
+                    'M' as i32,
+                    b"TLS settings could not be applied, still using old configuration\0"
+                        as *const u8 as *const ::core::ffi::c_char,
+                    b"\0" as *const u8 as *const ::core::ffi::c_char,
+                );
             }
             snprintf(
                 &raw mut tmp as *mut ::core::ffi::c_char,
@@ -2439,19 +2438,19 @@ unsafe extern "C" fn admin_set(
                 key,
                 val,
             );
-            return admin_flush(admin, buf, &raw mut tmp as *mut ::core::ffi::c_char);
+            admin_flush(admin, buf, &raw mut tmp as *mut ::core::ffi::c_char)
         } else {
-            return admin_error(
+            admin_error(
                 admin,
                 b"SET failed\0" as *const u8 as *const ::core::ffi::c_char,
-            );
+            )
         }
     } else {
-        return admin_error(
+        admin_error(
             admin,
             b"admin access needed\0" as *const u8 as *const ::core::ffi::c_char,
-        );
-    };
+        )
+    }
 }
 #[c2rust::src_loc = "261:1"]
 unsafe extern "C" fn send_one_fd(
@@ -2530,7 +2529,7 @@ unsafe extern "C" fn send_one_fd(
     {
         msg.msg_control = &raw mut cntbuf as *mut uint8_t as *mut ::core::ffi::c_void;
         msg.msg_controllen = ::core::mem::size_of::<[uint8_t; 16]>() as socklen_t;
-        cmsg = if msg.msg_controllen as usize >= ::core::mem::size_of::<cmsghdr>() as usize {
+        cmsg = if msg.msg_controllen as usize >= ::core::mem::size_of::<cmsghdr>() {
             msg.msg_control as *mut cmsghdr
         } else {
             ::core::ptr::null_mut::<cmsghdr>()
@@ -2542,9 +2541,9 @@ unsafe extern "C" fn send_one_fd(
             .wrapping_add(::core::mem::size_of::<::core::ffi::c_int>() as __darwin_size_t)
             as socklen_t;
         memcpy(
-            (cmsg as *mut ::core::ffi::c_uchar).offset(
-                (::core::mem::size_of::<cmsghdr>().wrapping_add(__DARWIN_ALIGNBYTES32)
-                    & !__DARWIN_ALIGNBYTES32) as isize,
+            (cmsg as *mut ::core::ffi::c_uchar).add(
+                ::core::mem::size_of::<cmsghdr>().wrapping_add(__DARWIN_ALIGNBYTES32)
+                    & !__DARWIN_ALIGNBYTES32,
             ) as *mut ::core::ffi::c_void,
             &raw mut fd as *const ::core::ffi::c_void,
             ::core::mem::size_of::<::core::ffi::c_int>() as size_t,
@@ -2587,7 +2586,7 @@ unsafe extern "C" fn send_one_fd(
         );
         return false_0 != 0;
     }
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "332:1"]
 unsafe extern "C" fn show_one_fd(mut admin: *mut PgSocket, mut sk: *mut PgSocket) -> bool {
@@ -2651,7 +2650,7 @@ unsafe extern "C" fn show_one_fd(mut admin: *mut PgSocket, mut sk: *mut PgSocket
     {
         send_scram_keys = true_0 != 0;
     }
-    return send_one_fd(
+    send_one_fd(
         admin,
         (*sk).sbuf.sock,
         if (*sk).state() as ::core::ffi::c_int >= SV_FREE as ::core::ffi::c_int {
@@ -2722,7 +2721,7 @@ unsafe extern "C" fn show_one_fd(mut admin: *mut PgSocket, mut sk: *mut PgSocket
         } else {
             -(1 as ::core::ffi::c_int)
         },
-    );
+    )
 }
 #[c2rust::src_loc = "383:1"]
 unsafe extern "C" fn show_pooler_cb(
@@ -2731,7 +2730,7 @@ unsafe extern "C" fn show_pooler_cb(
     mut a: *const PgAddr,
 ) -> bool {
     let mut buf: [::core::ffi::c_char; 56] = [0; 56];
-    return send_one_fd(
+    send_one_fd(
         arg as *mut PgSocket,
         fd,
         b"pooler\0" as *const u8 as *const ::core::ffi::c_char,
@@ -2754,11 +2753,11 @@ unsafe extern "C" fn show_pooler_cb(
         -(1 as ::core::ffi::c_int),
         ::core::ptr::null::<uint8_t>(),
         -(1 as ::core::ffi::c_int),
-    );
+    )
 }
 #[c2rust::src_loc = "393:1"]
 unsafe extern "C" fn show_pooler_fds(mut admin: *mut PgSocket) -> bool {
-    return for_each_pooler_fd(
+    for_each_pooler_fd(
         Some(
             show_pooler_cb
                 as unsafe extern "C" fn(
@@ -2768,7 +2767,7 @@ unsafe extern "C" fn show_pooler_fds(mut admin: *mut PgSocket) -> bool {
                 ) -> bool,
         ),
         admin as *mut ::core::ffi::c_void,
-    );
+    )
 }
 #[c2rust::src_loc = "398:1"]
 unsafe extern "C" fn show_fds_from_list(mut admin: *mut PgSocket, mut list: *mut StatList) -> bool {
@@ -2785,7 +2784,7 @@ unsafe extern "C" fn show_fds_from_list(mut admin: *mut PgSocket, mut list: *mut
         }
         item = (*item).next;
     }
-    return res;
+    res
 }
 #[c2rust::src_loc = "418:1"]
 unsafe extern "C" fn admin_show_fds(
@@ -2888,7 +2887,7 @@ unsafe extern "C" fn admin_show_fds(
         res = admin_ready(admin, b"SHOW\0" as *const u8 as *const ::core::ffi::c_char);
     }
     socket_set_nonblocking((*admin).sbuf.sock, 1 as ::core::ffi::c_int != 0);
-    return res;
+    res
 }
 #[c2rust::src_loc = "480:1"]
 unsafe extern "C" fn admin_show_databases(
@@ -3014,7 +3013,7 @@ unsafe extern "C" fn admin_show_databases(
         buf,
         b"SHOW\0" as *const u8 as *const ::core::ffi::c_char,
     );
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "542:1"]
 unsafe extern "C" fn admin_show_peers(
@@ -3063,7 +3062,7 @@ unsafe extern "C" fn admin_show_peers(
         buf,
         b"SHOW\0" as *const u8 as *const ::core::ffi::c_char,
     );
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "569:1"]
 unsafe extern "C" fn admin_show_lists(
@@ -3184,7 +3183,7 @@ unsafe extern "C" fn admin_show_lists(
         buf,
         b"SHOW\0" as *const u8 as *const ::core::ffi::c_char,
     );
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "601:1"]
 unsafe extern "C" fn admin_show_users(
@@ -3270,7 +3269,7 @@ unsafe extern "C" fn admin_show_users(
         buf,
         b"SHOW\0" as *const u8 as *const ::core::ffi::c_char,
     );
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "645:9"]
 pub const SKF_STD: [::core::ffi::c_char; 22] = unsafe {
@@ -3600,7 +3599,7 @@ unsafe extern "C" fn admin_show_clients(
         buf,
         b"SHOW\0" as *const u8 as *const ::core::ffi::c_char,
     );
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "793:1"]
 unsafe extern "C" fn admin_show_servers(
@@ -3690,7 +3689,7 @@ unsafe extern "C" fn admin_show_servers(
         buf,
         b"SHOW\0" as *const u8 as *const ::core::ffi::c_char,
     );
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "826:1"]
 unsafe extern "C" fn admin_show_sockets(
@@ -3768,7 +3767,7 @@ unsafe extern "C" fn admin_show_sockets(
         buf,
         b"SHOW\0" as *const u8 as *const ::core::ffi::c_char,
     );
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "855:1"]
 unsafe extern "C" fn show_active_socket_list(
@@ -3855,7 +3854,7 @@ unsafe extern "C" fn admin_show_active_sockets(
         buf,
         b"SHOW\0" as *const u8 as *const ::core::ffi::c_char,
     );
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "896:1"]
 unsafe extern "C" fn admin_show_pools(
@@ -3962,7 +3961,7 @@ unsafe extern "C" fn admin_show_pools(
         buf,
         b"SHOW\0" as *const u8 as *const ::core::ffi::c_char,
     );
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "965:1"]
 unsafe extern "C" fn admin_show_peer_pools(
@@ -4009,7 +4008,7 @@ unsafe extern "C" fn admin_show_peer_pools(
         buf,
         b"SHOW\0" as *const u8 as *const ::core::ffi::c_char,
     );
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "996:1"]
 unsafe extern "C" fn slab_stat_cb(
@@ -4072,7 +4071,7 @@ unsafe extern "C" fn admin_show_mem(
         buf,
         b"SHOW\0" as *const u8 as *const ::core::ffi::c_char,
     );
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "1024:1"]
 unsafe extern "C" fn admin_show_state(
@@ -4129,7 +4128,7 @@ unsafe extern "C" fn admin_show_state(
         buf,
         b"SHOW\0" as *const u8 as *const ::core::ffi::c_char,
     );
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "1047:1"]
 unsafe extern "C" fn dns_name_cb(
@@ -4144,7 +4143,7 @@ unsafe extern "C" fn dns_name_cb(
     let mut adrs: [::core::ffi::c_char; 1024] = [0; 1024];
     let mut now = get_cached_time();
     end = (&raw mut adrs as *mut ::core::ffi::c_char)
-        .offset(::core::mem::size_of::<[::core::ffi::c_char; 1024]>() as usize as isize)
+        .add(::core::mem::size_of::<[::core::ffi::c_char; 1024]>())
         .offset(-(2 as ::core::ffi::c_int as isize));
     s = &raw mut adrs as *mut ::core::ffi::c_char;
     while !ai.is_null() && s < end {
@@ -4158,7 +4157,7 @@ unsafe extern "C" fn dns_name_cb(
             s,
             end.offset_from(s) as ::core::ffi::c_long as size_t,
         );
-        s = s.offset(strlen(s) as isize);
+        s = s.add(strlen(s));
         ai = (*ai).ai_next;
     }
     *s = 0 as ::core::ffi::c_char;
@@ -4213,7 +4212,7 @@ unsafe extern "C" fn admin_show_dns_hosts(
         buf,
         b"SHOW\0" as *const u8 as *const ::core::ffi::c_char,
     );
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "1089:1"]
 unsafe extern "C" fn dns_zone_cb(
@@ -4270,7 +4269,7 @@ unsafe extern "C" fn admin_show_dns_zones(
         buf,
         b"SHOW\0" as *const u8 as *const ::core::ffi::c_char,
     );
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "1112:1"]
 unsafe extern "C" fn show_one_param(
@@ -4334,7 +4333,7 @@ unsafe extern "C" fn admin_show_config(
         buf,
         b"SHOW\0" as *const u8 as *const ::core::ffi::c_char,
     );
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "1139:1"]
 unsafe extern "C" fn admin_cmd_reload(
@@ -4378,20 +4377,20 @@ unsafe extern "C" fn admin_cmd_reload(
         );
     }
     if ok {
-        return admin_ready(
+        admin_ready(
             admin,
             b"RELOAD\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        )
     } else {
-        return send_pooler_error(
+        send_pooler_error(
             admin,
             true_0 != 0,
             b"F0000\0" as *const u8 as *const ::core::ffi::c_char,
             false_0 != 0,
             b"RELOAD failed, see logs for additional details\0" as *const u8
                 as *const ::core::ffi::c_char,
-        );
-    };
+        )
+    }
 }
 #[c2rust::src_loc = "1167:1"]
 unsafe extern "C" fn admin_cmd_shutdown(
@@ -4433,7 +4432,7 @@ unsafe extern "C" fn admin_cmd_shutdown(
             b"SHUTDOWN command issued\0" as *const u8 as *const ::core::ffi::c_char,
         );
         event_base_loopbreak(pgb_event_base);
-        return true_0 != 0;
+        true_0 != 0
     } else {
         if mode as ::core::ffi::c_uint
             == SHUTDOWN_WAIT_FOR_SERVERS as ::core::ffi::c_int as ::core::ffi::c_uint
@@ -4456,11 +4455,11 @@ unsafe extern "C" fn admin_cmd_shutdown(
             );
         }
         cleanup_tcp_sockets();
-        return admin_ready(
+        admin_ready(
             admin,
             b"SHUTDOWN\0" as *const u8 as *const ::core::ffi::c_char,
-        );
-    };
+        )
+    }
 }
 #[c2rust::src_loc = "1208:1"]
 unsafe extern "C" fn full_resume() {
@@ -4526,10 +4525,10 @@ unsafe extern "C" fn admin_cmd_resume(
         }
         (*db).db_paused = false_0 != 0;
     }
-    return admin_ready(
+    admin_ready(
         admin,
         b"RESUME\0" as *const u8 as *const ::core::ffi::c_char,
-    );
+    )
 }
 #[c2rust::src_loc = "1244:1"]
 unsafe extern "C" fn admin_cmd_suspend(
@@ -4564,10 +4563,10 @@ unsafe extern "C" fn admin_cmd_suspend(
         b"SUSPEND command issued\0" as *const u8 as *const ::core::ffi::c_char,
     );
     cf_pause_mode = P_SUSPEND as ::core::ffi::c_int;
-    (*admin).set_wait_for_response((true_0 != 0) as bool);
+    (*admin).set_wait_for_response(true_0 != 0);
     suspend_pooler();
     g_suspend_start = get_cached_time();
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "1270:1"]
 unsafe extern "C" fn admin_cmd_pause(
@@ -4594,7 +4593,7 @@ unsafe extern "C" fn admin_cmd_pause(
             b"PAUSE command issued\0" as *const u8 as *const ::core::ffi::c_char,
         );
         cf_pause_mode = P_PAUSE as ::core::ffi::c_int;
-        (*admin).set_wait_for_response((true_0 != 0) as bool);
+        (*admin).set_wait_for_response(true_0 != 0);
     } else {
         let mut db = ::core::ptr::null_mut::<PgDatabase>();
         let mut _log_ctx_0 = NULL;
@@ -4621,12 +4620,12 @@ unsafe extern "C" fn admin_cmd_pause(
         }
         (*db).db_paused = true_0 != 0;
         if count_db_active(db) > 0 as ::core::ffi::c_int {
-            (*admin).set_wait_for_response((true_0 != 0) as bool);
+            (*admin).set_wait_for_response(true_0 != 0);
         } else {
             return admin_ready(admin, b"PAUSE\0" as *const u8 as *const ::core::ffi::c_char);
         }
     }
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "1301:1"]
 unsafe extern "C" fn admin_cmd_reconnect(
@@ -4683,10 +4682,10 @@ unsafe extern "C" fn admin_cmd_reconnect(
         }
         tag_database_dirty(db);
     }
-    return admin_ready(
+    admin_ready(
         admin,
         b"RECONNECT\0" as *const u8 as *const ::core::ffi::c_char,
-    );
+    )
 }
 #[c2rust::src_loc = "1333:1"]
 unsafe extern "C" fn admin_cmd_disable(
@@ -4729,10 +4728,10 @@ unsafe extern "C" fn admin_cmd_disable(
         );
     }
     (*db).db_disabled = true_0 != 0;
-    return admin_ready(
+    admin_ready(
         admin,
         b"DISABLE\0" as *const u8 as *const ::core::ffi::c_char,
-    );
+    )
 }
 #[c2rust::src_loc = "1355:1"]
 unsafe extern "C" fn admin_cmd_enable(
@@ -4775,10 +4774,10 @@ unsafe extern "C" fn admin_cmd_enable(
         );
     }
     (*db).db_disabled = false_0 != 0;
-    return admin_ready(
+    admin_ready(
         admin,
         b"ENABLE\0" as *const u8 as *const ::core::ffi::c_char,
-    );
+    )
 }
 #[c2rust::src_loc = "1377:1"]
 unsafe extern "C" fn find_socket_in_list(
@@ -4796,7 +4795,7 @@ unsafe extern "C" fn find_socket_in_list(
         }
         item = (*item).next;
     }
-    return ::core::ptr::null_mut::<PgSocket>();
+    ::core::ptr::null_mut::<PgSocket>()
 }
 #[c2rust::src_loc = "1391:1"]
 unsafe extern "C" fn find_client_global(mut target_id: ::core::ffi::c_ulonglong) -> *mut PgSocket {
@@ -4839,7 +4838,7 @@ unsafe extern "C" fn find_client_global(mut target_id: ::core::ffi::c_ulonglong)
         }
         item = (*item).next;
     }
-    return ::core::ptr::null_mut::<PgSocket>();
+    ::core::ptr::null_mut::<PgSocket>()
 }
 #[c2rust::src_loc = "1434:1"]
 unsafe extern "C" fn admin_cmd_kill_client(
@@ -4871,10 +4870,10 @@ unsafe extern "C" fn admin_cmd_kill_client(
         true_0 != 0,
         b"admin forced disconnect\0" as *const u8 as *const ::core::ffi::c_char,
     );
-    return admin_ready(
+    admin_ready(
         admin,
         b"KILL_CLIENT\0" as *const u8 as *const ::core::ffi::c_char,
-    );
+    )
 }
 #[c2rust::src_loc = "1452:1"]
 unsafe extern "C" fn admin_cmd_kill(
@@ -4952,7 +4951,7 @@ unsafe extern "C" fn admin_cmd_kill(
             tmp = (*tmp).next;
         }
     }
-    return admin_ready(admin, b"KILL\0" as *const u8 as *const ::core::ffi::c_char);
+    admin_ready(admin, b"KILL\0" as *const u8 as *const ::core::ffi::c_char)
 }
 #[c2rust::src_loc = "1497:1"]
 unsafe extern "C" fn admin_cmd_wait_close(
@@ -4986,7 +4985,7 @@ unsafe extern "C" fn admin_cmd_wait_close(
             item = (*item).next;
         }
         if active > 0 as ::core::ffi::c_int {
-            (*admin).set_wait_for_response((true_0 != 0) as bool);
+            (*admin).set_wait_for_response(true_0 != 0);
         } else {
             return admin_ready(
                 admin,
@@ -5019,7 +5018,7 @@ unsafe extern "C" fn admin_cmd_wait_close(
         }
         (*db_0).db_wait_close = true_0 != 0;
         if count_db_active(db_0) > 0 as ::core::ffi::c_int {
-            (*admin).set_wait_for_response((true_0 != 0) as bool);
+            (*admin).set_wait_for_response(true_0 != 0);
         } else {
             return admin_ready(
                 admin,
@@ -5027,7 +5026,7 @@ unsafe extern "C" fn admin_cmd_wait_close(
             );
         }
     }
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "1540:1"]
 unsafe extern "C" fn copy_arg(
@@ -5077,7 +5076,7 @@ unsafe extern "C" fn copy_arg(
         );
     }
     *dst.offset(len as isize) = 0 as ::core::ffi::c_char;
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "1580:1"]
 unsafe extern "C" fn admin_show_help(
@@ -5117,7 +5116,7 @@ unsafe extern "C" fn admin_show_help(
     if res {
         res = admin_ready(admin, b"SHOW\0" as *const u8 as *const ::core::ffi::c_char);
     }
-    return res;
+    res
 }
 #[c2rust::src_loc = "1610:1"]
 unsafe extern "C" fn admin_show_version(
@@ -5148,35 +5147,35 @@ unsafe extern "C" fn admin_show_version(
         buf,
         b"SHOW\0" as *const u8 as *const ::core::ffi::c_char,
     );
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "1628:1"]
 unsafe extern "C" fn admin_show_stats(
     mut admin: *mut PgSocket,
     mut _arg: *const ::core::ffi::c_char,
 ) -> bool {
-    return admin_database_stats(admin, &raw mut pool_list);
+    admin_database_stats(admin, &raw mut pool_list)
 }
 #[c2rust::src_loc = "1633:1"]
 unsafe extern "C" fn admin_show_stats_totals(
     mut admin: *mut PgSocket,
     mut _arg: *const ::core::ffi::c_char,
 ) -> bool {
-    return admin_database_stats_totals(admin, &raw mut pool_list);
+    admin_database_stats_totals(admin, &raw mut pool_list)
 }
 #[c2rust::src_loc = "1638:1"]
 unsafe extern "C" fn admin_show_stats_averages(
     mut admin: *mut PgSocket,
     mut _arg: *const ::core::ffi::c_char,
 ) -> bool {
-    return admin_database_stats_averages(admin, &raw mut pool_list);
+    admin_database_stats_averages(admin, &raw mut pool_list)
 }
 #[c2rust::src_loc = "1643:1"]
 unsafe extern "C" fn admin_show_totals(
     mut admin: *mut PgSocket,
     mut _arg: *const ::core::ffi::c_char,
 ) -> bool {
-    return show_stat_totals(admin, &raw mut pool_list);
+    show_stat_totals(admin, &raw mut pool_list)
 }
 #[c2rust::src_loc = "1649:1"]
 static mut show_map: [cmd_lookup; 23] = unsafe {
@@ -5349,12 +5348,12 @@ unsafe extern "C" fn admin_cmd_show(
     if fake_show(admin, arg) {
         return true_0 != 0;
     }
-    return exec_cmd(
+    exec_cmd(
         &raw mut show_map as *mut cmd_lookup,
         admin,
         arg,
         ::core::ptr::null::<::core::ffi::c_char>(),
-    );
+    )
 }
 #[c2rust::src_loc = "1682:1"]
 static mut cmd_list: [cmd_lookup; 14] = unsafe {
@@ -5588,14 +5587,11 @@ unsafe extern "C" fn admin_parse_query(
         res = syntax_error(admin);
         current_block = 15345379368963487090;
     }
-    match current_block {
-        7776497614696034663 => {
-            res = admin_error(
-                admin,
-                b"bad arguments\0" as *const u8 as *const ::core::ffi::c_char,
-            );
-        }
-        _ => {}
+    if current_block == 7776497614696034663 {
+        res = admin_error(
+            admin,
+            b"bad arguments\0" as *const u8 as *const ::core::ffi::c_char,
+        );
     }
     current_query = ::core::ptr::null::<::core::ffi::c_char>();
     if !res {
@@ -5605,7 +5601,7 @@ unsafe extern "C" fn admin_parse_query(
             b"failure\0" as *const u8 as *const ::core::ffi::c_char,
         );
     }
-    return res;
+    res
 }
 #[no_mangle]
 #[c2rust::src_loc = "1749:1"]
@@ -5683,7 +5679,7 @@ pub unsafe extern "C" fn admin_handle_client(
             );
         }
     }
-    return false_0 != 0;
+    false_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "1796:1"]
@@ -5691,8 +5687,8 @@ pub unsafe extern "C" fn admin_pre_login(
     mut client: *mut PgSocket,
     mut username: *const ::core::ffi::c_char,
 ) -> bool {
-    (*client).set_admin_user((false_0 != 0) as bool);
-    (*client).set_own_user((false_0 != 0) as bool);
+    (*client).set_admin_user(false_0 != 0);
+    (*client).set_own_user(false_0 != 0);
     if pga_is_unix(&raw mut (*client).remote_addr) {
         let mut peer_uid: uid_t = 0;
         let mut peer_gid: gid_t = 0;
@@ -5706,8 +5702,8 @@ pub unsafe extern "C" fn admin_pre_login(
             ) == 0 as ::core::ffi::c_int
         {
             (*client).login_user_credentials = (*(*admin_pool).db).forced_user_credentials;
-            (*client).set_own_user((true_0 != 0) as bool);
-            (*client).set_admin_user((true_0 != 0) as bool);
+            (*client).set_own_user(true_0 != 0);
+            (*client).set_admin_user(true_0 != 0);
             if !check_db_connection_count(client) {
                 return false_0 != 0;
             }
@@ -5725,7 +5721,7 @@ pub unsafe extern "C" fn admin_pre_login(
     if cf_auth_type == AUTH_TYPE_ANY as ::core::ffi::c_int {
         if strlist_contains(cf_admin_users, username) {
             (*client).login_user_credentials = (*(*admin_pool).db).forced_user_credentials;
-            (*client).set_admin_user((true_0 != 0) as bool);
+            (*client).set_admin_user(true_0 != 0);
             if !check_db_connection_count(client) {
                 return false_0 != 0;
             }
@@ -5741,7 +5737,7 @@ pub unsafe extern "C" fn admin_pre_login(
             return true_0 != 0;
         }
     }
-    return false_0 != 0;
+    false_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "1846:1"]
@@ -5754,7 +5750,7 @@ pub unsafe extern "C" fn admin_post_login(mut client: *mut PgSocket) -> bool {
     if (*client).admin_user() as ::core::ffi::c_int != 0
         || strlist_contains(cf_admin_users, username) as ::core::ffi::c_int != 0
     {
-        (*client).set_admin_user((true_0 != 0) as bool);
+        (*client).set_admin_user(true_0 != 0);
         return true_0 != 0;
     } else if strlist_contains(cf_stats_users, username) {
         return true_0 != 0;
@@ -5764,7 +5760,7 @@ pub unsafe extern "C" fn admin_post_login(mut client: *mut PgSocket) -> bool {
         true_0 != 0,
         b"not allowed\0" as *const u8 as *const ::core::ffi::c_char,
     );
-    return false_0 != 0;
+    false_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "1865:1"]
@@ -5903,7 +5899,7 @@ pub unsafe extern "C" fn admin_setup() {
         exit(1 as ::core::ffi::c_int);
     }
     (*pool).welcome_msg = msg as *mut PktBuf;
-    (*pool).set_welcome_msg_ready((true_0 != 0) as bool);
+    (*pool).set_welcome_msg_ready(true_0 != 0);
     msg = pktbuf_dynamic(128 as ::core::ffi::c_int);
     if msg.is_null() {
         let mut _log_ctx_5 = NULL;
@@ -6024,7 +6020,7 @@ pub unsafe extern "C" fn admin_pause_done() {
                     b"dead admin\0" as *const u8 as *const ::core::ffi::c_char,
                 );
             } else {
-                (*admin).set_wait_for_response((false_0 != 0) as bool);
+                (*admin).set_wait_for_response(false_0 != 0);
             }
         }
         item = tmp;
@@ -6068,7 +6064,7 @@ pub unsafe extern "C" fn admin_wait_close_done() {
                     b"dead admin\0" as *const u8 as *const ::core::ffi::c_char,
                 );
             } else {
-                (*admin).set_wait_for_response((false_0 != 0) as bool);
+                (*admin).set_wait_for_response(false_0 != 0);
             }
         }
         item = tmp;

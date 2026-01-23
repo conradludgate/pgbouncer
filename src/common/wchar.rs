@@ -169,30 +169,30 @@ pub mod pg_wchar_h {
     #[c2rust::src_loc = "564:1"]
     pub unsafe extern "C" fn utf8_to_unicode(mut c: *const ::core::ffi::c_uchar) -> pg_wchar {
         if *c as ::core::ffi::c_int & 0x80 as ::core::ffi::c_int == 0 as ::core::ffi::c_int {
-            return *c.offset(0 as ::core::ffi::c_int as isize) as pg_wchar;
+            *c.offset(0 as ::core::ffi::c_int as isize) as pg_wchar
         } else if *c as ::core::ffi::c_int & 0xe0 as ::core::ffi::c_int
             == 0xc0 as ::core::ffi::c_int
         {
-            return ((*c.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+            ((*c.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
                 & 0x1f as ::core::ffi::c_int)
                 << 6 as ::core::ffi::c_int
                 | *c.offset(1 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                    & 0x3f as ::core::ffi::c_int) as pg_wchar;
+                    & 0x3f as ::core::ffi::c_int) as pg_wchar
         } else if *c as ::core::ffi::c_int & 0xf0 as ::core::ffi::c_int
             == 0xe0 as ::core::ffi::c_int
         {
-            return ((*c.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+            ((*c.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
                 & 0xf as ::core::ffi::c_int)
                 << 12 as ::core::ffi::c_int
                 | (*c.offset(1 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
                     & 0x3f as ::core::ffi::c_int)
                     << 6 as ::core::ffi::c_int
                 | *c.offset(2 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                    & 0x3f as ::core::ffi::c_int) as pg_wchar;
+                    & 0x3f as ::core::ffi::c_int) as pg_wchar
         } else if *c as ::core::ffi::c_int & 0xf8 as ::core::ffi::c_int
             == 0xf0 as ::core::ffi::c_int
         {
-            return ((*c.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+            ((*c.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
                 & 0x7 as ::core::ffi::c_int)
                 << 18 as ::core::ffi::c_int
                 | (*c.offset(1 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
@@ -202,10 +202,10 @@ pub mod pg_wchar_h {
                     & 0x3f as ::core::ffi::c_int)
                     << 6 as ::core::ffi::c_int
                 | *c.offset(3 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                    & 0x3f as ::core::ffi::c_int) as pg_wchar;
+                    & 0x3f as ::core::ffi::c_int) as pg_wchar
         } else {
-            return 0xffffffff as pg_wchar;
-        };
+            0xffffffff as pg_wchar
+        }
     }
     #[inline]
     #[c2rust::src_loc = "590:1"]
@@ -243,7 +243,7 @@ pub mod pg_wchar_h {
             *utf8string.offset(3 as ::core::ffi::c_int as isize) =
                 (0x80 as pg_wchar | c & 0x3f as pg_wchar) as ::core::ffi::c_uchar;
         }
-        return utf8string;
+        utf8string
     }
 }
 #[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/common/simd.h:22"]
@@ -253,22 +253,22 @@ pub mod simd_h {
     #[inline]
     #[c2rust::src_loc = "134:1"]
     pub unsafe extern "C" fn vector8_broadcast(c: uint8_t) -> Vector8 {
-        return vdupq_n_u8(c) as Vector8;
+        vdupq_n_u8(c) as Vector8
     }
     #[inline]
     #[c2rust::src_loc = "270:1"]
     pub unsafe extern "C" fn vector8_is_highbit_set(v: Vector8) -> bool {
-        return vmaxvq_u8(v as uint8x16_t) as ::core::ffi::c_int > 0x7f as ::core::ffi::c_int;
+        vmaxvq_u8(v as uint8x16_t) as ::core::ffi::c_int > 0x7f as ::core::ffi::c_int
     }
     #[inline]
     #[c2rust::src_loc = "337:1"]
     pub unsafe extern "C" fn vector8_or(v1: Vector8, v2: Vector8) -> Vector8 {
-        return vorrq_u8(v1 as uint8x16_t, v2 as uint8x16_t) as Vector8;
+        vorrq_u8(v1 as uint8x16_t, v2 as uint8x16_t) as Vector8
     }
     #[inline]
     #[c2rust::src_loc = "384:1"]
     pub unsafe extern "C" fn vector8_eq(v1: Vector8, v2: Vector8) -> Vector8 {
-        return vceqq_u8(v1 as uint8x16_t, v2 as uint8x16_t) as Vector8;
+        vceqq_u8(v1 as uint8x16_t, v2 as uint8x16_t) as Vector8
     }
     use super::_uint8_t_h::uint8_t;
     use super::arm_neon_h::{vceqq_u8, vdupq_n_u8, vmaxvq_u8, vorrq_u8};
@@ -379,11 +379,11 @@ unsafe extern "C" fn pg_ascii2wchar_with_len(
         cnt += 1;
     }
     *to = 0 as pg_wchar;
-    return cnt;
+    cnt
 }
 #[c2rust::src_loc = "88:1"]
 unsafe extern "C" fn pg_ascii_mblen(mut _s: *const ::core::ffi::c_uchar) -> ::core::ffi::c_int {
-    return 1 as ::core::ffi::c_int;
+    1 as ::core::ffi::c_int
 }
 #[c2rust::src_loc = "94:1"]
 unsafe extern "C" fn pg_ascii_dsplen(mut s: *const ::core::ffi::c_uchar) -> ::core::ffi::c_int {
@@ -395,7 +395,7 @@ unsafe extern "C" fn pg_ascii_dsplen(mut s: *const ::core::ffi::c_uchar) -> ::co
     {
         return -(1 as ::core::ffi::c_int);
     }
-    return 1 as ::core::ffi::c_int;
+    1 as ::core::ffi::c_int
 }
 #[c2rust::src_loc = "108:1"]
 unsafe extern "C" fn pg_euc2wchar_with_len(
@@ -440,7 +440,7 @@ unsafe extern "C" fn pg_euc2wchar_with_len(
         cnt += 1;
     }
     *to = 0 as pg_wchar;
-    return cnt;
+    cnt
 }
 #[inline]
 #[c2rust::src_loc = "147:1"]
@@ -455,7 +455,7 @@ unsafe extern "C" fn pg_euc_mblen(mut s: *const ::core::ffi::c_uchar) -> ::core:
     } else {
         len = 1 as ::core::ffi::c_int;
     }
-    return len;
+    len
 }
 #[inline]
 #[c2rust::src_loc = "163:1"]
@@ -470,7 +470,7 @@ unsafe extern "C" fn pg_euc_dsplen(mut s: *const ::core::ffi::c_uchar) -> ::core
     } else {
         len = pg_ascii_dsplen(s);
     }
-    return len;
+    len
 }
 #[c2rust::src_loc = "182:1"]
 unsafe extern "C" fn pg_eucjp2wchar_with_len(
@@ -478,11 +478,11 @@ unsafe extern "C" fn pg_eucjp2wchar_with_len(
     mut to: *mut pg_wchar,
     mut len: ::core::ffi::c_int,
 ) -> ::core::ffi::c_int {
-    return pg_euc2wchar_with_len(from, to, len);
+    pg_euc2wchar_with_len(from, to, len)
 }
 #[c2rust::src_loc = "188:1"]
 unsafe extern "C" fn pg_eucjp_mblen(mut s: *const ::core::ffi::c_uchar) -> ::core::ffi::c_int {
-    return pg_euc_mblen(s);
+    pg_euc_mblen(s)
 }
 #[c2rust::src_loc = "194:1"]
 unsafe extern "C" fn pg_eucjp_dsplen(mut s: *const ::core::ffi::c_uchar) -> ::core::ffi::c_int {
@@ -496,7 +496,7 @@ unsafe extern "C" fn pg_eucjp_dsplen(mut s: *const ::core::ffi::c_uchar) -> ::co
     } else {
         len = pg_ascii_dsplen(s);
     }
-    return len;
+    len
 }
 #[c2rust::src_loc = "213:1"]
 unsafe extern "C" fn pg_euckr2wchar_with_len(
@@ -504,15 +504,15 @@ unsafe extern "C" fn pg_euckr2wchar_with_len(
     mut to: *mut pg_wchar,
     mut len: ::core::ffi::c_int,
 ) -> ::core::ffi::c_int {
-    return pg_euc2wchar_with_len(from, to, len);
+    pg_euc2wchar_with_len(from, to, len)
 }
 #[c2rust::src_loc = "219:1"]
 unsafe extern "C" fn pg_euckr_mblen(mut s: *const ::core::ffi::c_uchar) -> ::core::ffi::c_int {
-    return pg_euc_mblen(s);
+    pg_euc_mblen(s)
 }
 #[c2rust::src_loc = "225:1"]
 unsafe extern "C" fn pg_euckr_dsplen(mut s: *const ::core::ffi::c_uchar) -> ::core::ffi::c_int {
-    return pg_euc_dsplen(s);
+    pg_euc_dsplen(s)
 }
 #[c2rust::src_loc = "235:1"]
 unsafe extern "C" fn pg_euccn2wchar_with_len(
@@ -562,7 +562,7 @@ unsafe extern "C" fn pg_euccn2wchar_with_len(
         cnt += 1;
     }
     *to = 0 as pg_wchar;
-    return cnt;
+    cnt
 }
 #[c2rust::src_loc = "274:1"]
 unsafe extern "C" fn pg_euccn_mblen(mut s: *const ::core::ffi::c_uchar) -> ::core::ffi::c_int {
@@ -572,7 +572,7 @@ unsafe extern "C" fn pg_euccn_mblen(mut s: *const ::core::ffi::c_uchar) -> ::cor
     } else {
         len = 1 as ::core::ffi::c_int;
     }
-    return len;
+    len
 }
 #[c2rust::src_loc = "286:1"]
 unsafe extern "C" fn pg_euccn_dsplen(mut s: *const ::core::ffi::c_uchar) -> ::core::ffi::c_int {
@@ -582,7 +582,7 @@ unsafe extern "C" fn pg_euccn_dsplen(mut s: *const ::core::ffi::c_uchar) -> ::co
     } else {
         len = pg_ascii_dsplen(s);
     }
-    return len;
+    len
 }
 #[c2rust::src_loc = "302:1"]
 unsafe extern "C" fn pg_euctw2wchar_with_len(
@@ -635,7 +635,7 @@ unsafe extern "C" fn pg_euctw2wchar_with_len(
         cnt += 1;
     }
     *to = 0 as pg_wchar;
-    return cnt;
+    cnt
 }
 #[c2rust::src_loc = "342:1"]
 unsafe extern "C" fn pg_euctw_mblen(mut s: *const ::core::ffi::c_uchar) -> ::core::ffi::c_int {
@@ -649,7 +649,7 @@ unsafe extern "C" fn pg_euctw_mblen(mut s: *const ::core::ffi::c_uchar) -> ::cor
     } else {
         len = 1 as ::core::ffi::c_int;
     }
-    return len;
+    len
 }
 #[c2rust::src_loc = "358:1"]
 unsafe extern "C" fn pg_euctw_dsplen(mut s: *const ::core::ffi::c_uchar) -> ::core::ffi::c_int {
@@ -663,7 +663,7 @@ unsafe extern "C" fn pg_euctw_dsplen(mut s: *const ::core::ffi::c_uchar) -> ::co
     } else {
         len = pg_ascii_dsplen(s);
     }
-    return len;
+    len
 }
 #[c2rust::src_loc = "380:1"]
 unsafe extern "C" fn pg_wchar2euc_with_len(
@@ -727,15 +727,15 @@ unsafe extern "C" fn pg_wchar2euc_with_len(
         len -= 1;
     }
     *to = 0 as ::core::ffi::c_uchar;
-    return cnt;
+    cnt
 }
 #[c2rust::src_loc = "426:1"]
 unsafe extern "C" fn pg_johab_mblen(mut s: *const ::core::ffi::c_uchar) -> ::core::ffi::c_int {
-    return pg_euc_mblen(s);
+    pg_euc_mblen(s)
 }
 #[c2rust::src_loc = "432:1"]
 unsafe extern "C" fn pg_johab_dsplen(mut s: *const ::core::ffi::c_uchar) -> ::core::ffi::c_int {
-    return pg_euc_dsplen(s);
+    pg_euc_dsplen(s)
 }
 #[c2rust::src_loc = "444:1"]
 unsafe extern "C" fn pg_utf2wchar_with_len(
@@ -818,7 +818,7 @@ unsafe extern "C" fn pg_utf2wchar_with_len(
         cnt += 1;
     }
     *to = 0 as pg_wchar;
-    return cnt;
+    cnt
 }
 #[c2rust::src_loc = "510:1"]
 unsafe extern "C" fn pg_wchar2utf_with_len(
@@ -837,7 +837,7 @@ unsafe extern "C" fn pg_wchar2utf_with_len(
         len -= 1;
     }
     *to = 0 as ::core::ffi::c_uchar;
-    return cnt;
+    cnt
 }
 #[no_mangle]
 #[c2rust::src_loc = "541:1"]
@@ -854,7 +854,7 @@ pub unsafe extern "C" fn pg_utf_mblen(mut s: *const ::core::ffi::c_uchar) -> ::c
     } else {
         len = 1 as ::core::ffi::c_int;
     }
-    return len;
+    len
 }
 #[c2rust::src_loc = "584:1"]
 unsafe extern "C" fn mbbisearch(
@@ -879,7 +879,7 @@ unsafe extern "C" fn mbbisearch(
             return 1 as ::core::ffi::c_int;
         }
     }
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }
 #[c2rust::src_loc = "631:1"]
 unsafe extern "C" fn ucs_wcwidth(mut ucs: pg_wchar) -> ::core::ffi::c_int {
@@ -2723,9 +2723,9 @@ unsafe extern "C" fn ucs_wcwidth(mut ucs: pg_wchar) -> ::core::ffi::c_int {
     if mbbisearch(
         ucs,
         &raw const nonspacing as *const mbinterval,
-        (::core::mem::size_of::<[mbinterval; 334]>() as usize)
-            .wrapping_div(::core::mem::size_of::<mbinterval>() as usize)
-            .wrapping_sub(1 as usize) as ::core::ffi::c_int,
+        ::core::mem::size_of::<[mbinterval; 334]>()
+            .wrapping_div(::core::mem::size_of::<mbinterval>())
+            .wrapping_sub(1_usize) as ::core::ffi::c_int,
     ) != 0
     {
         return 0 as ::core::ffi::c_int;
@@ -2733,18 +2733,18 @@ unsafe extern "C" fn ucs_wcwidth(mut ucs: pg_wchar) -> ::core::ffi::c_int {
     if mbbisearch(
         ucs,
         &raw const east_asian_fw as *const mbinterval,
-        (::core::mem::size_of::<[mbinterval; 122]>() as usize)
-            .wrapping_div(::core::mem::size_of::<mbinterval>() as usize)
-            .wrapping_sub(1 as usize) as ::core::ffi::c_int,
+        ::core::mem::size_of::<[mbinterval; 122]>()
+            .wrapping_div(::core::mem::size_of::<mbinterval>())
+            .wrapping_sub(1_usize) as ::core::ffi::c_int,
     ) != 0
     {
         return 2 as ::core::ffi::c_int;
     }
-    return 1 as ::core::ffi::c_int;
+    1 as ::core::ffi::c_int
 }
 #[c2rust::src_loc = "665:1"]
 unsafe extern "C" fn pg_utf_dsplen(mut s: *const ::core::ffi::c_uchar) -> ::core::ffi::c_int {
-    return ucs_wcwidth(utf8_to_unicode(s));
+    ucs_wcwidth(utf8_to_unicode(s))
 }
 #[c2rust::src_loc = "677:1"]
 unsafe extern "C" fn pg_mule2wchar_with_len(
@@ -2816,7 +2816,7 @@ unsafe extern "C" fn pg_mule2wchar_with_len(
         cnt += 1;
     }
     *to = 0 as pg_wchar;
-    return cnt;
+    cnt
 }
 #[c2rust::src_loc = "730:1"]
 unsafe extern "C" fn pg_wchar2mule_with_len(
@@ -2921,7 +2921,7 @@ unsafe extern "C" fn pg_wchar2mule_with_len(
         len -= 1;
     }
     *to = 0 as ::core::ffi::c_uchar;
-    return cnt;
+    cnt
 }
 #[no_mangle]
 #[c2rust::src_loc = "796:1"]
@@ -2942,7 +2942,7 @@ pub unsafe extern "C" fn pg_mule_mblen(mut s: *const ::core::ffi::c_uchar) -> ::
     } else {
         len = 1 as ::core::ffi::c_int;
     }
-    return len;
+    len
 }
 #[c2rust::src_loc = "814:1"]
 unsafe extern "C" fn pg_mule_dsplen(mut s: *const ::core::ffi::c_uchar) -> ::core::ffi::c_int {
@@ -2962,7 +2962,7 @@ unsafe extern "C" fn pg_mule_dsplen(mut s: *const ::core::ffi::c_uchar) -> ::cor
     } else {
         len = 1 as ::core::ffi::c_int;
     }
-    return len;
+    len
 }
 #[c2rust::src_loc = "842:1"]
 unsafe extern "C" fn pg_latin12wchar_with_len(
@@ -2981,7 +2981,7 @@ unsafe extern "C" fn pg_latin12wchar_with_len(
         cnt += 1;
     }
     *to = 0 as pg_wchar;
-    return cnt;
+    cnt
 }
 #[c2rust::src_loc = "864:1"]
 unsafe extern "C" fn pg_wchar2single_with_len(
@@ -3000,15 +3000,15 @@ unsafe extern "C" fn pg_wchar2single_with_len(
         cnt += 1;
     }
     *to = 0 as ::core::ffi::c_uchar;
-    return cnt;
+    cnt
 }
 #[c2rust::src_loc = "879:1"]
 unsafe extern "C" fn pg_latin1_mblen(mut _s: *const ::core::ffi::c_uchar) -> ::core::ffi::c_int {
-    return 1 as ::core::ffi::c_int;
+    1 as ::core::ffi::c_int
 }
 #[c2rust::src_loc = "885:1"]
 unsafe extern "C" fn pg_latin1_dsplen(mut s: *const ::core::ffi::c_uchar) -> ::core::ffi::c_int {
-    return pg_ascii_dsplen(s);
+    pg_ascii_dsplen(s)
 }
 #[c2rust::src_loc = "894:1"]
 unsafe extern "C" fn pg_sjis_mblen(mut s: *const ::core::ffi::c_uchar) -> ::core::ffi::c_int {
@@ -3022,7 +3022,7 @@ unsafe extern "C" fn pg_sjis_mblen(mut s: *const ::core::ffi::c_uchar) -> ::core
     } else {
         len = 1 as ::core::ffi::c_int;
     }
-    return len;
+    len
 }
 #[c2rust::src_loc = "908:1"]
 unsafe extern "C" fn pg_sjis_dsplen(mut s: *const ::core::ffi::c_uchar) -> ::core::ffi::c_int {
@@ -3036,7 +3036,7 @@ unsafe extern "C" fn pg_sjis_dsplen(mut s: *const ::core::ffi::c_uchar) -> ::cor
     } else {
         len = pg_ascii_dsplen(s);
     }
-    return len;
+    len
 }
 #[c2rust::src_loc = "925:1"]
 unsafe extern "C" fn pg_big5_mblen(mut s: *const ::core::ffi::c_uchar) -> ::core::ffi::c_int {
@@ -3046,7 +3046,7 @@ unsafe extern "C" fn pg_big5_mblen(mut s: *const ::core::ffi::c_uchar) -> ::core
     } else {
         len = 1 as ::core::ffi::c_int;
     }
-    return len;
+    len
 }
 #[c2rust::src_loc = "937:1"]
 unsafe extern "C" fn pg_big5_dsplen(mut s: *const ::core::ffi::c_uchar) -> ::core::ffi::c_int {
@@ -3056,7 +3056,7 @@ unsafe extern "C" fn pg_big5_dsplen(mut s: *const ::core::ffi::c_uchar) -> ::cor
     } else {
         len = pg_ascii_dsplen(s);
     }
-    return len;
+    len
 }
 #[c2rust::src_loc = "952:1"]
 unsafe extern "C" fn pg_gbk_mblen(mut s: *const ::core::ffi::c_uchar) -> ::core::ffi::c_int {
@@ -3066,7 +3066,7 @@ unsafe extern "C" fn pg_gbk_mblen(mut s: *const ::core::ffi::c_uchar) -> ::core:
     } else {
         len = 1 as ::core::ffi::c_int;
     }
-    return len;
+    len
 }
 #[c2rust::src_loc = "964:1"]
 unsafe extern "C" fn pg_gbk_dsplen(mut s: *const ::core::ffi::c_uchar) -> ::core::ffi::c_int {
@@ -3076,7 +3076,7 @@ unsafe extern "C" fn pg_gbk_dsplen(mut s: *const ::core::ffi::c_uchar) -> ::core
     } else {
         len = pg_ascii_dsplen(s);
     }
-    return len;
+    len
 }
 #[c2rust::src_loc = "979:1"]
 unsafe extern "C" fn pg_uhc_mblen(mut s: *const ::core::ffi::c_uchar) -> ::core::ffi::c_int {
@@ -3086,7 +3086,7 @@ unsafe extern "C" fn pg_uhc_mblen(mut s: *const ::core::ffi::c_uchar) -> ::core:
     } else {
         len = 1 as ::core::ffi::c_int;
     }
-    return len;
+    len
 }
 #[c2rust::src_loc = "991:1"]
 unsafe extern "C" fn pg_uhc_dsplen(mut s: *const ::core::ffi::c_uchar) -> ::core::ffi::c_int {
@@ -3096,7 +3096,7 @@ unsafe extern "C" fn pg_uhc_dsplen(mut s: *const ::core::ffi::c_uchar) -> ::core
     } else {
         len = pg_ascii_dsplen(s);
     }
-    return len;
+    len
 }
 #[c2rust::src_loc = "1018:1"]
 unsafe extern "C" fn pg_gb18030_mblen(mut s: *const ::core::ffi::c_uchar) -> ::core::ffi::c_int {
@@ -3112,7 +3112,7 @@ unsafe extern "C" fn pg_gb18030_mblen(mut s: *const ::core::ffi::c_uchar) -> ::c
     } else {
         len = 2 as ::core::ffi::c_int;
     }
-    return len;
+    len
 }
 #[c2rust::src_loc = "1032:1"]
 unsafe extern "C" fn pg_gb18030_dsplen(mut s: *const ::core::ffi::c_uchar) -> ::core::ffi::c_int {
@@ -3122,14 +3122,14 @@ unsafe extern "C" fn pg_gb18030_dsplen(mut s: *const ::core::ffi::c_uchar) -> ::
     } else {
         len = pg_ascii_dsplen(s);
     }
-    return len;
+    len
 }
 #[c2rust::src_loc = "1066:1"]
 unsafe extern "C" fn pg_ascii_verifychar(
     mut _s: *const ::core::ffi::c_uchar,
     mut _len: ::core::ffi::c_int,
 ) -> ::core::ffi::c_int {
-    return 1 as ::core::ffi::c_int;
+    1 as ::core::ffi::c_int
 }
 #[c2rust::src_loc = "1072:1"]
 unsafe extern "C" fn pg_ascii_verifystr(
@@ -3142,10 +3142,10 @@ unsafe extern "C" fn pg_ascii_verifystr(
         len as size_t,
     ) as *const ::core::ffi::c_uchar;
     if nullpos.is_null() {
-        return len;
+        len
     } else {
-        return nullpos.offset_from(s) as ::core::ffi::c_long as ::core::ffi::c_int;
-    };
+        nullpos.offset_from(s) as ::core::ffi::c_long as ::core::ffi::c_int
+    }
 }
 #[c2rust::src_loc = "1085:1"]
 unsafe extern "C" fn pg_eucjp_verifychar(
@@ -3219,7 +3219,7 @@ unsafe extern "C" fn pg_eucjp_verifychar(
             }
         }
     }
-    return l;
+    l
 }
 #[c2rust::src_loc = "1140:1"]
 unsafe extern "C" fn pg_eucjp_verifystr(
@@ -3243,7 +3243,7 @@ unsafe extern "C" fn pg_eucjp_verifystr(
         s = s.offset(l as isize);
         len -= l;
     }
-    return s.offset_from(start) as ::core::ffi::c_long as ::core::ffi::c_int;
+    s.offset_from(start) as ::core::ffi::c_long as ::core::ffi::c_int
 }
 #[c2rust::src_loc = "1169:1"]
 unsafe extern "C" fn pg_euckr_verifychar(
@@ -3277,7 +3277,7 @@ unsafe extern "C" fn pg_euckr_verifychar(
     } else {
         l = 1 as ::core::ffi::c_int;
     }
-    return l;
+    l
 }
 #[c2rust::src_loc = "1198:1"]
 unsafe extern "C" fn pg_euckr_verifystr(
@@ -3301,7 +3301,7 @@ unsafe extern "C" fn pg_euckr_verifystr(
         s = s.offset(l as isize);
         len -= l;
     }
-    return s.offset_from(start) as ::core::ffi::c_long as ::core::ffi::c_int;
+    s.offset_from(start) as ::core::ffi::c_long as ::core::ffi::c_int
 }
 #[c2rust::src_loc = "1231:1"]
 unsafe extern "C" fn pg_euctw_verifychar(
@@ -3365,7 +3365,7 @@ unsafe extern "C" fn pg_euctw_verifychar(
             }
         }
     }
-    return l;
+    l
 }
 #[c2rust::src_loc = "1281:1"]
 unsafe extern "C" fn pg_euctw_verifystr(
@@ -3389,7 +3389,7 @@ unsafe extern "C" fn pg_euctw_verifystr(
         s = s.offset(l as isize);
         len -= l;
     }
-    return s.offset_from(start) as ::core::ffi::c_long as ::core::ffi::c_int;
+    s.offset_from(start) as ::core::ffi::c_long as ::core::ffi::c_int
 }
 #[c2rust::src_loc = "1310:1"]
 unsafe extern "C" fn pg_johab_verifychar(
@@ -3409,7 +3409,7 @@ unsafe extern "C" fn pg_johab_verifychar(
     }
     loop {
         l -= 1;
-        if !(l > 0 as ::core::ffi::c_int) {
+        if l <= 0 as ::core::ffi::c_int {
             break;
         }
         s = s.offset(1);
@@ -3420,7 +3420,7 @@ unsafe extern "C" fn pg_johab_verifychar(
             return -(1 as ::core::ffi::c_int);
         }
     }
-    return mbl;
+    mbl
 }
 #[c2rust::src_loc = "1334:1"]
 unsafe extern "C" fn pg_johab_verifystr(
@@ -3444,7 +3444,7 @@ unsafe extern "C" fn pg_johab_verifystr(
         s = s.offset(l as isize);
         len -= l;
     }
-    return s.offset_from(start) as ::core::ffi::c_long as ::core::ffi::c_int;
+    s.offset_from(start) as ::core::ffi::c_long as ::core::ffi::c_int
 }
 #[c2rust::src_loc = "1363:1"]
 unsafe extern "C" fn pg_mule_verifychar(
@@ -3461,7 +3461,7 @@ unsafe extern "C" fn pg_mule_verifychar(
     }
     loop {
         l -= 1;
-        if !(l > 0 as ::core::ffi::c_int) {
+        if l <= 0 as ::core::ffi::c_int {
             break;
         }
         s = s.offset(1);
@@ -3470,7 +3470,7 @@ unsafe extern "C" fn pg_mule_verifychar(
             return -(1 as ::core::ffi::c_int);
         }
     }
-    return mbl;
+    mbl
 }
 #[c2rust::src_loc = "1384:1"]
 unsafe extern "C" fn pg_mule_verifystr(
@@ -3494,14 +3494,14 @@ unsafe extern "C" fn pg_mule_verifystr(
         s = s.offset(l as isize);
         len -= l;
     }
-    return s.offset_from(start) as ::core::ffi::c_long as ::core::ffi::c_int;
+    s.offset_from(start) as ::core::ffi::c_long as ::core::ffi::c_int
 }
 #[c2rust::src_loc = "1413:1"]
 unsafe extern "C" fn pg_latin1_verifychar(
     mut _s: *const ::core::ffi::c_uchar,
     mut _len: ::core::ffi::c_int,
 ) -> ::core::ffi::c_int {
-    return 1 as ::core::ffi::c_int;
+    1 as ::core::ffi::c_int
 }
 #[c2rust::src_loc = "1419:1"]
 unsafe extern "C" fn pg_latin1_verifystr(
@@ -3514,10 +3514,10 @@ unsafe extern "C" fn pg_latin1_verifystr(
         len as size_t,
     ) as *const ::core::ffi::c_uchar;
     if nullpos.is_null() {
-        return len;
+        len
     } else {
-        return nullpos.offset_from(s) as ::core::ffi::c_long as ::core::ffi::c_int;
-    };
+        nullpos.offset_from(s) as ::core::ffi::c_long as ::core::ffi::c_int
+    }
 }
 #[c2rust::src_loc = "1430:1"]
 unsafe extern "C" fn pg_sjis_verifychar(
@@ -3551,7 +3551,7 @@ unsafe extern "C" fn pg_sjis_verifychar(
     {
         return -(1 as ::core::ffi::c_int);
     }
-    return mbl;
+    mbl
 }
 #[c2rust::src_loc = "1453:1"]
 unsafe extern "C" fn pg_sjis_verifystr(
@@ -3575,7 +3575,7 @@ unsafe extern "C" fn pg_sjis_verifystr(
         s = s.offset(l as isize);
         len -= l;
     }
-    return s.offset_from(start) as ::core::ffi::c_long as ::core::ffi::c_int;
+    s.offset_from(start) as ::core::ffi::c_long as ::core::ffi::c_int
 }
 #[c2rust::src_loc = "1482:1"]
 unsafe extern "C" fn pg_big5_verifychar(
@@ -3599,7 +3599,7 @@ unsafe extern "C" fn pg_big5_verifychar(
     }
     loop {
         l -= 1;
-        if !(l > 0 as ::core::ffi::c_int) {
+        if l <= 0 as ::core::ffi::c_int {
             break;
         }
         s = s.offset(1);
@@ -3607,7 +3607,7 @@ unsafe extern "C" fn pg_big5_verifychar(
             return -(1 as ::core::ffi::c_int);
         }
     }
-    return mbl;
+    mbl
 }
 #[c2rust::src_loc = "1507:1"]
 unsafe extern "C" fn pg_big5_verifystr(
@@ -3631,7 +3631,7 @@ unsafe extern "C" fn pg_big5_verifystr(
         s = s.offset(l as isize);
         len -= l;
     }
-    return s.offset_from(start) as ::core::ffi::c_long as ::core::ffi::c_int;
+    s.offset_from(start) as ::core::ffi::c_long as ::core::ffi::c_int
 }
 #[c2rust::src_loc = "1536:1"]
 unsafe extern "C" fn pg_gbk_verifychar(
@@ -3655,7 +3655,7 @@ unsafe extern "C" fn pg_gbk_verifychar(
     }
     loop {
         l -= 1;
-        if !(l > 0 as ::core::ffi::c_int) {
+        if l <= 0 as ::core::ffi::c_int {
             break;
         }
         s = s.offset(1);
@@ -3663,7 +3663,7 @@ unsafe extern "C" fn pg_gbk_verifychar(
             return -(1 as ::core::ffi::c_int);
         }
     }
-    return mbl;
+    mbl
 }
 #[c2rust::src_loc = "1561:1"]
 unsafe extern "C" fn pg_gbk_verifystr(
@@ -3687,7 +3687,7 @@ unsafe extern "C" fn pg_gbk_verifystr(
         s = s.offset(l as isize);
         len -= l;
     }
-    return s.offset_from(start) as ::core::ffi::c_long as ::core::ffi::c_int;
+    s.offset_from(start) as ::core::ffi::c_long as ::core::ffi::c_int
 }
 #[c2rust::src_loc = "1590:1"]
 unsafe extern "C" fn pg_uhc_verifychar(
@@ -3711,7 +3711,7 @@ unsafe extern "C" fn pg_uhc_verifychar(
     }
     loop {
         l -= 1;
-        if !(l > 0 as ::core::ffi::c_int) {
+        if l <= 0 as ::core::ffi::c_int {
             break;
         }
         s = s.offset(1);
@@ -3719,7 +3719,7 @@ unsafe extern "C" fn pg_uhc_verifychar(
             return -(1 as ::core::ffi::c_int);
         }
     }
-    return mbl;
+    mbl
 }
 #[c2rust::src_loc = "1615:1"]
 unsafe extern "C" fn pg_uhc_verifystr(
@@ -3743,7 +3743,7 @@ unsafe extern "C" fn pg_uhc_verifystr(
         s = s.offset(l as isize);
         len -= l;
     }
-    return s.offset_from(start) as ::core::ffi::c_long as ::core::ffi::c_int;
+    s.offset_from(start) as ::core::ffi::c_long as ::core::ffi::c_int
 }
 #[c2rust::src_loc = "1644:1"]
 unsafe extern "C" fn pg_gb18030_verifychar(
@@ -3794,7 +3794,7 @@ unsafe extern "C" fn pg_gb18030_verifychar(
     } else {
         l = -(1 as ::core::ffi::c_int);
     }
-    return l;
+    l
 }
 #[c2rust::src_loc = "1675:1"]
 unsafe extern "C" fn pg_gb18030_verifystr(
@@ -3818,7 +3818,7 @@ unsafe extern "C" fn pg_gb18030_verifystr(
         s = s.offset(l as isize);
         len -= l;
     }
-    return s.offset_from(start) as ::core::ffi::c_long as ::core::ffi::c_int;
+    s.offset_from(start) as ::core::ffi::c_long as ::core::ffi::c_int
 }
 #[c2rust::src_loc = "1704:1"]
 unsafe extern "C" fn pg_utf8_verifychar(
@@ -3846,7 +3846,7 @@ unsafe extern "C" fn pg_utf8_verifychar(
     if !pg_utf8_islegal(s, l) {
         return -(1 as ::core::ffi::c_int);
     }
-    return l;
+    l
 }
 #[c2rust::src_loc = "1783:9"]
 pub const ERR: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
@@ -4178,7 +4178,7 @@ unsafe extern "C" fn pg_utf8_verifystr(
             if state != END as uint32_t || !is_valid_ascii(s, STRIDE_LENGTH) {
                 utf8_advance(s, &raw mut state, STRIDE_LENGTH as ::core::ffi::c_int);
             }
-            s = s.offset(STRIDE_LENGTH as isize);
+            s = s.add(STRIDE_LENGTH);
             len = (len as ::core::ffi::c_ulong).wrapping_sub(STRIDE_LENGTH as ::core::ffi::c_ulong)
                 as ::core::ffi::c_int as ::core::ffi::c_int;
         }
@@ -4189,7 +4189,7 @@ unsafe extern "C" fn pg_utf8_verifystr(
             loop {
                 s = s.offset(-1);
                 len += 1;
-                if !(pg_utf_mblen(s) <= 1 as ::core::ffi::c_int) {
+                if pg_utf_mblen(s) > 1 as ::core::ffi::c_int {
                     break;
                 }
             }
@@ -4211,11 +4211,10 @@ unsafe extern "C" fn pg_utf8_verifystr(
         s = s.offset(l as isize);
         len -= l;
     }
-    return s.offset_from(start) as ::core::ffi::c_long as ::core::ffi::c_int;
+    s.offset_from(start) as ::core::ffi::c_long as ::core::ffi::c_int
 }
 #[c2rust::src_loc = "1906:9"]
-pub const STRIDE_LENGTH: usize =
-    (2 as usize).wrapping_mul(::core::mem::size_of::<Vector8>() as usize);
+pub const STRIDE_LENGTH: usize = 2_usize.wrapping_mul(::core::mem::size_of::<Vector8>());
 #[no_mangle]
 #[c2rust::src_loc = "1992:1"]
 pub unsafe extern "C" fn pg_utf8_islegal(
@@ -4245,60 +4244,54 @@ pub unsafe extern "C" fn pg_utf8_islegal(
         }
         _ => return false_0 != 0,
     }
-    match current_block_23 {
-        7462850060054968072 => {
-            a = *source.offset(2 as ::core::ffi::c_int as isize);
-            if (a as ::core::ffi::c_int) < 0x80 as ::core::ffi::c_int
-                || a as ::core::ffi::c_int > 0xbf as ::core::ffi::c_int
-            {
-                return false_0 != 0;
-            }
-            current_block_23 = 11154739455121230990;
+    if current_block_23 == 7462850060054968072 {
+        a = *source.offset(2 as ::core::ffi::c_int as isize);
+        if (a as ::core::ffi::c_int) < 0x80 as ::core::ffi::c_int
+            || a as ::core::ffi::c_int > 0xbf as ::core::ffi::c_int
+        {
+            return false_0 != 0;
         }
-        _ => {}
+        current_block_23 = 11154739455121230990;
     }
-    match current_block_23 {
-        11154739455121230990 => {
-            a = *source.offset(1 as ::core::ffi::c_int as isize);
-            match *source as ::core::ffi::c_int {
-                224 => {
-                    if (a as ::core::ffi::c_int) < 0xa0 as ::core::ffi::c_int
-                        || a as ::core::ffi::c_int > 0xbf as ::core::ffi::c_int
-                    {
-                        return false_0 != 0;
-                    }
+    if current_block_23 == 11154739455121230990 {
+        a = *source.offset(1 as ::core::ffi::c_int as isize);
+        match *source as ::core::ffi::c_int {
+            224 => {
+                if (a as ::core::ffi::c_int) < 0xa0 as ::core::ffi::c_int
+                    || a as ::core::ffi::c_int > 0xbf as ::core::ffi::c_int
+                {
+                    return false_0 != 0;
                 }
-                237 => {
-                    if (a as ::core::ffi::c_int) < 0x80 as ::core::ffi::c_int
-                        || a as ::core::ffi::c_int > 0x9f as ::core::ffi::c_int
-                    {
-                        return false_0 != 0;
-                    }
+            }
+            237 => {
+                if (a as ::core::ffi::c_int) < 0x80 as ::core::ffi::c_int
+                    || a as ::core::ffi::c_int > 0x9f as ::core::ffi::c_int
+                {
+                    return false_0 != 0;
                 }
-                240 => {
-                    if (a as ::core::ffi::c_int) < 0x90 as ::core::ffi::c_int
-                        || a as ::core::ffi::c_int > 0xbf as ::core::ffi::c_int
-                    {
-                        return false_0 != 0;
-                    }
+            }
+            240 => {
+                if (a as ::core::ffi::c_int) < 0x90 as ::core::ffi::c_int
+                    || a as ::core::ffi::c_int > 0xbf as ::core::ffi::c_int
+                {
+                    return false_0 != 0;
                 }
-                244 => {
-                    if (a as ::core::ffi::c_int) < 0x80 as ::core::ffi::c_int
-                        || a as ::core::ffi::c_int > 0x8f as ::core::ffi::c_int
-                    {
-                        return false_0 != 0;
-                    }
+            }
+            244 => {
+                if (a as ::core::ffi::c_int) < 0x80 as ::core::ffi::c_int
+                    || a as ::core::ffi::c_int > 0x8f as ::core::ffi::c_int
+                {
+                    return false_0 != 0;
                 }
-                _ => {
-                    if (a as ::core::ffi::c_int) < 0x80 as ::core::ffi::c_int
-                        || a as ::core::ffi::c_int > 0xbf as ::core::ffi::c_int
-                    {
-                        return false_0 != 0;
-                    }
+            }
+            _ => {
+                if (a as ::core::ffi::c_int) < 0x80 as ::core::ffi::c_int
+                    || a as ::core::ffi::c_int > 0xbf as ::core::ffi::c_int
+                {
+                    return false_0 != 0;
                 }
             }
         }
-        _ => {}
     }
     a = *source;
     if a as ::core::ffi::c_int >= 0x80 as ::core::ffi::c_int
@@ -4309,7 +4302,7 @@ pub unsafe extern "C" fn pg_utf8_islegal(
     if a as ::core::ffi::c_int > 0xf4 as ::core::ffi::c_int {
         return false_0 != 0;
     }
-    return true_0 != 0;
+    true_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "2054:1"]
@@ -5960,9 +5953,7 @@ pub unsafe extern "C" fn pg_encoding_mblen(
     mut encoding: ::core::ffi::c_int,
     mut mbstr: *const ::core::ffi::c_char,
 ) -> ::core::ffi::c_int {
-    return if encoding >= 0 as ::core::ffi::c_int
-        && encoding < _PG_LAST_ENCODING_ as ::core::ffi::c_int
-    {
+    if encoding >= 0 as ::core::ffi::c_int && encoding < _PG_LAST_ENCODING_ as ::core::ffi::c_int {
         pg_wchar_table[encoding as usize]
             .mblen
             .expect("non-null function pointer")(mbstr as *const ::core::ffi::c_uchar)
@@ -5970,7 +5961,7 @@ pub unsafe extern "C" fn pg_encoding_mblen(
         pg_wchar_table[PG_SQL_ASCII as ::core::ffi::c_int as usize]
             .mblen
             .expect("non-null function pointer")(mbstr as *const ::core::ffi::c_uchar)
-    };
+    }
 }
 #[no_mangle]
 #[c2rust::src_loc = "2150:1"]
@@ -5986,7 +5977,7 @@ pub unsafe extern "C" fn pg_encoding_mblen_or_incomplete(
     {
         return INT_MAX;
     }
-    return pg_encoding_mblen(encoding, mbstr);
+    pg_encoding_mblen(encoding, mbstr)
 }
 #[no_mangle]
 #[c2rust::src_loc = "2170:1"]
@@ -5994,7 +5985,7 @@ pub unsafe extern "C" fn pg_encoding_mblen_bounded(
     mut encoding: ::core::ffi::c_int,
     mut mbstr: *const ::core::ffi::c_char,
 ) -> ::core::ffi::c_int {
-    return strnlen(mbstr, pg_encoding_mblen(encoding, mbstr) as size_t) as ::core::ffi::c_int;
+    strnlen(mbstr, pg_encoding_mblen(encoding, mbstr) as size_t) as ::core::ffi::c_int
 }
 #[no_mangle]
 #[c2rust::src_loc = "2179:1"]
@@ -6002,9 +5993,7 @@ pub unsafe extern "C" fn pg_encoding_dsplen(
     mut encoding: ::core::ffi::c_int,
     mut mbstr: *const ::core::ffi::c_char,
 ) -> ::core::ffi::c_int {
-    return if encoding >= 0 as ::core::ffi::c_int
-        && encoding < _PG_LAST_ENCODING_ as ::core::ffi::c_int
-    {
+    if encoding >= 0 as ::core::ffi::c_int && encoding < _PG_LAST_ENCODING_ as ::core::ffi::c_int {
         pg_wchar_table[encoding as usize]
             .dsplen
             .expect("non-null function pointer")(mbstr as *const ::core::ffi::c_uchar)
@@ -6012,7 +6001,7 @@ pub unsafe extern "C" fn pg_encoding_dsplen(
         pg_wchar_table[PG_SQL_ASCII as ::core::ffi::c_int as usize]
             .dsplen
             .expect("non-null function pointer")(mbstr as *const ::core::ffi::c_uchar)
-    };
+    }
 }
 #[no_mangle]
 #[c2rust::src_loc = "2192:1"]
@@ -6021,9 +6010,7 @@ pub unsafe extern "C" fn pg_encoding_verifymbchar(
     mut mbstr: *const ::core::ffi::c_char,
     mut len: ::core::ffi::c_int,
 ) -> ::core::ffi::c_int {
-    return if encoding >= 0 as ::core::ffi::c_int
-        && encoding < _PG_LAST_ENCODING_ as ::core::ffi::c_int
-    {
+    if encoding >= 0 as ::core::ffi::c_int && encoding < _PG_LAST_ENCODING_ as ::core::ffi::c_int {
         pg_wchar_table[encoding as usize]
             .mbverifychar
             .expect("non-null function pointer")(mbstr as *const ::core::ffi::c_uchar, len)
@@ -6031,7 +6018,7 @@ pub unsafe extern "C" fn pg_encoding_verifymbchar(
         pg_wchar_table[PG_SQL_ASCII as ::core::ffi::c_int as usize]
             .mbverifychar
             .expect("non-null function pointer")(mbstr as *const ::core::ffi::c_uchar, len)
-    };
+    }
 }
 #[no_mangle]
 #[c2rust::src_loc = "2205:1"]
@@ -6040,9 +6027,7 @@ pub unsafe extern "C" fn pg_encoding_verifymbstr(
     mut mbstr: *const ::core::ffi::c_char,
     mut len: ::core::ffi::c_int,
 ) -> ::core::ffi::c_int {
-    return if encoding >= 0 as ::core::ffi::c_int
-        && encoding < _PG_LAST_ENCODING_ as ::core::ffi::c_int
-    {
+    if encoding >= 0 as ::core::ffi::c_int && encoding < _PG_LAST_ENCODING_ as ::core::ffi::c_int {
         pg_wchar_table[encoding as usize]
             .mbverifystr
             .expect("non-null function pointer")(mbstr as *const ::core::ffi::c_uchar, len)
@@ -6050,18 +6035,16 @@ pub unsafe extern "C" fn pg_encoding_verifymbstr(
         pg_wchar_table[PG_SQL_ASCII as ::core::ffi::c_int as usize]
             .mbverifystr
             .expect("non-null function pointer")(mbstr as *const ::core::ffi::c_uchar, len)
-    };
+    }
 }
 #[no_mangle]
 #[c2rust::src_loc = "2216:1"]
 pub unsafe extern "C" fn pg_encoding_max_length(
     mut encoding: ::core::ffi::c_int,
 ) -> ::core::ffi::c_int {
-    return if encoding >= 0 as ::core::ffi::c_int
-        && encoding < _PG_LAST_ENCODING_ as ::core::ffi::c_int
-    {
+    if encoding >= 0 as ::core::ffi::c_int && encoding < _PG_LAST_ENCODING_ as ::core::ffi::c_int {
         pg_wchar_table[encoding as usize].maxmblen
     } else {
         pg_wchar_table[PG_SQL_ASCII as ::core::ffi::c_int as usize].maxmblen
-    };
+    }
 }

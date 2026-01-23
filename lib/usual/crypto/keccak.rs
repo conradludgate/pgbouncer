@@ -67,7 +67,7 @@ pub mod bits_h {
     #[inline]
     #[c2rust::src_loc = "55:1"]
     pub unsafe extern "C" fn rol64(mut v: uint64_t, mut s: ::core::ffi::c_int) -> uint64_t {
-        return v << s | v >> 64 as ::core::ffi::c_int - s;
+        v << s | v >> (64 as ::core::ffi::c_int - s)
     }
     use super::_uint64_t_h::uint64_t;
 }
@@ -82,7 +82,7 @@ pub mod endian_h {
             p,
             ::core::mem::size_of::<uint64_t>() as size_t,
         );
-        return tmp;
+        tmp
     }
     #[inline]
     #[c2rust::src_loc = "357:1"]
@@ -795,8 +795,8 @@ unsafe extern "C" fn extract(
     let mut src = (&raw const (*ctx).u.state64 as *const uint64_t).offset(startLane as isize);
     loop {
         let fresh6 = laneCount;
-        laneCount = laneCount - 1;
-        if !(fresh6 != 0) {
+        laneCount -= 1;
+        if fresh6 == 0 {
             break;
         }
         let fresh7 = src;
@@ -832,7 +832,7 @@ unsafe extern "C" fn add_bytes(
         loop {
             let fresh0 = m;
             m = m.wrapping_sub(1);
-            if !(fresh0 != 0) {
+            if fresh0 == 0 {
                 break;
             }
             let fresh1 = ofs;
@@ -857,7 +857,7 @@ unsafe extern "C" fn add_bytes(
     loop {
         let fresh3 = len;
         len = len.wrapping_sub(1);
-        if !(fresh3 != 0) {
+        if fresh3 == 0 {
             break;
         }
         let fresh4 = ofs;
@@ -958,7 +958,7 @@ pub unsafe extern "C" fn keccak_init(
     (*ctx).rbytes = (1600 as ::core::ffi::c_uint)
         .wrapping_sub(capacity)
         .wrapping_div(8 as ::core::ffi::c_uint) as uint32_t;
-    return 1 as ::core::ffi::c_int;
+    1 as ::core::ffi::c_int
 }
 #[no_mangle]
 #[c2rust::src_loc = "1280:1"]
@@ -1029,7 +1029,7 @@ pub unsafe extern "C" fn keccak_squeeze_xor(
         extract_bytes(ctx, dst, (*ctx).pos as ::core::ffi::c_uint, n);
         i = 0 as ::core::ffi::c_uint;
         while i < n {
-            let ref mut fresh8 = *dst.offset(i as isize);
+            let fresh8 = &mut *dst.offset(i as isize);
             *fresh8 = (*fresh8 as ::core::ffi::c_int
                 ^ *src.offset(i as isize) as ::core::ffi::c_int) as uint8_t;
             i = i.wrapping_add(1);
@@ -1090,7 +1090,7 @@ pub unsafe extern "C" fn keccak_decrypt(
         extract_bytes(ctx, dst, (*ctx).pos as ::core::ffi::c_uint, n);
         i = 0 as ::core::ffi::c_uint;
         while i < n {
-            let ref mut fresh9 = *dst.offset(i as isize);
+            let fresh9 = &mut *dst.offset(i as isize);
             *fresh9 = (*fresh9 as ::core::ffi::c_int
                 ^ *src.offset(i as isize) as ::core::ffi::c_int) as uint8_t;
             i = i.wrapping_add(1);
@@ -1118,7 +1118,7 @@ pub unsafe extern "C" fn keccak_pad(
                 src as *const ::core::ffi::c_void,
                 len.wrapping_sub(1 as size_t),
             );
-            src = src.offset(len.wrapping_sub(1 as size_t) as isize);
+            src = src.add(len.wrapping_sub(1 as size_t));
         }
         xor_byte(
             ctx,

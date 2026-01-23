@@ -239,7 +239,7 @@ pub mod x509_h {
     pub unsafe extern "C" fn ossl_check_X509_sk_type(
         mut sk: *mut stack_st_X509,
     ) -> *mut OPENSSL_STACK {
-        return sk as *mut OPENSSL_STACK;
+        sk as *mut OPENSSL_STACK
     }
     use super::stack_h::OPENSSL_STACK;
     use super::types_h::{X509, X509_NAME};
@@ -645,7 +645,7 @@ pub mod safestack_h {
     pub unsafe extern "C" fn ossl_check_const_OPENSSL_STRING_sk_type(
         mut sk: *const stack_st_OPENSSL_STRING,
     ) -> *const OPENSSL_STACK {
-        return sk as *const OPENSSL_STACK;
+        sk as *const OPENSSL_STACK
     }
     use super::stack_h::OPENSSL_STACK;
     extern "C" {
@@ -971,7 +971,7 @@ unsafe extern "C" fn tls_ocsp_fill_info(
     } else {
         tls_ocsp_info_free(info);
     }
-    return res;
+    res
 }
 #[c2rust::src_loc = "97:1"]
 unsafe extern "C" fn tls_ocsp_fill_result(mut ctx: *mut tls, mut res: ::core::ffi::c_int) {
@@ -1044,7 +1044,7 @@ pub unsafe extern "C" fn tls_get_ocsp_info(
     if !result_text.is_null() {
         *result_text = ocsp_result;
     }
-    return ret;
+    ret
 }
 #[c2rust::src_loc = "158:1"]
 unsafe extern "C" fn tls_ocsp_get_certid(
@@ -1074,7 +1074,7 @@ unsafe extern "C" fn tls_ocsp_get_certid(
         storectx = X509_STORE_CTX_new();
         if !storectx.is_null() {
             ok = X509_STORE_CTX_init(storectx, store, main_cert, extra_certs);
-            if !(ok != 1 as ::core::ffi::c_int) {
+            if ok == 1 as ::core::ffi::c_int {
                 tmpobj = X509_STORE_CTX_get_obj_by_subject(storectx, X509_LU_X509, issuer_name);
                 if !tmpobj.is_null() {
                     cid = OCSP_cert_to_id(
@@ -1092,7 +1092,7 @@ unsafe extern "C" fn tls_ocsp_get_certid(
     if !storectx.is_null() {
         X509_STORE_CTX_free(storectx);
     }
-    return ::core::ptr::null_mut::<OCSP_CERTID>();
+    ::core::ptr::null_mut::<OCSP_CERTID>()
 }
 #[c2rust::src_loc = "202:1"]
 unsafe extern "C" fn tls_ocsp_verify_response(
@@ -1186,7 +1186,7 @@ unsafe extern "C" fn tls_ocsp_verify_response(
                                 thisupd,
                                 nextupd,
                             );
-                            if !(ssl_res != 0 as ::core::ffi::c_int) {
+                            if ssl_res == 0 as ::core::ffi::c_int {
                                 if cert_status != V_OCSP_CERTSTATUS_GOOD
                                     && cert_status != V_OCSP_CERTSTATUS_UNKNOWN
                                 {
@@ -1209,7 +1209,7 @@ unsafe extern "C" fn tls_ocsp_verify_response(
     OPENSSL_sk_free(ossl_check_X509_sk_type(combined));
     OCSP_CERTID_free(cid);
     OCSP_BASICRESP_free(br);
-    return ret;
+    ret
 }
 #[no_mangle]
 #[c2rust::src_loc = "347:1"]
@@ -1262,11 +1262,11 @@ pub unsafe extern "C" fn tls_ocsp_verify_callback(
     tls_ocsp_fill_result(ctx, res);
     OCSP_RESPONSE_free(resp);
     X509_free(peer);
-    return if res == 0 as ::core::ffi::c_int {
+    if res == 0 as ::core::ffi::c_int {
         1 as ::core::ffi::c_int
     } else {
         0 as ::core::ffi::c_int
-    };
+    }
 }
 #[no_mangle]
 #[c2rust::src_loc = "389:1"]
@@ -1305,40 +1305,37 @@ pub unsafe extern "C" fn tls_ocsp_stapling_callback(
         }
         current_block = 13109137661213826276;
     }
-    match current_block {
-        13109137661213826276 => {
-            xmem = CRYPTO_malloc(
+    if current_block == 13109137661213826276 {
+        xmem = CRYPTO_malloc(
+            len,
+            b"lib/usual/tls/tls_ocsp.c\0" as *const u8 as *const ::core::ffi::c_char,
+            411 as ::core::ffi::c_int,
+        ) as *mut uint8_t;
+        if !xmem.is_null() {
+            memcpy(
+                xmem as *mut ::core::ffi::c_void,
+                mem as *const ::core::ffi::c_void,
                 len,
-                b"lib/usual/tls/tls_ocsp.c\0" as *const u8 as *const ::core::ffi::c_char,
-                411 as ::core::ffi::c_int,
-            ) as *mut uint8_t;
-            if !xmem.is_null() {
-                memcpy(
+            );
+            if SSL_ctrl(
+                (*ctx).ssl_conn,
+                SSL_CTRL_SET_TLSEXT_STATUS_REQ_OCSP_RESP,
+                len as ::core::ffi::c_long,
+                xmem as *mut ::core::ffi::c_void,
+            ) != 1 as ::core::ffi::c_long
+            {
+                CRYPTO_free(
                     xmem as *mut ::core::ffi::c_void,
-                    mem as *const ::core::ffi::c_void,
-                    len,
+                    b"lib/usual/tls/tls_ocsp.c\0" as *const u8 as *const ::core::ffi::c_char,
+                    415 as ::core::ffi::c_int,
                 );
-                if SSL_ctrl(
-                    (*ctx).ssl_conn,
-                    SSL_CTRL_SET_TLSEXT_STATUS_REQ_OCSP_RESP,
-                    len as ::core::ffi::c_long,
-                    xmem as *mut ::core::ffi::c_void,
-                ) != 1 as ::core::ffi::c_long
-                {
-                    CRYPTO_free(
-                        xmem as *mut ::core::ffi::c_void,
-                        b"lib/usual/tls/tls_ocsp.c\0" as *const u8 as *const ::core::ffi::c_char,
-                        415 as ::core::ffi::c_int,
-                    );
-                } else {
-                    ret = SSL_TLSEXT_ERR_OK;
-                }
+            } else {
+                ret = SSL_TLSEXT_ERR_OK;
             }
         }
-        _ => {}
     }
     free(fmem as *mut ::core::ffi::c_void);
-    return ret;
+    ret
 }
 #[no_mangle]
 #[c2rust::src_loc = "429:1"]
@@ -1376,7 +1373,7 @@ unsafe extern "C" fn tls_ocsp_client_new() -> *mut tls {
         usual_tls_free(ctx);
         return ::core::ptr::null_mut::<tls>();
     }
-    return ctx;
+    ctx
 }
 #[c2rust::src_loc = "466:1"]
 unsafe extern "C" fn tls_build_ocsp_request(mut ctx: *mut tls) -> ::core::ffi::c_int {
@@ -1480,7 +1477,7 @@ unsafe extern "C" fn tls_build_ocsp_request(mut ctx: *mut tls) -> ::core::ffi::c
     OCSP_CERTID_free(cid);
     OCSP_REQUEST_free(req);
     BIO_free(mem);
-    return ret;
+    ret
 }
 #[c2rust::src_loc = "529:1"]
 unsafe extern "C" fn tls_ocsp_setup(
@@ -1538,12 +1535,12 @@ unsafe extern "C" fn tls_ocsp_setup(
         );
     } else {
         ret = tls_build_ocsp_request(ctx);
-        if !(ret != 0 as ::core::ffi::c_int) {
+        if ret == 0 as ::core::ffi::c_int {
             *ocsp_ctx_p = ctx;
         }
     }
     X509_email_free(ocsp_urls);
-    return ret;
+    ret
 }
 #[c2rust::src_loc = "587:1"]
 unsafe extern "C" fn tls_ocsp_process_response_parsed(
@@ -1566,7 +1563,7 @@ unsafe extern "C" fn tls_ocsp_process_response_parsed(
         (*q).cert_ssl_ctx,
         resp,
     );
-    if !(res < 0 as ::core::ffi::c_int) {
+    if res >= 0 as ::core::ffi::c_int {
         if !config.is_null() {
             mem = BIO_new(BIO_s_mem());
             if mem.is_null() {
@@ -1634,7 +1631,7 @@ unsafe extern "C" fn tls_ocsp_process_response_parsed(
     }
     BIO_free(mem);
     tls_ocsp_fill_result(ctx, ret);
-    return ret;
+    ret
 }
 #[c2rust::src_loc = "623:1"]
 unsafe extern "C" fn tls_ocsp_create_request(
@@ -1655,7 +1652,7 @@ unsafe extern "C" fn tls_ocsp_create_request(
     *ocsp_url = (*q).ocsp_url;
     *request_blob = (*q).request_data as *mut ::core::ffi::c_void;
     *request_size = (*q).request_size;
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }
 #[no_mangle]
 #[c2rust::src_loc = "647:1"]
@@ -1666,14 +1663,14 @@ pub unsafe extern "C" fn tls_ocsp_check_peer_request(
     mut request_blob: *mut *mut ::core::ffi::c_void,
     mut request_size: *mut size_t,
 ) -> ::core::ffi::c_int {
-    return tls_ocsp_create_request(
+    tls_ocsp_create_request(
         ocsp_ctx_p,
         ::core::ptr::null_mut::<tls_config>(),
         target,
         ocsp_url,
         request_blob,
         request_size,
-    );
+    )
 }
 #[no_mangle]
 #[c2rust::src_loc = "654:1"]
@@ -1684,14 +1681,14 @@ pub unsafe extern "C" fn tls_ocsp_refresh_stapling_request(
     mut request_blob: *mut *mut ::core::ffi::c_void,
     mut request_size: *mut size_t,
 ) -> ::core::ffi::c_int {
-    return tls_ocsp_create_request(
+    tls_ocsp_create_request(
         ocsp_ctx_p,
         config,
         ::core::ptr::null_mut::<tls>(),
         ocsp_url,
         request_blob,
         request_size,
-    );
+    )
 }
 #[no_mangle]
 #[c2rust::src_loc = "662:1"]
@@ -1718,7 +1715,7 @@ pub unsafe extern "C" fn tls_ocsp_process_response(
     }
     ret = tls_ocsp_process_response_parsed(ctx, (*ctx).config, resp);
     OCSP_RESPONSE_free(resp);
-    return ret;
+    ret
 }
 #[c2rust::src_loc = "683:1"]
 unsafe extern "C" fn tls_ocsp_build_http_req(mut ctx: *mut tls) -> ::core::ffi::c_int {
@@ -1794,7 +1791,7 @@ unsafe extern "C" fn tls_ocsp_build_http_req(mut ctx: *mut tls) -> ::core::ffi::
     free(host as *mut ::core::ffi::c_void);
     free(port as *mut ::core::ffi::c_void);
     free(path as *mut ::core::ffi::c_void);
-    return ret;
+    ret
 }
 #[c2rust::src_loc = "728:1"]
 unsafe extern "C" fn tls_ocsp_connection_setup(mut ctx: *mut tls) -> ::core::ffi::c_int {
@@ -1924,7 +1921,7 @@ unsafe extern "C" fn tls_ocsp_connection_setup(mut ctx: *mut tls) -> ::core::ffi
     free(host as *mut ::core::ffi::c_void);
     free(port as *mut ::core::ffi::c_void);
     free(path as *mut ::core::ffi::c_void);
-    return ret;
+    ret
 }
 #[c2rust::src_loc = "787:1"]
 unsafe extern "C" fn tls_ocsp_evloop(
@@ -1979,37 +1976,34 @@ unsafe extern "C" fn tls_ocsp_evloop(
     } else {
         current_block = 2868539653012386629;
     }
-    match current_block {
-        2868539653012386629 => {
-            ok = OSSL_HTTP_REQ_CTX_nbio_d2i(
-                (*q).http_req as *mut OSSL_HTTP_REQ_CTX,
-                &raw mut ocsp_resp as *mut *mut ASN1_VALUE,
-                OCSP_RESPONSE_it(),
+    if current_block == 2868539653012386629 {
+        ok = OSSL_HTTP_REQ_CTX_nbio_d2i(
+            (*q).http_req as *mut OSSL_HTTP_REQ_CTX,
+            &raw mut ocsp_resp as *mut *mut ASN1_VALUE,
+            OCSP_RESPONSE_it(),
+        );
+        if ok == 1 as ::core::ffi::c_int {
+            ret = tls_ocsp_process_response_parsed(ctx, config, ocsp_resp);
+            return ret;
+        } else if ok == 0 as ::core::ffi::c_int {
+            tls_set_error_libssl(
+                ctx,
+                b"OCSP request failed\0" as *const u8 as *const ::core::ffi::c_char,
             );
-            if ok == 1 as ::core::ffi::c_int {
-                ret = tls_ocsp_process_response_parsed(ctx, config, ocsp_resp);
-                return ret;
-            } else if ok == 0 as ::core::ffi::c_int {
-                tls_set_error_libssl(
-                    ctx,
-                    b"OCSP request failed\0" as *const u8 as *const ::core::ffi::c_char,
-                );
-            } else {
-                if BIO_test_flags((*q).bio, BIO_FLAGS_READ) != 0 {
-                    return TLS_WANT_POLLIN;
-                } else if BIO_test_flags((*q).bio, BIO_FLAGS_WRITE) != 0 {
-                    return TLS_WANT_POLLOUT;
-                }
-                tls_set_error_libssl(
-                    ctx,
-                    b"Unexpected request error\0" as *const u8 as *const ::core::ffi::c_char,
-                );
+        } else {
+            if BIO_test_flags((*q).bio, BIO_FLAGS_READ) != 0 {
+                return TLS_WANT_POLLIN;
+            } else if BIO_test_flags((*q).bio, BIO_FLAGS_WRITE) != 0 {
+                return TLS_WANT_POLLOUT;
             }
+            tls_set_error_libssl(
+                ctx,
+                b"Unexpected request error\0" as *const u8 as *const ::core::ffi::c_char,
+            );
         }
-        _ => {}
     }
     tls_ocsp_fill_result(ctx, -(1 as ::core::ffi::c_int));
-    return -(1 as ::core::ffi::c_int);
+    -(1 as ::core::ffi::c_int)
 }
 #[c2rust::src_loc = "833:1"]
 unsafe extern "C" fn tls_ocsp_do_poll(
@@ -2054,7 +2048,7 @@ unsafe extern "C" fn tls_ocsp_do_poll(
         ctx,
         b"poll error\0" as *const u8 as *const ::core::ffi::c_char,
     );
-    return -(1 as ::core::ffi::c_int);
+    -(1 as ::core::ffi::c_int)
 }
 #[c2rust::src_loc = "860:1"]
 unsafe extern "C" fn tls_ocsp_query_async(
@@ -2087,7 +2081,7 @@ unsafe extern "C" fn tls_ocsp_query_async(
             }
         }
     }
-    return tls_ocsp_evloop(ctx, fd_p, config);
+    tls_ocsp_evloop(ctx, fd_p, config)
 }
 #[c2rust::src_loc = "880:1"]
 unsafe extern "C" fn tls_ocsp_common_query(
@@ -2113,7 +2107,7 @@ unsafe extern "C" fn tls_ocsp_common_query(
         }
     }
     *ocsp_ctx_p = ctx;
-    return ret;
+    ret
 }
 #[no_mangle]
 #[c2rust::src_loc = "906:1"]
@@ -2122,12 +2116,12 @@ pub unsafe extern "C" fn tls_ocsp_check_peer(
     mut async_fd_p: *mut ::core::ffi::c_int,
     mut target: *mut tls,
 ) -> ::core::ffi::c_int {
-    return tls_ocsp_common_query(
+    tls_ocsp_common_query(
         ocsp_ctx_p,
         async_fd_p,
         ::core::ptr::null_mut::<tls_config>(),
         target,
-    );
+    )
 }
 #[no_mangle]
 #[c2rust::src_loc = "911:1"]
@@ -2136,10 +2130,10 @@ pub unsafe extern "C" fn tls_ocsp_refresh_stapling(
     mut async_fd_p: *mut ::core::ffi::c_int,
     mut config: *mut tls_config,
 ) -> ::core::ffi::c_int {
-    return tls_ocsp_common_query(
+    tls_ocsp_common_query(
         ocsp_ctx_p,
         async_fd_p,
         config,
         ::core::ptr::null_mut::<tls>(),
-    );
+    )
 }

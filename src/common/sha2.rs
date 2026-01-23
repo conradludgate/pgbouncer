@@ -367,21 +367,21 @@ unsafe extern "C" fn SHA256_Transform(mut context: *mut pg_sha256_ctx, mut data:
         T1 = h
             .wrapping_add(
                 (e >> 6 as ::core::ffi::c_int
-                    | e << 32 as ::core::ffi::c_int - 6 as ::core::ffi::c_int)
+                    | e << (32 as ::core::ffi::c_int - 6 as ::core::ffi::c_int))
                     ^ (e >> 11 as ::core::ffi::c_int
-                        | e << 32 as ::core::ffi::c_int - 11 as ::core::ffi::c_int)
+                        | e << (32 as ::core::ffi::c_int - 11 as ::core::ffi::c_int))
                     ^ (e >> 25 as ::core::ffi::c_int
-                        | e << 32 as ::core::ffi::c_int - 25 as ::core::ffi::c_int),
+                        | e << (32 as ::core::ffi::c_int - 25 as ::core::ffi::c_int)),
             )
             .wrapping_add(e & f ^ !e & g)
             .wrapping_add(K256[j as usize])
             .wrapping_add(*W256.offset(j as isize));
         T2 = ((a >> 2 as ::core::ffi::c_int
-            | a << 32 as ::core::ffi::c_int - 2 as ::core::ffi::c_int)
+            | a << (32 as ::core::ffi::c_int - 2 as ::core::ffi::c_int))
             ^ (a >> 13 as ::core::ffi::c_int
-                | a << 32 as ::core::ffi::c_int - 13 as ::core::ffi::c_int)
+                | a << (32 as ::core::ffi::c_int - 13 as ::core::ffi::c_int))
             ^ (a >> 22 as ::core::ffi::c_int
-                | a << 32 as ::core::ffi::c_int - 22 as ::core::ffi::c_int))
+                | a << (32 as ::core::ffi::c_int - 22 as ::core::ffi::c_int)))
             .wrapping_add(a & b ^ a & c ^ b & c);
         h = g;
         g = f;
@@ -392,48 +392,48 @@ unsafe extern "C" fn SHA256_Transform(mut context: *mut pg_sha256_ctx, mut data:
         b = a;
         a = T1.wrapping_add(T2);
         j += 1;
-        if !(j < 16 as ::core::ffi::c_int) {
+        if j >= 16 as ::core::ffi::c_int {
             break;
         }
     }
     loop {
-        s0 = *W256.offset((j + 1 as ::core::ffi::c_int & 0xf as ::core::ffi::c_int) as isize);
+        s0 = *W256.offset(((j + 1 as ::core::ffi::c_int) & 0xf as ::core::ffi::c_int) as isize);
         s0 = (s0 >> 7 as ::core::ffi::c_int
-            | s0 << 32 as ::core::ffi::c_int - 7 as ::core::ffi::c_int)
+            | s0 << (32 as ::core::ffi::c_int - 7 as ::core::ffi::c_int))
             ^ (s0 >> 18 as ::core::ffi::c_int
-                | s0 << 32 as ::core::ffi::c_int - 18 as ::core::ffi::c_int)
+                | s0 << (32 as ::core::ffi::c_int - 18 as ::core::ffi::c_int))
             ^ s0 >> 3 as ::core::ffi::c_int;
-        s1 = *W256.offset((j + 14 as ::core::ffi::c_int & 0xf as ::core::ffi::c_int) as isize);
+        s1 = *W256.offset(((j + 14 as ::core::ffi::c_int) & 0xf as ::core::ffi::c_int) as isize);
         s1 = (s1 >> 17 as ::core::ffi::c_int
-            | s1 << 32 as ::core::ffi::c_int - 17 as ::core::ffi::c_int)
+            | s1 << (32 as ::core::ffi::c_int - 17 as ::core::ffi::c_int))
             ^ (s1 >> 19 as ::core::ffi::c_int
-                | s1 << 32 as ::core::ffi::c_int - 19 as ::core::ffi::c_int)
+                | s1 << (32 as ::core::ffi::c_int - 19 as ::core::ffi::c_int))
             ^ s1 >> 10 as ::core::ffi::c_int;
-        let ref mut fresh0 = *W256.offset((j & 0xf as ::core::ffi::c_int) as isize);
+        let fresh0 = &mut *W256.offset((j & 0xf as ::core::ffi::c_int) as isize);
         *fresh0 = (*fresh0).wrapping_add(
             s1.wrapping_add(
-                *W256.offset((j + 9 as ::core::ffi::c_int & 0xf as ::core::ffi::c_int) as isize),
+                *W256.offset(((j + 9 as ::core::ffi::c_int) & 0xf as ::core::ffi::c_int) as isize),
             )
             .wrapping_add(s0),
         );
         T1 = h
             .wrapping_add(
                 (e >> 6 as ::core::ffi::c_int
-                    | e << 32 as ::core::ffi::c_int - 6 as ::core::ffi::c_int)
+                    | e << (32 as ::core::ffi::c_int - 6 as ::core::ffi::c_int))
                     ^ (e >> 11 as ::core::ffi::c_int
-                        | e << 32 as ::core::ffi::c_int - 11 as ::core::ffi::c_int)
+                        | e << (32 as ::core::ffi::c_int - 11 as ::core::ffi::c_int))
                     ^ (e >> 25 as ::core::ffi::c_int
-                        | e << 32 as ::core::ffi::c_int - 25 as ::core::ffi::c_int),
+                        | e << (32 as ::core::ffi::c_int - 25 as ::core::ffi::c_int)),
             )
             .wrapping_add(e & f ^ !e & g)
             .wrapping_add(K256[j as usize])
             .wrapping_add(*fresh0);
         T2 = ((a >> 2 as ::core::ffi::c_int
-            | a << 32 as ::core::ffi::c_int - 2 as ::core::ffi::c_int)
+            | a << (32 as ::core::ffi::c_int - 2 as ::core::ffi::c_int))
             ^ (a >> 13 as ::core::ffi::c_int
-                | a << 32 as ::core::ffi::c_int - 13 as ::core::ffi::c_int)
+                | a << (32 as ::core::ffi::c_int - 13 as ::core::ffi::c_int))
             ^ (a >> 22 as ::core::ffi::c_int
-                | a << 32 as ::core::ffi::c_int - 22 as ::core::ffi::c_int))
+                | a << (32 as ::core::ffi::c_int - 22 as ::core::ffi::c_int)))
             .wrapping_add(a & b ^ a & c ^ b & c);
         h = g;
         g = f;
@@ -444,7 +444,7 @@ unsafe extern "C" fn SHA256_Transform(mut context: *mut pg_sha256_ctx, mut data:
         b = a;
         a = T1.wrapping_add(T2);
         j += 1;
-        if !(j < 64 as ::core::ffi::c_int) {
+        if j >= 64 as ::core::ffi::c_int {
             break;
         }
     }
@@ -493,8 +493,8 @@ pub unsafe extern "C" fn pg_sha256_update(
         freespace = (PG_SHA256_BLOCK_LENGTH as size_t).wrapping_sub(usedspace);
         if len >= freespace {
             memcpy(
-                (&raw mut (*context).buffer as *mut uint8_t).offset(usedspace as isize)
-                    as *mut uint8_t as *mut ::core::ffi::c_void,
+                (&raw mut (*context).buffer as *mut uint8_t).add(usedspace) as *mut uint8_t
+                    as *mut ::core::ffi::c_void,
                 data as *const ::core::ffi::c_void,
                 freespace,
             );
@@ -502,12 +502,12 @@ pub unsafe extern "C" fn pg_sha256_update(
                 .bitcount
                 .wrapping_add((freespace << 3 as ::core::ffi::c_int) as uint64_t);
             len = len.wrapping_sub(freespace);
-            data = data.offset(freespace as isize);
+            data = data.add(freespace);
             SHA256_Transform(context, &raw mut (*context).buffer as *mut uint8_t);
         } else {
             memcpy(
-                (&raw mut (*context).buffer as *mut uint8_t).offset(usedspace as isize)
-                    as *mut uint8_t as *mut ::core::ffi::c_void,
+                (&raw mut (*context).buffer as *mut uint8_t).add(usedspace) as *mut uint8_t
+                    as *mut ::core::ffi::c_void,
                 data as *const ::core::ffi::c_void,
                 len,
             );
@@ -689,21 +689,21 @@ unsafe extern "C" fn SHA512_Transform(mut context: *mut pg_sha512_ctx, mut data:
         T1 = h
             .wrapping_add(
                 (e >> 14 as ::core::ffi::c_int
-                    | e << 64 as ::core::ffi::c_int - 14 as ::core::ffi::c_int)
+                    | e << (64 as ::core::ffi::c_int - 14 as ::core::ffi::c_int))
                     ^ (e >> 18 as ::core::ffi::c_int
-                        | e << 64 as ::core::ffi::c_int - 18 as ::core::ffi::c_int)
+                        | e << (64 as ::core::ffi::c_int - 18 as ::core::ffi::c_int))
                     ^ (e >> 41 as ::core::ffi::c_int
-                        | e << 64 as ::core::ffi::c_int - 41 as ::core::ffi::c_int),
+                        | e << (64 as ::core::ffi::c_int - 41 as ::core::ffi::c_int)),
             )
             .wrapping_add(e & f ^ !e & g)
             .wrapping_add(K512[j as usize])
             .wrapping_add(*W512.offset(j as isize));
         T2 = ((a >> 28 as ::core::ffi::c_int
-            | a << 64 as ::core::ffi::c_int - 28 as ::core::ffi::c_int)
+            | a << (64 as ::core::ffi::c_int - 28 as ::core::ffi::c_int))
             ^ (a >> 34 as ::core::ffi::c_int
-                | a << 64 as ::core::ffi::c_int - 34 as ::core::ffi::c_int)
+                | a << (64 as ::core::ffi::c_int - 34 as ::core::ffi::c_int))
             ^ (a >> 39 as ::core::ffi::c_int
-                | a << 64 as ::core::ffi::c_int - 39 as ::core::ffi::c_int))
+                | a << (64 as ::core::ffi::c_int - 39 as ::core::ffi::c_int)))
             .wrapping_add(a & b ^ a & c ^ b & c);
         h = g;
         g = f;
@@ -714,48 +714,48 @@ unsafe extern "C" fn SHA512_Transform(mut context: *mut pg_sha512_ctx, mut data:
         b = a;
         a = T1.wrapping_add(T2);
         j += 1;
-        if !(j < 16 as ::core::ffi::c_int) {
+        if j >= 16 as ::core::ffi::c_int {
             break;
         }
     }
     loop {
-        s0 = *W512.offset((j + 1 as ::core::ffi::c_int & 0xf as ::core::ffi::c_int) as isize);
+        s0 = *W512.offset(((j + 1 as ::core::ffi::c_int) & 0xf as ::core::ffi::c_int) as isize);
         s0 = (s0 >> 1 as ::core::ffi::c_int
-            | s0 << 64 as ::core::ffi::c_int - 1 as ::core::ffi::c_int)
+            | s0 << (64 as ::core::ffi::c_int - 1 as ::core::ffi::c_int))
             ^ (s0 >> 8 as ::core::ffi::c_int
-                | s0 << 64 as ::core::ffi::c_int - 8 as ::core::ffi::c_int)
+                | s0 << (64 as ::core::ffi::c_int - 8 as ::core::ffi::c_int))
             ^ s0 >> 7 as ::core::ffi::c_int;
-        s1 = *W512.offset((j + 14 as ::core::ffi::c_int & 0xf as ::core::ffi::c_int) as isize);
+        s1 = *W512.offset(((j + 14 as ::core::ffi::c_int) & 0xf as ::core::ffi::c_int) as isize);
         s1 = (s1 >> 19 as ::core::ffi::c_int
-            | s1 << 64 as ::core::ffi::c_int - 19 as ::core::ffi::c_int)
+            | s1 << (64 as ::core::ffi::c_int - 19 as ::core::ffi::c_int))
             ^ (s1 >> 61 as ::core::ffi::c_int
-                | s1 << 64 as ::core::ffi::c_int - 61 as ::core::ffi::c_int)
+                | s1 << (64 as ::core::ffi::c_int - 61 as ::core::ffi::c_int))
             ^ s1 >> 6 as ::core::ffi::c_int;
-        let ref mut fresh2 = *W512.offset((j & 0xf as ::core::ffi::c_int) as isize);
+        let fresh2 = &mut *W512.offset((j & 0xf as ::core::ffi::c_int) as isize);
         *fresh2 = (*fresh2).wrapping_add(
             s1.wrapping_add(
-                *W512.offset((j + 9 as ::core::ffi::c_int & 0xf as ::core::ffi::c_int) as isize),
+                *W512.offset(((j + 9 as ::core::ffi::c_int) & 0xf as ::core::ffi::c_int) as isize),
             )
             .wrapping_add(s0),
         );
         T1 = h
             .wrapping_add(
                 (e >> 14 as ::core::ffi::c_int
-                    | e << 64 as ::core::ffi::c_int - 14 as ::core::ffi::c_int)
+                    | e << (64 as ::core::ffi::c_int - 14 as ::core::ffi::c_int))
                     ^ (e >> 18 as ::core::ffi::c_int
-                        | e << 64 as ::core::ffi::c_int - 18 as ::core::ffi::c_int)
+                        | e << (64 as ::core::ffi::c_int - 18 as ::core::ffi::c_int))
                     ^ (e >> 41 as ::core::ffi::c_int
-                        | e << 64 as ::core::ffi::c_int - 41 as ::core::ffi::c_int),
+                        | e << (64 as ::core::ffi::c_int - 41 as ::core::ffi::c_int)),
             )
             .wrapping_add(e & f ^ !e & g)
             .wrapping_add(K512[j as usize])
             .wrapping_add(*fresh2);
         T2 = ((a >> 28 as ::core::ffi::c_int
-            | a << 64 as ::core::ffi::c_int - 28 as ::core::ffi::c_int)
+            | a << (64 as ::core::ffi::c_int - 28 as ::core::ffi::c_int))
             ^ (a >> 34 as ::core::ffi::c_int
-                | a << 64 as ::core::ffi::c_int - 34 as ::core::ffi::c_int)
+                | a << (64 as ::core::ffi::c_int - 34 as ::core::ffi::c_int))
             ^ (a >> 39 as ::core::ffi::c_int
-                | a << 64 as ::core::ffi::c_int - 39 as ::core::ffi::c_int))
+                | a << (64 as ::core::ffi::c_int - 39 as ::core::ffi::c_int)))
             .wrapping_add(a & b ^ a & c ^ b & c);
         h = g;
         g = f;
@@ -766,7 +766,7 @@ unsafe extern "C" fn SHA512_Transform(mut context: *mut pg_sha512_ctx, mut data:
         b = a;
         a = T1.wrapping_add(T2);
         j += 1;
-        if !(j < 80 as ::core::ffi::c_int) {
+        if j >= 80 as ::core::ffi::c_int {
             break;
         }
     }
@@ -815,8 +815,8 @@ pub unsafe extern "C" fn pg_sha512_update(
         freespace = (PG_SHA512_BLOCK_LENGTH as size_t).wrapping_sub(usedspace);
         if len >= freespace {
             memcpy(
-                (&raw mut (*context).buffer as *mut uint8_t).offset(usedspace as isize)
-                    as *mut uint8_t as *mut ::core::ffi::c_void,
+                (&raw mut (*context).buffer as *mut uint8_t).add(usedspace) as *mut uint8_t
+                    as *mut ::core::ffi::c_void,
                 data as *const ::core::ffi::c_void,
                 freespace,
             );
@@ -830,12 +830,12 @@ pub unsafe extern "C" fn pg_sha512_update(
                     (*context).bitcount[1 as ::core::ffi::c_int as usize].wrapping_add(1);
             }
             len = len.wrapping_sub(freespace);
-            data = data.offset(freespace as isize);
+            data = data.add(freespace);
             SHA512_Transform(context, &raw mut (*context).buffer as *mut uint8_t);
         } else {
             memcpy(
-                (&raw mut (*context).buffer as *mut uint8_t).offset(usedspace as isize)
-                    as *mut uint8_t as *mut ::core::ffi::c_void,
+                (&raw mut (*context).buffer as *mut uint8_t).add(usedspace) as *mut uint8_t
+                    as *mut ::core::ffi::c_void,
                 data as *const ::core::ffi::c_void,
                 len,
             );

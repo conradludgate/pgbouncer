@@ -130,12 +130,12 @@ pub mod statlist_h {
         if !item.is_null() {
             (*list).cur_count -= 1;
         }
-        return item;
+        item
     }
     #[inline]
     #[c2rust::src_loc = "120:1"]
     pub unsafe extern "C" fn statlist_empty(mut list: *const StatList) -> bool {
-        return list_empty(&raw const (*list).head) != 0;
+        list_empty(&raw const (*list).head) != 0
     }
     use super::list_h::{list_append, list_empty, list_init, list_pop, List};
 }
@@ -157,7 +157,7 @@ pub mod list_h {
     #[inline]
     #[c2rust::src_loc = "52:1"]
     pub unsafe extern "C" fn list_empty(mut list: *const List) -> ::core::ffi::c_int {
-        return ((*list).next == list as *mut List) as ::core::ffi::c_int;
+        std::ptr::eq((*list).next, list) as ::core::ffi::c_int
     }
     #[inline]
     #[c2rust::src_loc = "68:1"]
@@ -166,7 +166,7 @@ pub mod list_h {
         (*item).prev = (*list).prev;
         (*(*list).prev).next = item;
         (*list).prev = item;
-        return item;
+        item
     }
     #[inline]
     #[c2rust::src_loc = "78:1"]
@@ -175,7 +175,7 @@ pub mod list_h {
         (*(*item).next).prev = (*item).prev;
         (*item).prev = item;
         (*item).next = (*item).prev;
-        return item;
+        item
     }
     #[inline]
     #[c2rust::src_loc = "87:1"]
@@ -183,7 +183,7 @@ pub mod list_h {
         if list_empty(list) != 0 {
             return ::core::ptr::null_mut::<List>();
         }
-        return list_del((*list).next);
+        list_del((*list).next)
     }
 }
 #[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/mbuf.h:29"]
@@ -242,7 +242,7 @@ pub mod mbuf_h {
         let fresh0 = (*buf).write_pos;
         (*buf).write_pos = (*buf).write_pos.wrapping_add(1);
         *(*buf).data.offset(fresh0 as isize) = val;
-        return true_0 != 0;
+        true_0 != 0
     }
     #[inline]
     #[c2rust::src_loc = "263:1"]
@@ -262,7 +262,7 @@ pub mod mbuf_h {
             );
         }
         (*buf).write_pos = (*buf).write_pos.wrapping_add(len);
-        return true_0 != 0;
+        true_0 != 0
     }
     use super::_malloc_h::free;
 
@@ -374,10 +374,10 @@ pub mod bytemap_h {
         mut bmap: *const Bitmap256,
         mut byte: uint8_t,
     ) -> bool {
-        return (*bmap).bmap[(byte as ::core::ffi::c_int >> BITMAP256_SHIFT) as usize]
+        (*bmap).bmap[(byte as ::core::ffi::c_int >> BITMAP256_SHIFT) as usize]
             & ((1 as ::core::ffi::c_int) << (byte as ::core::ffi::c_int & BITMAP256_MASK))
                 as uint32_t
-            != 0;
+            != 0
     }
     use super::_size_t_h::size_t;
     use super::_string_h::memset;
@@ -494,7 +494,7 @@ pub mod ctype_h {
     #[inline]
     #[c2rust::src_loc = "105:1"]
     pub unsafe extern "C" fn safe_isspace(mut c: ::core::ffi::c_int) -> ::core::ffi::c_int {
-        return isspace(c as ::core::ffi::c_uchar as ::core::ffi::c_int);
+        isspace(c as ::core::ffi::c_uchar as ::core::ffi::c_int)
     }
     use super::_ctype_h::isspace;
 }
@@ -505,8 +505,7 @@ pub mod _ctype_h {
     #[inline]
     #[c2rust::src_loc = "139:1"]
     pub unsafe extern "C" fn isascii(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
-        return (_c & !(0x7f as ::core::ffi::c_int) == 0 as ::core::ffi::c_int)
-            as ::core::ffi::c_int;
+        (_c & !(0x7f as ::core::ffi::c_int) == 0 as ::core::ffi::c_int) as ::core::ffi::c_int
     }
     #[inline]
     #[c2rust::src_loc = "157:1"]
@@ -514,17 +513,17 @@ pub mod _ctype_h {
         mut _c: __darwin_ct_rune_t,
         mut _f: ::core::ffi::c_ulong,
     ) -> ::core::ffi::c_int {
-        return if isascii(_c as ::core::ffi::c_int) != 0 {
+        if isascii(_c as ::core::ffi::c_int) != 0 {
             (_DefaultRuneLocale.__runetype[_c as usize] as ::core::ffi::c_ulong & _f != 0)
                 as ::core::ffi::c_int
         } else {
             (__maskrune(_c, _f) != 0) as ::core::ffi::c_int
-        };
+        }
     }
     #[inline]
     #[c2rust::src_loc = "271:1"]
     pub unsafe extern "C" fn isspace(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
-        return __istype(_c as __darwin_ct_rune_t, _CTYPE_S as ::core::ffi::c_ulong);
+        __istype(_c as __darwin_ct_rune_t, _CTYPE_S as ::core::ffi::c_ulong)
     }
     use super::_types_h::__darwin_ct_rune_t;
     use super::runetype_h::_DefaultRuneLocale;
@@ -700,7 +699,7 @@ pub struct StrItem {
 #[no_mangle]
 #[c2rust::src_loc = "48:1"]
 pub unsafe extern "C" fn strlist_empty(mut slist: *mut StrList) -> bool {
-    return statlist_empty(&raw mut (*slist).list);
+    statlist_empty(&raw mut (*slist).list)
 }
 #[no_mangle]
 #[c2rust::src_loc = "53:1"]
@@ -720,7 +719,7 @@ pub unsafe extern "C" fn strlist_append(
     if !ok {
         cx_free((*slist).ca, nstr as *mut ::core::ffi::c_void);
     }
-    return ok;
+    ok
 }
 #[no_mangle]
 #[c2rust::src_loc = "68:1"]
@@ -736,7 +735,7 @@ pub unsafe extern "C" fn strlist_append_ref(
     list_init(&raw mut (*item).node);
     (*item).str_0 = str;
     statlist_append(&raw mut (*slist).list, &raw mut (*item).node);
-    return true_0 != 0;
+    true_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "79:1"]
@@ -752,7 +751,7 @@ pub unsafe extern "C" fn strlist_pop(mut slist: *mut StrList) -> *mut ::core::ff
         as *mut StrItem;
     str = (*item).str_0;
     cx_free((*slist).ca, item as *mut ::core::ffi::c_void);
-    return str;
+    str
 }
 #[no_mangle]
 #[c2rust::src_loc = "95:1"]
@@ -766,7 +765,7 @@ pub unsafe extern "C" fn strlist_new(mut ca: *const CxMem) -> *mut StrList {
         b"strlist\0" as *const u8 as *const ::core::ffi::c_char,
     );
     (*slist).ca = ca;
-    return slist;
+    slist
 }
 #[no_mangle]
 #[c2rust::src_loc = "105:1"]
@@ -793,7 +792,7 @@ pub unsafe extern "C" fn strlist_foreach(
     let mut el = ::core::ptr::null_mut::<List>();
     let mut item = ::core::ptr::null_mut::<StrItem>();
     el = (*slist).list.head.next;
-    while el != &raw const (*slist).list.head as *mut List {
+    while !std::ptr::eq(el, &raw const (*slist).list.head) {
         item = (el as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
             as *mut StrItem;
         if !func.expect("non-null function pointer")(arg, (*item).str_0) {
@@ -801,7 +800,7 @@ pub unsafe extern "C" fn strlist_foreach(
         }
         el = (*el).next;
     }
-    return true_0 != 0;
+    true_0 != 0
 }
 #[inline]
 #[c2rust::src_loc = "134:1"]
@@ -809,7 +808,7 @@ unsafe extern "C" fn skip_ws(mut p: *const ::core::ffi::c_char) -> *const ::core
     while *p as ::core::ffi::c_int != 0 && safe_isspace(*p as ::core::ffi::c_int) != 0 {
         p = p.offset(1);
     }
-    return p;
+    p
 }
 #[no_mangle]
 #[c2rust::src_loc = "142:1"]
@@ -832,7 +831,7 @@ pub unsafe extern "C" fn parse_word_list(
     let mut end = ::core::ptr::null::<::core::ffi::c_char>();
     mbuf_init_dynamic(&raw mut buf);
     loop {
-        if !(*p != 0) {
+        if *p == 0 {
             current_block = 7149356873433890176;
             break;
         }
@@ -849,7 +848,7 @@ pub unsafe extern "C" fn parse_word_list(
             end = end.offset(-1);
         }
         if *p != 0 {
-            if !(*p as ::core::ffi::c_int == ',' as i32) {
+            if *p as ::core::ffi::c_int != ',' as i32 {
                 current_block = 4041987952866317976;
                 break;
             }
@@ -887,7 +886,7 @@ pub unsafe extern "C" fn parse_word_list(
         _ => {}
     }
     mbuf_free(&raw mut buf);
-    return false_0 != 0;
+    false_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "219:1"]
@@ -909,7 +908,7 @@ pub unsafe extern "C" fn usual_strpcpy(
         src = src.offset(1);
     }
     *dst.offset(-(1 as ::core::ffi::c_int) as isize) = '\0' as i32 as ::core::ffi::c_char;
-    return ::core::ptr::null_mut::<::core::ffi::c_char>();
+    ::core::ptr::null_mut::<::core::ffi::c_char>()
 }
 #[no_mangle]
 #[c2rust::src_loc = "231:1"]
@@ -920,9 +919,9 @@ pub unsafe extern "C" fn usual_strpcat(
 ) -> *mut ::core::ffi::c_char {
     let mut dstlen = strnlen(dst, n);
     if dstlen < n {
-        return usual_strpcpy(dst.offset(dstlen as isize), src, n.wrapping_sub(dstlen));
+        return usual_strpcpy(dst.add(dstlen), src, n.wrapping_sub(dstlen));
     }
-    return ::core::ptr::null_mut::<::core::ffi::c_char>();
+    ::core::ptr::null_mut::<::core::ffi::c_char>()
 }
 #[no_mangle]
 #[c2rust::src_loc = "240:1"]
@@ -932,7 +931,7 @@ pub unsafe extern "C" fn usual_mempcpy(
     mut n: size_t,
 ) -> *mut ::core::ffi::c_void {
     memcpy(dst, src, n);
-    return (dst as *mut ::core::ffi::c_char).offset(n as isize) as *mut ::core::ffi::c_void;
+    (dst as *mut ::core::ffi::c_char).add(n) as *mut ::core::ffi::c_void
 }
 #[no_mangle]
 #[c2rust::src_loc = "248:1"]
@@ -945,14 +944,14 @@ pub unsafe extern "C" fn usual_memrchr(
     loop {
         let fresh1 = n;
         n = n.wrapping_sub(1);
-        if !(fresh1 != 0) {
+        if fresh1 == 0 {
             break;
         }
-        if *p.offset(n as isize) as ::core::ffi::c_int == c {
-            return p.offset(n as isize) as *mut ::core::ffi::c_void;
+        if *p.add(n) as ::core::ffi::c_int == c {
+            return p.add(n) as *mut ::core::ffi::c_void;
         }
     }
-    return NULL;
+    NULL
 }
 #[no_mangle]
 #[c2rust::src_loc = "295:1"]
@@ -990,11 +989,10 @@ pub unsafe extern "C" fn usual_basename(
         if *p2.offset(-(1 as ::core::ffi::c_int) as isize) as ::core::ffi::c_int != '/' as i32 {
             len = p2.offset_from(path) as ::core::ffi::c_long as ::core::ffi::c_uint;
             if len as usize
-                > (::core::mem::size_of::<[::core::ffi::c_char; 256]>() as usize)
-                    .wrapping_sub(1 as usize)
+                > ::core::mem::size_of::<[::core::ffi::c_char; 256]>().wrapping_sub(1_usize)
             {
-                len = (::core::mem::size_of::<[::core::ffi::c_char; 256]>() as usize)
-                    .wrapping_sub(1 as usize) as ::core::ffi::c_uint;
+                len = ::core::mem::size_of::<[::core::ffi::c_char; 256]>().wrapping_sub(1_usize)
+                    as ::core::ffi::c_uint;
             }
             memcpy(
                 &raw mut buf as *mut ::core::ffi::c_char as *mut ::core::ffi::c_void,
@@ -1006,7 +1004,7 @@ pub unsafe extern "C" fn usual_basename(
         }
         p2 = p2.offset(-1);
     }
-    return p;
+    p
 }
 #[no_mangle]
 #[c2rust::src_loc = "356:1"]
@@ -1027,9 +1025,7 @@ pub unsafe extern "C" fn usual_dirname(
         ) as *const ::core::ffi::c_char;
     }
     len = strlen(path);
-    while len != 0
-        && *path.offset(len.wrapping_sub(1 as size_t) as isize) as ::core::ffi::c_int == '/' as i32
-    {
+    while len != 0 && *path.add(len.wrapping_sub(1 as size_t)) as ::core::ffi::c_int == '/' as i32 {
         len = len.wrapping_sub(1);
     }
     if len == 0 {
@@ -1049,9 +1045,7 @@ pub unsafe extern "C" fn usual_dirname(
         ) as *const ::core::ffi::c_char;
     }
     len = p.offset_from(path) as ::core::ffi::c_long as size_t;
-    while len != 0
-        && *path.offset(len.wrapping_sub(1 as size_t) as isize) as ::core::ffi::c_int == '/' as i32
-    {
+    while len != 0 && *path.add(len.wrapping_sub(1 as size_t)) as ::core::ffi::c_int == '/' as i32 {
         len = len.wrapping_sub(1);
     }
     if len == 0 {
@@ -1061,9 +1055,7 @@ pub unsafe extern "C" fn usual_dirname(
             2 as size_t,
         ) as *const ::core::ffi::c_char;
     }
-    if len
-        > (::core::mem::size_of::<[::core::ffi::c_char; 1024]>() as usize).wrapping_sub(1 as usize)
-    {
+    if len > ::core::mem::size_of::<[::core::ffi::c_char; 1024]>().wrapping_sub(1_usize) {
         *__error() = ENAMETOOLONG;
         return ::core::ptr::null::<::core::ffi::c_char>();
     }
@@ -1073,7 +1065,7 @@ pub unsafe extern "C" fn usual_dirname(
         len,
     );
     buf[len as usize] = 0 as ::core::ffi::c_char;
-    return &raw mut buf as *mut ::core::ffi::c_char;
+    &raw mut buf as *mut ::core::ffi::c_char
 }
 #[no_mangle]
 #[c2rust::src_loc = "403:1"]
@@ -1089,7 +1081,7 @@ pub unsafe extern "C" fn usual_strerror_r(
             dstlen,
         );
     }
-    return dst;
+    dst
 }
 #[no_mangle]
 #[c2rust::src_loc = "423:1"]
@@ -1116,17 +1108,17 @@ pub unsafe extern "C" fn mempbrk(
     bitmap256_init(&raw mut bmap);
     i = 0 as size_t;
     while i < flen {
-        bitmap256_set(&raw mut bmap, *fb.offset(i as isize));
+        bitmap256_set(&raw mut bmap, *fb.add(i));
         i = i.wrapping_add(1);
     }
     i = 0 as size_t;
     while i < dlen {
-        if bitmap256_is_set(&raw mut bmap, *s.offset(i as isize)) {
-            return s.offset(i as isize) as *mut ::core::ffi::c_void;
+        if bitmap256_is_set(&raw mut bmap, *s.add(i)) {
+            return s.add(i) as *mut ::core::ffi::c_void;
         }
         i = i.wrapping_add(1);
     }
-    return NULL;
+    NULL
 }
 #[no_mangle]
 #[c2rust::src_loc = "445:1"]
@@ -1146,7 +1138,7 @@ pub unsafe extern "C" fn memspn(
     if alen == 1 as size_t {
         i = 0 as size_t;
         while i < dlen {
-            if *s.offset(i as isize) as ::core::ffi::c_int
+            if *s.add(i) as ::core::ffi::c_int
                 != *fb.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
             {
                 break;
@@ -1158,17 +1150,17 @@ pub unsafe extern "C" fn memspn(
     bitmap256_init(&raw mut bmap);
     i = 0 as size_t;
     while i < alen {
-        bitmap256_set(&raw mut bmap, *fb.offset(i as isize));
+        bitmap256_set(&raw mut bmap, *fb.add(i));
         i = i.wrapping_add(1);
     }
     i = 0 as size_t;
     while i < dlen {
-        if !bitmap256_is_set(&raw mut bmap, *s.offset(i as isize)) {
+        if !bitmap256_is_set(&raw mut bmap, *s.add(i)) {
             break;
         }
         i = i.wrapping_add(1);
     }
-    return i;
+    i
 }
 #[no_mangle]
 #[c2rust::src_loc = "471:1"]
@@ -1184,7 +1176,7 @@ pub unsafe extern "C" fn memcspn(
         return (p as *mut ::core::ffi::c_char).offset_from(data as *mut ::core::ffi::c_char)
             as ::core::ffi::c_long as size_t;
     }
-    return dlen;
+    dlen
 }
 #[no_mangle]
 #[c2rust::src_loc = "481:1"]
@@ -1227,7 +1219,7 @@ pub unsafe extern "C" fn strtod_dot(
     dot = ::core::ptr::null_mut::<::core::ffi::c_char>();
     dst = &raw mut buf as *mut ::core::ffi::c_char;
     end = (&raw mut buf as *mut ::core::ffi::c_char)
-        .offset(::core::mem::size_of::<[::core::ffi::c_char; 128]>() as usize as isize)
+        .add(::core::mem::size_of::<[::core::ffi::c_char; 128]>())
         .offset(-(5 as ::core::ffi::c_int as isize));
     dplen = (if *dp.offset(1 as ::core::ffi::c_int as isize) as ::core::ffi::c_int != 0 {
         strlen(dp)
@@ -1283,7 +1275,7 @@ pub unsafe extern "C" fn strtod_dot(
             *tokend = (*tokend).offset(-(dplen.wrapping_sub(1 as ::core::ffi::c_uint) as isize));
         }
     }
-    return res;
+    res
 }
 #[no_mangle]
 #[c2rust::src_loc = "550:1"]
@@ -1335,7 +1327,7 @@ pub unsafe extern "C" fn dtostr_dot(
             len -= dplen - 1 as ssize_t;
         }
     }
-    return len;
+    len
 }
 #[no_mangle]
 #[c2rust::src_loc = "688:1"]
@@ -1349,5 +1341,5 @@ pub unsafe extern "C" fn strcmpeq(
     if str_left.is_null() || str_right.is_null() {
         return false_0 != 0;
     }
-    return strcmp(str_left, str_right) == 0 as ::core::ffi::c_int;
+    strcmp(str_left, str_right) == 0 as ::core::ffi::c_int
 }

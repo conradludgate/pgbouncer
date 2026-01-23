@@ -258,7 +258,7 @@ pub mod list_h {
         (*item).prev = (*list).prev;
         (*(*list).prev).next = item;
         (*list).prev = item;
-        return item;
+        item
     }
     #[inline]
     #[c2rust::src_loc = "78:1"]
@@ -267,7 +267,7 @@ pub mod list_h {
         (*(*item).next).prev = (*item).prev;
         (*item).prev = item;
         (*item).next = (*item).prev;
-        return item;
+        item
     }
 }
 #[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/statlist.h:23"]
@@ -294,7 +294,7 @@ pub mod statlist_h {
     #[inline]
     #[c2rust::src_loc = "88:1"]
     pub unsafe extern "C" fn statlist_count(mut list: *const StatList) -> ::core::ffi::c_int {
-        return (*list).cur_count;
+        (*list).cur_count
     }
     use super::list_h::{list_append, list_del, List};
 }
@@ -1016,7 +1016,7 @@ pub mod bouncer_h {
     #[inline]
     #[c2rust::src_loc = "303:1"]
     pub unsafe extern "C" fn pga_is_unix(mut a: *const PgAddr) -> bool {
-        return (*a).sa.sa_family as ::core::ffi::c_int == AF_UNIX;
+        (*a).sa.sa_family as ::core::ffi::c_int == AF_UNIX
     }
     use super::_pid_t_h::pid_t;
 
@@ -1778,7 +1778,7 @@ unsafe extern "C" fn add_listen(
     }
     errpos = b"socket\0" as *const u8 as *const ::core::ffi::c_char;
     sock = socket(af, SOCK_STREAM, 0 as ::core::ffi::c_int);
-    if !(sock < 0 as ::core::ffi::c_int) {
+    if sock >= 0 as ::core::ffi::c_int {
         if af != AF_UNIX {
             let mut val = 1 as ::core::ffi::c_int;
             errpos = b"setsockopt\0" as *const u8 as *const ::core::ffi::c_char;
@@ -1845,14 +1845,14 @@ unsafe extern "C" fn add_listen(
                             _ => {
                                 errpos = b"bind\0" as *const u8 as *const ::core::ffi::c_char;
                                 res = bind(sock, sa, salen as socklen_t);
-                                if !(res < 0 as ::core::ffi::c_int) {
+                                if res >= 0 as ::core::ffi::c_int {
                                     errpos =
                                         b"tune_socket\0" as *const u8 as *const ::core::ffi::c_char;
                                     if tune_socket(sock, af == AF_UNIX) {
                                         errpos =
                                             b"listen\0" as *const u8 as *const ::core::ffi::c_char;
                                         res = listen(sock, cf_listen_backlog);
-                                        if !(res < 0 as ::core::ffi::c_int) {
+                                        if res >= 0 as ::core::ffi::c_int {
                                             errpos = b"calloc\0" as *const u8
                                                 as *const ::core::ffi::c_char;
                                             ls = calloc(
@@ -1940,7 +1940,7 @@ unsafe extern "C" fn add_listen(
     if sock >= 0 as ::core::ffi::c_int {
         safe_close(sock);
     }
-    return false_0 != 0;
+    false_0 != 0
 }
 #[c2rust::src_loc = "234:1"]
 unsafe extern "C" fn create_unix_socket(
@@ -2118,15 +2118,15 @@ unsafe extern "C" fn addrpair(
         ip2,
         pga_port(dst),
     );
-    return &raw mut buf as *mut ::core::ffi::c_char;
+    &raw mut buf as *mut ::core::ffi::c_char
 }
 #[c2rust::src_loc = "347:1"]
 unsafe extern "C" fn conninfo(mut sk: *const PgSocket) -> *const ::core::ffi::c_char {
     if (*sk).state() as ::core::ffi::c_int >= SV_FREE as ::core::ffi::c_int {
-        return addrpair(&raw const (*sk).local_addr, &raw const (*sk).remote_addr);
+        addrpair(&raw const (*sk).local_addr, &raw const (*sk).remote_addr)
     } else {
-        return addrpair(&raw const (*sk).remote_addr, &raw const (*sk).local_addr);
-    };
+        addrpair(&raw const (*sk).remote_addr, &raw const (*sk).local_addr)
+    }
 }
 #[c2rust::src_loc = "357:1"]
 unsafe extern "C" fn pool_accept(
@@ -2206,17 +2206,16 @@ unsafe extern "C" fn pool_accept(
         } else {
             client = accept_client(fd, false_0 != 0);
         }
-        if !client.is_null() {
-            if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
+        if !client.is_null()
+            && (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
                 != 0
-            {
-                log_generic(
-                    LG_DEBUG,
-                    client as *mut ::core::ffi::c_void,
-                    b"P: got connection: %s\0" as *const u8 as *const ::core::ffi::c_char,
-                    conninfo(client),
-                );
-            }
+        {
+            log_generic(
+                LG_DEBUG,
+                client as *mut ::core::ffi::c_void,
+                b"P: got connection: %s\0" as *const u8 as *const ::core::ffi::c_char,
+                conninfo(client),
+            );
         }
     }
 }
@@ -2276,7 +2275,7 @@ pub unsafe extern "C" fn use_pooler_socket(
         ),
     );
     statlist_append(&raw mut sock_list, &raw mut (*ls).node);
-    return true_0 != 0;
+    true_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "443:1"]
@@ -2413,7 +2412,7 @@ unsafe extern "C" fn parse_addr(
         ai = (*ai).ai_next;
     }
     freeaddrinfo(gaires);
-    return true_0 != 0;
+    true_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "529:1"]
@@ -2560,7 +2559,7 @@ pub unsafe extern "C" fn for_each_pooler_fd(
         }
         el = (*el).next;
     }
-    return true_0 != 0;
+    true_0 != 0
 }
 unsafe extern "C" fn run_static_initializers() {
     sock_list = StatList {

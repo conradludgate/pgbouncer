@@ -290,7 +290,7 @@ pub unsafe extern "C" fn safe_read(
             break;
         }
     }
-    return res;
+    res
 }
 #[no_mangle]
 #[c2rust::src_loc = "41:1"]
@@ -306,7 +306,7 @@ pub unsafe extern "C" fn safe_write(
             break;
         }
     }
-    return res;
+    res
 }
 #[no_mangle]
 #[c2rust::src_loc = "51:1"]
@@ -355,7 +355,7 @@ pub unsafe extern "C" fn safe_recv(
             );
         }
     }
-    return res;
+    res
 }
 #[no_mangle]
 #[c2rust::src_loc = "68:1"]
@@ -404,7 +404,7 @@ pub unsafe extern "C" fn safe_send(
             );
         }
     }
-    return res;
+    res
 }
 #[no_mangle]
 #[c2rust::src_loc = "85:1"]
@@ -441,7 +441,7 @@ pub unsafe extern "C" fn safe_close(mut fd: ::core::ffi::c_int) -> ::core::ffi::
     if res < 0 as ::core::ffi::c_int && *__error() == EINTR {
         return 0 as ::core::ffi::c_int;
     }
-    return res;
+    res
 }
 #[no_mangle]
 #[c2rust::src_loc = "119:1"]
@@ -486,7 +486,7 @@ pub unsafe extern "C" fn safe_recvmsg(
             );
         }
     }
-    return res;
+    res
 }
 #[no_mangle]
 #[c2rust::src_loc = "136:1"]
@@ -563,7 +563,7 @@ pub unsafe extern "C" fn safe_sendmsg(
             break;
         }
     }
-    return res;
+    res
 }
 #[no_mangle]
 #[c2rust::src_loc = "167:1"]
@@ -622,7 +622,7 @@ pub unsafe extern "C" fn safe_connect(
             );
         }
     }
-    return res;
+    res
 }
 #[no_mangle]
 #[c2rust::src_loc = "186:1"]
@@ -690,5 +690,5 @@ pub unsafe extern "C" fn safe_accept(
             }
         }
     }
-    return res;
+    res
 }

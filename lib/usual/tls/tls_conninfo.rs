@@ -388,22 +388,21 @@ unsafe extern "C" fn tls_hex_string(
     while i < inlen {
         let fresh0 = len;
         len = len.wrapping_add(1);
-        *p.offset(fresh0 as isize) = hex[(*in_0.offset(i as isize) as ::core::ffi::c_int
-            >> 4 as ::core::ffi::c_int
+        *p.add(fresh0) = hex[(*in_0.add(i) as ::core::ffi::c_int >> 4 as ::core::ffi::c_int
             & 0xf as ::core::ffi::c_int) as usize];
         let fresh1 = len;
         len = len.wrapping_add(1);
-        *p.offset(fresh1 as isize) = hex
-            [(*in_0.offset(i as isize) as ::core::ffi::c_int & 0xf as ::core::ffi::c_int) as usize];
+        *p.add(fresh1) =
+            hex[(*in_0.add(i) as ::core::ffi::c_int & 0xf as ::core::ffi::c_int) as usize];
         i = i.wrapping_add(1);
     }
     let fresh2 = len;
     len = len.wrapping_add(1);
-    *p.offset(fresh2 as isize) = 0 as ::core::ffi::c_char;
+    *p.add(fresh2) = 0 as ::core::ffi::c_char;
     if !outlen.is_null() {
         *outlen = len;
     }
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }
 #[c2rust::src_loc = "56:1"]
 unsafe extern "C" fn tls_get_peer_cert_hash(
@@ -455,7 +454,7 @@ unsafe extern "C" fn tls_get_peer_cert_hash(
         rv = 0 as ::core::ffi::c_int;
     }
     free(dhex as *mut ::core::ffi::c_void);
-    return rv;
+    rv
 }
 #[c2rust::src_loc = "91:1"]
 unsafe extern "C" fn tls_get_peer_cert_issuer(
@@ -479,7 +478,7 @@ unsafe extern "C" fn tls_get_peer_cert_issuer(
     if (*issuer).is_null() {
         return -(1 as ::core::ffi::c_int);
     }
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }
 #[c2rust::src_loc = "106:1"]
 unsafe extern "C" fn tls_get_peer_cert_subject(
@@ -503,7 +502,7 @@ unsafe extern "C" fn tls_get_peer_cert_subject(
     if (*subject).is_null() {
         return -(1 as ::core::ffi::c_int);
     }
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }
 #[c2rust::src_loc = "121:1"]
 unsafe extern "C" fn tls_get_peer_cert_times(
@@ -592,13 +591,10 @@ unsafe extern "C" fn tls_get_peer_cert_times(
     } else {
         current_block = 1394248824506584008;
     }
-    match current_block {
-        1394248824506584008 => {
-            rv = 0 as ::core::ffi::c_int;
-        }
-        _ => {}
+    if current_block == 1394248824506584008 {
+        rv = 0 as ::core::ffi::c_int;
     }
-    return rv;
+    rv
 }
 #[no_mangle]
 #[c2rust::src_loc = "149:1"]
@@ -632,26 +628,23 @@ pub unsafe extern "C" fn tls_get_conninfo(mut ctx: *mut tls) -> ::core::ffi::c_i
     } else {
         current_block = 15619007995458559411;
     }
-    match current_block {
-        15619007995458559411 => {
-            tmp = SSL_get_version((*ctx).ssl_conn);
-            if !tmp.is_null() {
-                (*(*ctx).conninfo).version = strdup(tmp);
-                if !(*(*ctx).conninfo).version.is_null() {
-                    tmp = SSL_CIPHER_get_name(SSL_get_current_cipher((*ctx).ssl_conn));
-                    if !tmp.is_null() {
-                        (*(*ctx).conninfo).cipher = strdup(tmp);
-                        if !(*(*ctx).conninfo).cipher.is_null() {
-                            return 0 as ::core::ffi::c_int;
-                        }
+    if current_block == 15619007995458559411 {
+        tmp = SSL_get_version((*ctx).ssl_conn);
+        if !tmp.is_null() {
+            (*(*ctx).conninfo).version = strdup(tmp);
+            if !(*(*ctx).conninfo).version.is_null() {
+                tmp = SSL_CIPHER_get_name(SSL_get_current_cipher((*ctx).ssl_conn));
+                if !tmp.is_null() {
+                    (*(*ctx).conninfo).cipher = strdup(tmp);
+                    if !(*(*ctx).conninfo).cipher.is_null() {
+                        return 0 as ::core::ffi::c_int;
                     }
                 }
             }
         }
-        _ => {}
     }
     tls_free_conninfo((*ctx).conninfo);
-    return -(1 as ::core::ffi::c_int);
+    -(1 as ::core::ffi::c_int)
 }
 #[no_mangle]
 #[c2rust::src_loc = "183:1"]
@@ -683,7 +676,7 @@ pub unsafe extern "C" fn tls_conn_cipher(mut ctx: *mut tls) -> *const ::core::ff
     if (*ctx).conninfo.is_null() {
         return ::core::ptr::null::<::core::ffi::c_char>();
     }
-    return (*(*ctx).conninfo).cipher;
+    (*(*ctx).conninfo).cipher
 }
 #[no_mangle]
 #[c2rust::src_loc = "206:1"]
@@ -691,5 +684,5 @@ pub unsafe extern "C" fn tls_conn_version(mut ctx: *mut tls) -> *const ::core::f
     if (*ctx).conninfo.is_null() {
         return ::core::ptr::null::<::core::ffi::c_char>();
     }
-    return (*(*ctx).conninfo).version;
+    (*(*ctx).conninfo).version
 }

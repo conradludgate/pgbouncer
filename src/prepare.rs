@@ -134,7 +134,7 @@ pub mod list_h {
     #[inline]
     #[c2rust::src_loc = "52:1"]
     pub unsafe extern "C" fn list_empty(mut list: *const List) -> ::core::ffi::c_int {
-        return ((*list).next == list as *mut List) as ::core::ffi::c_int;
+        std::ptr::eq((*list).next, list) as ::core::ffi::c_int
     }
     #[inline]
     #[c2rust::src_loc = "103:1"]
@@ -142,7 +142,7 @@ pub mod list_h {
         if list_empty(list) != 0 {
             return ::core::ptr::null_mut::<List>();
         }
-        return (*list).prev;
+        (*list).prev
     }
 }
 #[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/statlist.h:9"]
@@ -157,12 +157,12 @@ pub mod statlist_h {
     #[inline]
     #[c2rust::src_loc = "88:1"]
     pub unsafe extern "C" fn statlist_count(mut list: *const StatList) -> ::core::ffi::c_int {
-        return (*list).cur_count;
+        (*list).cur_count
     }
     #[inline]
     #[c2rust::src_loc = "114:1"]
     pub unsafe extern "C" fn statlist_last(mut list: *const StatList) -> *mut List {
-        return list_last(&raw const (*list).head);
+        list_last(&raw const (*list).head)
     }
     use super::list_h::{list_last, List};
 }
@@ -1336,7 +1336,7 @@ unsafe extern "C" fn create_prepared_statement(
         (*pkt).query_and_parameters as *const ::core::ffi::c_void,
         (*pkt).query_and_parameters_len,
     );
-    return ps;
+    ps
 }
 #[c2rust::src_loc = "84:1"]
 unsafe extern "C" fn create_client_prepared_statement(
@@ -1357,7 +1357,7 @@ unsafe extern "C" fn create_client_prepared_statement(
     );
     (*client_ps).ps = ps;
     (*ps).use_count = (*ps).use_count.wrapping_add(1 as uint32_t);
-    return client_ps;
+    client_ps
 }
 #[c2rust::src_loc = "103:1"]
 unsafe extern "C" fn create_server_prepared_statement(
@@ -1371,7 +1371,7 @@ unsafe extern "C" fn create_server_prepared_statement(
     (*server_ps).ps = ps;
     (*server_ps).query_id = (*ps).query_id;
     (*ps).use_count = (*ps).use_count.wrapping_add(1 as uint32_t);
-    return server_ps;
+    server_ps
 }
 #[c2rust::src_loc = "119:1"]
 unsafe extern "C" fn get_prepared_statement(
@@ -1388,7 +1388,7 @@ unsafe extern "C" fn get_prepared_statement(
         loop {
             let fresh18 = _hb_keylen;
             _hb_keylen = _hb_keylen.wrapping_sub(1);
-            if !(fresh18 != 0 as ::core::ffi::c_uint) {
+            if fresh18 == 0 as ::core::ffi::c_uint {
                 break;
             }
             let fresh19 = _hb_key;
@@ -1414,7 +1414,7 @@ unsafe extern "C" fn get_prepared_statement(
                     .buckets
                     .offset(_hf_bkt as isize))
                 .hh_head as *mut ::core::ffi::c_char)
-                    .offset(-((*(*prepared_statements).hh.tbl).hho as isize))
+                    .offset(-(*(*prepared_statements).hh.tbl).hho)
                     as *mut ::core::ffi::c_void as *mut PgPreparedStatement
                     as *mut PgPreparedStatement;
             } else {
@@ -1423,19 +1423,17 @@ unsafe extern "C" fn get_prepared_statement(
             while !ps.is_null() {
                 if (*ps).hh.hashv == _hf_hashv
                     && (*ps).hh.keylen as size_t == (*pkt).query_and_parameters_len
-                {
-                    if memcmp(
+                    && memcmp(
                         (*ps).hh.key,
                         (*pkt).query_and_parameters as *const ::core::ffi::c_void,
                         (*pkt).query_and_parameters_len,
                     ) == 0 as ::core::ffi::c_int
-                    {
-                        break;
-                    }
+                {
+                    break;
                 }
                 if !(*ps).hh.hh_next.is_null() {
                     ps = ((*ps).hh.hh_next as *mut ::core::ffi::c_char)
-                        .offset(-((*(*prepared_statements).hh.tbl).hho as isize))
+                        .offset(-(*(*prepared_statements).hh.tbl).hho)
                         as *mut ::core::ffi::c_void
                         as *mut PgPreparedStatement
                         as *mut PgPreparedStatement;
@@ -1460,7 +1458,7 @@ unsafe extern "C" fn get_prepared_statement(
     loop {
         let fresh20 = _hb_keylen_0;
         _hb_keylen_0 = _hb_keylen_0.wrapping_sub(1);
-        if !(fresh20 != 0 as ::core::ffi::c_uint) {
+        if fresh20 == 0 as ::core::ffi::c_uint {
             break;
         }
         let fresh21 = _hb_key_0;
@@ -1518,7 +1516,7 @@ unsafe extern "C" fn get_prepared_statement(
         (*ps).hh.tbl = (*prepared_statements).hh.tbl;
         (*ps).hh.next = NULL;
         (*ps).hh.prev = ((*(*prepared_statements).hh.tbl).tail as *mut ::core::ffi::c_char)
-            .offset(-((*(*prepared_statements).hh.tbl).hho as isize))
+            .offset(-(*(*prepared_statements).hh.tbl).hho)
             as *mut ::core::ffi::c_void;
         (*(*(*prepared_statements).hh.tbl).tail).next = ps as *mut ::core::ffi::c_void;
         (*(*prepared_statements).hh.tbl).tail = &raw mut (*ps).hh as *mut UT_hash_handle;
@@ -1667,7 +1665,7 @@ unsafe extern "C" fn get_prepared_statement(
                 & (*(*prepared_statements).hh.tbl)
                     .num_buckets
                     .wrapping_sub(1 as ::core::ffi::c_uint);
-            let ref mut fresh22 = (*(*(*prepared_statements).hh.tbl)
+            let fresh22 = &mut (*(*(*prepared_statements).hh.tbl)
                 .buckets
                 .offset(_hd_bkt as isize))
             .count;
@@ -1681,16 +1679,16 @@ unsafe extern "C" fn get_prepared_statement(
                 prepared_statements = ::core::ptr::null_mut::<PgPreparedStatement>();
             } else {
                 let mut _hd_bkt_0: ::core::ffi::c_uint = 0;
-                if _hd_hh_del == (*(*prepared_statements).hh.tbl).tail as *const UT_hash_handle {
+                if std::ptr::eq(_hd_hh_del, (*(*prepared_statements).hh.tbl).tail) {
                     (*(*prepared_statements).hh.tbl).tail =
                         ((*_hd_hh_del).prev as *mut ::core::ffi::c_char)
-                            .offset((*(*prepared_statements).hh.tbl).hho as isize)
+                            .offset((*(*prepared_statements).hh.tbl).hho)
                             as *mut ::core::ffi::c_void
                             as *mut UT_hash_handle as *mut UT_hash_handle;
                 }
                 if !(*_hd_hh_del).prev.is_null() {
-                    let ref mut fresh23 = (*(((*_hd_hh_del).prev as *mut ::core::ffi::c_char)
-                        .offset((*(*prepared_statements).hh.tbl).hho as isize)
+                    let fresh23 = &mut (*(((*_hd_hh_del).prev as *mut ::core::ffi::c_char)
+                        .offset((*(*prepared_statements).hh.tbl).hho)
                         as *mut ::core::ffi::c_void
                         as *mut UT_hash_handle))
                         .next;
@@ -1700,8 +1698,8 @@ unsafe extern "C" fn get_prepared_statement(
                         (*_hd_hh_del).next as *mut PgPreparedStatement as *mut PgPreparedStatement;
                 }
                 if !(*_hd_hh_del).next.is_null() {
-                    let ref mut fresh24 = (*(((*_hd_hh_del).next as *mut ::core::ffi::c_char)
-                        .offset((*(*prepared_statements).hh.tbl).hho as isize)
+                    let fresh24 = &mut (*(((*_hd_hh_del).next as *mut ::core::ffi::c_char)
+                        .offset((*(*prepared_statements).hh.tbl).hho)
                         as *mut ::core::ffi::c_void
                         as *mut UT_hash_handle))
                         .prev;
@@ -1716,7 +1714,7 @@ unsafe extern "C" fn get_prepared_statement(
                     .offset(_hd_bkt_0 as isize)
                     as *mut UT_hash_bucket;
                 (*_hd_head_0).count = (*_hd_head_0).count.wrapping_sub(1);
-                if (*_hd_head_0).hh_head == _hd_hh_del as *mut UT_hash_handle {
+                if std::ptr::eq((*_hd_head_0).hh_head, _hd_hh_del) {
                     (*_hd_head_0).hh_head = (*_hd_hh_del).hh_next as *mut UT_hash_handle;
                 }
                 if !(*_hd_hh_del).hh_prev.is_null() {
@@ -1747,7 +1745,7 @@ unsafe extern "C" fn get_prepared_statement(
         (*ps).query_id,
     ) as uint8_t;
     *found = false_0 != 0;
-    return ps;
+    ps
 }
 #[c2rust::src_loc = "160:1"]
 unsafe extern "C" fn skip_possibly_completely_buffered_packet(
@@ -1778,16 +1776,16 @@ pub unsafe extern "C" fn free_server_prepared_statement(
             prepared_statements = ::core::ptr::null_mut::<PgPreparedStatement>();
         } else {
             let mut _hd_bkt: ::core::ffi::c_uint = 0;
-            if _hd_hh_del == (*(*prepared_statements).hh.tbl).tail as *const UT_hash_handle {
+            if std::ptr::eq(_hd_hh_del, (*(*prepared_statements).hh.tbl).tail) {
                 (*(*prepared_statements).hh.tbl).tail =
                     ((*_hd_hh_del).prev as *mut ::core::ffi::c_char)
-                        .offset((*(*prepared_statements).hh.tbl).hho as isize)
+                        .offset((*(*prepared_statements).hh.tbl).hho)
                         as *mut ::core::ffi::c_void as *mut UT_hash_handle
                         as *mut UT_hash_handle;
             }
             if !(*_hd_hh_del).prev.is_null() {
-                let ref mut fresh9 = (*(((*_hd_hh_del).prev as *mut ::core::ffi::c_char)
-                    .offset((*(*prepared_statements).hh.tbl).hho as isize)
+                let fresh9 = &mut (*(((*_hd_hh_del).prev as *mut ::core::ffi::c_char)
+                    .offset((*(*prepared_statements).hh.tbl).hho)
                     as *mut ::core::ffi::c_void
                     as *mut UT_hash_handle))
                     .next;
@@ -1797,8 +1795,8 @@ pub unsafe extern "C" fn free_server_prepared_statement(
                     (*_hd_hh_del).next as *mut PgPreparedStatement as *mut PgPreparedStatement;
             }
             if !(*_hd_hh_del).next.is_null() {
-                let ref mut fresh10 = (*(((*_hd_hh_del).next as *mut ::core::ffi::c_char)
-                    .offset((*(*prepared_statements).hh.tbl).hho as isize)
+                let fresh10 = &mut (*(((*_hd_hh_del).next as *mut ::core::ffi::c_char)
+                    .offset((*(*prepared_statements).hh.tbl).hho)
                     as *mut ::core::ffi::c_void
                     as *mut UT_hash_handle))
                     .prev;
@@ -1813,7 +1811,7 @@ pub unsafe extern "C" fn free_server_prepared_statement(
                 .offset(_hd_bkt as isize)
                 as *mut UT_hash_bucket;
             (*_hd_head).count = (*_hd_head).count.wrapping_sub(1);
-            if (*_hd_head).hh_head == _hd_hh_del as *mut UT_hash_handle {
+            if std::ptr::eq((*_hd_head).hh_head, _hd_hh_del) {
                 (*_hd_head).hh_head = (*_hd_hh_del).hh_next as *mut UT_hash_handle;
             }
             if !(*_hd_hh_del).hh_prev.is_null() {
@@ -1848,7 +1846,7 @@ pub unsafe extern "C" fn unregister_prepared_statement(
         loop {
             let fresh37 = _hb_keylen;
             _hb_keylen = _hb_keylen.wrapping_sub(1);
-            if !(fresh37 != 0 as ::core::ffi::c_uint) {
+            if fresh37 == 0 as ::core::ffi::c_uint {
                 break;
             }
             let fresh38 = _hb_key;
@@ -1874,7 +1872,7 @@ pub unsafe extern "C" fn unregister_prepared_statement(
                     .buckets
                     .offset(_hf_bkt as isize))
                 .hh_head as *mut ::core::ffi::c_char)
-                    .offset(-((*(*(*server).server_prepared_statements).hh.tbl).hho as isize))
+                    .offset(-(*(*(*server).server_prepared_statements).hh.tbl).hho)
                     as *mut ::core::ffi::c_void
                     as *mut PgServerPreparedStatement
                     as *mut PgServerPreparedStatement;
@@ -1883,21 +1881,18 @@ pub unsafe extern "C" fn unregister_prepared_statement(
             }
             while !server_ps.is_null() {
                 if (*server_ps).hh.hashv == _hf_hashv
-                    && (*server_ps).hh.keylen as usize
-                        == ::core::mem::size_of::<uint64_t>() as usize
-                {
-                    if memcmp(
+                    && (*server_ps).hh.keylen as usize == ::core::mem::size_of::<uint64_t>()
+                    && memcmp(
                         (*server_ps).hh.key,
                         &raw mut query_id as *const ::core::ffi::c_void,
                         ::core::mem::size_of::<uint64_t>() as size_t,
                     ) == 0 as ::core::ffi::c_int
-                    {
-                        break;
-                    }
+                {
+                    break;
                 }
                 if !(*server_ps).hh.hh_next.is_null() {
                     server_ps = ((*server_ps).hh.hh_next as *mut ::core::ffi::c_char)
-                        .offset(-((*(*(*server).server_prepared_statements).hh.tbl).hho as isize))
+                        .offset(-(*(*(*server).server_prepared_statements).hh.tbl).hho)
                         as *mut ::core::ffi::c_void
                         as *mut PgServerPreparedStatement
                         as *mut PgServerPreparedStatement;
@@ -1919,18 +1914,19 @@ pub unsafe extern "C" fn unregister_prepared_statement(
                 ::core::ptr::null_mut::<PgServerPreparedStatement>();
         } else {
             let mut _hd_bkt: ::core::ffi::c_uint = 0;
-            if _hd_hh_del
-                == (*(*(*server).server_prepared_statements).hh.tbl).tail as *const UT_hash_handle
-            {
+            if std::ptr::eq(
+                _hd_hh_del,
+                (*(*(*server).server_prepared_statements).hh.tbl).tail,
+            ) {
                 (*(*(*server).server_prepared_statements).hh.tbl).tail =
                     ((*_hd_hh_del).prev as *mut ::core::ffi::c_char)
-                        .offset((*(*(*server).server_prepared_statements).hh.tbl).hho as isize)
+                        .offset((*(*(*server).server_prepared_statements).hh.tbl).hho)
                         as *mut ::core::ffi::c_void as *mut UT_hash_handle
                         as *mut UT_hash_handle;
             }
             if !(*_hd_hh_del).prev.is_null() {
-                let ref mut fresh39 = (*(((*_hd_hh_del).prev as *mut ::core::ffi::c_char)
-                    .offset((*(*(*server).server_prepared_statements).hh.tbl).hho as isize)
+                let fresh39 = &mut (*(((*_hd_hh_del).prev as *mut ::core::ffi::c_char)
+                    .offset((*(*(*server).server_prepared_statements).hh.tbl).hho)
                     as *mut ::core::ffi::c_void
                     as *mut UT_hash_handle))
                     .next;
@@ -1941,8 +1937,8 @@ pub unsafe extern "C" fn unregister_prepared_statement(
                     as *mut PgServerPreparedStatement;
             }
             if !(*_hd_hh_del).next.is_null() {
-                let ref mut fresh40 = (*(((*_hd_hh_del).next as *mut ::core::ffi::c_char)
-                    .offset((*(*(*server).server_prepared_statements).hh.tbl).hho as isize)
+                let fresh40 = &mut (*(((*_hd_hh_del).next as *mut ::core::ffi::c_char)
+                    .offset((*(*(*server).server_prepared_statements).hh.tbl).hho)
                     as *mut ::core::ffi::c_void
                     as *mut UT_hash_handle))
                     .prev;
@@ -1957,7 +1953,7 @@ pub unsafe extern "C" fn unregister_prepared_statement(
                     .buckets
                     .offset(_hd_bkt as isize) as *mut UT_hash_bucket;
             (*_hd_head).count = (*_hd_head).count.wrapping_sub(1);
-            if (*_hd_head).hh_head == _hd_hh_del as *mut UT_hash_handle {
+            if std::ptr::eq((*_hd_head).hh_head, _hd_hh_del) {
                 (*_hd_head).hh_head = (*_hd_hh_del).hh_next as *mut UT_hash_handle;
             }
             if !(*_hd_hh_del).hh_prev.is_null() {
@@ -1987,7 +1983,7 @@ pub unsafe extern "C" fn add_prepared_statement(
     loop {
         let fresh13 = _hb_keylen;
         _hb_keylen = _hb_keylen.wrapping_sub(1);
-        if !(fresh13 != 0 as ::core::ffi::c_uint) {
+        if fresh13 == 0 as ::core::ffi::c_uint {
             break;
         }
         let fresh14 = _hb_key;
@@ -2046,7 +2042,7 @@ pub unsafe extern "C" fn add_prepared_statement(
         (*server_ps).hh.next = NULL;
         (*server_ps).hh.prev = ((*(*(*server).server_prepared_statements).hh.tbl).tail
             as *mut ::core::ffi::c_char)
-            .offset(-((*(*(*server).server_prepared_statements).hh.tbl).hho as isize))
+            .offset(-(*(*(*server).server_prepared_statements).hh.tbl).hho)
             as *mut ::core::ffi::c_void;
         (*(*(*(*server).server_prepared_statements).hh.tbl).tail).next =
             server_ps as *mut ::core::ffi::c_void;
@@ -2200,7 +2196,7 @@ pub unsafe extern "C" fn add_prepared_statement(
                 & (*(*(*server).server_prepared_statements).hh.tbl)
                     .num_buckets
                     .wrapping_sub(1 as ::core::ffi::c_uint);
-            let ref mut fresh15 = (*(*(*(*server).server_prepared_statements).hh.tbl)
+            let fresh15 = &mut (*(*(*(*server).server_prepared_statements).hh.tbl)
                 .buckets
                 .offset(_hd_bkt as isize))
             .count;
@@ -2218,19 +2214,19 @@ pub unsafe extern "C" fn add_prepared_statement(
                     ::core::ptr::null_mut::<PgServerPreparedStatement>();
             } else {
                 let mut _hd_bkt_0: ::core::ffi::c_uint = 0;
-                if _hd_hh_del
-                    == (*(*(*server).server_prepared_statements).hh.tbl).tail
-                        as *const UT_hash_handle
-                {
+                if std::ptr::eq(
+                    _hd_hh_del,
+                    (*(*(*server).server_prepared_statements).hh.tbl).tail,
+                ) {
                     (*(*(*server).server_prepared_statements).hh.tbl).tail =
                         ((*_hd_hh_del).prev as *mut ::core::ffi::c_char)
-                            .offset((*(*(*server).server_prepared_statements).hh.tbl).hho as isize)
+                            .offset((*(*(*server).server_prepared_statements).hh.tbl).hho)
                             as *mut ::core::ffi::c_void
                             as *mut UT_hash_handle as *mut UT_hash_handle;
                 }
                 if !(*_hd_hh_del).prev.is_null() {
-                    let ref mut fresh16 = (*(((*_hd_hh_del).prev as *mut ::core::ffi::c_char)
-                        .offset((*(*(*server).server_prepared_statements).hh.tbl).hho as isize)
+                    let fresh16 = &mut (*(((*_hd_hh_del).prev as *mut ::core::ffi::c_char)
+                        .offset((*(*(*server).server_prepared_statements).hh.tbl).hho)
                         as *mut ::core::ffi::c_void
                         as *mut UT_hash_handle))
                         .next;
@@ -2241,8 +2237,8 @@ pub unsafe extern "C" fn add_prepared_statement(
                         as *mut PgServerPreparedStatement;
                 }
                 if !(*_hd_hh_del).next.is_null() {
-                    let ref mut fresh17 = (*(((*_hd_hh_del).next as *mut ::core::ffi::c_char)
-                        .offset((*(*(*server).server_prepared_statements).hh.tbl).hho as isize)
+                    let fresh17 = &mut (*(((*_hd_hh_del).next as *mut ::core::ffi::c_char)
+                        .offset((*(*(*server).server_prepared_statements).hh.tbl).hho)
                         as *mut ::core::ffi::c_void
                         as *mut UT_hash_handle))
                         .prev;
@@ -2257,7 +2253,7 @@ pub unsafe extern "C" fn add_prepared_statement(
                         .buckets
                         .offset(_hd_bkt_0 as isize) as *mut UT_hash_bucket;
                 (*_hd_head_0).count = (*_hd_head_0).count.wrapping_sub(1);
-                if (*_hd_head_0).hh_head == _hd_hh_del as *mut UT_hash_handle {
+                if std::ptr::eq((*_hd_head_0).hh_head, _hd_hh_del) {
                     (*_hd_head_0).hh_head = (*_hd_hh_del).hh_next as *mut UT_hash_handle;
                 }
                 if !(*_hd_hh_del).hh_prev.is_null() {
@@ -2282,7 +2278,7 @@ pub unsafe extern "C" fn add_prepared_statement(
         uthash_alloc_failed = false_0 != 0;
         return false_0 != 0;
     }
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "229:1"]
 unsafe extern "C" fn register_prepared_statement(
@@ -2393,18 +2389,19 @@ unsafe extern "C" fn register_prepared_statement(
                 ::core::ptr::null_mut::<PgServerPreparedStatement>();
         } else {
             let mut _hd_bkt: ::core::ffi::c_uint = 0;
-            if _hd_hh_del
-                == (*(*(*server).server_prepared_statements).hh.tbl).tail as *const UT_hash_handle
-            {
+            if std::ptr::eq(
+                _hd_hh_del,
+                (*(*(*server).server_prepared_statements).hh.tbl).tail,
+            ) {
                 (*(*(*server).server_prepared_statements).hh.tbl).tail =
                     ((*_hd_hh_del).prev as *mut ::core::ffi::c_char)
-                        .offset((*(*(*server).server_prepared_statements).hh.tbl).hho as isize)
+                        .offset((*(*(*server).server_prepared_statements).hh.tbl).hho)
                         as *mut ::core::ffi::c_void as *mut UT_hash_handle
                         as *mut UT_hash_handle;
             }
             if !(*_hd_hh_del).prev.is_null() {
-                let ref mut fresh11 = (*(((*_hd_hh_del).prev as *mut ::core::ffi::c_char)
-                    .offset((*(*(*server).server_prepared_statements).hh.tbl).hho as isize)
+                let fresh11 = &mut (*(((*_hd_hh_del).prev as *mut ::core::ffi::c_char)
+                    .offset((*(*(*server).server_prepared_statements).hh.tbl).hho)
                     as *mut ::core::ffi::c_void
                     as *mut UT_hash_handle))
                     .next;
@@ -2415,8 +2412,8 @@ unsafe extern "C" fn register_prepared_statement(
                     as *mut PgServerPreparedStatement;
             }
             if !(*_hd_hh_del).next.is_null() {
-                let ref mut fresh12 = (*(((*_hd_hh_del).next as *mut ::core::ffi::c_char)
-                    .offset((*(*(*server).server_prepared_statements).hh.tbl).hho as isize)
+                let fresh12 = &mut (*(((*_hd_hh_del).next as *mut ::core::ffi::c_char)
+                    .offset((*(*(*server).server_prepared_statements).hh.tbl).hho)
                     as *mut ::core::ffi::c_void
                     as *mut UT_hash_handle))
                     .prev;
@@ -2431,7 +2428,7 @@ unsafe extern "C" fn register_prepared_statement(
                     .buckets
                     .offset(_hd_bkt as isize) as *mut UT_hash_bucket;
             (*_hd_head).count = (*_hd_head).count.wrapping_sub(1);
-            if (*_hd_head).hh_head == _hd_hh_del as *mut UT_hash_handle {
+            if std::ptr::eq((*_hd_head).hh_head, _hd_hh_del) {
                 (*_hd_head).hh_head = (*_hd_hh_del).hh_next as *mut UT_hash_handle;
             }
             if !(*_hd_hh_del).hh_prev.is_null() {
@@ -2449,7 +2446,7 @@ unsafe extern "C" fn register_prepared_statement(
         tmp = (if !tmp.is_null() { (*tmp).hh.next } else { NULL }) as *mut PgServerPreparedStatement
             as *mut PgServerPreparedStatement;
     }
-    return true_0 != 0;
+    true_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "300:1"]
@@ -2483,7 +2480,7 @@ pub unsafe extern "C" fn handle_parse_command(
         loop {
             let fresh0 = _hb_keylen;
             _hb_keylen = _hb_keylen.wrapping_sub(1);
-            if !(fresh0 != 0 as ::core::ffi::c_uint) {
+            if fresh0 == 0 as ::core::ffi::c_uint {
                 break;
             }
             let fresh1 = _hb_key;
@@ -2509,7 +2506,7 @@ pub unsafe extern "C" fn handle_parse_command(
                     .buckets
                     .offset(_hf_bkt as isize))
                 .hh_head as *mut ::core::ffi::c_char)
-                    .offset(-((*(*(*client).client_prepared_statements).hh.tbl).hho as isize))
+                    .offset(-(*(*(*client).client_prepared_statements).hh.tbl).hho)
                     as *mut ::core::ffi::c_void
                     as *mut PgClientPreparedStatement
                     as *mut PgClientPreparedStatement;
@@ -2519,19 +2516,17 @@ pub unsafe extern "C" fn handle_parse_command(
             while !client_ps.is_null() {
                 if (*client_ps).hh.hashv == _hf_hashv
                     && (*client_ps).hh.keylen == _uthash_hfstr_keylen
-                {
-                    if memcmp(
+                    && memcmp(
                         (*client_ps).hh.key,
                         pp.name as *const ::core::ffi::c_void,
                         _uthash_hfstr_keylen as size_t,
                     ) == 0 as ::core::ffi::c_int
-                    {
-                        break;
-                    }
+                {
+                    break;
                 }
                 if !(*client_ps).hh.hh_next.is_null() {
                     client_ps = ((*client_ps).hh.hh_next as *mut ::core::ffi::c_char)
-                        .offset(-((*(*(*client).client_prepared_statements).hh.tbl).hho as isize))
+                        .offset(-(*(*(*client).client_prepared_statements).hh.tbl).hho)
                         as *mut ::core::ffi::c_void
                         as *mut PgClientPreparedStatement
                         as *mut PgClientPreparedStatement;
@@ -2578,7 +2573,7 @@ pub unsafe extern "C" fn handle_parse_command(
             loop {
                 let fresh2 = _hb_keylen_0;
                 _hb_keylen_0 = _hb_keylen_0.wrapping_sub(1);
-                if !(fresh2 != 0 as ::core::ffi::c_uint) {
+                if fresh2 == 0 as ::core::ffi::c_uint {
                     break;
                 }
                 let fresh3 = _hb_key_0;
@@ -2644,7 +2639,7 @@ pub unsafe extern "C" fn handle_parse_command(
                 (*client_ps).hh.next = NULL;
                 (*client_ps).hh.prev = ((*(*(*client).client_prepared_statements).hh.tbl).tail
                     as *mut ::core::ffi::c_char)
-                    .offset(-((*(*(*client).client_prepared_statements).hh.tbl).hho as isize))
+                    .offset(-(*(*(*client).client_prepared_statements).hh.tbl).hho)
                     as *mut ::core::ffi::c_void;
                 (*(*(*(*client).client_prepared_statements).hh.tbl).tail).next =
                     client_ps as *mut ::core::ffi::c_void;
@@ -2803,7 +2798,7 @@ pub unsafe extern "C" fn handle_parse_command(
                         & (*(*(*client).client_prepared_statements).hh.tbl)
                             .num_buckets
                             .wrapping_sub(1 as ::core::ffi::c_uint);
-                    let ref mut fresh4 = (*(*(*(*client).client_prepared_statements).hh.tbl)
+                    let fresh4 = &mut (*(*(*(*client).client_prepared_statements).hh.tbl)
                         .buckets
                         .offset(_hd_bkt as isize))
                     .count;
@@ -2824,24 +2819,23 @@ pub unsafe extern "C" fn handle_parse_command(
                             ::core::ptr::null_mut::<PgClientPreparedStatement>();
                     } else {
                         let mut _hd_bkt_0: ::core::ffi::c_uint = 0;
-                        if _hd_hh_del
-                            == (*(*(*client).client_prepared_statements).hh.tbl).tail
-                                as *const UT_hash_handle
-                        {
+                        if std::ptr::eq(
+                            _hd_hh_del,
+                            (*(*(*client).client_prepared_statements).hh.tbl).tail,
+                        ) {
                             (*(*(*client).client_prepared_statements).hh.tbl).tail =
-                                ((*_hd_hh_del).prev as *mut ::core::ffi::c_char).offset(
-                                    (*(*(*client).client_prepared_statements).hh.tbl).hho as isize,
-                                ) as *mut ::core::ffi::c_void
+                                ((*_hd_hh_del).prev as *mut ::core::ffi::c_char)
+                                    .offset((*(*(*client).client_prepared_statements).hh.tbl).hho)
+                                    as *mut ::core::ffi::c_void
                                     as *mut UT_hash_handle
                                     as *mut UT_hash_handle;
                         }
                         if !(*_hd_hh_del).prev.is_null() {
-                            let ref mut fresh5 =
-                                (*(((*_hd_hh_del).prev as *mut ::core::ffi::c_char).offset(
-                                    (*(*(*client).client_prepared_statements).hh.tbl).hho as isize,
-                                ) as *mut ::core::ffi::c_void
-                                    as *mut UT_hash_handle))
-                                    .next;
+                            let fresh5 = &mut (*(((*_hd_hh_del).prev as *mut ::core::ffi::c_char)
+                                .offset((*(*(*client).client_prepared_statements).hh.tbl).hho)
+                                as *mut ::core::ffi::c_void
+                                as *mut UT_hash_handle))
+                                .next;
                             *fresh5 = (*_hd_hh_del).next;
                         } else {
                             (*client).client_prepared_statements = (*_hd_hh_del).next
@@ -2849,12 +2843,11 @@ pub unsafe extern "C" fn handle_parse_command(
                                 as *mut PgClientPreparedStatement;
                         }
                         if !(*_hd_hh_del).next.is_null() {
-                            let ref mut fresh6 =
-                                (*(((*_hd_hh_del).next as *mut ::core::ffi::c_char).offset(
-                                    (*(*(*client).client_prepared_statements).hh.tbl).hho as isize,
-                                ) as *mut ::core::ffi::c_void
-                                    as *mut UT_hash_handle))
-                                    .prev;
+                            let fresh6 = &mut (*(((*_hd_hh_del).next as *mut ::core::ffi::c_char)
+                                .offset((*(*(*client).client_prepared_statements).hh.tbl).hho)
+                                as *mut ::core::ffi::c_void
+                                as *mut UT_hash_handle))
+                                .prev;
                             *fresh6 = (*_hd_hh_del).prev;
                         }
                         _hd_bkt_0 = (*_hd_hh_del).hashv
@@ -2867,7 +2860,7 @@ pub unsafe extern "C" fn handle_parse_command(
                                 .offset(_hd_bkt_0 as isize)
                                 as *mut UT_hash_bucket;
                         (*_hd_head_0).count = (*_hd_head_0).count.wrapping_sub(1);
-                        if (*_hd_head_0).hh_head == _hd_hh_del as *mut UT_hash_handle {
+                        if std::ptr::eq((*_hd_head_0).hh_head, _hd_hh_del) {
                             (*_hd_head_0).hh_head = (*_hd_hh_del).hh_next as *mut UT_hash_handle;
                         }
                         if !(*_hd_hh_del).hh_prev.is_null() {
@@ -2902,7 +2895,7 @@ pub unsafe extern "C" fn handle_parse_command(
                         loop {
                             let fresh7 = _hb_keylen_1;
                             _hb_keylen_1 = _hb_keylen_1.wrapping_sub(1);
-                            if !(fresh7 != 0 as ::core::ffi::c_uint) {
+                            if fresh7 == 0 as ::core::ffi::c_uint {
                                 break;
                             }
                             let fresh8 = _hb_key_1;
@@ -2929,10 +2922,7 @@ pub unsafe extern "C" fn handle_parse_command(
                                     .offset(_hf_bkt_0 as isize))
                                 .hh_head
                                     as *mut ::core::ffi::c_char)
-                                    .offset(
-                                        -((*(*(*server).server_prepared_statements).hh.tbl).hho
-                                            as isize),
-                                    )
+                                    .offset(-(*(*(*server).server_prepared_statements).hh.tbl).hho)
                                     as *mut ::core::ffi::c_void
                                     as *mut PgServerPreparedStatement
                                     as *mut PgServerPreparedStatement;
@@ -2942,23 +2932,20 @@ pub unsafe extern "C" fn handle_parse_command(
                             while !server_ps.is_null() {
                                 if (*server_ps).hh.hashv == _hf_hashv_0
                                     && (*server_ps).hh.keylen as usize
-                                        == ::core::mem::size_of::<uint64_t>() as usize
-                                {
-                                    if memcmp(
+                                        == ::core::mem::size_of::<uint64_t>()
+                                    && memcmp(
                                         (*server_ps).hh.key,
                                         &raw mut (*ps).query_id as *const ::core::ffi::c_void,
                                         ::core::mem::size_of::<uint64_t>() as size_t,
                                     ) == 0 as ::core::ffi::c_int
-                                    {
-                                        break;
-                                    }
+                                {
+                                    break;
                                 }
                                 if !(*server_ps).hh.hh_next.is_null() {
                                     server_ps = ((*server_ps).hh.hh_next
                                         as *mut ::core::ffi::c_char)
                                         .offset(
-                                            -((*(*(*server).server_prepared_statements).hh.tbl).hho
-                                                as isize),
+                                            -(*(*(*server).server_prepared_statements).hh.tbl).hho,
                                         )
                                         as *mut ::core::ffi::c_void
                                         as *mut PgServerPreparedStatement
@@ -3004,65 +2991,61 @@ pub unsafe extern "C" fn handle_parse_command(
                 match current_block {
                     5810280148545133055 => {}
                     _ => {
-                        match current_block {
-                            3760002206039831082 => {
-                                if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int
-                                    as ::core::ffi::c_long
-                                    != 0
-                                {
-                                    log_generic(
-                                        LG_DEBUG,
-                                        client as *mut ::core::ffi::c_void,
-                                        b"handle_parse_command: creating mapping for statement '%s' to '%s' (query '%s')\0"
-                                            as *const u8 as *const ::core::ffi::c_char,
-                                        &raw mut (*client_ps).stmt_name as *mut ::core::ffi::c_char,
-                                        &raw mut (*ps).stmt_name as *mut ::core::ffi::c_char,
-                                        &raw mut (*ps).query_and_parameters
-                                            as *mut ::core::ffi::c_char,
-                                    );
-                                }
-                                buf = pktbuf_temp() as *mut PktBuf;
-                                pktbuf_write_generic(
-                                    buf,
-                                    PqMsg_Parse,
-                                    b"sb\0" as *const u8 as *const ::core::ffi::c_char,
+                        if current_block == 3760002206039831082 {
+                            if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int
+                                as ::core::ffi::c_long
+                                != 0
+                            {
+                                log_generic(
+                                    LG_DEBUG,
+                                    client as *mut ::core::ffi::c_void,
+                                    b"handle_parse_command: creating mapping for statement '%s' to '%s' (query '%s')\0"
+                                        as *const u8 as *const ::core::ffi::c_char,
+                                    &raw mut (*client_ps).stmt_name as *mut ::core::ffi::c_char,
                                     &raw mut (*ps).stmt_name as *mut ::core::ffi::c_char,
-                                    &raw mut (*ps).query_and_parameters as *mut ::core::ffi::c_char,
-                                    (*ps).query_and_parameters_len,
+                                    &raw mut (*ps).query_and_parameters
+                                        as *mut ::core::ffi::c_char,
                                 );
-                                if !sbuf_queue_packet(
-                                    &raw mut (*client).sbuf,
-                                    &raw mut (*server).sbuf,
-                                    buf as *mut PktBuf,
+                            }
+                            buf = pktbuf_temp() as *mut PktBuf;
+                            pktbuf_write_generic(
+                                buf,
+                                PqMsg_Parse,
+                                b"sb\0" as *const u8 as *const ::core::ffi::c_char,
+                                &raw mut (*ps).stmt_name as *mut ::core::ffi::c_char,
+                                &raw mut (*ps).query_and_parameters as *mut ::core::ffi::c_char,
+                                (*ps).query_and_parameters_len,
+                            );
+                            if !sbuf_queue_packet(
+                                &raw mut (*client).sbuf,
+                                &raw mut (*server).sbuf,
+                                buf as *mut PktBuf,
+                            ) {
+                                current_block = 5810280148545133055;
+                            } else {
+                                (*(*client).pool).stats.ps_server_parse_count = (*(*client).pool)
+                                    .stats
+                                    .ps_server_parse_count
+                                    .wrapping_add(1);
+                                if !add_outstanding_request(
+                                    client,
+                                    PqMsg_Parse as ::core::ffi::c_char,
+                                    RA_FORWARD,
                                 ) {
                                     current_block = 5810280148545133055;
                                 } else {
-                                    (*(*client).pool).stats.ps_server_parse_count = (*(*client)
-                                        .pool)
-                                        .stats
-                                        .ps_server_parse_count
-                                        .wrapping_add(1);
-                                    if !add_outstanding_request(
-                                        client,
-                                        PqMsg_Parse as ::core::ffi::c_char,
-                                        RA_FORWARD,
+                                    server_ps = create_server_prepared_statement(ps);
+                                    if server_ps.is_null() {
+                                        current_block = 5810280148545133055;
+                                    } else if !register_prepared_statement(
+                                        client, server, server_ps,
                                     ) {
                                         current_block = 5810280148545133055;
                                     } else {
-                                        server_ps = create_server_prepared_statement(ps);
-                                        if server_ps.is_null() {
-                                            current_block = 5810280148545133055;
-                                        } else if !register_prepared_statement(
-                                            client, server, server_ps,
-                                        ) {
-                                            current_block = 5810280148545133055;
-                                        } else {
-                                            current_block = 15360222575584860582;
-                                        }
+                                        current_block = 15360222575584860582;
                                     }
                                 }
                             }
-                            _ => {}
                         }
                         match current_block {
                             5810280148545133055 => {}
@@ -3088,7 +3071,7 @@ pub unsafe extern "C" fn handle_parse_command(
         true_0 != 0,
         b"out of memory\0" as *const u8 as *const ::core::ffi::c_char,
     );
-    return false_0 != 0;
+    false_0 != 0
 }
 #[c2rust::src_loc = "415:1"]
 unsafe extern "C" fn get_client_prepared_statement(
@@ -3106,7 +3089,7 @@ unsafe extern "C" fn get_client_prepared_statement(
         loop {
             let fresh29 = _hb_keylen;
             _hb_keylen = _hb_keylen.wrapping_sub(1);
-            if !(fresh29 != 0 as ::core::ffi::c_uint) {
+            if fresh29 == 0 as ::core::ffi::c_uint {
                 break;
             }
             let fresh30 = _hb_key;
@@ -3132,7 +3115,7 @@ unsafe extern "C" fn get_client_prepared_statement(
                     .buckets
                     .offset(_hf_bkt as isize))
                 .hh_head as *mut ::core::ffi::c_char)
-                    .offset(-((*(*(*client).client_prepared_statements).hh.tbl).hho as isize))
+                    .offset(-(*(*(*client).client_prepared_statements).hh.tbl).hho)
                     as *mut ::core::ffi::c_void
                     as *mut PgClientPreparedStatement
                     as *mut PgClientPreparedStatement;
@@ -3142,19 +3125,17 @@ unsafe extern "C" fn get_client_prepared_statement(
             while !client_ps.is_null() {
                 if (*client_ps).hh.hashv == _hf_hashv
                     && (*client_ps).hh.keylen == _uthash_hfstr_keylen
-                {
-                    if memcmp(
+                    && memcmp(
                         (*client_ps).hh.key,
                         name as *const ::core::ffi::c_void,
                         _uthash_hfstr_keylen as size_t,
                     ) == 0 as ::core::ffi::c_int
-                    {
-                        break;
-                    }
+                {
+                    break;
                 }
                 if !(*client_ps).hh.hh_next.is_null() {
                     client_ps = ((*client_ps).hh.hh_next as *mut ::core::ffi::c_char)
-                        .offset(-((*(*(*client).client_prepared_statements).hh.tbl).hho as isize))
+                        .offset(-(*(*(*client).client_prepared_statements).hh.tbl).hho)
                         as *mut ::core::ffi::c_void
                         as *mut PgClientPreparedStatement
                         as *mut PgClientPreparedStatement;
@@ -3177,7 +3158,7 @@ unsafe extern "C" fn get_client_prepared_statement(
             b"prepared statement did not exist\0" as *const u8 as *const ::core::ffi::c_char,
         );
     }
-    return client_ps;
+    client_ps
 }
 #[c2rust::src_loc = "444:1"]
 unsafe extern "C" fn ensure_statement_is_prepared_on_server(
@@ -3196,7 +3177,7 @@ unsafe extern "C" fn ensure_statement_is_prepared_on_server(
         loop {
             let fresh25 = _hb_keylen;
             _hb_keylen = _hb_keylen.wrapping_sub(1);
-            if !(fresh25 != 0 as ::core::ffi::c_uint) {
+            if fresh25 == 0 as ::core::ffi::c_uint {
                 break;
             }
             let fresh26 = _hb_key;
@@ -3222,7 +3203,7 @@ unsafe extern "C" fn ensure_statement_is_prepared_on_server(
                     .buckets
                     .offset(_hf_bkt as isize))
                 .hh_head as *mut ::core::ffi::c_char)
-                    .offset(-((*(*(*server).server_prepared_statements).hh.tbl).hho as isize))
+                    .offset(-(*(*(*server).server_prepared_statements).hh.tbl).hho)
                     as *mut ::core::ffi::c_void
                     as *mut PgServerPreparedStatement
                     as *mut PgServerPreparedStatement;
@@ -3231,21 +3212,18 @@ unsafe extern "C" fn ensure_statement_is_prepared_on_server(
             }
             while !server_ps.is_null() {
                 if (*server_ps).hh.hashv == _hf_hashv
-                    && (*server_ps).hh.keylen as usize
-                        == ::core::mem::size_of::<uint64_t>() as usize
-                {
-                    if memcmp(
+                    && (*server_ps).hh.keylen as usize == ::core::mem::size_of::<uint64_t>()
+                    && memcmp(
                         (*server_ps).hh.key,
                         &raw mut (*ps).query_id as *const ::core::ffi::c_void,
                         ::core::mem::size_of::<uint64_t>() as size_t,
                     ) == 0 as ::core::ffi::c_int
-                    {
-                        break;
-                    }
+                {
+                    break;
                 }
                 if !(*server_ps).hh.hh_next.is_null() {
                     server_ps = ((*server_ps).hh.hh_next as *mut ::core::ffi::c_char)
-                        .offset(-((*(*(*server).server_prepared_statements).hh.tbl).hho as isize))
+                        .offset(-(*(*(*server).server_prepared_statements).hh.tbl).hho)
                         as *mut ::core::ffi::c_void
                         as *mut PgServerPreparedStatement
                         as *mut PgServerPreparedStatement;
@@ -3264,8 +3242,8 @@ unsafe extern "C" fn ensure_statement_is_prepared_on_server(
         {
             let mut _hd_hh_del: *mut UT_hash_handle = &raw mut (*server_ps).hh;
             if !(*_hd_hh_del).prev.is_null() {
-                let ref mut fresh27 = (*(((*_hd_hh_del).prev as *mut ::core::ffi::c_char)
-                    .offset((*(*(*server).server_prepared_statements).hh.tbl).hho as isize)
+                let fresh27 = &mut (*(((*_hd_hh_del).prev as *mut ::core::ffi::c_char)
+                    .offset((*(*(*server).server_prepared_statements).hh.tbl).hho)
                     as *mut ::core::ffi::c_void
                     as *mut UT_hash_handle))
                     .next;
@@ -3276,8 +3254,8 @@ unsafe extern "C" fn ensure_statement_is_prepared_on_server(
                     as *mut PgServerPreparedStatement;
             }
             if !(*_hd_hh_del).next.is_null() {
-                let ref mut fresh28 = (*(((*_hd_hh_del).next as *mut ::core::ffi::c_char)
-                    .offset((*(*(*server).server_prepared_statements).hh.tbl).hho as isize)
+                let fresh28 = &mut (*(((*_hd_hh_del).next as *mut ::core::ffi::c_char)
+                    .offset((*(*(*server).server_prepared_statements).hh.tbl).hho)
                     as *mut ::core::ffi::c_void
                     as *mut UT_hash_handle))
                     .prev;
@@ -3292,7 +3270,7 @@ unsafe extern "C" fn ensure_statement_is_prepared_on_server(
             (*server_ps).hh.next = NULL;
             (*server_ps).hh.prev = ((*(*(*server).server_prepared_statements).hh.tbl).tail
                 as *mut ::core::ffi::c_char)
-                .offset(-((*(*(*server).server_prepared_statements).hh.tbl).hho as isize))
+                .offset(-(*(*(*server).server_prepared_statements).hh.tbl).hho)
                 as *mut ::core::ffi::c_void;
             (*(*(*(*server).server_prepared_statements).hh.tbl).tail).next =
                 server_ps as *mut ::core::ffi::c_void;
@@ -3343,7 +3321,7 @@ unsafe extern "C" fn ensure_statement_is_prepared_on_server(
         free_server_prepared_statement(server_ps);
         return false_0 != 0;
     }
-    return true_0 != 0;
+    true_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "506:1"]
@@ -3440,7 +3418,7 @@ pub unsafe extern "C" fn handle_bind_command(
         true_0 != 0,
         b"out of memory\0" as *const u8 as *const ::core::ffi::c_char,
     );
-    return false_0 != 0;
+    false_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "613:1"]
@@ -3523,7 +3501,7 @@ pub unsafe extern "C" fn handle_describe_command(
         true_0 != 0,
         b"out of memory\0" as *const u8 as *const ::core::ffi::c_char,
     );
-    return false_0 != 0;
+    false_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "665:1"]
@@ -3544,7 +3522,7 @@ pub unsafe extern "C" fn handle_close_statement_command(
         loop {
             let fresh31 = _hb_keylen;
             _hb_keylen = _hb_keylen.wrapping_sub(1);
-            if !(fresh31 != 0 as ::core::ffi::c_uint) {
+            if fresh31 == 0 as ::core::ffi::c_uint {
                 break;
             }
             let fresh32 = _hb_key;
@@ -3570,7 +3548,7 @@ pub unsafe extern "C" fn handle_close_statement_command(
                     .buckets
                     .offset(_hf_bkt as isize))
                 .hh_head as *mut ::core::ffi::c_char)
-                    .offset(-((*(*(*client).client_prepared_statements).hh.tbl).hho as isize))
+                    .offset(-(*(*(*client).client_prepared_statements).hh.tbl).hho)
                     as *mut ::core::ffi::c_void
                     as *mut PgClientPreparedStatement
                     as *mut PgClientPreparedStatement;
@@ -3580,19 +3558,17 @@ pub unsafe extern "C" fn handle_close_statement_command(
             while !client_ps.is_null() {
                 if (*client_ps).hh.hashv == _hf_hashv
                     && (*client_ps).hh.keylen == _uthash_hfstr_keylen
-                {
-                    if memcmp(
+                    && memcmp(
                         (*client_ps).hh.key,
                         (*close_packet).name as *const ::core::ffi::c_void,
                         _uthash_hfstr_keylen as size_t,
                     ) == 0 as ::core::ffi::c_int
-                    {
-                        break;
-                    }
+                {
+                    break;
                 }
                 if !(*client_ps).hh.hh_next.is_null() {
                     client_ps = ((*client_ps).hh.hh_next as *mut ::core::ffi::c_char)
-                        .offset(-((*(*(*client).client_prepared_statements).hh.tbl).hho as isize))
+                        .offset(-(*(*(*client).client_prepared_statements).hh.tbl).hho)
                         as *mut ::core::ffi::c_void
                         as *mut PgClientPreparedStatement
                         as *mut PgClientPreparedStatement;
@@ -3629,18 +3605,19 @@ pub unsafe extern "C" fn handle_close_statement_command(
                 ::core::ptr::null_mut::<PgClientPreparedStatement>();
         } else {
             let mut _hd_bkt: ::core::ffi::c_uint = 0;
-            if _hd_hh_del
-                == (*(*(*client).client_prepared_statements).hh.tbl).tail as *const UT_hash_handle
-            {
+            if std::ptr::eq(
+                _hd_hh_del,
+                (*(*(*client).client_prepared_statements).hh.tbl).tail,
+            ) {
                 (*(*(*client).client_prepared_statements).hh.tbl).tail =
                     ((*_hd_hh_del).prev as *mut ::core::ffi::c_char)
-                        .offset((*(*(*client).client_prepared_statements).hh.tbl).hho as isize)
+                        .offset((*(*(*client).client_prepared_statements).hh.tbl).hho)
                         as *mut ::core::ffi::c_void as *mut UT_hash_handle
                         as *mut UT_hash_handle;
             }
             if !(*_hd_hh_del).prev.is_null() {
-                let ref mut fresh33 = (*(((*_hd_hh_del).prev as *mut ::core::ffi::c_char)
-                    .offset((*(*(*client).client_prepared_statements).hh.tbl).hho as isize)
+                let fresh33 = &mut (*(((*_hd_hh_del).prev as *mut ::core::ffi::c_char)
+                    .offset((*(*(*client).client_prepared_statements).hh.tbl).hho)
                     as *mut ::core::ffi::c_void
                     as *mut UT_hash_handle))
                     .next;
@@ -3651,8 +3628,8 @@ pub unsafe extern "C" fn handle_close_statement_command(
                     as *mut PgClientPreparedStatement;
             }
             if !(*_hd_hh_del).next.is_null() {
-                let ref mut fresh34 = (*(((*_hd_hh_del).next as *mut ::core::ffi::c_char)
-                    .offset((*(*(*client).client_prepared_statements).hh.tbl).hho as isize)
+                let fresh34 = &mut (*(((*_hd_hh_del).next as *mut ::core::ffi::c_char)
+                    .offset((*(*(*client).client_prepared_statements).hh.tbl).hho)
                     as *mut ::core::ffi::c_void
                     as *mut UT_hash_handle))
                     .prev;
@@ -3667,7 +3644,7 @@ pub unsafe extern "C" fn handle_close_statement_command(
                     .buckets
                     .offset(_hd_bkt as isize) as *mut UT_hash_bucket;
             (*_hd_head).count = (*_hd_head).count.wrapping_sub(1);
-            if (*_hd_head).hh_head == _hd_hh_del as *mut UT_hash_handle {
+            if std::ptr::eq((*_hd_head).hh_head, _hd_hh_del) {
                 (*_hd_head).hh_head = (*_hd_hh_del).hh_next as *mut UT_hash_handle;
             }
             if !(*_hd_hh_del).hh_prev.is_null() {
@@ -3690,16 +3667,16 @@ pub unsafe extern "C" fn handle_close_statement_command(
                 prepared_statements = ::core::ptr::null_mut::<PgPreparedStatement>();
             } else {
                 let mut _hd_bkt_0: ::core::ffi::c_uint = 0;
-                if _hd_hh_del_0 == (*(*prepared_statements).hh.tbl).tail as *const UT_hash_handle {
+                if std::ptr::eq(_hd_hh_del_0, (*(*prepared_statements).hh.tbl).tail) {
                     (*(*prepared_statements).hh.tbl).tail =
                         ((*_hd_hh_del_0).prev as *mut ::core::ffi::c_char)
-                            .offset((*(*prepared_statements).hh.tbl).hho as isize)
+                            .offset((*(*prepared_statements).hh.tbl).hho)
                             as *mut ::core::ffi::c_void
                             as *mut UT_hash_handle as *mut UT_hash_handle;
                 }
                 if !(*_hd_hh_del_0).prev.is_null() {
-                    let ref mut fresh35 = (*(((*_hd_hh_del_0).prev as *mut ::core::ffi::c_char)
-                        .offset((*(*prepared_statements).hh.tbl).hho as isize)
+                    let fresh35 = &mut (*(((*_hd_hh_del_0).prev as *mut ::core::ffi::c_char)
+                        .offset((*(*prepared_statements).hh.tbl).hho)
                         as *mut ::core::ffi::c_void
                         as *mut UT_hash_handle))
                         .next;
@@ -3709,8 +3686,8 @@ pub unsafe extern "C" fn handle_close_statement_command(
                         as *mut PgPreparedStatement;
                 }
                 if !(*_hd_hh_del_0).next.is_null() {
-                    let ref mut fresh36 = (*(((*_hd_hh_del_0).next as *mut ::core::ffi::c_char)
-                        .offset((*(*prepared_statements).hh.tbl).hho as isize)
+                    let fresh36 = &mut (*(((*_hd_hh_del_0).next as *mut ::core::ffi::c_char)
+                        .offset((*(*prepared_statements).hh.tbl).hho)
                         as *mut ::core::ffi::c_void
                         as *mut UT_hash_handle))
                         .prev;
@@ -3725,7 +3702,7 @@ pub unsafe extern "C" fn handle_close_statement_command(
                     .offset(_hd_bkt_0 as isize)
                     as *mut UT_hash_bucket;
                 (*_hd_head_0).count = (*_hd_head_0).count.wrapping_sub(1);
-                if (*_hd_head_0).hh_head == _hd_hh_del_0 as *mut UT_hash_handle {
+                if std::ptr::eq((*_hd_head_0).hh_head, _hd_hh_del_0) {
                     (*_hd_head_0).hh_head = (*_hd_hh_del_0).hh_next as *mut UT_hash_handle;
                 }
                 if !(*_hd_hh_del_0).hh_prev.is_null() {
@@ -3783,7 +3760,7 @@ pub unsafe extern "C" fn handle_close_statement_command(
     if !add_outstanding_request(client, PqMsg_Close as ::core::ffi::c_char, RA_FAKE) {
         return false_0 != 0;
     }
-    return true_0 != 0;
+    true_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "698:1"]
@@ -3808,18 +3785,19 @@ pub unsafe extern "C" fn free_client_prepared_statements(mut client: *mut PgSock
                 ::core::ptr::null_mut::<PgClientPreparedStatement>();
         } else {
             let mut _hd_bkt: ::core::ffi::c_uint = 0;
-            if _hd_hh_del
-                == (*(*(*client).client_prepared_statements).hh.tbl).tail as *const UT_hash_handle
-            {
+            if std::ptr::eq(
+                _hd_hh_del,
+                (*(*(*client).client_prepared_statements).hh.tbl).tail,
+            ) {
                 (*(*(*client).client_prepared_statements).hh.tbl).tail =
                     ((*_hd_hh_del).prev as *mut ::core::ffi::c_char)
-                        .offset((*(*(*client).client_prepared_statements).hh.tbl).hho as isize)
+                        .offset((*(*(*client).client_prepared_statements).hh.tbl).hho)
                         as *mut ::core::ffi::c_void as *mut UT_hash_handle
                         as *mut UT_hash_handle;
             }
             if !(*_hd_hh_del).prev.is_null() {
-                let ref mut fresh41 = (*(((*_hd_hh_del).prev as *mut ::core::ffi::c_char)
-                    .offset((*(*(*client).client_prepared_statements).hh.tbl).hho as isize)
+                let fresh41 = &mut (*(((*_hd_hh_del).prev as *mut ::core::ffi::c_char)
+                    .offset((*(*(*client).client_prepared_statements).hh.tbl).hho)
                     as *mut ::core::ffi::c_void
                     as *mut UT_hash_handle))
                     .next;
@@ -3830,8 +3808,8 @@ pub unsafe extern "C" fn free_client_prepared_statements(mut client: *mut PgSock
                     as *mut PgClientPreparedStatement;
             }
             if !(*_hd_hh_del).next.is_null() {
-                let ref mut fresh42 = (*(((*_hd_hh_del).next as *mut ::core::ffi::c_char)
-                    .offset((*(*(*client).client_prepared_statements).hh.tbl).hho as isize)
+                let fresh42 = &mut (*(((*_hd_hh_del).next as *mut ::core::ffi::c_char)
+                    .offset((*(*(*client).client_prepared_statements).hh.tbl).hho)
                     as *mut ::core::ffi::c_void
                     as *mut UT_hash_handle))
                     .prev;
@@ -3846,7 +3824,7 @@ pub unsafe extern "C" fn free_client_prepared_statements(mut client: *mut PgSock
                     .buckets
                     .offset(_hd_bkt as isize) as *mut UT_hash_bucket;
             (*_hd_head).count = (*_hd_head).count.wrapping_sub(1);
-            if (*_hd_head).hh_head == _hd_hh_del as *mut UT_hash_handle {
+            if std::ptr::eq((*_hd_head).hh_head, _hd_hh_del) {
                 (*_hd_head).hh_head = (*_hd_hh_del).hh_next as *mut UT_hash_handle;
             }
             if !(*_hd_hh_del).hh_prev.is_null() {
@@ -3869,16 +3847,16 @@ pub unsafe extern "C" fn free_client_prepared_statements(mut client: *mut PgSock
                 prepared_statements = ::core::ptr::null_mut::<PgPreparedStatement>();
             } else {
                 let mut _hd_bkt_0: ::core::ffi::c_uint = 0;
-                if _hd_hh_del_0 == (*(*prepared_statements).hh.tbl).tail as *const UT_hash_handle {
+                if std::ptr::eq(_hd_hh_del_0, (*(*prepared_statements).hh.tbl).tail) {
                     (*(*prepared_statements).hh.tbl).tail =
                         ((*_hd_hh_del_0).prev as *mut ::core::ffi::c_char)
-                            .offset((*(*prepared_statements).hh.tbl).hho as isize)
+                            .offset((*(*prepared_statements).hh.tbl).hho)
                             as *mut ::core::ffi::c_void
                             as *mut UT_hash_handle as *mut UT_hash_handle;
                 }
                 if !(*_hd_hh_del_0).prev.is_null() {
-                    let ref mut fresh43 = (*(((*_hd_hh_del_0).prev as *mut ::core::ffi::c_char)
-                        .offset((*(*prepared_statements).hh.tbl).hho as isize)
+                    let fresh43 = &mut (*(((*_hd_hh_del_0).prev as *mut ::core::ffi::c_char)
+                        .offset((*(*prepared_statements).hh.tbl).hho)
                         as *mut ::core::ffi::c_void
                         as *mut UT_hash_handle))
                         .next;
@@ -3888,8 +3866,8 @@ pub unsafe extern "C" fn free_client_prepared_statements(mut client: *mut PgSock
                         as *mut PgPreparedStatement;
                 }
                 if !(*_hd_hh_del_0).next.is_null() {
-                    let ref mut fresh44 = (*(((*_hd_hh_del_0).next as *mut ::core::ffi::c_char)
-                        .offset((*(*prepared_statements).hh.tbl).hho as isize)
+                    let fresh44 = &mut (*(((*_hd_hh_del_0).next as *mut ::core::ffi::c_char)
+                        .offset((*(*prepared_statements).hh.tbl).hho)
                         as *mut ::core::ffi::c_void
                         as *mut UT_hash_handle))
                         .prev;
@@ -3904,7 +3882,7 @@ pub unsafe extern "C" fn free_client_prepared_statements(mut client: *mut PgSock
                     .offset(_hd_bkt_0 as isize)
                     as *mut UT_hash_bucket;
                 (*_hd_head_0).count = (*_hd_head_0).count.wrapping_sub(1);
-                if (*_hd_head_0).hh_head == _hd_hh_del_0 as *mut UT_hash_handle {
+                if std::ptr::eq((*_hd_head_0).hh_head, _hd_hh_del_0) {
                     (*_hd_head_0).hh_head = (*_hd_hh_del_0).hh_next as *mut UT_hash_handle;
                 }
                 if !(*_hd_hh_del_0).hh_prev.is_null() {
@@ -3949,18 +3927,19 @@ pub unsafe extern "C" fn free_server_prepared_statements(mut server: *mut PgSock
                 ::core::ptr::null_mut::<PgServerPreparedStatement>();
         } else {
             let mut _hd_bkt: ::core::ffi::c_uint = 0;
-            if _hd_hh_del
-                == (*(*(*server).server_prepared_statements).hh.tbl).tail as *const UT_hash_handle
-            {
+            if std::ptr::eq(
+                _hd_hh_del,
+                (*(*(*server).server_prepared_statements).hh.tbl).tail,
+            ) {
                 (*(*(*server).server_prepared_statements).hh.tbl).tail =
                     ((*_hd_hh_del).prev as *mut ::core::ffi::c_char)
-                        .offset((*(*(*server).server_prepared_statements).hh.tbl).hho as isize)
+                        .offset((*(*(*server).server_prepared_statements).hh.tbl).hho)
                         as *mut ::core::ffi::c_void as *mut UT_hash_handle
                         as *mut UT_hash_handle;
             }
             if !(*_hd_hh_del).prev.is_null() {
-                let ref mut fresh45 = (*(((*_hd_hh_del).prev as *mut ::core::ffi::c_char)
-                    .offset((*(*(*server).server_prepared_statements).hh.tbl).hho as isize)
+                let fresh45 = &mut (*(((*_hd_hh_del).prev as *mut ::core::ffi::c_char)
+                    .offset((*(*(*server).server_prepared_statements).hh.tbl).hho)
                     as *mut ::core::ffi::c_void
                     as *mut UT_hash_handle))
                     .next;
@@ -3971,8 +3950,8 @@ pub unsafe extern "C" fn free_server_prepared_statements(mut server: *mut PgSock
                     as *mut PgServerPreparedStatement;
             }
             if !(*_hd_hh_del).next.is_null() {
-                let ref mut fresh46 = (*(((*_hd_hh_del).next as *mut ::core::ffi::c_char)
-                    .offset((*(*(*server).server_prepared_statements).hh.tbl).hho as isize)
+                let fresh46 = &mut (*(((*_hd_hh_del).next as *mut ::core::ffi::c_char)
+                    .offset((*(*(*server).server_prepared_statements).hh.tbl).hho)
                     as *mut ::core::ffi::c_void
                     as *mut UT_hash_handle))
                     .prev;
@@ -3987,7 +3966,7 @@ pub unsafe extern "C" fn free_server_prepared_statements(mut server: *mut PgSock
                     .buckets
                     .offset(_hd_bkt as isize) as *mut UT_hash_bucket;
             (*_hd_head).count = (*_hd_head).count.wrapping_sub(1);
-            if (*_hd_head).hh_head == _hd_hh_del as *mut UT_hash_handle {
+            if std::ptr::eq((*_hd_head).hh_head, _hd_hh_del) {
                 (*_hd_head).hh_head = (*_hd_hh_del).hh_next as *mut UT_hash_handle;
             }
             if !(*_hd_hh_del).hh_prev.is_null() {

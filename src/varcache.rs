@@ -1108,7 +1108,7 @@ pub mod _ctype_h {
     #[inline]
     #[c2rust::src_loc = "296:1"]
     pub unsafe extern "C" fn tolower(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
-        return __tolower(_c as __darwin_ct_rune_t) as ::core::ffi::c_int;
+        __tolower(_c as __darwin_ct_rune_t) as ::core::ffi::c_int
     }
     use super::_types_h::__darwin_ct_rune_t;
     extern "C" {
@@ -1121,7 +1121,7 @@ pub mod ctype_h {
     #[inline]
     #[c2rust::src_loc = "120:1"]
     pub unsafe extern "C" fn safe_tolower(mut c: ::core::ffi::c_int) -> ::core::ffi::c_int {
-        return tolower(c as ::core::ffi::c_uchar as ::core::ffi::c_int);
+        tolower(c as ::core::ffi::c_uchar as ::core::ffi::c_int)
     }
     use super::_ctype_h::tolower;
 }
@@ -1296,19 +1296,19 @@ static mut vpool: *mut StrPool = ::core::ptr::null::<StrPool>() as *mut StrPool;
 #[inline]
 #[c2rust::src_loc = "41:1"]
 unsafe extern "C" fn get_value(mut cache: *mut VarCache, mut lk: *const var_lookup) -> *mut PStr {
-    return *(*cache).var_list.offset((*lk).idx as isize);
+    *(*cache).var_list.offset((*lk).idx as isize)
 }
 #[c2rust::src_loc = "46:1"]
 unsafe extern "C" fn sl_add(
     mut arg: *mut ::core::ffi::c_void,
     mut s: *const ::core::ffi::c_char,
 ) -> bool {
-    return strlist_append(arg as *mut StrList, s);
+    strlist_append(arg as *mut StrList, s)
 }
 #[no_mangle]
 #[c2rust::src_loc = "51:1"]
 pub unsafe extern "C" fn get_num_var_cached() -> ::core::ffi::c_int {
-    return num_var_cached;
+    num_var_cached
 }
 #[c2rust::src_loc = "56:1"]
 unsafe extern "C" fn init_var_lookup_from_config(
@@ -1501,118 +1501,88 @@ unsafe extern "C" fn init_var_lookup_from_config(
                     current_block_58 = 7420279277351916581;
                 }
             }
-            match current_block_58 {
-                15275504483753031639 => {
-                    _hf_hashv = _hf_hashv.wrapping_add(
-                        (safe_tolower(
-                            *_hj_key.offset(9 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                        ) as ::core::ffi::c_uint)
-                            << 16 as ::core::ffi::c_int,
-                    );
-                    current_block_58 = 14514390918547092561;
-                }
-                _ => {}
+            if current_block_58 == 15275504483753031639 {
+                _hf_hashv = _hf_hashv.wrapping_add(
+                    (safe_tolower(
+                        *_hj_key.offset(9 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                    ) as ::core::ffi::c_uint)
+                        << 16 as ::core::ffi::c_int,
+                );
+                current_block_58 = 14514390918547092561;
             }
-            match current_block_58 {
-                14514390918547092561 => {
-                    _hf_hashv = _hf_hashv.wrapping_add(
-                        (safe_tolower(
-                            *_hj_key.offset(8 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                        ) as ::core::ffi::c_uint)
-                            << 8 as ::core::ffi::c_int,
-                    );
-                    current_block_58 = 1205942404857220978;
-                }
-                _ => {}
+            if current_block_58 == 14514390918547092561 {
+                _hf_hashv = _hf_hashv.wrapping_add(
+                    (safe_tolower(
+                        *_hj_key.offset(8 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                    ) as ::core::ffi::c_uint)
+                        << 8 as ::core::ffi::c_int,
+                );
+                current_block_58 = 1205942404857220978;
             }
-            match current_block_58 {
-                1205942404857220978 => {
-                    _hj_j = _hj_j.wrapping_add(
-                        (safe_tolower(
-                            *_hj_key.offset(7 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                        ) as ::core::ffi::c_uint)
-                            << 24 as ::core::ffi::c_int,
-                    );
-                    current_block_58 = 10244489138959580834;
-                }
-                _ => {}
+            if current_block_58 == 1205942404857220978 {
+                _hj_j = _hj_j.wrapping_add(
+                    (safe_tolower(
+                        *_hj_key.offset(7 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                    ) as ::core::ffi::c_uint)
+                        << 24 as ::core::ffi::c_int,
+                );
+                current_block_58 = 10244489138959580834;
             }
-            match current_block_58 {
-                10244489138959580834 => {
-                    _hj_j = _hj_j.wrapping_add(
-                        (safe_tolower(
-                            *_hj_key.offset(6 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                        ) as ::core::ffi::c_uint)
-                            << 16 as ::core::ffi::c_int,
-                    );
-                    current_block_58 = 7231708513041901785;
-                }
-                _ => {}
+            if current_block_58 == 10244489138959580834 {
+                _hj_j = _hj_j.wrapping_add(
+                    (safe_tolower(
+                        *_hj_key.offset(6 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                    ) as ::core::ffi::c_uint)
+                        << 16 as ::core::ffi::c_int,
+                );
+                current_block_58 = 7231708513041901785;
             }
-            match current_block_58 {
-                7231708513041901785 => {
-                    _hj_j = _hj_j.wrapping_add(
-                        (safe_tolower(
-                            *_hj_key.offset(5 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                        ) as ::core::ffi::c_uint)
-                            << 8 as ::core::ffi::c_int,
-                    );
-                    current_block_58 = 9781868647333494730;
-                }
-                _ => {}
+            if current_block_58 == 7231708513041901785 {
+                _hj_j = _hj_j.wrapping_add(
+                    (safe_tolower(
+                        *_hj_key.offset(5 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                    ) as ::core::ffi::c_uint)
+                        << 8 as ::core::ffi::c_int,
+                );
+                current_block_58 = 9781868647333494730;
             }
-            match current_block_58 {
-                9781868647333494730 => {
-                    _hj_j = _hj_j.wrapping_add(safe_tolower(
-                        *_hj_key.offset(4 as ::core::ffi::c_int as isize) as ::core::ffi::c_int,
-                    ) as ::core::ffi::c_uint);
-                    current_block_58 = 12285225998683619597;
-                }
-                _ => {}
+            if current_block_58 == 9781868647333494730 {
+                _hj_j = _hj_j.wrapping_add(safe_tolower(
+                    *_hj_key.offset(4 as ::core::ffi::c_int as isize) as ::core::ffi::c_int,
+                ) as ::core::ffi::c_uint);
+                current_block_58 = 12285225998683619597;
             }
-            match current_block_58 {
-                12285225998683619597 => {
-                    _hj_i = _hj_i.wrapping_add(
-                        (safe_tolower(
-                            *_hj_key.offset(3 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                        ) as ::core::ffi::c_uint)
-                            << 24 as ::core::ffi::c_int,
-                    );
-                    current_block_58 = 4389422820558755489;
-                }
-                _ => {}
+            if current_block_58 == 12285225998683619597 {
+                _hj_i = _hj_i.wrapping_add(
+                    (safe_tolower(
+                        *_hj_key.offset(3 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                    ) as ::core::ffi::c_uint)
+                        << 24 as ::core::ffi::c_int,
+                );
+                current_block_58 = 4389422820558755489;
             }
-            match current_block_58 {
-                4389422820558755489 => {
-                    _hj_i = _hj_i.wrapping_add(
-                        (safe_tolower(
-                            *_hj_key.offset(2 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                        ) as ::core::ffi::c_uint)
-                            << 16 as ::core::ffi::c_int,
-                    );
-                    current_block_58 = 6122795728994222029;
-                }
-                _ => {}
+            if current_block_58 == 4389422820558755489 {
+                _hj_i = _hj_i.wrapping_add(
+                    (safe_tolower(
+                        *_hj_key.offset(2 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                    ) as ::core::ffi::c_uint)
+                        << 16 as ::core::ffi::c_int,
+                );
+                current_block_58 = 6122795728994222029;
             }
-            match current_block_58 {
-                6122795728994222029 => {
-                    _hj_i = _hj_i.wrapping_add(
-                        (safe_tolower(
-                            *_hj_key.offset(1 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                        ) as ::core::ffi::c_uint)
-                            << 8 as ::core::ffi::c_int,
-                    );
-                    current_block_58 = 16419358174521838934;
-                }
-                _ => {}
+            if current_block_58 == 6122795728994222029 {
+                _hj_i = _hj_i.wrapping_add(
+                    (safe_tolower(
+                        *_hj_key.offset(1 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                    ) as ::core::ffi::c_uint)
+                        << 8 as ::core::ffi::c_int,
+                );
+                current_block_58 = 16419358174521838934;
             }
-            match current_block_58 {
-                16419358174521838934 => {
-                    _hj_i = _hj_i.wrapping_add(safe_tolower(
-                        *_hj_key.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int,
-                    ) as ::core::ffi::c_uint);
-                }
-                _ => {}
+            if current_block_58 == 16419358174521838934 {
+                _hj_i = _hj_i.wrapping_add(safe_tolower(
+                    *_hj_key.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int,
+                ) as ::core::ffi::c_uint);
             }
             _hj_i = _hj_i.wrapping_sub(_hj_j);
             _hj_i = _hj_i.wrapping_sub(_hf_hashv);
@@ -1654,7 +1624,7 @@ unsafe extern "C" fn init_var_lookup_from_config(
                 {
                     lookup = ((*(*(*lookup_map).hh.tbl).buckets.offset(_hf_bkt as isize)).hh_head
                         as *mut ::core::ffi::c_char)
-                        .offset(-((*(*lookup_map).hh.tbl).hho as isize))
+                        .offset(-(*(*lookup_map).hh.tbl).hho)
                         as *mut ::core::ffi::c_void as *mut var_lookup
                         as *mut var_lookup;
                 } else {
@@ -1663,16 +1633,14 @@ unsafe extern "C" fn init_var_lookup_from_config(
                 while !lookup.is_null() {
                     if (*lookup).hh.hashv == _hf_hashv
                         && (*lookup).hh.keylen == _uthash_hfstr_keylen
-                    {
-                        if strcasecmp((*lookup).hh.key as *const ::core::ffi::c_char, var_name)
+                        && strcasecmp((*lookup).hh.key as *const ::core::ffi::c_char, var_name)
                             == 0 as ::core::ffi::c_int
-                        {
-                            break;
-                        }
+                    {
+                        break;
                     }
                     if !(*lookup).hh.hh_next.is_null() {
                         lookup = ((*lookup).hh.hh_next as *mut ::core::ffi::c_char)
-                            .offset(-((*(*lookup_map).hh.tbl).hho as isize))
+                            .offset(-(*(*lookup_map).hh.tbl).hho)
                             as *mut ::core::ffi::c_void
                             as *mut var_lookup as *mut var_lookup;
                     } else {
@@ -1687,7 +1655,7 @@ unsafe extern "C" fn init_var_lookup_from_config(
         lookup = malloc(::core::mem::size_of::<var_lookup>() as size_t) as *mut var_lookup;
         (*lookup).name = strdup(var_name);
         let fresh3 = *num_vars;
-        *num_vars = *num_vars + 1;
+        *num_vars += 1;
         (*lookup).idx = fresh3;
         let mut _ha_hashv: ::core::ffi::c_uint = 0;
         let mut _hj_i_0: ::core::ffi::c_uint = 0;
@@ -1835,118 +1803,88 @@ unsafe extern "C" fn init_var_lookup_from_config(
                 current_block_180 = 4534765400774009001;
             }
         }
-        match current_block_180 {
-            8153286781957891950 => {
-                _ha_hashv = _ha_hashv.wrapping_add(
-                    (safe_tolower(
-                        *_hj_key_0.offset(9 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                    ) as ::core::ffi::c_uint)
-                        << 16 as ::core::ffi::c_int,
-                );
-                current_block_180 = 9978657853023849837;
-            }
-            _ => {}
+        if current_block_180 == 8153286781957891950 {
+            _ha_hashv = _ha_hashv.wrapping_add(
+                (safe_tolower(
+                    *_hj_key_0.offset(9 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                ) as ::core::ffi::c_uint)
+                    << 16 as ::core::ffi::c_int,
+            );
+            current_block_180 = 9978657853023849837;
         }
-        match current_block_180 {
-            9978657853023849837 => {
-                _ha_hashv = _ha_hashv.wrapping_add(
-                    (safe_tolower(
-                        *_hj_key_0.offset(8 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                    ) as ::core::ffi::c_uint)
-                        << 8 as ::core::ffi::c_int,
-                );
-                current_block_180 = 14748375350202154019;
-            }
-            _ => {}
+        if current_block_180 == 9978657853023849837 {
+            _ha_hashv = _ha_hashv.wrapping_add(
+                (safe_tolower(
+                    *_hj_key_0.offset(8 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                ) as ::core::ffi::c_uint)
+                    << 8 as ::core::ffi::c_int,
+            );
+            current_block_180 = 14748375350202154019;
         }
-        match current_block_180 {
-            14748375350202154019 => {
-                _hj_j_0 = _hj_j_0.wrapping_add(
-                    (safe_tolower(
-                        *_hj_key_0.offset(7 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                    ) as ::core::ffi::c_uint)
-                        << 24 as ::core::ffi::c_int,
-                );
-                current_block_180 = 986562491153128823;
-            }
-            _ => {}
+        if current_block_180 == 14748375350202154019 {
+            _hj_j_0 = _hj_j_0.wrapping_add(
+                (safe_tolower(
+                    *_hj_key_0.offset(7 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                ) as ::core::ffi::c_uint)
+                    << 24 as ::core::ffi::c_int,
+            );
+            current_block_180 = 986562491153128823;
         }
-        match current_block_180 {
-            986562491153128823 => {
-                _hj_j_0 = _hj_j_0.wrapping_add(
-                    (safe_tolower(
-                        *_hj_key_0.offset(6 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                    ) as ::core::ffi::c_uint)
-                        << 16 as ::core::ffi::c_int,
-                );
-                current_block_180 = 2419899655327389259;
-            }
-            _ => {}
+        if current_block_180 == 986562491153128823 {
+            _hj_j_0 = _hj_j_0.wrapping_add(
+                (safe_tolower(
+                    *_hj_key_0.offset(6 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                ) as ::core::ffi::c_uint)
+                    << 16 as ::core::ffi::c_int,
+            );
+            current_block_180 = 2419899655327389259;
         }
-        match current_block_180 {
-            2419899655327389259 => {
-                _hj_j_0 = _hj_j_0.wrapping_add(
-                    (safe_tolower(
-                        *_hj_key_0.offset(5 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                    ) as ::core::ffi::c_uint)
-                        << 8 as ::core::ffi::c_int,
-                );
-                current_block_180 = 18057295174972137893;
-            }
-            _ => {}
+        if current_block_180 == 2419899655327389259 {
+            _hj_j_0 = _hj_j_0.wrapping_add(
+                (safe_tolower(
+                    *_hj_key_0.offset(5 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                ) as ::core::ffi::c_uint)
+                    << 8 as ::core::ffi::c_int,
+            );
+            current_block_180 = 18057295174972137893;
         }
-        match current_block_180 {
-            18057295174972137893 => {
-                _hj_j_0 = _hj_j_0.wrapping_add(safe_tolower(
-                    *_hj_key_0.offset(4 as ::core::ffi::c_int as isize) as ::core::ffi::c_int,
-                ) as ::core::ffi::c_uint);
-                current_block_180 = 428438469909915749;
-            }
-            _ => {}
+        if current_block_180 == 18057295174972137893 {
+            _hj_j_0 = _hj_j_0.wrapping_add(safe_tolower(
+                *_hj_key_0.offset(4 as ::core::ffi::c_int as isize) as ::core::ffi::c_int,
+            ) as ::core::ffi::c_uint);
+            current_block_180 = 428438469909915749;
         }
-        match current_block_180 {
-            428438469909915749 => {
-                _hj_i_0 = _hj_i_0.wrapping_add(
-                    (safe_tolower(
-                        *_hj_key_0.offset(3 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                    ) as ::core::ffi::c_uint)
-                        << 24 as ::core::ffi::c_int,
-                );
-                current_block_180 = 1152747300973462357;
-            }
-            _ => {}
+        if current_block_180 == 428438469909915749 {
+            _hj_i_0 = _hj_i_0.wrapping_add(
+                (safe_tolower(
+                    *_hj_key_0.offset(3 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                ) as ::core::ffi::c_uint)
+                    << 24 as ::core::ffi::c_int,
+            );
+            current_block_180 = 1152747300973462357;
         }
-        match current_block_180 {
-            1152747300973462357 => {
-                _hj_i_0 = _hj_i_0.wrapping_add(
-                    (safe_tolower(
-                        *_hj_key_0.offset(2 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                    ) as ::core::ffi::c_uint)
-                        << 16 as ::core::ffi::c_int,
-                );
-                current_block_180 = 9357788886370794354;
-            }
-            _ => {}
+        if current_block_180 == 1152747300973462357 {
+            _hj_i_0 = _hj_i_0.wrapping_add(
+                (safe_tolower(
+                    *_hj_key_0.offset(2 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                ) as ::core::ffi::c_uint)
+                    << 16 as ::core::ffi::c_int,
+            );
+            current_block_180 = 9357788886370794354;
         }
-        match current_block_180 {
-            9357788886370794354 => {
-                _hj_i_0 = _hj_i_0.wrapping_add(
-                    (safe_tolower(
-                        *_hj_key_0.offset(1 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                    ) as ::core::ffi::c_uint)
-                        << 8 as ::core::ffi::c_int,
-                );
-                current_block_180 = 17622820276845907441;
-            }
-            _ => {}
+        if current_block_180 == 9357788886370794354 {
+            _hj_i_0 = _hj_i_0.wrapping_add(
+                (safe_tolower(
+                    *_hj_key_0.offset(1 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                ) as ::core::ffi::c_uint)
+                    << 8 as ::core::ffi::c_int,
+            );
+            current_block_180 = 17622820276845907441;
         }
-        match current_block_180 {
-            17622820276845907441 => {
-                _hj_i_0 = _hj_i_0.wrapping_add(safe_tolower(
-                    *_hj_key_0.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int,
-                ) as ::core::ffi::c_uint);
-            }
-            _ => {}
+        if current_block_180 == 17622820276845907441 {
+            _hj_i_0 = _hj_i_0.wrapping_add(safe_tolower(
+                *_hj_key_0.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int,
+            ) as ::core::ffi::c_uint);
         }
         _hj_i_0 = _hj_i_0.wrapping_sub(_hj_j_0);
         _hj_i_0 = _hj_i_0.wrapping_sub(_ha_hashv);
@@ -2025,7 +1963,7 @@ unsafe extern "C" fn init_var_lookup_from_config(
             (*lookup).hh.tbl = (*lookup_map).hh.tbl;
             (*lookup).hh.next = NULL;
             (*lookup).hh.prev = ((*(*lookup_map).hh.tbl).tail as *mut ::core::ffi::c_char)
-                .offset(-((*(*lookup_map).hh.tbl).hho as isize))
+                .offset(-(*(*lookup_map).hh.tbl).hho)
                 as *mut ::core::ffi::c_void;
             (*(*(*lookup_map).hh.tbl).tail).next = lookup as *mut ::core::ffi::c_void;
             (*(*lookup_map).hh.tbl).tail = &raw mut (*lookup).hh as *mut UT_hash_handle;
@@ -2171,8 +2109,7 @@ unsafe extern "C" fn init_var_lookup_from_config(
                     & (*(*lookup_map).hh.tbl)
                         .num_buckets
                         .wrapping_sub(1 as ::core::ffi::c_uint);
-                let ref mut fresh4 =
-                    (*(*(*lookup_map).hh.tbl).buckets.offset(_hd_bkt as isize)).count;
+                let fresh4 = &mut (*(*(*lookup_map).hh.tbl).buckets.offset(_hd_bkt as isize)).count;
                 *fresh4 = (*fresh4).wrapping_add(1);
                 (*_hd_hh_item).hh_next = ::core::ptr::null_mut::<UT_hash_handle>();
                 (*_hd_hh_item).hh_prev = ::core::ptr::null_mut::<UT_hash_handle>();
@@ -2183,17 +2120,17 @@ unsafe extern "C" fn init_var_lookup_from_config(
                     lookup_map = ::core::ptr::null_mut::<var_lookup>();
                 } else {
                     let mut _hd_bkt_0: ::core::ffi::c_uint = 0;
-                    if _hd_hh_del == (*(*lookup_map).hh.tbl).tail as *const UT_hash_handle {
+                    if std::ptr::eq(_hd_hh_del, (*(*lookup_map).hh.tbl).tail) {
                         (*(*lookup_map).hh.tbl).tail = ((*_hd_hh_del).prev
                             as *mut ::core::ffi::c_char)
-                            .offset((*(*lookup_map).hh.tbl).hho as isize)
+                            .offset((*(*lookup_map).hh.tbl).hho)
                             as *mut ::core::ffi::c_void
                             as *mut UT_hash_handle
                             as *mut UT_hash_handle;
                     }
                     if !(*_hd_hh_del).prev.is_null() {
-                        let ref mut fresh5 = (*(((*_hd_hh_del).prev as *mut ::core::ffi::c_char)
-                            .offset((*(*lookup_map).hh.tbl).hho as isize)
+                        let fresh5 = &mut (*(((*_hd_hh_del).prev as *mut ::core::ffi::c_char)
+                            .offset((*(*lookup_map).hh.tbl).hho)
                             as *mut ::core::ffi::c_void
                             as *mut UT_hash_handle))
                             .next;
@@ -2202,8 +2139,8 @@ unsafe extern "C" fn init_var_lookup_from_config(
                         lookup_map = (*_hd_hh_del).next as *mut var_lookup as *mut var_lookup;
                     }
                     if !(*_hd_hh_del).next.is_null() {
-                        let ref mut fresh6 = (*(((*_hd_hh_del).next as *mut ::core::ffi::c_char)
-                            .offset((*(*lookup_map).hh.tbl).hho as isize)
+                        let fresh6 = &mut (*(((*_hd_hh_del).next as *mut ::core::ffi::c_char)
+                            .offset((*(*lookup_map).hh.tbl).hho)
                             as *mut ::core::ffi::c_void
                             as *mut UT_hash_handle))
                             .prev;
@@ -2217,7 +2154,7 @@ unsafe extern "C" fn init_var_lookup_from_config(
                         (*(*lookup_map).hh.tbl).buckets.offset(_hd_bkt_0 as isize)
                             as *mut UT_hash_bucket;
                     (*_hd_head_0).count = (*_hd_head_0).count.wrapping_sub(1);
-                    if (*_hd_head_0).hh_head == _hd_hh_del as *mut UT_hash_handle {
+                    if std::ptr::eq((*_hd_head_0).hh_head, _hd_hh_del) {
                         (*_hd_head_0).hh_head = (*_hd_hh_del).hh_next as *mut UT_hash_handle;
                     }
                     if !(*_hd_hh_del).hh_prev.is_null() {
@@ -2430,118 +2367,88 @@ pub unsafe extern "C" fn init_var_lookup(
                 current_block_54 = 1434579379687443766;
             }
         }
-        match current_block_54 {
-            442998152379714613 => {
-                _ha_hashv = _ha_hashv.wrapping_add(
-                    (safe_tolower(
-                        *_hj_key.offset(9 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                    ) as ::core::ffi::c_uint)
-                        << 16 as ::core::ffi::c_int,
-                );
-                current_block_54 = 14916313239819575723;
-            }
-            _ => {}
+        if current_block_54 == 442998152379714613 {
+            _ha_hashv = _ha_hashv.wrapping_add(
+                (safe_tolower(
+                    *_hj_key.offset(9 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                ) as ::core::ffi::c_uint)
+                    << 16 as ::core::ffi::c_int,
+            );
+            current_block_54 = 14916313239819575723;
         }
-        match current_block_54 {
-            14916313239819575723 => {
-                _ha_hashv = _ha_hashv.wrapping_add(
-                    (safe_tolower(
-                        *_hj_key.offset(8 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                    ) as ::core::ffi::c_uint)
-                        << 8 as ::core::ffi::c_int,
-                );
-                current_block_54 = 11772761646808455830;
-            }
-            _ => {}
+        if current_block_54 == 14916313239819575723 {
+            _ha_hashv = _ha_hashv.wrapping_add(
+                (safe_tolower(
+                    *_hj_key.offset(8 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                ) as ::core::ffi::c_uint)
+                    << 8 as ::core::ffi::c_int,
+            );
+            current_block_54 = 11772761646808455830;
         }
-        match current_block_54 {
-            11772761646808455830 => {
-                _hj_j = _hj_j.wrapping_add(
-                    (safe_tolower(
-                        *_hj_key.offset(7 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                    ) as ::core::ffi::c_uint)
-                        << 24 as ::core::ffi::c_int,
-                );
-                current_block_54 = 5536219776913685678;
-            }
-            _ => {}
+        if current_block_54 == 11772761646808455830 {
+            _hj_j = _hj_j.wrapping_add(
+                (safe_tolower(
+                    *_hj_key.offset(7 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                ) as ::core::ffi::c_uint)
+                    << 24 as ::core::ffi::c_int,
+            );
+            current_block_54 = 5536219776913685678;
         }
-        match current_block_54 {
-            5536219776913685678 => {
-                _hj_j = _hj_j.wrapping_add(
-                    (safe_tolower(
-                        *_hj_key.offset(6 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                    ) as ::core::ffi::c_uint)
-                        << 16 as ::core::ffi::c_int,
-                );
-                current_block_54 = 3967905580732798218;
-            }
-            _ => {}
+        if current_block_54 == 5536219776913685678 {
+            _hj_j = _hj_j.wrapping_add(
+                (safe_tolower(
+                    *_hj_key.offset(6 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                ) as ::core::ffi::c_uint)
+                    << 16 as ::core::ffi::c_int,
+            );
+            current_block_54 = 3967905580732798218;
         }
-        match current_block_54 {
-            3967905580732798218 => {
-                _hj_j = _hj_j.wrapping_add(
-                    (safe_tolower(
-                        *_hj_key.offset(5 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                    ) as ::core::ffi::c_uint)
-                        << 8 as ::core::ffi::c_int,
-                );
-                current_block_54 = 765793381763078134;
-            }
-            _ => {}
+        if current_block_54 == 3967905580732798218 {
+            _hj_j = _hj_j.wrapping_add(
+                (safe_tolower(
+                    *_hj_key.offset(5 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                ) as ::core::ffi::c_uint)
+                    << 8 as ::core::ffi::c_int,
+            );
+            current_block_54 = 765793381763078134;
         }
-        match current_block_54 {
-            765793381763078134 => {
-                _hj_j = _hj_j.wrapping_add(safe_tolower(
-                    *_hj_key.offset(4 as ::core::ffi::c_int as isize) as ::core::ffi::c_int,
-                ) as ::core::ffi::c_uint);
-                current_block_54 = 3105948935974009916;
-            }
-            _ => {}
+        if current_block_54 == 765793381763078134 {
+            _hj_j = _hj_j.wrapping_add(safe_tolower(
+                *_hj_key.offset(4 as ::core::ffi::c_int as isize) as ::core::ffi::c_int,
+            ) as ::core::ffi::c_uint);
+            current_block_54 = 3105948935974009916;
         }
-        match current_block_54 {
-            3105948935974009916 => {
-                _hj_i = _hj_i.wrapping_add(
-                    (safe_tolower(
-                        *_hj_key.offset(3 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                    ) as ::core::ffi::c_uint)
-                        << 24 as ::core::ffi::c_int,
-                );
-                current_block_54 = 16488506295619998735;
-            }
-            _ => {}
+        if current_block_54 == 3105948935974009916 {
+            _hj_i = _hj_i.wrapping_add(
+                (safe_tolower(
+                    *_hj_key.offset(3 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                ) as ::core::ffi::c_uint)
+                    << 24 as ::core::ffi::c_int,
+            );
+            current_block_54 = 16488506295619998735;
         }
-        match current_block_54 {
-            16488506295619998735 => {
-                _hj_i = _hj_i.wrapping_add(
-                    (safe_tolower(
-                        *_hj_key.offset(2 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                    ) as ::core::ffi::c_uint)
-                        << 16 as ::core::ffi::c_int,
-                );
-                current_block_54 = 2165477741955893522;
-            }
-            _ => {}
+        if current_block_54 == 16488506295619998735 {
+            _hj_i = _hj_i.wrapping_add(
+                (safe_tolower(
+                    *_hj_key.offset(2 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                ) as ::core::ffi::c_uint)
+                    << 16 as ::core::ffi::c_int,
+            );
+            current_block_54 = 2165477741955893522;
         }
-        match current_block_54 {
-            2165477741955893522 => {
-                _hj_i = _hj_i.wrapping_add(
-                    (safe_tolower(
-                        *_hj_key.offset(1 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                    ) as ::core::ffi::c_uint)
-                        << 8 as ::core::ffi::c_int,
-                );
-                current_block_54 = 16420434121503669123;
-            }
-            _ => {}
+        if current_block_54 == 2165477741955893522 {
+            _hj_i = _hj_i.wrapping_add(
+                (safe_tolower(
+                    *_hj_key.offset(1 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                ) as ::core::ffi::c_uint)
+                    << 8 as ::core::ffi::c_int,
+            );
+            current_block_54 = 16420434121503669123;
         }
-        match current_block_54 {
-            16420434121503669123 => {
-                _hj_i = _hj_i.wrapping_add(safe_tolower(
-                    *_hj_key.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int,
-                ) as ::core::ffi::c_uint);
-            }
-            _ => {}
+        if current_block_54 == 16420434121503669123 {
+            _hj_i = _hj_i.wrapping_add(safe_tolower(
+                *_hj_key.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int,
+            ) as ::core::ffi::c_uint);
         }
         _hj_i = _hj_i.wrapping_sub(_hj_j);
         _hj_i = _hj_i.wrapping_sub(_ha_hashv);
@@ -2620,7 +2527,7 @@ pub unsafe extern "C" fn init_var_lookup(
             (*lookup).hh.tbl = (*lookup_map).hh.tbl;
             (*lookup).hh.next = NULL;
             (*lookup).hh.prev = ((*(*lookup_map).hh.tbl).tail as *mut ::core::ffi::c_char)
-                .offset(-((*(*lookup_map).hh.tbl).hho as isize))
+                .offset(-(*(*lookup_map).hh.tbl).hho)
                 as *mut ::core::ffi::c_void;
             (*(*(*lookup_map).hh.tbl).tail).next = lookup as *mut ::core::ffi::c_void;
             (*(*lookup_map).hh.tbl).tail = &raw mut (*lookup).hh as *mut UT_hash_handle;
@@ -2766,8 +2673,7 @@ pub unsafe extern "C" fn init_var_lookup(
                     & (*(*lookup_map).hh.tbl)
                         .num_buckets
                         .wrapping_sub(1 as ::core::ffi::c_uint);
-                let ref mut fresh0 =
-                    (*(*(*lookup_map).hh.tbl).buckets.offset(_hd_bkt as isize)).count;
+                let fresh0 = &mut (*(*(*lookup_map).hh.tbl).buckets.offset(_hd_bkt as isize)).count;
                 *fresh0 = (*fresh0).wrapping_add(1);
                 (*_hd_hh_item).hh_next = ::core::ptr::null_mut::<UT_hash_handle>();
                 (*_hd_hh_item).hh_prev = ::core::ptr::null_mut::<UT_hash_handle>();
@@ -2778,17 +2684,17 @@ pub unsafe extern "C" fn init_var_lookup(
                     lookup_map = ::core::ptr::null_mut::<var_lookup>();
                 } else {
                     let mut _hd_bkt_0: ::core::ffi::c_uint = 0;
-                    if _hd_hh_del == (*(*lookup_map).hh.tbl).tail as *const UT_hash_handle {
+                    if std::ptr::eq(_hd_hh_del, (*(*lookup_map).hh.tbl).tail) {
                         (*(*lookup_map).hh.tbl).tail = ((*_hd_hh_del).prev
                             as *mut ::core::ffi::c_char)
-                            .offset((*(*lookup_map).hh.tbl).hho as isize)
+                            .offset((*(*lookup_map).hh.tbl).hho)
                             as *mut ::core::ffi::c_void
                             as *mut UT_hash_handle
                             as *mut UT_hash_handle;
                     }
                     if !(*_hd_hh_del).prev.is_null() {
-                        let ref mut fresh1 = (*(((*_hd_hh_del).prev as *mut ::core::ffi::c_char)
-                            .offset((*(*lookup_map).hh.tbl).hho as isize)
+                        let fresh1 = &mut (*(((*_hd_hh_del).prev as *mut ::core::ffi::c_char)
+                            .offset((*(*lookup_map).hh.tbl).hho)
                             as *mut ::core::ffi::c_void
                             as *mut UT_hash_handle))
                             .next;
@@ -2797,8 +2703,8 @@ pub unsafe extern "C" fn init_var_lookup(
                         lookup_map = (*_hd_hh_del).next as *mut var_lookup as *mut var_lookup;
                     }
                     if !(*_hd_hh_del).next.is_null() {
-                        let ref mut fresh2 = (*(((*_hd_hh_del).next as *mut ::core::ffi::c_char)
-                            .offset((*(*lookup_map).hh.tbl).hho as isize)
+                        let fresh2 = &mut (*(((*_hd_hh_del).next as *mut ::core::ffi::c_char)
+                            .offset((*(*lookup_map).hh.tbl).hho)
                             as *mut ::core::ffi::c_void
                             as *mut UT_hash_handle))
                             .prev;
@@ -2812,7 +2718,7 @@ pub unsafe extern "C" fn init_var_lookup(
                         (*(*lookup_map).hh.tbl).buckets.offset(_hd_bkt_0 as isize)
                             as *mut UT_hash_bucket;
                     (*_hd_head_0).count = (*_hd_head_0).count.wrapping_sub(1);
-                    if (*_hd_head_0).hh_head == _hd_hh_del as *mut UT_hash_handle {
+                    if std::ptr::eq((*_hd_head_0).hh_head, _hd_hh_del) {
                         (*_hd_head_0).hh_head = (*_hd_hh_del).hh_next as *mut UT_hash_handle;
                     }
                     if !(*_hd_hh_del).hh_prev.is_null() {
@@ -3025,118 +2931,88 @@ pub unsafe extern "C" fn varcache_set(
                 current_block_57 = 13460095289871124136;
             }
         }
-        match current_block_57 {
-            9437074751588942005 => {
-                _hf_hashv = _hf_hashv.wrapping_add(
-                    (safe_tolower(
-                        *_hj_key.offset(9 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                    ) as ::core::ffi::c_uint)
-                        << 16 as ::core::ffi::c_int,
-                );
-                current_block_57 = 4405230302860763820;
-            }
-            _ => {}
+        if current_block_57 == 9437074751588942005 {
+            _hf_hashv = _hf_hashv.wrapping_add(
+                (safe_tolower(
+                    *_hj_key.offset(9 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                ) as ::core::ffi::c_uint)
+                    << 16 as ::core::ffi::c_int,
+            );
+            current_block_57 = 4405230302860763820;
         }
-        match current_block_57 {
-            4405230302860763820 => {
-                _hf_hashv = _hf_hashv.wrapping_add(
-                    (safe_tolower(
-                        *_hj_key.offset(8 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                    ) as ::core::ffi::c_uint)
-                        << 8 as ::core::ffi::c_int,
-                );
-                current_block_57 = 9434220525754491920;
-            }
-            _ => {}
+        if current_block_57 == 4405230302860763820 {
+            _hf_hashv = _hf_hashv.wrapping_add(
+                (safe_tolower(
+                    *_hj_key.offset(8 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                ) as ::core::ffi::c_uint)
+                    << 8 as ::core::ffi::c_int,
+            );
+            current_block_57 = 9434220525754491920;
         }
-        match current_block_57 {
-            9434220525754491920 => {
-                _hj_j = _hj_j.wrapping_add(
-                    (safe_tolower(
-                        *_hj_key.offset(7 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                    ) as ::core::ffi::c_uint)
-                        << 24 as ::core::ffi::c_int,
-                );
-                current_block_57 = 1270338533819009205;
-            }
-            _ => {}
+        if current_block_57 == 9434220525754491920 {
+            _hj_j = _hj_j.wrapping_add(
+                (safe_tolower(
+                    *_hj_key.offset(7 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                ) as ::core::ffi::c_uint)
+                    << 24 as ::core::ffi::c_int,
+            );
+            current_block_57 = 1270338533819009205;
         }
-        match current_block_57 {
-            1270338533819009205 => {
-                _hj_j = _hj_j.wrapping_add(
-                    (safe_tolower(
-                        *_hj_key.offset(6 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                    ) as ::core::ffi::c_uint)
-                        << 16 as ::core::ffi::c_int,
-                );
-                current_block_57 = 3731882003230796202;
-            }
-            _ => {}
+        if current_block_57 == 1270338533819009205 {
+            _hj_j = _hj_j.wrapping_add(
+                (safe_tolower(
+                    *_hj_key.offset(6 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                ) as ::core::ffi::c_uint)
+                    << 16 as ::core::ffi::c_int,
+            );
+            current_block_57 = 3731882003230796202;
         }
-        match current_block_57 {
-            3731882003230796202 => {
-                _hj_j = _hj_j.wrapping_add(
-                    (safe_tolower(
-                        *_hj_key.offset(5 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                    ) as ::core::ffi::c_uint)
-                        << 8 as ::core::ffi::c_int,
-                );
-                current_block_57 = 8650755990458127310;
-            }
-            _ => {}
+        if current_block_57 == 3731882003230796202 {
+            _hj_j = _hj_j.wrapping_add(
+                (safe_tolower(
+                    *_hj_key.offset(5 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                ) as ::core::ffi::c_uint)
+                    << 8 as ::core::ffi::c_int,
+            );
+            current_block_57 = 8650755990458127310;
         }
-        match current_block_57 {
-            8650755990458127310 => {
-                _hj_j = _hj_j.wrapping_add(safe_tolower(
-                    *_hj_key.offset(4 as ::core::ffi::c_int as isize) as ::core::ffi::c_int,
-                ) as ::core::ffi::c_uint);
-                current_block_57 = 4760653373201335839;
-            }
-            _ => {}
+        if current_block_57 == 8650755990458127310 {
+            _hj_j = _hj_j.wrapping_add(safe_tolower(
+                *_hj_key.offset(4 as ::core::ffi::c_int as isize) as ::core::ffi::c_int,
+            ) as ::core::ffi::c_uint);
+            current_block_57 = 4760653373201335839;
         }
-        match current_block_57 {
-            4760653373201335839 => {
-                _hj_i = _hj_i.wrapping_add(
-                    (safe_tolower(
-                        *_hj_key.offset(3 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                    ) as ::core::ffi::c_uint)
-                        << 24 as ::core::ffi::c_int,
-                );
-                current_block_57 = 11469350245903324201;
-            }
-            _ => {}
+        if current_block_57 == 4760653373201335839 {
+            _hj_i = _hj_i.wrapping_add(
+                (safe_tolower(
+                    *_hj_key.offset(3 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                ) as ::core::ffi::c_uint)
+                    << 24 as ::core::ffi::c_int,
+            );
+            current_block_57 = 11469350245903324201;
         }
-        match current_block_57 {
-            11469350245903324201 => {
-                _hj_i = _hj_i.wrapping_add(
-                    (safe_tolower(
-                        *_hj_key.offset(2 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                    ) as ::core::ffi::c_uint)
-                        << 16 as ::core::ffi::c_int,
-                );
-                current_block_57 = 11617363695825217706;
-            }
-            _ => {}
+        if current_block_57 == 11469350245903324201 {
+            _hj_i = _hj_i.wrapping_add(
+                (safe_tolower(
+                    *_hj_key.offset(2 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                ) as ::core::ffi::c_uint)
+                    << 16 as ::core::ffi::c_int,
+            );
+            current_block_57 = 11617363695825217706;
         }
-        match current_block_57 {
-            11617363695825217706 => {
-                _hj_i = _hj_i.wrapping_add(
-                    (safe_tolower(
-                        *_hj_key.offset(1 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                    ) as ::core::ffi::c_uint)
-                        << 8 as ::core::ffi::c_int,
-                );
-                current_block_57 = 14328819089967601331;
-            }
-            _ => {}
+        if current_block_57 == 11617363695825217706 {
+            _hj_i = _hj_i.wrapping_add(
+                (safe_tolower(
+                    *_hj_key.offset(1 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                ) as ::core::ffi::c_uint)
+                    << 8 as ::core::ffi::c_int,
+            );
+            current_block_57 = 14328819089967601331;
         }
-        match current_block_57 {
-            14328819089967601331 => {
-                _hj_i = _hj_i.wrapping_add(safe_tolower(
-                    *_hj_key.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int,
-                ) as ::core::ffi::c_uint);
-            }
-            _ => {}
+        if current_block_57 == 14328819089967601331 {
+            _hj_i = _hj_i.wrapping_add(safe_tolower(
+                *_hj_key.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int,
+            ) as ::core::ffi::c_uint);
         }
         _hj_i = _hj_i.wrapping_sub(_hj_j);
         _hj_i = _hj_i.wrapping_sub(_hf_hashv);
@@ -3178,23 +3054,23 @@ pub unsafe extern "C" fn varcache_set(
             {
                 lk = ((*(*(*lookup_map).hh.tbl).buckets.offset(_hf_bkt as isize)).hh_head
                     as *mut ::core::ffi::c_char)
-                    .offset(-((*(*lookup_map).hh.tbl).hho as isize))
+                    .offset(-(*(*lookup_map).hh.tbl).hho)
                     as *mut ::core::ffi::c_void as *const var_lookup
                     as *const var_lookup;
             } else {
                 lk = ::core::ptr::null::<var_lookup>();
             }
             while !lk.is_null() {
-                if (*lk).hh.hashv == _hf_hashv && (*lk).hh.keylen == _uthash_hfstr_keylen {
-                    if strcasecmp((*lk).hh.key as *const ::core::ffi::c_char, key)
+                if (*lk).hh.hashv == _hf_hashv
+                    && (*lk).hh.keylen == _uthash_hfstr_keylen
+                    && strcasecmp((*lk).hh.key as *const ::core::ffi::c_char, key)
                         == 0 as ::core::ffi::c_int
-                    {
-                        break;
-                    }
+                {
+                    break;
                 }
                 if !(*lk).hh.hh_next.is_null() {
                     lk = ((*lk).hh.hh_next as *mut ::core::ffi::c_char)
-                        .offset(-((*(*lookup_map).hh.tbl).hho as isize))
+                        .offset(-(*(*lookup_map).hh.tbl).hho)
                         as *mut ::core::ffi::c_void as *const var_lookup
                         as *const var_lookup;
                 } else {
@@ -3207,7 +3083,7 @@ pub unsafe extern "C" fn varcache_set(
         return false_0 != 0;
     }
     strpool_decref(*(*cache).var_list.offset((*lk).idx as isize));
-    let ref mut fresh7 = *(*cache).var_list.offset((*lk).idx as isize);
+    let fresh7 = &mut *(*cache).var_list.offset((*lk).idx as isize);
     *fresh7 = ::core::ptr::null_mut::<PStr>();
     if value.is_null() {
         return false_0 != 0;
@@ -3216,9 +3092,9 @@ pub unsafe extern "C" fn varcache_set(
     if pstr.is_null() {
         return false_0 != 0;
     }
-    let ref mut fresh8 = *(*cache).var_list.offset((*lk).idx as isize);
+    let fresh8 = &mut *(*cache).var_list.offset((*lk).idx as isize);
     *fresh8 = pstr;
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "141:1"]
 unsafe extern "C" fn variable_is_guc_list_quote(mut key: *const ::core::ffi::c_char) -> bool {
@@ -3229,7 +3105,7 @@ unsafe extern "C" fn variable_is_guc_list_quote(mut key: *const ::core::ffi::c_c
     {
         return true_0 != 0;
     }
-    return false_0 != 0;
+    false_0 != 0
 }
 #[c2rust::src_loc = "149:1"]
 unsafe extern "C" fn apply_var(
@@ -3281,7 +3157,7 @@ unsafe extern "C" fn apply_var(
         key,
         tmp,
     ) as ::core::ffi::c_uint;
-    if (len as usize) < ::core::mem::size_of::<[::core::ffi::c_char; 300]>() as usize {
+    if (len as usize) < ::core::mem::size_of::<[::core::ffi::c_char; 300]>() {
         pktbuf_put_bytes(
             pkt,
             &raw mut buf as *mut ::core::ffi::c_char as *const ::core::ffi::c_void,
@@ -3315,7 +3191,7 @@ unsafe extern "C" fn apply_var(
         );
         free(buf2 as *mut ::core::ffi::c_void);
     }
-    return 1 as ::core::ffi::c_int;
+    1 as ::core::ffi::c_int
 }
 #[no_mangle]
 #[c2rust::src_loc = "205:1"]
@@ -3361,7 +3237,7 @@ pub unsafe extern "C" fn varcache_apply(
             (*pkt).buf.offset(sql_ofs as isize),
         );
     }
-    return pktbuf_send_immediate(pkt as *mut PktBuf, server);
+    pktbuf_send_immediate(pkt as *mut PktBuf, server)
 }
 #[no_mangle]
 #[c2rust::src_loc = "235:1"]
@@ -3398,7 +3274,7 @@ pub unsafe extern "C" fn varcache_set_canonical(
             }
             strpool_incref(server_val);
             strpool_decref(client_val);
-            let ref mut fresh11 = *(*client).vars.var_list.offset((*lk).idx as isize);
+            let fresh11 = &mut *(*client).vars.var_list.offset((*lk).idx as isize);
             *fresh11 = server_val;
         }
         lk = tmp;
@@ -3457,7 +3333,7 @@ pub unsafe extern "C" fn varcache_fill_unset(mut src: *mut VarCache, mut dst: *m
         dstval = *(*dst).vars.var_list.offset((*lk).idx as isize);
         if dstval.is_null() {
             strpool_incref(srcval);
-            let ref mut fresh9 = *(*dst).vars.var_list.offset((*lk).idx as isize);
+            let fresh9 = &mut *(*dst).vars.var_list.offset((*lk).idx as isize);
             *fresh9 = srcval;
         }
         lk = tmp;
@@ -3471,7 +3347,7 @@ pub unsafe extern "C" fn varcache_clean(mut cache: *mut VarCache) {
     let mut i = 0 as ::core::ffi::c_int;
     while i < num_var_cached {
         strpool_decref(*(*cache).var_list.offset(i as isize));
-        let ref mut fresh10 = *(*cache).var_list.offset(i as isize);
+        let fresh10 = &mut *(*cache).var_list.offset(i as isize);
         *fresh10 = ::core::ptr::null_mut::<PStr>();
         i += 1;
     }

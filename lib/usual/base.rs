@@ -34,18 +34,17 @@ pub mod bits_h {
         mut b: size_t,
     ) -> bool {
         let mut unsafe_0: size_t = (1 as ::core::ffi::c_int as size_t)
-            << (::core::mem::size_of::<size_t>() as usize)
-                .wrapping_mul(8 as usize)
-                .wrapping_div(2 as usize);
-        if !(a < unsafe_0 && b < unsafe_0) {
-            if !(a == 0 || b == 0) {
-                if !((18446744073709551615 as size_t).wrapping_div(a) >= b) {
-                    return false_0 != 0;
-                }
-            }
+            << ::core::mem::size_of::<size_t>()
+                .wrapping_mul(8_usize)
+                .wrapping_div(2_usize);
+        if !(a < unsafe_0 && b < unsafe_0)
+            && !(a == 0 || b == 0)
+            && ((18446744073709551615 as size_t).wrapping_div(a) < b)
+        {
+            return false_0 != 0;
         }
         *res_p = a.wrapping_mul(b);
-        return true_0 != 0;
+        true_0 != 0
     }
     use super::_size_t_h::size_t;
     use super::stdbool_h::{false_0, true_0};
@@ -92,5 +91,5 @@ pub unsafe extern "C" fn usual_reallocarray(
         *__error() = ENOMEM;
         return NULL;
     }
-    return realloc(p, total);
+    realloc(p, total)
 }

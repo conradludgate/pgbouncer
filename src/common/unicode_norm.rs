@@ -46354,17 +46354,17 @@ unsafe extern "C" fn conv_compare(
     let mut v2: uint32_t = 0;
     v1 = *(p1 as *const uint32_t);
     v2 = (*(p2 as *const pg_unicode_decomposition)).codepoint;
-    return if v1 > v2 {
+    if v1 > v2 {
         1 as ::core::ffi::c_int
     } else if v1 == v2 {
         0 as ::core::ffi::c_int
     } else {
         -(1 as ::core::ffi::c_int)
-    };
+    }
 }
 #[c2rust::src_loc = "71:1"]
 unsafe extern "C" fn get_code_entry(mut code: pg_wchar) -> *const pg_unicode_decomposition {
-    return bsearch(
+    bsearch(
         &raw mut code as *const ::core::ffi::c_void,
         &raw const UnicodeDecompMain as *const pg_unicode_decomposition
             as *const ::core::ffi::c_void,
@@ -46378,16 +46378,16 @@ unsafe extern "C" fn get_code_entry(mut code: pg_wchar) -> *const pg_unicode_dec
                     *const ::core::ffi::c_void,
                 ) -> ::core::ffi::c_int,
         ),
-    ) as *const pg_unicode_decomposition;
+    ) as *const pg_unicode_decomposition
 }
 #[c2rust::src_loc = "111:1"]
 unsafe extern "C" fn get_canonical_class(mut code: pg_wchar) -> uint8_t {
     let mut entry = get_code_entry(code);
     if entry.is_null() {
-        return 0 as uint8_t;
+        0 as uint8_t
     } else {
-        return (*entry).comb_class;
-    };
+        (*entry).comb_class
+    }
 }
 #[c2rust::src_loc = "133:1"]
 unsafe extern "C" fn get_code_decomposition(
@@ -46398,12 +46398,12 @@ unsafe extern "C" fn get_code_decomposition(
     if (*entry).dec_size_flags as ::core::ffi::c_int & DECOMP_INLINE != 0 as ::core::ffi::c_int {
         x = (*entry).dec_index as pg_wchar;
         *dec_size = 1 as ::core::ffi::c_int;
-        return &raw mut x;
+        &raw mut x
     } else {
         *dec_size = (*entry).dec_size_flags as ::core::ffi::c_int & 0x1f as ::core::ffi::c_int;
-        return (&raw const UnicodeDecomp_codepoints as *const uint32_t)
-            .offset((*entry).dec_index as isize) as *const pg_wchar;
-    };
+        (&raw const UnicodeDecomp_codepoints as *const uint32_t).offset((*entry).dec_index as isize)
+            as *const pg_wchar
+    }
 }
 #[c2rust::src_loc = "158:1"]
 unsafe extern "C" fn get_decomposed_size(
@@ -46442,7 +46442,7 @@ unsafe extern "C" fn get_decomposed_size(
         size += get_decomposed_size(lcode as pg_wchar, compat);
         i += 1;
     }
-    return size;
+    size
 }
 #[c2rust::src_loc = "217:1"]
 unsafe extern "C" fn recompose_code(
@@ -46481,33 +46481,29 @@ unsafe extern "C" fn recompose_code(
         let mut i: ::core::ffi::c_int = 0;
         i = 0 as ::core::ffi::c_int;
         while (i as usize)
-            < (::core::mem::size_of::<[pg_unicode_decomposition; 6843]>() as usize)
-                .wrapping_div(::core::mem::size_of::<pg_unicode_decomposition>() as usize)
+            < ::core::mem::size_of::<[pg_unicode_decomposition; 6843]>()
+                .wrapping_div(::core::mem::size_of::<pg_unicode_decomposition>())
         {
             entry = (&raw const UnicodeDecompMain as *const pg_unicode_decomposition)
                 .offset(i as isize) as *const pg_unicode_decomposition;
-            if !((*entry).dec_size_flags as ::core::ffi::c_int & 0x1f as ::core::ffi::c_int
-                != 2 as ::core::ffi::c_int)
-            {
-                if !((*entry).dec_size_flags as ::core::ffi::c_int
+            if ((*entry).dec_size_flags as ::core::ffi::c_int & 0x1f as ::core::ffi::c_int
+                == 2 as ::core::ffi::c_int)
+                && ((*entry).dec_size_flags as ::core::ffi::c_int
                     & (DECOMP_NO_COMPOSE | DECOMP_COMPAT)
-                    != 0 as ::core::ffi::c_int)
-                {
-                    if start == UnicodeDecomp_codepoints[(*entry).dec_index as usize]
-                        && code
-                            == UnicodeDecomp_codepoints[((*entry).dec_index as ::core::ffi::c_int
-                                + 1 as ::core::ffi::c_int)
-                                as usize]
-                    {
-                        *result = (*entry).codepoint;
-                        return true_0 != 0;
-                    }
-                }
+                    == 0 as ::core::ffi::c_int)
+                && start == UnicodeDecomp_codepoints[(*entry).dec_index as usize]
+                && code
+                    == UnicodeDecomp_codepoints[((*entry).dec_index as ::core::ffi::c_int
+                        + 1 as ::core::ffi::c_int)
+                        as usize]
+            {
+                *result = (*entry).codepoint;
+                return true_0 != 0;
             }
             i += 1;
         }
     }
-    return false_0 != 0;
+    false_0 != 0
 }
 #[c2rust::src_loc = "320:1"]
 unsafe extern "C" fn decompose_code(
@@ -46619,15 +46615,14 @@ pub unsafe extern "C" fn unicode_normalize(
         let nextClass = get_canonical_class(next) as uint8_t;
         if !(prevClass as ::core::ffi::c_int == 0 as ::core::ffi::c_int
             || nextClass as ::core::ffi::c_int == 0 as ::core::ffi::c_int)
+            && (prevClass as ::core::ffi::c_int > nextClass as ::core::ffi::c_int)
         {
-            if !(prevClass as ::core::ffi::c_int <= nextClass as ::core::ffi::c_int) {
-                tmp = *decomp_chars.offset((count - 1 as ::core::ffi::c_int) as isize);
-                *decomp_chars.offset((count - 1 as ::core::ffi::c_int) as isize) =
-                    *decomp_chars.offset(count as isize);
-                *decomp_chars.offset(count as isize) = tmp;
-                if count > 1 as ::core::ffi::c_int {
-                    count -= 2 as ::core::ffi::c_int;
-                }
+            tmp = *decomp_chars.offset((count - 1 as ::core::ffi::c_int) as isize);
+            *decomp_chars.offset((count - 1 as ::core::ffi::c_int) as isize) =
+                *decomp_chars.offset(count as isize);
+            *decomp_chars.offset(count as isize) = tmp;
+            if count > 1 as ::core::ffi::c_int {
+                count -= 2 as ::core::ffi::c_int;
             }
         }
         count += 1;
@@ -46646,7 +46641,7 @@ pub unsafe extern "C" fn unicode_normalize(
     last_class = -(1 as ::core::ffi::c_int);
     starter_pos = 0 as ::core::ffi::c_int;
     target_pos = 1 as ::core::ffi::c_int;
-    let ref mut fresh0 = *recomp_chars.offset(0 as ::core::ffi::c_int as isize);
+    let fresh0 = &mut *recomp_chars.offset(0 as ::core::ffi::c_int as isize);
     *fresh0 = *decomp_chars.offset(0 as ::core::ffi::c_int as isize);
     starter_ch = *fresh0 as uint32_t;
     count = 1 as ::core::ffi::c_int;
@@ -46665,17 +46660,17 @@ pub unsafe extern "C" fn unicode_normalize(
             starter_ch = ch as uint32_t;
             last_class = -(1 as ::core::ffi::c_int);
             let fresh1 = target_pos;
-            target_pos = target_pos + 1;
+            target_pos += 1;
             *recomp_chars.offset(fresh1 as isize) = ch;
         } else {
             last_class = ch_class;
             let fresh2 = target_pos;
-            target_pos = target_pos + 1;
+            target_pos += 1;
             *recomp_chars.offset(fresh2 as isize) = ch;
         }
         count += 1;
     }
     *recomp_chars.offset(target_pos as isize) = '\0' as i32 as pg_wchar;
     free(decomp_chars as *mut ::core::ffi::c_void);
-    return recomp_chars;
+    recomp_chars
 }

@@ -95,7 +95,7 @@ pub mod list_h {
     #[inline]
     #[c2rust::src_loc = "52:1"]
     pub unsafe extern "C" fn list_empty(mut list: *const List) -> ::core::ffi::c_int {
-        return ((*list).next == list as *mut List) as ::core::ffi::c_int;
+        std::ptr::eq((*list).next, list) as ::core::ffi::c_int
     }
     #[inline]
     #[c2rust::src_loc = "68:1"]
@@ -104,7 +104,7 @@ pub mod list_h {
         (*item).prev = (*list).prev;
         (*(*list).prev).next = item;
         (*list).prev = item;
-        return item;
+        item
     }
     #[inline]
     #[c2rust::src_loc = "78:1"]
@@ -113,7 +113,7 @@ pub mod list_h {
         (*(*item).next).prev = (*item).prev;
         (*item).prev = item;
         (*item).next = (*item).prev;
-        return item;
+        item
     }
     #[inline]
     #[c2rust::src_loc = "87:1"]
@@ -121,7 +121,7 @@ pub mod list_h {
         if list_empty(list) != 0 {
             return ::core::ptr::null_mut::<List>();
         }
-        return list_del((*list).next);
+        list_del((*list).next)
     }
     #[inline]
     #[c2rust::src_loc = "95:1"]
@@ -129,7 +129,7 @@ pub mod list_h {
         if list_empty(list) != 0 {
             return ::core::ptr::null_mut::<List>();
         }
-        return (*list).next;
+        (*list).next
     }
 }
 #[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/statlist.h:19"]
@@ -165,7 +165,7 @@ pub mod statlist_h {
     #[inline]
     #[c2rust::src_loc = "88:1"]
     pub unsafe extern "C" fn statlist_count(mut list: *const StatList) -> ::core::ffi::c_int {
-        return (*list).cur_count;
+        (*list).cur_count
     }
     use super::list_h::{list_append, list_del, list_init, List};
 }
@@ -737,25 +737,22 @@ pub const cf_dns_zone_check_period: ::core::ffi::c_int = 0 as ::core::ffi::c_int
 #[no_mangle]
 #[c2rust::src_loc = "347:1"]
 pub unsafe extern "C" fn adns_get_backend() -> *const ::core::ffi::c_char {
-    return b"evdns2\0" as *const u8 as *const ::core::ffi::c_char;
+    b"evdns2\0" as *const u8 as *const ::core::ffi::c_char
 }
 #[c2rust::src_loc = "355:1"]
 unsafe extern "C" fn _evdns_base_resolv_conf_parse_err_to_string(
     mut err: ::core::ffi::c_int,
 ) -> *const ::core::ffi::c_char {
     match err {
-        0 => return b"no error\0" as *const u8 as *const ::core::ffi::c_char,
-        1 => return b"failed to open file\0" as *const u8 as *const ::core::ffi::c_char,
-        2 => return b"failed to stat file\0" as *const u8 as *const ::core::ffi::c_char,
-        3 => return b"file too large\0" as *const u8 as *const ::core::ffi::c_char,
-        4 => return b"out of memory\0" as *const u8 as *const ::core::ffi::c_char,
-        5 => return b"short read from file\0" as *const u8 as *const ::core::ffi::c_char,
-        6 => {
-            return b"no nameservers listed in the file\0" as *const u8
-                as *const ::core::ffi::c_char;
-        }
-        _ => return b"[Unknown error code]\0" as *const u8 as *const ::core::ffi::c_char,
-    };
+        0 => b"no error\0" as *const u8 as *const ::core::ffi::c_char,
+        1 => b"failed to open file\0" as *const u8 as *const ::core::ffi::c_char,
+        2 => b"failed to stat file\0" as *const u8 as *const ::core::ffi::c_char,
+        3 => b"file too large\0" as *const u8 as *const ::core::ffi::c_char,
+        4 => b"out of memory\0" as *const u8 as *const ::core::ffi::c_char,
+        5 => b"short read from file\0" as *const u8 as *const ::core::ffi::c_char,
+        6 => b"no nameservers listed in the file\0" as *const u8 as *const ::core::ffi::c_char,
+        _ => b"[Unknown error code]\0" as *const u8 as *const ::core::ffi::c_char,
+    }
 }
 #[c2rust::src_loc = "369:1"]
 unsafe extern "C" fn impl_init(mut ctx: *mut DNSContext) -> bool {
@@ -803,7 +800,7 @@ unsafe extern "C" fn impl_init(mut ctx: *mut DNSContext) -> bool {
             return false_0 != 0;
         }
     }
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "397:1"]
 unsafe extern "C" fn impl_launch_query(mut req: *mut DNSRequest) {
@@ -911,7 +908,7 @@ unsafe extern "C" fn req_cmp(mut arg: uintptr_t, mut node: *mut AANode) -> ::cor
     let mut s1: *const ::core::ffi::c_char = arg as *mut ::core::ffi::c_char;
     let mut req = (node as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
         as *mut DNSRequest;
-    return strcmp(s1, (*req).name);
+    strcmp(s1, (*req).name)
 }
 #[c2rust::src_loc = "788:1"]
 unsafe extern "C" fn req_reset(mut req: *mut DNSRequest) {
@@ -979,7 +976,7 @@ pub unsafe extern "C" fn adns_create_context() -> *mut DNSContext {
         adns_free_context(ctx);
         return ::core::ptr::null_mut::<DNSContext>();
     }
-    return ctx;
+    ctx
 }
 #[no_mangle]
 #[c2rust::src_loc = "840:1"]
@@ -1046,44 +1043,40 @@ pub unsafe extern "C" fn adns_resolve(
             }
         }
     }
-    match current_block {
-        6009453772311597924 => {
-            ucb =
-                calloc(1 as size_t, ::core::mem::size_of::<DNSToken>() as size_t) as *mut DNSToken;
-            if !ucb.is_null() {
-                list_init(&raw mut (*ucb).node);
-                (*ucb).cb_func = cb_func;
-                (*ucb).cb_arg = cb_arg;
-                list_append(&raw mut (*req).ucb_list, &raw mut (*ucb).node);
-                if (*req).done {
-                    if (*req).res_ttl < get_cached_time() {
-                        let mut _log_ctx_0 = NULL;
-                        if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int
-                            as ::core::ffi::c_long
-                            != 0
-                        {
-                            log_generic(
-                                LG_NOISE,
-                                _log_ctx_0,
-                                b"dns: ttl over: %s\0" as *const u8 as *const ::core::ffi::c_char,
-                                (*req).name,
-                            );
-                        }
-                        req_reset(req);
-                        (*ctx).active += 1;
-                        impl_launch_query(req);
-                    } else {
-                        deliver_info(req);
+    if current_block == 6009453772311597924 {
+        ucb = calloc(1 as size_t, ::core::mem::size_of::<DNSToken>() as size_t) as *mut DNSToken;
+        if !ucb.is_null() {
+            list_init(&raw mut (*ucb).node);
+            (*ucb).cb_func = cb_func;
+            (*ucb).cb_arg = cb_arg;
+            list_append(&raw mut (*req).ucb_list, &raw mut (*ucb).node);
+            if (*req).done {
+                if (*req).res_ttl < get_cached_time() {
+                    let mut _log_ctx_0 = NULL;
+                    if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int
+                        as ::core::ffi::c_long
+                        != 0
+                    {
+                        log_generic(
+                            LG_NOISE,
+                            _log_ctx_0,
+                            b"dns: ttl over: %s\0" as *const u8 as *const ::core::ffi::c_char,
+                            (*req).name,
+                        );
                     }
-                }
-                return if (*req).done as ::core::ffi::c_int != 0 {
-                    ::core::ptr::null_mut::<DNSToken>()
+                    req_reset(req);
+                    (*ctx).active += 1;
+                    impl_launch_query(req);
                 } else {
-                    ucb
-                };
+                    deliver_info(req);
+                }
             }
+            return if (*req).done as ::core::ffi::c_int != 0 {
+                ::core::ptr::null_mut::<DNSToken>()
+            } else {
+                ucb
+            };
         }
-        _ => {}
     }
     let mut _log_ctx_1 = NULL;
     log_generic(
@@ -1097,7 +1090,7 @@ pub unsafe extern "C" fn adns_resolve(
         ::core::ptr::null::<sockaddr>(),
         0 as ::core::ffi::c_int,
     );
-    return ::core::ptr::null_mut::<DNSToken>();
+    ::core::ptr::null_mut::<DNSToken>()
 }
 #[c2rust::src_loc = "911:1"]
 unsafe extern "C" fn cmp_addrinfo(
@@ -1110,11 +1103,11 @@ unsafe extern "C" fn cmp_addrinfo(
     if (*a1).ai_addrlen != (*a2).ai_addrlen {
         return (*a1).ai_addrlen.wrapping_sub((*a2).ai_addrlen) as ::core::ffi::c_int;
     }
-    return memcmp(
+    memcmp(
         (*a1).ai_addr as *const ::core::ffi::c_void,
         (*a2).ai_addr as *const ::core::ffi::c_void,
         (*a1).ai_addrlen as size_t,
-    );
+    )
 }
 #[c2rust::src_loc = "922:1"]
 unsafe extern "C" fn check_req_result_changes(mut req: *mut DNSRequest) {
@@ -1163,7 +1156,7 @@ unsafe extern "C" fn got_result_gai(
                     != 0
                 {
                     let fresh0 = n;
-                    n = n + 1;
+                    n += 1;
                     log_generic(
                         LG_NOISE,
                         _log_ctx,
@@ -1238,7 +1231,7 @@ unsafe extern "C" fn zone_item_cmp(mut val1: uintptr_t, mut n2: *mut AANode) -> 
     let mut name1 = val1 as *const ::core::ffi::c_char;
     let mut z2 = (n2 as *mut ::core::ffi::c_char).offset(-(16 as ::core::ffi::c_ulong as isize))
         as *mut DNSZone;
-    return strcasecmp(name1, (*z2).zonename);
+    strcasecmp(name1, (*z2).zonename)
 }
 #[c2rust::src_loc = "1014:1"]
 unsafe extern "C" fn zone_init(mut ctx: *mut DNSContext) {
@@ -1371,7 +1364,6 @@ pub unsafe extern "C" fn adns_zone_cache_maint(mut ctx: *mut DNSContext) {
             (*ctx).zone_state = 0 as ::core::ffi::c_int;
         }
         (*ctx).cur_zone = ::core::ptr::null_mut::<DNSZone>();
-        return;
     } else if (*ctx).zone_state == 0 as ::core::ffi::c_int {
         if list_empty(&raw mut (*ctx).zone_list) != 0 {
             return;

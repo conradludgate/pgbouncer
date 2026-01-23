@@ -30,30 +30,30 @@ pub mod pg_wchar_h {
     #[c2rust::src_loc = "564:1"]
     pub unsafe extern "C" fn utf8_to_unicode(mut c: *const ::core::ffi::c_uchar) -> pg_wchar {
         if *c as ::core::ffi::c_int & 0x80 as ::core::ffi::c_int == 0 as ::core::ffi::c_int {
-            return *c.offset(0 as ::core::ffi::c_int as isize) as pg_wchar;
+            *c.offset(0 as ::core::ffi::c_int as isize) as pg_wchar
         } else if *c as ::core::ffi::c_int & 0xe0 as ::core::ffi::c_int
             == 0xc0 as ::core::ffi::c_int
         {
-            return ((*c.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+            ((*c.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
                 & 0x1f as ::core::ffi::c_int)
                 << 6 as ::core::ffi::c_int
                 | *c.offset(1 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                    & 0x3f as ::core::ffi::c_int) as pg_wchar;
+                    & 0x3f as ::core::ffi::c_int) as pg_wchar
         } else if *c as ::core::ffi::c_int & 0xf0 as ::core::ffi::c_int
             == 0xe0 as ::core::ffi::c_int
         {
-            return ((*c.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+            ((*c.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
                 & 0xf as ::core::ffi::c_int)
                 << 12 as ::core::ffi::c_int
                 | (*c.offset(1 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
                     & 0x3f as ::core::ffi::c_int)
                     << 6 as ::core::ffi::c_int
                 | *c.offset(2 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                    & 0x3f as ::core::ffi::c_int) as pg_wchar;
+                    & 0x3f as ::core::ffi::c_int) as pg_wchar
         } else if *c as ::core::ffi::c_int & 0xf8 as ::core::ffi::c_int
             == 0xf0 as ::core::ffi::c_int
         {
-            return ((*c.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+            ((*c.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
                 & 0x7 as ::core::ffi::c_int)
                 << 18 as ::core::ffi::c_int
                 | (*c.offset(1 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
@@ -63,10 +63,10 @@ pub mod pg_wchar_h {
                     & 0x3f as ::core::ffi::c_int)
                     << 6 as ::core::ffi::c_int
                 | *c.offset(3 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                    & 0x3f as ::core::ffi::c_int) as pg_wchar;
+                    & 0x3f as ::core::ffi::c_int) as pg_wchar
         } else {
-            return 0xffffffff as pg_wchar;
-        };
+            0xffffffff as pg_wchar
+        }
     }
     #[inline]
     #[c2rust::src_loc = "590:1"]
@@ -104,7 +104,7 @@ pub mod pg_wchar_h {
             *utf8string.offset(3 as ::core::ffi::c_int as isize) =
                 (0x80 as pg_wchar | c & 0x3f as pg_wchar) as ::core::ffi::c_uchar;
         }
-        return utf8string;
+        utf8string
     }
     extern "C" {
         #[c2rust::src_loc = "681:1"]
@@ -1939,7 +1939,7 @@ unsafe extern "C" fn codepoint_range_cmp(
     if *key > *range.offset(1 as ::core::ffi::c_int as isize) {
         return 1 as ::core::ffi::c_int;
     }
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }
 #[c2rust::src_loc = "981:1"]
 unsafe extern "C" fn is_code_in_table(
@@ -1967,10 +1967,10 @@ unsafe extern "C" fn is_code_in_table(
     )
     .is_null()
     {
-        return true_0 != 0;
+        true_0 != 0
     } else {
-        return false_0 != 0;
-    };
+        false_0 != 0
+    }
 }
 #[c2rust::src_loc = "1001:1"]
 unsafe extern "C" fn pg_utf8_string_len(
@@ -1989,7 +1989,7 @@ unsafe extern "C" fn pg_utf8_string_len(
         len = len.wrapping_sub(l as size_t);
         num_chars += 1;
     }
-    return num_chars;
+    num_chars
 }
 #[no_mangle]
 #[c2rust::src_loc = "1045:1"]
@@ -2019,8 +2019,8 @@ pub unsafe extern "C" fn pg_saslprep(
         if input_size < 0 as ::core::ffi::c_int {
             return SASLPREP_INVALID_UTF8;
         }
-        if !(input_size as size_t
-            >= MaxAllocSize.wrapping_div(::core::mem::size_of::<pg_wchar>() as size_t))
+        if (input_size as size_t)
+            < MaxAllocSize.wrapping_div(::core::mem::size_of::<pg_wchar>() as size_t)
         {
             input_chars = malloc(
                 ((input_size + 1 as ::core::ffi::c_int) as size_t)
@@ -2042,22 +2042,22 @@ pub unsafe extern "C" fn pg_saslprep(
                     if is_code_in_table(
                         code,
                         &raw const non_ascii_space_ranges as *const pg_wchar,
-                        (::core::mem::size_of::<[pg_wchar; 12]>() as usize)
-                            .wrapping_div(::core::mem::size_of::<pg_wchar>() as usize)
+                        ::core::mem::size_of::<[pg_wchar; 12]>()
+                            .wrapping_div(::core::mem::size_of::<pg_wchar>())
                             as ::core::ffi::c_int,
                     ) {
                         let fresh0 = count;
-                        count = count + 1;
+                        count += 1;
                         *input_chars.offset(fresh0 as isize) = 0x20 as pg_wchar;
                     } else if !is_code_in_table(
                         code,
                         &raw const commonly_mapped_to_nothing_ranges as *const pg_wchar,
-                        (::core::mem::size_of::<[pg_wchar; 16]>() as usize)
-                            .wrapping_div(::core::mem::size_of::<pg_wchar>() as usize)
+                        ::core::mem::size_of::<[pg_wchar; 16]>()
+                            .wrapping_div(::core::mem::size_of::<pg_wchar>())
                             as ::core::ffi::c_int,
                     ) {
                         let fresh1 = count;
-                        count = count + 1;
+                        count += 1;
                         *input_chars.offset(fresh1 as isize) = code;
                     }
                     i += 1;
@@ -2073,7 +2073,7 @@ pub unsafe extern "C" fn pg_saslprep(
                     } else {
                         i = 0 as ::core::ffi::c_int;
                         loop {
-                            if !(i < input_size) {
+                            if i >= input_size {
                                 current_block = 9520865839495247062;
                                 break;
                             }
@@ -2081,8 +2081,8 @@ pub unsafe extern "C" fn pg_saslprep(
                             if is_code_in_table(
                                 code_0,
                                 &raw const prohibited_output_ranges as *const pg_wchar,
-                                (::core::mem::size_of::<[pg_wchar; 72]>() as usize)
-                                    .wrapping_div(::core::mem::size_of::<pg_wchar>() as usize)
+                                ::core::mem::size_of::<[pg_wchar; 72]>()
+                                    .wrapping_div(::core::mem::size_of::<pg_wchar>())
                                     as ::core::ffi::c_int,
                             ) {
                                 current_block = 11863746162674211658;
@@ -2091,8 +2091,8 @@ pub unsafe extern "C" fn pg_saslprep(
                             if is_code_in_table(
                                 code_0,
                                 &raw const unassigned_codepoint_ranges as *const pg_wchar,
-                                (::core::mem::size_of::<[pg_wchar; 792]>() as usize)
-                                    .wrapping_div(::core::mem::size_of::<pg_wchar>() as usize)
+                                ::core::mem::size_of::<[pg_wchar; 792]>()
+                                    .wrapping_div(::core::mem::size_of::<pg_wchar>())
                                     as ::core::ffi::c_int,
                             ) {
                                 current_block = 11863746162674211658;
@@ -2110,10 +2110,8 @@ pub unsafe extern "C" fn pg_saslprep(
                                     if is_code_in_table(
                                         code_1,
                                         &raw const RandALCat_codepoint_ranges as *const pg_wchar,
-                                        (::core::mem::size_of::<[pg_wchar; 68]>() as usize)
-                                            .wrapping_div(
-                                                ::core::mem::size_of::<pg_wchar>() as usize
-                                            )
+                                        ::core::mem::size_of::<[pg_wchar; 68]>()
+                                            .wrapping_div(::core::mem::size_of::<pg_wchar>())
                                             as ::core::ffi::c_int,
                                     ) {
                                         contains_RandALCat = true_0 != 0;
@@ -2129,7 +2127,7 @@ pub unsafe extern "C" fn pg_saslprep(
                                         .offset((input_size - 1 as ::core::ffi::c_int) as isize);
                                     i = 0 as ::core::ffi::c_int;
                                     loop {
-                                        if !(i < input_size) {
+                                        if i >= input_size {
                                             current_block = 12381812505308290051;
                                             break;
                                         }
@@ -2137,10 +2135,8 @@ pub unsafe extern "C" fn pg_saslprep(
                                         if is_code_in_table(
                                             code_2,
                                             &raw const LCat_codepoint_ranges as *const pg_wchar,
-                                            (::core::mem::size_of::<[pg_wchar; 720]>() as usize)
-                                                .wrapping_div(
-                                                    ::core::mem::size_of::<pg_wchar>() as usize
-                                                )
+                                            ::core::mem::size_of::<[pg_wchar; 720]>()
+                                                .wrapping_div(::core::mem::size_of::<pg_wchar>())
                                                 as ::core::ffi::c_int,
                                         ) {
                                             current_block = 11863746162674211658;
@@ -2155,18 +2151,18 @@ pub unsafe extern "C" fn pg_saslprep(
                                                 first,
                                                 &raw const RandALCat_codepoint_ranges
                                                     as *const pg_wchar,
-                                                (::core::mem::size_of::<[pg_wchar; 68]>() as usize)
+                                                ::core::mem::size_of::<[pg_wchar; 68]>()
                                                     .wrapping_div(
-                                                        ::core::mem::size_of::<pg_wchar>() as usize,
+                                                        ::core::mem::size_of::<pg_wchar>(),
                                                     )
                                                     as ::core::ffi::c_int,
                                             ) || !is_code_in_table(
                                                 last,
                                                 &raw const RandALCat_codepoint_ranges
                                                     as *const pg_wchar,
-                                                (::core::mem::size_of::<[pg_wchar; 68]>() as usize)
+                                                ::core::mem::size_of::<[pg_wchar; 68]>()
                                                     .wrapping_div(
-                                                        ::core::mem::size_of::<pg_wchar>() as usize,
+                                                        ::core::mem::size_of::<pg_wchar>(),
                                                     )
                                                     as ::core::ffi::c_int,
                                             ) {
@@ -2242,5 +2238,5 @@ pub unsafe extern "C" fn pg_saslprep(
     if !output_chars.is_null() {
         free(output_chars as *mut ::core::ffi::c_void);
     }
-    return SASLPREP_OOM;
+    SASLPREP_OOM
 }

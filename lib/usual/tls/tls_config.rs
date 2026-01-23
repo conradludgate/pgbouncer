@@ -251,7 +251,7 @@ unsafe extern "C" fn set_string(
             return -(1 as ::core::ffi::c_int);
         }
     }
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }
 #[c2rust::src_loc = "37:1"]
 unsafe extern "C" fn memdup(
@@ -264,7 +264,7 @@ unsafe extern "C" fn memdup(
         return NULL;
     }
     memcpy(out, in_0, len);
-    return out;
+    out
 }
 #[c2rust::src_loc = "47:1"]
 unsafe extern "C" fn set_mem(
@@ -283,13 +283,12 @@ unsafe extern "C" fn set_mem(
         }
     }
     *destlen = srclen;
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }
 #[no_mangle]
 #[c2rust::src_loc = "60:1"]
 pub unsafe extern "C" fn tls_keypair_new() -> *mut tls_keypair {
-    return calloc(1 as size_t, ::core::mem::size_of::<tls_keypair>() as size_t)
-        as *mut tls_keypair;
+    calloc(1 as size_t, ::core::mem::size_of::<tls_keypair>() as size_t) as *mut tls_keypair
 }
 #[no_mangle]
 #[c2rust::src_loc = "65:1"]
@@ -297,7 +296,7 @@ pub unsafe extern "C" fn tls_keypair_set_cert_file(
     mut keypair: *mut tls_keypair,
     mut cert_file: *const ::core::ffi::c_char,
 ) -> ::core::ffi::c_int {
-    return set_string(&raw mut (*keypair).cert_file, cert_file);
+    set_string(&raw mut (*keypair).cert_file, cert_file)
 }
 #[c2rust::src_loc = "70:1"]
 unsafe extern "C" fn tls_keypair_set_cert_mem(
@@ -305,19 +304,19 @@ unsafe extern "C" fn tls_keypair_set_cert_mem(
     mut cert: *const uint8_t,
     mut len: size_t,
 ) -> ::core::ffi::c_int {
-    return set_mem(
+    set_mem(
         &raw mut (*keypair).cert_mem,
         &raw mut (*keypair).cert_len,
         cert as *const ::core::ffi::c_void,
         len,
-    );
+    )
 }
 #[c2rust::src_loc = "76:1"]
 unsafe extern "C" fn tls_keypair_set_key_file(
     mut keypair: *mut tls_keypair,
     mut key_file: *const ::core::ffi::c_char,
 ) -> ::core::ffi::c_int {
-    return set_string(&raw mut (*keypair).key_file, key_file);
+    set_string(&raw mut (*keypair).key_file, key_file)
 }
 #[c2rust::src_loc = "81:1"]
 unsafe extern "C" fn tls_keypair_set_key_mem(
@@ -331,12 +330,12 @@ unsafe extern "C" fn tls_keypair_set_key_mem(
             (*keypair).key_len,
         );
     }
-    return set_mem(
+    set_mem(
         &raw mut (*keypair).key_mem,
         &raw mut (*keypair).key_len,
         key as *const ::core::ffi::c_void,
         len,
-    );
+    )
 }
 #[c2rust::src_loc = "89:1"]
 unsafe extern "C" fn tls_keypair_clear(mut keypair: *mut tls_keypair) {
@@ -364,36 +363,25 @@ pub unsafe extern "C" fn tls_config_new() -> *mut tls_config {
         return ::core::ptr::null_mut::<tls_config>();
     }
     (*config).keypair = tls_keypair_new();
-    if !(*config).keypair.is_null() {
-        if !(tls_config_set_ca_file(config, _PATH_SSL_CA_FILE.as_ptr()) != 0 as ::core::ffi::c_int)
-        {
-            if !(tls_config_set_dheparams(
-                config,
-                b"none\0" as *const u8 as *const ::core::ffi::c_char,
-            ) != 0 as ::core::ffi::c_int)
-            {
-                if !(tls_config_set_ecdhecurve(
-                    config,
-                    b"auto\0" as *const u8 as *const ::core::ffi::c_char,
-                ) != 0 as ::core::ffi::c_int)
-                {
-                    if !(tls_config_set_ciphers(
-                        config,
-                        b"secure\0" as *const u8 as *const ::core::ffi::c_char,
-                    ) != 0 as ::core::ffi::c_int)
-                    {
-                        tls_config_set_protocols(config, TLS_PROTOCOLS_DEFAULT as uint32_t);
-                        tls_config_set_verify_depth(config, 6 as ::core::ffi::c_int);
-                        tls_config_prefer_ciphers_server(config);
-                        tls_config_verify(config);
-                        return config;
-                    }
-                }
-            }
-        }
+    if !(*config).keypair.is_null()
+        && (tls_config_set_ca_file(config, _PATH_SSL_CA_FILE.as_ptr()) == 0 as ::core::ffi::c_int)
+        && (tls_config_set_dheparams(config, b"none\0" as *const u8 as *const ::core::ffi::c_char)
+            == 0 as ::core::ffi::c_int)
+        && (tls_config_set_ecdhecurve(config, b"auto\0" as *const u8 as *const ::core::ffi::c_char)
+            == 0 as ::core::ffi::c_int)
+        && (tls_config_set_ciphers(
+            config,
+            b"secure\0" as *const u8 as *const ::core::ffi::c_char,
+        ) == 0 as ::core::ffi::c_int)
+    {
+        tls_config_set_protocols(config, TLS_PROTOCOLS_DEFAULT as uint32_t);
+        tls_config_set_verify_depth(config, 6 as ::core::ffi::c_int);
+        tls_config_prefer_ciphers_server(config);
+        tls_config_verify(config);
+        return config;
     }
     tls_config_free(config);
-    return ::core::ptr::null_mut::<tls_config>();
+    ::core::ptr::null_mut::<tls_config>()
 }
 #[no_mangle]
 #[c2rust::src_loc = "146:1"]
@@ -422,7 +410,7 @@ pub unsafe extern "C" fn tls_config_free(mut config: *mut tls_config) {
 pub unsafe extern "C" fn tls_config_error(
     mut config: *mut tls_config,
 ) -> *const ::core::ffi::c_char {
-    return (*config).error.msg;
+    (*config).error.msg
 }
 #[no_mangle]
 #[c2rust::src_loc = "174:1"]
@@ -516,7 +504,7 @@ pub unsafe extern "C" fn tls_config_parse_protocols(
     }
     *protocols = protos;
     free(s as *mut ::core::ffi::c_void);
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }
 #[no_mangle]
 #[c2rust::src_loc = "242:1"]
@@ -524,7 +512,7 @@ pub unsafe extern "C" fn tls_config_set_ca_file(
     mut config: *mut tls_config,
     mut ca_file: *const ::core::ffi::c_char,
 ) -> ::core::ffi::c_int {
-    return set_string(&raw mut (*config).ca_file, ca_file);
+    set_string(&raw mut (*config).ca_file, ca_file)
 }
 #[no_mangle]
 #[c2rust::src_loc = "247:1"]
@@ -532,7 +520,7 @@ pub unsafe extern "C" fn tls_config_set_ca_path(
     mut config: *mut tls_config,
     mut ca_path: *const ::core::ffi::c_char,
 ) -> ::core::ffi::c_int {
-    return set_string(&raw mut (*config).ca_path, ca_path);
+    set_string(&raw mut (*config).ca_path, ca_path)
 }
 #[no_mangle]
 #[c2rust::src_loc = "252:1"]
@@ -541,12 +529,12 @@ pub unsafe extern "C" fn tls_config_set_ca_mem(
     mut ca: *const uint8_t,
     mut len: size_t,
 ) -> ::core::ffi::c_int {
-    return set_mem(
+    set_mem(
         &raw mut (*config).ca_mem,
         &raw mut (*config).ca_len,
         ca as *const ::core::ffi::c_void,
         len,
-    );
+    )
 }
 #[no_mangle]
 #[c2rust::src_loc = "257:1"]
@@ -554,7 +542,7 @@ pub unsafe extern "C" fn tls_config_set_cert_file(
     mut config: *mut tls_config,
     mut cert_file: *const ::core::ffi::c_char,
 ) -> ::core::ffi::c_int {
-    return tls_keypair_set_cert_file((*config).keypair, cert_file);
+    tls_keypair_set_cert_file((*config).keypair, cert_file)
 }
 #[no_mangle]
 #[c2rust::src_loc = "262:1"]
@@ -563,7 +551,7 @@ pub unsafe extern "C" fn tls_config_set_cert_mem(
     mut cert: *const uint8_t,
     mut len: size_t,
 ) -> ::core::ffi::c_int {
-    return tls_keypair_set_cert_mem((*config).keypair, cert, len);
+    tls_keypair_set_cert_mem((*config).keypair, cert, len)
 }
 #[no_mangle]
 #[c2rust::src_loc = "269:1"]
@@ -609,7 +597,7 @@ pub unsafe extern "C" fn tls_config_set_ciphers(
         return set_string(&raw mut (*config).ciphers, ciphers);
     }
     SSL_CTX_free(ssl_ctx);
-    return -(1 as ::core::ffi::c_int);
+    -(1 as ::core::ffi::c_int)
 }
 #[no_mangle]
 #[c2rust::src_loc = "310:1"]
@@ -622,7 +610,7 @@ pub unsafe extern "C" fn tls_config_set_ciphers_v13(
     {
         return set_string(&raw mut (*config).cipher_suites, ciphers);
     }
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }
 #[no_mangle]
 #[c2rust::src_loc = "324:1"]
@@ -649,7 +637,7 @@ pub unsafe extern "C" fn tls_config_set_dheparams(
         return -(1 as ::core::ffi::c_int);
     }
     (*config).dheparams = keylen;
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }
 #[no_mangle]
 #[c2rust::src_loc = "342:1"]
@@ -679,7 +667,7 @@ pub unsafe extern "C" fn tls_config_set_ecdhecurve(
         }
     }
     (*config).ecdhecurve = nid;
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }
 #[no_mangle]
 #[c2rust::src_loc = "360:1"]
@@ -687,7 +675,7 @@ pub unsafe extern "C" fn tls_config_set_key_file(
     mut config: *mut tls_config,
     mut key_file: *const ::core::ffi::c_char,
 ) -> ::core::ffi::c_int {
-    return tls_keypair_set_key_file((*config).keypair, key_file);
+    tls_keypair_set_key_file((*config).keypair, key_file)
 }
 #[no_mangle]
 #[c2rust::src_loc = "365:1"]
@@ -696,7 +684,7 @@ pub unsafe extern "C" fn tls_config_set_key_mem(
     mut key: *const uint8_t,
     mut len: size_t,
 ) -> ::core::ffi::c_int {
-    return tls_keypair_set_key_mem((*config).keypair, key, len);
+    tls_keypair_set_key_mem((*config).keypair, key, len)
 }
 #[no_mangle]
 #[c2rust::src_loc = "371:1"]
@@ -711,7 +699,7 @@ pub unsafe extern "C" fn tls_config_set_keypair_file(
     if tls_config_set_key_file(config, key_file) != 0 as ::core::ffi::c_int {
         return -(1 as ::core::ffi::c_int);
     }
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }
 #[no_mangle]
 #[c2rust::src_loc = "382:1"]
@@ -728,7 +716,7 @@ pub unsafe extern "C" fn tls_config_set_keypair_mem(
     if tls_config_set_key_mem(config, key, key_len) != 0 as ::core::ffi::c_int {
         return -(1 as ::core::ffi::c_int);
     }
-    return 0 as ::core::ffi::c_int;
+    0 as ::core::ffi::c_int
 }
 #[no_mangle]
 #[c2rust::src_loc = "393:1"]
@@ -739,7 +727,7 @@ pub unsafe extern "C" fn tls_config_set_ocsp_stapling_file(
     if !blob_file.is_null() {
         tls_config_set_ocsp_stapling_mem(config, ::core::ptr::null::<uint8_t>(), 0 as size_t);
     }
-    return set_string(&raw mut (*config).ocsp_file, blob_file);
+    set_string(&raw mut (*config).ocsp_file, blob_file)
 }
 #[no_mangle]
 #[c2rust::src_loc = "401:1"]
@@ -751,12 +739,12 @@ pub unsafe extern "C" fn tls_config_set_ocsp_stapling_mem(
     if !blob.is_null() {
         tls_config_set_ocsp_stapling_file(config, ::core::ptr::null::<::core::ffi::c_char>());
     }
-    return set_mem(
+    set_mem(
         &raw mut (*config).ocsp_mem,
         &raw mut (*config).ocsp_len,
         blob as *const ::core::ffi::c_void,
         len,
-    );
+    )
 }
 #[no_mangle]
 #[c2rust::src_loc = "409:1"]

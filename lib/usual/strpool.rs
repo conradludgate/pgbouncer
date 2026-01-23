@@ -181,7 +181,7 @@ unsafe extern "C" fn get_key(
 ) -> size_t {
     let mut s = obj as *mut PStr;
     *dst_p = &raw mut (*s).str_0 as *mut ::core::ffi::c_char as *const ::core::ffi::c_void;
-    return (*s).len;
+    (*s).len
 }
 #[c2rust::src_loc = "42:1"]
 unsafe extern "C" fn free_str(
@@ -196,7 +196,7 @@ unsafe extern "C" fn free_str(
         (20 as size_t).wrapping_add(1 as size_t),
     );
     cx_free((*sp).ca, obj);
-    return true_0 != 0;
+    true_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "53:1"]
@@ -225,7 +225,7 @@ pub unsafe extern "C" fn strpool_create(mut ca: *const CxMem) -> *mut StrPool {
         cx_free(ca, sp as *mut ::core::ffi::c_void);
         return ::core::ptr::null_mut::<StrPool>();
     }
-    return sp;
+    sp
 }
 #[no_mangle]
 #[c2rust::src_loc = "71:1"]
@@ -249,7 +249,7 @@ pub unsafe extern "C" fn strpool_free(mut sp: *mut StrPool) {
 #[no_mangle]
 #[c2rust::src_loc = "81:1"]
 pub unsafe extern "C" fn strpool_total(mut sp: *mut StrPool) -> ::core::ffi::c_int {
-    return (*sp).count;
+    (*sp).count
 }
 #[no_mangle]
 #[c2rust::src_loc = "87:1"]
@@ -291,7 +291,7 @@ pub unsafe extern "C" fn strpool_get(
         return ::core::ptr::null_mut::<PStr>();
     }
     (*sp).count += 1;
-    return cstr;
+    cstr
 }
 #[no_mangle]
 #[c2rust::src_loc = "122:1"]

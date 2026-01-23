@@ -29,7 +29,7 @@ pub mod _null_h {
 pub mod _param_h {
     #[c2rust::src_loc = "17:9"]
     pub const __DARWIN_ALIGNBYTES: usize =
-        (::core::mem::size_of::<__darwin_size_t>() as usize).wrapping_sub(1 as usize);
+        ::core::mem::size_of::<__darwin_size_t>().wrapping_sub(1_usize);
     use super::_types_h::__darwin_size_t;
 }
 #[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types.h:19"]
@@ -67,7 +67,7 @@ pub unsafe extern "C" fn mempool_alloc(
         ptr = (cur.offset(1 as ::core::ffi::c_int as isize) as *mut ::core::ffi::c_char)
             .offset((*cur).used as isize) as *mut ::core::ffi::c_void;
         (*cur).used = (*cur).used.wrapping_add(size);
-        return ptr;
+        ptr
     } else {
         nsize = if !cur.is_null() {
             (2 as ::core::ffi::c_uint).wrapping_mul((*cur).size)
@@ -88,9 +88,9 @@ pub unsafe extern "C" fn mempool_alloc(
         (*cur).size = nsize;
         (*cur).prev = *pool;
         *pool = cur;
-        return cur.offset(1 as ::core::ffi::c_int as isize) as *mut ::core::ffi::c_char
-            as *mut ::core::ffi::c_void;
-    };
+        cur.offset(1 as ::core::ffi::c_int as isize) as *mut ::core::ffi::c_char
+            as *mut ::core::ffi::c_void
+    }
 }
 #[no_mangle]
 #[c2rust::src_loc = "63:1"]

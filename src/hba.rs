@@ -241,7 +241,7 @@ pub mod list_h {
         (*item).prev = (*list).prev;
         (*(*list).prev).next = item;
         (*list).prev = item;
-        return item;
+        item
     }
     #[inline]
     #[c2rust::src_loc = "78:1"]
@@ -250,7 +250,7 @@ pub mod list_h {
         (*(*item).next).prev = (*item).prev;
         (*item).prev = item;
         (*item).next = (*item).prev;
-        return item;
+        item
     }
 }
 #[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_sa_family_t.h:19"]
@@ -392,12 +392,12 @@ pub mod bouncer_h {
     #[inline]
     #[c2rust::src_loc = "299:1"]
     pub unsafe extern "C" fn pga_family(mut a: *const PgAddr) -> ::core::ffi::c_uint {
-        return (*a).sa.sa_family as ::core::ffi::c_uint;
+        (*a).sa.sa_family as ::core::ffi::c_uint
     }
     #[inline]
     #[c2rust::src_loc = "303:1"]
     pub unsafe extern "C" fn pga_is_unix(mut a: *const PgAddr) -> bool {
-        return (*a).sa.sa_family as ::core::ffi::c_int == AF_UNIX;
+        (*a).sa.sa_family as ::core::ffi::c_int == AF_UNIX
     }
     use super::_pid_t_h::pid_t;
 
@@ -612,8 +612,7 @@ pub mod _ctype_h {
     #[inline]
     #[c2rust::src_loc = "139:1"]
     pub unsafe extern "C" fn isascii(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
-        return (_c & !(0x7f as ::core::ffi::c_int) == 0 as ::core::ffi::c_int)
-            as ::core::ffi::c_int;
+        (_c & !(0x7f as ::core::ffi::c_int) == 0 as ::core::ffi::c_int) as ::core::ffi::c_int
     }
     #[inline]
     #[c2rust::src_loc = "157:1"]
@@ -621,17 +620,17 @@ pub mod _ctype_h {
         mut _c: __darwin_ct_rune_t,
         mut _f: ::core::ffi::c_ulong,
     ) -> ::core::ffi::c_int {
-        return if isascii(_c as ::core::ffi::c_int) != 0 {
+        if isascii(_c as ::core::ffi::c_int) != 0 {
             (_DefaultRuneLocale.__runetype[_c as usize] as ::core::ffi::c_ulong & _f != 0)
                 as ::core::ffi::c_int
         } else {
             (__maskrune(_c, _f) != 0) as ::core::ffi::c_int
-        };
+        }
     }
     #[inline]
     #[c2rust::src_loc = "271:1"]
     pub unsafe extern "C" fn isspace(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
-        return __istype(_c as __darwin_ct_rune_t, _CTYPE_S as ::core::ffi::c_ulong);
+        __istype(_c as __darwin_ct_rune_t, _CTYPE_S as ::core::ffi::c_ulong)
     }
     use super::_types_h::__darwin_ct_rune_t;
     use super::runetype_h::_DefaultRuneLocale;
@@ -645,7 +644,7 @@ pub mod ctype_h {
     #[inline]
     #[c2rust::src_loc = "105:1"]
     pub unsafe extern "C" fn safe_isspace(mut c: ::core::ffi::c_int) -> ::core::ffi::c_int {
-        return isspace(c as ::core::ffi::c_uchar as ::core::ffi::c_int);
+        isspace(c as ::core::ffi::c_uchar as ::core::ffi::c_int)
     }
     use super::_ctype_h::isspace;
 }
@@ -880,7 +879,7 @@ pub unsafe extern "C" fn strset_new(mut cx: *const CxMem) -> *mut StrSet {
         cx_destroy(pool);
         return ::core::ptr::null_mut::<StrSet>();
     }
-    return set;
+    set
 }
 #[c2rust::src_loc = "72:1"]
 unsafe extern "C" fn strset_node_key(
@@ -890,7 +889,7 @@ unsafe extern "C" fn strset_node_key(
 ) -> size_t {
     let mut node = obj as *mut StrSetNode;
     *ptr_p = &raw mut (*node).s_val as *mut ::core::ffi::c_char as *const ::core::ffi::c_void;
-    return (*node).s_len as size_t;
+    (*node).s_len as size_t
 }
 #[no_mangle]
 #[c2rust::src_loc = "79:1"]
@@ -925,7 +924,7 @@ pub unsafe extern "C" fn strset_add(
     if (*set).count < (*set).alloc {
         let fresh2 = (*set).count;
         (*set).count = (*set).count.wrapping_add(1);
-        let ref mut fresh3 = *(*set).nodes.offset(fresh2 as isize);
+        let fresh3 = &mut *(*set).nodes.offset(fresh2 as isize);
         *fresh3 = node;
         return true_0 != 0;
     }
@@ -963,7 +962,7 @@ pub unsafe extern "C" fn strset_add(
         return false_0 != 0;
     }
     (*set).count = (*set).count.wrapping_add(1);
-    return true_0 != 0;
+    true_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "117:1"]
@@ -985,19 +984,18 @@ pub unsafe extern "C" fn strset_contains(
     i = 0 as ::core::ffi::c_uint;
     while i < (*set).count {
         node = *(*set).nodes.offset(i as isize);
-        if !((*node).s_len != len) {
-            if memcmp(
+        if ((*node).s_len == len)
+            && memcmp(
                 &raw mut (*node).s_val as *mut ::core::ffi::c_char as *const ::core::ffi::c_void,
                 str as *const ::core::ffi::c_void,
                 len as size_t,
             ) == 0 as ::core::ffi::c_int
-            {
-                return true_0 != 0;
-            }
+        {
+            return true_0 != 0;
         }
         i = i.wrapping_add(1);
     }
-    return false_0 != 0;
+    false_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "133:1"]
@@ -1020,7 +1018,7 @@ unsafe extern "C" fn tok_buf_check(mut p: *mut TokParser, mut len: size_t) -> bo
     }
     (*p).buf = tmp;
     (*p).buflen = tmplen;
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "175:1"]
 unsafe extern "C" fn next_token(mut p: *mut TokParser) -> TokType {
@@ -1054,9 +1052,7 @@ unsafe extern "C" fn next_token(mut p: *mut TokParser) -> TokType {
         s = (*p).pos.offset(1 as ::core::ffi::c_int as isize);
         while *s.offset(0 as ::core::ffi::c_int as isize) != 0 {
             if *s.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int == '"' as i32 {
-                if !(*s.offset(1 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
-                    == '"' as i32)
-                {
+                if *s.offset(1 as ::core::ffi::c_int as isize) as ::core::ffi::c_int != '"' as i32 {
                     break;
                 }
                 s = s.offset(1);
@@ -1116,7 +1112,7 @@ unsafe extern "C" fn next_token(mut p: *mut TokParser) -> TokType {
         (*p).cur_tok = TOK_IDENT;
         (*p).cur_tok_str = (*p).buf;
     }
-    return (*p).cur_tok;
+    (*p).cur_tok
 }
 #[c2rust::src_loc = "231:1"]
 unsafe extern "C" fn eat_all(mut p: *mut TokParser) {
@@ -1128,7 +1124,7 @@ unsafe extern "C" fn eat(mut p: *mut TokParser, mut ttype: TokType) -> bool {
         next_token(p);
         return true_0 != 0;
     }
-    return false_0 != 0;
+    false_0 != 0
 }
 #[c2rust::src_loc = "246:1"]
 unsafe extern "C" fn check_kw(mut p: *mut TokParser, mut kw: *const ::core::ffi::c_char) -> bool {
@@ -1137,7 +1133,7 @@ unsafe extern "C" fn check_kw(mut p: *mut TokParser, mut kw: *const ::core::ffi:
     {
         return true_0 != 0;
     }
-    return false_0 != 0;
+    false_0 != 0
 }
 #[c2rust::src_loc = "254:1"]
 unsafe extern "C" fn eat_kw(mut p: *mut TokParser, mut kw: *const ::core::ffi::c_char) -> bool {
@@ -1147,7 +1143,7 @@ unsafe extern "C" fn eat_kw(mut p: *mut TokParser, mut kw: *const ::core::ffi::c
         next_token(p);
         return true_0 != 0;
     }
-    return false_0 != 0;
+    false_0 != 0
 }
 #[c2rust::src_loc = "263:1"]
 unsafe extern "C" fn expect(
@@ -1159,7 +1155,7 @@ unsafe extern "C" fn expect(
         *str_p = (*tp).buf;
         return true_0 != 0;
     }
-    return false_0 != 0;
+    false_0 != 0
 }
 #[c2rust::src_loc = "272:1"]
 unsafe extern "C" fn path_join(
@@ -1194,7 +1190,7 @@ unsafe extern "C" fn path_join(
             p1 as *const ::core::ffi::c_void,
             len1,
         );
-        pos = res.offset(len1 as isize);
+        pos = res.add(len1);
         if *pos.offset(-(1 as ::core::ffi::c_int) as isize) as ::core::ffi::c_int != '/' as i32 {
             let fresh4 = pos;
             pos = pos.offset(1);
@@ -1206,7 +1202,7 @@ unsafe extern "C" fn path_join(
             len2.wrapping_add(1 as size_t),
         );
     }
-    return res;
+    res
 }
 #[c2rust::src_loc = "292:1"]
 unsafe extern "C" fn path_join_dirname(
@@ -1226,7 +1222,7 @@ unsafe extern "C" fn path_join_dirname(
     basedir = usual_dirname(tmp);
     res = path_join(basedir, fn_0);
     free(tmp as *mut ::core::ffi::c_void);
-    return res;
+    res
 }
 #[c2rust::src_loc = "307:1"]
 unsafe extern "C" fn init_parser(mut p: *mut TokParser) {
@@ -1286,7 +1282,7 @@ unsafe extern "C" fn parse_namefile(
     free_parser(&raw mut tp);
     free(ln as *mut ::core::ffi::c_void);
     fclose(f);
-    return ok;
+    ok
 }
 #[c2rust::src_loc = "360:1"]
 unsafe extern "C" fn parse_ident_name(
@@ -1298,12 +1294,10 @@ unsafe extern "C" fn parse_ident_name(
         *is_name_all = true_0 != 0;
         return true_0 != 0;
     }
-    if !expect(tp, TOK_IDENT, ident_name) {
-        if !expect(tp, TOK_STRING, ident_name) {
-            return false_0 != 0;
-        }
+    if !expect(tp, TOK_IDENT, ident_name) && !expect(tp, TOK_STRING, ident_name) {
+        return false_0 != 0;
     }
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "376:1"]
 unsafe extern "C" fn parse_names(
@@ -1424,7 +1418,7 @@ unsafe extern "C" fn parse_names(
             break;
         }
     }
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "447:1"]
 unsafe extern "C" fn rule_free(mut rule: *mut HBARule) {
@@ -1455,7 +1449,7 @@ unsafe extern "C" fn parse_addr(
     } else {
         return false_0 != 0;
     }
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "467:1"]
 unsafe extern "C" fn parse_nmask(
@@ -1487,7 +1481,7 @@ unsafe extern "C" fn parse_nmask(
                 .wrapping_sub(bits.wrapping_rem(8 as ::core::ffi::c_ulong)))
             as uint8_t;
     }
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "490:1"]
 unsafe extern "C" fn bad_mask(mut haddress: *mut HBAAddress) -> bool {
@@ -1506,7 +1500,7 @@ unsafe extern "C" fn bad_mask(mut haddress: *mut HBAAddress) -> bool {
             as uint8_t;
         i += 1;
     }
-    return res != 0;
+    res != 0
 }
 #[c2rust::src_loc = "499:1"]
 unsafe extern "C" fn match_map(
@@ -1529,7 +1523,7 @@ unsafe extern "C" fn match_map(
         }
         el = (*el).next;
     }
-    return false_0 != 0;
+    false_0 != 0
 }
 #[c2rust::src_loc = "519:1"]
 unsafe extern "C" fn parse_map_definition(
@@ -1576,7 +1570,7 @@ unsafe extern "C" fn parse_map_definition(
         );
         return false_0 != 0;
     }
-    return true_0 != 0;
+    true_0 != 0
 }
 #[c2rust::src_loc = "545:1"]
 unsafe extern "C" fn mapping_free(mut mapping: *mut Mapping) {
@@ -1621,7 +1615,7 @@ unsafe extern "C" fn find_ident_map(
         }
         el = (*el).next;
     }
-    return false_0 != 0;
+    false_0 != 0
 }
 #[c2rust::src_loc = "584:1"]
 unsafe extern "C" fn parse_ident_line(
@@ -1775,7 +1769,7 @@ unsafe extern "C" fn parse_ident_line(
     mapping_free(mapping);
     ident_map_free(ident_map);
     free(map_name_copy as *mut ::core::ffi::c_void);
-    return false_0 != 0;
+    false_0 != 0
 }
 #[c2rust::src_loc = "682:1"]
 unsafe extern "C" fn parse_line(
@@ -1825,222 +1819,214 @@ unsafe extern "C" fn parse_line(
         return false_0 != 0;
     }
     (*rule).rule_type = rtype;
-    if parse_names(&raw mut (*rule).db_name, tp, true_0 != 0, parent_filename) {
-        if parse_names(&raw mut (*rule).user_name, tp, true_0 != 0, parent_filename) {
-            if rtype as ::core::ffi::c_uint
-                == RULE_LOCAL as ::core::ffi::c_int as ::core::ffi::c_uint
-            {
-                (*rule).address.family = AF_UNIX;
-                current_block = 981995395831942902;
-            } else if eat_kw(tp, b"all\0" as *const u8 as *const ::core::ffi::c_char) {
-                (*rule).address.flags |= ADDRESS_ALL as ::core::ffi::c_uint;
-                current_block = 981995395831942902;
-            } else if !expect(tp, TOK_IDENT, &raw mut addr) {
-                let mut _log_ctx_1 = NULL;
+    if parse_names(&raw mut (*rule).db_name, tp, true_0 != 0, parent_filename)
+        && parse_names(&raw mut (*rule).user_name, tp, true_0 != 0, parent_filename)
+    {
+        if rtype as ::core::ffi::c_uint == RULE_LOCAL as ::core::ffi::c_int as ::core::ffi::c_uint {
+            (*rule).address.family = AF_UNIX;
+            current_block = 981995395831942902;
+        } else if eat_kw(tp, b"all\0" as *const u8 as *const ::core::ffi::c_char) {
+            (*rule).address.flags |= ADDRESS_ALL as ::core::ffi::c_uint;
+            current_block = 981995395831942902;
+        } else if !expect(tp, TOK_IDENT, &raw mut addr) {
+            let mut _log_ctx_1 = NULL;
+            log_generic(
+                LG_WARNING,
+                _log_ctx_1,
+                b"hba line %d: did not find address - %d - '%s'\0" as *const u8
+                    as *const ::core::ffi::c_char,
+                linenr,
+                (*tp).cur_tok as ::core::ffi::c_uint,
+                (*tp).buf,
+            );
+            current_block = 10970100966140617357;
+        } else {
+            nmask = strchr(addr, '/' as i32);
+            if !nmask.is_null() {
+                let fresh1 = nmask;
+                nmask = nmask.offset(1);
+                *fresh1 = 0 as ::core::ffi::c_char;
+            }
+            if !parse_addr(&raw mut (*rule).address, addr) {
+                let mut _log_ctx_2 = NULL;
                 log_generic(
                     LG_WARNING,
-                    _log_ctx_1,
-                    b"hba line %d: did not find address - %d - '%s'\0" as *const u8
+                    _log_ctx_2,
+                    b"hba line %d: failed to parse address - %s\0" as *const u8
                         as *const ::core::ffi::c_char,
                     linenr,
-                    (*tp).cur_tok as ::core::ffi::c_uint,
-                    (*tp).buf,
+                    addr,
                 );
                 current_block = 10970100966140617357;
             } else {
-                nmask = strchr(addr, '/' as i32);
                 if !nmask.is_null() {
-                    let fresh1 = nmask;
-                    nmask = nmask.offset(1);
-                    *fresh1 = 0 as ::core::ffi::c_char;
-                }
-                if !parse_addr(&raw mut (*rule).address, addr) {
-                    let mut _log_ctx_2 = NULL;
-                    log_generic(
-                        LG_WARNING,
-                        _log_ctx_2,
-                        b"hba line %d: failed to parse address - %s\0" as *const u8
-                            as *const ::core::ffi::c_char,
-                        linenr,
-                        addr,
-                    );
-                    current_block = 10970100966140617357;
-                } else {
-                    if !nmask.is_null() {
-                        if !parse_nmask(&raw mut (*rule).address, nmask) {
-                            let mut _log_ctx_3 = NULL;
-                            log_generic(
-                                LG_WARNING,
-                                _log_ctx_3,
-                                b"hba line %d: invalid mask\0" as *const u8
-                                    as *const ::core::ffi::c_char,
-                                linenr,
-                            );
-                            current_block = 10970100966140617357;
-                        } else {
-                            next_token(tp);
-                            current_block = 2116367355679836638;
-                        }
+                    if !parse_nmask(&raw mut (*rule).address, nmask) {
+                        let mut _log_ctx_3 = NULL;
+                        log_generic(
+                            LG_WARNING,
+                            _log_ctx_3,
+                            b"hba line %d: invalid mask\0" as *const u8
+                                as *const ::core::ffi::c_char,
+                            linenr,
+                        );
+                        current_block = 10970100966140617357;
                     } else {
                         next_token(tp);
-                        if !expect(tp, TOK_IDENT, &raw mut mask) {
-                            let mut _log_ctx_4 = NULL;
-                            log_generic(
-                                LG_WARNING,
-                                _log_ctx_4,
-                                b"hba line %d: did not find mask\0" as *const u8
-                                    as *const ::core::ffi::c_char,
-                                linenr,
-                            );
-                            current_block = 10970100966140617357;
-                        } else if inet_pton(
-                            (*rule).address.family,
-                            mask,
-                            &raw mut (*rule).address.mask as *mut uint8_t
-                                as *mut ::core::ffi::c_void,
-                        ) == 0
-                        {
-                            let mut _log_ctx_5 = NULL;
-                            log_generic(
-                                LG_WARNING,
-                                _log_ctx_5,
-                                b"hba line %d: failed to parse mask: %s\0" as *const u8
-                                    as *const ::core::ffi::c_char,
-                                linenr,
-                                mask,
-                            );
-                            current_block = 10970100966140617357;
-                        } else {
-                            next_token(tp);
-                            current_block = 2116367355679836638;
-                        }
+                        current_block = 2116367355679836638;
                     }
-                    match current_block {
-                        10970100966140617357 => {}
-                        _ => {
-                            if bad_mask(&raw mut (*rule).address) {
-                                let mut buf1: [::core::ffi::c_char; 128] = [0; 128];
-                                let mut buf2: [::core::ffi::c_char; 128] = [0; 128];
-                                let mut _log_ctx_6 = NULL;
-                                log_generic(
-                                    LG_WARNING,
-                                    _log_ctx_6,
-                                    b"address does not match mask in %s line #%d: %s / %s\0"
-                                        as *const u8
-                                        as *const ::core::ffi::c_char,
-                                    parent_filename,
-                                    linenr,
-                                    inet_ntop(
-                                        (*rule).address.family,
-                                        &raw mut (*rule).address.addr as *mut uint8_t
-                                            as *const ::core::ffi::c_void,
-                                        &raw mut buf1 as *mut ::core::ffi::c_char,
-                                        ::core::mem::size_of::<[::core::ffi::c_char; 128]>()
-                                            as socklen_t,
-                                    ),
-                                    inet_ntop(
-                                        (*rule).address.family,
-                                        &raw mut (*rule).address.mask as *mut uint8_t
-                                            as *const ::core::ffi::c_void,
-                                        &raw mut buf2 as *mut ::core::ffi::c_char,
-                                        ::core::mem::size_of::<[::core::ffi::c_char; 128]>()
-                                            as socklen_t,
-                                    ),
-                                );
-                            }
-                            current_block = 981995395831942902;
+                } else {
+                    next_token(tp);
+                    if !expect(tp, TOK_IDENT, &raw mut mask) {
+                        let mut _log_ctx_4 = NULL;
+                        log_generic(
+                            LG_WARNING,
+                            _log_ctx_4,
+                            b"hba line %d: did not find mask\0" as *const u8
+                                as *const ::core::ffi::c_char,
+                            linenr,
+                        );
+                        current_block = 10970100966140617357;
+                    } else if inet_pton(
+                        (*rule).address.family,
+                        mask,
+                        &raw mut (*rule).address.mask as *mut uint8_t as *mut ::core::ffi::c_void,
+                    ) == 0
+                    {
+                        let mut _log_ctx_5 = NULL;
+                        log_generic(
+                            LG_WARNING,
+                            _log_ctx_5,
+                            b"hba line %d: failed to parse mask: %s\0" as *const u8
+                                as *const ::core::ffi::c_char,
+                            linenr,
+                            mask,
+                        );
+                        current_block = 10970100966140617357;
+                    } else {
+                        next_token(tp);
+                        current_block = 2116367355679836638;
+                    }
+                }
+                match current_block {
+                    10970100966140617357 => {}
+                    _ => {
+                        if bad_mask(&raw mut (*rule).address) {
+                            let mut buf1: [::core::ffi::c_char; 128] = [0; 128];
+                            let mut buf2: [::core::ffi::c_char; 128] = [0; 128];
+                            let mut _log_ctx_6 = NULL;
+                            log_generic(
+                                LG_WARNING,
+                                _log_ctx_6,
+                                b"address does not match mask in %s line #%d: %s / %s\0"
+                                    as *const u8
+                                    as *const ::core::ffi::c_char,
+                                parent_filename,
+                                linenr,
+                                inet_ntop(
+                                    (*rule).address.family,
+                                    &raw mut (*rule).address.addr as *mut uint8_t
+                                        as *const ::core::ffi::c_void,
+                                    &raw mut buf1 as *mut ::core::ffi::c_char,
+                                    ::core::mem::size_of::<[::core::ffi::c_char; 128]>()
+                                        as socklen_t,
+                                ),
+                                inet_ntop(
+                                    (*rule).address.family,
+                                    &raw mut (*rule).address.mask as *mut uint8_t
+                                        as *const ::core::ffi::c_void,
+                                    &raw mut buf2 as *mut ::core::ffi::c_char,
+                                    ::core::mem::size_of::<[::core::ffi::c_char; 128]>()
+                                        as socklen_t,
+                                ),
+                            );
                         }
+                        current_block = 981995395831942902;
                     }
                 }
             }
-            match current_block {
-                10970100966140617357 => {}
-                _ => {
-                    if eat_kw(tp, b"trust\0" as *const u8 as *const ::core::ffi::c_char) {
-                        (*rule).rule_method = AUTH_TYPE_TRUST as ::core::ffi::c_int;
-                        current_block = 200744462051969938;
-                    } else if eat_kw(tp, b"reject\0" as *const u8 as *const ::core::ffi::c_char) {
-                        (*rule).rule_method = AUTH_TYPE_REJECT as ::core::ffi::c_int;
-                        current_block = 200744462051969938;
-                    } else if eat_kw(tp, b"md5\0" as *const u8 as *const ::core::ffi::c_char) {
-                        (*rule).rule_method = AUTH_TYPE_MD5 as ::core::ffi::c_int;
-                        current_block = 200744462051969938;
-                    } else if eat_kw(tp, b"password\0" as *const u8 as *const ::core::ffi::c_char) {
-                        (*rule).rule_method = AUTH_TYPE_PLAIN as ::core::ffi::c_int;
-                        current_block = 200744462051969938;
-                    } else if eat_kw(tp, b"peer\0" as *const u8 as *const ::core::ffi::c_char) {
-                        (*rule).rule_method = AUTH_TYPE_PEER as ::core::ffi::c_int;
-                        current_block = 200744462051969938;
-                    } else if eat_kw(tp, b"cert\0" as *const u8 as *const ::core::ffi::c_char) {
-                        (*rule).rule_method = AUTH_TYPE_CERT as ::core::ffi::c_int;
-                        current_block = 200744462051969938;
-                    } else if eat_kw(
-                        tp,
-                        b"scram-sha-256\0" as *const u8 as *const ::core::ffi::c_char,
-                    ) {
-                        (*rule).rule_method = AUTH_TYPE_SCRAM_SHA_256 as ::core::ffi::c_int;
-                        current_block = 200744462051969938;
-                    } else if check_kw(tp, b"ldap\0" as *const u8 as *const ::core::ffi::c_char) {
-                        (*rule).rule_method = AUTH_TYPE_LDAP as ::core::ffi::c_int;
-                        current_block = 200744462051969938;
-                    } else {
-                        let mut _log_ctx_7 = NULL;
-                        log_generic(
-                            LG_WARNING,
-                            _log_ctx_7,
-                            b"hba line %d: unsupported method: buf=%s\0" as *const u8
-                                as *const ::core::ffi::c_char,
-                            linenr,
-                            (*tp).buf,
-                        );
-                        current_block = 10970100966140617357;
-                    }
-                    match current_block {
-                        10970100966140617357 => {}
-                        _ => {
-                            if (*rule).rule_method == AUTH_TYPE_LDAP as ::core::ffi::c_int {
-                                (*rule).auth_options = strdup((*tp).pos);
-                                if (*rule).auth_options.is_null() {
-                                    let mut _log_ctx_8 = NULL;
-                                    log_generic(
-                                        LG_WARNING,
-                                        _log_ctx_8,
-                                        b"hba line %d: cannot get auth_options: buf=%s\0"
-                                            as *const u8
-                                            as *const ::core::ffi::c_char,
-                                        linenr,
-                                        (*tp).pos,
-                                    );
-                                    current_block = 10970100966140617357;
-                                } else {
-                                    eat_all(tp);
-                                    current_block = 6014157347423944569;
-                                }
+        }
+        match current_block {
+            10970100966140617357 => {}
+            _ => {
+                if eat_kw(tp, b"trust\0" as *const u8 as *const ::core::ffi::c_char) {
+                    (*rule).rule_method = AUTH_TYPE_TRUST as ::core::ffi::c_int;
+                    current_block = 200744462051969938;
+                } else if eat_kw(tp, b"reject\0" as *const u8 as *const ::core::ffi::c_char) {
+                    (*rule).rule_method = AUTH_TYPE_REJECT as ::core::ffi::c_int;
+                    current_block = 200744462051969938;
+                } else if eat_kw(tp, b"md5\0" as *const u8 as *const ::core::ffi::c_char) {
+                    (*rule).rule_method = AUTH_TYPE_MD5 as ::core::ffi::c_int;
+                    current_block = 200744462051969938;
+                } else if eat_kw(tp, b"password\0" as *const u8 as *const ::core::ffi::c_char) {
+                    (*rule).rule_method = AUTH_TYPE_PLAIN as ::core::ffi::c_int;
+                    current_block = 200744462051969938;
+                } else if eat_kw(tp, b"peer\0" as *const u8 as *const ::core::ffi::c_char) {
+                    (*rule).rule_method = AUTH_TYPE_PEER as ::core::ffi::c_int;
+                    current_block = 200744462051969938;
+                } else if eat_kw(tp, b"cert\0" as *const u8 as *const ::core::ffi::c_char) {
+                    (*rule).rule_method = AUTH_TYPE_CERT as ::core::ffi::c_int;
+                    current_block = 200744462051969938;
+                } else if eat_kw(
+                    tp,
+                    b"scram-sha-256\0" as *const u8 as *const ::core::ffi::c_char,
+                ) {
+                    (*rule).rule_method = AUTH_TYPE_SCRAM_SHA_256 as ::core::ffi::c_int;
+                    current_block = 200744462051969938;
+                } else if check_kw(tp, b"ldap\0" as *const u8 as *const ::core::ffi::c_char) {
+                    (*rule).rule_method = AUTH_TYPE_LDAP as ::core::ffi::c_int;
+                    current_block = 200744462051969938;
+                } else {
+                    let mut _log_ctx_7 = NULL;
+                    log_generic(
+                        LG_WARNING,
+                        _log_ctx_7,
+                        b"hba line %d: unsupported method: buf=%s\0" as *const u8
+                            as *const ::core::ffi::c_char,
+                        linenr,
+                        (*tp).buf,
+                    );
+                    current_block = 10970100966140617357;
+                }
+                match current_block {
+                    10970100966140617357 => {}
+                    _ => {
+                        if (*rule).rule_method == AUTH_TYPE_LDAP as ::core::ffi::c_int {
+                            (*rule).auth_options = strdup((*tp).pos);
+                            if (*rule).auth_options.is_null() {
+                                let mut _log_ctx_8 = NULL;
+                                log_generic(
+                                    LG_WARNING,
+                                    _log_ctx_8,
+                                    b"hba line %d: cannot get auth_options: buf=%s\0" as *const u8
+                                        as *const ::core::ffi::c_char,
+                                    linenr,
+                                    (*tp).pos,
+                                );
+                                current_block = 10970100966140617357;
                             } else {
+                                eat_all(tp);
                                 current_block = 6014157347423944569;
                             }
-                            match current_block {
-                                10970100966140617357 => {}
-                                _ => {
-                                    if parse_map_definition(rule, ident, tp, linenr) {
-                                        if !eat(tp, TOK_EOL) {
-                                            let mut _log_ctx_9 = NULL;
-                                            log_generic(
-                                                LG_WARNING,
-                                                _log_ctx_9,
-                                                b"hba line %d: unsupported parameters\0"
-                                                    as *const u8
-                                                    as *const ::core::ffi::c_char,
-                                                linenr,
-                                            );
-                                        } else {
-                                            (*rule).hba_linenr = linenr;
-                                            list_append(
-                                                &raw mut (*hba).rules,
-                                                &raw mut (*rule).node,
-                                            );
-                                            return true_0 != 0;
-                                        }
+                        } else {
+                            current_block = 6014157347423944569;
+                        }
+                        match current_block {
+                            10970100966140617357 => {}
+                            _ => {
+                                if parse_map_definition(rule, ident, tp, linenr) {
+                                    if !eat(tp, TOK_EOL) {
+                                        let mut _log_ctx_9 = NULL;
+                                        log_generic(
+                                            LG_WARNING,
+                                            _log_ctx_9,
+                                            b"hba line %d: unsupported parameters\0" as *const u8
+                                                as *const ::core::ffi::c_char,
+                                            linenr,
+                                        );
+                                    } else {
+                                        (*rule).hba_linenr = linenr;
+                                        list_append(&raw mut (*hba).rules, &raw mut (*rule).node);
+                                        return true_0 != 0;
                                     }
                                 }
                             }
@@ -2051,7 +2037,7 @@ unsafe extern "C" fn parse_line(
         }
     }
     rule_free(rule);
-    return false_0 != 0;
+    false_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "807:1"]
@@ -2114,7 +2100,7 @@ pub unsafe extern "C" fn ident_load_map(mut fn_0: *const ::core::ffi::c_char) ->
     if !f.is_null() {
         fclose(f);
     }
-    return ident;
+    ident
 }
 #[no_mangle]
 #[c2rust::src_loc = "860:1"]
@@ -2177,7 +2163,7 @@ pub unsafe extern "C" fn hba_load_rules(
     if !f.is_null() {
         fclose(f);
     }
-    return hba;
+    hba
 }
 #[no_mangle]
 #[c2rust::src_loc = "904:1"]
@@ -2239,7 +2225,7 @@ unsafe extern "C" fn name_match(
     if !(*hname).name_set.is_null() {
         return strset_contains((*hname).name_set as *mut StrSet, name, namelen);
     }
-    return false_0 != 0;
+    false_0 != 0
 }
 #[c2rust::src_loc = "945:1"]
 unsafe extern "C" fn match_inet4(mut haddress: *const HBAAddress, mut addr: *mut PgAddr) -> bool {
@@ -2252,9 +2238,8 @@ unsafe extern "C" fn match_inet4(mut haddress: *const HBAAddress, mut addr: *mut
     src = &raw mut (*addr).sin.sin_addr.s_addr as *mut uint32_t;
     base = &raw const (*haddress).addr as *const uint8_t as *mut uint32_t;
     mask = &raw const (*haddress).mask as *const uint8_t as *mut uint32_t;
-    return *src.offset(0 as ::core::ffi::c_int as isize)
-        & *mask.offset(0 as ::core::ffi::c_int as isize)
-        == *base.offset(0 as ::core::ffi::c_int as isize);
+    *src.offset(0 as ::core::ffi::c_int as isize) & *mask.offset(0 as ::core::ffi::c_int as isize)
+        == *base.offset(0 as ::core::ffi::c_int as isize)
 }
 #[c2rust::src_loc = "956:1"]
 unsafe extern "C" fn match_inet6(mut haddress: *const HBAAddress, mut addr: *mut PgAddr) -> bool {
@@ -2267,8 +2252,7 @@ unsafe extern "C" fn match_inet6(mut haddress: *const HBAAddress, mut addr: *mut
     src = &raw mut (*addr).sin6.sin6_addr.__u6_addr.__u6_addr8 as *mut __uint8_t as *mut uint32_t;
     base = &raw const (*haddress).addr as *const uint8_t as *mut uint32_t;
     mask = &raw const (*haddress).mask as *const uint8_t as *mut uint32_t;
-    return *src.offset(0 as ::core::ffi::c_int as isize)
-        & *mask.offset(0 as ::core::ffi::c_int as isize)
+    *src.offset(0 as ::core::ffi::c_int as isize) & *mask.offset(0 as ::core::ffi::c_int as isize)
         == *base.offset(0 as ::core::ffi::c_int as isize)
         && *src.offset(1 as ::core::ffi::c_int as isize)
             & *mask.offset(1 as ::core::ffi::c_int as isize)
@@ -2278,7 +2262,7 @@ unsafe extern "C" fn match_inet6(mut haddress: *const HBAAddress, mut addr: *mut
             == *base.offset(2 as ::core::ffi::c_int as isize)
         && *src.offset(3 as ::core::ffi::c_int as isize)
             & *mask.offset(3 as ::core::ffi::c_int as isize)
-            == *base.offset(3 as ::core::ffi::c_int as isize);
+            == *base.offset(3 as ::core::ffi::c_int as isize)
 }
 #[c2rust::src_loc = "968:1"]
 unsafe extern "C" fn address_match(mut haddress: *const HBAAddress, mut addr: *mut PgAddr) -> bool {
@@ -2286,10 +2270,10 @@ unsafe extern "C" fn address_match(mut haddress: *const HBAAddress, mut addr: *m
         return true_0 != 0;
     }
     match (*haddress).family {
-        AF_INET => return match_inet4(haddress, addr),
-        AF_INET6 => return match_inet6(haddress, addr),
-        _ => return false_0 != 0,
-    };
+        AF_INET => match_inet4(haddress, addr),
+        AF_INET6 => match_inet6(haddress, addr),
+        _ => false_0 != 0,
+    }
 }
 #[no_mangle]
 #[c2rust::src_loc = "982:1"]
@@ -2340,33 +2324,30 @@ pub unsafe extern "C" fn hba_eval(
         } else {
             current_block_4 = 3512920355445576850;
         }
-        match current_block_4 {
-            3512920355445576850 => {
-                if replication as ::core::ffi::c_uint
-                    == REPLICATION_PHYSICAL as ::core::ffi::c_int as ::core::ffi::c_uint
-                {
-                    if (*rule).db_name.flags & NAME_REPLICATION as ::core::ffi::c_uint == 0 {
-                        current_block_4 = 10680521327981672866;
-                    } else {
-                        current_block_4 = 15904375183555213903;
-                    }
-                } else if !name_match(&raw mut (*rule).db_name, dbname, dbnamelen, username) {
+        if current_block_4 == 3512920355445576850 {
+            if replication as ::core::ffi::c_uint
+                == REPLICATION_PHYSICAL as ::core::ffi::c_int as ::core::ffi::c_uint
+            {
+                if (*rule).db_name.flags & NAME_REPLICATION as ::core::ffi::c_uint == 0 {
                     current_block_4 = 10680521327981672866;
                 } else {
                     current_block_4 = 15904375183555213903;
                 }
-                match current_block_4 {
-                    10680521327981672866 => {}
-                    _ => {
-                        if name_match(&raw mut (*rule).user_name, username, unamelen, dbname) {
-                            return rule;
-                        }
+            } else if !name_match(&raw mut (*rule).db_name, dbname, dbnamelen, username) {
+                current_block_4 = 10680521327981672866;
+            } else {
+                current_block_4 = 15904375183555213903;
+            }
+            match current_block_4 {
+                10680521327981672866 => {}
+                _ => {
+                    if name_match(&raw mut (*rule).user_name, username, unamelen, dbname) {
+                        return rule;
                     }
                 }
             }
-            _ => {}
         }
         el = (*el).next;
     }
-    return ::core::ptr::null_mut::<HBARule>();
+    ::core::ptr::null_mut::<HBARule>()
 }

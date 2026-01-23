@@ -318,22 +318,22 @@ pub mod ctype_h {
     #[inline]
     #[c2rust::src_loc = "43:1"]
     pub unsafe extern "C" fn usual_isblank(mut c: ::core::ffi::c_int) -> ::core::ffi::c_int {
-        return (c == ' ' as i32 || c == '\t' as i32) as ::core::ffi::c_int;
+        (c == ' ' as i32 || c == '\t' as i32) as ::core::ffi::c_int
     }
     #[inline]
     #[c2rust::src_loc = "55:1"]
     pub unsafe extern "C" fn safe_isalnum(mut c: ::core::ffi::c_int) -> ::core::ffi::c_int {
-        return isalnum(c as ::core::ffi::c_uchar as ::core::ffi::c_int);
+        isalnum(c as ::core::ffi::c_uchar as ::core::ffi::c_int)
     }
     #[inline]
     #[c2rust::src_loc = "70:1"]
     pub unsafe extern "C" fn safe_isblank(mut c: ::core::ffi::c_int) -> ::core::ffi::c_int {
-        return usual_isblank(c as ::core::ffi::c_uchar as ::core::ffi::c_int);
+        usual_isblank(c as ::core::ffi::c_uchar as ::core::ffi::c_int)
     }
     #[inline]
     #[c2rust::src_loc = "105:1"]
     pub unsafe extern "C" fn safe_isspace(mut c: ::core::ffi::c_int) -> ::core::ffi::c_int {
-        return isspace(c as ::core::ffi::c_uchar as ::core::ffi::c_int);
+        isspace(c as ::core::ffi::c_uchar as ::core::ffi::c_int)
     }
     use super::_ctype_h::{isalnum, isspace};
 }
@@ -348,8 +348,7 @@ pub mod _ctype_h {
     #[inline]
     #[c2rust::src_loc = "139:1"]
     pub unsafe extern "C" fn isascii(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
-        return (_c & !(0x7f as ::core::ffi::c_int) == 0 as ::core::ffi::c_int)
-            as ::core::ffi::c_int;
+        (_c & !(0x7f as ::core::ffi::c_int) == 0 as ::core::ffi::c_int) as ::core::ffi::c_int
     }
     #[inline]
     #[c2rust::src_loc = "157:1"]
@@ -357,27 +356,27 @@ pub mod _ctype_h {
         mut _c: __darwin_ct_rune_t,
         mut _f: ::core::ffi::c_ulong,
     ) -> ::core::ffi::c_int {
-        return if isascii(_c as ::core::ffi::c_int) != 0 {
+        if isascii(_c as ::core::ffi::c_int) != 0 {
             (_DefaultRuneLocale.__runetype[_c as usize] as ::core::ffi::c_ulong & _f != 0)
                 as ::core::ffi::c_int
         } else {
             (__maskrune(_c, _f) != 0) as ::core::ffi::c_int
-        };
+        }
     }
     #[no_mangle]
     #[inline]
     #[linkage = "external"]
     #[c2rust::src_loc = "216:1"]
     pub unsafe extern "C" fn isalnum(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
-        return __istype(
+        __istype(
             _c as __darwin_ct_rune_t,
             (_CTYPE_A | _CTYPE_D) as ::core::ffi::c_ulong,
-        );
+        )
     }
     #[inline]
     #[c2rust::src_loc = "271:1"]
     pub unsafe extern "C" fn isspace(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
-        return __istype(_c as __darwin_ct_rune_t, _CTYPE_S as ::core::ffi::c_ulong);
+        __istype(_c as __darwin_ct_rune_t, _CTYPE_S as ::core::ffi::c_ulong)
     }
     use super::_types_h::__darwin_ct_rune_t;
     use super::runetype_h::_DefaultRuneLocale;
@@ -559,7 +558,7 @@ unsafe extern "C" fn count_lines(
         }
         s = s.offset(1);
     }
-    return lineno;
+    lineno
 }
 #[c2rust::src_loc = "47:1"]
 unsafe extern "C" fn parse_ini_file_internal(
@@ -592,7 +591,7 @@ unsafe extern "C" fn parse_ini_file_internal(
     }
     p = buf;
     loop {
-        if !(*p != 0) {
+        if *p == 0 {
             current_block = 5706507068631705000;
             break;
         }
@@ -878,7 +877,7 @@ unsafe extern "C" fn parse_ini_file_internal(
         _ => {}
     }
     free(buf as *mut ::core::ffi::c_void);
-    return false_0 != 0;
+    false_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "203:1"]
@@ -887,7 +886,7 @@ pub unsafe extern "C" fn parse_ini_file(
     mut user_handler: cf_handler_f,
     mut arg: *mut ::core::ffi::c_void,
 ) -> bool {
-    return parse_ini_file_internal(fn_0, user_handler, arg, 0 as ::core::ffi::c_int);
+    parse_ini_file_internal(fn_0, user_handler, arg, 0 as ::core::ffi::c_int)
 }
 #[c2rust::src_loc = "212:1"]
 unsafe extern "C" fn get_dest(
@@ -899,11 +898,11 @@ unsafe extern "C" fn get_dest(
         if base.is_null() {
             return NULL;
         }
-        dst = (base as *mut ::core::ffi::c_char).offset((*k).key_ofs as isize);
+        dst = (base as *mut ::core::ffi::c_char).add((*k).key_ofs);
     } else {
         dst = (*k).key_ofs as *mut ::core::ffi::c_char;
     }
-    return dst as *mut ::core::ffi::c_void;
+    dst as *mut ::core::ffi::c_void
 }
 #[c2rust::src_loc = "226:1"]
 unsafe extern "C" fn find_sect(
@@ -925,7 +924,7 @@ unsafe extern "C" fn find_sect(
         }
         s = s.offset(1);
     }
-    return ::core::ptr::null::<CfSect>();
+    ::core::ptr::null::<CfSect>()
 }
 #[c2rust::src_loc = "238:1"]
 unsafe extern "C" fn find_key(
@@ -940,7 +939,7 @@ unsafe extern "C" fn find_key(
         }
         k = k.offset(1);
     }
-    return ::core::ptr::null::<CfKey>();
+    ::core::ptr::null::<CfKey>()
 }
 #[no_mangle]
 #[c2rust::src_loc = "248:1"]
@@ -989,7 +988,7 @@ pub unsafe extern "C" fn cf_get(
     cv.value_p = p;
     cv.buf = buf;
     cv.buflen = buflen;
-    return (*k).op.getter.expect("non-null function pointer")(&raw mut cv);
+    (*k).op.getter.expect("non-null function pointer")(&raw mut cv)
 }
 #[no_mangle]
 #[c2rust::src_loc = "288:1"]
@@ -1063,7 +1062,7 @@ pub unsafe extern "C" fn cf_set(
     cv.value_p = p;
     cv.buf = ::core::ptr::null_mut::<::core::ffi::c_char>();
     cv.buflen = 0 as ::core::ffi::c_int;
-    return (*k).op.setter.expect("non-null function pointer")(&raw mut cv, val);
+    (*k).op.setter.expect("non-null function pointer")(&raw mut cv, val)
 }
 #[c2rust::src_loc = "349:1"]
 unsafe extern "C" fn fill_defaults(mut ctx: *mut LoaderCtx) -> bool {
@@ -1075,13 +1074,13 @@ unsafe extern "C" fn fill_defaults(mut ctx: *mut LoaderCtx) -> bool {
         if s == (*(*ctx).cf).sect_list {
             (*ctx).got_main_sect = true_0 != 0;
         }
-        if (*s).section_start.is_some() {
-            if !(*s).section_start.expect("non-null function pointer")(
+        if (*s).section_start.is_some()
+            && !(*s).section_start.expect("non-null function pointer")(
                 (*ctx).top_base,
                 (*ctx).cur_sect,
-            ) {
-                return false_0 != 0;
-            }
+            )
+        {
+            return false_0 != 0;
         }
         if (*s).set_key.is_some() {
             return true_0 != 0;
@@ -1092,15 +1091,13 @@ unsafe extern "C" fn fill_defaults(mut ctx: *mut LoaderCtx) -> bool {
                 current_block = 3512920355445576850;
                 break;
             }
-            if !((*k).def_value.is_null() || (*k).flags & CF_READONLY != 0) {
-                if !((*k).flags & CF_NO_RELOAD != 0
+            if !((*k).def_value.is_null() || (*k).flags & CF_READONLY != 0)
+                && !((*k).flags & CF_NO_RELOAD != 0
                     && (*(*ctx).cf).loaded as ::core::ffi::c_int != 0)
-                {
-                    if !cf_set((*ctx).cf, (*ctx).cur_sect, (*k).key_name, (*k).def_value) {
-                        current_block = 15255303563108543441;
-                        break;
-                    }
-                }
+                && !cf_set((*ctx).cf, (*ctx).cur_sect, (*k).key_name, (*k).def_value)
+            {
+                current_block = 15255303563108543441;
+                break;
             }
             k = k.offset(1);
         }
@@ -1115,7 +1112,7 @@ unsafe extern "C" fn fill_defaults(mut ctx: *mut LoaderCtx) -> bool {
         _log_ctx,
         b"fill_defaults fail\0" as *const u8 as *const ::core::ffi::c_char,
     );
-    return false_0 != 0;
+    false_0 != 0
 }
 #[c2rust::src_loc = "383:1"]
 unsafe extern "C" fn load_handler(
@@ -1131,7 +1128,7 @@ unsafe extern "C" fn load_handler(
         if (*ctx).cur_sect.is_null() {
             return false_0 != 0;
         }
-        return fill_defaults(ctx);
+        fill_defaults(ctx)
     } else if (*ctx).cur_sect.is_null() {
         let mut _log_ctx = NULL;
         log_generic(
@@ -1141,10 +1138,10 @@ unsafe extern "C" fn load_handler(
                 as *const ::core::ffi::c_char,
             key,
         );
-        return false_0 != 0;
+        false_0 != 0
     } else {
-        return cf_set((*ctx).cf, (*ctx).cur_sect, key, val);
-    };
+        cf_set((*ctx).cf, (*ctx).cur_sect, key, val)
+    }
 }
 #[no_mangle]
 #[c2rust::src_loc = "401:1"]
@@ -1189,7 +1186,7 @@ pub unsafe extern "C" fn cf_load_file(
         );
         return false_0 != 0;
     }
-    return ok;
+    ok
 }
 #[no_mangle]
 #[c2rust::src_loc = "421:1"]
@@ -1202,16 +1199,14 @@ pub unsafe extern "C" fn cf_set_int(
     let mut val: ::core::ffi::c_long = 0;
     *__error() = 0 as ::core::ffi::c_int;
     val = strtol(value, &raw mut end, 0 as ::core::ffi::c_int);
-    if end == value as *mut ::core::ffi::c_char
-        || *end as ::core::ffi::c_int != 0 as ::core::ffi::c_int
-    {
+    if std::ptr::eq(end, value) || *end as ::core::ffi::c_int != 0 as ::core::ffi::c_int {
         if *__error() == 0 {
             *__error() = EINVAL;
         }
         return false_0 != 0;
     }
     *ptr = val as ::core::ffi::c_int;
-    return true_0 != 0;
+    true_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "439:1"]
@@ -1224,16 +1219,14 @@ pub unsafe extern "C" fn cf_set_uint(
     let mut val: ::core::ffi::c_ulong = 0;
     *__error() = 0 as ::core::ffi::c_int;
     val = strtoul(value, &raw mut end, 0 as ::core::ffi::c_int);
-    if end == value as *mut ::core::ffi::c_char
-        || *end as ::core::ffi::c_int != 0 as ::core::ffi::c_int
-    {
+    if std::ptr::eq(end, value) || *end as ::core::ffi::c_int != 0 as ::core::ffi::c_int {
         if *__error() == 0 {
             *__error() = EINVAL;
         }
         return false_0 != 0;
     }
     *ptr = val as ::core::ffi::c_uint;
-    return true_0 != 0;
+    true_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "457:1"]
@@ -1254,7 +1247,7 @@ pub unsafe extern "C" fn cf_set_str(
     }
     free(*dst_p as *mut ::core::ffi::c_void);
     *dst_p = tmp;
-    return true_0 != 0;
+    true_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "471:1"]
@@ -1319,48 +1312,40 @@ pub unsafe extern "C" fn cf_set_filename(
             current_block = 5689001924483802034;
         }
     }
-    match current_block {
-        5689001924483802034 => {
-            if !home.is_null() {
-                home_len = strlen(home) as ::core::ffi::c_int;
-                tmp = malloc((v_len - usr_len + home_len) as size_t) as *mut ::core::ffi::c_char;
-                if tmp.is_null() {
-                    return false_0 != 0;
-                }
-                memcpy(
-                    tmp as *mut ::core::ffi::c_void,
-                    home as *const ::core::ffi::c_void,
-                    home_len as size_t,
-                );
-                memcpy(
-                    tmp.offset(home_len as isize) as *mut ::core::ffi::c_void,
-                    value
-                        .offset(usr_len as isize)
-                        .offset(1 as ::core::ffi::c_int as isize)
-                        as *const ::core::ffi::c_void,
-                    (v_len - usr_len - 1 as ::core::ffi::c_int) as size_t,
-                );
-                *tmp.offset((v_len - 1 as ::core::ffi::c_int - usr_len + home_len) as isize) =
-                    0 as ::core::ffi::c_char;
-                let mut _log_ctx = NULL;
-                if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int
-                    as ::core::ffi::c_long
-                    != 0
-                {
-                    log_generic(
-                        LG_DEBUG,
-                        _log_ctx,
-                        b"expanded '%s' -> '%s'\0" as *const u8 as *const ::core::ffi::c_char,
-                        value,
-                        tmp,
-                    );
-                }
-                free(*dst_p as *mut ::core::ffi::c_void);
-                *dst_p = tmp;
-                return true_0 != 0;
-            }
+    if current_block == 5689001924483802034 && !home.is_null() {
+        home_len = strlen(home) as ::core::ffi::c_int;
+        tmp = malloc((v_len - usr_len + home_len) as size_t) as *mut ::core::ffi::c_char;
+        if tmp.is_null() {
+            return false_0 != 0;
         }
-        _ => {}
+        memcpy(
+            tmp as *mut ::core::ffi::c_void,
+            home as *const ::core::ffi::c_void,
+            home_len as size_t,
+        );
+        memcpy(
+            tmp.offset(home_len as isize) as *mut ::core::ffi::c_void,
+            value
+                .offset(usr_len as isize)
+                .offset(1 as ::core::ffi::c_int as isize) as *const ::core::ffi::c_void,
+            (v_len - usr_len - 1 as ::core::ffi::c_int) as size_t,
+        );
+        *tmp.offset((v_len - 1 as ::core::ffi::c_int - usr_len + home_len) as isize) =
+            0 as ::core::ffi::c_char;
+        let mut _log_ctx = NULL;
+        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        {
+            log_generic(
+                LG_DEBUG,
+                _log_ctx,
+                b"expanded '%s' -> '%s'\0" as *const u8 as *const ::core::ffi::c_char,
+                value,
+                tmp,
+            );
+        }
+        free(*dst_p as *mut ::core::ffi::c_void);
+        *dst_p = tmp;
+        return true_0 != 0;
     }
     let mut _log_ctx_0 = NULL;
     log_generic(
@@ -1369,7 +1354,7 @@ pub unsafe extern "C" fn cf_set_filename(
         b"cannot to expand filename: %s\0" as *const u8 as *const ::core::ffi::c_char,
         value,
     );
-    return false_0 != 0;
+    false_0 != 0
 }
 #[c2rust::src_loc = "531:1"]
 unsafe extern "C" fn parse_time(mut value: *const ::core::ffi::c_char) -> ::core::ffi::c_double {
@@ -1381,13 +1366,13 @@ unsafe extern "C" fn parse_time(mut value: *const ::core::ffi::c_char) -> ::core
         return -(1 as ::core::ffi::c_int) as ::core::ffi::c_double;
     }
     if *endp as ::core::ffi::c_int != 0
-        || endp == value as *mut ::core::ffi::c_char
+        || std::ptr::eq(endp, value)
         || v < 0 as ::core::ffi::c_int as ::core::ffi::c_double
     {
         *__error() = EINVAL;
         return -(1 as ::core::ffi::c_int) as ::core::ffi::c_double;
     }
-    return v;
+    v
 }
 #[no_mangle]
 #[c2rust::src_loc = "547:1"]
@@ -1401,7 +1386,7 @@ pub unsafe extern "C" fn cf_set_time_usec(
         return false_0 != 0;
     }
     *ptr = (USEC as ::core::ffi::c_double * v) as usec_t;
-    return true_0 != 0;
+    true_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "557:1"]
@@ -1415,13 +1400,13 @@ pub unsafe extern "C" fn cf_set_time_double(
         return false_0 != 0;
     }
     *ptr = v;
-    return true_0 != 0;
+    true_0 != 0
 }
 #[no_mangle]
 #[c2rust::src_loc = "571:1"]
 pub unsafe extern "C" fn cf_get_str(mut cv: *mut CfValue) -> *const ::core::ffi::c_char {
     let mut p = (*cv).value_p as *mut *mut ::core::ffi::c_char;
-    return *p;
+    *p
 }
 #[no_mangle]
 #[c2rust::src_loc = "577:1"]
@@ -1433,7 +1418,7 @@ pub unsafe extern "C" fn cf_get_int(mut cv: *mut CfValue) -> *const ::core::ffi:
         b"%d\0" as *const u8 as *const ::core::ffi::c_char,
         *p,
     );
-    return (*cv).buf;
+    (*cv).buf
 }
 #[no_mangle]
 #[c2rust::src_loc = "584:1"]
@@ -1445,7 +1430,7 @@ pub unsafe extern "C" fn cf_get_uint(mut cv: *mut CfValue) -> *const ::core::ffi
         b"%u\0" as *const u8 as *const ::core::ffi::c_char,
         *p,
     );
-    return (*cv).buf;
+    (*cv).buf
 }
 #[no_mangle]
 #[c2rust::src_loc = "591:1"]
@@ -1457,7 +1442,7 @@ pub unsafe extern "C" fn cf_get_time_double(mut cv: *mut CfValue) -> *const ::co
         b"%g\0" as *const u8 as *const ::core::ffi::c_char,
         *p,
     );
-    return (*cv).buf;
+    (*cv).buf
 }
 #[no_mangle]
 #[c2rust::src_loc = "598:1"]
@@ -1466,7 +1451,7 @@ pub unsafe extern "C" fn cf_get_time_usec(mut cv: *mut CfValue) -> *const ::core
     let mut p = (*cv).value_p as *mut usec_t;
     let mut d = *p as ::core::ffi::c_double / USEC as ::core::ffi::c_double;
     tmp.value_p = &raw mut d as *mut ::core::ffi::c_void;
-    return cf_get_time_double(&raw mut tmp);
+    cf_get_time_double(&raw mut tmp)
 }
 #[no_mangle]
 #[c2rust::src_loc = "611:1"]
@@ -1479,7 +1464,7 @@ pub unsafe extern "C" fn cf_get_lookup(mut cv: *mut CfValue) -> *const ::core::f
         }
         lk = lk.offset(1);
     }
-    return b"INVALID\0" as *const u8 as *const ::core::ffi::c_char;
+    b"INVALID\0" as *const u8 as *const ::core::ffi::c_char
 }
 #[no_mangle]
 #[c2rust::src_loc = "622:1"]
@@ -1496,5 +1481,5 @@ pub unsafe extern "C" fn cf_set_lookup(
         }
         lk = lk.offset(1);
     }
-    return false_0 != 0;
+    false_0 != 0
 }

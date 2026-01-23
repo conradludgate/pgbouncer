@@ -49,7 +49,7 @@ pub unsafe extern "C" fn xmalloc(mut len: size_t) -> *mut ::core::ffi::c_void {
             b"no mem\0" as *const u8 as *const ::core::ffi::c_char,
         );
     }
-    return p;
+    p
 }
 #[no_mangle]
 #[c2rust::src_loc = "114:1"]
@@ -64,7 +64,7 @@ pub unsafe extern "C" fn xrealloc(
             b"no mem\0" as *const u8 as *const ::core::ffi::c_char,
         );
     }
-    return p2;
+    p2
 }
 #[no_mangle]
 #[c2rust::src_loc = "122:1"]
@@ -76,5 +76,5 @@ pub unsafe extern "C" fn xstrdup(mut s: *const ::core::ffi::c_char) -> *mut ::co
             b"no mem\0" as *const u8 as *const ::core::ffi::c_char,
         );
     }
-    return s2 as *mut ::core::ffi::c_char;
+    s2 as *mut ::core::ffi::c_char
 }

@@ -413,7 +413,7 @@ pub unsafe extern "C" fn tls_server() -> *mut tls {
         return ::core::ptr::null_mut::<tls>();
     }
     (*ctx).flags |= TLS_SERVER as uint32_t;
-    return ctx;
+    ctx
 }
 #[no_mangle]
 #[c2rust::src_loc = "41:1"]
@@ -424,7 +424,7 @@ pub unsafe extern "C" fn tls_server_conn(mut _ctx: *mut tls) -> *mut tls {
         return ::core::ptr::null_mut::<tls>();
     }
     (*conn_ctx).flags |= TLS_SERVER_CONN as uint32_t;
-    return conn_ctx;
+    conn_ctx
 }
 #[c2rust::src_loc = "54:1"]
 static mut alpn_protos: [::core::ffi::c_uchar; 11] = [
@@ -459,16 +459,16 @@ unsafe extern "C" fn alpn_cb(
         inlen,
     );
     if (*out).is_null()
-        || *outlen as usize > ::core::mem::size_of::<[::core::ffi::c_uchar; 11]>() as usize
+        || *outlen as usize > ::core::mem::size_of::<[::core::ffi::c_uchar; 11]>()
         || *outlen as ::core::ffi::c_int <= 0 as ::core::ffi::c_int
     {
         return SSL_TLSEXT_ERR_NOACK;
     }
     if retval == OPENSSL_NPN_NEGOTIATED {
-        return SSL_TLSEXT_ERR_OK;
+        SSL_TLSEXT_ERR_OK
     } else {
-        return SSL_TLSEXT_ERR_ALERT_FATAL;
-    };
+        SSL_TLSEXT_ERR_ALERT_FATAL
+    }
 }
 #[no_mangle]
 #[c2rust::src_loc = "94:1"]
@@ -499,127 +499,122 @@ pub unsafe extern "C" fn tls_configure_server(mut ctx: *mut tls) -> ::core::ffi:
             ),
             NULL,
         );
-        if !(tls_configure_ssl(ctx) != 0 as ::core::ffi::c_int) {
-            if !(tls_configure_keypair(
+        if (tls_configure_ssl(ctx) == 0 as ::core::ffi::c_int)
+            && (tls_configure_keypair(
                 ctx,
                 (*ctx).ssl_ctx,
                 (*(*ctx).config).keypair,
                 1 as ::core::ffi::c_int,
-            ) != 0 as ::core::ffi::c_int)
-            {
-                if (*(*ctx).config).verify_client != 0 as ::core::ffi::c_int {
-                    let mut verify = SSL_VERIFY_PEER;
-                    if (*(*ctx).config).verify_client == 1 as ::core::ffi::c_int {
-                        verify |= SSL_VERIFY_FAIL_IF_NO_PEER_CERT;
-                    }
-                    if tls_configure_ssl_verify(ctx, verify) == -(1 as ::core::ffi::c_int) {
-                        current_block = 10176218473768484732;
-                    } else {
-                        current_block = 11812396948646013369;
-                    }
+            ) == 0 as ::core::ffi::c_int)
+        {
+            if (*(*ctx).config).verify_client != 0 as ::core::ffi::c_int {
+                let mut verify = SSL_VERIFY_PEER;
+                if (*(*ctx).config).verify_client == 1 as ::core::ffi::c_int {
+                    verify |= SSL_VERIFY_FAIL_IF_NO_PEER_CERT;
+                }
+                if tls_configure_ssl_verify(ctx, verify) == -(1 as ::core::ffi::c_int) {
+                    current_block = 10176218473768484732;
                 } else {
                     current_block = 11812396948646013369;
                 }
-                match current_block {
-                    10176218473768484732 => {}
-                    _ => {
-                        if (*(*ctx).config).dheparams == -(1 as ::core::ffi::c_int) {
-                            SSL_CTX_set_dh_auto((*ctx).ssl_ctx, 1 as ::core::ffi::c_int);
-                        }
-                        if (*(*ctx).config).ecdhecurve == -(1 as ::core::ffi::c_int) {
-                            SSL_CTX_set_ecdh_auto((*ctx).ssl_ctx, 1 as ::core::ffi::c_int);
+            } else {
+                current_block = 11812396948646013369;
+            }
+            match current_block {
+                10176218473768484732 => {}
+                _ => {
+                    if (*(*ctx).config).dheparams == -(1 as ::core::ffi::c_int) {
+                        SSL_CTX_set_dh_auto((*ctx).ssl_ctx, 1 as ::core::ffi::c_int);
+                    }
+                    if (*(*ctx).config).ecdhecurve == -(1 as ::core::ffi::c_int) {
+                        SSL_CTX_set_ecdh_auto((*ctx).ssl_ctx, 1 as ::core::ffi::c_int);
+                        current_block = 13242334135786603907;
+                    } else if (*(*ctx).config).ecdhecurve != NID_undef {
+                        ecdh_key = EC_KEY_new_by_curve_name((*(*ctx).config).ecdhecurve);
+                        if ecdh_key.is_null() {
+                            tls_set_errorx(
+                                ctx,
+                                b"failed to set ECDHE curve\0" as *const u8
+                                    as *const ::core::ffi::c_char,
+                            );
+                            current_block = 10176218473768484732;
+                        } else {
+                            SSL_CTX_set_options((*ctx).ssl_ctx, SSL_OP_SINGLE_ECDH_USE as uint64_t);
+                            SSL_CTX_ctrl(
+                                (*ctx).ssl_ctx,
+                                SSL_CTRL_SET_TMP_ECDH,
+                                0 as ::core::ffi::c_long,
+                                ecdh_key as *mut ::core::ffi::c_char as *mut ::core::ffi::c_void,
+                            );
+                            EC_KEY_free(ecdh_key);
                             current_block = 13242334135786603907;
-                        } else if (*(*ctx).config).ecdhecurve != NID_undef {
-                            ecdh_key = EC_KEY_new_by_curve_name((*(*ctx).config).ecdhecurve);
-                            if ecdh_key.is_null() {
-                                tls_set_errorx(
-                                    ctx,
-                                    b"failed to set ECDHE curve\0" as *const u8
-                                        as *const ::core::ffi::c_char,
-                                );
-                                current_block = 10176218473768484732;
-                            } else {
+                        }
+                    } else {
+                        current_block = 13242334135786603907;
+                    }
+                    match current_block {
+                        10176218473768484732 => {}
+                        _ => {
+                            if (*(*ctx).config).ciphers_server == 1 as ::core::ffi::c_int {
                                 SSL_CTX_set_options(
                                     (*ctx).ssl_ctx,
-                                    SSL_OP_SINGLE_ECDH_USE as uint64_t,
+                                    SSL_OP_CIPHER_SERVER_PREFERENCE,
                                 );
-                                SSL_CTX_ctrl(
-                                    (*ctx).ssl_ctx,
-                                    SSL_CTRL_SET_TMP_ECDH,
-                                    0 as ::core::ffi::c_long,
-                                    ecdh_key as *mut ::core::ffi::c_char
-                                        as *mut ::core::ffi::c_void,
-                                );
-                                EC_KEY_free(ecdh_key);
-                                current_block = 13242334135786603907;
                             }
-                        } else {
-                            current_block = 13242334135786603907;
-                        }
-                        match current_block {
-                            10176218473768484732 => {}
-                            _ => {
-                                if (*(*ctx).config).ciphers_server == 1 as ::core::ffi::c_int {
-                                    SSL_CTX_set_options(
-                                        (*ctx).ssl_ctx,
-                                        SSL_OP_CIPHER_SERVER_PREFERENCE,
-                                    );
-                                }
-                                if SSL_CTX_callback_ctrl(
-                                    (*ctx).ssl_ctx,
-                                    SSL_CTRL_SET_TLSEXT_STATUS_REQ_CB,
-                                    ::core::mem::transmute::<
-                                        Option<
-                                            unsafe extern "C" fn(
-                                                *mut SSL,
-                                                *mut ::core::ffi::c_void,
-                                            )
-                                                -> ::core::ffi::c_int,
-                                        >,
-                                        Option<unsafe extern "C" fn() -> ()>,
-                                    >(Some(
-                                        tls_ocsp_stapling_callback
-                                            as unsafe extern "C" fn(
-                                                *mut SSL,
-                                                *mut ::core::ffi::c_void,
-                                            )
-                                                -> ::core::ffi::c_int,
-                                    )),
-                                ) != 1 as ::core::ffi::c_long
-                                {
-                                    tls_set_errorx(
-                                        ctx,
-                                        b"ssl OCSP stapling setup failure\0" as *const u8
-                                            as *const ::core::ffi::c_char,
-                                    );
-                                } else if RAND_bytes(
-                                    &raw mut sid as *mut ::core::ffi::c_uchar,
-                                    ::core::mem::size_of::<[::core::ffi::c_uchar; 32]>()
-                                        as ::core::ffi::c_int,
-                                ) == 0
-                                {
-                                    tls_set_errorx(
-                                        ctx,
-                                        b"failed to generate session id\0" as *const u8
-                                            as *const ::core::ffi::c_char,
-                                    );
-                                } else if SSL_CTX_set_session_id_context(
-                                    (*ctx).ssl_ctx,
-                                    &raw mut sid as *mut ::core::ffi::c_uchar,
-                                    ::core::mem::size_of::<[::core::ffi::c_uchar; 32]>()
-                                        as ::core::ffi::c_uint,
-                                ) == 0
-                                {
-                                    tls_set_errorx(
-                                        ctx,
-                                        b"failed to set session id context\0" as *const u8
-                                            as *const ::core::ffi::c_char,
-                                    );
-                                } else {
-                                    cert_stack = SSL_load_client_CA_file((*(*ctx).config).ca_file);
-                                    SSL_CTX_set_client_CA_list((*ctx).ssl_ctx, cert_stack);
-                                    return 0 as ::core::ffi::c_int;
-                                }
+                            if SSL_CTX_callback_ctrl(
+                                (*ctx).ssl_ctx,
+                                SSL_CTRL_SET_TLSEXT_STATUS_REQ_CB,
+                                ::core::mem::transmute::<
+                                    Option<
+                                        unsafe extern "C" fn(
+                                            *mut SSL,
+                                            *mut ::core::ffi::c_void,
+                                        )
+                                            -> ::core::ffi::c_int,
+                                    >,
+                                    Option<unsafe extern "C" fn() -> ()>,
+                                >(Some(
+                                    tls_ocsp_stapling_callback
+                                        as unsafe extern "C" fn(
+                                            *mut SSL,
+                                            *mut ::core::ffi::c_void,
+                                        )
+                                            -> ::core::ffi::c_int,
+                                )),
+                            ) != 1 as ::core::ffi::c_long
+                            {
+                                tls_set_errorx(
+                                    ctx,
+                                    b"ssl OCSP stapling setup failure\0" as *const u8
+                                        as *const ::core::ffi::c_char,
+                                );
+                            } else if RAND_bytes(
+                                &raw mut sid as *mut ::core::ffi::c_uchar,
+                                ::core::mem::size_of::<[::core::ffi::c_uchar; 32]>()
+                                    as ::core::ffi::c_int,
+                            ) == 0
+                            {
+                                tls_set_errorx(
+                                    ctx,
+                                    b"failed to generate session id\0" as *const u8
+                                        as *const ::core::ffi::c_char,
+                                );
+                            } else if SSL_CTX_set_session_id_context(
+                                (*ctx).ssl_ctx,
+                                &raw mut sid as *mut ::core::ffi::c_uchar,
+                                ::core::mem::size_of::<[::core::ffi::c_uchar; 32]>()
+                                    as ::core::ffi::c_uint,
+                            ) == 0
+                            {
+                                tls_set_errorx(
+                                    ctx,
+                                    b"failed to set session id context\0" as *const u8
+                                        as *const ::core::ffi::c_char,
+                                );
+                            } else {
+                                cert_stack = SSL_load_client_CA_file((*(*ctx).config).ca_file);
+                                SSL_CTX_set_client_CA_list((*ctx).ssl_ctx, cert_stack);
+                                return 0 as ::core::ffi::c_int;
                             }
                         }
                     }
@@ -627,7 +622,7 @@ pub unsafe extern "C" fn tls_configure_server(mut ctx: *mut tls) -> ::core::ffi:
             }
         }
     }
-    return -(1 as ::core::ffi::c_int);
+    -(1 as ::core::ffi::c_int)
 }
 #[no_mangle]
 #[c2rust::src_loc = "167:1"]
@@ -636,7 +631,7 @@ pub unsafe extern "C" fn tls_accept_socket(
     mut cctx: *mut *mut tls,
     mut socket: ::core::ffi::c_int,
 ) -> ::core::ffi::c_int {
-    return tls_accept_fds(ctx, cctx, socket, socket);
+    tls_accept_fds(ctx, cctx, socket, socket)
 }
 #[no_mangle]
 #[c2rust::src_loc = "172:1"]
@@ -691,7 +686,7 @@ pub unsafe extern "C" fn tls_accept_fds(
     }
     usual_tls_free(conn_ctx);
     *cctx = ::core::ptr::null_mut::<tls>();
-    return -(1 as ::core::ffi::c_int);
+    -(1 as ::core::ffi::c_int)
 }
 #[no_mangle]
 #[c2rust::src_loc = "212:1"]
@@ -718,5 +713,5 @@ pub unsafe extern "C" fn tls_handshake_server(mut ctx: *mut tls) -> ::core::ffi:
             rv = 0 as ::core::ffi::c_int;
         }
     }
-    return rv;
+    rv
 }

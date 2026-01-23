@@ -388,21 +388,21 @@ pub mod x509v3_h {
     pub unsafe extern "C" fn ossl_check_const_GENERAL_NAME_sk_type(
         mut sk: *const stack_st_GENERAL_NAME,
     ) -> *const OPENSSL_STACK {
-        return sk as *const OPENSSL_STACK;
+        sk as *const OPENSSL_STACK
     }
     #[inline]
     #[c2rust::src_loc = "237:1"]
     pub unsafe extern "C" fn ossl_check_GENERAL_NAME_sk_type(
         mut sk: *mut stack_st_GENERAL_NAME,
     ) -> *mut OPENSSL_STACK {
-        return sk as *mut OPENSSL_STACK;
+        sk as *mut OPENSSL_STACK
     }
     #[inline]
     #[c2rust::src_loc = "237:1"]
     pub unsafe extern "C" fn ossl_check_GENERAL_NAME_freefunc_type(
         mut fr: sk_GENERAL_NAME_freefunc,
     ) -> OPENSSL_sk_freefunc {
-        return ::core::mem::transmute::<sk_GENERAL_NAME_freefunc, OPENSSL_sk_freefunc>(fr);
+        ::core::mem::transmute::<sk_GENERAL_NAME_freefunc, OPENSSL_sk_freefunc>(fr)
     }
     use super::stack_h::{OPENSSL_sk_freefunc, OPENSSL_STACK};
     use super::types_h::{
@@ -607,7 +607,7 @@ unsafe extern "C" fn tls_match_name(
             return 0 as ::core::ffi::c_int;
         }
     }
-    return -(1 as ::core::ffi::c_int);
+    -(1 as ::core::ffi::c_int)
 }
 #[c2rust::src_loc = "83:1"]
 unsafe extern "C" fn tls_check_subject_altname(
@@ -653,7 +653,7 @@ unsafe extern "C" fn tls_check_subject_altname(
         let mut altname = ::core::ptr::null_mut::<GENERAL_NAME>();
         altname = OPENSSL_sk_value(ossl_check_const_GENERAL_NAME_sk_type(altname_stack), i)
             as *mut GENERAL_NAME;
-        if !((*altname).type_0 != type_0) {
+        if (*altname).type_0 == type_0 {
             if type_0 == GEN_DNS {
                 let mut data = ::core::ptr::null::<::core::ffi::c_void>();
                 let mut format: ::core::ffi::c_int = 0;
@@ -729,7 +729,7 @@ unsafe extern "C" fn tls_check_subject_altname(
             GENERAL_NAME_free as unsafe extern "C" fn(*mut GENERAL_NAME) -> (),
         )),
     );
-    return rv;
+    rv
 }
 #[c2rust::src_loc = "191:1"]
 unsafe extern "C" fn tls_check_common_name(
@@ -752,7 +752,7 @@ unsafe extern "C" fn tls_check_common_name(
             ::core::ptr::null_mut::<::core::ffi::c_char>(),
             0 as ::core::ffi::c_int,
         );
-        if !(common_name_len < 0 as ::core::ffi::c_int) {
+        if common_name_len >= 0 as ::core::ffi::c_int {
             common_name = calloc(
                 (common_name_len + 1 as ::core::ffi::c_int) as size_t,
                 1 as size_t,
@@ -789,7 +789,7 @@ unsafe extern "C" fn tls_check_common_name(
         }
     }
     free(common_name as *mut ::core::ffi::c_void);
-    return rv;
+    rv
 }
 #[no_mangle]
 #[c2rust::src_loc = "244:1"]
@@ -803,5 +803,5 @@ pub unsafe extern "C" fn tls_check_name(
     if rv == 0 as ::core::ffi::c_int || rv == -(2 as ::core::ffi::c_int) {
         return rv;
     }
-    return tls_check_common_name(ctx, cert, name);
+    tls_check_common_name(ctx, cert, name)
 }

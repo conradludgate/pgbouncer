@@ -220,18 +220,17 @@ pub unsafe extern "C" fn change_user(mut user: *const ::core::ffi::c_char) {
         exit(1 as ::core::ffi::c_int);
     }
     gset[0 as ::core::ffi::c_int as usize] = (*pw).pw_gid;
-    if getuid() == 0 as uid_t {
-        if setgroups(1 as ::core::ffi::c_int, &raw mut gset as *mut gid_t) < 0 as ::core::ffi::c_int
-        {
-            let mut _log_ctx_0 = NULL;
-            log_generic(
-                LG_FATAL,
-                _log_ctx_0,
-                b"failed to reset groups: %s\0" as *const u8 as *const ::core::ffi::c_char,
-                strerror(*__error()),
-            );
-            exit(1 as ::core::ffi::c_int);
-        }
+    if getuid() == 0 as uid_t
+        && setgroups(1 as ::core::ffi::c_int, &raw mut gset as *mut gid_t) < 0 as ::core::ffi::c_int
+    {
+        let mut _log_ctx_0 = NULL;
+        log_generic(
+            LG_FATAL,
+            _log_ctx_0,
+            b"failed to reset groups: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            strerror(*__error()),
+        );
+        exit(1 as ::core::ffi::c_int);
     }
     if setgid((*pw).pw_gid) < 0 as ::core::ffi::c_int
         || setuid((*pw).pw_uid) < 0 as ::core::ffi::c_int
@@ -364,5 +363,5 @@ pub unsafe extern "C" fn check_unix_peer_name(
     if pw.is_null() {
         return false_0 != 0;
     }
-    return strcmp((*pw).pw_name, username) == 0 as ::core::ffi::c_int;
+    strcmp((*pw).pw_name, username) == 0 as ::core::ffi::c_int
 }
