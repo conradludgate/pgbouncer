@@ -143,18 +143,7 @@ pub mod time_h {
 }
 
 pub mod list_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct List {
-        pub next: *mut List,
-        pub prev: *mut List,
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn list_empty(mut list: *const List) -> ::core::ffi::c_int {
-        std::ptr::eq((*list).next, list) as ::core::ffi::c_int
-    }
+    pub use super::super::common::types::{List, list_empty};
 }
 
 pub mod statlist_h {

@@ -124,47 +124,12 @@ pub mod time_h {
 }
 
 pub mod list_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct List {
-        pub next: *mut List,
-        pub prev: *mut List,
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn list_empty(mut list: *const List) -> ::core::ffi::c_int {
-        std::ptr::eq((*list).next, list) as ::core::ffi::c_int
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn list_last(mut list: *const List) -> *mut List {
-        if list_empty(list) != 0 {
-            return ::core::ptr::null_mut::<List>();
-        }
-        (*list).prev
-    }
+    pub use super::super::common::types::{List, list_init, list_empty, list_prepend, list_append, list_del, list_pop, list_first, list_last};
 }
 
 pub mod statlist_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct StatList {
-        pub head: List,
-        pub cur_count: ::core::ffi::c_int,
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn statlist_count(mut list: *const StatList) -> ::core::ffi::c_int {
-        (*list).cur_count
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn statlist_last(mut list: *const StatList) -> *mut List {
-        list_last(&raw const (*list).head)
-    }
-    use super::list_h::{list_last, List};
+    pub use super::super::common::types::{StatList, statlist_init, statlist_count, statlist_empty, statlist_prepend, statlist_append, statlist_remove, statlist_pop, statlist_first, statlist_last, statlist_put_before};
+    pub use super::list_h::List;
 }
 
 pub mod aatree_h {

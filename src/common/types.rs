@@ -153,6 +153,68 @@ pub struct List {
     pub prev: *mut List,
 }
 
+#[inline]
+pub unsafe extern "C" fn list_init(list: *mut List) {
+    (*list).prev = list;
+    (*list).next = (*list).prev;
+}
+
+#[inline]
+pub unsafe extern "C" fn list_empty(list: *const List) -> ::core::ffi::c_int {
+    std::ptr::eq((*list).next, list) as ::core::ffi::c_int
+}
+
+#[inline]
+pub unsafe extern "C" fn list_prepend(list: *mut List, item: *mut List) -> *mut List {
+    (*item).next = (*list).next;
+    (*item).prev = list;
+    (*(*list).next).prev = item;
+    (*list).next = item;
+    item
+}
+
+#[inline]
+pub unsafe extern "C" fn list_append(list: *mut List, item: *mut List) -> *mut List {
+    (*item).next = list;
+    (*item).prev = (*list).prev;
+    (*(*list).prev).next = item;
+    (*list).prev = item;
+    item
+}
+
+#[inline]
+pub unsafe extern "C" fn list_del(item: *mut List) -> *mut List {
+    (*(*item).prev).next = (*item).next;
+    (*(*item).next).prev = (*item).prev;
+    (*item).prev = item;
+    (*item).next = (*item).prev;
+    item
+}
+
+#[inline]
+pub unsafe extern "C" fn list_pop(list: *mut List) -> *mut List {
+    if list_empty(list) != 0 {
+        return ::core::ptr::null_mut::<List>();
+    }
+    list_del((*list).next)
+}
+
+#[inline]
+pub unsafe extern "C" fn list_first(list: *const List) -> *mut List {
+    if list_empty(list) != 0 {
+        return ::core::ptr::null_mut::<List>();
+    }
+    (*list).next
+}
+
+#[inline]
+pub unsafe extern "C" fn list_last(list: *const List) -> *mut List {
+    if list_empty(list) != 0 {
+        return ::core::ptr::null_mut::<List>();
+    }
+    (*list).prev
+}
+
 #[derive(Copy, Clone)]
 #[repr(C)]
 pub struct StatList {
@@ -168,8 +230,62 @@ impl StatList {
 }
 
 #[inline]
+pub unsafe extern "C" fn statlist_init(list: *mut StatList, _name: *const ::core::ffi::c_char) {
+    list_init(&raw mut (*list).head);
+    (*list).cur_count = 0;
+}
+
+#[inline]
 pub unsafe extern "C" fn statlist_count(list: *const StatList) -> ::core::ffi::c_int {
     (*list).cur_count
+}
+
+#[inline]
+pub unsafe extern "C" fn statlist_empty(list: *const StatList) -> bool {
+    list_empty(&raw const (*list).head) != 0
+}
+
+#[inline]
+pub unsafe extern "C" fn statlist_prepend(list: *mut StatList, item: *mut List) {
+    list_prepend(&raw mut (*list).head, item);
+    (*list).cur_count += 1;
+}
+
+#[inline]
+pub unsafe extern "C" fn statlist_append(list: *mut StatList, item: *mut List) {
+    list_append(&raw mut (*list).head, item);
+    (*list).cur_count += 1;
+}
+
+#[inline]
+pub unsafe extern "C" fn statlist_remove(list: *mut StatList, item: *mut List) {
+    list_del(item);
+    (*list).cur_count -= 1;
+}
+
+#[inline]
+pub unsafe extern "C" fn statlist_pop(list: *mut StatList) -> *mut List {
+    let item = list_pop(&raw mut (*list).head);
+    if !item.is_null() {
+        (*list).cur_count -= 1;
+    }
+    item
+}
+
+#[inline]
+pub unsafe extern "C" fn statlist_first(list: *const StatList) -> *mut List {
+    list_first(&raw const (*list).head)
+}
+
+#[inline]
+pub unsafe extern "C" fn statlist_last(list: *const StatList) -> *mut List {
+    list_last(&raw const (*list).head)
+}
+
+#[inline]
+pub unsafe extern "C" fn statlist_put_before(list: *mut StatList, item: *mut List, pos: *mut List) {
+    list_append(pos, item);
+    (*list).cur_count += 1;
 }
 
 #[derive(Copy, Clone)]

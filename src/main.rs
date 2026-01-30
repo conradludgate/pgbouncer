@@ -380,29 +380,12 @@ pub mod time_h {
 }
 
 pub mod list_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct List {
-        pub next: *mut List,
-        pub prev: *mut List,
-    }
+    pub use ::pgbouncer::src::common::types::List;
 }
 
 pub mod statlist_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct StatList {
-        pub head: List,
-        pub cur_count: ::core::ffi::c_int,
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn statlist_count(mut list: *const StatList) -> ::core::ffi::c_int {
-        (*list).cur_count
-    }
-    use super::list_h::List;
+    pub use ::pgbouncer::src::common::types::{StatList, statlist_count};
+    pub use super::list_h::List;
 }
 
 pub mod aatree_h {

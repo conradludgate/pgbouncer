@@ -332,24 +332,12 @@ pub mod time_h {
 }
 
 pub mod list_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct List {
-        pub next: *mut List,
-        pub prev: *mut List,
-    }
+    pub use super::super::common::types::List;
 }
 
 pub mod statlist_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct StatList {
-        pub head: List,
-        pub cur_count: ::core::ffi::c_int,
-    }
-    use super::list_h::List;
+    pub use super::super::common::types::StatList;
+    pub use super::list_h::List;
 }
 
 pub mod aatree_h {

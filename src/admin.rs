@@ -201,39 +201,12 @@ pub mod time_h {
 }
 
 pub mod list_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct List {
-        pub next: *mut List,
-        pub prev: *mut List,
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn list_empty(mut list: *const List) -> ::core::ffi::c_int {
-        std::ptr::eq((*list).next, list) as ::core::ffi::c_int
-    }
+    pub use super::super::common::types::{List, list_empty};
 }
 
 pub mod statlist_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct StatList {
-        pub head: List,
-        pub cur_count: ::core::ffi::c_int,
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn statlist_count(mut list: *const StatList) -> ::core::ffi::c_int {
-        (*list).cur_count
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn statlist_empty(mut list: *const StatList) -> bool {
-        list_empty(&raw const (*list).head) != 0
-    }
-    use super::list_h::{list_empty, List};
+    pub use super::super::common::types::{StatList, statlist_count, statlist_empty};
+    pub use super::list_h::List;
 }
 
 pub mod aatree_h {

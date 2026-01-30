@@ -221,37 +221,7 @@ pub mod runetype_h {
 }
 
 pub mod list_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct List {
-        pub next: *mut List,
-        pub prev: *mut List,
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn list_init(mut list: *mut List) {
-        (*list).prev = list;
-        (*list).next = (*list).prev;
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn list_append(mut list: *mut List, mut item: *mut List) -> *mut List {
-        (*item).next = list;
-        (*item).prev = (*list).prev;
-        (*(*list).prev).next = item;
-        (*list).prev = item;
-        item
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn list_del(mut item: *mut List) -> *mut List {
-        (*(*item).prev).next = (*item).next;
-        (*(*item).next).prev = (*item).prev;
-        (*item).prev = item;
-        (*item).next = (*item).prev;
-        item
-    }
+    pub use super::super::common::types::{List, list_init, list_empty, list_prepend, list_append, list_del, list_pop, list_first, list_last};
 }
 
 pub mod _sa_family_t_h {

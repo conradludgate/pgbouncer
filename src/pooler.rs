@@ -238,65 +238,12 @@ pub mod time_h {
 }
 
 pub mod list_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct List {
-        pub next: *mut List,
-        pub prev: *mut List,
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn list_init(mut list: *mut List) {
-        (*list).prev = list;
-        (*list).next = (*list).prev;
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn list_append(mut list: *mut List, mut item: *mut List) -> *mut List {
-        (*item).next = list;
-        (*item).prev = (*list).prev;
-        (*(*list).prev).next = item;
-        (*list).prev = item;
-        item
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn list_del(mut item: *mut List) -> *mut List {
-        (*(*item).prev).next = (*item).next;
-        (*(*item).next).prev = (*item).prev;
-        (*item).prev = item;
-        (*item).next = (*item).prev;
-        item
-    }
+    pub use super::super::common::types::{List, list_init, list_empty, list_prepend, list_append, list_del, list_pop, list_first, list_last};
 }
 
 pub mod statlist_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct StatList {
-        pub head: List,
-        pub cur_count: ::core::ffi::c_int,
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn statlist_append(mut list: *mut StatList, mut item: *mut List) {
-        list_append(&raw mut (*list).head, item);
-        (*list).cur_count += 1;
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn statlist_remove(mut list: *mut StatList, mut item: *mut List) {
-        list_del(item);
-        (*list).cur_count -= 1;
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn statlist_count(mut list: *const StatList) -> ::core::ffi::c_int {
-        (*list).cur_count
-    }
-    use super::list_h::{list_append, list_del, List};
+    pub use super::super::common::types::{StatList, statlist_init, statlist_count, statlist_empty, statlist_prepend, statlist_append, statlist_remove, statlist_pop, statlist_first, statlist_last, statlist_put_before};
+    pub use super::list_h::List;
 }
 
 pub mod aatree_h {
