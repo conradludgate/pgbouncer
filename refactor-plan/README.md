@@ -29,9 +29,12 @@ We start from the entry point (`main.rs`) and core connection handling (`client.
 | Consolidate proto_h (PktHdr) type | ✅ Complete |
 | Consolidate prepare_h (prepared statement) types | ✅ Complete |
 | Consolidate strpool_h types | ✅ Complete |
+| Consolidate statlist_h types | ✅ Complete |
+| Consolidate aatree_h types | ✅ Complete |
+| Consolidate time_h types | ✅ Complete |
 | Remove duplicate type modules | 📋 In Progress |
 
-**Lines saved from type consolidation: ~3,633** (1,382 + 849 from MBuf + 343 from proto_h + 734 from prepare_h + 325 from strpool_h)
+**Lines saved from type consolidation: ~3,920** (3,633 + 95 from statlist_h + 63 from aatree_h + 129 from time_h)
 
 ## Current State Metrics
 
