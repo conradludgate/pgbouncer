@@ -28,9 +28,10 @@ We start from the entry point (`main.rs`) and core connection handling (`client.
 | Consolidate MBuf type | ✅ Complete |
 | Consolidate proto_h (PktHdr) type | ✅ Complete |
 | Consolidate prepare_h (prepared statement) types | ✅ Complete |
+| Consolidate strpool_h types | ✅ Complete |
 | Remove duplicate type modules | 📋 In Progress |
 
-**Lines saved from type consolidation: ~3,308** (1,382 + 849 from MBuf + 343 from proto_h + 734 from prepare_h)
+**Lines saved from type consolidation: ~3,633** (1,382 + 849 from MBuf + 343 from proto_h + 734 from prepare_h + 325 from strpool_h)
 
 ## Current State Metrics
 
@@ -46,7 +47,30 @@ We start from the entry point (`main.rs`) and core connection handling (`client.
 
 ## Lessons Learned
 
-### MBuf Consolidation Pattern
+### Consolidation Script
+
+Use `scripts/consolidate_module.py` to automate module consolidation:
+
+```bash
+# Analyze what's in a module across all files
+python scripts/consolidate_module.py bouncer_h --analyze
+
+# Extract canonical definitions to add to types.rs
+python scripts/consolidate_module.py bouncer_h --extract
+
+# Preview changes without modifying files
+python scripts/consolidate_module.py bouncer_h --dry-run
+
+# Apply changes (after adding missing types to types.rs)
+python scripts/consolidate_module.py bouncer_h --force
+```
+
+**Prerequisites before running the script:**
+1. Ensure all types exported via `pub use` exist in `src/common/types.rs`
+2. The script handles extern "C" declarations by moving them to file end
+3. Run `cargo build` after to verify compilation
+
+### Manual Consolidation Pattern
 When consolidating duplicated type modules (e.g., `mbuf_h`), follow this order:
 1. Add all inline functions to the consolidated module (`lib/usual/mbuf.rs`)
 2. Update the top-level `pub use self::X_h::...` to use new paths
