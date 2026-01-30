@@ -1,24 +1,24 @@
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arm/_types.h:6"]
+
 pub mod _types_h {
-    #[c2rust::src_loc = "87:1"]
+    
     pub type __darwin_size_t = usize;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_uintptr_t.h:6"]
+
 pub mod _uintptr_t_h {
-    #[c2rust::src_loc = "34:1"]
+    
     pub type uintptr_t = usize;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_size_t.h:6"]
+
 pub mod _size_t_h {
-    #[c2rust::src_loc = "50:1"]
+    
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/cxalloc.h:6"]
+
 pub mod cxalloc_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "53:1"]
+    
     pub struct CxOps {
         pub c_alloc: Option<
             unsafe extern "C" fn(*mut ::core::ffi::c_void, size_t) -> *mut ::core::ffi::c_void,
@@ -36,46 +36,46 @@ pub mod cxalloc_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "79:1"]
+    
     pub struct CxMem {
         pub ops: *const CxOps,
         pub ctx: *mut ::core::ffi::c_void,
     }
     use super::_size_t_h::size_t;
     extern "C" {
-        #[c2rust::src_loc = "96:1"]
+        
         pub fn cx_alloc(cx: *const CxMem, len: size_t) -> *mut ::core::ffi::c_void;
-        #[c2rust::src_loc = "104:1"]
+        
         pub fn cx_realloc(
             cx: *const CxMem,
             ptr: *mut ::core::ffi::c_void,
             len: size_t,
         ) -> *mut ::core::ffi::c_void;
-        #[c2rust::src_loc = "111:1"]
+        
         pub fn cx_free(cx: *const CxMem, ptr: *mut ::core::ffi::c_void);
-        #[c2rust::src_loc = "118:1"]
+        
         pub fn cx_destroy(cx: *const CxMem);
-        #[c2rust::src_loc = "143:1"]
+        
         pub static cx_libc_allocator: CxMem;
     }
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/list.h:7"]
+
 pub mod list_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "35:1"]
+    
     pub struct List {
         pub next: *mut List,
         pub prev: *mut List,
     }
     #[inline]
-    #[c2rust::src_loc = "46:1"]
+    
     pub unsafe extern "C" fn list_init(mut list: *mut List) {
         (*list).prev = list;
         (*list).next = (*list).prev;
     }
     #[inline]
-    #[c2rust::src_loc = "68:1"]
+    
     pub unsafe extern "C" fn list_append(mut list: *mut List, mut item: *mut List) -> *mut List {
         (*item).next = list;
         (*item).prev = (*list).prev;
@@ -84,7 +84,7 @@ pub mod list_h {
         item
     }
     #[inline]
-    #[c2rust::src_loc = "78:1"]
+    
     pub unsafe extern "C" fn list_del(mut item: *mut List) -> *mut List {
         (*(*item).prev).next = (*item).next;
         (*(*item).next).prev = (*item).prev;
@@ -93,23 +93,23 @@ pub mod list_h {
         item
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_null.h:6"]
+
 pub mod _null_h {
-    #[c2rust::src_loc = "49:9"]
+    
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
     use super::sys__types_h::__DARWIN_NULL;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_string.h:8"]
+
 pub mod _string_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        #[c2rust::src_loc = "77:1"]
+        
         pub fn memcpy(
             __dst: *mut ::core::ffi::c_void,
             __src: *const ::core::ffi::c_void,
             __n: size_t,
         ) -> *mut ::core::ffi::c_void;
-        #[c2rust::src_loc = "83:1"]
+        
         pub fn memset(
             __b: *mut ::core::ffi::c_void,
             __c: ::core::ffi::c_int,
@@ -117,35 +117,35 @@ pub mod _string_h {
         ) -> *mut ::core::ffi::c_void;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arm/_param.h:6"]
+
 pub mod _param_h {
-    #[c2rust::src_loc = "17:9"]
+    
     pub const __DARWIN_ALIGNBYTES: usize =
         ::core::mem::size_of::<__darwin_size_t>().wrapping_sub(1_usize);
     use super::_types_h::__darwin_size_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types.h:6"]
+
 pub mod sys__types_h {
-    #[c2rust::src_loc = "64:9"]
+    
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_stdlib.h:6"]
+
 pub mod _stdlib_h {
     extern "C" {
-        #[c2rust::src_loc = "160:1"]
+        
         pub fn exit(_: ::core::ffi::c_int) -> !;
     }
 }
-#[c2rust::header_src = "/opt/homebrew/Cellar/llvm/21.1.8/lib/clang/21/include/stdbool.h:6"]
+
 pub mod stdbool_h {
-    #[c2rust::src_loc = "25:9"]
+    
     pub const true_0: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/bits.h:8"]
+
 pub mod bits_h {
     #[inline]
-    #[c2rust::src_loc = "35:1"]
+    
     pub unsafe extern "C" fn is_power_of_2(mut n: ::core::ffi::c_uint) -> bool {
         n > 0 as ::core::ffi::c_uint && n & n.wrapping_sub(1 as ::core::ffi::c_uint) == 0
     }
@@ -166,7 +166,7 @@ pub use self::stdbool_h::true_0;
 pub use self::sys__types_h::__DARWIN_NULL;
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[c2rust::src_loc = "75:1"]
+
 pub struct CxPool {
     pub this: CxMem,
     pub parent: *const CxMem,
@@ -178,7 +178,7 @@ pub struct CxPool {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[c2rust::src_loc = "68:1"]
+
 pub struct CxPoolSeg {
     pub prev: *mut CxPoolSeg,
     pub seg_start: *mut ::core::ffi::c_uchar,
@@ -187,7 +187,7 @@ pub struct CxPoolSeg {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[c2rust::src_loc = "270:1"]
+
 pub struct CxTree {
     pub this: CxMem,
     pub real: *const CxMem,
@@ -197,19 +197,19 @@ pub struct CxTree {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[c2rust::src_loc = "279:1"]
+
 pub struct CxTreeItem {
     pub node: List,
 }
 #[inline]
-#[c2rust::src_loc = "16:1"]
+
 unsafe extern "C" fn p_move(
     mut p: *const ::core::ffi::c_void,
     mut ofs: ::core::ffi::c_int,
 ) -> *mut ::core::ffi::c_void {
     (p as *mut ::core::ffi::c_char).offset(ofs as isize) as *mut ::core::ffi::c_void
 }
-#[c2rust::src_loc = "26:1"]
+
 unsafe extern "C" fn nofail_alloc(
     mut next: *mut ::core::ffi::c_void,
     mut len: size_t,
@@ -220,7 +220,7 @@ unsafe extern "C" fn nofail_alloc(
     }
     p
 }
-#[c2rust::src_loc = "34:1"]
+
 unsafe extern "C" fn nofail_realloc(
     mut next: *mut ::core::ffi::c_void,
     mut ptr: *mut ::core::ffi::c_void,
@@ -232,19 +232,19 @@ unsafe extern "C" fn nofail_realloc(
     }
     p
 }
-#[c2rust::src_loc = "42:1"]
+
 unsafe extern "C" fn nofail_free(
     mut next: *mut ::core::ffi::c_void,
     mut ptr: *mut ::core::ffi::c_void,
 ) {
     cx_free(next as *const CxMem, ptr);
 }
-#[c2rust::src_loc = "47:1"]
+
 unsafe extern "C" fn nofail_destroy(mut next: *mut ::core::ffi::c_void) {
     cx_destroy(next as *const CxMem);
 }
 #[no_mangle]
-#[c2rust::src_loc = "52:1"]
+
 pub static mut cx_nofail_ops: CxOps = unsafe {
     CxOps {
         c_alloc: Some(
@@ -270,17 +270,17 @@ pub static mut cx_nofail_ops: CxOps = unsafe {
     }
 };
 #[no_mangle]
-#[c2rust::src_loc = "59:1"]
+
 pub static mut cx_libc_nofail: CxMem = unsafe {
     CxMem {
         ops: &raw const cx_nofail_ops,
         ctx: &raw const cx_libc_allocator as *mut ::core::ffi::c_void,
     }
 };
-#[c2rust::src_loc = "85:9"]
+
 pub const POOL_HDR: __darwin_size_t =
     ::core::mem::size_of::<CxPoolSeg>().wrapping_add(__DARWIN_ALIGNBYTES) & !__DARWIN_ALIGNBYTES;
-#[c2rust::src_loc = "87:1"]
+
 unsafe extern "C" fn new_seg(mut pool: *mut CxPool, mut nsize: size_t) -> *mut CxPoolSeg {
     let mut seg = ::core::ptr::null_mut::<CxPoolSeg>();
     let mut ptr = ::core::ptr::null_mut::<::core::ffi::c_uchar>();
@@ -308,7 +308,7 @@ unsafe extern "C" fn new_seg(mut pool: *mut CxPool, mut nsize: size_t) -> *mut C
     (*pool).last_ptr = ::core::ptr::null_mut::<::core::ffi::c_uchar>();
     seg
 }
-#[c2rust::src_loc = "106:1"]
+
 unsafe extern "C" fn pool_alloc(
     mut ctx: *mut ::core::ffi::c_void,
     mut size: size_t,
@@ -347,7 +347,7 @@ unsafe extern "C" fn pool_alloc(
         ptr
     }
 }
-#[c2rust::src_loc = "134:1"]
+
 unsafe extern "C" fn pool_free(
     mut ctx: *mut ::core::ffi::c_void,
     mut ptr: *mut ::core::ffi::c_void,
@@ -360,7 +360,7 @@ unsafe extern "C" fn pool_free(
     (*cur).seg_pos = ptr as *mut ::core::ffi::c_uchar;
     (*pool).last_ptr = ::core::ptr::null_mut::<::core::ffi::c_uchar>();
 }
-#[c2rust::src_loc = "145:1"]
+
 unsafe extern "C" fn pool_guess_old_len(
     mut pool: *mut CxPool,
     mut ptr: *mut ::core::ffi::c_uchar,
@@ -380,7 +380,7 @@ unsafe extern "C" fn pool_guess_old_len(
     }
     0 as size_t
 }
-#[c2rust::src_loc = "160:1"]
+
 unsafe extern "C" fn pool_realloc(
     mut ctx: *mut ::core::ffi::c_void,
     mut ptr: *mut ::core::ffi::c_void,
@@ -415,7 +415,7 @@ unsafe extern "C" fn pool_realloc(
         p as *mut ::core::ffi::c_void
     }
 }
-#[c2rust::src_loc = "191:1"]
+
 unsafe extern "C" fn pool_destroy(mut ctx: *mut ::core::ffi::c_void) {
     let mut pool = ctx as *mut CxPool;
     let mut cur = ::core::ptr::null_mut::<CxPoolSeg>();
@@ -442,7 +442,7 @@ unsafe extern "C" fn pool_destroy(mut ctx: *mut ::core::ffi::c_void) {
         );
     }
 }
-#[c2rust::src_loc = "208:1"]
+
 static mut pool_ops: CxOps = unsafe {
     CxOps {
         c_alloc: Some(
@@ -468,7 +468,7 @@ static mut pool_ops: CxOps = unsafe {
     }
 };
 #[no_mangle]
-#[c2rust::src_loc = "219:1"]
+
 pub unsafe extern "C" fn cx_new_pool_from_area(
     mut parent: *const CxMem,
     mut buf: *mut ::core::ffi::c_void,
@@ -507,7 +507,7 @@ pub unsafe extern "C" fn cx_new_pool_from_area(
     &raw mut (*head).this
 }
 #[no_mangle]
-#[c2rust::src_loc = "247:1"]
+
 pub unsafe extern "C" fn cx_new_pool(
     mut parent: *const CxMem,
     mut initial_size: size_t,
@@ -525,9 +525,9 @@ pub unsafe extern "C" fn cx_new_pool(
     }
     cx_new_pool_from_area(parent, area, size, true_0 != 0, align)
 }
-#[c2rust::src_loc = "268:9"]
+
 pub const TREE_HDR: ::core::ffi::c_int = ::core::mem::size_of::<CxTreeItem>() as ::core::ffi::c_int;
-#[c2rust::src_loc = "283:1"]
+
 unsafe extern "C" fn tree_alloc(
     mut ctx: *mut ::core::ffi::c_void,
     mut len: size_t,
@@ -542,7 +542,7 @@ unsafe extern "C" fn tree_alloc(
     list_append(&raw mut (*tree).alloc_list, &raw mut (*item).node);
     p_move(item as *const ::core::ffi::c_void, TREE_HDR)
 }
-#[c2rust::src_loc = "297:1"]
+
 unsafe extern "C" fn tree_realloc(
     mut ctx: *mut ::core::ffi::c_void,
     mut ptr: *mut ::core::ffi::c_void,
@@ -566,7 +566,7 @@ unsafe extern "C" fn tree_realloc(
         NULL
     }
 }
-#[c2rust::src_loc = "314:1"]
+
 unsafe extern "C" fn tree_free(
     mut ctx: *mut ::core::ffi::c_void,
     mut ptr: *mut ::core::ffi::c_void,
@@ -577,7 +577,7 @@ unsafe extern "C" fn tree_free(
     list_del(&raw mut (*item).node);
     cx_free((*t).real, item as *mut ::core::ffi::c_void);
 }
-#[c2rust::src_loc = "324:1"]
+
 unsafe extern "C" fn tree_destroy(mut ctx: *mut ::core::ffi::c_void) {
     let mut tree = ctx as *mut CxTree;
     let mut sub = ::core::ptr::null_mut::<CxTree>();
@@ -606,7 +606,7 @@ unsafe extern "C" fn tree_destroy(mut ctx: *mut ::core::ffi::c_void) {
     }
     cx_free((*tree).real, tree as *mut ::core::ffi::c_void);
 }
-#[c2rust::src_loc = "350:1"]
+
 static mut tree_ops: CxOps = unsafe {
     CxOps {
         c_alloc: Some(
@@ -632,7 +632,7 @@ static mut tree_ops: CxOps = unsafe {
     }
 };
 #[no_mangle]
-#[c2rust::src_loc = "358:1"]
+
 pub unsafe extern "C" fn cx_new_tree(mut cx: *const CxMem) -> *const CxMem {
     let mut t = ::core::ptr::null_mut::<CxTree>();
     let mut parent = ::core::ptr::null_mut::<CxTree>();

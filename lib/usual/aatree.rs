@@ -1,52 +1,52 @@
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_uintptr_t.h:46"]
+
 pub mod _uintptr_t_h {
-    #[c2rust::src_loc = "34:1"]
+    
     pub type uintptr_t = usize;
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/aatree.h:46"]
+
 pub mod aatree_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "41:1"]
+    
     pub struct AATree {
         pub root: *mut AANode,
         pub count: ::core::ffi::c_int,
         pub node_cmp: aatree_cmp_f,
         pub release_cb: aatree_walker_f,
     }
-    #[c2rust::src_loc = "36:1"]
+    
     pub type aatree_walker_f =
         Option<unsafe extern "C" fn(*mut AANode, *mut ::core::ffi::c_void) -> ()>;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "57:1"]
+    
     pub struct AANode {
         pub left: *mut AANode,
         pub right: *mut AANode,
         pub level: ::core::ffi::c_int,
     }
-    #[c2rust::src_loc = "33:1"]
+    
     pub type aatree_cmp_f =
         Option<unsafe extern "C" fn(uintptr_t, *mut AANode) -> ::core::ffi::c_int>;
-    #[c2rust::src_loc = "66:1"]
+    
     pub type AATreeWalkType = ::core::ffi::c_uint;
-    #[c2rust::src_loc = "69:2"]
+    
     pub const AA_WALK_POST_ORDER: AATreeWalkType = 2;
-    #[c2rust::src_loc = "68:2"]
+    
     pub const AA_WALK_PRE_ORDER: AATreeWalkType = 1;
-    #[c2rust::src_loc = "67:2"]
+    
     pub const AA_WALK_IN_ORDER: AATreeWalkType = 0;
     use super::_uintptr_t_h::uintptr_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_null.h:46"]
+
 pub mod _null_h {
-    #[c2rust::src_loc = "49:9"]
+    
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
     use super::_types_h::__DARWIN_NULL;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types.h:46"]
+
 pub mod _types_h {
-    #[c2rust::src_loc = "64:9"]
+    
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
 }
@@ -57,11 +57,11 @@ pub use self::aatree_h::{
     aatree_cmp_f, aatree_walker_f, AANode, AATree, AATreeWalkType, AA_WALK_IN_ORDER,
     AA_WALK_POST_ORDER, AA_WALK_PRE_ORDER,
 };
-#[c2rust::src_loc = "50:1"]
+
 pub type Tree = AATree;
-#[c2rust::src_loc = "51:1"]
+
 pub type Node = AANode;
-#[c2rust::src_loc = "57:1"]
+
 static mut _nil: AANode = unsafe {
     AANode {
         left: &raw const _nil as *mut AANode,
@@ -70,7 +70,7 @@ static mut _nil: AANode = unsafe {
     }
 };
 #[inline]
-#[c2rust::src_loc = "73:1"]
+
 unsafe extern "C" fn skew(mut x: *mut Node) -> *mut Node {
     let mut y = (*x).left as *mut Node;
     if (*x).level == (*y).level && !std::ptr::eq(x, &raw const _nil) {
@@ -81,7 +81,7 @@ unsafe extern "C" fn skew(mut x: *mut Node) -> *mut Node {
     x
 }
 #[inline]
-#[c2rust::src_loc = "93:1"]
+
 unsafe extern "C" fn split(mut x: *mut Node) -> *mut Node {
     let mut y = (*x).right as *mut Node;
     if (*x).level == (*(*y).right).level && !std::ptr::eq(x, &raw const _nil) {
@@ -92,11 +92,11 @@ unsafe extern "C" fn split(mut x: *mut Node) -> *mut Node {
     }
     x
 }
-#[c2rust::src_loc = "106:1"]
+
 unsafe extern "C" fn rebalance_on_insert(mut current: *mut Node) -> *mut Node {
     split(skew(current))
 }
-#[c2rust::src_loc = "112:1"]
+
 unsafe extern "C" fn rebalance_on_remove(mut current: *mut Node) -> *mut Node {
     if (*(*current).left).level < (*current).level - 1 as ::core::ffi::c_int
         || (*(*current).right).level < (*current).level - 1 as ::core::ffi::c_int
@@ -113,7 +113,7 @@ unsafe extern "C" fn rebalance_on_remove(mut current: *mut Node) -> *mut Node {
     }
     current
 }
-#[c2rust::src_loc = "140:1"]
+
 unsafe extern "C" fn insert_sub(
     mut tree: *mut Tree,
     mut current: *mut Node,
@@ -141,7 +141,7 @@ unsafe extern "C" fn insert_sub(
     rebalance_on_insert(current)
 }
 #[no_mangle]
-#[c2rust::src_loc = "170:1"]
+
 pub unsafe extern "C" fn aatree_insert(
     mut tree: *mut Tree,
     mut value: uintptr_t,
@@ -149,7 +149,7 @@ pub unsafe extern "C" fn aatree_insert(
 ) {
     (*tree).root = insert_sub(tree, (*tree).root as *mut Node, value, node) as *mut AANode;
 }
-#[c2rust::src_loc = "180:1"]
+
 unsafe extern "C" fn steal_leftmost(
     mut tree: *mut Tree,
     mut current: *mut Node,
@@ -162,7 +162,7 @@ unsafe extern "C" fn steal_leftmost(
     (*current).left = steal_leftmost(tree, (*current).left as *mut Node, save_p) as *mut AANode;
     rebalance_on_remove(current)
 }
-#[c2rust::src_loc = "192:1"]
+
 unsafe extern "C" fn drop_this_node(mut tree: *mut Tree, mut old: *mut Node) -> *mut Node {
     let mut new = &raw const _nil as *mut Node;
     if std::ptr::eq((*old).left, &raw const _nil) {
@@ -182,7 +182,7 @@ unsafe extern "C" fn drop_this_node(mut tree: *mut Tree, mut old: *mut Node) -> 
     (*tree).count -= 1;
     new
 }
-#[c2rust::src_loc = "220:1"]
+
 unsafe extern "C" fn remove_sub(
     mut tree: *mut Tree,
     mut current: *mut Node,
@@ -203,11 +203,11 @@ unsafe extern "C" fn remove_sub(
     rebalance_on_remove(current)
 }
 #[no_mangle]
-#[c2rust::src_loc = "239:1"]
+
 pub unsafe extern "C" fn aatree_remove(mut tree: *mut Tree, mut value: uintptr_t) {
     (*tree).root = remove_sub(tree, (*tree).root as *mut Node, value) as *mut AANode;
 }
-#[c2rust::src_loc = "248:1"]
+
 unsafe extern "C" fn walk_sub(
     mut current: *mut Node,
     mut wtype: AATreeWalkType,
@@ -237,7 +237,7 @@ unsafe extern "C" fn walk_sub(
     };
 }
 #[no_mangle]
-#[c2rust::src_loc = "274:1"]
+
 pub unsafe extern "C" fn aatree_walk(
     mut tree: *mut Tree,
     mut wtype: AATreeWalkType,
@@ -247,7 +247,7 @@ pub unsafe extern "C" fn aatree_walk(
     walk_sub((*tree).root as *mut Node, wtype, walker, arg);
 }
 #[no_mangle]
-#[c2rust::src_loc = "280:1"]
+
 pub unsafe extern "C" fn aatree_destroy(mut tree: *mut Tree) {
     walk_sub(
         (*tree).root as *mut Node,
@@ -259,7 +259,7 @@ pub unsafe extern "C" fn aatree_destroy(mut tree: *mut Tree) {
     (*tree).count = 0 as ::core::ffi::c_int;
 }
 #[no_mangle]
-#[c2rust::src_loc = "290:1"]
+
 pub unsafe extern "C" fn aatree_init(
     mut tree: *mut Tree,
     mut cmpfn: aatree_cmp_f,
@@ -271,7 +271,7 @@ pub unsafe extern "C" fn aatree_init(
     (*tree).release_cb = release_cb;
 }
 #[no_mangle]
-#[c2rust::src_loc = "301:1"]
+
 pub unsafe extern "C" fn aatree_search(mut tree: *mut Tree, mut value: uintptr_t) -> *mut AANode {
     let mut current = (*tree).root as *mut Node;
     while !std::ptr::eq(current, &raw const _nil) {

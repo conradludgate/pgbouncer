@@ -1,33 +1,33 @@
-#[c2rust::header_src = "internal:0"]
+
 pub mod internal {
-    #[c2rust::src_loc = "0:0"]
+    
     pub type __builtin_va_list = *mut ::core::ffi::c_char;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arm/_types.h:19"]
+
 pub mod _types_h {
-    #[c2rust::src_loc = "87:1"]
+    
     pub type __darwin_size_t = usize;
-    #[c2rust::src_loc = "95:1"]
+    
     pub type __darwin_va_list = __builtin_va_list;
     use super::internal::__builtin_va_list;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_size_t.h:19"]
+
 pub mod _size_t_h {
-    #[c2rust::src_loc = "50:1"]
+    
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_va_list.h:19"]
+
 pub mod _va_list_h {
-    #[c2rust::src_loc = "44:1"]
+    
     pub type va_list = __darwin_va_list;
     use super::_types_h::__darwin_va_list;
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/cxalloc.h:19"]
+
 pub mod cxalloc_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "53:1"]
+    
     pub struct CxOps {
         pub c_alloc: Option<
             unsafe extern "C" fn(*mut ::core::ffi::c_void, size_t) -> *mut ::core::ffi::c_void,
@@ -45,19 +45,19 @@ pub mod cxalloc_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "79:1"]
+    
     pub struct CxMem {
         pub ops: *const CxOps,
         pub ctx: *mut ::core::ffi::c_void,
     }
     use super::_size_t_h::size_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_stdio.h:19"]
+
 pub mod _stdio_h {
     use super::_size_t_h::size_t;
 
     extern "C" {
-        #[c2rust::src_loc = "438:1"]
+        
         pub fn vsnprintf(
             __str: *mut ::core::ffi::c_char,
             __size: size_t,
@@ -66,55 +66,55 @@ pub mod _stdio_h {
         ) -> ::core::ffi::c_int;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/malloc/_malloc.h:19"]
+
 pub mod _malloc_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        #[c2rust::src_loc = "54:1"]
+        
         pub fn malloc(__size: size_t) -> *mut ::core::ffi::c_void;
-        #[c2rust::src_loc = "56:1"]
+        
         pub fn free(_: *mut ::core::ffi::c_void);
-        #[c2rust::src_loc = "57:1"]
+        
         pub fn realloc(__ptr: *mut ::core::ffi::c_void, __size: size_t)
             -> *mut ::core::ffi::c_void;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_null.h:19"]
+
 pub mod _null_h {
-    #[c2rust::src_loc = "49:9"]
+    
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
     use super::sys__types_h::__DARWIN_NULL;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_string.h:22"]
+
 pub mod _string_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        #[c2rust::src_loc = "77:1"]
+        
         pub fn memcpy(
             __dst: *mut ::core::ffi::c_void,
             __src: *const ::core::ffi::c_void,
             __n: size_t,
         ) -> *mut ::core::ffi::c_void;
-        #[c2rust::src_loc = "83:1"]
+        
         pub fn memset(
             __b: *mut ::core::ffi::c_void,
             __c: ::core::ffi::c_int,
             __len: size_t,
         ) -> *mut ::core::ffi::c_void;
-        #[c2rust::src_loc = "96:1"]
+        
         pub fn strlen(__s: *const ::core::ffi::c_char) -> size_t;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types.h:19"]
+
 pub mod sys__types_h {
-    #[c2rust::src_loc = "64:9"]
+    
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_abort.h:19"]
+
 pub mod _abort_h {
     extern "C" {
-        #[c2rust::src_loc = "33:1"]
+        
         pub fn abort() -> !;
     }
 }
@@ -130,7 +130,7 @@ pub use self::cxalloc_h::{CxMem, CxOps};
 pub use self::internal::__builtin_va_list;
 pub use self::sys__types_h::__DARWIN_NULL;
 #[no_mangle]
-#[c2rust::src_loc = "28:1"]
+
 pub unsafe extern "C" fn cx_alloc(
     mut cx: *const CxMem,
     mut len: size_t,
@@ -144,7 +144,7 @@ pub unsafe extern "C" fn cx_alloc(
     (*(*cx).ops).c_alloc.expect("non-null function pointer")((*cx).ctx, len)
 }
 #[no_mangle]
-#[c2rust::src_loc = "37:1"]
+
 pub unsafe extern "C" fn cx_realloc(
     mut cx: *const CxMem,
     mut ptr: *mut ::core::ffi::c_void,
@@ -163,7 +163,7 @@ pub unsafe extern "C" fn cx_realloc(
     (*(*cx).ops).c_realloc.expect("non-null function pointer")((*cx).ctx, ptr, len)
 }
 #[no_mangle]
-#[c2rust::src_loc = "50:1"]
+
 pub unsafe extern "C" fn cx_free(mut cx: *const CxMem, mut ptr: *mut ::core::ffi::c_void) {
     if cx.is_null() {
         cx = &raw const cx_libc_allocator;
@@ -173,7 +173,7 @@ pub unsafe extern "C" fn cx_free(mut cx: *const CxMem, mut ptr: *mut ::core::ffi
     }
 }
 #[no_mangle]
-#[c2rust::src_loc = "58:1"]
+
 pub unsafe extern "C" fn cx_destroy(mut cx: *const CxMem) {
     if cx.is_null() {
         return;
@@ -184,7 +184,7 @@ pub unsafe extern "C" fn cx_destroy(mut cx: *const CxMem) {
     (*(*cx).ops).c_destroy.expect("non-null function pointer")((*cx).ctx);
 }
 #[no_mangle]
-#[c2rust::src_loc = "67:1"]
+
 pub unsafe extern "C" fn cx_alloc0(
     mut cx: *const CxMem,
     mut len: size_t,
@@ -196,7 +196,7 @@ pub unsafe extern "C" fn cx_alloc0(
     p
 }
 #[no_mangle]
-#[c2rust::src_loc = "75:1"]
+
 pub unsafe extern "C" fn cx_memdup(
     mut cx: *const CxMem,
     mut src: *const ::core::ffi::c_void,
@@ -209,7 +209,7 @@ pub unsafe extern "C" fn cx_memdup(
     p
 }
 #[no_mangle]
-#[c2rust::src_loc = "83:1"]
+
 pub unsafe extern "C" fn cx_strdup(
     mut cx: *const CxMem,
     mut s: *const ::core::ffi::c_char,
@@ -221,7 +221,7 @@ pub unsafe extern "C" fn cx_strdup(
     )
 }
 #[no_mangle]
-#[c2rust::src_loc = "88:1"]
+
 pub unsafe extern "C" fn cx_sprintf(
     mut cx: *const CxMem,
     mut fmt: *const ::core::ffi::c_char,
@@ -234,7 +234,7 @@ pub unsafe extern "C" fn cx_sprintf(
     res
 }
 #[no_mangle]
-#[c2rust::src_loc = "98:1"]
+
 pub unsafe extern "C" fn cx_vsprintf(
     mut cx: *const CxMem,
     mut fmt: *const ::core::ffi::c_char,
@@ -245,7 +245,7 @@ pub unsafe extern "C" fn cx_vsprintf(
     res
 }
 #[no_mangle]
-#[c2rust::src_loc = "105:1"]
+
 pub unsafe extern "C" fn cx_asprintf(
     mut cx: *const CxMem,
     mut dst_p: *mut *mut ::core::ffi::c_char,
@@ -259,7 +259,7 @@ pub unsafe extern "C" fn cx_asprintf(
     res
 }
 #[no_mangle]
-#[c2rust::src_loc = "115:1"]
+
 pub unsafe extern "C" fn cx_vasprintf(
     mut cx: *const CxMem,
     mut dst_p: *mut *mut ::core::ffi::c_char,
@@ -305,14 +305,14 @@ pub unsafe extern "C" fn cx_vasprintf(
     *dst_p = dst;
     res
 }
-#[c2rust::src_loc = "146:1"]
+
 unsafe extern "C" fn libc_alloc(
     mut _ctx: *mut ::core::ffi::c_void,
     mut len: size_t,
 ) -> *mut ::core::ffi::c_void {
     malloc(len)
 }
-#[c2rust::src_loc = "151:1"]
+
 unsafe extern "C" fn libc_realloc(
     mut _ctx: *mut ::core::ffi::c_void,
     mut ptr: *mut ::core::ffi::c_void,
@@ -320,14 +320,14 @@ unsafe extern "C" fn libc_realloc(
 ) -> *mut ::core::ffi::c_void {
     realloc(ptr, len)
 }
-#[c2rust::src_loc = "156:1"]
+
 unsafe extern "C" fn libc_free(
     mut _ctx: *mut ::core::ffi::c_void,
     mut ptr: *mut ::core::ffi::c_void,
 ) {
     free(ptr);
 }
-#[c2rust::src_loc = "161:1"]
+
 static mut libc_alloc_ops: CxOps = unsafe {
     CxOps {
         c_alloc: Some(
@@ -353,7 +353,7 @@ static mut libc_alloc_ops: CxOps = unsafe {
     }
 };
 #[no_mangle]
-#[c2rust::src_loc = "167:1"]
+
 pub static mut cx_libc_allocator: CxMem = unsafe {
     CxMem {
         ops: &raw const libc_alloc_ops,

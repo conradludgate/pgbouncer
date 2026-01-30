@@ -1,24 +1,24 @@
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arm/_types.h:19"]
+
 pub mod _types_h {
-    #[c2rust::src_loc = "87:1"]
+    
     pub type __darwin_size_t = usize;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_uintptr_t.h:19"]
+
 pub mod _uintptr_t_h {
-    #[c2rust::src_loc = "34:1"]
+    
     pub type uintptr_t = usize;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_size_t.h:19"]
+
 pub mod _size_t_h {
-    #[c2rust::src_loc = "50:1"]
+    
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/cxalloc.h:19"]
+
 pub mod cxalloc_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "53:1"]
+    
     pub struct CxOps {
         pub c_alloc: Option<
             unsafe extern "C" fn(*mut ::core::ffi::c_void, size_t) -> *mut ::core::ffi::c_void,
@@ -36,24 +36,24 @@ pub mod cxalloc_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "79:1"]
+    
     pub struct CxMem {
         pub ops: *const CxOps,
         pub ctx: *mut ::core::ffi::c_void,
     }
     use super::_size_t_h::size_t;
     extern "C" {
-        #[c2rust::src_loc = "111:1"]
+        
         pub fn cx_free(cx: *const CxMem, ptr: *mut ::core::ffi::c_void);
-        #[c2rust::src_loc = "121:1"]
+        
         pub fn cx_alloc0(cx: *const CxMem, len: size_t) -> *mut ::core::ffi::c_void;
     }
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/slab.h:19"]
+
 pub mod slab_h {
-    #[c2rust::src_loc = "41:1"]
+    
     pub type slab_init_fn = Option<unsafe extern "C" fn(*mut ::core::ffi::c_void) -> ()>;
-    #[c2rust::src_loc = "67:1"]
+    
     pub type slab_stat_fn = Option<
         unsafe extern "C" fn(
             *mut ::core::ffi::c_void,
@@ -64,35 +64,35 @@ pub mod slab_h {
         ) -> (),
     >;
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/statlist.h:23"]
+
 pub mod statlist_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "36:1"]
+    
     pub struct StatList {
         pub head: List,
         pub cur_count: ::core::ffi::c_int,
     }
     #[inline]
-    #[c2rust::src_loc = "55:1"]
+    
     pub unsafe extern "C" fn statlist_prepend(mut list: *mut StatList, mut item: *mut List) {
         list_prepend(&raw mut (*list).head, item);
         (*list).cur_count += 1;
     }
     #[inline]
-    #[c2rust::src_loc = "62:1"]
+    
     pub unsafe extern "C" fn statlist_append(mut list: *mut StatList, mut item: *mut List) {
         list_append(&raw mut (*list).head, item);
         (*list).cur_count += 1;
     }
     #[inline]
-    #[c2rust::src_loc = "69:1"]
+    
     pub unsafe extern "C" fn statlist_remove(mut list: *mut StatList, mut item: *mut List) {
         list_del(item);
         (*list).cur_count -= 1;
     }
     #[inline]
-    #[c2rust::src_loc = "78:1"]
+    
     pub unsafe extern "C" fn statlist_init(
         mut list: *mut StatList,
         mut _name: *const ::core::ffi::c_char,
@@ -101,12 +101,12 @@ pub mod statlist_h {
         (*list).cur_count = 0 as ::core::ffi::c_int;
     }
     #[inline]
-    #[c2rust::src_loc = "88:1"]
+    
     pub unsafe extern "C" fn statlist_count(mut list: *const StatList) -> ::core::ffi::c_int {
         (*list).cur_count
     }
     #[inline]
-    #[c2rust::src_loc = "95:1"]
+    
     pub unsafe extern "C" fn statlist_pop(mut list: *mut StatList) -> *mut List {
         let mut item = list_pop(&raw mut (*list).head);
         if !item.is_null() {
@@ -116,28 +116,28 @@ pub mod statlist_h {
     }
     use super::list_h::{list_append, list_del, list_init, list_pop, list_prepend, List};
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/list.h:23"]
+
 pub mod list_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "35:1"]
+    
     pub struct List {
         pub next: *mut List,
         pub prev: *mut List,
     }
     #[inline]
-    #[c2rust::src_loc = "46:1"]
+    
     pub unsafe extern "C" fn list_init(mut list: *mut List) {
         (*list).prev = list;
         (*list).next = (*list).prev;
     }
     #[inline]
-    #[c2rust::src_loc = "52:1"]
+    
     pub unsafe extern "C" fn list_empty(mut list: *const List) -> ::core::ffi::c_int {
         std::ptr::eq((*list).next, list) as ::core::ffi::c_int
     }
     #[inline]
-    #[c2rust::src_loc = "58:1"]
+    
     pub unsafe extern "C" fn list_prepend(mut list: *mut List, mut item: *mut List) -> *mut List {
         (*item).next = (*list).next;
         (*item).prev = list;
@@ -146,7 +146,7 @@ pub mod list_h {
         item
     }
     #[inline]
-    #[c2rust::src_loc = "68:1"]
+    
     pub unsafe extern "C" fn list_append(mut list: *mut List, mut item: *mut List) -> *mut List {
         (*item).next = list;
         (*item).prev = (*list).prev;
@@ -155,7 +155,7 @@ pub mod list_h {
         item
     }
     #[inline]
-    #[c2rust::src_loc = "78:1"]
+    
     pub unsafe extern "C" fn list_del(mut item: *mut List) -> *mut List {
         (*(*item).prev).next = (*item).next;
         (*(*item).next).prev = (*item).prev;
@@ -164,7 +164,7 @@ pub mod list_h {
         item
     }
     #[inline]
-    #[c2rust::src_loc = "87:1"]
+    
     pub unsafe extern "C" fn list_pop(mut list: *mut List) -> *mut List {
         if list_empty(list) != 0 {
             return ::core::ptr::null_mut::<List>();
@@ -172,42 +172,42 @@ pub mod list_h {
         list_del((*list).next)
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arm/_param.h:19"]
+
 pub mod _param_h {
-    #[c2rust::src_loc = "17:9"]
+    
     pub const __DARWIN_ALIGNBYTES: usize =
         ::core::mem::size_of::<__darwin_size_t>().wrapping_sub(1_usize);
     use super::_types_h::__darwin_size_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_string.h:21"]
+
 pub mod _string_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        #[c2rust::src_loc = "77:1"]
+        
         pub fn memcpy(
             __dst: *mut ::core::ffi::c_void,
             __src: *const ::core::ffi::c_void,
             __n: size_t,
         ) -> *mut ::core::ffi::c_void;
-        #[c2rust::src_loc = "83:1"]
+        
         pub fn memset(
             __b: *mut ::core::ffi::c_void,
             __c: ::core::ffi::c_int,
             __len: size_t,
         ) -> *mut ::core::ffi::c_void;
-        #[c2rust::src_loc = "96:1"]
+        
         pub fn strlen(__s: *const ::core::ffi::c_char) -> size_t;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_null.h:19"]
+
 pub mod _null_h {
-    #[c2rust::src_loc = "49:9"]
+    
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
     use super::sys__types_h::__DARWIN_NULL;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types.h:19"]
+
 pub mod sys__types_h {
-    #[c2rust::src_loc = "64:9"]
+    
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
 }
@@ -229,7 +229,7 @@ pub use self::statlist_h::{
 pub use self::sys__types_h::__DARWIN_NULL;
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[c2rust::src_loc = "30:1"]
+
 pub struct Slab {
     pub head: List,
     pub freelist: StatList,
@@ -242,11 +242,11 @@ pub struct Slab {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[c2rust::src_loc = "45:1"]
+
 pub struct SlabFrag {
     pub head: List,
 }
-#[c2rust::src_loc = "50:1"]
+
 static mut slab_list: StatList = StatList {
     head: List {
         next: ::core::ptr::null::<List>() as *mut List,
@@ -254,15 +254,15 @@ static mut slab_list: StatList = StatList {
     },
     cur_count: 0,
 };
-#[c2rust::src_loc = "52:1"]
+
 unsafe extern "C" fn slab_list_append(mut slab: *mut Slab) {
     statlist_append(&raw mut slab_list, &raw mut (*slab).head);
 }
-#[c2rust::src_loc = "59:1"]
+
 unsafe extern "C" fn slab_list_remove(mut slab: *mut Slab) {
     statlist_remove(&raw mut slab_list, &raw mut (*slab).head);
 }
-#[c2rust::src_loc = "67:1"]
+
 unsafe extern "C" fn init_slab(
     mut slab: *mut Slab,
     mut name: *const ::core::ffi::c_char,
@@ -307,7 +307,7 @@ unsafe extern "C" fn init_slab(
     slab_list_append(slab);
 }
 #[no_mangle]
-#[c2rust::src_loc = "103:1"]
+
 pub unsafe extern "C" fn slab_create(
     mut name: *const ::core::ffi::c_char,
     mut obj_size: ::core::ffi::c_uint,
@@ -323,7 +323,7 @@ pub unsafe extern "C" fn slab_create(
     slab
 }
 #[no_mangle]
-#[c2rust::src_loc = "117:1"]
+
 pub unsafe extern "C" fn slab_destroy(mut slab: *mut Slab) {
     let mut item = ::core::ptr::null_mut::<List>();
     let mut tmp = ::core::ptr::null_mut::<List>();
@@ -343,7 +343,7 @@ pub unsafe extern "C" fn slab_destroy(mut slab: *mut Slab) {
     }
     cx_free((*slab).cx, slab as *mut ::core::ffi::c_void);
 }
-#[c2rust::src_loc = "134:1"]
+
 unsafe extern "C" fn grow(mut slab: *mut Slab) {
     let mut count: ::core::ffi::c_uint = 0;
     let mut i: ::core::ffi::c_uint = 0;
@@ -381,7 +381,7 @@ unsafe extern "C" fn grow(mut slab: *mut Slab) {
     statlist_append(&raw mut (*slab).fraglist, &raw mut (*frag).head);
 }
 #[no_mangle]
-#[c2rust::src_loc = "169:1"]
+
 pub unsafe extern "C" fn slab_alloc(mut slab: *mut Slab) -> *mut ::core::ffi::c_void {
     let mut item = statlist_pop(&raw mut (*slab).freelist);
     if item.is_null() {
@@ -402,28 +402,28 @@ pub unsafe extern "C" fn slab_alloc(mut slab: *mut Slab) -> *mut ::core::ffi::c_
     item as *mut ::core::ffi::c_void
 }
 #[no_mangle]
-#[c2rust::src_loc = "186:1"]
+
 pub unsafe extern "C" fn slab_free(mut slab: *mut Slab, mut obj: *mut ::core::ffi::c_void) {
     let mut item = obj as *mut List;
     list_init(item);
     statlist_prepend(&raw mut (*slab).freelist, item);
 }
 #[no_mangle]
-#[c2rust::src_loc = "194:1"]
+
 pub unsafe extern "C" fn slab_total_count(mut slab: *const Slab) -> ::core::ffi::c_int {
     (*slab).total_count as ::core::ffi::c_int
 }
 #[no_mangle]
-#[c2rust::src_loc = "200:1"]
+
 pub unsafe extern "C" fn slab_free_count(mut slab: *const Slab) -> ::core::ffi::c_int {
     statlist_count(&raw const (*slab).freelist)
 }
 #[no_mangle]
-#[c2rust::src_loc = "206:1"]
+
 pub unsafe extern "C" fn slab_active_count(mut slab: *const Slab) -> ::core::ffi::c_int {
     slab_total_count(slab) - slab_free_count(slab)
 }
-#[c2rust::src_loc = "211:1"]
+
 unsafe extern "C" fn run_slab_stats(
     mut slab: *mut Slab,
     mut cb_func: slab_stat_fn,
@@ -439,7 +439,7 @@ unsafe extern "C" fn run_slab_stats(
     );
 }
 #[no_mangle]
-#[c2rust::src_loc = "218:1"]
+
 pub unsafe extern "C" fn slab_stats(
     mut cb_func: slab_stat_fn,
     mut cb_arg: *mut ::core::ffi::c_void,

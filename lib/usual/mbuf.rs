@@ -5,7 +5,7 @@
 use crate::types::{false_0, realloc, size_t, true_0, uint8_t, MBuf};
 
 #[no_mangle]
-#[c2rust::src_loc = "8:1"]
+
 pub unsafe extern "C" fn mbuf_make_room(mut buf: *mut MBuf, mut len: ::core::ffi::c_uint) -> bool {
     let mut new_alloc = (*buf).alloc_len;
     let mut ptr = ::core::ptr::null_mut::<::core::ffi::c_void>();

@@ -1,54 +1,54 @@
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arm/_types.h:17"]
+
 pub mod _types_h {
-    #[c2rust::src_loc = "32:1"]
+    
     pub type __uint8_t = u8;
-    #[c2rust::src_loc = "34:1"]
+    
     pub type __uint16_t = u16;
-    #[c2rust::src_loc = "36:1"]
+    
     pub type __uint32_t = u32;
-    #[c2rust::src_loc = "87:1"]
+    
     pub type __darwin_size_t = usize;
-    #[c2rust::src_loc = "119:1"]
+    
     pub type __darwin_time_t = ::core::ffi::c_long;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_in_addr_t.h:17"]
+
 pub mod _in_addr_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type in_addr_t = __uint32_t;
     use super::_types_h::__uint32_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_size_t.h:17"]
+
 pub mod _size_t_h {
-    #[c2rust::src_loc = "50:1"]
+    
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_time_t.h:17"]
+
 pub mod _time_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type time_t = __darwin_time_t;
     use super::_types_h::__darwin_time_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types/_uint8_t.h:17"]
+
 pub mod _uint8_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type uint8_t = u8;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types/_uint32_t.h:17"]
+
 pub mod _uint32_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type uint32_t = u32;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types/_uint64_t.h:17"]
+
 pub mod _uint64_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type uint64_t = u64;
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/tls/tls_internal.h:23"]
+
 pub mod tls_internal_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "97:1"]
+    
     pub struct tls {
         pub config: *mut tls_config,
         pub error: tls_error,
@@ -68,7 +68,7 @@ pub mod tls_internal_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "121:1"]
+    
     pub struct tls_ocsp_info {
         pub response_status: ::core::ffi::c_int,
         pub cert_status: ::core::ffi::c_int,
@@ -79,7 +79,7 @@ pub mod tls_internal_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "73:1"]
+    
     pub struct tls_conninfo {
         pub issuer: *mut ::core::ffi::c_char,
         pub subject: *mut ::core::ffi::c_char,
@@ -93,14 +93,14 @@ pub mod tls_internal_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "33:1"]
+    
     pub struct tls_error {
         pub msg: *mut ::core::ffi::c_char,
         pub num: ::core::ffi::c_int,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "49:1"]
+    
     pub struct tls_config {
         pub error: tls_error,
         pub ca_file: *const ::core::ffi::c_char,
@@ -125,7 +125,7 @@ pub mod tls_internal_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "38:1"]
+    
     pub struct tls_keypair {
         pub next: *mut tls_keypair,
         pub cert_file: *const ::core::ffi::c_char,
@@ -135,9 +135,9 @@ pub mod tls_internal_h {
         pub key_mem: *mut ::core::ffi::c_char,
         pub key_len: size_t,
     }
-    #[c2rust::src_loc = "86:9"]
+    
     pub const TLS_SERVER: ::core::ffi::c_int = (1 as ::core::ffi::c_int) << 1 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "88:9"]
+    
     pub const TLS_OCSP_CLIENT: ::core::ffi::c_int =
         (1 as ::core::ffi::c_int) << 3 as ::core::ffi::c_int;
     use super::_size_t_h::size_t;
@@ -146,27 +146,27 @@ pub mod tls_internal_h {
     use super::tls_ocsp_query;
     use super::types_h::{ASN1_TIME, SSL, SSL_CTX, X509};
     extern "C" {
-        #[c2rust::src_loc = "130:1"]
+        
         pub fn tls_new() -> *mut tls;
-        #[c2rust::src_loc = "155:1"]
+        
         pub fn tls_set_error(
             ctx: *mut tls,
             fmt: *const ::core::ffi::c_char,
             ...
         ) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "158:1"]
+        
         pub fn tls_set_errorx(
             ctx: *mut tls,
             fmt: *const ::core::ffi::c_char,
             ...
         ) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "161:1"]
+        
         pub fn tls_set_error_libssl(
             ctx: *mut tls,
             fmt: *const ::core::ffi::c_char,
             ...
         ) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "176:1"]
+        
         pub fn tls_asn1_parse_time(
             ctx: *mut tls,
             asn1time: *const ASN1_TIME,
@@ -174,68 +174,68 @@ pub mod tls_internal_h {
         ) -> ::core::ffi::c_int;
     }
 }
-#[c2rust::header_src = "/opt/homebrew/Cellar/openssl@3/3.6.0/include/openssl/types.h:17"]
+
 pub mod types_h {
-    #[c2rust::src_loc = "197:1"]
+    
     pub type SSL_CTX = ssl_ctx_st;
-    #[c2rust::src_loc = "169:1"]
+    
     pub type X509 = x509_st;
-    #[c2rust::src_loc = "214:1"]
+    
     pub type OSSL_HTTP_REQ_CTX = ossl_http_req_ctx_st;
-    #[c2rust::src_loc = "95:1"]
+    
     pub type BIO = bio_st;
-    #[c2rust::src_loc = "196:1"]
+    
     pub type SSL = ssl_st;
-    #[c2rust::src_loc = "215:1"]
+    
     pub type OCSP_RESPONSE = ocsp_response_st;
-    #[c2rust::src_loc = "75:1"]
+    
     pub type ASN1_GENERALIZEDTIME = asn1_string_st;
-    #[c2rust::src_loc = "74:1"]
+    
     pub type ASN1_TIME = asn1_string_st;
-    #[c2rust::src_loc = "177:1"]
+    
     pub type X509_STORE_CTX = x509_store_ctx_st;
-    #[c2rust::src_loc = "179:1"]
+    
     pub type X509_OBJECT = x509_object_st;
-    #[c2rust::src_loc = "112:1"]
+    
     pub type EVP_MD = evp_md_st;
-    #[c2rust::src_loc = "174:1"]
+    
     pub type X509_NAME = X509_name_st;
-    #[c2rust::src_loc = "176:1"]
+    
     pub type X509_STORE = x509_store_st;
-    #[c2rust::src_loc = "87:1"]
+    
     pub type ASN1_ITEM = ASN1_ITEM_st;
     use super::asn1_h::asn1_string_st;
     extern "C" {
-        #[c2rust::src_loc = "197:9"]
+        
         pub type ssl_ctx_st;
-        #[c2rust::src_loc = "169:9"]
+        
         pub type x509_st;
-        #[c2rust::src_loc = "214:9"]
+        
         pub type ossl_http_req_ctx_st;
-        #[c2rust::src_loc = "95:9"]
+        
         pub type bio_st;
-        #[c2rust::src_loc = "196:9"]
+        
         pub type ssl_st;
-        #[c2rust::src_loc = "215:9"]
+        
         pub type ocsp_response_st;
-        #[c2rust::src_loc = "177:9"]
+        
         pub type x509_store_ctx_st;
-        #[c2rust::src_loc = "179:9"]
+        
         pub type x509_object_st;
-        #[c2rust::src_loc = "112:9"]
+        
         pub type evp_md_st;
-        #[c2rust::src_loc = "174:9"]
+        
         pub type X509_name_st;
-        #[c2rust::src_loc = "176:9"]
+        
         pub type x509_store_st;
-        #[c2rust::src_loc = "87:9"]
+        
         pub type ASN1_ITEM_st;
     }
 }
-#[c2rust::header_src = "/opt/homebrew/Cellar/openssl@3/3.6.0/include/openssl/x509.h:17"]
+
 pub mod x509_h {
     #[inline]
-    #[c2rust::src_loc = "78:1"]
+    
     pub unsafe extern "C" fn ossl_check_X509_sk_type(
         mut sk: *mut stack_st_X509,
     ) -> *mut OPENSSL_STACK {
@@ -244,37 +244,37 @@ pub mod x509_h {
     use super::stack_h::OPENSSL_STACK;
     use super::types_h::{X509, X509_NAME};
     extern "C" {
-        #[c2rust::src_loc = "78:1"]
+        
         pub type stack_st_X509;
-        #[c2rust::src_loc = "766:1"]
+        
         pub fn X509_free(a: *mut X509);
-        #[c2rust::src_loc = "858:1"]
+        
         pub fn X509_get_issuer_name(a: *const X509) -> *mut X509_NAME;
-        #[c2rust::src_loc = "1220:1"]
+        
         pub fn X509_find_by_subject(sk: *mut stack_st_X509, name: *const X509_NAME) -> *mut X509;
     }
 }
-#[c2rust::header_src = "/opt/homebrew/Cellar/openssl@3/3.6.0/include/openssl/ocsp.h:27"]
+
 pub mod ocsp_h {
-    #[c2rust::src_loc = "274:1"]
+    
     pub type OCSP_REQ_CTX = OSSL_HTTP_REQ_CTX;
-    #[c2rust::src_loc = "228:1"]
+    
     pub type OCSP_BASICRESP = ocsp_basic_response_st;
-    #[c2rust::src_loc = "89:1"]
+    
     pub type OCSP_CERTID = ocsp_cert_id_st;
-    #[c2rust::src_loc = "93:1"]
+    
     pub type OCSP_REQUEST = ocsp_request_st;
-    #[c2rust::src_loc = "90:1"]
+    
     pub type OCSP_ONEREQ = ocsp_one_request_st;
-    #[c2rust::src_loc = "84:11"]
+    
     pub const OCSP_TRUSTOTHER: ::core::ffi::c_int = 0x200 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "149:11"]
+    
     pub const OCSP_RESPONSE_STATUS_SUCCESSFUL: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "191:11"]
+    
     pub const V_OCSP_CERTSTATUS_GOOD: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "192:11"]
+    
     pub const V_OCSP_CERTSTATUS_REVOKED: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "193:11"]
+    
     pub const V_OCSP_CERTSTATUS_UNKNOWN: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
     use super::types_h::{
         ASN1_GENERALIZEDTIME, ASN1_ITEM, BIO, EVP_MD, OCSP_RESPONSE, OSSL_HTTP_REQ_CTX, X509,
@@ -282,37 +282,37 @@ pub mod ocsp_h {
     };
     use super::x509_h::stack_st_X509;
     extern "C" {
-        #[c2rust::src_loc = "228:9"]
+        
         pub type ocsp_basic_response_st;
-        #[c2rust::src_loc = "89:9"]
+        
         pub type ocsp_cert_id_st;
-        #[c2rust::src_loc = "93:9"]
+        
         pub type ocsp_request_st;
-        #[c2rust::src_loc = "90:9"]
+        
         pub type ocsp_one_request_st;
-        #[c2rust::src_loc = "269:1"]
+        
         pub fn OCSP_sendreq_new(
             io: *mut BIO,
             path: *const ::core::ffi::c_char,
             req: *const OCSP_REQUEST,
             buf_size: ::core::ffi::c_int,
         ) -> *mut OSSL_HTTP_REQ_CTX;
-        #[c2rust::src_loc = "296:1"]
+        
         pub fn OCSP_cert_to_id(
             dgst: *const EVP_MD,
             subject: *const X509,
             issuer: *const X509,
         ) -> *mut OCSP_CERTID;
-        #[c2rust::src_loc = "304:1"]
+        
         pub fn OCSP_request_add0_id(
             req: *mut OCSP_REQUEST,
             cid: *mut OCSP_CERTID,
         ) -> *mut OCSP_ONEREQ;
-        #[c2rust::src_loc = "320:1"]
+        
         pub fn OCSP_response_status(resp: *mut OCSP_RESPONSE) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "321:1"]
+        
         pub fn OCSP_response_get1_basic(resp: *mut OCSP_RESPONSE) -> *mut OCSP_BASICRESP;
-        #[c2rust::src_loc = "345:1"]
+        
         pub fn OCSP_resp_find_status(
             bs: *mut OCSP_BASICRESP,
             id: *mut OCSP_CERTID,
@@ -322,56 +322,56 @@ pub mod ocsp_h {
             thisupd: *mut *mut ASN1_GENERALIZEDTIME,
             nextupd: *mut *mut ASN1_GENERALIZEDTIME,
         ) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "350:1"]
+        
         pub fn OCSP_check_validity(
             thisupd: *mut ASN1_GENERALIZEDTIME,
             nextupd: *mut ASN1_GENERALIZEDTIME,
             sec: ::core::ffi::c_long,
             maxsec: ::core::ffi::c_long,
         ) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "455:1"]
+        
         pub fn OCSP_BASICRESP_free(a: *mut OCSP_BASICRESP);
-        #[c2rust::src_loc = "458:1"]
+        
         pub fn OCSP_RESPONSE_it() -> *const ASN1_ITEM;
-        #[c2rust::src_loc = "458:1"]
+        
         pub fn d2i_OCSP_RESPONSE(
             a: *mut *mut OCSP_RESPONSE,
             in_0: *mut *const ::core::ffi::c_uchar,
             len: ::core::ffi::c_long,
         ) -> *mut OCSP_RESPONSE;
-        #[c2rust::src_loc = "458:1"]
+        
         pub fn OCSP_RESPONSE_free(a: *mut OCSP_RESPONSE);
-        #[c2rust::src_loc = "458:1"]
+        
         pub fn i2d_OCSP_RESPONSE(
             a: *const OCSP_RESPONSE,
             out: *mut *mut ::core::ffi::c_uchar,
         ) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "461:1"]
+        
         pub fn OCSP_CERTID_free(a: *mut OCSP_CERTID);
-        #[c2rust::src_loc = "462:1"]
+        
         pub fn d2i_OCSP_REQUEST(
             a: *mut *mut OCSP_REQUEST,
             in_0: *mut *const ::core::ffi::c_uchar,
             len: ::core::ffi::c_long,
         ) -> *mut OCSP_REQUEST;
-        #[c2rust::src_loc = "462:1"]
+        
         pub fn OCSP_REQUEST_new() -> *mut OCSP_REQUEST;
-        #[c2rust::src_loc = "462:1"]
+        
         pub fn OCSP_REQUEST_free(a: *mut OCSP_REQUEST);
-        #[c2rust::src_loc = "462:1"]
+        
         pub fn i2d_OCSP_REQUEST(
             a: *const OCSP_REQUEST,
             out: *mut *mut ::core::ffi::c_uchar,
         ) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "462:1"]
+        
         pub fn OCSP_REQUEST_it() -> *const ASN1_ITEM;
-        #[c2rust::src_loc = "468:1"]
+        
         pub fn OCSP_response_status_str(s: ::core::ffi::c_long) -> *const ::core::ffi::c_char;
-        #[c2rust::src_loc = "469:1"]
+        
         pub fn OCSP_cert_status_str(s: ::core::ffi::c_long) -> *const ::core::ffi::c_char;
-        #[c2rust::src_loc = "470:1"]
+        
         pub fn OCSP_crl_reason_str(s: ::core::ffi::c_long) -> *const ::core::ffi::c_char;
-        #[c2rust::src_loc = "475:1"]
+        
         pub fn OCSP_basic_verify(
             bs: *mut OCSP_BASICRESP,
             certs: *mut stack_st_X509,
@@ -380,50 +380,50 @@ pub mod ocsp_h {
         ) -> ::core::ffi::c_int;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/poll.h:17"]
+
 pub mod poll_h {
-    #[c2rust::src_loc = "102:1"]
+    
     pub type nfds_t = ::core::ffi::c_uint;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "96:1"]
+    
     pub struct pollfd {
         pub fd: ::core::ffi::c_int,
         pub events: ::core::ffi::c_short,
         pub revents: ::core::ffi::c_short,
     }
-    #[c2rust::src_loc = "68:9"]
+    
     pub const POLLIN: ::core::ffi::c_int = 0x1 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "70:9"]
+    
     pub const POLLOUT: ::core::ffi::c_int = 0x4 as ::core::ffi::c_int;
     extern "C" {
-        #[c2rust::src_loc = "113:1"]
+        
         pub fn poll(_: *mut pollfd, _: nfds_t, _: ::core::ffi::c_int) -> ::core::ffi::c_int;
     }
 }
-#[c2rust::header_src = "/opt/homebrew/Cellar/openssl@3/3.6.0/include/openssl/asn1.h:17"]
+
 pub mod asn1_h {
-    #[c2rust::src_loc = "373:1"]
+    
     pub type i2d_of_void = unsafe extern "C" fn(
         *const ::core::ffi::c_void,
         *mut *mut ::core::ffi::c_uchar,
     ) -> ::core::ffi::c_int;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "186:1"]
+    
     pub struct asn1_string_st {
         pub length: ::core::ffi::c_int,
         pub type_0: ::core::ffi::c_int,
         pub data: *mut ::core::ffi::c_uchar,
         pub flags: ::core::ffi::c_long,
     }
-    #[c2rust::src_loc = "279:1"]
+    
     pub type ASN1_VALUE = ASN1_VALUE_st;
     use super::types_h::BIO;
     extern "C" {
-        #[c2rust::src_loc = "279:9"]
+        
         pub type ASN1_VALUE_st;
-        #[c2rust::src_loc = "968:1"]
+        
         pub fn ASN1_i2d_bio(
             i2d: Option<i2d_of_void>,
             out: *mut BIO,
@@ -431,98 +431,98 @@ pub mod asn1_h {
         ) -> ::core::ffi::c_int;
     }
 }
-#[c2rust::header_src = "/opt/homebrew/Cellar/openssl@3/3.6.0/include/openssl/bio.h:17"]
+
 pub mod bio_h {
-    #[c2rust::src_loc = "328:1"]
+    
     pub type BIO_METHOD = bio_method_st;
-    #[c2rust::src_loc = "90:10"]
+    
     pub const BIO_CTRL_INFO: ::core::ffi::c_int = 3 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "220:10"]
+    
     pub const BIO_FLAGS_READ: ::core::ffi::c_int = 0x1 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "221:10"]
+    
     pub const BIO_FLAGS_WRITE: ::core::ffi::c_int = 0x2 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "224:10"]
+    
     pub const BIO_FLAGS_SHOULD_RETRY: ::core::ffi::c_int = 0x8 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "431:10"]
+    
     pub const BIO_C_SET_CONNECT: ::core::ffi::c_int = 100 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "432:10"]
+    
     pub const BIO_C_DO_STATE_MACHINE: ::core::ffi::c_int = 101 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "433:10"]
+    
     pub const BIO_C_SET_NBIO: ::core::ffi::c_int = 102 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "436:10"]
+    
     pub const BIO_C_GET_FD: ::core::ffi::c_int = 105 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "441:10"]
+    
     pub const BIO_C_GET_SSL: ::core::ffi::c_int = 110 as ::core::ffi::c_int;
     use super::types_h::BIO;
     extern "C" {
-        #[c2rust::src_loc = "328:9"]
+        
         pub type bio_method_st;
-        #[c2rust::src_loc = "248:1"]
+        
         pub fn BIO_test_flags(b: *const BIO, flags: ::core::ffi::c_int) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "729:1"]
+        
         pub fn BIO_new(type_0: *const BIO_METHOD) -> *mut BIO;
-        #[c2rust::src_loc = "730:1"]
+        
         pub fn BIO_free(a: *mut BIO) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "755:1"]
+        
         pub fn BIO_ctrl(
             bp: *mut BIO,
             cmd: ::core::ffi::c_int,
             larg: ::core::ffi::c_long,
             parg: *mut ::core::ffi::c_void,
         ) -> ::core::ffi::c_long;
-        #[c2rust::src_loc = "761:1"]
+        
         pub fn BIO_free_all(a: *mut BIO);
-        #[c2rust::src_loc = "775:1"]
+        
         pub fn BIO_s_mem() -> *const BIO_METHOD;
-        #[c2rust::src_loc = "783:1"]
+        
         pub fn BIO_s_connect() -> *const BIO_METHOD;
     }
 }
-#[c2rust::header_src = "/opt/homebrew/Cellar/openssl@3/3.6.0/include/openssl/stack.h:17"]
+
 pub mod stack_h {
-    #[c2rust::src_loc = "23:1"]
+    
     pub type OPENSSL_STACK = stack_st;
     extern "C" {
-        #[c2rust::src_loc = "23:9"]
+        
         pub type stack_st;
-        #[c2rust::src_loc = "31:1"]
+        
         pub fn OPENSSL_sk_value(
             _: *const OPENSSL_STACK,
             _: ::core::ffi::c_int,
         ) -> *mut ::core::ffi::c_void;
-        #[c2rust::src_loc = "40:1"]
+        
         pub fn OPENSSL_sk_free(_: *mut OPENSSL_STACK);
     }
 }
-#[c2rust::header_src = "/opt/homebrew/Cellar/openssl@3/3.6.0/include/openssl/x509_vfy.h:17"]
+
 pub mod x509_vfy_h {
-    #[c2rust::src_loc = "60:9"]
+    
     pub type X509_LOOKUP_TYPE = ::core::ffi::c_uint;
-    #[c2rust::src_loc = "62:19"]
+    
     pub const X509_LU_CRL: X509_LOOKUP_TYPE = 2;
-    #[c2rust::src_loc = "62:5"]
+    
     pub const X509_LU_X509: X509_LOOKUP_TYPE = 1;
-    #[c2rust::src_loc = "61:5"]
+    
     pub const X509_LU_NONE: X509_LOOKUP_TYPE = 0;
     use super::types_h::{X509, X509_NAME, X509_OBJECT, X509_STORE, X509_STORE_CTX};
     use super::x509_h::stack_st_X509;
     extern "C" {
-        #[c2rust::src_loc = "503:1"]
+        
         pub fn X509_OBJECT_free(a: *mut X509_OBJECT);
-        #[c2rust::src_loc = "505:1"]
+        
         pub fn X509_OBJECT_get0_X509(a: *const X509_OBJECT) -> *mut X509;
-        #[c2rust::src_loc = "578:1"]
+        
         pub fn X509_STORE_CTX_new() -> *mut X509_STORE_CTX;
-        #[c2rust::src_loc = "582:1"]
+        
         pub fn X509_STORE_CTX_free(ctx: *mut X509_STORE_CTX);
-        #[c2rust::src_loc = "583:1"]
+        
         pub fn X509_STORE_CTX_init(
             ctx: *mut X509_STORE_CTX,
             trust_store: *mut X509_STORE,
             target: *mut X509,
             untrusted: *mut stack_st_X509,
         ) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "716:1"]
+        
         pub fn X509_STORE_CTX_get_obj_by_subject(
             vs: *mut X509_STORE_CTX,
             type_0: X509_LOOKUP_TYPE,
@@ -530,17 +530,17 @@ pub mod x509_vfy_h {
         ) -> *mut X509_OBJECT;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/netinet6/in6.h:17"]
+
 pub mod in6_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "152:9"]
+    
     pub struct in6_addr {
         pub __u6_addr: C2RustUnnamed_0,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "153:2"]
+    
     pub union C2RustUnnamed_0 {
         pub __u6_addr8: [__uint8_t; 16],
         pub __u6_addr16: [__uint16_t; 8],
@@ -548,100 +548,100 @@ pub mod in6_h {
     }
     use super::_types_h::{__uint16_t, __uint32_t, __uint8_t};
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/netinet/in.h:17"]
+
 pub mod in_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "301:1"]
+    
     pub struct in_addr {
         pub s_addr: in_addr_t,
     }
     use super::_in_addr_t_h::in_addr_t;
 }
-#[c2rust::header_src = "/opt/homebrew/Cellar/openssl@3/3.6.0/include/openssl/ssl.h:17"]
+
 pub mod ssl_h {
-    #[c2rust::src_loc = "233:1"]
+    
     pub type SSL_METHOD = ssl_method_st;
-    #[c2rust::src_loc = "426:10"]
+    
     pub const SSL_OP_NO_SSLv3: uint64_t =
         (1 as ::core::ffi::c_int as uint64_t) << 25 as ::core::ffi::c_int as uint64_t;
-    #[c2rust::src_loc = "427:10"]
+    
     pub const SSL_OP_NO_TLSv1: uint64_t =
         (1 as ::core::ffi::c_int as uint64_t) << 26 as ::core::ffi::c_int as uint64_t;
-    #[c2rust::src_loc = "428:10"]
+    
     pub const SSL_OP_NO_TLSv1_2: uint64_t =
         (1 as ::core::ffi::c_int as uint64_t) << 27 as ::core::ffi::c_int as uint64_t;
-    #[c2rust::src_loc = "429:10"]
+    
     pub const SSL_OP_NO_TLSv1_1: uint64_t =
         (1 as ::core::ffi::c_int as uint64_t) << 28 as ::core::ffi::c_int as uint64_t;
-    #[c2rust::src_loc = "430:10"]
+    
     pub const SSL_OP_NO_TLSv1_3: uint64_t =
         (1 as ::core::ffi::c_int as uint64_t) << 29 as ::core::ffi::c_int as uint64_t;
-    #[c2rust::src_loc = "485:10"]
+    
     pub const SSL_OP_NO_SSLv2: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "1298:10"]
+    
     pub const SSL_CTRL_MODE: ::core::ffi::c_int = 33 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "1311:10"]
+    
     pub const SSL_CTRL_SET_TLSEXT_HOSTNAME: ::core::ffi::c_int = 55 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "1326:10"]
+    
     pub const SSL_CTRL_GET_TLSEXT_STATUS_REQ_OCSP_RESP: ::core::ffi::c_int =
         70 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "1327:10"]
+    
     pub const SSL_CTRL_SET_TLSEXT_STATUS_REQ_OCSP_RESP: ::core::ffi::c_int =
         71 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "1343:10"]
+    
     pub const SSL_CTRL_GET_EXTRA_CHAIN_CERTS: ::core::ffi::c_int = 82 as ::core::ffi::c_int;
     use super::_uint64_t_h::uint64_t;
     use super::types_h::{BIO, SSL, SSL_CTX, X509, X509_STORE};
     use super::x509_h::stack_st_X509;
     extern "C" {
-        #[c2rust::src_loc = "233:9"]
+        
         pub type ssl_method_st;
-        #[c2rust::src_loc = "626:1"]
+        
         pub fn SSL_CTX_clear_options(ctx: *mut SSL_CTX, op: uint64_t) -> uint64_t;
-        #[c2rust::src_loc = "628:1"]
+        
         pub fn SSL_CTX_set_options(ctx: *mut SSL_CTX, op: uint64_t) -> uint64_t;
-        #[c2rust::src_loc = "1615:8"]
+        
         pub fn BIO_new_ssl_connect(ctx: *mut SSL_CTX) -> *mut BIO;
-        #[c2rust::src_loc = "1621:8"]
+        
         pub fn SSL_CTX_new(meth: *const SSL_METHOD) -> *mut SSL_CTX;
-        #[c2rust::src_loc = "1625:1"]
+        
         pub fn SSL_CTX_free(_: *mut SSL_CTX);
-        #[c2rust::src_loc = "1628:8"]
+        
         pub fn SSL_CTX_get_cert_store(_: *const SSL_CTX) -> *mut X509_STORE;
-        #[c2rust::src_loc = "1822:8"]
+        
         pub fn SSL_get1_peer_certificate(s: *const SSL) -> *mut X509;
-        #[c2rust::src_loc = "1829:8"]
+        
         pub fn SSL_get_peer_cert_chain(s: *const SSL) -> *mut stack_st_X509;
-        #[c2rust::src_loc = "2018:1"]
+        
         pub fn SSL_ctrl(
             ssl: *mut SSL,
             cmd: ::core::ffi::c_int,
             larg: ::core::ffi::c_long,
             parg: *mut ::core::ffi::c_void,
         ) -> ::core::ffi::c_long;
-        #[c2rust::src_loc = "2020:1"]
+        
         pub fn SSL_CTX_ctrl(
             ctx: *mut SSL_CTX,
             cmd: ::core::ffi::c_int,
             larg: ::core::ffi::c_long,
             parg: *mut ::core::ffi::c_void,
         ) -> ::core::ffi::c_long;
-        #[c2rust::src_loc = "2060:8"]
+        
         pub fn TLS_client_method() -> *const SSL_METHOD;
-        #[c2rust::src_loc = "2163:8"]
+        
         pub fn SSL_get_certificate(ssl: *const SSL) -> *mut X509;
-        #[c2rust::src_loc = "2218:1"]
+        
         pub fn SSL_get_ex_data(
             ssl: *const SSL,
             idx: ::core::ffi::c_int,
         ) -> *mut ::core::ffi::c_void;
     }
 }
-#[c2rust::header_src = "/opt/homebrew/Cellar/openssl@3/3.6.0/include/openssl/safestack.h:17"]
+
 pub mod safestack_h {
     #[inline]
-    #[c2rust::src_loc = "228:1"]
+    
     pub unsafe extern "C" fn ossl_check_const_OPENSSL_STRING_sk_type(
         mut sk: *const stack_st_OPENSSL_STRING,
     ) -> *const OPENSSL_STACK {
@@ -649,45 +649,45 @@ pub mod safestack_h {
     }
     use super::stack_h::OPENSSL_STACK;
     extern "C" {
-        #[c2rust::src_loc = "228:1"]
+        
         pub type stack_st_OPENSSL_STRING;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/malloc/_malloc.h:17"]
+
 pub mod _malloc_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        #[c2rust::src_loc = "54:1"]
+        
         pub fn malloc(__size: size_t) -> *mut ::core::ffi::c_void;
-        #[c2rust::src_loc = "55:1"]
+        
         pub fn calloc(__count: size_t, __size: size_t) -> *mut ::core::ffi::c_void;
-        #[c2rust::src_loc = "56:1"]
+        
         pub fn free(_: *mut ::core::ffi::c_void);
     }
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/tls/tls.h:17"]
+
 pub mod tls_h {
-    #[c2rust::src_loc = "39:9"]
+    
     pub const TLS_WANT_POLLIN: ::core::ffi::c_int = -(2 as ::core::ffi::c_int);
-    #[c2rust::src_loc = "40:9"]
+    
     pub const TLS_WANT_POLLOUT: ::core::ffi::c_int = -(3 as ::core::ffi::c_int);
-    #[c2rust::src_loc = "41:9"]
+    
     pub const TLS_NO_OCSP: ::core::ffi::c_int = -(4 as ::core::ffi::c_int);
     use super::_size_t_h::size_t;
     use super::_uint8_t_h::uint8_t;
     use super::tls_internal_h::{tls, tls_config};
     extern "C" {
-        #[c2rust::src_loc = "101:1"]
+        
         pub fn tls_config_set_ocsp_stapling_mem(
             _config: *mut tls_config,
             _blob: *const uint8_t,
             _len: size_t,
         ) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "121:1"]
+        
         pub fn tls_configure(_ctx: *mut tls, _config: *mut tls_config) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "123:1"]
+        
         pub fn usual_tls_free(_ctx: *mut tls);
-        #[c2rust::src_loc = "151:1"]
+        
         pub fn tls_load_file(
             _file: *const ::core::ffi::c_char,
             _len: *mut size_t,
@@ -695,59 +695,59 @@ pub mod tls_h {
         ) -> *mut uint8_t;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_null.h:17"]
+
 pub mod _null_h {
-    #[c2rust::src_loc = "49:9"]
+    
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
     use super::sys__types_h::__DARWIN_NULL;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_string.h:17"]
+
 pub mod _string_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        #[c2rust::src_loc = "77:1"]
+        
         pub fn memcpy(
             __dst: *mut ::core::ffi::c_void,
             __src: *const ::core::ffi::c_void,
             __n: size_t,
         ) -> *mut ::core::ffi::c_void;
-        #[c2rust::src_loc = "83:1"]
+        
         pub fn memset(
             __b: *mut ::core::ffi::c_void,
             __c: ::core::ffi::c_int,
             __len: size_t,
         ) -> *mut ::core::ffi::c_void;
-        #[c2rust::src_loc = "141:1"]
+        
         pub fn strdup(__s1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
     }
 }
-#[c2rust::header_src = "/opt/homebrew/Cellar/openssl@3/3.6.0/include/openssl/http.h:17"]
+
 pub mod http_h {
     use super::asn1_h::ASN1_VALUE;
     use super::types_h::{ASN1_ITEM, OSSL_HTTP_REQ_CTX};
     extern "C" {
-        #[c2rust::src_loc = "51:1"]
+        
         pub fn OSSL_HTTP_REQ_CTX_free(rctx: *mut OSSL_HTTP_REQ_CTX);
-        #[c2rust::src_loc = "55:1"]
+        
         pub fn OSSL_HTTP_REQ_CTX_add1_header(
             rctx: *mut OSSL_HTTP_REQ_CTX,
             name: *const ::core::ffi::c_char,
             value: *const ::core::ffi::c_char,
         ) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "60:1"]
+        
         pub fn OSSL_HTTP_REQ_CTX_set1_req(
             rctx: *mut OSSL_HTTP_REQ_CTX,
             content_type: *const ::core::ffi::c_char,
             it: *const ASN1_ITEM,
             req: *const ASN1_VALUE,
         ) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "63:1"]
+        
         pub fn OSSL_HTTP_REQ_CTX_nbio_d2i(
             rctx: *mut OSSL_HTTP_REQ_CTX,
             pval: *mut *mut ASN1_VALUE,
             it: *const ASN1_ITEM,
         ) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "109:1"]
+        
         pub fn OSSL_HTTP_parse_url(
             url: *const ::core::ffi::c_char,
             pssl: *mut ::core::ffi::c_int,
@@ -761,28 +761,28 @@ pub mod http_h {
         ) -> ::core::ffi::c_int;
     }
 }
-#[c2rust::header_src = "/opt/homebrew/Cellar/openssl@3/3.6.0/include/openssl/x509v3.h:27"]
+
 pub mod x509v3_h {
     use super::safestack_h::stack_st_OPENSSL_STRING;
     use super::types_h::X509;
     extern "C" {
-        #[c2rust::src_loc = "1025:1"]
+        
         pub fn X509_email_free(sk: *mut stack_st_OPENSSL_STRING);
-        #[c2rust::src_loc = "1026:1"]
+        
         pub fn X509_get1_ocsp(x: *mut X509) -> *mut stack_st_OPENSSL_STRING;
     }
 }
-#[c2rust::header_src = "/opt/homebrew/Cellar/openssl@3/3.6.0/include/openssl/crypto.h:17"]
+
 pub mod crypto_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        #[c2rust::src_loc = "372:1"]
+        
         pub fn CRYPTO_malloc(
             num: size_t,
             file: *const ::core::ffi::c_char,
             line: ::core::ffi::c_int,
         ) -> *mut ::core::ffi::c_void;
-        #[c2rust::src_loc = "387:1"]
+        
         pub fn CRYPTO_free(
             ptr: *mut ::core::ffi::c_void,
             file: *const ::core::ffi::c_char,
@@ -790,28 +790,28 @@ pub mod crypto_h {
         );
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types.h:17"]
+
 pub mod sys__types_h {
-    #[c2rust::src_loc = "64:9"]
+    
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
 }
-#[c2rust::header_src = "/opt/homebrew/Cellar/llvm/21.1.8/lib/clang/21/include/stdbool.h:17"]
+
 pub mod stdbool_h {
-    #[c2rust::src_loc = "26:9"]
+    
     pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/socket.h:17"]
+
 pub mod socket_h {
-    #[c2rust::src_loc = "365:9"]
+    
     pub const AF_INET: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "396:9"]
+    
     pub const AF_INET6: ::core::ffi::c_int = 30 as ::core::ffi::c_int;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arpa/inet.h:17"]
+
 pub mod inet_h {
     extern "C" {
-        #[c2rust::src_loc = "81:1"]
+        
         pub fn inet_pton(
             _: ::core::ffi::c_int,
             _: *const ::core::ffi::c_char,
@@ -819,15 +819,15 @@ pub mod inet_h {
         ) -> ::core::ffi::c_int;
     }
 }
-#[c2rust::header_src = "/opt/homebrew/Cellar/openssl@3/3.6.0/include/openssl/tls1.h:17"]
+
 pub mod tls1_h {
-    #[c2rust::src_loc = "172:10"]
+    
     pub const TLSEXT_NAMETYPE_host_name: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "338:10"]
+    
     pub const SSL_TLSEXT_ERR_OK: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "340:10"]
+    
     pub const SSL_TLSEXT_ERR_ALERT_FATAL: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "341:10"]
+    
     pub const SSL_TLSEXT_ERR_NOACK: ::core::ffi::c_int = 3 as ::core::ffi::c_int;
 }
 pub use self::_in_addr_t_h::in_addr_t;
@@ -910,7 +910,7 @@ pub use self::x509_vfy_h::{
 use self::x509v3_h::{X509_email_free, X509_get1_ocsp};
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[c2rust::src_loc = "42:1"]
+
 pub struct tls_ocsp_query {
     pub ocsp_url: *mut ::core::ffi::c_char,
     pub request_data: *mut uint8_t,
@@ -924,19 +924,19 @@ pub struct tls_ocsp_query {
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[c2rust::src_loc = "733:2"]
+
 pub union C2RustUnnamed {
     pub ip4: in_addr,
     pub ip6: in6_addr,
 }
-#[c2rust::src_loc = "29:9"]
+
 pub const MAXAGE_SEC: ::core::ffi::c_int = 14 as ::core::ffi::c_int
     * 24 as ::core::ffi::c_int
     * 60 as ::core::ffi::c_int
     * 60 as ::core::ffi::c_int;
-#[c2rust::src_loc = "30:9"]
+
 pub const JITTER_SEC: ::core::ffi::c_int = 60 as ::core::ffi::c_int;
-#[c2rust::src_loc = "65:1"]
+
 unsafe extern "C" fn tls_ocsp_fill_info(
     mut ctx: *mut tls,
     mut response_status: ::core::ffi::c_int,
@@ -973,7 +973,7 @@ unsafe extern "C" fn tls_ocsp_fill_info(
     }
     res
 }
-#[c2rust::src_loc = "97:1"]
+
 unsafe extern "C" fn tls_ocsp_fill_result(mut ctx: *mut tls, mut res: ::core::ffi::c_int) {
     let mut info = (*ctx).ocsp_info;
     if res < 0 as ::core::ffi::c_int {
@@ -988,12 +988,12 @@ unsafe extern "C" fn tls_ocsp_fill_result(mut ctx: *mut tls, mut res: ::core::ff
     };
 }
 #[no_mangle]
-#[c2rust::src_loc = "111:1"]
+
 pub unsafe extern "C" fn tls_ocsp_info_free(mut info: *mut tls_ocsp_info) {
     free(info as *mut ::core::ffi::c_void);
 }
 #[no_mangle]
-#[c2rust::src_loc = "116:1"]
+
 pub unsafe extern "C" fn tls_get_ocsp_info(
     mut ctx: *mut tls,
     mut response_status: *mut ::core::ffi::c_int,
@@ -1046,7 +1046,7 @@ pub unsafe extern "C" fn tls_get_ocsp_info(
     }
     ret
 }
-#[c2rust::src_loc = "158:1"]
+
 unsafe extern "C" fn tls_ocsp_get_certid(
     mut main_cert: *mut X509,
     mut extra_certs: *mut stack_st_X509,
@@ -1094,7 +1094,7 @@ unsafe extern "C" fn tls_ocsp_get_certid(
     }
     ::core::ptr::null_mut::<OCSP_CERTID>()
 }
-#[c2rust::src_loc = "202:1"]
+
 unsafe extern "C" fn tls_ocsp_verify_response(
     mut ctx: *mut tls,
     mut main_cert: *mut X509,
@@ -1212,7 +1212,7 @@ unsafe extern "C" fn tls_ocsp_verify_response(
     ret
 }
 #[no_mangle]
-#[c2rust::src_loc = "347:1"]
+
 pub unsafe extern "C" fn tls_ocsp_verify_callback(
     mut ssl: *mut SSL,
     mut _arg: *mut ::core::ffi::c_void,
@@ -1269,7 +1269,7 @@ pub unsafe extern "C" fn tls_ocsp_verify_callback(
     }
 }
 #[no_mangle]
-#[c2rust::src_loc = "389:1"]
+
 pub unsafe extern "C" fn tls_ocsp_stapling_callback(
     mut ssl: *mut SSL,
     mut _arg: *mut ::core::ffi::c_void,
@@ -1338,7 +1338,7 @@ pub unsafe extern "C" fn tls_ocsp_stapling_callback(
     ret
 }
 #[no_mangle]
-#[c2rust::src_loc = "429:1"]
+
 pub unsafe extern "C" fn tls_ocsp_client_free(mut ctx: *mut tls) {
     let mut q = ::core::ptr::null_mut::<tls_ocsp_query>();
     if ctx.is_null() {
@@ -1357,7 +1357,7 @@ pub unsafe extern "C" fn tls_ocsp_client_free(mut ctx: *mut tls) {
         (*ctx).ocsp_query = ::core::ptr::null_mut::<tls_ocsp_query>();
     }
 }
-#[c2rust::src_loc = "449:1"]
+
 unsafe extern "C" fn tls_ocsp_client_new() -> *mut tls {
     let mut ctx = ::core::ptr::null_mut::<tls>();
     ctx = tls_new();
@@ -1375,7 +1375,7 @@ unsafe extern "C" fn tls_ocsp_client_new() -> *mut tls {
     }
     ctx
 }
-#[c2rust::src_loc = "466:1"]
+
 unsafe extern "C" fn tls_build_ocsp_request(mut ctx: *mut tls) -> ::core::ffi::c_int {
     let mut q = ::core::ptr::null_mut::<tls_ocsp_query>();
     let mut ok: ::core::ffi::c_int = 0;
@@ -1479,7 +1479,7 @@ unsafe extern "C" fn tls_build_ocsp_request(mut ctx: *mut tls) -> ::core::ffi::c
     BIO_free(mem);
     ret
 }
-#[c2rust::src_loc = "529:1"]
+
 unsafe extern "C" fn tls_ocsp_setup(
     mut ocsp_ctx_p: *mut *mut tls,
     mut config: *mut tls_config,
@@ -1542,7 +1542,7 @@ unsafe extern "C" fn tls_ocsp_setup(
     X509_email_free(ocsp_urls);
     ret
 }
-#[c2rust::src_loc = "587:1"]
+
 unsafe extern "C" fn tls_ocsp_process_response_parsed(
     mut ctx: *mut tls,
     mut config: *mut tls_config,
@@ -1633,7 +1633,7 @@ unsafe extern "C" fn tls_ocsp_process_response_parsed(
     tls_ocsp_fill_result(ctx, ret);
     ret
 }
-#[c2rust::src_loc = "623:1"]
+
 unsafe extern "C" fn tls_ocsp_create_request(
     mut ocsp_ctx_p: *mut *mut tls,
     mut config: *mut tls_config,
@@ -1655,7 +1655,7 @@ unsafe extern "C" fn tls_ocsp_create_request(
     0 as ::core::ffi::c_int
 }
 #[no_mangle]
-#[c2rust::src_loc = "647:1"]
+
 pub unsafe extern "C" fn tls_ocsp_check_peer_request(
     mut ocsp_ctx_p: *mut *mut tls,
     mut target: *mut tls,
@@ -1673,7 +1673,7 @@ pub unsafe extern "C" fn tls_ocsp_check_peer_request(
     )
 }
 #[no_mangle]
-#[c2rust::src_loc = "654:1"]
+
 pub unsafe extern "C" fn tls_ocsp_refresh_stapling_request(
     mut ocsp_ctx_p: *mut *mut tls,
     mut config: *mut tls_config,
@@ -1691,7 +1691,7 @@ pub unsafe extern "C" fn tls_ocsp_refresh_stapling_request(
     )
 }
 #[no_mangle]
-#[c2rust::src_loc = "662:1"]
+
 pub unsafe extern "C" fn tls_ocsp_process_response(
     mut ctx: *mut tls,
     mut response_blob: *const ::core::ffi::c_void,
@@ -1717,7 +1717,7 @@ pub unsafe extern "C" fn tls_ocsp_process_response(
     OCSP_RESPONSE_free(resp);
     ret
 }
-#[c2rust::src_loc = "683:1"]
+
 unsafe extern "C" fn tls_ocsp_build_http_req(mut ctx: *mut tls) -> ::core::ffi::c_int {
     let mut q = (*ctx).ocsp_query;
     let mut ok: ::core::ffi::c_int = 0;
@@ -1793,7 +1793,7 @@ unsafe extern "C" fn tls_ocsp_build_http_req(mut ctx: *mut tls) -> ::core::ffi::
     free(path as *mut ::core::ffi::c_void);
     ret
 }
-#[c2rust::src_loc = "728:1"]
+
 unsafe extern "C" fn tls_ocsp_connection_setup(mut ctx: *mut tls) -> ::core::ffi::c_int {
     let mut current_block: u64;
     let mut ssl = ::core::ptr::null_mut::<SSL>();
@@ -1923,7 +1923,7 @@ unsafe extern "C" fn tls_ocsp_connection_setup(mut ctx: *mut tls) -> ::core::ffi
     free(path as *mut ::core::ffi::c_void);
     ret
 }
-#[c2rust::src_loc = "787:1"]
+
 unsafe extern "C" fn tls_ocsp_evloop(
     mut ctx: *mut tls,
     mut fd_p: *mut ::core::ffi::c_int,
@@ -2005,7 +2005,7 @@ unsafe extern "C" fn tls_ocsp_evloop(
     tls_ocsp_fill_result(ctx, -(1 as ::core::ffi::c_int));
     -(1 as ::core::ffi::c_int)
 }
-#[c2rust::src_loc = "833:1"]
+
 unsafe extern "C" fn tls_ocsp_do_poll(
     mut ctx: *mut tls,
     mut errcode: ::core::ffi::c_int,
@@ -2050,7 +2050,7 @@ unsafe extern "C" fn tls_ocsp_do_poll(
     );
     -(1 as ::core::ffi::c_int)
 }
-#[c2rust::src_loc = "860:1"]
+
 unsafe extern "C" fn tls_ocsp_query_async(
     mut ocsp_ctx_p: *mut *mut tls,
     mut fd_p: *mut ::core::ffi::c_int,
@@ -2083,7 +2083,7 @@ unsafe extern "C" fn tls_ocsp_query_async(
     }
     tls_ocsp_evloop(ctx, fd_p, config)
 }
-#[c2rust::src_loc = "880:1"]
+
 unsafe extern "C" fn tls_ocsp_common_query(
     mut ocsp_ctx_p: *mut *mut tls,
     mut fd_p: *mut ::core::ffi::c_int,
@@ -2110,7 +2110,7 @@ unsafe extern "C" fn tls_ocsp_common_query(
     ret
 }
 #[no_mangle]
-#[c2rust::src_loc = "906:1"]
+
 pub unsafe extern "C" fn tls_ocsp_check_peer(
     mut ocsp_ctx_p: *mut *mut tls,
     mut async_fd_p: *mut ::core::ffi::c_int,
@@ -2124,7 +2124,7 @@ pub unsafe extern "C" fn tls_ocsp_check_peer(
     )
 }
 #[no_mangle]
-#[c2rust::src_loc = "911:1"]
+
 pub unsafe extern "C" fn tls_ocsp_refresh_stapling(
     mut ocsp_ctx_p: *mut *mut tls,
     mut async_fd_p: *mut ::core::ffi::c_int,

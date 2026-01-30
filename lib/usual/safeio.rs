@@ -1,56 +1,56 @@
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arm/_types.h:24"]
+
 pub mod _types_h {
-    #[c2rust::src_loc = "32:1"]
+    
     pub type __uint8_t = u8;
-    #[c2rust::src_loc = "35:1"]
+    
     pub type __int32_t = i32;
-    #[c2rust::src_loc = "36:1"]
+    
     pub type __uint32_t = u32;
-    #[c2rust::src_loc = "87:1"]
+    
     pub type __darwin_size_t = usize;
-    #[c2rust::src_loc = "117:1"]
+    
     pub type __darwin_socklen_t = __uint32_t;
-    #[c2rust::src_loc = "118:1"]
+    
     pub type __darwin_ssize_t = isize;
-    #[c2rust::src_loc = "119:1"]
+    
     pub type __darwin_time_t = ::core::ffi::c_long;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types.h:24"]
+
 pub mod sys__types_h {
-    #[c2rust::src_loc = "86:1"]
+    
     pub type __darwin_suseconds_t = __int32_t;
-    #[c2rust::src_loc = "64:9"]
+    
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
     use super::_types_h::__int32_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_size_t.h:24"]
+
 pub mod _size_t_h {
-    #[c2rust::src_loc = "50:1"]
+    
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_ssize_t.h:24"]
+
 pub mod _ssize_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type ssize_t = __darwin_ssize_t;
     use super::_types_h::__darwin_ssize_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_fd_def.h:24"]
+
 pub mod _fd_def_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "50:9"]
+    
     pub struct fd_set {
         pub fds_bits: [__int32_t; 32],
     }
     use super::_types_h::__int32_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_timeval.h:24"]
+
 pub mod _timeval_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "34:1"]
+    
     pub struct timeval {
         pub tv_sec: __darwin_time_t,
         pub tv_usec: __darwin_suseconds_t,
@@ -58,34 +58,34 @@ pub mod _timeval_h {
     use super::_types_h::__darwin_time_t;
     use super::sys__types_h::__darwin_suseconds_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_sa_family_t.h:24"]
+
 pub mod _sa_family_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type sa_family_t = __uint8_t;
     use super::_types_h::__uint8_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_socklen_t.h:24"]
+
 pub mod _socklen_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type socklen_t = __darwin_socklen_t;
     use super::_types_h::__darwin_socklen_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_iovec_t.h:24"]
+
 pub mod _iovec_t_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "31:1"]
+    
     pub struct iovec {
         pub iov_base: *mut ::core::ffi::c_void,
         pub iov_len: size_t,
     }
     use super::_size_t_h::size_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/socket.h:24"]
+
 pub mod socket_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "414:1"]
+    
     pub struct sockaddr {
         pub sa_len: __uint8_t,
         pub sa_family: sa_family_t,
@@ -93,7 +93,7 @@ pub mod socket_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "560:1"]
+    
     pub struct msghdr {
         pub msg_name: *mut ::core::ffi::c_void,
         pub msg_namelen: socklen_t,
@@ -103,7 +103,7 @@ pub mod socket_h {
         pub msg_controllen: socklen_t,
         pub msg_flags: ::core::ffi::c_int,
     }
-    #[c2rust::src_loc = "361:9"]
+    
     pub const AF_UNIX: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
     use super::_iovec_t_h::iovec;
     use super::_sa_family_t_h::sa_family_t;
@@ -112,60 +112,60 @@ pub mod socket_h {
     use super::_ssize_t_h::ssize_t;
     use super::_types_h::__uint8_t;
     extern "C" {
-        #[c2rust::src_loc = "708:1"]
+        
         pub fn accept(
             _: ::core::ffi::c_int,
             _: *mut sockaddr,
             _: *mut socklen_t,
         ) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "711:1"]
+        
         pub fn connect(
             _: ::core::ffi::c_int,
             _: *const sockaddr,
             _: socklen_t,
         ) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "718:1"]
+        
         pub fn recv(
             _: ::core::ffi::c_int,
             _: *mut ::core::ffi::c_void,
             _: size_t,
             _: ::core::ffi::c_int,
         ) -> ssize_t;
-        #[c2rust::src_loc = "721:1"]
+        
         pub fn recvmsg(_: ::core::ffi::c_int, _: *mut msghdr, _: ::core::ffi::c_int) -> ssize_t;
-        #[c2rust::src_loc = "722:1"]
+        
         pub fn send(
             _: ::core::ffi::c_int,
             _: *const ::core::ffi::c_void,
             _: size_t,
             _: ::core::ffi::c_int,
         ) -> ssize_t;
-        #[c2rust::src_loc = "723:1"]
+        
         pub fn sendmsg(_: ::core::ffi::c_int, _: *const msghdr, _: ::core::ffi::c_int) -> ssize_t;
     }
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/logging.h:27"]
+
 pub mod logging_h {
-    #[c2rust::src_loc = "47:1"]
+    
     pub type LogLevel = ::core::ffi::c_uint;
-    #[c2rust::src_loc = "54:2"]
+    
     pub const LG_NOISE: LogLevel = 6;
-    #[c2rust::src_loc = "53:2"]
+    
     pub const LG_DEBUG: LogLevel = 5;
-    #[c2rust::src_loc = "52:2"]
+    
     pub const LG_INFO: LogLevel = 4;
-    #[c2rust::src_loc = "51:2"]
+    
     pub const LG_STATS: LogLevel = 3;
-    #[c2rust::src_loc = "50:2"]
+    
     pub const LG_WARNING: LogLevel = 2;
-    #[c2rust::src_loc = "49:2"]
+    
     pub const LG_ERROR: LogLevel = 1;
-    #[c2rust::src_loc = "48:2"]
+    
     pub const LG_FATAL: LogLevel = 0;
     extern "C" {
-        #[c2rust::src_loc = "85:1"]
+        
         pub static mut cf_verbose: ::core::ffi::c_int;
-        #[c2rust::src_loc = "117:1"]
+        
         pub fn log_generic(
             level: LogLevel,
             ctx: *mut ::core::ffi::c_void,
@@ -174,17 +174,17 @@ pub mod logging_h {
         );
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/unistd.h:24"]
+
 pub mod unistd_h {
     use super::_size_t_h::size_t;
     use super::_ssize_t_h::ssize_t;
     extern "C" {
-        #[c2rust::src_loc = "441:1"]
+        
         pub fn close(_: ::core::ffi::c_int) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "476:1"]
+        
         pub fn read(_: ::core::ffi::c_int, _: *mut ::core::ffi::c_void, __nbyte: size_t)
             -> ssize_t;
-        #[c2rust::src_loc = "500:1"]
+        
         pub fn write(
             __fd: ::core::ffi::c_int,
             __buf: *const ::core::ffi::c_void,
@@ -192,12 +192,12 @@ pub mod unistd_h {
         ) -> ssize_t;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_select.h:24"]
+
 pub mod _select_h {
     use super::_fd_def_h::fd_set;
     use super::_timeval_h::timeval;
     extern "C" {
-        #[c2rust::src_loc = "43:1"]
+        
         pub fn select(
             _: ::core::ffi::c_int,
             _: *mut fd_set,
@@ -207,12 +207,12 @@ pub mod _select_h {
         ) -> ::core::ffi::c_int;
     }
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/socket.h:24"]
+
 pub mod usual_socket_h {
     use super::_size_t_h::size_t;
     use super::socket_h::sockaddr;
     extern "C" {
-        #[c2rust::src_loc = "103:1"]
+        
         pub fn sa2str(
             sa: *const sockaddr,
             buf: *mut ::core::ffi::c_char,
@@ -220,17 +220,17 @@ pub mod usual_socket_h {
         ) -> *const ::core::ffi::c_char;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_null.h:24"]
+
 pub mod _null_h {
-    #[c2rust::src_loc = "49:9"]
+    
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
     use super::sys__types_h::__DARWIN_NULL;
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/string.h:28"]
+
 pub mod string_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        #[c2rust::src_loc = "166:1"]
+        
         pub fn usual_strerror_r(
             e: ::core::ffi::c_int,
             dst: *mut ::core::ffi::c_char,
@@ -238,16 +238,16 @@ pub mod string_h {
         ) -> *const ::core::ffi::c_char;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/errno.h:24"]
+
 pub mod errno_h {
-    #[c2rust::src_loc = "91:9"]
+    
     pub const EINTR: ::core::ffi::c_int = 4 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "131:9"]
+    
     pub const EINPROGRESS: ::core::ffi::c_int = 36 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "137:9"]
+    
     pub const EMSGSIZE: ::core::ffi::c_int = 40 as ::core::ffi::c_int;
     extern "C" {
-        #[c2rust::src_loc = "80:1"]
+        
         pub fn __error() -> *mut ::core::ffi::c_int;
     }
 }
@@ -277,7 +277,7 @@ pub use self::sys__types_h::{__darwin_suseconds_t, __DARWIN_NULL};
 use self::unistd_h::{close, read, write};
 use self::usual_socket_h::sa2str;
 #[no_mangle]
-#[c2rust::src_loc = "31:1"]
+
 pub unsafe extern "C" fn safe_read(
     mut fd: ::core::ffi::c_int,
     mut buf: *mut ::core::ffi::c_void,
@@ -293,7 +293,7 @@ pub unsafe extern "C" fn safe_read(
     res
 }
 #[no_mangle]
-#[c2rust::src_loc = "41:1"]
+
 pub unsafe extern "C" fn safe_write(
     mut fd: ::core::ffi::c_int,
     mut buf: *const ::core::ffi::c_void,
@@ -309,7 +309,7 @@ pub unsafe extern "C" fn safe_write(
     res
 }
 #[no_mangle]
-#[c2rust::src_loc = "51:1"]
+
 pub unsafe extern "C" fn safe_recv(
     mut fd: ::core::ffi::c_int,
     mut buf: *mut ::core::ffi::c_void,
@@ -358,7 +358,7 @@ pub unsafe extern "C" fn safe_recv(
     res
 }
 #[no_mangle]
-#[c2rust::src_loc = "68:1"]
+
 pub unsafe extern "C" fn safe_send(
     mut fd: ::core::ffi::c_int,
     mut buf: *const ::core::ffi::c_void,
@@ -407,7 +407,7 @@ pub unsafe extern "C" fn safe_send(
     res
 }
 #[no_mangle]
-#[c2rust::src_loc = "85:1"]
+
 pub unsafe extern "C" fn safe_close(mut fd: ::core::ffi::c_int) -> ::core::ffi::c_int {
     let mut res: ::core::ffi::c_int = 0;
     res = close(fd);
@@ -444,7 +444,7 @@ pub unsafe extern "C" fn safe_close(mut fd: ::core::ffi::c_int) -> ::core::ffi::
     res
 }
 #[no_mangle]
-#[c2rust::src_loc = "119:1"]
+
 pub unsafe extern "C" fn safe_recvmsg(
     mut fd: ::core::ffi::c_int,
     mut msg: *mut msghdr,
@@ -489,7 +489,7 @@ pub unsafe extern "C" fn safe_recvmsg(
     res
 }
 #[no_mangle]
-#[c2rust::src_loc = "136:1"]
+
 pub unsafe extern "C" fn safe_sendmsg(
     mut fd: ::core::ffi::c_int,
     mut msg: *const msghdr,
@@ -566,7 +566,7 @@ pub unsafe extern "C" fn safe_sendmsg(
     res
 }
 #[no_mangle]
-#[c2rust::src_loc = "167:1"]
+
 pub unsafe extern "C" fn safe_connect(
     mut fd: ::core::ffi::c_int,
     mut sa: *const sockaddr,
@@ -625,7 +625,7 @@ pub unsafe extern "C" fn safe_connect(
     res
 }
 #[no_mangle]
-#[c2rust::src_loc = "186:1"]
+
 pub unsafe extern "C" fn safe_accept(
     mut fd: ::core::ffi::c_int,
     mut sa: *mut sockaddr,

@@ -1,29 +1,29 @@
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arm/_types.h:23"]
+
 pub mod _types_h {
-    #[c2rust::src_loc = "87:1"]
+    
     pub type __darwin_size_t = usize;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_size_t.h:23"]
+
 pub mod _size_t_h {
-    #[c2rust::src_loc = "50:1"]
+    
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types/_uint8_t.h:23"]
+
 pub mod _uint8_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type uint8_t = u8;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types/_uint32_t.h:23"]
+
 pub mod _uint32_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type uint32_t = u32;
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/crypto/chacha.h:23"]
+
 pub mod chacha_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "36:1"]
+    
     pub struct ChaCha {
         pub state: [uint32_t; 16],
         pub u: C2RustUnnamed,
@@ -31,21 +31,21 @@ pub mod chacha_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "38:2"]
+    
     pub union C2RustUnnamed {
         pub output32: [uint32_t; 16],
         pub output8: [uint8_t; 64],
     }
-    #[c2rust::src_loc = "31:9"]
+    
     pub const CHACHA_BLOCK_SIZE: ::core::ffi::c_int = 64 as ::core::ffi::c_int;
     use super::_uint32_t_h::uint32_t;
     use super::_uint8_t_h::uint8_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_string.h:25"]
+
 pub mod _string_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        #[c2rust::src_loc = "77:1"]
+        
         pub fn memcpy(
             __dst: *mut ::core::ffi::c_void,
             __src: *const ::core::ffi::c_void,
@@ -53,10 +53,10 @@ pub mod _string_h {
         ) -> *mut ::core::ffi::c_void;
     }
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/endian.h:25"]
+
 pub mod endian_h {
     #[inline]
-    #[c2rust::src_loc = "274:1"]
+    
     pub unsafe extern "C" fn usual_le32dec(mut p: *const ::core::ffi::c_void) -> uint32_t {
         let mut tmp: uint32_t = 0;
         memcpy(
@@ -70,10 +70,10 @@ pub mod endian_h {
     use super::_string_h::memcpy;
     use super::_uint32_t_h::uint32_t;
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/bits.h:26"]
+
 pub mod bits_h {
     #[inline]
-    #[c2rust::src_loc = "50:1"]
+    
     pub unsafe extern "C" fn rol32(mut v: uint32_t, mut s: ::core::ffi::c_int) -> uint32_t {
         v << s | v >> (32 as ::core::ffi::c_int - s)
     }
@@ -87,9 +87,9 @@ pub use self::_uint8_t_h::uint8_t;
 pub use self::bits_h::rol32;
 pub use self::chacha_h::{C2RustUnnamed, ChaCha, CHACHA_BLOCK_SIZE};
 pub use self::endian_h::usual_le32dec;
-#[c2rust::src_loc = "28:9"]
+
 pub const CHACHA_ROUNDS: ::core::ffi::c_int = 20 as ::core::ffi::c_int;
-#[c2rust::src_loc = "47:1"]
+
 unsafe extern "C" fn chacha_mix(mut ctx: *mut ChaCha) {
     let mut input: *const uint32_t = &raw mut (*ctx).state as *mut uint32_t;
     let mut output = &raw mut (*ctx).u.output32 as *mut uint32_t;
@@ -524,7 +524,7 @@ unsafe extern "C" fn chacha_mix(mut ctx: *mut ChaCha) {
     }
 }
 #[no_mangle]
-#[c2rust::src_loc = "87:1"]
+
 pub unsafe extern "C" fn chacha_set_key_256(
     mut ctx: *mut ChaCha,
     mut key: *const ::core::ffi::c_void,
@@ -551,7 +551,7 @@ pub unsafe extern "C" fn chacha_set_key_256(
     (*ctx).pos = CHACHA_BLOCK_SIZE as ::core::ffi::c_uint;
 }
 #[no_mangle]
-#[c2rust::src_loc = "99:1"]
+
 pub unsafe extern "C" fn chacha_set_key_128(
     mut ctx: *mut ChaCha,
     mut key: *const ::core::ffi::c_void,
@@ -584,7 +584,7 @@ pub unsafe extern "C" fn chacha_set_key_128(
     (*ctx).pos = CHACHA_BLOCK_SIZE as ::core::ffi::c_uint;
 }
 #[no_mangle]
-#[c2rust::src_loc = "112:1"]
+
 pub unsafe extern "C" fn chacha_set_nonce(
     mut ctx: *mut ChaCha,
     mut counter_low: uint32_t,
@@ -604,7 +604,7 @@ pub unsafe extern "C" fn chacha_set_nonce(
     (*ctx).pos = CHACHA_BLOCK_SIZE as ::core::ffi::c_uint;
 }
 #[no_mangle]
-#[c2rust::src_loc = "126:1"]
+
 pub unsafe extern "C" fn chacha_keystream(
     mut ctx: *mut ChaCha,
     mut stream: *mut ::core::ffi::c_void,
@@ -635,7 +635,7 @@ pub unsafe extern "C" fn chacha_keystream(
     }
 }
 #[no_mangle]
-#[c2rust::src_loc = "147:1"]
+
 pub unsafe extern "C" fn chacha_keystream_xor(
     mut ctx: *mut ChaCha,
     mut plain: *const ::core::ffi::c_void,

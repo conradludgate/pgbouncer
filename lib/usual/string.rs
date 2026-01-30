@@ -1,61 +1,61 @@
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arm/_types.h:19"]
+
 pub mod _types_h {
-    #[c2rust::src_loc = "36:1"]
+    
     pub type __uint32_t = u32;
-    #[c2rust::src_loc = "61:1"]
+    
     pub type __darwin_ct_rune_t = ::core::ffi::c_int;
-    #[c2rust::src_loc = "87:1"]
+    
     pub type __darwin_size_t = usize;
-    #[c2rust::src_loc = "103:1"]
+    
     pub type __darwin_wchar_t = ::libc::wchar_t;
-    #[c2rust::src_loc = "108:1"]
+    
     pub type __darwin_rune_t = __darwin_wchar_t;
-    #[c2rust::src_loc = "118:1"]
+    
     pub type __darwin_ssize_t = isize;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_size_t.h:19"]
+
 pub mod _size_t_h {
-    #[c2rust::src_loc = "50:1"]
+    
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_ssize_t.h:19"]
+
 pub mod _ssize_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type ssize_t = __darwin_ssize_t;
     use super::_types_h::__darwin_ssize_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_rsize_t.h:19"]
+
 pub mod _rsize_t_h {
-    #[c2rust::src_loc = "50:1"]
+    
     pub type rsize_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_errno_t.h:19"]
+
 pub mod _errno_t_h {
-    #[c2rust::src_loc = "30:1"]
+    
     pub type errno_t = ::core::ffi::c_int;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types.h:19"]
+
 pub mod include__types_h {
-    #[c2rust::src_loc = "43:1"]
+    
     pub type __darwin_nl_item = ::core::ffi::c_int;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types/_uint8_t.h:19"]
+
 pub mod _uint8_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type uint8_t = u8;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types/_uint32_t.h:19"]
+
 pub mod _uint32_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type uint32_t = u32;
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/cxalloc.h:19"]
+
 pub mod cxalloc_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "53:1"]
+    
     pub struct CxOps {
         pub c_alloc: Option<
             unsafe extern "C" fn(*mut ::core::ffi::c_void, size_t) -> *mut ::core::ffi::c_void,
@@ -73,49 +73,49 @@ pub mod cxalloc_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "79:1"]
+    
     pub struct CxMem {
         pub ops: *const CxOps,
         pub ctx: *mut ::core::ffi::c_void,
     }
     use super::_size_t_h::size_t;
     extern "C" {
-        #[c2rust::src_loc = "96:1"]
+        
         pub fn cx_alloc(cx: *const CxMem, len: size_t) -> *mut ::core::ffi::c_void;
-        #[c2rust::src_loc = "111:1"]
+        
         pub fn cx_free(cx: *const CxMem, ptr: *mut ::core::ffi::c_void);
-        #[c2rust::src_loc = "121:1"]
+        
         pub fn cx_alloc0(cx: *const CxMem, len: size_t) -> *mut ::core::ffi::c_void;
-        #[c2rust::src_loc = "127:1"]
+        
         pub fn cx_strdup(
             cx: *const CxMem,
             str: *const ::core::ffi::c_char,
         ) -> *mut ::core::ffi::c_void;
     }
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/string.h:19"]
+
 pub mod string_h {
-    #[c2rust::src_loc = "35:1"]
+    
     pub type str_cb =
         Option<unsafe extern "C" fn(*mut ::core::ffi::c_void, *const ::core::ffi::c_char) -> bool>;
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/statlist.h:30"]
+
 pub mod statlist_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "36:1"]
+    
     pub struct StatList {
         pub head: List,
         pub cur_count: ::core::ffi::c_int,
     }
     #[inline]
-    #[c2rust::src_loc = "62:1"]
+    
     pub unsafe extern "C" fn statlist_append(mut list: *mut StatList, mut item: *mut List) {
         list_append(&raw mut (*list).head, item);
         (*list).cur_count += 1;
     }
     #[inline]
-    #[c2rust::src_loc = "78:1"]
+    
     pub unsafe extern "C" fn statlist_init(
         mut list: *mut StatList,
         mut _name: *const ::core::ffi::c_char,
@@ -124,7 +124,7 @@ pub mod statlist_h {
         (*list).cur_count = 0 as ::core::ffi::c_int;
     }
     #[inline]
-    #[c2rust::src_loc = "95:1"]
+    
     pub unsafe extern "C" fn statlist_pop(mut list: *mut StatList) -> *mut List {
         let mut item = list_pop(&raw mut (*list).head);
         if !item.is_null() {
@@ -133,34 +133,34 @@ pub mod statlist_h {
         item
     }
     #[inline]
-    #[c2rust::src_loc = "120:1"]
+    
     pub unsafe extern "C" fn statlist_empty(mut list: *const StatList) -> bool {
         list_empty(&raw const (*list).head) != 0
     }
     use super::list_h::{list_append, list_empty, list_init, list_pop, List};
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/list.h:30"]
+
 pub mod list_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "35:1"]
+    
     pub struct List {
         pub next: *mut List,
         pub prev: *mut List,
     }
     #[inline]
-    #[c2rust::src_loc = "46:1"]
+    
     pub unsafe extern "C" fn list_init(mut list: *mut List) {
         (*list).prev = list;
         (*list).next = (*list).prev;
     }
     #[inline]
-    #[c2rust::src_loc = "52:1"]
+    
     pub unsafe extern "C" fn list_empty(mut list: *const List) -> ::core::ffi::c_int {
         std::ptr::eq((*list).next, list) as ::core::ffi::c_int
     }
     #[inline]
-    #[c2rust::src_loc = "68:1"]
+    
     pub unsafe extern "C" fn list_append(mut list: *mut List, mut item: *mut List) -> *mut List {
         (*item).next = list;
         (*item).prev = (*list).prev;
@@ -169,7 +169,7 @@ pub mod list_h {
         item
     }
     #[inline]
-    #[c2rust::src_loc = "78:1"]
+    
     pub unsafe extern "C" fn list_del(mut item: *mut List) -> *mut List {
         (*(*item).prev).next = (*item).next;
         (*(*item).next).prev = (*item).prev;
@@ -178,7 +178,7 @@ pub mod list_h {
         item
     }
     #[inline]
-    #[c2rust::src_loc = "87:1"]
+    
     pub unsafe extern "C" fn list_pop(mut list: *mut List) -> *mut List {
         if list_empty(list) != 0 {
             return ::core::ptr::null_mut::<List>();
@@ -186,11 +186,11 @@ pub mod list_h {
         list_del((*list).next)
     }
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/mbuf.h:29"]
+
 pub mod mbuf_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "14:1"]
+    
     pub struct MBuf {
         pub data: *mut uint8_t,
         pub read_pos: ::core::ffi::c_uint,
@@ -200,7 +200,7 @@ pub mod mbuf_h {
         pub fixed: bool,
     }
     #[inline]
-    #[c2rust::src_loc = "55:1"]
+    
     pub unsafe extern "C" fn mbuf_init_dynamic(mut buf: *mut MBuf) {
         (*buf).data = ::core::ptr::null_mut::<uint8_t>();
         (*buf).read_pos = 0 as ::core::ffi::c_uint;
@@ -210,7 +210,7 @@ pub mod mbuf_h {
         (*buf).fixed = false_0 != 0;
     }
     #[inline]
-    #[c2rust::src_loc = "66:1"]
+    
     pub unsafe extern "C" fn mbuf_free(mut buf: *mut MBuf) {
         if !(*buf).data.is_null() {
             if !(*buf).fixed {
@@ -224,7 +224,7 @@ pub mod mbuf_h {
         }
     }
     #[inline]
-    #[c2rust::src_loc = "86:1"]
+    
     pub unsafe extern "C" fn mbuf_rewind_writer(mut buf: *mut MBuf) {
         if !(*buf).reader {
             (*buf).read_pos = 0 as ::core::ffi::c_uint;
@@ -232,7 +232,7 @@ pub mod mbuf_h {
         }
     }
     #[inline]
-    #[c2rust::src_loc = "252:1"]
+    
     pub unsafe extern "C" fn mbuf_write_byte(mut buf: *mut MBuf, mut val: uint8_t) -> bool {
         if (*buf).write_pos.wrapping_add(1 as ::core::ffi::c_uint) > (*buf).alloc_len
             && !mbuf_make_room(buf, 1 as ::core::ffi::c_uint)
@@ -245,7 +245,7 @@ pub mod mbuf_h {
         true_0 != 0
     }
     #[inline]
-    #[c2rust::src_loc = "263:1"]
+    
     pub unsafe extern "C" fn mbuf_write(
         mut buf: *mut MBuf,
         mut ptr: *const ::core::ffi::c_void,
@@ -271,15 +271,15 @@ pub mod mbuf_h {
     use super::_uint8_t_h::uint8_t;
     use super::stdbool_h::{false_0, true_0};
     extern "C" {
-        #[c2rust::src_loc = "248:1"]
+        
         pub fn mbuf_make_room(buf: *mut MBuf, len: ::core::ffi::c_uint) -> bool;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/runetype.h:31"]
+
 pub mod runetype_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "80:9"]
+    
     pub struct _RuneLocale {
         pub __magic: [::core::ffi::c_char; 8],
         pub __encoding: [::core::ffi::c_char; 32],
@@ -312,21 +312,21 @@ pub mod runetype_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "75:9"]
+    
     pub struct _RuneCharClass {
         pub __name: [::core::ffi::c_char; 14],
         pub __mask: __uint32_t,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "70:9"]
+    
     pub struct _RuneRange {
         pub __nranges: ::core::ffi::c_int,
         pub __ranges: *mut _RuneEntry,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "63:9"]
+    
     pub struct _RuneEntry {
         pub __min: __darwin_rune_t,
         pub __max: __darwin_rune_t,
@@ -335,25 +335,25 @@ pub mod runetype_h {
     }
     use super::_types_h::{__darwin_rune_t, __darwin_size_t, __uint32_t};
     extern "C" {
-        #[c2rust::src_loc = "114:1"]
+        
         pub static mut _DefaultRuneLocale: _RuneLocale;
     }
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/bytemap.h:32"]
+
 pub mod bytemap_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "33:1"]
+    
     pub struct Bitmap256 {
         pub bmap: [uint32_t; 8],
     }
-    #[c2rust::src_loc = "27:9"]
+    
     pub const BITMAP256_SHIFT: ::core::ffi::c_int = 5 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "28:9"]
+    
     pub const BITMAP256_MASK: ::core::ffi::c_int =
         ((1 as ::core::ffi::c_int) << BITMAP256_SHIFT) - 1 as ::core::ffi::c_int;
     #[inline]
-    #[c2rust::src_loc = "40:1"]
+    
     pub unsafe extern "C" fn bitmap256_init(mut bmap: *mut Bitmap256) {
         memset(
             bmap as *mut ::core::ffi::c_void,
@@ -362,14 +362,14 @@ pub mod bytemap_h {
         );
     }
     #[inline]
-    #[c2rust::src_loc = "48:1"]
+    
     pub unsafe extern "C" fn bitmap256_set(mut bmap: *mut Bitmap256, mut byte: uint8_t) {
         (*bmap).bmap[(byte as ::core::ffi::c_int >> BITMAP256_SHIFT) as usize] |=
             ((1 as ::core::ffi::c_int) << (byte as ::core::ffi::c_int & BITMAP256_MASK))
                 as uint32_t;
     }
     #[inline]
-    #[c2rust::src_loc = "56:1"]
+    
     pub unsafe extern "C" fn bitmap256_is_set(
         mut bmap: *const Bitmap256,
         mut byte: uint8_t,
@@ -384,26 +384,26 @@ pub mod bytemap_h {
     use super::_uint32_t_h::uint32_t;
     use super::_uint8_t_h::uint8_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types/_locale_t.h:21"]
+
 pub mod _locale_t_h {
-    #[c2rust::src_loc = "37:1"]
+    
     pub type locale_t = *mut _xlocale;
     extern "C" {
-        #[c2rust::src_loc = "36:1"]
+        
         pub type _xlocale;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types/_nl_item.h:26"]
+
 pub mod _nl_item_h {
-    #[c2rust::src_loc = "32:1"]
+    
     pub type nl_item = __darwin_nl_item;
     use super::include__types_h::__darwin_nl_item;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_stdio.h:19"]
+
 pub mod _stdio_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        #[c2rust::src_loc = "435:1"]
+        
         pub fn snprintf(
             __str: *mut ::core::ffi::c_char,
             __size: size_t,
@@ -412,70 +412,70 @@ pub mod _stdio_h {
         ) -> ::core::ffi::c_int;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_string.h:19"]
+
 pub mod _string_h {
     use super::_errno_t_h::errno_t;
     use super::_rsize_t_h::rsize_t;
     use super::_size_t_h::size_t;
     extern "C" {
-        #[c2rust::src_loc = "73:1"]
+        
         pub fn memchr(
             __s: *const ::core::ffi::c_void,
             __c: ::core::ffi::c_int,
             __n: size_t,
         ) -> *mut ::core::ffi::c_void;
-        #[c2rust::src_loc = "75:1"]
+        
         pub fn memcmp(
             __s1: *const ::core::ffi::c_void,
             __s2: *const ::core::ffi::c_void,
             __n: size_t,
         ) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "77:1"]
+        
         pub fn memcpy(
             __dst: *mut ::core::ffi::c_void,
             __src: *const ::core::ffi::c_void,
             __n: size_t,
         ) -> *mut ::core::ffi::c_void;
-        #[c2rust::src_loc = "80:1"]
+        
         pub fn memmove(
             __dst: *mut ::core::ffi::c_void,
             __src: *const ::core::ffi::c_void,
             __len: size_t,
         ) -> *mut ::core::ffi::c_void;
-        #[c2rust::src_loc = "83:1"]
+        
         pub fn memset(
             __b: *mut ::core::ffi::c_void,
             __c: ::core::ffi::c_int,
             __len: size_t,
         ) -> *mut ::core::ffi::c_void;
-        #[c2rust::src_loc = "89:1"]
+        
         pub fn strcmp(
             __s1: *const ::core::ffi::c_char,
             __s2: *const ::core::ffi::c_char,
         ) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "96:1"]
+        
         pub fn strlen(__s: *const ::core::ffi::c_char) -> size_t;
-        #[c2rust::src_loc = "108:1"]
+        
         pub fn strrchr(
             __s: *const ::core::ffi::c_char,
             __c: ::core::ffi::c_int,
         ) -> *mut ::core::ffi::c_char;
-        #[c2rust::src_loc = "139:1"]
+        
         pub fn strerror_r(
             __errnum: ::core::ffi::c_int,
             __strerrbuf: *mut ::core::ffi::c_char,
             __buflen: size_t,
         ) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "164:1"]
+        
         pub fn strnlen(__s1: *const ::core::ffi::c_char, __n: size_t) -> size_t;
-        #[c2rust::src_loc = "176:1"]
+        
         pub fn memset_s(
             __s: *mut ::core::ffi::c_void,
             __smax: rsize_t,
             __c: ::core::ffi::c_int,
             __n: rsize_t,
         ) -> errno_t;
-        #[c2rust::src_loc = "202:1"]
+        
         pub fn strlcpy(
             __dst: *mut ::core::ffi::c_char,
             __source: *const ::core::ffi::c_char,
@@ -483,32 +483,32 @@ pub mod _string_h {
         ) -> ::core::ffi::c_ulong;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_null.h:19"]
+
 pub mod _null_h {
-    #[c2rust::src_loc = "49:9"]
+    
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
     use super::sys__types_h::__DARWIN_NULL;
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/ctype.h:31"]
+
 pub mod ctype_h {
     #[inline]
-    #[c2rust::src_loc = "105:1"]
+    
     pub unsafe extern "C" fn safe_isspace(mut c: ::core::ffi::c_int) -> ::core::ffi::c_int {
         isspace(c as ::core::ffi::c_uchar as ::core::ffi::c_int)
     }
     use super::_ctype_h::isspace;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_ctype.h:31"]
+
 pub mod _ctype_h {
-    #[c2rust::src_loc = "82:9"]
+    
     pub const _CTYPE_S: ::core::ffi::c_long = 0x4000 as ::core::ffi::c_long;
     #[inline]
-    #[c2rust::src_loc = "139:1"]
+    
     pub unsafe extern "C" fn isascii(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
         (_c & !(0x7f as ::core::ffi::c_int) == 0 as ::core::ffi::c_int) as ::core::ffi::c_int
     }
     #[inline]
-    #[c2rust::src_loc = "157:1"]
+    
     pub unsafe extern "C" fn __istype(
         mut _c: __darwin_ct_rune_t,
         mut _f: ::core::ffi::c_ulong,
@@ -521,22 +521,22 @@ pub mod _ctype_h {
         }
     }
     #[inline]
-    #[c2rust::src_loc = "271:1"]
+    
     pub unsafe extern "C" fn isspace(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
         __istype(_c as __darwin_ct_rune_t, _CTYPE_S as ::core::ffi::c_ulong)
     }
     use super::_types_h::__darwin_ct_rune_t;
     use super::runetype_h::_DefaultRuneLocale;
     extern "C" {
-        #[c2rust::src_loc = "153:1"]
+        
         pub fn __maskrune(_: __darwin_ct_rune_t, _: ::core::ffi::c_ulong) -> ::core::ffi::c_int;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/xlocale/_stdlib.h:23"]
+
 pub mod _stdlib_h {
     use super::_locale_t_h::locale_t;
     extern "C" {
-        #[c2rust::src_loc = "48:1"]
+        
         pub fn strtod_l(
             _: *const ::core::ffi::c_char,
             _: *mut *mut ::core::ffi::c_char,
@@ -544,36 +544,36 @@ pub mod _stdlib_h {
         ) -> ::core::ffi::c_double;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_locale.h:21"]
+
 pub mod _locale_h {
-    #[c2rust::src_loc = "75:9"]
+    
     pub const LC_ALL_MASK: ::core::ffi::c_int = LC_COLLATE_MASK
         | LC_CTYPE_MASK
         | LC_MESSAGES_MASK
         | LC_MONETARY_MASK
         | LC_NUMERIC_MASK
         | LC_TIME_MASK;
-    #[c2rust::src_loc = "81:9"]
+    
     pub const LC_COLLATE_MASK: ::core::ffi::c_int =
         (1 as ::core::ffi::c_int) << 0 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "82:9"]
+    
     pub const LC_CTYPE_MASK: ::core::ffi::c_int =
         (1 as ::core::ffi::c_int) << 1 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "83:9"]
+    
     pub const LC_MESSAGES_MASK: ::core::ffi::c_int =
         (1 as ::core::ffi::c_int) << 2 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "84:9"]
+    
     pub const LC_MONETARY_MASK: ::core::ffi::c_int =
         (1 as ::core::ffi::c_int) << 3 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "85:9"]
+    
     pub const LC_NUMERIC_MASK: ::core::ffi::c_int =
         (1 as ::core::ffi::c_int) << 4 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "86:9"]
+    
     pub const LC_TIME_MASK: ::core::ffi::c_int =
         (1 as ::core::ffi::c_int) << 5 as ::core::ffi::c_int;
     use super::_locale_t_h::locale_t;
     extern "C" {
-        #[c2rust::src_loc = "100:1"]
+        
         pub fn newlocale(
             _: ::core::ffi::c_int,
             _: *const ::core::ffi::c_char,
@@ -581,57 +581,57 @@ pub mod _locale_h {
         ) -> locale_t;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_langinfo.h:26"]
+
 pub mod _langinfo_h {
-    #[c2rust::src_loc = "98:9"]
+    
     pub const RADIXCHAR: ::core::ffi::c_int = 50 as ::core::ffi::c_int;
     use super::_nl_item_h::nl_item;
     extern "C" {
-        #[c2rust::src_loc = "116:1"]
+        
         pub fn nl_langinfo(_: nl_item) -> *mut ::core::ffi::c_char;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types.h:19"]
+
 pub mod sys__types_h {
-    #[c2rust::src_loc = "64:9"]
+    
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/malloc/_malloc.h:19"]
+
 pub mod _malloc_h {
     extern "C" {
-        #[c2rust::src_loc = "56:1"]
+        
         pub fn free(_: *mut ::core::ffi::c_void);
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_stdlib.h:19"]
+
 pub mod include__stdlib_h {
     extern "C" {
-        #[c2rust::src_loc = "184:1"]
+        
         pub fn strtod(
             _: *const ::core::ffi::c_char,
             _: *mut *mut ::core::ffi::c_char,
         ) -> ::core::ffi::c_double;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/errno.h:19"]
+
 pub mod errno_h {
-    #[c2rust::src_loc = "112:9"]
+    
     pub const EINVAL: ::core::ffi::c_int = 22 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "126:9"]
+    
     pub const ERANGE: ::core::ffi::c_int = 34 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "181:9"]
+    
     pub const ENAMETOOLONG: ::core::ffi::c_int = 63 as ::core::ffi::c_int;
     extern "C" {
-        #[c2rust::src_loc = "80:1"]
+        
         pub fn __error() -> *mut ::core::ffi::c_int;
     }
 }
-#[c2rust::header_src = "/opt/homebrew/Cellar/llvm/21.1.8/lib/clang/21/include/stdbool.h:19"]
+
 pub mod stdbool_h {
-    #[c2rust::src_loc = "25:9"]
+    
     pub const true_0: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "26:9"]
+    
     pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 }
 pub use self::_ctype_h::{__istype, __maskrune, isascii, isspace, _CTYPE_S};
@@ -684,25 +684,25 @@ pub use self::string_h::str_cb;
 pub use self::sys__types_h::__DARWIN_NULL;
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[c2rust::src_loc = "38:1"]
+
 pub struct StrList {
     pub list: StatList,
     pub ca: *const CxMem,
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[c2rust::src_loc = "43:1"]
+
 pub struct StrItem {
     pub node: List,
     pub str_0: *mut ::core::ffi::c_char,
 }
 #[no_mangle]
-#[c2rust::src_loc = "48:1"]
+
 pub unsafe extern "C" fn strlist_empty(mut slist: *mut StrList) -> bool {
     statlist_empty(&raw mut (*slist).list)
 }
 #[no_mangle]
-#[c2rust::src_loc = "53:1"]
+
 pub unsafe extern "C" fn strlist_append(
     mut slist: *mut StrList,
     mut str: *const ::core::ffi::c_char,
@@ -722,7 +722,7 @@ pub unsafe extern "C" fn strlist_append(
     ok
 }
 #[no_mangle]
-#[c2rust::src_loc = "68:1"]
+
 pub unsafe extern "C" fn strlist_append_ref(
     mut slist: *mut StrList,
     mut str: *mut ::core::ffi::c_char,
@@ -738,7 +738,7 @@ pub unsafe extern "C" fn strlist_append_ref(
     true_0 != 0
 }
 #[no_mangle]
-#[c2rust::src_loc = "79:1"]
+
 pub unsafe extern "C" fn strlist_pop(mut slist: *mut StrList) -> *mut ::core::ffi::c_char {
     let mut item = ::core::ptr::null_mut::<StrItem>();
     let mut el = ::core::ptr::null_mut::<List>();
@@ -754,7 +754,7 @@ pub unsafe extern "C" fn strlist_pop(mut slist: *mut StrList) -> *mut ::core::ff
     str
 }
 #[no_mangle]
-#[c2rust::src_loc = "95:1"]
+
 pub unsafe extern "C" fn strlist_new(mut ca: *const CxMem) -> *mut StrList {
     let mut slist = cx_alloc0(ca, ::core::mem::size_of::<StrList>() as size_t) as *mut StrList;
     if slist.is_null() {
@@ -768,7 +768,7 @@ pub unsafe extern "C" fn strlist_new(mut ca: *const CxMem) -> *mut StrList {
     slist
 }
 #[no_mangle]
-#[c2rust::src_loc = "105:1"]
+
 pub unsafe extern "C" fn strlist_free(mut slist: *mut StrList) {
     let mut s = ::core::ptr::null_mut::<::core::ffi::c_char>();
     if slist.is_null() {
@@ -783,7 +783,7 @@ pub unsafe extern "C" fn strlist_free(mut slist: *mut StrList) {
     cx_free((*slist).ca, slist as *mut ::core::ffi::c_void);
 }
 #[no_mangle]
-#[c2rust::src_loc = "118:1"]
+
 pub unsafe extern "C" fn strlist_foreach(
     mut slist: *const StrList,
     mut func: str_cb,
@@ -803,7 +803,7 @@ pub unsafe extern "C" fn strlist_foreach(
     true_0 != 0
 }
 #[inline]
-#[c2rust::src_loc = "134:1"]
+
 unsafe extern "C" fn skip_ws(mut p: *const ::core::ffi::c_char) -> *const ::core::ffi::c_char {
     while *p as ::core::ffi::c_int != 0 && safe_isspace(*p as ::core::ffi::c_int) != 0 {
         p = p.offset(1);
@@ -811,7 +811,7 @@ unsafe extern "C" fn skip_ws(mut p: *const ::core::ffi::c_char) -> *const ::core
     p
 }
 #[no_mangle]
-#[c2rust::src_loc = "142:1"]
+
 pub unsafe extern "C" fn parse_word_list(
     mut s: *const ::core::ffi::c_char,
     mut cb_func: str_cb,
@@ -889,7 +889,7 @@ pub unsafe extern "C" fn parse_word_list(
     false_0 != 0
 }
 #[no_mangle]
-#[c2rust::src_loc = "219:1"]
+
 pub unsafe extern "C" fn usual_strpcpy(
     mut dst: *mut ::core::ffi::c_char,
     mut src: *const ::core::ffi::c_char,
@@ -911,7 +911,7 @@ pub unsafe extern "C" fn usual_strpcpy(
     ::core::ptr::null_mut::<::core::ffi::c_char>()
 }
 #[no_mangle]
-#[c2rust::src_loc = "231:1"]
+
 pub unsafe extern "C" fn usual_strpcat(
     mut dst: *mut ::core::ffi::c_char,
     mut src: *const ::core::ffi::c_char,
@@ -924,7 +924,7 @@ pub unsafe extern "C" fn usual_strpcat(
     ::core::ptr::null_mut::<::core::ffi::c_char>()
 }
 #[no_mangle]
-#[c2rust::src_loc = "240:1"]
+
 pub unsafe extern "C" fn usual_mempcpy(
     mut dst: *mut ::core::ffi::c_void,
     mut src: *const ::core::ffi::c_void,
@@ -934,7 +934,7 @@ pub unsafe extern "C" fn usual_mempcpy(
     (dst as *mut ::core::ffi::c_char).add(n) as *mut ::core::ffi::c_void
 }
 #[no_mangle]
-#[c2rust::src_loc = "248:1"]
+
 pub unsafe extern "C" fn usual_memrchr(
     mut s: *const ::core::ffi::c_void,
     mut c: ::core::ffi::c_int,
@@ -954,12 +954,12 @@ pub unsafe extern "C" fn usual_memrchr(
     NULL
 }
 #[no_mangle]
-#[c2rust::src_loc = "295:1"]
+
 pub unsafe extern "C" fn usual_explicit_bzero(mut buf: *mut ::core::ffi::c_void, mut len: size_t) {
     memset_s(buf, len as rsize_t, 0 as ::core::ffi::c_int, len as rsize_t);
 }
 #[no_mangle]
-#[c2rust::src_loc = "326:1"]
+
 pub unsafe extern "C" fn usual_basename(
     mut path: *const ::core::ffi::c_char,
 ) -> *const ::core::ffi::c_char {
@@ -1007,7 +1007,7 @@ pub unsafe extern "C" fn usual_basename(
     p
 }
 #[no_mangle]
-#[c2rust::src_loc = "356:1"]
+
 pub unsafe extern "C" fn usual_dirname(
     mut path: *const ::core::ffi::c_char,
 ) -> *const ::core::ffi::c_char {
@@ -1068,7 +1068,7 @@ pub unsafe extern "C" fn usual_dirname(
     &raw mut buf as *mut ::core::ffi::c_char
 }
 #[no_mangle]
-#[c2rust::src_loc = "403:1"]
+
 pub unsafe extern "C" fn usual_strerror_r(
     mut e: ::core::ffi::c_int,
     mut dst: *mut ::core::ffi::c_char,
@@ -1084,7 +1084,7 @@ pub unsafe extern "C" fn usual_strerror_r(
     dst
 }
 #[no_mangle]
-#[c2rust::src_loc = "423:1"]
+
 pub unsafe extern "C" fn mempbrk(
     mut data: *const ::core::ffi::c_void,
     mut dlen: size_t,
@@ -1121,7 +1121,7 @@ pub unsafe extern "C" fn mempbrk(
     NULL
 }
 #[no_mangle]
-#[c2rust::src_loc = "445:1"]
+
 pub unsafe extern "C" fn memspn(
     mut data: *const ::core::ffi::c_void,
     mut dlen: size_t,
@@ -1163,7 +1163,7 @@ pub unsafe extern "C" fn memspn(
     i
 }
 #[no_mangle]
-#[c2rust::src_loc = "471:1"]
+
 pub unsafe extern "C" fn memcspn(
     mut data: *const ::core::ffi::c_void,
     mut dlen: size_t,
@@ -1179,7 +1179,7 @@ pub unsafe extern "C" fn memcspn(
     dlen
 }
 #[no_mangle]
-#[c2rust::src_loc = "481:1"]
+
 pub unsafe extern "C" fn strtod_dot(
     mut s: *const ::core::ffi::c_char,
     mut tokend: *mut *mut ::core::ffi::c_char,
@@ -1278,7 +1278,7 @@ pub unsafe extern "C" fn strtod_dot(
     res
 }
 #[no_mangle]
-#[c2rust::src_loc = "550:1"]
+
 pub unsafe extern "C" fn dtostr_dot(
     mut buf: *mut ::core::ffi::c_char,
     mut buflen: size_t,
@@ -1330,7 +1330,7 @@ pub unsafe extern "C" fn dtostr_dot(
     len
 }
 #[no_mangle]
-#[c2rust::src_loc = "688:1"]
+
 pub unsafe extern "C" fn strcmpeq(
     mut str_left: *const ::core::ffi::c_char,
     mut str_right: *const ::core::ffi::c_char,

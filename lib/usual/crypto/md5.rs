@@ -1,34 +1,34 @@
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arm/_types.h:19"]
+
 pub mod _types_h {
-    #[c2rust::src_loc = "87:1"]
+    
     pub type __darwin_size_t = usize;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_size_t.h:19"]
+
 pub mod _size_t_h {
-    #[c2rust::src_loc = "50:1"]
+    
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types/_uint8_t.h:19"]
+
 pub mod _uint8_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type uint8_t = u8;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types/_uint32_t.h:19"]
+
 pub mod _uint32_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type uint32_t = u32;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types/_uint64_t.h:19"]
+
 pub mod _uint64_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type uint64_t = u64;
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/crypto/md5.h:19"]
+
 pub mod md5_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "37:1"]
+    
     pub struct md5_ctx {
         pub nbytes: uint64_t,
         pub a: uint32_t,
@@ -37,28 +37,28 @@ pub mod md5_h {
         pub d: uint32_t,
         pub buf: [uint32_t; 16],
     }
-    #[c2rust::src_loc = "31:9"]
+    
     pub const MD5_BLOCK_LENGTH: ::core::ffi::c_int = 64 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "34:9"]
+    
     pub const MD5_DIGEST_LENGTH: ::core::ffi::c_int = 16 as ::core::ffi::c_int;
     use super::_uint32_t_h::uint32_t;
     use super::_uint64_t_h::uint64_t;
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/crypto/digest.h:20"]
+
 pub mod digest_h {
-    #[c2rust::src_loc = "30:1"]
+    
     pub type DigestInitFunc = unsafe extern "C" fn(*mut ::core::ffi::c_void) -> ();
-    #[c2rust::src_loc = "31:1"]
+    
     pub type DigestUpdateFunc = unsafe extern "C" fn(
         *mut ::core::ffi::c_void,
         *const ::core::ffi::c_void,
         ::core::ffi::c_uint,
     ) -> ();
-    #[c2rust::src_loc = "32:1"]
+    
     pub type DigestFinalFunc = unsafe extern "C" fn(*mut ::core::ffi::c_void, *mut uint8_t) -> ();
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "37:1"]
+    
     pub struct DigestInfo {
         pub init: Option<DigestInitFunc>,
         pub update: Option<DigestUpdateFunc>,
@@ -69,20 +69,20 @@ pub mod digest_h {
     }
     use super::_uint8_t_h::uint8_t;
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/bits.h:23"]
+
 pub mod bits_h {
     #[inline]
-    #[c2rust::src_loc = "50:1"]
+    
     pub unsafe extern "C" fn rol32(mut v: uint32_t, mut s: ::core::ffi::c_int) -> uint32_t {
         v << s | v >> (32 as ::core::ffi::c_int - s)
     }
     use super::_uint32_t_h::uint32_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_string.h:22"]
+
 pub mod _string_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        #[c2rust::src_loc = "77:1"]
+        
         pub fn memcpy(
             __dst: *mut ::core::ffi::c_void,
             __src: *const ::core::ffi::c_void,
@@ -90,10 +90,10 @@ pub mod _string_h {
         ) -> *mut ::core::ffi::c_void;
     }
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/endian.h:22"]
+
 pub mod endian_h {
     #[inline]
-    #[c2rust::src_loc = "350:1"]
+    
     pub unsafe extern "C" fn usual_le32enc(mut p: *mut ::core::ffi::c_void, mut x: uint32_t) {
         let mut tmp: uint32_t = x;
         memcpy(
@@ -117,9 +117,9 @@ pub use self::digest_h::{DigestFinalFunc, DigestInfo, DigestInitFunc, DigestUpda
 pub use self::endian_h::usual_le32enc;
 pub use self::md5_h::{md5_ctx, MD5_BLOCK_LENGTH, MD5_DIGEST_LENGTH};
 #[inline]
-#[c2rust::src_loc = "31:1"]
+
 unsafe extern "C" fn swap_words(mut _w: *mut uint32_t, mut _n: ::core::ffi::c_int) {}
-#[c2rust::src_loc = "51:1"]
+
 unsafe extern "C" fn md5_mix(mut ctx: *mut md5_ctx, mut X: *const uint32_t) {
     let mut a: uint32_t = 0;
     let mut b: uint32_t = 0;
@@ -519,7 +519,7 @@ unsafe extern "C" fn md5_mix(mut ctx: *mut md5_ctx, mut X: *const uint32_t) {
     (*ctx).d = (*ctx).d.wrapping_add(d);
 }
 #[no_mangle]
-#[c2rust::src_loc = "142:1"]
+
 pub unsafe extern "C" fn md5_reset(mut ctx: *mut md5_ctx) {
     (*ctx).nbytes = 0 as uint64_t;
     (*ctx).a = 0x67452301 as uint32_t;
@@ -528,7 +528,7 @@ pub unsafe extern "C" fn md5_reset(mut ctx: *mut md5_ctx) {
     (*ctx).d = 0x10325476 as uint32_t;
 }
 #[no_mangle]
-#[c2rust::src_loc = "151:1"]
+
 pub unsafe extern "C" fn md5_update(
     mut ctx: *mut md5_ctx,
     mut data: *const ::core::ffi::c_void,
@@ -565,7 +565,7 @@ pub unsafe extern "C" fn md5_update(
     }
 }
 #[no_mangle]
-#[c2rust::src_loc = "172:1"]
+
 pub unsafe extern "C" fn md5_final(mut ctx: *mut md5_ctx, mut dst: *mut uint8_t) {
     static mut padding: [uint8_t; 64] = [
         0x80 as ::core::ffi::c_int as uint8_t,
@@ -671,7 +671,7 @@ pub unsafe extern "C" fn md5_final(mut ctx: *mut md5_ctx, mut dst: *mut uint8_t)
         (*ctx).d,
     );
 }
-#[c2rust::src_loc = "201:1"]
+
 static mut md5: DigestInfo = unsafe {
     DigestInfo {
         init: ::core::mem::transmute::<
@@ -707,7 +707,7 @@ static mut md5: DigestInfo = unsafe {
     }
 };
 #[no_mangle]
-#[c2rust::src_loc = "210:1"]
+
 pub unsafe extern "C" fn digest_MD5() -> *const DigestInfo {
     &raw const md5
 }

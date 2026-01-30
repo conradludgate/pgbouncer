@@ -1,106 +1,106 @@
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arm/_types.h:19"]
+
 pub mod _types_h {
-    #[c2rust::src_loc = "32:1"]
+    
     pub type __uint8_t = u8;
-    #[c2rust::src_loc = "34:1"]
+    
     pub type __uint16_t = u16;
-    #[c2rust::src_loc = "35:1"]
+    
     pub type __int32_t = i32;
-    #[c2rust::src_loc = "36:1"]
+    
     pub type __uint32_t = u32;
-    #[c2rust::src_loc = "87:1"]
+    
     pub type __darwin_size_t = usize;
-    #[c2rust::src_loc = "117:1"]
+    
     pub type __darwin_socklen_t = __uint32_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types.h:19"]
+
 pub mod sys__types_h {
-    #[c2rust::src_loc = "72:1"]
+    
     pub type __darwin_gid_t = __uint32_t;
-    #[c2rust::src_loc = "84:1"]
+    
     pub type __darwin_pid_t = __int32_t;
-    #[c2rust::src_loc = "87:1"]
+    
     pub type __darwin_uid_t = __uint32_t;
-    #[c2rust::src_loc = "64:9"]
+    
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
     use super::_types_h::{__int32_t, __uint32_t};
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_gid_t.h:19"]
+
 pub mod _gid_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type gid_t = __darwin_gid_t;
     use super::sys__types_h::__darwin_gid_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_in_addr_t.h:19"]
+
 pub mod _in_addr_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type in_addr_t = __uint32_t;
     use super::_types_h::__uint32_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_in_port_t.h:19"]
+
 pub mod _in_port_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type in_port_t = __uint16_t;
     use super::_types_h::__uint16_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_pid_t.h:19"]
+
 pub mod _pid_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type pid_t = __darwin_pid_t;
     use super::sys__types_h::__darwin_pid_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_uid_t.h:19"]
+
 pub mod _uid_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type uid_t = __darwin_uid_t;
     use super::sys__types_h::__darwin_uid_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_size_t.h:19"]
+
 pub mod _size_t_h {
-    #[c2rust::src_loc = "50:1"]
+    
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_sa_family_t.h:19"]
+
 pub mod _sa_family_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type sa_family_t = __uint8_t;
     use super::_types_h::__uint8_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_socklen_t.h:19"]
+
 pub mod _socklen_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type socklen_t = __darwin_socklen_t;
     use super::_types_h::__darwin_socklen_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/socket.h:19"]
+
 pub mod socket_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "414:1"]
+    
     pub struct sockaddr {
         pub sa_len: __uint8_t,
         pub sa_family: sa_family_t,
         pub sa_data: [::core::ffi::c_char; 14],
     }
-    #[c2rust::src_loc = "125:9"]
+    
     pub const SO_KEEPALIVE: ::core::ffi::c_int = 0x8 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "169:9"]
+    
     pub const SO_NOSIGPIPE: ::core::ffi::c_int = 0x1022 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "354:9"]
+    
     pub const SOL_SOCKET: ::core::ffi::c_int = 0xffff as ::core::ffi::c_int;
-    #[c2rust::src_loc = "361:9"]
+    
     pub const AF_UNIX: ::core::ffi::c_int = 1;
-    #[c2rust::src_loc = "365:9"]
+    
     pub const AF_INET: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "396:9"]
+    
     pub const AF_INET6: ::core::ffi::c_int = 30 as ::core::ffi::c_int;
     use super::_sa_family_t_h::sa_family_t;
     use super::_socklen_t_h::socklen_t;
     use super::_types_h::__uint8_t;
     extern "C" {
-        #[c2rust::src_loc = "726:1"]
+        
         pub fn setsockopt(
             _: ::core::ffi::c_int,
             _: ::core::ffi::c_int,
@@ -110,11 +110,11 @@ pub mod socket_h {
         ) -> ::core::ffi::c_int;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/un.h:19"]
+
 pub mod un_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "76:1"]
+    
     pub struct sockaddr_un {
         pub sun_len: ::core::ffi::c_uchar,
         pub sun_family: sa_family_t,
@@ -122,17 +122,17 @@ pub mod un_h {
     }
     use super::_sa_family_t_h::sa_family_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/netinet/in.h:19"]
+
 pub mod in_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "301:1"]
+    
     pub struct in_addr {
         pub s_addr: in_addr_t,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "374:1"]
+    
     pub struct sockaddr_in {
         pub sin_len: __uint8_t,
         pub sin_family: sa_family_t,
@@ -140,24 +140,24 @@ pub mod in_h {
         pub sin_addr: in_addr,
         pub sin_zero: [::core::ffi::c_char; 8],
     }
-    #[c2rust::src_loc = "108:9"]
+    
     pub const IPPROTO_TCP: ::core::ffi::c_int = 6 as ::core::ffi::c_int;
     use super::_in_addr_t_h::in_addr_t;
     use super::_in_port_t_h::in_port_t;
     use super::_sa_family_t_h::sa_family_t;
     use super::_types_h::__uint8_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/netinet6/in6.h:19"]
+
 pub mod in6_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "152:9"]
+    
     pub struct in6_addr {
         pub __u6_addr: C2RustUnnamed,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "153:2"]
+    
     pub union C2RustUnnamed {
         pub __u6_addr8: [__uint8_t; 16],
         pub __u6_addr16: [__uint16_t; 8],
@@ -165,7 +165,7 @@ pub mod in6_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "170:1"]
+    
     pub struct sockaddr_in6 {
         pub sin6_len: __uint8_t,
         pub sin6_family: sa_family_t,
@@ -178,21 +178,21 @@ pub mod in6_h {
     use super::_sa_family_t_h::sa_family_t;
     use super::_types_h::{__uint16_t, __uint32_t, __uint8_t};
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libkern/arm/_OSByteOrder.h:19"]
+
 pub mod _OSByteOrder_h {
     #[inline]
-    #[c2rust::src_loc = "48:1"]
+    
     pub unsafe extern "C" fn _OSSwapInt16(mut _data: __uint16_t) -> __uint16_t {
         ((_data as ::core::ffi::c_int) << 8 as ::core::ffi::c_int
             | _data as ::core::ffi::c_int >> 8 as ::core::ffi::c_int) as __uint16_t
     }
     use super::_types_h::__uint16_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_stdio.h:19"]
+
 pub mod _stdio_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        #[c2rust::src_loc = "435:1"]
+        
         pub fn snprintf(
             __str: *mut ::core::ffi::c_char,
             __size: size_t,
@@ -201,12 +201,12 @@ pub mod _stdio_h {
         ) -> ::core::ffi::c_int;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/unistd.h:19"]
+
 pub mod unistd_h {
     use super::_gid_t_h::gid_t;
     use super::_uid_t_h::uid_t;
     extern "C" {
-        #[c2rust::src_loc = "663:1"]
+        
         pub fn getpeereid(
             _: ::core::ffi::c_int,
             _: *mut uid_t,
@@ -214,11 +214,11 @@ pub mod unistd_h {
         ) -> ::core::ffi::c_int;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arpa/inet.h:19"]
+
 pub mod inet_h {
     use super::_socklen_t_h::socklen_t;
     extern "C" {
-        #[c2rust::src_loc = "80:1"]
+        
         pub fn inet_ntop(
             _: ::core::ffi::c_int,
             _: *const ::core::ffi::c_void,
@@ -227,52 +227,52 @@ pub mod inet_h {
         ) -> *const ::core::ffi::c_char;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_null.h:19"]
+
 pub mod _null_h {
-    #[c2rust::src_loc = "49:9"]
+    
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
     use super::sys__types_h::__DARWIN_NULL;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/errno.h:19"]
+
 pub mod errno_h {
-    #[c2rust::src_loc = "139:9"]
+    
     pub const ENOPROTOOPT: ::core::ffi::c_int = 42 as ::core::ffi::c_int;
     extern "C" {
-        #[c2rust::src_loc = "80:1"]
+        
         pub fn __error() -> *mut ::core::ffi::c_int;
     }
 }
-#[c2rust::header_src = "/opt/homebrew/Cellar/llvm/21.1.8/lib/clang/21/include/stdbool.h:19"]
+
 pub mod stdbool_h {
-    #[c2rust::src_loc = "25:9"]
+    
     pub const true_0: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "26:9"]
+    
     pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/fcntl.h:19"]
+
 pub mod fcntl_h {
-    #[c2rust::src_loc = "113:9"]
+    
     pub const O_NONBLOCK: ::core::ffi::c_int = 0x4 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "231:9"]
+    
     pub const F_SETFD: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "232:9"]
+    
     pub const F_GETFL: ::core::ffi::c_int = 3 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "233:9"]
+    
     pub const F_SETFL: ::core::ffi::c_int = 4 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "355:9"]
+    
     pub const FD_CLOEXEC: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
     extern "C" {
-        #[c2rust::src_loc = "607:1"]
+        
         pub fn fcntl(_: ::core::ffi::c_int, _: ::core::ffi::c_int, ...) -> ::core::ffi::c_int;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/netinet/tcp.h:19"]
+
 pub mod tcp_h {
-    #[c2rust::src_loc = "220:9"]
+    
     pub const TCP_KEEPALIVE: ::core::ffi::c_int = 0x10 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "234:9"]
+    
     pub const TCP_KEEPINTVL: ::core::ffi::c_int = 0x101 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "235:9"]
+    
     pub const TCP_KEEPCNT: ::core::ffi::c_int = 0x102 as ::core::ffi::c_int;
 }
 pub use self::_OSByteOrder_h::_OSSwapInt16;
@@ -303,7 +303,7 @@ pub use self::tcp_h::{TCP_KEEPALIVE, TCP_KEEPCNT, TCP_KEEPINTVL};
 pub use self::un_h::sockaddr_un;
 use self::unistd_h::getpeereid;
 #[no_mangle]
-#[c2rust::src_loc = "32:1"]
+
 pub unsafe extern "C" fn socket_set_nonblocking(
     mut fd: ::core::ffi::c_int,
     mut non_block: bool,
@@ -324,7 +324,7 @@ pub unsafe extern "C" fn socket_set_nonblocking(
     true_0 != 0
 }
 #[no_mangle]
-#[c2rust::src_loc = "54:1"]
+
 pub unsafe extern "C" fn socket_setup(mut sock: ::core::ffi::c_int, mut non_block: bool) -> bool {
     let mut res: ::core::ffi::c_int = 0;
     let mut val = 1 as ::core::ffi::c_int;
@@ -348,7 +348,7 @@ pub unsafe extern "C" fn socket_setup(mut sock: ::core::ffi::c_int, mut non_bloc
     true_0 != 0
 }
 #[no_mangle]
-#[c2rust::src_loc = "78:1"]
+
 pub unsafe extern "C" fn socket_set_keepalive(
     mut fd: ::core::ffi::c_int,
     mut onoff: ::core::ffi::c_int,
@@ -422,7 +422,7 @@ pub unsafe extern "C" fn socket_set_keepalive(
     true_0 != 0
 }
 #[no_mangle]
-#[c2rust::src_loc = "152:1"]
+
 pub unsafe extern "C" fn sa2str(
     mut sa: *const sockaddr,
     mut dst: *mut ::core::ffi::c_char,
@@ -522,7 +522,7 @@ pub unsafe extern "C" fn sa2str(
     dst
 }
 #[no_mangle]
-#[c2rust::src_loc = "207:1"]
+
 pub unsafe extern "C" fn usual_getpeercreds(
     mut fd: ::core::ffi::c_int,
     mut uid_p: *mut uid_t,

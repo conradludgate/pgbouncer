@@ -1,34 +1,34 @@
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arm/_types.h:39"]
+
 pub mod _types_h {
-    #[c2rust::src_loc = "87:1"]
+    
     pub type __darwin_size_t = usize;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_size_t.h:39"]
+
 pub mod _size_t_h {
-    #[c2rust::src_loc = "50:1"]
+    
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types/_uint8_t.h:39"]
+
 pub mod _uint8_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type uint8_t = u8;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types/_uint32_t.h:39"]
+
 pub mod _uint32_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type uint32_t = u32;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types/_uint64_t.h:39"]
+
 pub mod _uint64_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type uint64_t = u64;
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/crypto/keccak.h:39"]
+
 pub mod keccak_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "31:1"]
+    
     pub struct KeccakContext {
         pub u: C2RustUnnamed,
         pub pos: uint32_t,
@@ -36,7 +36,7 @@ pub mod keccak_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "33:2"]
+    
     pub union C2RustUnnamed {
         pub state64: [uint64_t; 25],
         pub state32: [uint32_t; 50],
@@ -44,17 +44,17 @@ pub mod keccak_h {
     use super::_uint32_t_h::uint32_t;
     use super::_uint64_t_h::uint64_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_string.h:40"]
+
 pub mod _string_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        #[c2rust::src_loc = "77:1"]
+        
         pub fn memcpy(
             __dst: *mut ::core::ffi::c_void,
             __src: *const ::core::ffi::c_void,
             __n: size_t,
         ) -> *mut ::core::ffi::c_void;
-        #[c2rust::src_loc = "83:1"]
+        
         pub fn memset(
             __b: *mut ::core::ffi::c_void,
             __c: ::core::ffi::c_int,
@@ -62,19 +62,19 @@ pub mod _string_h {
         ) -> *mut ::core::ffi::c_void;
     }
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/bits.h:40"]
+
 pub mod bits_h {
     #[inline]
-    #[c2rust::src_loc = "55:1"]
+    
     pub unsafe extern "C" fn rol64(mut v: uint64_t, mut s: ::core::ffi::c_int) -> uint64_t {
         v << s | v >> (64 as ::core::ffi::c_int - s)
     }
     use super::_uint64_t_h::uint64_t;
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/endian.h:41"]
+
 pub mod endian_h {
     #[inline]
-    #[c2rust::src_loc = "282:1"]
+    
     pub unsafe extern "C" fn usual_le64dec(mut p: *const ::core::ffi::c_void) -> uint64_t {
         let mut tmp: uint64_t = 0;
         memcpy(
@@ -85,7 +85,7 @@ pub mod endian_h {
         tmp
     }
     #[inline]
-    #[c2rust::src_loc = "357:1"]
+    
     pub unsafe extern "C" fn usual_le64enc(mut p: *mut ::core::ffi::c_void, mut x: uint64_t) {
         let mut tmp: uint64_t = x;
         memcpy(
@@ -107,9 +107,9 @@ pub use self::_uint8_t_h::uint8_t;
 pub use self::bits_h::rol64;
 pub use self::endian_h::{usual_le64dec, usual_le64enc};
 pub use self::keccak_h::{C2RustUnnamed, KeccakContext};
-#[c2rust::src_loc = "47:9"]
+
 pub const KECCAK_ROUNDS: ::core::ffi::c_int = 24 as ::core::ffi::c_int;
-#[c2rust::src_loc = "84:1"]
+
 static mut RoundConstants64: [uint64_t; 24] = [
     0x1 as ::core::ffi::c_ulonglong,
     0x8082 as ::core::ffi::c_ulonglong,
@@ -136,7 +136,7 @@ static mut RoundConstants64: [uint64_t; 24] = [
     0x80000001 as ::core::ffi::c_ulonglong,
     0x8000000080008008 as ::core::ffi::c_ulonglong,
 ];
-#[c2rust::src_loc = "162:1"]
+
 unsafe extern "C" fn keccak_f(mut ctx: *mut KeccakContext) {
     let mut state = &raw mut (*ctx).u.state64 as *mut uint64_t;
     let mut Ba: uint64_t = 0;
@@ -777,7 +777,7 @@ unsafe extern "C" fn keccak_f(mut ctx: *mut KeccakContext) {
     }
 }
 #[inline]
-#[c2rust::src_loc = "470:1"]
+
 unsafe extern "C" fn xor_lane(
     mut ctx: *mut KeccakContext,
     mut lane: ::core::ffi::c_int,
@@ -785,7 +785,7 @@ unsafe extern "C" fn xor_lane(
 ) {
     (*ctx).u.state64[lane as usize] ^= val;
 }
-#[c2rust::src_loc = "475:1"]
+
 unsafe extern "C" fn extract(
     mut dst: *mut uint8_t,
     mut ctx: *const KeccakContext,
@@ -805,7 +805,7 @@ unsafe extern "C" fn extract(
         dst = dst.offset(8 as ::core::ffi::c_int as isize);
     }
 }
-#[c2rust::src_loc = "1190:1"]
+
 unsafe extern "C" fn xor_byte(
     mut ctx: *mut KeccakContext,
     mut nbyte: ::core::ffi::c_int,
@@ -815,7 +815,7 @@ unsafe extern "C" fn xor_byte(
     let mut s = nbyte % 8 as ::core::ffi::c_int * 8 as ::core::ffi::c_int;
     xor_lane(ctx, o, (val as uint64_t) << s);
 }
-#[c2rust::src_loc = "1198:1"]
+
 unsafe extern "C" fn add_bytes(
     mut ctx: *mut KeccakContext,
     mut p: *const uint8_t,
@@ -867,7 +867,7 @@ unsafe extern "C" fn add_bytes(
         xor_byte(ctx, fresh4 as ::core::ffi::c_int, *fresh5);
     }
 }
-#[c2rust::src_loc = "1228:1"]
+
 unsafe extern "C" fn extract_bytes(
     mut ctx: *mut KeccakContext,
     mut dst: *mut uint8_t,
@@ -931,7 +931,7 @@ unsafe extern "C" fn extract_bytes(
     );
 }
 #[inline]
-#[c2rust::src_loc = "1259:1"]
+
 unsafe extern "C" fn permute_if_needed(mut ctx: *mut KeccakContext) {
     if (*ctx).pos == (*ctx).rbytes {
         keccak_f(ctx);
@@ -939,7 +939,7 @@ unsafe extern "C" fn permute_if_needed(mut ctx: *mut KeccakContext) {
     }
 }
 #[no_mangle]
-#[c2rust::src_loc = "1271:1"]
+
 pub unsafe extern "C" fn keccak_init(
     mut ctx: *mut KeccakContext,
     mut capacity: ::core::ffi::c_uint,
@@ -961,7 +961,7 @@ pub unsafe extern "C" fn keccak_init(
     1 as ::core::ffi::c_int
 }
 #[no_mangle]
-#[c2rust::src_loc = "1280:1"]
+
 pub unsafe extern "C" fn keccak_absorb(
     mut ctx: *mut KeccakContext,
     mut data: *const ::core::ffi::c_void,
@@ -985,7 +985,7 @@ pub unsafe extern "C" fn keccak_absorb(
     }
 }
 #[no_mangle]
-#[c2rust::src_loc = "1299:1"]
+
 pub unsafe extern "C" fn keccak_squeeze(
     mut ctx: *mut KeccakContext,
     mut dst: *mut uint8_t,
@@ -1008,7 +1008,7 @@ pub unsafe extern "C" fn keccak_squeeze(
     }
 }
 #[no_mangle]
-#[c2rust::src_loc = "1317:1"]
+
 pub unsafe extern "C" fn keccak_squeeze_xor(
     mut ctx: *mut KeccakContext,
     mut dst: *mut uint8_t,
@@ -1042,7 +1042,7 @@ pub unsafe extern "C" fn keccak_squeeze_xor(
     }
 }
 #[no_mangle]
-#[c2rust::src_loc = "1339:1"]
+
 pub unsafe extern "C" fn keccak_encrypt(
     mut ctx: *mut KeccakContext,
     mut dst: *mut uint8_t,
@@ -1069,7 +1069,7 @@ pub unsafe extern "C" fn keccak_encrypt(
     }
 }
 #[no_mangle]
-#[c2rust::src_loc = "1360:1"]
+
 pub unsafe extern "C" fn keccak_decrypt(
     mut ctx: *mut KeccakContext,
     mut dst: *mut uint8_t,
@@ -1104,7 +1104,7 @@ pub unsafe extern "C" fn keccak_decrypt(
     }
 }
 #[no_mangle]
-#[c2rust::src_loc = "1383:1"]
+
 pub unsafe extern "C" fn keccak_pad(
     mut ctx: *mut KeccakContext,
     mut pad: *const ::core::ffi::c_void,
@@ -1135,12 +1135,12 @@ pub unsafe extern "C" fn keccak_pad(
     (*ctx).pos = 0 as uint32_t;
 }
 #[no_mangle]
-#[c2rust::src_loc = "1399:1"]
+
 pub unsafe extern "C" fn keccak_rewind(mut ctx: *mut KeccakContext) {
     (*ctx).pos = 0 as uint32_t;
 }
 #[no_mangle]
-#[c2rust::src_loc = "1404:1"]
+
 pub unsafe extern "C" fn keccak_forget(mut ctx: *mut KeccakContext) {
     let mut rem = ((*ctx).rbytes as ::core::ffi::c_uint).wrapping_rem(8 as ::core::ffi::c_uint);
     let mut buf: [uint8_t; 8] = [0; 8];

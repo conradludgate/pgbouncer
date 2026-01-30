@@ -7,7 +7,7 @@ use crate::types::{__error, false_0, realloc, size_t, true_0, ENOMEM, __DARWIN_N
 pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
 
 #[inline]
-#[c2rust::src_loc = "228:1"]
+
 pub unsafe extern "C" fn safe_mul_size(
     mut res_p: *mut size_t,
     mut a: size_t,
@@ -28,7 +28,7 @@ pub unsafe extern "C" fn safe_mul_size(
 }
 
 #[no_mangle]
-#[c2rust::src_loc = "57:1"]
+
 pub unsafe extern "C" fn usual_reallocarray(
     mut p: *mut ::core::ffi::c_void,
     mut count: size_t,

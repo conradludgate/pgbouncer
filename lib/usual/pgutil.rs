@@ -1,27 +1,27 @@
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arm/_types.h:8"]
+
 pub mod _types_h {
-    #[c2rust::src_loc = "36:1"]
+    
     pub type __uint32_t = u32;
-    #[c2rust::src_loc = "61:1"]
+    
     pub type __darwin_ct_rune_t = ::core::ffi::c_int;
-    #[c2rust::src_loc = "87:1"]
+    
     pub type __darwin_size_t = usize;
-    #[c2rust::src_loc = "103:1"]
+    
     pub type __darwin_wchar_t = ::libc::wchar_t;
-    #[c2rust::src_loc = "108:1"]
+    
     pub type __darwin_rune_t = __darwin_wchar_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_size_t.h:8"]
+
 pub mod _size_t_h {
-    #[c2rust::src_loc = "50:1"]
+    
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/cxalloc.h:8"]
+
 pub mod cxalloc_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "53:1"]
+    
     pub struct CxOps {
         pub c_alloc: Option<
             unsafe extern "C" fn(*mut ::core::ffi::c_void, size_t) -> *mut ::core::ffi::c_void,
@@ -39,38 +39,38 @@ pub mod cxalloc_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "79:1"]
+    
     pub struct CxMem {
         pub ops: *const CxOps,
         pub ctx: *mut ::core::ffi::c_void,
     }
     use super::_size_t_h::size_t;
     extern "C" {
-        #[c2rust::src_loc = "96:1"]
+        
         pub fn cx_alloc(cx: *const CxMem, len: size_t) -> *mut ::core::ffi::c_void;
-        #[c2rust::src_loc = "111:1"]
+        
         pub fn cx_free(cx: *const CxMem, ptr: *mut ::core::ffi::c_void);
     }
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/string.h:8"]
+
 pub mod string_h {
     use super::cxalloc_h::CxMem;
     extern "C" {
-        #[c2rust::src_loc = "37:1"]
+        
         pub type StrList;
-        #[c2rust::src_loc = "39:1"]
+        
         pub fn strlist_new(ca: *const CxMem) -> *mut StrList;
-        #[c2rust::src_loc = "41:1"]
+        
         pub fn strlist_free(slist: *mut StrList);
-        #[c2rust::src_loc = "47:1"]
+        
         pub fn strlist_append_ref(slist: *mut StrList, str: *mut ::core::ffi::c_char) -> bool;
     }
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/pgutil_kwlookup.h:284"]
+
 pub mod pgutil_kwlookup_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "107:2"]
+    
     pub struct pgkw_t {
         pub pgkw_str16: [::core::ffi::c_char; 6],
         pub pgkw_str22: [::core::ffi::c_char; 5],
@@ -221,19 +221,19 @@ pub mod pgutil_kwlookup_h {
         pub pgkw_str289: [::core::ffi::c_char; 7],
         pub pgkw_str311: [::core::ffi::c_char; 7],
     }
-    #[c2rust::src_loc = "104:3"]
+    
     pub const MAX_HASH_VALUE: C2RustUnnamed = 311;
-    #[c2rust::src_loc = "101:3"]
+    
     pub const MIN_WORD_LENGTH: C2RustUnnamed = 2;
-    #[c2rust::src_loc = "102:3"]
+    
     pub const MAX_WORD_LENGTH: C2RustUnnamed = 17;
-    #[c2rust::src_loc = "99:2"]
+    
     pub type C2RustUnnamed = ::core::ffi::c_uint;
-    #[c2rust::src_loc = "103:3"]
+    
     pub const MIN_HASH_VALUE: C2RustUnnamed = 16;
-    #[c2rust::src_loc = "100:3"]
+    
     pub const TOTAL_KEYWORDS: C2RustUnnamed = 148;
-    #[c2rust::src_loc = "41:1"]
+    
     pub unsafe extern "C" fn pg_keyword_lookup_hash(
         mut str: *const ::core::ffi::c_char,
         mut len: size_t,
@@ -543,7 +543,7 @@ pub mod pgutil_kwlookup_h {
         )
     }
     #[no_mangle]
-    #[c2rust::src_loc = "97:1"]
+    
     pub unsafe extern "C" fn pg_keyword_lookup_real(
         mut str: *const ::core::ffi::c_char,
         mut len: size_t,
@@ -947,11 +947,11 @@ pub mod pgutil_kwlookup_h {
     use super::_size_t_h::size_t;
     use super::_string_h::strcmp;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/runetype.h:10"]
+
 pub mod runetype_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "80:9"]
+    
     pub struct _RuneLocale {
         pub __magic: [::core::ffi::c_char; 8],
         pub __encoding: [::core::ffi::c_char; 32],
@@ -984,21 +984,21 @@ pub mod runetype_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "75:9"]
+    
     pub struct _RuneCharClass {
         pub __name: [::core::ffi::c_char; 14],
         pub __mask: __uint32_t,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "70:9"]
+    
     pub struct _RuneRange {
         pub __nranges: ::core::ffi::c_int,
         pub __ranges: *mut _RuneEntry,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "63:9"]
+    
     pub struct _RuneEntry {
         pub __min: __darwin_rune_t,
         pub __max: __darwin_rune_t,
@@ -1007,39 +1007,39 @@ pub mod runetype_h {
     }
     use super::_types_h::{__darwin_rune_t, __darwin_size_t, __uint32_t};
     extern "C" {
-        #[c2rust::src_loc = "114:1"]
+        
         pub static mut _DefaultRuneLocale: _RuneLocale;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_string.h:8"]
+
 pub mod _string_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        #[c2rust::src_loc = "77:1"]
+        
         pub fn memcpy(
             __dst: *mut ::core::ffi::c_void,
             __src: *const ::core::ffi::c_void,
             __n: size_t,
         ) -> *mut ::core::ffi::c_void;
-        #[c2rust::src_loc = "88:1"]
+        
         pub fn strchr(
             __s: *const ::core::ffi::c_char,
             __c: ::core::ffi::c_int,
         ) -> *mut ::core::ffi::c_char;
-        #[c2rust::src_loc = "89:1"]
+        
         pub fn strcmp(
             __s1: *const ::core::ffi::c_char,
             __s2: *const ::core::ffi::c_char,
         ) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "96:1"]
+        
         pub fn strlen(__s: *const ::core::ffi::c_char) -> size_t;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_strings.h:8"]
+
 pub mod _strings_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        #[c2rust::src_loc = "82:1"]
+        
         pub fn strncasecmp(
             _: *const ::core::ffi::c_char,
             _: *const ::core::ffi::c_char,
@@ -1047,32 +1047,32 @@ pub mod _strings_h {
         ) -> ::core::ffi::c_int;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_null.h:8"]
+
 pub mod _null_h {
-    #[c2rust::src_loc = "49:9"]
+    
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
     use super::sys__types_h::__DARWIN_NULL;
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/ctype.h:10"]
+
 pub mod ctype_h {
     #[inline]
-    #[c2rust::src_loc = "105:1"]
+    
     pub unsafe extern "C" fn safe_isspace(mut c: ::core::ffi::c_int) -> ::core::ffi::c_int {
         isspace(c as ::core::ffi::c_uchar as ::core::ffi::c_int)
     }
     use super::_ctype_h::isspace;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_ctype.h:10"]
+
 pub mod _ctype_h {
-    #[c2rust::src_loc = "82:9"]
+    
     pub const _CTYPE_S: ::core::ffi::c_long = 0x4000 as ::core::ffi::c_long;
     #[inline]
-    #[c2rust::src_loc = "139:1"]
+    
     pub unsafe extern "C" fn isascii(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
         (_c & !(0x7f as ::core::ffi::c_int) == 0 as ::core::ffi::c_int) as ::core::ffi::c_int
     }
     #[inline]
-    #[c2rust::src_loc = "157:1"]
+    
     pub unsafe extern "C" fn __istype(
         mut _c: __darwin_ct_rune_t,
         mut _f: ::core::ffi::c_ulong,
@@ -1085,28 +1085,28 @@ pub mod _ctype_h {
         }
     }
     #[inline]
-    #[c2rust::src_loc = "271:1"]
+    
     pub unsafe extern "C" fn isspace(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
         __istype(_c as __darwin_ct_rune_t, _CTYPE_S as ::core::ffi::c_ulong)
     }
     use super::_types_h::__darwin_ct_rune_t;
     use super::runetype_h::_DefaultRuneLocale;
     extern "C" {
-        #[c2rust::src_loc = "153:1"]
+        
         pub fn __maskrune(_: __darwin_ct_rune_t, _: ::core::ffi::c_ulong) -> ::core::ffi::c_int;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types.h:8"]
+
 pub mod sys__types_h {
-    #[c2rust::src_loc = "64:9"]
+    
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
 }
-#[c2rust::header_src = "/opt/homebrew/Cellar/llvm/21.1.8/lib/clang/21/include/stdbool.h:8"]
+
 pub mod stdbool_h {
-    #[c2rust::src_loc = "25:9"]
+    
     pub const true_0: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "26:9"]
+    
     pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 }
 pub use self::_ctype_h::{__istype, __maskrune, isascii, isspace, _CTYPE_S};
@@ -1131,7 +1131,7 @@ use self::string_h::{strlist_append_ref, strlist_free, strlist_new, StrList};
 pub use self::sys__types_h::__DARWIN_NULL;
 static mut wordlist: [::core::ffi::c_int; 312] = [0; 312];
 #[no_mangle]
-#[c2rust::src_loc = "13:1"]
+
 pub unsafe extern "C" fn pg_quote_literal(
     mut _dst: *mut ::core::ffi::c_char,
     mut _src: *const ::core::ffi::c_char,
@@ -1200,19 +1200,19 @@ pub unsafe extern "C" fn pg_quote_literal(
     true_0 != 0
 }
 #[inline]
-#[c2rust::src_loc = "58:1"]
+
 unsafe extern "C" fn id_start(mut c: ::core::ffi::c_uchar) -> bool {
     c as ::core::ffi::c_int >= 'a' as i32 && c as ::core::ffi::c_int <= 'z' as i32
         || c as ::core::ffi::c_int == '_' as i32
 }
 #[inline]
-#[c2rust::src_loc = "63:1"]
+
 unsafe extern "C" fn id_body(mut c: ::core::ffi::c_uchar) -> bool {
     id_start(c) as ::core::ffi::c_int != 0
         || c as ::core::ffi::c_int >= '0' as i32 && c as ::core::ffi::c_int <= '9' as i32
 }
 #[no_mangle]
-#[c2rust::src_loc = "69:1"]
+
 pub unsafe extern "C" fn pg_quote_ident(
     mut _dst: *mut ::core::ffi::c_char,
     mut _src: *const ::core::ffi::c_char,
@@ -1295,7 +1295,7 @@ pub unsafe extern "C" fn pg_quote_ident(
     true_0 != 0
 }
 #[no_mangle]
-#[c2rust::src_loc = "113:1"]
+
 pub unsafe extern "C" fn pg_quote_fqident(
     mut _dst: *mut ::core::ffi::c_char,
     mut _src: *const ::core::ffi::c_char,
@@ -1333,7 +1333,7 @@ pub unsafe extern "C" fn pg_quote_fqident(
     }
     true_0 != 0
 }
-#[c2rust::src_loc = "146:1"]
+
 unsafe extern "C" fn parse_value(
     mut arr: *mut StrList,
     mut val: *const ::core::ffi::c_char,
@@ -1419,7 +1419,7 @@ unsafe extern "C" fn parse_value(
     true_0 != 0
 }
 #[no_mangle]
-#[c2rust::src_loc = "196:1"]
+
 pub unsafe extern "C" fn pg_parse_array(
     mut pgarr: *const ::core::ffi::c_char,
     mut cx: *const CxMem,
@@ -1520,7 +1520,7 @@ pub unsafe extern "C" fn pg_parse_array(
     ::core::ptr::null_mut::<StrList>()
 }
 #[no_mangle]
-#[c2rust::src_loc = "286:1"]
+
 pub unsafe extern "C" fn pg_is_reserved_word(mut str: *const ::core::ffi::c_char) -> bool {
     let mut kw = pg_keyword_lookup_real(str, strlen(str));
     !kw.is_null()

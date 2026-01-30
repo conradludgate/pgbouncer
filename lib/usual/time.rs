@@ -1,43 +1,43 @@
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arm/_types.h:19"]
+
 pub mod _types_h {
-    #[c2rust::src_loc = "35:1"]
+    
     pub type __int32_t = i32;
-    #[c2rust::src_loc = "87:1"]
+    
     pub type __darwin_size_t = usize;
-    #[c2rust::src_loc = "119:1"]
+    
     pub type __darwin_time_t = ::core::ffi::c_long;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types.h:19"]
+
 pub mod sys__types_h {
-    #[c2rust::src_loc = "86:1"]
+    
     pub type __darwin_suseconds_t = __int32_t;
-    #[c2rust::src_loc = "64:9"]
+    
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
     use super::_types_h::__int32_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_size_t.h:19"]
+
 pub mod _size_t_h {
-    #[c2rust::src_loc = "50:1"]
+    
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_time_t.h:19"]
+
 pub mod _time_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type time_t = __darwin_time_t;
     use super::_types_h::__darwin_time_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types/_uint64_t.h:19"]
+
 pub mod _uint64_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type uint64_t = u64;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_timeval.h:19"]
+
 pub mod _timeval_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "34:1"]
+    
     pub struct timeval {
         pub tv_sec: __darwin_time_t,
         pub tv_usec: __darwin_suseconds_t,
@@ -45,11 +45,11 @@ pub mod _timeval_h {
     use super::_types_h::__darwin_time_t;
     use super::sys__types_h::__darwin_suseconds_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_time.h:19"]
+
 pub mod _time_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "78:1"]
+    
     pub struct tm {
         pub tm_sec: ::core::ffi::c_int,
         pub tm_min: ::core::ffi::c_int,
@@ -65,25 +65,25 @@ pub mod _time_h {
     }
     use super::_time_t_h::time_t;
     extern "C" {
-        #[c2rust::src_loc = "101:1"]
+        
         pub static mut tzname: [*mut ::core::ffi::c_char; 0];
-        #[c2rust::src_loc = "131:1"]
+        
         pub fn localtime_r(_: *const time_t, _: *mut tm) -> *mut tm;
     }
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/time.h:19"]
+
 pub mod time_h {
-    #[c2rust::src_loc = "40:1"]
+    
     pub type usec_t = uint64_t;
-    #[c2rust::src_loc = "43:9"]
+    
     pub const USEC: usec_t = 1000000 as ::core::ffi::c_int as usec_t;
     use super::_uint64_t_h::uint64_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_stdio.h:19"]
+
 pub mod _stdio_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        #[c2rust::src_loc = "435:1"]
+        
         pub fn snprintf(
             __str: *mut ::core::ffi::c_char,
             __size: size_t,
@@ -92,17 +92,17 @@ pub mod _stdio_h {
         ) -> ::core::ffi::c_int;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/time.h:19"]
+
 pub mod sys_time_h {
     use super::_timeval_h::timeval;
     extern "C" {
-        #[c2rust::src_loc = "198:1"]
+        
         pub fn gettimeofday(_: *mut timeval, _: *mut ::core::ffi::c_void) -> ::core::ffi::c_int;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_null.h:19"]
+
 pub mod _null_h {
-    #[c2rust::src_loc = "49:9"]
+    
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
     use super::sys__types_h::__DARWIN_NULL;
 }
@@ -118,7 +118,7 @@ pub use self::sys__types_h::{__darwin_suseconds_t, __DARWIN_NULL};
 use self::sys_time_h::gettimeofday;
 pub use self::time_h::{usec_t, USEC};
 #[no_mangle]
-#[c2rust::src_loc = "25:1"]
+
 pub unsafe extern "C" fn format_time_ms(
     mut time: usec_t,
     mut dest: *mut ::core::ffi::c_char,
@@ -173,7 +173,7 @@ pub unsafe extern "C" fn format_time_ms(
     dest
 }
 #[no_mangle]
-#[c2rust::src_loc = "48:1"]
+
 pub unsafe extern "C" fn format_time_s(
     mut time: usec_t,
     mut dest: *mut ::core::ffi::c_char,
@@ -226,7 +226,7 @@ pub unsafe extern "C" fn format_time_s(
     dest
 }
 #[no_mangle]
-#[c2rust::src_loc = "69:1"]
+
 pub unsafe extern "C" fn get_time_usec() -> usec_t {
     let mut tv = timeval {
         tv_sec: 0,
@@ -237,10 +237,10 @@ pub unsafe extern "C" fn get_time_usec() -> usec_t {
         .wrapping_mul(USEC)
         .wrapping_add(tv.tv_usec as usec_t)
 }
-#[c2rust::src_loc = "76:1"]
+
 static mut _time_cache: usec_t = 0;
 #[no_mangle]
-#[c2rust::src_loc = "79:1"]
+
 pub unsafe extern "C" fn get_cached_time() -> usec_t {
     if _time_cache == 0 {
         _time_cache = get_time_usec();
@@ -248,7 +248,7 @@ pub unsafe extern "C" fn get_cached_time() -> usec_t {
     _time_cache
 }
 #[no_mangle]
-#[c2rust::src_loc = "87:1"]
+
 pub unsafe extern "C" fn reset_time_cache() {
     _time_cache = 0 as usec_t;
 }
