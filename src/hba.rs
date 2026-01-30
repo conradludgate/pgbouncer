@@ -220,9 +220,6 @@ pub mod runetype_h {
     }
 }
 
-pub mod list_h {
-    pub use super::super::common::types::{List, list_init, list_empty, list_prepend, list_append, list_del, list_pop, list_first, list_last};
-}
 
 pub mod _sa_family_t_h {
     
@@ -523,7 +520,7 @@ pub mod hba_h {
     pub const NAME_REPLICATION: ::core::ffi::c_int = 4 as ::core::ffi::c_int;
     use super::StrSet;
     use super::_uint8_t_h::uint8_t;
-    use super::list_h::List;
+    use crate::types::List;
 }
 
 pub mod cbtree_h {
@@ -768,7 +765,7 @@ pub use self::hba_h::{
 pub use self::in6_h::{in6_addr, sockaddr_in6, C2RustUnnamed};
 pub use self::in_h::{in_addr, sockaddr_in};
 use self::inet_h::{inet_ntop, inet_pton};
-pub use self::list_h::{list_append, list_del, list_init, List};
+pub use crate::types::{list_append, list_del, list_init, List};
 pub use self::logging_h::{
     log_generic, LogLevel, LG_DEBUG, LG_ERROR, LG_FATAL, LG_INFO, LG_NOISE, LG_STATS, LG_WARNING,
 };

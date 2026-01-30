@@ -140,9 +140,6 @@ pub mod tls_h {
 }
 
 
-pub mod list_h {
-    pub use super::super::common::types::{List, list_init, list_empty, list_prepend, list_append, list_del, list_pop, list_first, list_last};
-}
 
 
 
@@ -745,7 +742,7 @@ pub mod bouncer_h {
     use super::dnslookup_h::{DNSContext, DNSToken};
     use super::in6_h::sockaddr_in6;
     use super::in_h::sockaddr_in;
-    use super::list_h::List;
+    use crate::types::List;
     use super::pktbuf_h::PktBuf;
     use crate::types::{PgClientPreparedStatement, PgServerPreparedStatement};
     use crate::types::PktHdr;
@@ -1418,7 +1415,7 @@ use self::inet_h::inet_pton;
 pub use self::internal::__builtin_va_list;
 pub use self::iobuf_h::{iobuf, iobuf_empty, iobuf_reset, IOBuf};
 use self::janitor_h::{clear_user_tree_cached_scram_keys, kill_database, kill_peer};
-pub use self::list_h::{
+pub use crate::types::{
     list_append, list_del, list_empty, list_first, list_init, list_pop, list_prepend, List,
 };
 use self::loader_h::parse_database;

@@ -370,9 +370,6 @@ pub mod cfparser_h {
 }
 
 
-pub mod list_h {
-    pub use ::pgbouncer::src::common::types::List;
-}
 
 
 
@@ -985,7 +982,7 @@ pub mod bouncer_h {
     use super::dnslookup_h::DNSToken;
     use super::in6_h::sockaddr_in6;
     use super::in_h::sockaddr_in;
-    use super::list_h::List;
+    use pgbouncer::types::List;
     use super::pktbuf_h::PktBuf;
     use pgbouncer::types::{PgClientPreparedStatement, PgServerPreparedStatement};
     use pgbouncer::types::PktHdr;
@@ -1200,7 +1197,7 @@ pub mod hba_h {
     pub struct Ident {
         pub maps: List,
     }
-    use super::list_h::List;
+    use pgbouncer::types::List;
     extern "C" {
         
         pub fn ident_load_map(fn_0: *const ::core::ffi::c_char) -> *mut Ident;
@@ -1671,7 +1668,7 @@ pub use self::include_signal_h::{__sigbits, kill, sigprocmask};
 pub use self::iobuf_h::{iobuf, IOBuf};
 use self::janitor_h::{config_postprocess, janitor_setup, per_loop_maint, resume_all};
 use self::ldapauth_h::{auth_ldap_init, ldap_poll};
-pub use self::list_h::List;
+pub use pgbouncer::types::List;
 use self::loader_h::{loader_users_check, parse_database, parse_peer, parse_user};
 pub use self::logging_h::{
     cf_logfile, cf_quiet, cf_syslog, cf_syslog_facility, cf_syslog_ident, cf_verbose, log_fatal,

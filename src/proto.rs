@@ -137,9 +137,6 @@ pub mod tls_h {
 }
 
 
-pub mod list_h {
-    pub use super::super::common::types::{List, list_empty};
-}
 
 
 
@@ -649,7 +646,7 @@ pub mod bouncer_h {
     use super::dnslookup_h::DNSToken;
     use super::in6_h::sockaddr_in6;
     use super::in_h::sockaddr_in;
-    use super::list_h::List;
+    use crate::types::List;
     use super::pktbuf_h::PktBuf;
     use crate::types::{PgClientPreparedStatement, PgServerPreparedStatement};
     use crate::types::PktHdr;
@@ -1099,7 +1096,7 @@ pub use self::in6_h::{in6_addr, sockaddr_in6, C2RustUnnamed};
 pub use self::in_h::{in_addr, sockaddr_in};
 pub use self::internal::__builtin_va_list;
 pub use self::iobuf_h::{iobuf, IOBuf};
-pub use self::list_h::{list_empty, List};
+pub use crate::types::{list_empty, List};
 pub use self::logging_h::{
     cf_verbose, log_fatal, log_generic, LogLevel, LG_DEBUG, LG_ERROR, LG_FATAL, LG_INFO, LG_NOISE,
     LG_STATS, LG_WARNING,

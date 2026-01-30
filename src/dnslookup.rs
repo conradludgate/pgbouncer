@@ -67,9 +67,6 @@ pub mod _timeval_h {
 }
 
 
-pub mod list_h {
-    pub use super::super::common::types::{List, list_init, list_empty, list_prepend, list_append, list_del, list_pop, list_first, list_last};
-}
 
 
 
@@ -501,7 +498,7 @@ pub use self::event_struct_h::{
     C2RustUnnamed_3, C2RustUnnamed_4, C2RustUnnamed_5, C2RustUnnamed_6, C2RustUnnamed_7,
 };
 use self::include_util_h::safe_evtimer_add;
-pub use self::list_h::{list_append, list_del, list_empty, list_first, list_init, list_pop, List};
+pub use crate::types::{list_append, list_del, list_empty, list_first, list_init, list_pop, List};
 pub use self::logging_h::{
     cf_verbose, log_generic, LogLevel, LG_DEBUG, LG_ERROR, LG_FATAL, LG_INFO, LG_NOISE, LG_STATS,
     LG_WARNING,
