@@ -72,12 +72,19 @@ sbuf.rs has the most unsafe functions (97) and is performance-critical. It inter
 
 ## Checklist
 
-- [ ] pooler.rs: Remove c2rust type modules
-- [ ] pooler.rs: Import from common/types.rs
+### Completed ✅
+- [x] pooler.rs: Remove c2rust::src_loc and c2rust::header_src attributes
+- [x] pooler.rs: Consolidate PgStats, List, StatList, AATree to common/types.rs
+- [x] sbuf.rs: Remove c2rust::src_loc and c2rust::header_src attributes
+- [x] sbuf.rs: Consolidate PgStats, List, StatList, AATree to common/types.rs
+
+### Pending 📋
+- [ ] pooler.rs: Remove remaining c2rust type modules
+- [ ] pooler.rs: Import all types from common/types.rs
 - [ ] pooler.rs: Convert static mut to thread-local
 - [ ] pooler.rs: Identify safe vs unsafe boundaries
-- [ ] sbuf.rs: Remove c2rust type modules
-- [ ] sbuf.rs: Import from common/types.rs
+- [ ] sbuf.rs: Remove remaining c2rust type modules
+- [ ] sbuf.rs: Import all types from common/types.rs
 - [ ] sbuf.rs: Document unsafe invariants
 - [ ] sbuf.rs: Make SBuf interface safer (not internals)
 - [ ] All: Run integration tests after changes

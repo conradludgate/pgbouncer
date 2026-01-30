@@ -96,17 +96,29 @@ Misc utilities. Contains logging helpers.
 
 ## Checklist
 
-- [ ] objects.rs: Remove c2rust type modules
-- [ ] objects.rs: Import from common/types.rs
+### Completed ✅
+- [x] All modules: Remove c2rust::src_loc and c2rust::header_src attributes
+- [x] All modules: Consolidate PgStats type to common/types.rs
+- [x] All modules: Consolidate List, StatList types to common/types.rs
+- [x] All modules: Consolidate AATree types to common/types.rs
+- [x] stats.rs: Clean up function implementations (removed wrapping arithmetic, simplified code)
+
+### Pending 📋
+- [ ] objects.rs: Remove remaining c2rust type modules
+- [ ] objects.rs: Import all types from common/types.rs
 - [ ] objects.rs: Document struct invariants
 - [ ] objects.rs: Convert global lists to thread-local
-- [ ] loader.rs: Clean up and safe parsing
+- [ ] loader.rs: Remove remaining c2rust type modules, safe parsing
 - [ ] janitor.rs: Convert globals, safe logic
-- [ ] varcache.rs: Clean up
-- [ ] prepare.rs: Clean up
-- [ ] stats.rs: Clean up (easy wins)
-- [ ] pktbuf.rs: Clean up
-- [ ] dnslookup.rs: Basic cleanup
-- [ ] takeover.rs: Basic cleanup
-- [ ] system.rs: Clean up
-- [ ] util.rs: Clean up
+- [ ] varcache.rs: Remove remaining c2rust type modules
+- [ ] prepare.rs: Remove remaining c2rust type modules
+- [ ] stats.rs: Remove remaining c2rust type modules
+- [ ] pktbuf.rs: Remove remaining c2rust type modules
+- [ ] dnslookup.rs: Remove remaining c2rust type modules
+- [ ] takeover.rs: Remove remaining c2rust type modules
+- [ ] system.rs: Remove remaining c2rust type modules
+- [ ] util.rs: Remove remaining c2rust type modules
+
+### Notes
+- stats.rs was used as proof-of-concept for function cleanup patterns
+- See `findings-stats-rs.md` for detailed refactoring learnings

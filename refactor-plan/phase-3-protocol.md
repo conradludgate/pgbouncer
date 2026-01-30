@@ -71,14 +71,23 @@ Protocol message definitions and helpers:
 
 ## Checklist
 
-- [ ] proto.rs: Remove c2rust type modules
-- [ ] proto.rs: Import from common/types.rs
+### Completed ✅
+- [x] proto.rs: Remove c2rust::src_loc and c2rust::header_src attributes
+- [x] proto.rs: Consolidate PgStats, List, StatList, AATree to common/types.rs
+- [x] admin.rs: Remove c2rust::src_loc and c2rust::header_src attributes
+- [x] admin.rs: Consolidate PgStats, List, StatList, AATree to common/types.rs
+- [x] messages.rs: Remove c2rust::src_loc and c2rust::header_src attributes
+- [x] messages.rs: Consolidate PgStats, List, StatList, AATree to common/types.rs
+
+### Pending 📋
+- [ ] proto.rs: Remove remaining c2rust type modules
+- [ ] proto.rs: Import all types from common/types.rs
 - [ ] proto.rs: Define packet type enum
 - [ ] proto.rs: Safe parsing for simple messages
-- [ ] admin.rs: Remove c2rust type modules
-- [ ] admin.rs: Import from common/types.rs
+- [ ] admin.rs: Remove remaining c2rust type modules
+- [ ] admin.rs: Import all types from common/types.rs
 - [ ] admin.rs: Replace dispatch table with match
 - [ ] admin.rs: Convert SHOW handlers to safe Rust
-- [ ] messages.rs: Remove c2rust type modules
+- [ ] messages.rs: Remove remaining c2rust type modules
 - [ ] messages.rs: Use Rust string formatting
 - [ ] All: Run test_admin.py (specifically tests admin functionality)

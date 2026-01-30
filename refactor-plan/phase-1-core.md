@@ -95,17 +95,33 @@ SV_IDLE, SV_ACTIVE, SV_ACTIVE_CANCEL, SV_USED, SV_TESTED
 
 ## Checklist
 
-- [ ] main.rs: Remove c2rust type modules
-- [ ] main.rs: Import from common/types.rs
+### Completed ✅
+- [x] main.rs: Remove c2rust::src_loc and c2rust::header_src attributes
+- [x] client.rs: Remove c2rust::src_loc and c2rust::header_src attributes
+- [x] server.rs: Remove c2rust::src_loc and c2rust::header_src attributes
+- [x] All: Consolidate PgStats type to common/types.rs
+- [x] All: Consolidate List/StatList types to common/types.rs
+- [x] All: Consolidate AATree types to common/types.rs
+- [x] All: Run test_admin.py after each major change
+
+### In Progress 🔄
+- [ ] main.rs: Remove remaining c2rust type modules
+- [ ] client.rs: Remove remaining c2rust type modules
+- [ ] server.rs: Remove remaining c2rust type modules
+
+### Pending 📋
+- [ ] main.rs: Import all types from common/types.rs
 - [ ] main.rs: Convert cf_* globals to config struct
 - [ ] main.rs: Wrap config in thread-local RefCell
-- [ ] main.rs: Remove extern "C" from internal functions
-- [ ] client.rs: Remove c2rust type modules
-- [ ] client.rs: Import from common/types.rs
+- [ ] main.rs: Remove extern "C" from internal functions (careful: some are C callbacks)
+- [ ] client.rs: Import all types from common/types.rs
 - [ ] client.rs: Convert SocketState to proper enum
 - [ ] client.rs: Convert static mut to thread-local
-- [ ] server.rs: Remove c2rust type modules
-- [ ] server.rs: Import from common/types.rs
+- [ ] server.rs: Import all types from common/types.rs
 - [ ] server.rs: Mirror client.rs patterns
-- [ ] All: Run test_admin.py after each major change
 - [ ] All: Run full test suite before completing phase
+
+### Notes
+- Removing `extern "C"` requires care: some internal functions are used as libevent callbacks
+- Type consolidation is ongoing: PgStats, List, StatList, AATree done; MBuf pending
+- Each type consolidated saves ~15-25 lines per file (20+ files)

@@ -68,13 +68,24 @@ These are FFI-heavy (calling external C libraries). Strategy:
 
 ## Checklist
 
-- [ ] scram.rs: Remove c2rust type modules
-- [ ] scram.rs: Import from common/types.rs
+### Completed ✅
+- [x] scram.rs: Remove c2rust::src_loc and c2rust::header_src attributes
+- [x] scram.rs: Consolidate PgStats, List, StatList, AATree to common/types.rs
+- [x] hba.rs: Remove c2rust::src_loc and c2rust::header_src attributes
+- [x] hba.rs: Consolidate List, StatList to common/types.rs
+- [x] pam.rs: Remove c2rust::src_loc and c2rust::header_src attributes
+- [x] pam.rs: Consolidate PgStats, List, StatList, AATree to common/types.rs
+- [x] ldapauth.rs: Remove c2rust::src_loc and c2rust::header_src attributes
+- [x] ldapauth.rs: Consolidate PgStats, List, StatList, AATree to common/types.rs
+
+### Pending 📋
+- [ ] scram.rs: Remove remaining c2rust type modules
+- [ ] scram.rs: Import all types from common/types.rs
 - [ ] scram.rs: Define SCRAM state machine types
 - [ ] scram.rs: Make pure computation safe
-- [ ] hba.rs: Remove c2rust type modules
+- [ ] hba.rs: Remove remaining c2rust type modules
 - [ ] hba.rs: Define HBA rule types
 - [ ] hba.rs: Safe parsing logic
-- [ ] pam.rs: Basic cleanup
-- [ ] ldapauth.rs: Basic cleanup
+- [ ] pam.rs: Remove remaining c2rust type modules
+- [ ] ldapauth.rs: Remove remaining c2rust type modules
 - [ ] All: Run test_auth.py for auth-specific tests

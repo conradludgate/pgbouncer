@@ -72,8 +72,22 @@ Once business logic is safe, rewrite low-level modules from scratch with modern 
 
 ## Checklist
 
+### Completed ✅
+- [x] types.rs: Consolidated shared types (PgStats, List, StatList, AATree, etc.)
+- [x] lib/usual/*: Remove c2rust::src_loc and c2rust::header_src attributes
+- [x] src/common/*: Remove c2rust::src_loc and c2rust::header_src attributes
+
+### Pending 📋
 - [ ] Audit which low-level functions are actually used
 - [ ] Document external dependencies (OpenSSL, libevent)
 - [ ] Identify crate replacements for each module
 - [ ] Create abstraction traits where beneficial
 - [ ] (Later) Replace implementations one at a time
+
+### Types Consolidated to common/types.rs
+- `PgStats` - Statistics counters
+- `List`, `list_*` functions - Linked list
+- `StatList`, `statlist_*` functions - Statistics list
+- `AATree`, `AANode`, `aatree_*` functions - AA tree
+- Various primitive type aliases (`usec_t`, `uint64_t`, etc.)
+- Socket structures (`sockaddr`, `sockaddr_in`, etc.)

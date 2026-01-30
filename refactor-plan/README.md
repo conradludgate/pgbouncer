@@ -16,16 +16,31 @@ We start from the entry point (`main.rs`) and core connection handling (`client.
 - We understand the full flow before touching utilities
 - Lower-level modules become swappable implementation details
 
+## Progress Summary
+
+| Milestone | Status |
+|-----------|--------|
+| Remove c2rust attributes from src/ | ✅ Complete |
+| Remove c2rust attributes from lib/usual/ | ✅ Complete |
+| Consolidate PgStats type | ✅ Complete |
+| Consolidate List/StatList types | ✅ Complete |
+| Consolidate AATree types | ✅ Complete |
+| Consolidate MBuf type | 📋 Pending |
+| Remove duplicate type modules | 📋 In Progress |
+
+**Lines saved from type consolidation: ~1,382**
+
 ## Current State Metrics
 
-| Metric | Count |
-|--------|-------|
-| Total Rust lines (src/) | ~126,000 |
-| Total Rust lines (lib/usual/) | ~26,000 |
-| `static mut` occurrences (src/) | 430 across 27 files |
-| `unsafe extern "C" fn` (src/) | 1,787 across 35 files |
-| `#[no_mangle]` (src/) | 450 across 34 files |
-| `#[c2rust::...]` attributes (src/) | 7,150 across 30 files |
+| Metric | Original | Current |
+|--------|----------|---------|
+| Total Rust lines (src/) | ~126,000 | ~124,600 |
+| Total Rust lines (lib/usual/) | ~26,000 | ~26,000 |
+| `static mut` occurrences (src/) | 430 | 430 |
+| `unsafe extern "C" fn` (src/) | 1,787 | ~1,787 |
+| `#[no_mangle]` (src/) | 450 | 450 |
+| `#[c2rust::...]` attributes (src/) | 7,150 | **0** ✅ |
+| `#[c2rust::...]` attributes (lib/usual/) | 2,761 | **0** ✅ |
 
 ## Phase Overview
 
