@@ -819,7 +819,7 @@ pub mod bouncer_h {
     use super::list_h::List;
     use super::pktbuf_h::PktBuf;
     use super::prepare_h::{PgClientPreparedStatement, PgServerPreparedStatement};
-    use super::proto_h::PktHdr;
+    use crate::types::PktHdr;
     use super::sbuf_h::SBuf;
     use super::socket_h::{sockaddr, AF_UNIX};
     use super::statlist_h::{statlist_empty, StatList};
@@ -996,39 +996,6 @@ pub mod iobuf_h {
         (*io).recv_pos = (*io).parse_pos;
     }
     use super::_uint8_t_h::uint8_t;
-}
-
-pub mod proto_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct PktHdr {
-        pub type_0: ::core::ffi::c_uint,
-        pub len: ::core::ffi::c_uint,
-        pub data: MBuf,
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn free_header(mut pkt: *mut PktHdr) {
-        mbuf_free(&raw mut (*pkt).data);
-        (*pkt).type_0 = 0 as ::core::ffi::c_uint;
-        (*pkt).len = 0 as ::core::ffi::c_uint;
-    }
-    use super::bouncer_h::PgSocket;
-    use crate::lib::usual::mbuf::mbuf_free;
-    use crate::types::MBuf;
-    extern "C" {
-        
-        pub fn send_pooler_error(
-            client: *mut PgSocket,
-            send_ready: bool,
-            sqlstate: *const ::core::ffi::c_char,
-            level_fatal: bool,
-            msg: *const ::core::ffi::c_char,
-        ) -> bool;
-        
-        pub fn welcome_client(client: *mut PgSocket) -> bool;
-    }
 }
 
 pub mod prepare_h {
@@ -1646,7 +1613,19 @@ pub use self::prepare_h::{
     free_server_prepared_statements, unregister_prepared_statement, PgClientPreparedStatement,
     PgPreparedStatement, PgServerPreparedStatement,
 };
-pub use self::proto_h::{free_header, send_pooler_error, welcome_client, PktHdr};
+pub use crate::types::{free_header, PktHdr};
+
+// External function declarations (defined in proto.rs)
+extern "C" {
+    pub fn send_pooler_error(
+        client: *mut bouncer_h::PgSocket,
+        send_ready: bool,
+        sqlstate: *const ::core::ffi::c_char,
+        level_fatal: bool,
+        msg: *const ::core::ffi::c_char,
+    ) -> bool;
+    pub fn welcome_client(client: *mut bouncer_h::PgSocket) -> bool;
+}
 pub use self::protocol_h::{
     PqMsg_Close, PqMsg_CloseComplete, PqMsg_Parse, PqMsg_ParseComplete, PqMsg_Query,
     PqMsg_Terminate,

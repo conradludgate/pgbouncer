@@ -867,7 +867,7 @@ pub mod bouncer_h {
     use super::list_h::List;
     use super::pktbuf_h::PktBuf;
     use super::prepare_h::{PgClientPreparedStatement, PgServerPreparedStatement};
-    use super::proto_h::PktHdr;
+    use crate::types::PktHdr;
     use super::sbuf_h::SBuf;
     use super::socket_h::{sockaddr, AF_UNIX};
     use super::statlist_h::{statlist_empty, StatList};
@@ -1050,44 +1050,6 @@ pub mod iobuf_h {
         (*buf).recv_pos.wrapping_sub((*buf).parse_pos)
     }
     use super::_uint8_t_h::uint8_t;
-}
-
-pub mod proto_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct PktHdr {
-        pub type_0: ::core::ffi::c_uint,
-        pub len: ::core::ffi::c_uint,
-        pub data: MBuf,
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn incomplete_pkt(mut pkt: *const PktHdr) -> bool {
-        mbuf_written(&raw const (*pkt).data) != (*pkt).len
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn pkt_desc(mut pkt: *const PktHdr) -> ::core::ffi::c_char {
-        (if (*pkt).type_0 > 256 as ::core::ffi::c_uint {
-            '!' as i32 as ::core::ffi::c_uint
-        } else {
-            (*pkt).type_0
-        }) as ::core::ffi::c_char
-    }
-    use super::bouncer_h::PgSocket;
-    use crate::lib::usual::mbuf::mbuf_written;
-    use crate::types::MBuf;
-    extern "C" {
-        
-        pub fn send_pooler_error(
-            client: *mut PgSocket,
-            send_ready: bool,
-            sqlstate: *const ::core::ffi::c_char,
-            level_fatal: bool,
-            msg: *const ::core::ffi::c_char,
-        ) -> bool;
-    }
 }
 
 pub mod prepare_h {
@@ -1824,7 +1786,18 @@ pub use self::pooler_h::{cleanup_tcp_sockets, for_each_pooler_fd, pooler_cb, sus
 pub use self::prepare_h::{
     PgClientPreparedStatement, PgPreparedStatement, PgServerPreparedStatement,
 };
-pub use self::proto_h::{incomplete_pkt, pkt_desc, send_pooler_error, PktHdr};
+pub use crate::types::{incomplete_pkt, pkt_desc, PktHdr};
+
+// External function declaration (defined in proto.rs)
+extern "C" {
+    pub fn send_pooler_error(
+        client: *mut bouncer_h::PgSocket,
+        send_ready: bool,
+        sqlstate: *const ::core::ffi::c_char,
+        level_fatal: bool,
+        msg: *const ::core::ffi::c_char,
+    ) -> bool;
+}
 pub use self::protocol_h::{
     PqMsg_AuthenticationRequest, PqMsg_Bind, PqMsg_CommandComplete, PqMsg_Execute,
     PqMsg_NoticeResponse, PqMsg_ParameterStatus, PqMsg_Parse, PqMsg_Query, PqMsg_ReadyForQuery,

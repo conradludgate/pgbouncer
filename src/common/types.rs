@@ -662,6 +662,60 @@ pub struct PktHdr {
     pub data: MBuf,
 }
 
+// PktHdr constants
+pub const OLD_HEADER_LEN: ::core::ffi::c_int = 8;
+pub const NEW_HEADER_LEN: ::core::ffi::c_int = 5;
+
+// PktHdr inline functions
+#[inline]
+pub unsafe fn free_header(pkt: *mut PktHdr) {
+    crate::lib::usual::mbuf::mbuf_free(&raw mut (*pkt).data);
+    (*pkt).type_0 = 0;
+    (*pkt).len = 0;
+}
+
+#[inline]
+pub unsafe fn incomplete_pkt(pkt: *const PktHdr) -> bool {
+    crate::lib::usual::mbuf::mbuf_written(&raw const (*pkt).data) != (*pkt).len
+}
+
+#[inline]
+pub unsafe fn incomplete_header(data: *const MBuf) -> bool {
+    let avail = crate::lib::usual::mbuf::mbuf_avail_for_read(data) as u32;
+    if avail >= OLD_HEADER_LEN as u32 {
+        return false;
+    }
+    if avail < NEW_HEADER_LEN as u32 {
+        return true;
+    }
+    *(*data).data.offset((*data).read_pos as isize) as ::core::ffi::c_int == 0
+}
+
+#[inline]
+pub unsafe fn pkt_rewind_v3(pkt: *mut PktHdr) {
+    (*pkt).data.read_pos = NEW_HEADER_LEN as u32;
+}
+
+#[inline]
+pub unsafe fn pkt_rewind_v2(pkt: *mut PktHdr) {
+    (*pkt).data.read_pos = OLD_HEADER_LEN as u32;
+}
+
+#[inline]
+pub unsafe fn pkt_desc(pkt: *const PktHdr) -> ::core::ffi::c_char {
+    (if (*pkt).type_0 > 256 {
+        '!' as u32
+    } else {
+        (*pkt).type_0
+    }) as ::core::ffi::c_char
+}
+
+// External functions that work with PktHdr (declared here, defined in proto.rs)
+extern "C" {
+    pub fn get_header(data: *mut MBuf, pkt: *mut PktHdr) -> bool;
+    pub fn log_server_error(note: *const ::core::ffi::c_char, pkt: *mut PktHdr);
+}
+
 #[derive(Copy, Clone)]
 #[repr(C)]
 pub struct VarCache {

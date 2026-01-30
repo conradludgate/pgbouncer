@@ -732,7 +732,7 @@ pub mod bouncer_h {
     use super::list_h::List;
     use super::pktbuf_h::PktBuf;
     use super::prepare_h::{PgClientPreparedStatement, PgServerPreparedStatement};
-    use super::proto_h::PktHdr;
+    use crate::types::PktHdr;
     use super::sbuf_h::SBuf;
     use super::socket_h::{sockaddr, AF_UNIX};
     use super::statlist_h::StatList;
@@ -857,81 +857,6 @@ pub mod iobuf_h {
         pub buf: [uint8_t; 0],
     }
     use super::_uint8_t_h::uint8_t;
-}
-
-pub mod proto_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct PktHdr {
-        pub type_0: ::core::ffi::c_uint,
-        pub len: ::core::ffi::c_uint,
-        pub data: MBuf,
-    }
-    
-    pub const OLD_HEADER_LEN: ::core::ffi::c_int = 8 as ::core::ffi::c_int;
-    
-    pub const NEW_HEADER_LEN: ::core::ffi::c_int = 5 as ::core::ffi::c_int;
-    #[inline]
-    
-    pub unsafe extern "C" fn incomplete_pkt(mut pkt: *const PktHdr) -> bool {
-        mbuf_written(&raw const (*pkt).data) != (*pkt).len
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn incomplete_header(mut data: *const MBuf) -> bool {
-        let mut avail = mbuf_avail_for_read(data) as uint32_t;
-        if avail >= OLD_HEADER_LEN as uint32_t {
-            return false_0 != 0;
-        }
-        if avail < NEW_HEADER_LEN as uint32_t {
-            return true_0 != 0;
-        }
-        *(*data).data.offset((*data).read_pos as isize) as ::core::ffi::c_int
-            == 0 as ::core::ffi::c_int
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn pkt_desc(mut pkt: *const PktHdr) -> ::core::ffi::c_char {
-        (if (*pkt).type_0 > 256 as ::core::ffi::c_uint {
-            '!' as i32 as ::core::ffi::c_uint
-        } else {
-            (*pkt).type_0
-        }) as ::core::ffi::c_char
-    }
-    use super::_uint32_t_h::uint32_t;
-
-    use super::bouncer_h::{PgPool, PgSocket};
-    use crate::lib::usual::mbuf::{mbuf_avail_for_read, mbuf_written};
-    use crate::types::MBuf;
-    use super::stdbool_h::{false_0, true_0};
-    extern "C" {
-        
-        pub fn get_header(data: *mut MBuf, pkt: *mut PktHdr) -> bool;
-        
-        pub fn log_server_error(note: *const ::core::ffi::c_char, pkt: *mut PktHdr);
-        
-        pub fn parse_server_error(
-            pkt: *mut PktHdr,
-            level_p: *mut *const ::core::ffi::c_char,
-            msg_p: *mut *const ::core::ffi::c_char,
-            sqlstate_p: *mut *const ::core::ffi::c_char,
-        );
-        
-        pub fn add_welcome_parameter(
-            pool: *mut PgPool,
-            key: *const ::core::ffi::c_char,
-            val: *const ::core::ffi::c_char,
-        ) -> bool;
-        
-        pub fn finish_welcome_msg(server: *mut PgSocket);
-        
-        pub fn answer_authreq(server: *mut PgSocket, pkt: *mut PktHdr) -> bool;
-        
-        pub fn send_startup_packet(server: *mut PgSocket) -> bool;
-        
-        pub fn send_sslreq_packet(server: *mut PgSocket) -> bool;
-    }
 }
 
 pub mod prepare_h {
@@ -1189,7 +1114,7 @@ pub mod util_h {
 
 pub mod client_h {
     use super::bouncer_h::PgSocket;
-    use super::proto_h::PktHdr;
+    use crate::types::PktHdr;
     extern "C" {
         
         pub fn handle_auth_query_response(client: *mut PgSocket, pkt: *mut PktHdr) -> bool;
@@ -1361,11 +1286,29 @@ pub use self::prepare_h::{
     free_client_prepared_statements, free_server_prepared_statements, PgClientPreparedStatement,
     PgPreparedStatement, PgServerPreparedStatement,
 };
-pub use self::proto_h::{
-    add_welcome_parameter, answer_authreq, finish_welcome_msg, get_header, incomplete_header,
-    incomplete_pkt, log_server_error, parse_server_error, pkt_desc, send_sslreq_packet,
-    send_startup_packet, PktHdr, NEW_HEADER_LEN, OLD_HEADER_LEN,
+pub use crate::types::{
+    get_header, incomplete_header, incomplete_pkt, log_server_error, pkt_desc, PktHdr,
+    NEW_HEADER_LEN, OLD_HEADER_LEN,
 };
+
+// External function declarations (defined in proto.rs)
+extern "C" {
+    pub fn parse_server_error(
+        pkt: *mut PktHdr,
+        level_p: *mut *const ::core::ffi::c_char,
+        msg_p: *mut *const ::core::ffi::c_char,
+        sqlstate_p: *mut *const ::core::ffi::c_char,
+    );
+    pub fn add_welcome_parameter(
+        pool: *mut bouncer_h::PgPool,
+        key: *const ::core::ffi::c_char,
+        val: *const ::core::ffi::c_char,
+    ) -> bool;
+    pub fn finish_welcome_msg(server: *mut bouncer_h::PgSocket);
+    pub fn answer_authreq(server: *mut bouncer_h::PgSocket, pkt: *mut PktHdr) -> bool;
+    pub fn send_startup_packet(server: *mut bouncer_h::PgSocket) -> bool;
+    pub fn send_sslreq_packet(server: *mut bouncer_h::PgSocket) -> bool;
+}
 pub use self::protocol_h::{
     PqMsg_AuthenticationRequest, PqMsg_BackendKeyData, PqMsg_Bind, PqMsg_BindComplete, PqMsg_Close,
     PqMsg_CloseComplete, PqMsg_CommandComplete, PqMsg_CopyBothResponse, PqMsg_CopyData,

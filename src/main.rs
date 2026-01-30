@@ -1057,7 +1057,7 @@ pub mod bouncer_h {
     use super::list_h::List;
     use super::pktbuf_h::PktBuf;
     use super::prepare_h::{PgClientPreparedStatement, PgServerPreparedStatement};
-    use super::proto_h::PktHdr;
+    use pgbouncer::types::PktHdr;
     use super::sbuf_h::SBuf;
     use super::socket_h::sockaddr;
     use super::statlist_h::StatList;
@@ -1150,18 +1150,6 @@ pub mod iobuf_h {
         pub buf: [uint8_t; 0],
     }
     use super::_uint8_t_h::uint8_t;
-}
-
-pub mod proto_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct PktHdr {
-        pub type_0: ::core::ffi::c_uint,
-        pub len: ::core::ffi::c_uint,
-        pub data: MBuf,
-    }
-    use pgbouncer::types::MBuf;
 }
 
 pub mod prepare_h {
@@ -1842,7 +1830,7 @@ use self::pooler_h::{
 pub use self::prepare_h::{
     PgClientPreparedStatement, PgPreparedStatement, PgServerPreparedStatement,
 };
-pub use self::proto_h::PktHdr;
+pub use pgbouncer::types::PktHdr;
 pub use self::resource_h::{getrlimit, rlim_t, rlimit, RLIMIT_NOFILE};
 use self::safeio_h::{safe_close, safe_connect, safe_write};
 pub use self::sbuf_h::{

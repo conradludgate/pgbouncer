@@ -859,7 +859,7 @@ pub mod bouncer_h {
     use super::list_h::List;
     use super::pktbuf_h::PktBuf;
     use super::prepare_h::{PgClientPreparedStatement, PgServerPreparedStatement};
-    use super::proto_h::PktHdr;
+    use crate::types::PktHdr;
     use super::sbuf_h::SBuf;
     use super::socket_h::{sockaddr, AF_UNIX};
     use super::statlist_h::StatList;
@@ -965,45 +965,6 @@ pub mod iobuf_h {
         pub buf: [uint8_t; 0],
     }
     use super::_uint8_t_h::uint8_t;
-}
-
-pub mod proto_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct PktHdr {
-        pub type_0: ::core::ffi::c_uint,
-        pub len: ::core::ffi::c_uint,
-        pub data: MBuf,
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn incomplete_pkt(mut pkt: *const PktHdr) -> bool {
-        mbuf_written(&raw const (*pkt).data) != (*pkt).len
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn pkt_desc(mut pkt: *const PktHdr) -> ::core::ffi::c_char {
-        (if (*pkt).type_0 > 256 as ::core::ffi::c_uint {
-            '!' as i32 as ::core::ffi::c_uint
-        } else {
-            (*pkt).type_0
-        }) as ::core::ffi::c_char
-    }
-    use crate::lib::usual::mbuf::mbuf_written;
-    use crate::types::MBuf;
-    extern "C" {
-        
-        pub fn get_header(data: *mut MBuf, pkt: *mut PktHdr) -> bool;
-        
-        pub fn log_server_error(note: *const ::core::ffi::c_char, pkt: *mut PktHdr);
-        
-        pub fn scan_text_result(
-            pkt: *mut MBuf,
-            tupdesc: *const ::core::ffi::c_char,
-            ...
-        ) -> ::core::ffi::c_int;
-    }
 }
 
 pub mod prepare_h {
@@ -1436,9 +1397,16 @@ use self::pooler_h::use_pooler_socket;
 pub use self::prepare_h::{
     PgClientPreparedStatement, PgPreparedStatement, PgServerPreparedStatement,
 };
-pub use self::proto_h::{
-    get_header, incomplete_pkt, log_server_error, pkt_desc, scan_text_result, PktHdr,
-};
+pub use crate::types::{get_header, incomplete_pkt, log_server_error, pkt_desc, PktHdr};
+
+// External function declaration (defined in proto.rs)
+extern "C" {
+    pub fn scan_text_result(
+        pkt: *mut crate::types::MBuf,
+        tupdesc: *const ::core::ffi::c_char,
+        ...
+    ) -> ::core::ffi::c_int;
+}
 pub use self::protocol_h::{
     PqMsg_CommandComplete, PqMsg_DataRow, PqMsg_ErrorResponse, PqMsg_Query, PqMsg_ReadyForQuery,
     PqMsg_RowDescription,

@@ -848,7 +848,7 @@ pub mod bouncer_h {
     use super::list_h::List;
     use super::pktbuf_h::PktBuf;
     use super::prepare_h::{PgClientPreparedStatement, PgServerPreparedStatement};
-    use super::proto_h::PktHdr;
+    use crate::types::PktHdr;
     use super::sbuf_h::SBuf;
     use super::socket_h::{sockaddr, AF_UNIX};
     use super::statlist_h::StatList;
@@ -950,7 +950,7 @@ pub mod sbuf_h {
     use super::_uint8_t_h::uint8_t;
     use super::event_struct_h::event;
     use super::iobuf_h::IOBuf;
-    use super::proto_h::PktHdr;
+    use crate::types::PktHdr;
     use crate::types::MBuf;
     use super::tls_h::tls;
     extern "C" {
@@ -992,76 +992,6 @@ pub mod iobuf_h {
     use super::_uint8_t_h::uint8_t;
 }
 
-pub mod proto_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct PktHdr {
-        pub type_0: ::core::ffi::c_uint,
-        pub len: ::core::ffi::c_uint,
-        pub data: MBuf,
-    }
-    
-    pub const OLD_HEADER_LEN: ::core::ffi::c_int = 8 as ::core::ffi::c_int;
-    
-    pub const NEW_HEADER_LEN: ::core::ffi::c_int = 5 as ::core::ffi::c_int;
-    #[inline]
-    
-    pub unsafe extern "C" fn free_header(mut pkt: *mut PktHdr) {
-        mbuf_free(&raw mut (*pkt).data);
-        (*pkt).type_0 = 0 as ::core::ffi::c_uint;
-        (*pkt).len = 0 as ::core::ffi::c_uint;
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn incomplete_pkt(mut pkt: *const PktHdr) -> bool {
-        mbuf_written(&raw const (*pkt).data) != (*pkt).len
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn incomplete_header(mut data: *const MBuf) -> bool {
-        let mut avail = mbuf_avail_for_read(data) as uint32_t;
-        if avail >= OLD_HEADER_LEN as uint32_t {
-            return false_0 != 0;
-        }
-        if avail < NEW_HEADER_LEN as uint32_t {
-            return true_0 != 0;
-        }
-        *(*data).data.offset((*data).read_pos as isize) as ::core::ffi::c_int
-            == 0 as ::core::ffi::c_int
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn pkt_rewind_v3(mut pkt: *mut PktHdr) {
-        (*pkt).data.read_pos = NEW_HEADER_LEN as ::core::ffi::c_uint;
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn pkt_rewind_v2(mut pkt: *mut PktHdr) {
-        (*pkt).data.read_pos = OLD_HEADER_LEN as ::core::ffi::c_uint;
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn pkt_desc(mut pkt: *const PktHdr) -> ::core::ffi::c_char {
-        (if (*pkt).type_0 > 256 as ::core::ffi::c_uint {
-            '!' as i32 as ::core::ffi::c_uint
-        } else {
-            (*pkt).type_0
-        }) as ::core::ffi::c_char
-    }
-    use super::_uint32_t_h::uint32_t;
-
-    use crate::lib::usual::mbuf::{mbuf_avail_for_read, mbuf_free, mbuf_written};
-    use crate::types::MBuf;
-    use super::stdbool_h::{false_0, true_0};
-    extern "C" {
-        
-        pub fn get_header(data: *mut MBuf, pkt: *mut PktHdr) -> bool;
-        
-        pub fn log_server_error(note: *const ::core::ffi::c_char, pkt: *mut PktHdr);
-    }
-}
-
 pub mod prepare_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -1097,7 +1027,7 @@ pub mod prepare_h {
     use super::_uint8_t_h::uint8_t;
     use super::bouncer_h::PgSocket;
     use super::messages_h::PgClosePacket;
-    use super::proto_h::PktHdr;
+    use crate::types::PktHdr;
     use super::uthash_h::UT_hash_handle;
     extern "C" {
         
@@ -1264,7 +1194,7 @@ pub mod messages_h {
         pub name: *const ::core::ffi::c_char,
     }
     use super::bouncer_h::PgSocket;
-    use super::proto_h::PktHdr;
+    use crate::types::PktHdr;
     extern "C" {
         
         pub fn inspect_parse_packet(
@@ -1589,7 +1519,7 @@ pub mod util_h {
 
 pub mod admin_h {
     use super::bouncer_h::PgSocket;
-    use super::proto_h::PktHdr;
+    use crate::types::PktHdr;
     extern "C" {
         
         pub fn admin_handle_client(client: *mut PgSocket, pkt: *mut PktHdr) -> bool;
@@ -1880,7 +1810,7 @@ pub use self::prepare_h::{
     handle_parse_command, PgClientPreparedStatement, PgPreparedStatement,
     PgServerPreparedStatement,
 };
-pub use self::proto_h::{
+pub use crate::types::{
     free_header, get_header, incomplete_header, incomplete_pkt, log_server_error, pkt_desc,
     pkt_rewind_v2, pkt_rewind_v3, PktHdr, NEW_HEADER_LEN, OLD_HEADER_LEN,
 };

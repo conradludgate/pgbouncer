@@ -723,7 +723,7 @@ pub mod bouncer_h {
     use super::list_h::List;
     use super::pktbuf_h::PktBuf;
     use super::prepare_h::{PgClientPreparedStatement, PgServerPreparedStatement};
-    use super::proto_h::PktHdr;
+    use crate::types::PktHdr;
     use super::sbuf_h::SBuf;
     use super::socket_h::sockaddr;
     use super::statlist_h::StatList;
@@ -821,29 +821,6 @@ pub mod iobuf_h {
         pub buf: [uint8_t; 0],
     }
     use super::_uint8_t_h::uint8_t;
-}
-
-pub mod proto_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct PktHdr {
-        pub type_0: ::core::ffi::c_uint,
-        pub len: ::core::ffi::c_uint,
-        pub data: MBuf,
-    }
-    use super::bouncer_h::PgSocket;
-    use crate::types::MBuf;
-    extern "C" {
-        
-        pub fn send_pooler_error(
-            client: *mut PgSocket,
-            send_ready: bool,
-            sqlstate: *const ::core::ffi::c_char,
-            level_fatal: bool,
-            msg: *const ::core::ffi::c_char,
-        ) -> bool;
-    }
 }
 
 pub mod prepare_h {
@@ -1155,7 +1132,18 @@ pub use self::pktbuf_h::PktBuf;
 pub use self::prepare_h::{
     PgClientPreparedStatement, PgPreparedStatement, PgServerPreparedStatement,
 };
-pub use self::proto_h::{send_pooler_error, PktHdr};
+pub use crate::types::PktHdr;
+
+// External function declaration (defined in proto.rs)
+extern "C" {
+    pub fn send_pooler_error(
+        client: *mut bouncer_h::PgSocket,
+        send_ready: bool,
+        sqlstate: *const ::core::ffi::c_char,
+        level_fatal: bool,
+        msg: *const ::core::ffi::c_char,
+    ) -> bool;
+}
 pub use self::protocol_h::{
     PqMsg_Bind, PqMsg_DataRow, PqMsg_Describe, PqMsg_Execute, PqMsg_Parse, PqMsg_RowDescription,
     PqMsg_Sync,

@@ -26,9 +26,10 @@ We start from the entry point (`main.rs`) and core connection handling (`client.
 | Consolidate List/StatList types | ✅ Complete |
 | Consolidate AATree types | ✅ Complete |
 | Consolidate MBuf type | ✅ Complete |
+| Consolidate proto_h (PktHdr) type | ✅ Complete |
 | Remove duplicate type modules | 📋 In Progress |
 
-**Lines saved from type consolidation: ~2,231** (1,382 + 849 from MBuf)
+**Lines saved from type consolidation: ~2,574** (1,382 + 849 from MBuf + 343 from proto_h)
 
 ## Current State Metrics
 

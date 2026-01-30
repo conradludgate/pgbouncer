@@ -913,7 +913,7 @@ pub mod bouncer_h {
     use super::list_h::List;
     use super::pktbuf_h::PktBuf;
     use super::prepare_h::{PgClientPreparedStatement, PgServerPreparedStatement};
-    use super::proto_h::PktHdr;
+    use crate::types::PktHdr;
     use super::sbuf_h::SBuf;
     use super::socket_h::sockaddr;
     use super::statlist_h::StatList;
@@ -1185,18 +1185,6 @@ pub mod iobuf_h {
     use super::_uint8_t_h::uint8_t;
     use super::bouncer_h::cf_sbuf_len;
     use crate::lib::usual::mbuf::mbuf_init_fixed_reader;
-    use crate::types::MBuf;
-}
-
-pub mod proto_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct PktHdr {
-        pub type_0: ::core::ffi::c_uint,
-        pub len: ::core::ffi::c_uint,
-        pub data: MBuf,
-    }
     use crate::types::MBuf;
 }
 
@@ -1565,7 +1553,7 @@ pub use self::pktbuf_h::{pktbuf_free, PktBuf};
 pub use self::prepare_h::{
     PgClientPreparedStatement, PgPreparedStatement, PgServerPreparedStatement,
 };
-pub use self::proto_h::PktHdr;
+pub use crate::types::PktHdr;
 use self::safeio_h::{safe_close, safe_connect, safe_recv, safe_send};
 pub use self::sbuf_h::{
     sbuf_cb_t, sbuf_is_empty, sbuf_op_close, sbuf_op_peek, sbuf_op_recv, sbuf_op_send, SBuf,

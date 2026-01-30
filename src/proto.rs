@@ -728,7 +728,7 @@ pub mod bouncer_h {
     use super::list_h::List;
     use super::pktbuf_h::PktBuf;
     use super::prepare_h::{PgClientPreparedStatement, PgServerPreparedStatement};
-    use super::proto_h::PktHdr;
+    use crate::types::PktHdr;
     use super::sbuf_h::SBuf;
     use super::socket_h::sockaddr;
     use super::statlist_h::{statlist_empty, StatList};
@@ -821,22 +821,6 @@ pub mod iobuf_h {
         pub buf: [uint8_t; 0],
     }
     use super::_uint8_t_h::uint8_t;
-}
-
-pub mod proto_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct PktHdr {
-        pub type_0: ::core::ffi::c_uint,
-        pub len: ::core::ffi::c_uint,
-        pub data: MBuf,
-    }
-    
-    pub const OLD_HEADER_LEN: ::core::ffi::c_int = 8 as ::core::ffi::c_int;
-    
-    pub const NEW_HEADER_LEN: ::core::ffi::c_int = 5 as ::core::ffi::c_int;
-    use crate::types::MBuf;
 }
 
 pub mod prepare_h {
@@ -1293,7 +1277,7 @@ pub use self::pktbuf_h::{
 pub use self::prepare_h::{
     PgClientPreparedStatement, PgPreparedStatement, PgServerPreparedStatement,
 };
-pub use self::proto_h::{PktHdr, NEW_HEADER_LEN, OLD_HEADER_LEN};
+pub use crate::types::{PktHdr, NEW_HEADER_LEN, OLD_HEADER_LEN};
 pub use self::protocol_h::{
     PqMsg_AuthenticationRequest, PqMsg_BackendKeyData, PqMsg_ErrorResponse, PqMsg_ParameterStatus,
     PqMsg_PasswordMessage, PqMsg_ReadyForQuery, PqMsg_SASLInitialResponse, PqMsg_SASLResponse,

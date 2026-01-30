@@ -104,9 +104,11 @@ SV_IDLE, SV_ACTIVE, SV_ACTIVE_CANCEL, SV_USED, SV_TESTED
 - [x] All: Consolidate AATree types to common/types.rs
 - [x] All: Consolidate MBuf type and inline functions to lib/usual/mbuf.rs
 - [x] All: Remove mbuf_h modules from all 22 files
+- [x] All: Consolidate proto_h (PktHdr) type and inline functions to types.rs
+- [x] All: Remove proto_h modules from all 20 files
 
 ### In Progress 🔄
-- [ ] Remove remaining c2rust type modules (iobuf_h, proto_h, bouncer_h, etc.)
+- [ ] Remove remaining c2rust type modules (iobuf_h, bouncer_h, etc.)
 - [ ] Continue consolidating common type modules
 
 ### Pending 📋
@@ -130,10 +132,10 @@ SV_IDLE, SV_ACTIVE, SV_ACTIVE_CANCEL, SV_USED, SV_TESTED
 
 **Remaining Duplicate Modules to Consolidate:**
 Priority order (most duplicated first):
-1. `proto_h` — PktHdr struct + inline functions (~20 files)
-2. `bouncer_h` — PgSocket, PgPool, PgDatabase (~20 files)
-3. `iobuf_h` — IOBuf struct (~20 files)
-4. `sbuf_h` — SBuf, SBufEvent (~15 files)
+1. `bouncer_h` — PgSocket, PgPool, PgDatabase (~23 files) - complex, many dependencies
+2. `iobuf_h` — IOBuf struct (~20 files)
+3. `sbuf_h` — SBuf, SBufEvent (~15 files)
+4. `prepare_h` — prepared statement types (~20 files)
 
 **Key Patterns:**
 - Inner modules like `proto_h` that contain types using `MBuf` need their imports updated
