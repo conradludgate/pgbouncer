@@ -628,60 +628,7 @@ pub mod event_struct_h {
     use super::event_h::event_base;
 }
 
-pub mod cryptohash_h {
-    
-    pub type pg_cryptohash_type = ::core::ffi::c_uint;
-    
-    pub const PG_SHA512: pg_cryptohash_type = 3;
-    
-    pub const PG_SHA384: pg_cryptohash_type = 2;
-    
-    pub const PG_SHA256: pg_cryptohash_type = 1;
-    
-    pub const PG_SHA224: pg_cryptohash_type = 0;
-}
 
-pub mod uthash_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct UT_hash_bucket {
-        pub hh_head: *mut UT_hash_handle,
-        pub count: ::core::ffi::c_uint,
-        pub expand_mult: ::core::ffi::c_uint,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct UT_hash_handle {
-        pub tbl: *mut UT_hash_table,
-        pub prev: *mut ::core::ffi::c_void,
-        pub next: *mut ::core::ffi::c_void,
-        pub hh_prev: *mut UT_hash_handle,
-        pub hh_next: *mut UT_hash_handle,
-        pub key: *const ::core::ffi::c_void,
-        pub keylen: ::core::ffi::c_uint,
-        pub hashv: ::core::ffi::c_uint,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct UT_hash_table {
-        pub buckets: *mut UT_hash_bucket,
-        pub num_buckets: ::core::ffi::c_uint,
-        pub log2_num_buckets: ::core::ffi::c_uint,
-        pub num_items: ::core::ffi::c_uint,
-        pub tail: *mut UT_hash_handle,
-        pub hho: ptrdiff_t,
-        pub ideal_chain_maxlen: ::core::ffi::c_uint,
-        pub nonideal_items: ::core::ffi::c_uint,
-        pub ineff_expands: ::core::ffi::c_uint,
-        pub noexpand: ::core::ffi::c_uint,
-        pub signature: uint32_t,
-    }
-    use super::_ptrdiff_t_h::ptrdiff_t;
-    use super::_uint32_t_h::uint32_t;
-}
 
 pub mod bouncer_h {
     
@@ -1034,7 +981,7 @@ pub mod bouncer_h {
     use super::_uint64_t_h::uint64_t;
     use super::_uint8_t_h::uint8_t;
     use pgbouncer::types::{AANode, AATree};
-    use super::cryptohash_h::pg_cryptohash_type;
+    use pgbouncer::types::pg_cryptohash_type;
     use super::dnslookup_h::DNSToken;
     use super::in6_h::sockaddr_in6;
     use super::in_h::sockaddr_in;
@@ -1722,7 +1669,7 @@ pub use self::cfparser_h::{
     CfLookup, CfOps, CfSect, CfValue, CF_NO_RELOAD, CF_READONLY, CF_VAL_ABS,
 };
 pub use self::config_h::{PACKAGE_BUGREPORT, PACKAGE_NAME, PACKAGE_STRING, PACKAGE_URL};
-pub use self::cryptohash_h::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
+pub use pgbouncer::types::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
 use self::dnslookup_h::{adns_create_context, adns_get_backend, adns_per_loop, DNSContext};
 use self::err_h::xstrdup;
 pub use self::errno_h::{__error, EINTR, ENOENT, ESRCH};
@@ -1789,7 +1736,7 @@ pub use self::un_h::sockaddr_un;
 use self::unistd_h::{
     _exit, close, dup2, fork, getpid, getuid, optarg, optind, read, setsid, unlink,
 };
-pub use self::uthash_h::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
+pub use pgbouncer::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 use self::util_h::{cf_set_authdb, log_socket_prefix, rescue_timers};
 pub use self::varcache_h::{init_var_lookup, VarCache};
 

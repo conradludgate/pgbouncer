@@ -723,6 +723,12 @@ pub struct VarCache {
     pub var_list: *mut *mut PStr,
 }
 
+// uthash constants
+pub const HASH_INITIAL_NUM_BUCKETS: u32 = 32;
+pub const HASH_INITIAL_NUM_BUCKETS_LOG2: u32 = 5;
+pub const HASH_BKT_CAPACITY_THRESH: u32 = 10;
+pub const HASH_SIGNATURE: u32 = 0xa0111fe1;
+
 #[derive(Copy, Clone)]
 #[repr(C)]
 pub struct UT_hash_bucket {

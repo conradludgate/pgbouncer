@@ -398,60 +398,7 @@ pub mod event_struct_h {
     use super::event_h::event_base;
 }
 
-pub mod cryptohash_h {
-    
-    pub type pg_cryptohash_type = ::core::ffi::c_uint;
-    
-    pub const PG_SHA512: pg_cryptohash_type = 3;
-    
-    pub const PG_SHA384: pg_cryptohash_type = 2;
-    
-    pub const PG_SHA256: pg_cryptohash_type = 1;
-    
-    pub const PG_SHA224: pg_cryptohash_type = 0;
-}
 
-pub mod uthash_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct UT_hash_bucket {
-        pub hh_head: *mut UT_hash_handle,
-        pub count: ::core::ffi::c_uint,
-        pub expand_mult: ::core::ffi::c_uint,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct UT_hash_handle {
-        pub tbl: *mut UT_hash_table,
-        pub prev: *mut ::core::ffi::c_void,
-        pub next: *mut ::core::ffi::c_void,
-        pub hh_prev: *mut UT_hash_handle,
-        pub hh_next: *mut UT_hash_handle,
-        pub key: *const ::core::ffi::c_void,
-        pub keylen: ::core::ffi::c_uint,
-        pub hashv: ::core::ffi::c_uint,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct UT_hash_table {
-        pub buckets: *mut UT_hash_bucket,
-        pub num_buckets: ::core::ffi::c_uint,
-        pub log2_num_buckets: ::core::ffi::c_uint,
-        pub num_items: ::core::ffi::c_uint,
-        pub tail: *mut UT_hash_handle,
-        pub hho: ptrdiff_t,
-        pub ideal_chain_maxlen: ::core::ffi::c_uint,
-        pub nonideal_items: ::core::ffi::c_uint,
-        pub ineff_expands: ::core::ffi::c_uint,
-        pub noexpand: ::core::ffi::c_uint,
-        pub signature: uint32_t,
-    }
-    use super::_ptrdiff_t_h::ptrdiff_t;
-    use super::_uint32_t_h::uint32_t;
-}
 
 pub mod bouncer_h {
     
@@ -824,7 +771,7 @@ pub mod bouncer_h {
     use super::_uint64_t_h::uint64_t;
     use super::_uint8_t_h::uint8_t;
     use crate::types::{AANode, AATree};
-    use super::cryptohash_h::pg_cryptohash_type;
+    use crate::types::pg_cryptohash_type;
     use super::dnslookup_h::DNSToken;
     use super::hba_h::HBA;
     use super::in6_h::sockaddr_in6;
@@ -1677,7 +1624,7 @@ pub use self::bouncer_h::{
     SV_BEING_CANCELED, SV_FREE, SV_IDLE, SV_JUSTFREE, SV_LOGIN, SV_TESTED, SV_USED,
 };
 use self::builtins_h::parse_bool;
-pub use self::cryptohash_h::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
+pub use crate::types::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
 pub use self::ctype_h::safe_isspace;
 
 pub use self::event_struct_h::{
@@ -1778,7 +1725,7 @@ use self::tls_h::{
     tls_get_connection_info, tls_peer_cert_contains_name, tls_peer_cert_provided,
     tls_peer_cert_subject,
 };
-pub use self::uthash_h::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
+pub use crate::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 pub use self::util_h::{
     bin2hex, get_random_bytes, pg_md5_encrypt, strlist_contains, MD5_PASSWD_LEN,
 };

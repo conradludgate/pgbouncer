@@ -309,86 +309,7 @@ pub mod event_struct_h {
     use super::event_h::event_base;
 }
 
-pub mod cryptohash_h {
-    
-    pub type pg_cryptohash_type = ::core::ffi::c_uint;
-    
-    pub const PG_SHA512: pg_cryptohash_type = 3;
-    
-    pub const PG_SHA384: pg_cryptohash_type = 2;
-    
-    pub const PG_SHA256: pg_cryptohash_type = 1;
-    
-    pub const PG_SHA224: pg_cryptohash_type = 0;
-    use super::_size_t_h::size_t;
-    use super::_uint8_t_h::uint8_t;
-    extern "C" {
-        
-        pub type pg_cryptohash_ctx;
-        
-        pub fn pg_cryptohash_create(type_0: pg_cryptohash_type) -> *mut pg_cryptohash_ctx;
-        
-        pub fn pg_cryptohash_init(ctx: *mut pg_cryptohash_ctx) -> ::core::ffi::c_int;
-        
-        pub fn pg_cryptohash_update(
-            ctx: *mut pg_cryptohash_ctx,
-            data: *const uint8_t,
-            len: size_t,
-        ) -> ::core::ffi::c_int;
-        
-        pub fn pg_cryptohash_final(
-            ctx: *mut pg_cryptohash_ctx,
-            dest: *mut uint8_t,
-            len: size_t,
-        ) -> ::core::ffi::c_int;
-        
-        pub fn pg_cryptohash_free(ctx: *mut pg_cryptohash_ctx);
-        
-        pub fn pg_cryptohash_error(ctx: *mut pg_cryptohash_ctx) -> *const ::core::ffi::c_char;
-    }
-}
 
-pub mod uthash_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct UT_hash_bucket {
-        pub hh_head: *mut UT_hash_handle,
-        pub count: ::core::ffi::c_uint,
-        pub expand_mult: ::core::ffi::c_uint,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct UT_hash_handle {
-        pub tbl: *mut UT_hash_table,
-        pub prev: *mut ::core::ffi::c_void,
-        pub next: *mut ::core::ffi::c_void,
-        pub hh_prev: *mut UT_hash_handle,
-        pub hh_next: *mut UT_hash_handle,
-        pub key: *const ::core::ffi::c_void,
-        pub keylen: ::core::ffi::c_uint,
-        pub hashv: ::core::ffi::c_uint,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct UT_hash_table {
-        pub buckets: *mut UT_hash_bucket,
-        pub num_buckets: ::core::ffi::c_uint,
-        pub log2_num_buckets: ::core::ffi::c_uint,
-        pub num_items: ::core::ffi::c_uint,
-        pub tail: *mut UT_hash_handle,
-        pub hho: ptrdiff_t,
-        pub ideal_chain_maxlen: ::core::ffi::c_uint,
-        pub nonideal_items: ::core::ffi::c_uint,
-        pub ineff_expands: ::core::ffi::c_uint,
-        pub noexpand: ::core::ffi::c_uint,
-        pub signature: uint32_t,
-    }
-    use super::_ptrdiff_t_h::ptrdiff_t;
-    use super::_uint32_t_h::uint32_t;
-}
 
 pub mod bouncer_h {
     
@@ -679,7 +600,7 @@ pub mod bouncer_h {
     use super::_uint64_t_h::uint64_t;
     use super::_uint8_t_h::uint8_t;
     use crate::types::{AANode, AATree};
-    use super::cryptohash_h::pg_cryptohash_type;
+    use crate::types::pg_cryptohash_type;
     use super::dnslookup_h::DNSToken;
     use super::in6_h::sockaddr_in6;
     use super::in_h::sockaddr_in;
@@ -860,7 +781,7 @@ pub mod scram_h {
 pub mod hmac_h {
     use super::_size_t_h::size_t;
     use super::_uint8_t_h::uint8_t;
-    use super::cryptohash_h::pg_cryptohash_type;
+    use crate::types::pg_cryptohash_type;
     extern "C" {
         
         pub type pg_hmac_ctx;
@@ -1013,7 +934,7 @@ pub mod scram_common_h {
     
     pub const SCRAM_DEFAULT_SALT_LEN: ::core::ffi::c_int = 16 as ::core::ffi::c_int;
     use super::_uint8_t_h::uint8_t;
-    use super::cryptohash_h::pg_cryptohash_type;
+    use crate::types::pg_cryptohash_type;
     use super::sha2_h::PG_SHA256_DIGEST_LENGTH;
     extern "C" {
         
@@ -1148,11 +1069,7 @@ pub use self::bouncer_h::{
     REPLICATION_LOGICAL, REPLICATION_NONE, REPLICATION_PHYSICAL, SV_ACTIVE, SV_ACTIVE_CANCEL,
     SV_BEING_CANCELED, SV_FREE, SV_IDLE, SV_JUSTFREE, SV_LOGIN, SV_TESTED, SV_USED,
 };
-pub use self::cryptohash_h::{
-    pg_cryptohash_create, pg_cryptohash_ctx, pg_cryptohash_error, pg_cryptohash_final,
-    pg_cryptohash_free, pg_cryptohash_init, pg_cryptohash_type, pg_cryptohash_update, PG_SHA224,
-    PG_SHA256, PG_SHA384, PG_SHA512,
-};
+pub use crate::types::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
 
 use self::errno_h::__error;
 
@@ -1203,7 +1120,7 @@ pub use crate::types::{PStr, StrPool};
 pub use self::sys__types_h::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
 pub use crate::types::usec_t;
 
-pub use self::uthash_h::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
+pub use crate::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 pub use self::util_h::{get_random_bytes, MD5_PASSWD_LEN};
 pub use self::varcache_h::VarCache;
 #[no_mangle]
@@ -2980,4 +2897,23 @@ pub unsafe extern "C" fn scram_verify_plain_password(
     free(salt as *mut ::core::ffi::c_void);
     free(prep_password as *mut ::core::ffi::c_void);
     result
+}
+
+
+extern "C" {
+    pub type pg_cryptohash_ctx;
+    pub fn pg_cryptohash_create(type_0: pg_cryptohash_type) -> *mut pg_cryptohash_ctx;
+    pub fn pg_cryptohash_init(ctx: *mut pg_cryptohash_ctx) -> ::core::ffi::c_int;
+    pub fn pg_cryptohash_update(
+    ctx: *mut pg_cryptohash_ctx,
+    data: *const uint8_t,
+    len: size_t,
+    ) -> ::core::ffi::c_int;
+    pub fn pg_cryptohash_final(
+    ctx: *mut pg_cryptohash_ctx,
+    dest: *mut uint8_t,
+    len: size_t,
+    ) -> ::core::ffi::c_int;
+    pub fn pg_cryptohash_free(ctx: *mut pg_cryptohash_ctx);
+    pub fn pg_cryptohash_error(ctx: *mut pg_cryptohash_ctx) -> *const ::core::ffi::c_char;
 }

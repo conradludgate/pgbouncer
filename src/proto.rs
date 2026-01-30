@@ -328,60 +328,7 @@ pub mod event_struct_h {
     use super::event_h::event_base;
 }
 
-pub mod cryptohash_h {
-    
-    pub type pg_cryptohash_type = ::core::ffi::c_uint;
-    
-    pub const PG_SHA512: pg_cryptohash_type = 3;
-    
-    pub const PG_SHA384: pg_cryptohash_type = 2;
-    
-    pub const PG_SHA256: pg_cryptohash_type = 1;
-    
-    pub const PG_SHA224: pg_cryptohash_type = 0;
-}
 
-pub mod uthash_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct UT_hash_bucket {
-        pub hh_head: *mut UT_hash_handle,
-        pub count: ::core::ffi::c_uint,
-        pub expand_mult: ::core::ffi::c_uint,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct UT_hash_handle {
-        pub tbl: *mut UT_hash_table,
-        pub prev: *mut ::core::ffi::c_void,
-        pub next: *mut ::core::ffi::c_void,
-        pub hh_prev: *mut UT_hash_handle,
-        pub hh_next: *mut UT_hash_handle,
-        pub key: *const ::core::ffi::c_void,
-        pub keylen: ::core::ffi::c_uint,
-        pub hashv: ::core::ffi::c_uint,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct UT_hash_table {
-        pub buckets: *mut UT_hash_bucket,
-        pub num_buckets: ::core::ffi::c_uint,
-        pub log2_num_buckets: ::core::ffi::c_uint,
-        pub num_items: ::core::ffi::c_uint,
-        pub tail: *mut UT_hash_handle,
-        pub hho: ptrdiff_t,
-        pub ideal_chain_maxlen: ::core::ffi::c_uint,
-        pub nonideal_items: ::core::ffi::c_uint,
-        pub ineff_expands: ::core::ffi::c_uint,
-        pub noexpand: ::core::ffi::c_uint,
-        pub signature: uint32_t,
-    }
-    use super::_ptrdiff_t_h::ptrdiff_t;
-    use super::_uint32_t_h::uint32_t;
-}
 
 pub mod bouncer_h {
     
@@ -698,7 +645,7 @@ pub mod bouncer_h {
     use super::_uint64_t_h::uint64_t;
     use super::_uint8_t_h::uint8_t;
     use crate::types::{AANode, AATree};
-    use super::cryptohash_h::pg_cryptohash_type;
+    use crate::types::pg_cryptohash_type;
     use super::dnslookup_h::DNSToken;
     use super::in6_h::sockaddr_in6;
     use super::in_h::sockaddr_in;
@@ -1173,7 +1120,7 @@ pub use self::bouncer_h::{
     SV_FREE, SV_IDLE, SV_JUSTFREE, SV_LOGIN, SV_TESTED, SV_USED,
 };
 use self::client_h::sending_auth_query;
-pub use self::cryptohash_h::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
+pub use crate::types::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
 
 pub use self::event_struct_h::{
     event, event_callback, C2RustUnnamed_0, C2RustUnnamed_1, C2RustUnnamed_2, C2RustUnnamed_3,
@@ -1227,7 +1174,7 @@ pub use crate::types::{PStr, StrPool};
 pub use self::sys__types_h::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
 pub use crate::types::usec_t;
 
-pub use self::uthash_h::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
+pub use crate::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 use self::util_h::{get_random_bytes, pg_md5_encrypt};
 pub use self::varcache_h::{
     varcache_add_params, varcache_apply_startup, varcache_fill_unset, varcache_set, VarCache,
