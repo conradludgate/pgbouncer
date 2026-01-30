@@ -804,7 +804,7 @@ pub mod sbuf_h {
     use super::_uint8_t_h::uint8_t;
     use super::event_struct_h::event;
     use super::iobuf_h::IOBuf;
-    use super::mbuf_h::MBuf;
+    use crate::types::MBuf;
     use super::tls_h::tls;
 }
 
@@ -823,21 +823,6 @@ pub mod iobuf_h {
     use super::_uint8_t_h::uint8_t;
 }
 
-pub mod mbuf_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct MBuf {
-        pub data: *mut uint8_t,
-        pub read_pos: ::core::ffi::c_uint,
-        pub write_pos: ::core::ffi::c_uint,
-        pub alloc_len: ::core::ffi::c_uint,
-        pub reader: bool,
-        pub fixed: bool,
-    }
-    use super::_uint8_t_h::uint8_t;
-}
-
 pub mod proto_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -848,7 +833,7 @@ pub mod proto_h {
         pub data: MBuf,
     }
     use super::bouncer_h::PgSocket;
-    use super::mbuf_h::MBuf;
+    use crate::types::MBuf;
     extern "C" {
         
         pub fn send_pooler_error(
@@ -1165,7 +1150,7 @@ pub use self::logging_h::{
     cf_verbose, log_fatal, log_generic, LogLevel, LG_DEBUG, LG_ERROR, LG_FATAL, LG_INFO, LG_NOISE,
     LG_STATS, LG_WARNING,
 };
-pub use self::mbuf_h::MBuf;
+pub use crate::types::MBuf;
 pub use self::pktbuf_h::PktBuf;
 pub use self::prepare_h::{
     PgClientPreparedStatement, PgPreparedStatement, PgServerPreparedStatement,

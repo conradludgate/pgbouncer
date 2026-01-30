@@ -804,8 +804,8 @@ pub mod sbuf_h {
     use super::_uint8_t_h::uint8_t;
     use super::event_struct_h::event;
     use super::iobuf_h::IOBuf;
-    use super::mbuf_h::MBuf;
     use super::tls_h::tls;
+    use crate::types::MBuf;
 }
 
 pub mod iobuf_h {
@@ -823,180 +823,6 @@ pub mod iobuf_h {
     use super::_uint8_t_h::uint8_t;
 }
 
-pub mod mbuf_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct MBuf {
-        pub data: *mut uint8_t,
-        pub read_pos: ::core::ffi::c_uint,
-        pub write_pos: ::core::ffi::c_uint,
-        pub alloc_len: ::core::ffi::c_uint,
-        pub reader: bool,
-        pub fixed: bool,
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn mbuf_init_fixed_reader(
-        mut buf: *mut MBuf,
-        mut ptr: *const ::core::ffi::c_void,
-        mut len: ::core::ffi::c_uint,
-    ) {
-        (*buf).data = ptr as *mut uint8_t;
-        (*buf).read_pos = 0 as ::core::ffi::c_uint;
-        (*buf).write_pos = len;
-        (*buf).alloc_len = len;
-        (*buf).reader = true_0 != 0;
-        (*buf).fixed = true_0 != 0;
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn mbuf_avail_for_read(mut buf: *const MBuf) -> ::core::ffi::c_uint {
-        (*buf).write_pos.wrapping_sub((*buf).read_pos)
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn mbuf_get_byte(mut buf: *mut MBuf, mut dst_p: *mut uint8_t) -> bool {
-        if (*buf).read_pos.wrapping_add(1 as ::core::ffi::c_uint) > (*buf).write_pos {
-            return false_0 != 0;
-        }
-        let fresh0 = (*buf).read_pos;
-        (*buf).read_pos = (*buf).read_pos.wrapping_add(1);
-        *dst_p = *(*buf).data.offset(fresh0 as isize);
-        true_0 != 0
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn mbuf_get_uint16be(
-        mut buf: *mut MBuf,
-        mut dst_p: *mut uint16_t,
-    ) -> bool {
-        let mut a: ::core::ffi::c_uint = 0;
-        let mut b: ::core::ffi::c_uint = 0;
-        if (*buf).read_pos.wrapping_add(2 as ::core::ffi::c_uint) > (*buf).write_pos {
-            return false_0 != 0;
-        }
-        let fresh1 = (*buf).read_pos;
-        (*buf).read_pos = (*buf).read_pos.wrapping_add(1);
-        a = *(*buf).data.offset(fresh1 as isize) as ::core::ffi::c_uint;
-        let fresh2 = (*buf).read_pos;
-        (*buf).read_pos = (*buf).read_pos.wrapping_add(1);
-        b = *(*buf).data.offset(fresh2 as isize) as ::core::ffi::c_uint;
-        *dst_p = (a << 8 as ::core::ffi::c_int | b) as uint16_t;
-        true_0 != 0
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn mbuf_get_uint32be(
-        mut buf: *mut MBuf,
-        mut dst_p: *mut uint32_t,
-    ) -> bool {
-        let mut a: ::core::ffi::c_uint = 0;
-        let mut b: ::core::ffi::c_uint = 0;
-        let mut c: ::core::ffi::c_uint = 0;
-        let mut d: ::core::ffi::c_uint = 0;
-        if (*buf).read_pos.wrapping_add(4 as ::core::ffi::c_uint) > (*buf).write_pos {
-            return false_0 != 0;
-        }
-        let fresh3 = (*buf).read_pos;
-        (*buf).read_pos = (*buf).read_pos.wrapping_add(1);
-        a = *(*buf).data.offset(fresh3 as isize) as ::core::ffi::c_uint;
-        let fresh4 = (*buf).read_pos;
-        (*buf).read_pos = (*buf).read_pos.wrapping_add(1);
-        b = *(*buf).data.offset(fresh4 as isize) as ::core::ffi::c_uint;
-        let fresh5 = (*buf).read_pos;
-        (*buf).read_pos = (*buf).read_pos.wrapping_add(1);
-        c = *(*buf).data.offset(fresh5 as isize) as ::core::ffi::c_uint;
-        let fresh6 = (*buf).read_pos;
-        (*buf).read_pos = (*buf).read_pos.wrapping_add(1);
-        d = *(*buf).data.offset(fresh6 as isize) as ::core::ffi::c_uint;
-        *dst_p = (a << 24 as ::core::ffi::c_int
-            | b << 16 as ::core::ffi::c_int
-            | c << 8 as ::core::ffi::c_int
-            | d) as uint32_t;
-        true_0 != 0
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn mbuf_get_bytes(
-        mut buf: *mut MBuf,
-        mut len: ::core::ffi::c_uint,
-        mut dst_p: *mut *const uint8_t,
-    ) -> bool {
-        if (*buf).read_pos.wrapping_add(len) > (*buf).write_pos {
-            return false_0 != 0;
-        }
-        *dst_p = (*buf).data.offset((*buf).read_pos as isize);
-        (*buf).read_pos = (*buf).read_pos.wrapping_add(len);
-        true_0 != 0
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn mbuf_get_chars(
-        mut buf: *mut MBuf,
-        mut len: ::core::ffi::c_uint,
-        mut dst_p: *mut *const ::core::ffi::c_char,
-    ) -> bool {
-        if (*buf).read_pos.wrapping_add(len) > (*buf).write_pos {
-            return false_0 != 0;
-        }
-        *dst_p = ((*buf).data as *mut ::core::ffi::c_char).offset((*buf).read_pos as isize);
-        (*buf).read_pos = (*buf).read_pos.wrapping_add(len);
-        true_0 != 0
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn mbuf_get_string(
-        mut buf: *mut MBuf,
-        mut dst_p: *mut *const ::core::ffi::c_char,
-    ) -> bool {
-        let mut res: *const ::core::ffi::c_char =
-            ((*buf).data as *mut ::core::ffi::c_char).offset((*buf).read_pos as isize);
-        let mut nul = memchr(
-            res as *const ::core::ffi::c_void,
-            0 as ::core::ffi::c_int,
-            mbuf_avail_for_read(buf) as size_t,
-        ) as *const uint8_t;
-        if nul.is_null() {
-            return false_0 != 0;
-        }
-        *dst_p = res;
-        (*buf).read_pos =
-            nul.offset(1 as ::core::ffi::c_int as isize)
-                .offset_from((*buf).data) as ::core::ffi::c_long as ::core::ffi::c_uint;
-        true_0 != 0
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn mbuf_copy(mut src: *const MBuf, mut dst: *mut MBuf) {
-        *dst = *src;
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn mbuf_slice(
-        mut src: *mut MBuf,
-        mut len: ::core::ffi::c_uint,
-        mut dst: *mut MBuf,
-    ) -> bool {
-        if len > mbuf_avail_for_read(src) {
-            return false_0 != 0;
-        }
-        mbuf_init_fixed_reader(
-            dst,
-            (*src).data.offset((*src).read_pos as isize) as *const ::core::ffi::c_void,
-            len,
-        );
-        (*src).read_pos = (*src).read_pos.wrapping_add(len);
-        true_0 != 0
-    }
-    use super::_size_t_h::size_t;
-    use super::_string_h::memchr;
-    use super::_uint16_t_h::uint16_t;
-    use super::_uint32_t_h::uint32_t;
-    use super::_uint8_t_h::uint8_t;
-    use super::stdbool_h::{false_0, true_0};
-}
-
 pub mod proto_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -1010,7 +836,7 @@ pub mod proto_h {
     pub const OLD_HEADER_LEN: ::core::ffi::c_int = 8 as ::core::ffi::c_int;
     
     pub const NEW_HEADER_LEN: ::core::ffi::c_int = 5 as ::core::ffi::c_int;
-    use super::mbuf_h::MBuf;
+    use crate::types::MBuf;
 }
 
 pub mod prepare_h {
@@ -1453,10 +1279,11 @@ pub use self::logging_h::{
     cf_verbose, log_fatal, log_generic, LogLevel, LG_DEBUG, LG_ERROR, LG_FATAL, LG_INFO, LG_NOISE,
     LG_STATS, LG_WARNING,
 };
-pub use self::mbuf_h::{
+pub use crate::lib::usual::mbuf::{
     mbuf_avail_for_read, mbuf_copy, mbuf_get_byte, mbuf_get_bytes, mbuf_get_chars, mbuf_get_string,
-    mbuf_get_uint16be, mbuf_get_uint32be, mbuf_init_fixed_reader, mbuf_slice, MBuf,
+    mbuf_get_uint16be, mbuf_get_uint32be, mbuf_init_fixed_reader, mbuf_slice,
 };
+pub use crate::types::MBuf;
 use self::objects_h::{disconnect_client, find_global_credentials};
 pub use self::pktbuf_h::{
     pktbuf_dynamic, pktbuf_finish_packet, pktbuf_put_bytes, pktbuf_put_string,

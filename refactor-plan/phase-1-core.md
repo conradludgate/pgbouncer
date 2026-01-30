@@ -102,12 +102,12 @@ SV_IDLE, SV_ACTIVE, SV_ACTIVE_CANCEL, SV_USED, SV_TESTED
 - [x] All: Consolidate PgStats type to common/types.rs
 - [x] All: Consolidate List/StatList types to common/types.rs
 - [x] All: Consolidate AATree types to common/types.rs
-- [x] All: Run test_admin.py after each major change
+- [x] All: Consolidate MBuf type and inline functions to lib/usual/mbuf.rs
+- [x] All: Remove mbuf_h modules from all 22 files
 
 ### In Progress 🔄
-- [ ] main.rs: Remove remaining c2rust type modules
-- [ ] client.rs: Remove remaining c2rust type modules
-- [ ] server.rs: Remove remaining c2rust type modules
+- [ ] Remove remaining c2rust type modules (iobuf_h, proto_h, bouncer_h, etc.)
+- [ ] Continue consolidating common type modules
 
 ### Pending 📋
 - [ ] main.rs: Import all types from common/types.rs
@@ -122,6 +122,24 @@ SV_IDLE, SV_ACTIVE, SV_ACTIVE_CANCEL, SV_USED, SV_TESTED
 - [ ] All: Run full test suite before completing phase
 
 ### Notes
-- Removing `extern "C"` requires care: some internal functions are used as libevent callbacks
-- Type consolidation is ongoing: PgStats, List, StatList, AATree done; MBuf pending
-- Each type consolidated saves ~15-25 lines per file (20+ files)
+
+**Type Consolidation Progress:**
+- PgStats, List, StatList, AATree: consolidated to `src/common/types.rs`
+- MBuf + inline functions: consolidated to `lib/usual/mbuf.rs` (saved ~849 lines)
+- Total lines saved: ~2,231
+
+**Remaining Duplicate Modules to Consolidate:**
+Priority order (most duplicated first):
+1. `proto_h` — PktHdr struct + inline functions (~20 files)
+2. `bouncer_h` — PgSocket, PgPool, PgDatabase (~20 files)
+3. `iobuf_h` — IOBuf struct (~20 files)
+4. `sbuf_h` — SBuf, SBufEvent (~15 files)
+
+**Key Patterns:**
+- Inner modules like `proto_h` that contain types using `MBuf` need their imports updated
+- `src/main.rs` is the binary, uses `pgbouncer::` instead of `crate::`
+- Some inline functions call extern functions (e.g., `mbuf_make_room`) - keep these declarations
+
+**Testing:**
+- Tests require PostgreSQL `initdb` + `postgres` in same directory
+- If tests fail with "postgres not found", ensure full PostgreSQL is installed (not just libpq)

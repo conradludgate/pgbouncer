@@ -1075,8 +1075,8 @@ pub mod sbuf_h {
     use super::_uint8_t_h::uint8_t;
     use super::event_struct_h::event;
     use super::iobuf_h::{iobuf_empty, IOBuf};
-    use super::mbuf_h::MBuf;
     use super::tls_h::tls;
+    use crate::types::MBuf;
 }
 
 pub mod iobuf_h {
@@ -1184,91 +1184,8 @@ pub mod iobuf_h {
     use super::_string_h::memmove;
     use super::_uint8_t_h::uint8_t;
     use super::bouncer_h::cf_sbuf_len;
-    use super::mbuf_h::{mbuf_init_fixed_reader, MBuf};
-}
-
-pub mod mbuf_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct MBuf {
-        pub data: *mut uint8_t,
-        pub read_pos: ::core::ffi::c_uint,
-        pub write_pos: ::core::ffi::c_uint,
-        pub alloc_len: ::core::ffi::c_uint,
-        pub reader: bool,
-        pub fixed: bool,
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn mbuf_init_fixed_reader(
-        mut buf: *mut MBuf,
-        mut ptr: *const ::core::ffi::c_void,
-        mut len: ::core::ffi::c_uint,
-    ) {
-        (*buf).data = ptr as *mut uint8_t;
-        (*buf).read_pos = 0 as ::core::ffi::c_uint;
-        (*buf).write_pos = len;
-        (*buf).alloc_len = len;
-        (*buf).reader = true_0 != 0;
-        (*buf).fixed = true_0 != 0;
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn mbuf_free(mut buf: *mut MBuf) {
-        if !(*buf).data.is_null() {
-            if !(*buf).fixed {
-                free((*buf).data as *mut ::core::ffi::c_void);
-            }
-            memset(
-                buf as *mut ::core::ffi::c_void,
-                0 as ::core::ffi::c_int,
-                ::core::mem::size_of::<MBuf>() as size_t,
-            );
-        }
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn mbuf_rewind_writer(mut buf: *mut MBuf) {
-        if !(*buf).reader {
-            (*buf).read_pos = 0 as ::core::ffi::c_uint;
-            (*buf).write_pos = 0 as ::core::ffi::c_uint;
-        }
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn mbuf_avail_for_read(mut buf: *const MBuf) -> ::core::ffi::c_uint {
-        (*buf).write_pos.wrapping_sub((*buf).read_pos)
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn mbuf_write(
-        mut buf: *mut MBuf,
-        mut ptr: *const ::core::ffi::c_void,
-        mut len: ::core::ffi::c_uint,
-    ) -> bool {
-        if (*buf).write_pos.wrapping_add(len) > (*buf).alloc_len && !mbuf_make_room(buf, len) {
-            return false_0 != 0;
-        }
-        if len > 0 as ::core::ffi::c_uint {
-            memcpy(
-                (*buf).data.offset((*buf).write_pos as isize) as *mut ::core::ffi::c_void,
-                ptr,
-                len as size_t,
-            );
-        }
-        (*buf).write_pos = (*buf).write_pos.wrapping_add(len);
-        true_0 != 0
-    }
-    use super::_malloc_h::free;
-    use super::_size_t_h::size_t;
-    use super::_string_h::{memcpy, memset};
-    use super::_uint8_t_h::uint8_t;
-    use super::stdbool_h::{false_0, true_0};
-    extern "C" {
-        
-        pub fn mbuf_make_room(buf: *mut MBuf, len: ::core::ffi::c_uint) -> bool;
-    }
+    use crate::lib::usual::mbuf::mbuf_init_fixed_reader;
+    use crate::types::MBuf;
 }
 
 pub mod proto_h {
@@ -1280,7 +1197,7 @@ pub mod proto_h {
         pub len: ::core::ffi::c_uint,
         pub data: MBuf,
     }
-    use super::mbuf_h::MBuf;
+    use crate::types::MBuf;
 }
 
 pub mod prepare_h {
@@ -1638,10 +1555,11 @@ pub use self::logging_h::{
     cf_verbose, log_fatal, log_generic, LogLevel, LG_DEBUG, LG_ERROR, LG_FATAL, LG_INFO, LG_NOISE,
     LG_STATS, LG_WARNING,
 };
-pub use self::mbuf_h::{
+pub use crate::lib::usual::mbuf::{
     mbuf_avail_for_read, mbuf_free, mbuf_init_fixed_reader, mbuf_make_room, mbuf_rewind_writer,
-    mbuf_write, MBuf,
+    mbuf_write,
 };
+pub use crate::types::MBuf;
 use self::objects_h::{disconnect_client, iobuf_cache, pool_list, tag_pool_dirty};
 pub use self::pktbuf_h::{pktbuf_free, PktBuf};
 pub use self::prepare_h::{

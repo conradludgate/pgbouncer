@@ -187,95 +187,6 @@ pub mod list_h {
     }
 }
 
-pub mod mbuf_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct MBuf {
-        pub data: *mut uint8_t,
-        pub read_pos: ::core::ffi::c_uint,
-        pub write_pos: ::core::ffi::c_uint,
-        pub alloc_len: ::core::ffi::c_uint,
-        pub reader: bool,
-        pub fixed: bool,
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn mbuf_init_dynamic(mut buf: *mut MBuf) {
-        (*buf).data = ::core::ptr::null_mut::<uint8_t>();
-        (*buf).read_pos = 0 as ::core::ffi::c_uint;
-        (*buf).write_pos = 0 as ::core::ffi::c_uint;
-        (*buf).alloc_len = 0 as ::core::ffi::c_uint;
-        (*buf).reader = false_0 != 0;
-        (*buf).fixed = false_0 != 0;
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn mbuf_free(mut buf: *mut MBuf) {
-        if !(*buf).data.is_null() {
-            if !(*buf).fixed {
-                free((*buf).data as *mut ::core::ffi::c_void);
-            }
-            memset(
-                buf as *mut ::core::ffi::c_void,
-                0 as ::core::ffi::c_int,
-                ::core::mem::size_of::<MBuf>() as size_t,
-            );
-        }
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn mbuf_rewind_writer(mut buf: *mut MBuf) {
-        if !(*buf).reader {
-            (*buf).read_pos = 0 as ::core::ffi::c_uint;
-            (*buf).write_pos = 0 as ::core::ffi::c_uint;
-        }
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn mbuf_write_byte(mut buf: *mut MBuf, mut val: uint8_t) -> bool {
-        if (*buf).write_pos.wrapping_add(1 as ::core::ffi::c_uint) > (*buf).alloc_len
-            && !mbuf_make_room(buf, 1 as ::core::ffi::c_uint)
-        {
-            return false_0 != 0;
-        }
-        let fresh0 = (*buf).write_pos;
-        (*buf).write_pos = (*buf).write_pos.wrapping_add(1);
-        *(*buf).data.offset(fresh0 as isize) = val;
-        true_0 != 0
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn mbuf_write(
-        mut buf: *mut MBuf,
-        mut ptr: *const ::core::ffi::c_void,
-        mut len: ::core::ffi::c_uint,
-    ) -> bool {
-        if (*buf).write_pos.wrapping_add(len) > (*buf).alloc_len && !mbuf_make_room(buf, len) {
-            return false_0 != 0;
-        }
-        if len > 0 as ::core::ffi::c_uint {
-            memcpy(
-                (*buf).data.offset((*buf).write_pos as isize) as *mut ::core::ffi::c_void,
-                ptr,
-                len as size_t,
-            );
-        }
-        (*buf).write_pos = (*buf).write_pos.wrapping_add(len);
-        true_0 != 0
-    }
-    use super::_malloc_h::free;
-
-    use super::_size_t_h::size_t;
-    use super::_string_h::{memcpy, memset};
-    use super::_uint8_t_h::uint8_t;
-    use super::stdbool_h::{false_0, true_0};
-    extern "C" {
-        
-        pub fn mbuf_make_room(buf: *mut MBuf, len: ::core::ffi::c_uint) -> bool;
-    }
-}
-
 pub mod runetype_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -669,10 +580,10 @@ pub use self::errno_h::{__error, EINVAL, ENAMETOOLONG, ERANGE};
 use self::include__stdlib_h::strtod;
 pub use self::include__types_h::__darwin_nl_item;
 pub use self::list_h::{list_append, list_del, list_empty, list_init, list_pop, List};
-pub use self::mbuf_h::{
+pub use crate::lib::usual::mbuf::{
     mbuf_free, mbuf_init_dynamic, mbuf_make_room, mbuf_rewind_writer, mbuf_write, mbuf_write_byte,
-    MBuf,
 };
+pub use crate::types::MBuf;
 pub use self::runetype_h::{
     _DefaultRuneLocale, _RuneCharClass, _RuneEntry, _RuneLocale, _RuneRange,
 };

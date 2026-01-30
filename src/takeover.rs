@@ -942,8 +942,8 @@ pub mod sbuf_h {
     use super::event_h::event_callback_fn;
     use super::event_struct_h::event;
     use super::iobuf_h::IOBuf;
-    use super::mbuf_h::MBuf;
     use super::tls_h::tls;
+    use crate::types::MBuf;
     extern "C" {
         
         pub fn sbuf_pause(sbuf: *mut SBuf) -> bool;
@@ -965,70 +965,6 @@ pub mod iobuf_h {
         pub buf: [uint8_t; 0],
     }
     use super::_uint8_t_h::uint8_t;
-}
-
-pub mod mbuf_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct MBuf {
-        pub data: *mut uint8_t,
-        pub read_pos: ::core::ffi::c_uint,
-        pub write_pos: ::core::ffi::c_uint,
-        pub alloc_len: ::core::ffi::c_uint,
-        pub reader: bool,
-        pub fixed: bool,
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn mbuf_init_fixed_reader(
-        mut buf: *mut MBuf,
-        mut ptr: *const ::core::ffi::c_void,
-        mut len: ::core::ffi::c_uint,
-    ) {
-        (*buf).data = ptr as *mut uint8_t;
-        (*buf).read_pos = 0 as ::core::ffi::c_uint;
-        (*buf).write_pos = len;
-        (*buf).alloc_len = len;
-        (*buf).reader = true_0 != 0;
-        (*buf).fixed = true_0 != 0;
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn mbuf_avail_for_read(mut buf: *const MBuf) -> ::core::ffi::c_uint {
-        (*buf).write_pos.wrapping_sub((*buf).read_pos)
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn mbuf_written(mut buf: *const MBuf) -> ::core::ffi::c_uint {
-        (*buf).write_pos
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn mbuf_get_string(
-        mut buf: *mut MBuf,
-        mut dst_p: *mut *const ::core::ffi::c_char,
-    ) -> bool {
-        let mut res: *const ::core::ffi::c_char =
-            ((*buf).data as *mut ::core::ffi::c_char).offset((*buf).read_pos as isize);
-        let mut nul = memchr(
-            res as *const ::core::ffi::c_void,
-            0 as ::core::ffi::c_int,
-            mbuf_avail_for_read(buf) as size_t,
-        ) as *const uint8_t;
-        if nul.is_null() {
-            return false_0 != 0;
-        }
-        *dst_p = res;
-        (*buf).read_pos =
-            nul.offset(1 as ::core::ffi::c_int as isize)
-                .offset_from((*buf).data) as ::core::ffi::c_long as ::core::ffi::c_uint;
-        true_0 != 0
-    }
-    use super::_size_t_h::size_t;
-    use super::_string_h::memchr;
-    use super::_uint8_t_h::uint8_t;
-    use super::stdbool_h::{false_0, true_0};
 }
 
 pub mod proto_h {
@@ -1054,7 +990,8 @@ pub mod proto_h {
             (*pkt).type_0
         }) as ::core::ffi::c_char
     }
-    use super::mbuf_h::{mbuf_written, MBuf};
+    use crate::lib::usual::mbuf::mbuf_written;
+    use crate::types::MBuf;
     extern "C" {
         
         pub fn get_header(data: *mut MBuf, pkt: *mut PktHdr) -> bool;
@@ -1486,9 +1423,10 @@ pub use self::logging_h::{
     cf_verbose, log_fatal, log_generic, LogLevel, LG_DEBUG, LG_ERROR, LG_FATAL, LG_INFO, LG_NOISE,
     LG_STATS, LG_WARNING,
 };
-pub use self::mbuf_h::{
-    mbuf_avail_for_read, mbuf_get_string, mbuf_init_fixed_reader, mbuf_written, MBuf,
+pub use crate::lib::usual::mbuf::{
+    mbuf_avail_for_read, mbuf_get_string, mbuf_init_fixed_reader, mbuf_written,
 };
+pub use crate::types::MBuf;
 use self::objects_h::{
     disconnect_server, find_database, get_pool, launch_new_connection, pool_list,
     use_client_socket, use_server_socket,

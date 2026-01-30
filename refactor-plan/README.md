@@ -25,22 +25,39 @@ We start from the entry point (`main.rs`) and core connection handling (`client.
 | Consolidate PgStats type | ✅ Complete |
 | Consolidate List/StatList types | ✅ Complete |
 | Consolidate AATree types | ✅ Complete |
-| Consolidate MBuf type | 📋 Pending |
+| Consolidate MBuf type | ✅ Complete |
 | Remove duplicate type modules | 📋 In Progress |
 
-**Lines saved from type consolidation: ~1,382**
+**Lines saved from type consolidation: ~2,231** (1,382 + 849 from MBuf)
 
 ## Current State Metrics
 
 | Metric | Original | Current |
 |--------|----------|---------|
-| Total Rust lines (src/) | ~126,000 | ~124,600 |
-| Total Rust lines (lib/usual/) | ~26,000 | ~26,000 |
+| Total Rust lines (src/) | ~126,000 | ~65,750 |
+| Total Rust lines (lib/usual/) | ~26,000 | ~25,900 |
 | `static mut` occurrences (src/) | 430 | 430 |
 | `unsafe extern "C" fn` (src/) | 1,787 | ~1,787 |
 | `#[no_mangle]` (src/) | 450 | 450 |
 | `#[c2rust::...]` attributes (src/) | 7,150 | **0** ✅ |
 | `#[c2rust::...]` attributes (lib/usual/) | 2,761 | **0** ✅ |
+
+## Lessons Learned
+
+### MBuf Consolidation Pattern
+When consolidating duplicated type modules (e.g., `mbuf_h`), follow this order:
+1. Add all inline functions to the consolidated module (`lib/usual/mbuf.rs`)
+2. Update the top-level `pub use self::X_h::...` to use new paths
+3. Update inner module `use super::X_h::...` statements to `use crate::types::...` or `use crate::lib::usual::X::...`
+4. Delete the local `pub mod X_h { ... }` module
+5. Build and fix any type mismatches
+
+Key insight: Inner modules like `proto_h` define `PktHdr` which contains `MBuf`. These need their imports updated BEFORE removing the local `mbuf_h` module, otherwise you get type mismatches.
+
+### Binary vs Library Imports
+- `src/main.rs` is the **binary** entry point, not part of the library
+- It uses `pgbouncer::types::MBuf` instead of `crate::types::MBuf`
+- All other `src/*.rs` files are part of the library and use `crate::types::...`
 
 ## Phase Overview
 

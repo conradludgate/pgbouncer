@@ -768,7 +768,7 @@ pub mod sbuf_h {
     use super::_uint8_t_h::uint8_t;
     use super::event_struct_h::event;
     use super::iobuf_h::IOBuf;
-    use super::mbuf_h::MBuf;
+    use crate::types::MBuf;
     use super::pktbuf_h::PktBuf;
     use super::tls_h::tls;
     extern "C" {
@@ -801,21 +801,6 @@ pub mod iobuf_h {
     use super::_uint8_t_h::uint8_t;
 }
 
-pub mod mbuf_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct MBuf {
-        pub data: *mut uint8_t,
-        pub read_pos: ::core::ffi::c_uint,
-        pub write_pos: ::core::ffi::c_uint,
-        pub alloc_len: ::core::ffi::c_uint,
-        pub reader: bool,
-        pub fixed: bool,
-    }
-    use super::_uint8_t_h::uint8_t;
-}
-
 pub mod proto_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -825,7 +810,7 @@ pub mod proto_h {
         pub len: ::core::ffi::c_uint,
         pub data: MBuf,
     }
-    use super::mbuf_h::MBuf;
+    use crate::types::MBuf;
 }
 
 pub mod prepare_h {
@@ -1201,7 +1186,7 @@ pub use self::logging_h::{
     cf_verbose, log_generic, LogLevel, LG_DEBUG, LG_ERROR, LG_FATAL, LG_INFO, LG_NOISE, LG_STATS,
     LG_WARNING,
 };
-pub use self::mbuf_h::MBuf;
+pub use crate::types::MBuf;
 pub use self::messages_h::{
     unmarshall_bind_packet, unmarshall_describe_packet, unmarshall_parse_packet, PgBindPacket,
     PgClosePacket, PgDescribePacket, PgParsePacket,

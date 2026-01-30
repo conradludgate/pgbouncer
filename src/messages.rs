@@ -736,8 +736,8 @@ pub mod sbuf_h {
     use super::_uint8_t_h::uint8_t;
     use super::event_struct_h::event;
     use super::iobuf_h::IOBuf;
-    use super::mbuf_h::MBuf;
     use super::tls_h::tls;
+    use crate::types::MBuf;
 }
 
 pub mod iobuf_h {
@@ -755,105 +755,6 @@ pub mod iobuf_h {
     use super::_uint8_t_h::uint8_t;
 }
 
-pub mod mbuf_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct MBuf {
-        pub data: *mut uint8_t,
-        pub read_pos: ::core::ffi::c_uint,
-        pub write_pos: ::core::ffi::c_uint,
-        pub alloc_len: ::core::ffi::c_uint,
-        pub reader: bool,
-        pub fixed: bool,
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn mbuf_avail_for_read(mut buf: *const MBuf) -> ::core::ffi::c_uint {
-        (*buf).write_pos.wrapping_sub((*buf).read_pos)
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn mbuf_written(mut buf: *const MBuf) -> ::core::ffi::c_uint {
-        (*buf).write_pos
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn mbuf_get_char(
-        mut buf: *mut MBuf,
-        mut dst_p: *mut ::core::ffi::c_char,
-    ) -> bool {
-        if (*buf).read_pos.wrapping_add(1 as ::core::ffi::c_uint) > (*buf).write_pos {
-            return false_0 != 0;
-        }
-        let fresh0 = (*buf).read_pos;
-        (*buf).read_pos = (*buf).read_pos.wrapping_add(1);
-        *dst_p = *(*buf).data.offset(fresh0 as isize) as ::core::ffi::c_char;
-        true_0 != 0
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn mbuf_get_uint16be(
-        mut buf: *mut MBuf,
-        mut dst_p: *mut uint16_t,
-    ) -> bool {
-        let mut a: ::core::ffi::c_uint = 0;
-        let mut b: ::core::ffi::c_uint = 0;
-        if (*buf).read_pos.wrapping_add(2 as ::core::ffi::c_uint) > (*buf).write_pos {
-            return false_0 != 0;
-        }
-        let fresh1 = (*buf).read_pos;
-        (*buf).read_pos = (*buf).read_pos.wrapping_add(1);
-        a = *(*buf).data.offset(fresh1 as isize) as ::core::ffi::c_uint;
-        let fresh2 = (*buf).read_pos;
-        (*buf).read_pos = (*buf).read_pos.wrapping_add(1);
-        b = *(*buf).data.offset(fresh2 as isize) as ::core::ffi::c_uint;
-        *dst_p = (a << 8 as ::core::ffi::c_int | b) as uint16_t;
-        true_0 != 0
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn mbuf_get_bytes(
-        mut buf: *mut MBuf,
-        mut len: ::core::ffi::c_uint,
-        mut dst_p: *mut *const uint8_t,
-    ) -> bool {
-        if (*buf).read_pos.wrapping_add(len) > (*buf).write_pos {
-            return false_0 != 0;
-        }
-        *dst_p = (*buf).data.offset((*buf).read_pos as isize);
-        (*buf).read_pos = (*buf).read_pos.wrapping_add(len);
-        true_0 != 0
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn mbuf_get_string(
-        mut buf: *mut MBuf,
-        mut dst_p: *mut *const ::core::ffi::c_char,
-    ) -> bool {
-        let mut res: *const ::core::ffi::c_char =
-            ((*buf).data as *mut ::core::ffi::c_char).offset((*buf).read_pos as isize);
-        let mut nul = memchr(
-            res as *const ::core::ffi::c_void,
-            0 as ::core::ffi::c_int,
-            mbuf_avail_for_read(buf) as size_t,
-        ) as *const uint8_t;
-        if nul.is_null() {
-            return false_0 != 0;
-        }
-        *dst_p = res;
-        (*buf).read_pos =
-            nul.offset(1 as ::core::ffi::c_int as isize)
-                .offset_from((*buf).data) as ::core::ffi::c_long as ::core::ffi::c_uint;
-        true_0 != 0
-    }
-    use super::_size_t_h::size_t;
-    use super::_string_h::memchr;
-    use super::_uint16_t_h::uint16_t;
-    use super::_uint8_t_h::uint8_t;
-    use super::stdbool_h::{false_0, true_0};
-}
-
 pub mod proto_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -868,7 +769,8 @@ pub mod proto_h {
     pub unsafe extern "C" fn incomplete_pkt(mut pkt: *const PktHdr) -> bool {
         mbuf_written(&raw const (*pkt).data) != (*pkt).len
     }
-    use super::mbuf_h::{mbuf_written, MBuf};
+    use crate::lib::usual::mbuf::mbuf_written;
+    use crate::types::MBuf;
 }
 
 pub mod prepare_h {
@@ -1116,10 +1018,11 @@ pub use self::logging_h::{
     cf_verbose, log_generic, LogLevel, LG_DEBUG, LG_ERROR, LG_FATAL, LG_INFO, LG_NOISE, LG_STATS,
     LG_WARNING,
 };
-pub use self::mbuf_h::{
+pub use crate::lib::usual::mbuf::{
     mbuf_avail_for_read, mbuf_get_bytes, mbuf_get_char, mbuf_get_string, mbuf_get_uint16be,
-    mbuf_written, MBuf,
+    mbuf_written,
 };
+pub use crate::types::MBuf;
 pub use self::messages_h::{
     PgBindPacket, PgClosePacket, PgDescribePacket, PgParsePacket, PreparedStatementAction,
     PS_HANDLE, PS_HANDLE_FULL_PACKET, PS_IGNORE, PS_INSPECT_FAILED,

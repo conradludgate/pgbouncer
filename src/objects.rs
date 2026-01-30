@@ -942,8 +942,8 @@ pub mod sbuf_h {
     use super::_uint8_t_h::uint8_t;
     use super::event_struct_h::event;
     use super::iobuf_h::{iobuf_empty, IOBuf};
-    use super::mbuf_h::MBuf;
     use super::pktbuf_h::PktBuf;
+    use crate::types::MBuf;
     use super::socket_h::sockaddr;
     use super::tls_h::tls;
     extern "C" {
@@ -998,38 +998,6 @@ pub mod iobuf_h {
     use super::_uint8_t_h::uint8_t;
 }
 
-pub mod mbuf_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct MBuf {
-        pub data: *mut uint8_t,
-        pub read_pos: ::core::ffi::c_uint,
-        pub write_pos: ::core::ffi::c_uint,
-        pub alloc_len: ::core::ffi::c_uint,
-        pub reader: bool,
-        pub fixed: bool,
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn mbuf_free(mut buf: *mut MBuf) {
-        if !(*buf).data.is_null() {
-            if !(*buf).fixed {
-                free((*buf).data as *mut ::core::ffi::c_void);
-            }
-            memset(
-                buf as *mut ::core::ffi::c_void,
-                0 as ::core::ffi::c_int,
-                ::core::mem::size_of::<MBuf>() as size_t,
-            );
-        }
-    }
-    use super::_malloc_h::free;
-    use super::_size_t_h::size_t;
-    use super::_string_h::memset;
-    use super::_uint8_t_h::uint8_t;
-}
-
 pub mod proto_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -1047,7 +1015,8 @@ pub mod proto_h {
         (*pkt).len = 0 as ::core::ffi::c_uint;
     }
     use super::bouncer_h::PgSocket;
-    use super::mbuf_h::{mbuf_free, MBuf};
+    use crate::lib::usual::mbuf::mbuf_free;
+    use crate::types::MBuf;
     extern "C" {
         
         pub fn send_pooler_error(
@@ -1449,8 +1418,8 @@ pub mod admin_h {
 
 pub mod client_h {
     use super::bouncer_h::PgSocket;
-    use super::mbuf_h::MBuf;
     use super::sbuf_h::{SBuf, SBufEvent};
+    use crate::types::MBuf;
     extern "C" {
         
         pub fn client_proto(sbuf: *mut SBuf, evtype: SBufEvent, pkt: *mut MBuf) -> bool;
@@ -1469,8 +1438,8 @@ pub mod client_h {
 
 pub mod server_h {
     use super::bouncer_h::{PgDatabase, PgGlobalUser, PgPool, PgSocket};
-    use super::mbuf_h::MBuf;
     use super::sbuf_h::{SBuf, SBufEvent};
+    use crate::types::MBuf;
     use super::time_h::usec_t;
     extern "C" {
         
@@ -1665,7 +1634,8 @@ pub use self::logging_h::{
     cf_verbose, log_fatal, log_generic, LogLevel, LG_DEBUG, LG_ERROR, LG_FATAL, LG_INFO, LG_NOISE,
     LG_STATS, LG_WARNING,
 };
-pub use self::mbuf_h::{mbuf_free, MBuf};
+pub use crate::lib::usual::mbuf::mbuf_free;
+pub use crate::types::MBuf;
 use self::objects_h::Slab;
 pub use self::pktbuf_h::{
     pktbuf_free, pktbuf_put_uint64, pktbuf_send_immediate, pktbuf_static, pktbuf_write_generic,
