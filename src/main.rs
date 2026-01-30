@@ -1027,22 +1027,8 @@ pub mod bouncer_h {
         pub last_login_failed_welcome_msg_ready: [u8; 1],
         pub rrcounter: uint16_t,
     }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct PgStats {
-        pub server_assignment_count: uint64_t,
-        pub xact_count: uint64_t,
-        pub query_count: uint64_t,
-        pub server_bytes: uint64_t,
-        pub client_bytes: uint64_t,
-        pub xact_time: usec_t,
-        pub query_time: usec_t,
-        pub wait_time: usec_t,
-        pub ps_server_parse_count: uint64_t,
-        pub ps_client_parse_count: uint64_t,
-        pub ps_bind_count: uint64_t,
-    }
+    // PgStats moved to pgbouncer::src::common::types
+    pub use ::pgbouncer::src::common::types::PgStats;
     #[derive(Copy, Clone)]
     #[repr(C)]
     

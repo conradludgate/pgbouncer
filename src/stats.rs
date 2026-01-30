@@ -696,22 +696,8 @@ pub mod bouncer_h {
         pub last_login_failed_welcome_msg_ready: [u8; 1],
         pub rrcounter: uint16_t,
     }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct PgStats {
-        pub server_assignment_count: uint64_t,
-        pub xact_count: uint64_t,
-        pub query_count: uint64_t,
-        pub server_bytes: uint64_t,
-        pub client_bytes: uint64_t,
-        pub xact_time: usec_t,
-        pub query_time: usec_t,
-        pub wait_time: usec_t,
-        pub ps_server_parse_count: uint64_t,
-        pub ps_client_parse_count: uint64_t,
-        pub ps_bind_count: uint64_t,
-    }
+    // PgStats moved to super::common::types
+    pub use super::super::common::types::PgStats;
     #[derive(Copy, Clone)]
     #[repr(C)]
     
@@ -1170,104 +1156,68 @@ static mut old_stamp: usec_t = 0;
 
 static mut new_stamp: usec_t = 0;
 
-unsafe extern "C" fn reset_stats(mut stat: *mut PgStats) {
-    (*stat).server_bytes = 0 as uint64_t;
-    (*stat).client_bytes = 0 as uint64_t;
-    (*stat).server_assignment_count = 0 as uint64_t;
-    (*stat).query_count = 0 as uint64_t;
-    (*stat).query_time = 0 as usec_t;
-    (*stat).xact_count = 0 as uint64_t;
-    (*stat).xact_time = 0 as usec_t;
-    (*stat).wait_time = 0 as usec_t;
-    (*stat).ps_client_parse_count = 0 as uint64_t;
-    (*stat).ps_server_parse_count = 0 as uint64_t;
-    (*stat).ps_bind_count = 0 as uint64_t;
+unsafe fn reset_stats(stat: *mut PgStats) {
+    (*stat).server_bytes = 0;
+    (*stat).client_bytes = 0;
+    (*stat).server_assignment_count = 0;
+    (*stat).query_count = 0;
+    (*stat).query_time = 0;
+    (*stat).xact_count = 0;
+    (*stat).xact_time = 0;
+    (*stat).wait_time = 0;
+    (*stat).ps_client_parse_count = 0;
+    (*stat).ps_server_parse_count = 0;
+    (*stat).ps_bind_count = 0;
 }
 
-unsafe extern "C" fn stat_add(mut total: *mut PgStats, mut stat: *mut PgStats) {
-    (*total).server_bytes = (*total).server_bytes.wrapping_add((*stat).server_bytes);
-    (*total).client_bytes = (*total).client_bytes.wrapping_add((*stat).client_bytes);
-    (*total).server_assignment_count = (*total)
-        .server_assignment_count
-        .wrapping_add((*stat).server_assignment_count);
-    (*total).query_count = (*total).query_count.wrapping_add((*stat).query_count);
-    (*total).query_time = (*total).query_time.wrapping_add((*stat).query_time);
-    (*total).xact_count = (*total).xact_count.wrapping_add((*stat).xact_count);
-    (*total).xact_time = (*total).xact_time.wrapping_add((*stat).xact_time);
-    (*total).wait_time = (*total).wait_time.wrapping_add((*stat).wait_time);
-    (*total).ps_client_parse_count = (*total)
-        .ps_client_parse_count
-        .wrapping_add((*stat).ps_client_parse_count);
-    (*total).ps_server_parse_count = (*total)
-        .ps_server_parse_count
-        .wrapping_add((*stat).ps_server_parse_count);
-    (*total).ps_bind_count = (*total).ps_bind_count.wrapping_add((*stat).ps_bind_count);
+unsafe fn stat_add(total: *mut PgStats, stat: *mut PgStats) {
+    (*total).server_bytes += (*stat).server_bytes;
+    (*total).client_bytes += (*stat).client_bytes;
+    (*total).server_assignment_count += (*stat).server_assignment_count;
+    (*total).query_count += (*stat).query_count;
+    (*total).query_time += (*stat).query_time;
+    (*total).xact_count += (*stat).xact_count;
+    (*total).xact_time += (*stat).xact_time;
+    (*total).wait_time += (*stat).wait_time;
+    (*total).ps_client_parse_count += (*stat).ps_client_parse_count;
+    (*total).ps_server_parse_count += (*stat).ps_server_parse_count;
+    (*total).ps_bind_count += (*stat).ps_bind_count;
 }
 
-unsafe extern "C" fn calc_average(
-    mut avg: *mut PgStats,
-    mut cur: *mut PgStats,
-    mut old: *mut PgStats,
-) {
-    let mut server_assignment_count: uint64_t = 0;
-    let mut query_count: uint64_t = 0;
-    let mut xact_count: uint64_t = 0;
-    let mut ps_client_parse_count: uint64_t = 0;
-    let mut ps_server_parse_count: uint64_t = 0;
-    let mut ps_bind_count: uint64_t = 0;
-    let mut dur: usec_t = get_cached_time().wrapping_sub(old_stamp);
+unsafe fn calc_average(avg: *mut PgStats, cur: *mut PgStats, old: *mut PgStats) {
+    let dur: usec_t = get_cached_time() - old_stamp;
     reset_stats(avg);
-    if dur <= 0 as usec_t {
+    if dur == 0 {
         return;
     }
-    query_count = (*cur).query_count.wrapping_sub((*old).query_count);
-    xact_count = (*cur).xact_count.wrapping_sub((*old).xact_count);
-    server_assignment_count = (*cur)
-        .server_assignment_count
-        .wrapping_sub((*old).server_assignment_count);
-    (*avg).query_count = USEC.wrapping_mul(query_count as usec_t).wrapping_div(dur) as uint64_t;
-    (*avg).xact_count = USEC.wrapping_mul(xact_count as usec_t).wrapping_div(dur) as uint64_t;
-    (*avg).server_assignment_count = USEC
-        .wrapping_mul(server_assignment_count as usec_t)
-        .wrapping_div(dur) as uint64_t;
-    (*avg).client_bytes = USEC
-        .wrapping_mul(((*cur).client_bytes as usec_t).wrapping_sub((*old).client_bytes as usec_t))
-        .wrapping_div(dur) as uint64_t;
-    (*avg).server_bytes = USEC
-        .wrapping_mul(((*cur).server_bytes as usec_t).wrapping_sub((*old).server_bytes as usec_t))
-        .wrapping_div(dur) as uint64_t;
-    if query_count > 0 as uint64_t {
-        (*avg).query_time = (*cur)
-            .query_time
-            .wrapping_sub((*old).query_time)
-            .wrapping_div(query_count as usec_t);
+
+    let query_count = (*cur).query_count - (*old).query_count;
+    let xact_count = (*cur).xact_count - (*old).xact_count;
+    let server_assignment_count = (*cur).server_assignment_count - (*old).server_assignment_count;
+
+    (*avg).query_count = (USEC * query_count) / dur;
+    (*avg).xact_count = (USEC * xact_count) / dur;
+    (*avg).server_assignment_count = (USEC * server_assignment_count) / dur;
+    (*avg).client_bytes = (USEC * ((*cur).client_bytes - (*old).client_bytes)) / dur;
+    (*avg).server_bytes = (USEC * ((*cur).server_bytes - (*old).server_bytes)) / dur;
+
+    if query_count > 0 {
+        (*avg).query_time = ((*cur).query_time - (*old).query_time) / query_count;
     }
-    if xact_count > 0 as uint64_t {
-        (*avg).xact_time = (*cur)
-            .xact_time
-            .wrapping_sub((*old).xact_time)
-            .wrapping_div(xact_count as usec_t);
+    if xact_count > 0 {
+        (*avg).xact_time = ((*cur).xact_time - (*old).xact_time) / xact_count;
     }
-    if server_assignment_count > 0 as uint64_t {
-        (*avg).wait_time = (*cur)
-            .wait_time
-            .wrapping_sub((*old).wait_time)
-            .wrapping_div(server_assignment_count as usec_t);
+    if server_assignment_count > 0 {
+        (*avg).wait_time = ((*cur).wait_time - (*old).wait_time) / server_assignment_count;
     }
-    ps_client_parse_count = (*cur)
-        .ps_client_parse_count
-        .wrapping_sub((*old).ps_client_parse_count);
-    ps_server_parse_count = (*cur)
-        .ps_server_parse_count
-        .wrapping_sub((*old).ps_server_parse_count);
-    ps_bind_count = (*cur).ps_bind_count.wrapping_sub((*old).ps_bind_count);
-    (*avg).ps_client_parse_count = USEC
-        .wrapping_mul(ps_client_parse_count as usec_t)
-        .wrapping_div(dur) as uint64_t;
-    (*avg).ps_server_parse_count = USEC
-        .wrapping_mul(ps_server_parse_count as usec_t)
-        .wrapping_div(dur) as uint64_t;
-    (*avg).ps_bind_count = USEC.wrapping_mul(ps_bind_count as usec_t).wrapping_div(dur) as uint64_t;
+
+    let ps_client_parse_count = (*cur).ps_client_parse_count - (*old).ps_client_parse_count;
+    let ps_server_parse_count = (*cur).ps_server_parse_count - (*old).ps_server_parse_count;
+    let ps_bind_count = (*cur).ps_bind_count - (*old).ps_bind_count;
+
+    (*avg).ps_client_parse_count = (USEC * ps_client_parse_count) / dur;
+    (*avg).ps_server_parse_count = (USEC * ps_server_parse_count) / dur;
+    (*avg).ps_bind_count = (USEC * ps_bind_count) / dur;
 }
 
 unsafe extern "C" fn write_stats(
@@ -1902,59 +1852,24 @@ pub unsafe extern "C" fn show_stat_totals(
 }
 
 unsafe extern "C" fn refresh_stats(
-    mut _s: ::core::ffi::c_int,
-    mut _flags: ::core::ffi::c_short,
-    mut _arg: *mut ::core::ffi::c_void,
+    _s: ::core::ffi::c_int,
+    _flags: ::core::ffi::c_short,
+    _arg: *mut ::core::ffi::c_void,
 ) {
-    let mut item = ::core::ptr::null_mut::<List>();
-    let mut pool = ::core::ptr::null_mut::<PgPool>();
-    let mut old_total = PgStats {
-        server_assignment_count: 0,
-        xact_count: 0,
-        query_count: 0,
-        server_bytes: 0,
-        client_bytes: 0,
-        xact_time: 0,
-        query_time: 0,
-        wait_time: 0,
-        ps_server_parse_count: 0,
-        ps_client_parse_count: 0,
-        ps_bind_count: 0,
-    };
-    let mut cur_total = PgStats {
-        server_assignment_count: 0,
-        xact_count: 0,
-        query_count: 0,
-        server_bytes: 0,
-        client_bytes: 0,
-        xact_time: 0,
-        query_time: 0,
-        wait_time: 0,
-        ps_server_parse_count: 0,
-        ps_client_parse_count: 0,
-        ps_bind_count: 0,
-    };
-    let mut avg = PgStats {
-        server_assignment_count: 0,
-        xact_count: 0,
-        query_count: 0,
-        server_bytes: 0,
-        client_bytes: 0,
-        xact_time: 0,
-        query_time: 0,
-        wait_time: 0,
-        ps_server_parse_count: 0,
-        ps_client_parse_count: 0,
-        ps_bind_count: 0,
-    };
+    let mut item: *mut List;
+    let mut pool: *mut PgPool;
+    let mut old_total: PgStats = ::core::mem::zeroed();
+    let mut cur_total: PgStats = ::core::mem::zeroed();
+    let mut avg: PgStats = ::core::mem::zeroed();
+
     reset_stats(&raw mut old_total);
     reset_stats(&raw mut cur_total);
     old_stamp = new_stamp;
     new_stamp = get_cached_time();
+
     item = pool_list.head.next;
     while item != &raw mut pool_list.head {
-        pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
-            as *mut PgPool;
+        pool = item as *mut PgPool;
         (*pool).older_stats = (*pool).newer_stats;
         (*pool).newer_stats = (*pool).stats;
         if cf_log_stats != 0 {
@@ -1963,14 +1878,14 @@ unsafe extern "C" fn refresh_stats(
         }
         item = (*item).next;
     }
+
     calc_average(&raw mut avg, &raw mut cur_total, &raw mut old_total);
+
     if cf_log_stats != 0 {
-        let mut _log_ctx = NULL;
         log_generic(
             LG_INFO,
-            _log_ctx,
-            b"stats: %llu xacts/s, %llu queries/s, %llu client parses/s, %llu server parses/s, %llu binds/s, in %llu B/s, out %llu B/s, xact %llu us, query %llu us, wait %llu us\0"
-                as *const u8 as *const ::core::ffi::c_char,
+            NULL,
+            c"stats: %llu xacts/s, %llu queries/s, %llu client parses/s, %llu server parses/s, %llu binds/s, in %llu B/s, out %llu B/s, xact %llu us, query %llu us, wait %llu us".as_ptr(),
             avg.xact_count,
             avg.query_count,
             avg.ps_client_parse_count,
@@ -1985,35 +1900,28 @@ unsafe extern "C" fn refresh_stats(
     }
 }
 #[no_mangle]
-
 pub unsafe extern "C" fn stats_setup() {
     let mut period = timeval {
         tv_sec: cf_stats_period as __darwin_time_t,
-        tv_usec: 0 as __darwin_suseconds_t,
+        tv_usec: 0,
     };
     new_stamp = get_cached_time();
-    old_stamp = new_stamp.wrapping_sub(USEC);
+    old_stamp = new_stamp - USEC;
+
     event_assign(
         &raw mut ev_stats,
         pgb_event_base,
-        -(1 as ::core::ffi::c_int),
+        -1,
         EV_PERSIST as ::core::ffi::c_short,
-        Some(
-            refresh_stats
-                as unsafe extern "C" fn(
-                    ::core::ffi::c_int,
-                    ::core::ffi::c_short,
-                    *mut ::core::ffi::c_void,
-                ) -> (),
-        ),
+        Some(refresh_stats),
         NULL,
     );
-    if event_add(&raw mut ev_stats, &raw mut period) < 0 as ::core::ffi::c_int {
-        let mut _log_ctx = NULL;
+
+    if event_add(&raw mut ev_stats, &raw mut period) < 0 {
         log_generic(
             LG_WARNING,
-            _log_ctx,
-            b"event_add failed: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            NULL,
+            c"event_add failed: %s".as_ptr(),
             strerror(*__error()),
         );
     }
