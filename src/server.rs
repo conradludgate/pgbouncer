@@ -1130,7 +1130,7 @@ pub unsafe extern "C" fn kill_pool_logins(
         + statlist_count(&raw mut (*pool).tested_server_list)
         + statlist_count(&raw mut (*pool).used_server_list)
         != 0 as ::core::ffi::c_int
-        && (*pool).welcome_msg_ready() as ::core::ffi::c_int != 0
+        && (*pool).welcome_msg_ready()
     {
         return;
     }

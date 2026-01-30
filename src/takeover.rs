@@ -1582,7 +1582,7 @@ unsafe extern "C" fn takeover_postprocess_fds() {
                 client = (item2 as *mut ::core::ffi::c_char)
                     
                     as *mut PgSocket;
-                if (*client).suspended() as ::core::ffi::c_int != 0 && (*client).query_start != 0 {
+                if (*client).suspended() && (*client).query_start != 0 {
                     takeover_create_link(pool, client);
                 }
                 item2 = (*item2).next;

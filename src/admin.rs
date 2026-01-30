@@ -2110,7 +2110,7 @@ unsafe extern "C" fn show_one_fd(mut admin: *mut PgSocket, mut sk: *mut PgSocket
     }
     if !(*sk).pool.is_null()
         && !(*(*sk).pool).user_credentials.is_null()
-        && (*(*(*sk).pool).user_credentials).use_scram_keys as ::core::ffi::c_int != 0
+        && (*(*(*sk).pool).user_credentials).use_scram_keys
     {
         send_scram_keys = true;
     }

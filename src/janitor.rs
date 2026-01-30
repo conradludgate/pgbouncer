@@ -1116,7 +1116,7 @@ pub unsafe extern "C" fn suspend_socket(mut sk: *mut PgSocket, mut force_suspend
     if sbuf_is_empty(&raw mut (*sk).sbuf) && sbuf_pause(&raw mut (*sk).sbuf) {
         (*sk).set_suspended(true);
     }
-    if (*sk).suspended() as ::core::ffi::c_int != 0 || !force_suspend {
+    if (*sk).suspended() || !force_suspend {
         return (*sk).suspended();
     }
     if (*sk).state() as ::core::ffi::c_int >= SV_FREE as ::core::ffi::c_int {
@@ -1297,7 +1297,7 @@ unsafe extern "C" fn per_loop_activate(mut pool: *mut PgPool) {
             as *mut PgSocket;
         if (*client).state() as ::core::ffi::c_int == CL_WAITING as ::core::ffi::c_int
             && !(*client).sent_wait_notification()
-            && (*client).welcome_sent() as ::core::ffi::c_int != 0
+            && (*client).welcome_sent()
             && get_cached_time()
                 .wrapping_sub((*client).wait_start)
                 .wrapping_div(USEC)
@@ -1737,7 +1737,7 @@ unsafe extern "C" fn pool_server_maint(mut pool: *mut PgPool) {
         server = (item as *mut ::core::ffi::c_char)
             as *mut PgSocket;
         if cf_server_fast_close != 0
-            && (*server).ready() as ::core::ffi::c_int != 0
+            && (*server).ready()
             && (*server).close_needed()
         {
             disconnect_server(server, true, c"database configuration changed".as_ptr());

@@ -4267,7 +4267,7 @@ pub unsafe extern "C" fn launch_new_connection(mut pool: *mut PgPool, mut evict_
     } else {
         if pool_pool_size(pool) > 0 as ::core::ffi::c_int
             && max >= pool_pool_size(pool)
-            && (*pool).welcome_msg_ready() as ::core::ffi::c_int != 0
+            && (*pool).welcome_msg_ready()
         {
             let mut c = first_socket(&raw mut (*pool).waiting_client_list);
             if cf_res_pool_timeout != 0 && pool_res_pool_size(pool) != 0 {

@@ -825,7 +825,7 @@ pub unsafe extern "C" fn adns_resolve(
                     deliver_info(req);
                 }
             }
-            return if (*req).done as ::core::ffi::c_int != 0 {
+            return if (*req).done {
                 ::core::ptr::null_mut::<DNSToken>()
             } else {
                 ucb
