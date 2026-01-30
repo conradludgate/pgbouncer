@@ -62,43 +62,12 @@ pub mod _uid_t_h {
     use super::sys__types_h::__darwin_uid_t;
 }
 
-pub mod _size_t_h {
-    
-    pub type size_t = __darwin_size_t;
-    use super::_types_h::__darwin_size_t;
-}
 
-pub mod _ssize_t_h {
-    
-    pub type ssize_t = __darwin_ssize_t;
-    use super::_types_h::__darwin_ssize_t;
-}
 
-pub mod _ptrdiff_t_h {
-    
-    pub type ptrdiff_t = __darwin_ptrdiff_t;
-    use super::_types_h::__darwin_ptrdiff_t;
-}
 
-pub mod _uint8_t_h {
-    
-    pub type uint8_t = u8;
-}
 
-pub mod _uint16_t_h {
-    
-    pub type uint16_t = u16;
-}
 
-pub mod _uint32_t_h {
-    
-    pub type uint32_t = u32;
-}
 
-pub mod _uint64_t_h {
-    
-    pub type uint64_t = u64;
-}
 
 pub mod _timeval_h {
     #[derive(Copy, Clone)]
@@ -304,7 +273,7 @@ pub mod event_struct_h {
         pub tqe_prev: *mut *mut event_callback,
     }
     use super::_timeval_h::timeval;
-    use super::_uint8_t_h::uint8_t;
+    use crate::types::uint8_t;
     use super::event_h::event_base;
 }
 
@@ -595,9 +564,9 @@ pub mod bouncer_h {
     pub const REPLICATION_NONE: ReplicationType = 0;
     use super::_pid_t_h::pid_t;
     use super::_uid_t_h::uid_t;
-    use super::_uint16_t_h::uint16_t;
-    use super::_uint64_t_h::uint64_t;
-    use super::_uint8_t_h::uint8_t;
+    use crate::types::uint16_t;
+    use crate::types::uint64_t;
+    use crate::types::uint8_t;
     use crate::types::{AANode, AATree};
     use crate::types::pg_cryptohash_type;
     use super::dnslookup_h::DNSToken;
@@ -668,9 +637,9 @@ pub mod sbuf_h {
     pub const SBUF_EV_RECV_FAILED: SBufEvent = 1;
     
     pub const SBUF_EV_READ: SBufEvent = 0;
-    use super::_size_t_h::size_t;
-    use super::_ssize_t_h::ssize_t;
-    use super::_uint8_t_h::uint8_t;
+    use crate::types::size_t;
+    use crate::types::ssize_t;
+    use crate::types::uint8_t;
     use super::event_struct_h::event;
     use super::iobuf_h::IOBuf;
     use crate::types::MBuf;
@@ -689,7 +658,7 @@ pub mod iobuf_h {
         pub recv_pos: ::core::ffi::c_uint,
         pub buf: [uint8_t; 0],
     }
-    use super::_uint8_t_h::uint8_t;
+    use crate::types::uint8_t;
 }
 
 
@@ -713,7 +682,7 @@ pub mod pktbuf_h {
         #[bitfield(padding)]
         pub c2rust_padding: [u8; 7],
     }
-    use super::_uint8_t_h::uint8_t;
+    use crate::types::uint8_t;
     use super::bouncer_h::PgSocket;
     use super::event_struct_h::event;
     extern "C" {
@@ -818,7 +787,7 @@ pub mod cxalloc_h {
         pub ops: *const CxOps,
         pub ctx: *mut ::core::ffi::c_void,
     }
-    use super::_size_t_h::size_t;
+    use crate::types::size_t;
     extern "C" {
         
         pub static cx_libc_allocator: CxMem;
@@ -853,7 +822,7 @@ pub mod string_h {
 }
 
 pub mod _stdio_h {
-    use super::_size_t_h::size_t;
+    use crate::types::size_t;
     extern "C" {
         
         pub fn snprintf(
@@ -866,7 +835,7 @@ pub mod _stdio_h {
 }
 
 pub mod _malloc_h {
-    use super::_size_t_h::size_t;
+    use crate::types::size_t;
     extern "C" {
         
         pub fn malloc(__size: size_t) -> *mut ::core::ffi::c_void;
@@ -904,7 +873,7 @@ pub mod _null_h {
 }
 
 pub mod _string_h {
-    use super::_size_t_h::size_t;
+    use crate::types::size_t;
     extern "C" {
         
         pub fn memset(
@@ -965,10 +934,10 @@ pub use self::_in_port_t_h::in_port_t;
 use self::_malloc_h::{free, malloc};
 pub use self::_null_h::NULL;
 pub use self::_pid_t_h::pid_t;
-pub use self::_ptrdiff_t_h::ptrdiff_t;
+pub use crate::types::ptrdiff_t;
 pub use self::_sa_family_t_h::sa_family_t;
-pub use self::_size_t_h::size_t;
-pub use self::_ssize_t_h::ssize_t;
+pub use crate::types::size_t;
+pub use crate::types::ssize_t;
 use self::_stdio_h::snprintf;
 use self::_stdlib_h::exit;
 use self::_string_h::{memset, strcmp, strdup, strlen};
@@ -979,10 +948,10 @@ pub use self::_types_h::{
     __int32_t, __uint16_t, __uint32_t, __uint8_t,
 };
 pub use self::_uid_t_h::uid_t;
-pub use self::_uint16_t_h::uint16_t;
-pub use self::_uint32_t_h::uint32_t;
-pub use self::_uint64_t_h::uint64_t;
-pub use self::_uint8_t_h::uint8_t;
+pub use crate::types::uint16_t;
+pub use crate::types::uint32_t;
+pub use crate::types::uint64_t;
+pub use crate::types::uint8_t;
 pub use self::_uintptr_t_h::uintptr_t;
 pub use crate::types::{aatree_cmp_f, aatree_walker_f, AANode, AATree};
 pub use self::bouncer_h::{

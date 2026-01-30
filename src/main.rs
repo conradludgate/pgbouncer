@@ -84,17 +84,7 @@ pub mod _uid_t_h {
     use super::sys__types_h::__darwin_uid_t;
 }
 
-pub mod _size_t_h {
-    
-    pub type size_t = __darwin_size_t;
-    use super::_types_h::__darwin_size_t;
-}
 
-pub mod _ssize_t_h {
-    
-    pub type ssize_t = __darwin_ssize_t;
-    use super::_types_h::__darwin_ssize_t;
-}
 
 pub mod _time_t_h {
     
@@ -108,31 +98,10 @@ pub mod _sigset_t_h {
     use super::sys__types_h::__darwin_sigset_t;
 }
 
-pub mod _ptrdiff_t_h {
-    
-    pub type ptrdiff_t = __darwin_ptrdiff_t;
-    use super::_types_h::__darwin_ptrdiff_t;
-}
 
-pub mod _uint8_t_h {
-    
-    pub type uint8_t = u8;
-}
 
-pub mod _uint16_t_h {
-    
-    pub type uint16_t = u16;
-}
 
-pub mod _uint32_t_h {
-    
-    pub type uint32_t = u32;
-}
 
-pub mod _uint64_t_h {
-    
-    pub type uint64_t = u64;
-}
 
 pub mod _stdio_h {
     
@@ -185,7 +154,7 @@ pub mod _stdio_h {
     }
     
     pub type FILE = __sFILE;
-    use super::_size_t_h::size_t;
+    use pgbouncer::types::size_t;
     use super::sys__types_h::__darwin_off_t;
     extern "C" {
         
@@ -621,7 +590,7 @@ pub mod event_struct_h {
         pub tqe_prev: *mut *mut event_callback,
     }
     use super::_timeval_h::timeval;
-    use super::_uint8_t_h::uint8_t;
+    use pgbouncer::types::uint8_t;
     use super::event_h::event_base;
 }
 
@@ -974,9 +943,9 @@ pub mod bouncer_h {
     pub const POOL_STMT: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
     use super::_pid_t_h::pid_t;
     use super::_uid_t_h::uid_t;
-    use super::_uint16_t_h::uint16_t;
-    use super::_uint64_t_h::uint64_t;
-    use super::_uint8_t_h::uint8_t;
+    use pgbouncer::types::uint16_t;
+    use pgbouncer::types::uint64_t;
+    use pgbouncer::types::uint8_t;
     use pgbouncer::types::{AANode, AATree};
     use pgbouncer::types::pg_cryptohash_type;
     use super::dnslookup_h::DNSToken;
@@ -1052,9 +1021,9 @@ pub mod sbuf_h {
     pub const SBUF_EV_RECV_FAILED: SBufEvent = 1;
     
     pub const SBUF_EV_READ: SBufEvent = 0;
-    use super::_size_t_h::size_t;
-    use super::_ssize_t_h::ssize_t;
-    use super::_uint8_t_h::uint8_t;
+    use pgbouncer::types::size_t;
+    use pgbouncer::types::ssize_t;
+    use pgbouncer::types::uint8_t;
     use super::event_struct_h::event;
     use super::iobuf_h::IOBuf;
     use super::tls_h::tls;
@@ -1077,7 +1046,7 @@ pub mod iobuf_h {
         pub recv_pos: ::core::ffi::c_uint,
         pub buf: [uint8_t; 0],
     }
-    use super::_uint8_t_h::uint8_t;
+    use pgbouncer::types::uint8_t;
 }
 
 
@@ -1101,7 +1070,7 @@ pub mod pktbuf_h {
         #[bitfield(padding)]
         pub c2rust_padding: [u8; 7],
     }
-    use super::_uint8_t_h::uint8_t;
+    use pgbouncer::types::uint8_t;
     use super::bouncer_h::PgSocket;
     use super::event_struct_h::event;
 }
@@ -1238,8 +1207,8 @@ pub mod getopt_h {
 
 pub mod unistd_h {
     use super::_pid_t_h::pid_t;
-    use super::_size_t_h::size_t;
-    use super::_ssize_t_h::ssize_t;
+    use pgbouncer::types::size_t;
+    use pgbouncer::types::ssize_t;
     use super::_uid_t_h::uid_t;
     extern "C" {
         
@@ -1283,7 +1252,7 @@ pub mod _null_h {
 }
 
 pub mod _string_h {
-    use super::_size_t_h::size_t;
+    use pgbouncer::types::size_t;
     extern "C" {
         
         pub fn memset(
@@ -1361,9 +1330,9 @@ pub mod include_signal_h {
 }
 
 pub mod safeio_h {
-    use super::_size_t_h::size_t;
+    use pgbouncer::types::size_t;
     use super::_socklen_t_h::socklen_t;
-    use super::_ssize_t_h::ssize_t;
+    use pgbouncer::types::ssize_t;
     use super::socket_h::sockaddr;
     extern "C" {
         
@@ -1601,12 +1570,12 @@ use self::_malloc_h::free;
 pub use self::_null_h::NULL;
 pub use self::_pid_t_h::pid_t;
 use self::_printf_h::printf;
-pub use self::_ptrdiff_t_h::ptrdiff_t;
+pub use pgbouncer::types::ptrdiff_t;
 pub use self::_sa_family_t_h::sa_family_t;
 pub use self::_sigset_t_h::sigset_t;
-pub use self::_size_t_h::size_t;
+pub use pgbouncer::types::size_t;
 pub use self::_socklen_t_h::socklen_t;
-pub use self::_ssize_t_h::ssize_t;
+pub use pgbouncer::types::ssize_t;
 pub use self::_stdio_h::{__sFILE, __sFILEX, __sbuf, __stderrp, fpos_t, fprintf, snprintf, FILE};
 use self::_stdlib_h::{atexit, atol, exit, getenv, setprogname, srandom};
 use self::_string_h::{memset, strerror, strlen};
@@ -1618,10 +1587,10 @@ pub use self::_types_h::{
     __int32_t, __int64_t, __uint16_t, __uint32_t, __uint64_t, __uint8_t,
 };
 pub use self::_uid_t_h::uid_t;
-pub use self::_uint16_t_h::uint16_t;
-pub use self::_uint32_t_h::uint32_t;
-pub use self::_uint64_t_h::uint64_t;
-pub use self::_uint8_t_h::uint8_t;
+pub use pgbouncer::types::uint16_t;
+pub use pgbouncer::types::uint32_t;
+pub use pgbouncer::types::uint64_t;
+pub use pgbouncer::types::uint8_t;
 pub use self::_uintptr_t_h::uintptr_t;
 pub use pgbouncer::types::{aatree_cmp_f, aatree_walker_f, AANode, AATree};
 use self::admin_h::admin_setup;

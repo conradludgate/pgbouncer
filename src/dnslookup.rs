@@ -33,26 +33,9 @@ pub mod sys__types_h {
     use super::_types_h::__int32_t;
 }
 
-pub mod _size_t_h {
-    
-    pub type size_t = __darwin_size_t;
-    use super::_types_h::__darwin_size_t;
-}
 
-pub mod _uint8_t_h {
-    
-    pub type uint8_t = u8;
-}
 
-pub mod _uint32_t_h {
-    
-    pub type uint32_t = u32;
-}
 
-pub mod _uint64_t_h {
-    
-    pub type uint64_t = u64;
-}
 
 pub mod _timeval_h {
     #[derive(Copy, Clone)]
@@ -243,7 +226,7 @@ pub mod event_struct_h {
         pub tqe_prev: *mut *mut event_callback,
     }
     use super::_timeval_h::timeval;
-    use super::_uint8_t_h::uint8_t;
+    use crate::types::uint8_t;
     use super::event_h::event_base;
 }
 
@@ -270,7 +253,7 @@ pub mod dnslookup_h {
             ::core::ffi::c_int,
         ) -> (),
     >;
-    use super::_uint32_t_h::uint32_t;
+    use crate::types::uint32_t;
     use super::netdb_h::addrinfo;
     use super::socket_h::sockaddr;
     use crate::types::usec_t;
@@ -358,7 +341,7 @@ pub mod dns_h {
 }
 
 pub mod _malloc_h {
-    use super::_size_t_h::size_t;
+    use crate::types::size_t;
     extern "C" {
         
         pub fn calloc(__count: size_t, __size: size_t) -> *mut ::core::ffi::c_void;
@@ -374,7 +357,7 @@ pub mod _null_h {
 }
 
 pub mod usual_socket_h {
-    use super::_size_t_h::size_t;
+    use crate::types::size_t;
     use super::socket_h::sockaddr;
     extern "C" {
         
@@ -395,7 +378,7 @@ pub mod util_h {
 }
 
 pub mod _string_h {
-    use super::_size_t_h::size_t;
+    use crate::types::size_t;
     extern "C" {
         
         pub fn memcmp(
@@ -472,7 +455,7 @@ pub use self::_int32_t_h::int32_t;
 use self::_malloc_h::{calloc, free};
 pub use self::_null_h::NULL;
 pub use self::_sa_family_t_h::sa_family_t;
-pub use self::_size_t_h::size_t;
+pub use crate::types::size_t;
 pub use self::_socklen_t_h::socklen_t;
 use self::_string_h::{memcmp, memset, strchr, strcmp, strdup, strlen};
 use self::_strings_h::strcasecmp;
@@ -480,9 +463,9 @@ pub use self::_timeval_h::timeval;
 pub use self::_types_h::{
     __darwin_size_t, __darwin_socklen_t, __darwin_time_t, __int32_t, __uint32_t, __uint8_t,
 };
-pub use self::_uint32_t_h::uint32_t;
-pub use self::_uint64_t_h::uint64_t;
-pub use self::_uint8_t_h::uint8_t;
+pub use crate::types::uint32_t;
+pub use crate::types::uint64_t;
+pub use crate::types::uint8_t;
 pub use self::_uintptr_t_h::uintptr_t;
 pub use crate::types::{aatree_cmp_f, aatree_destroy, aatree_init, aatree_insert, aatree_search, aatree_walk, aatree_walker_f, AANode, AATree, AATreeWalkType, AA_WALK_IN_ORDER, AA_WALK_POST_ORDER, AA_WALK_PRE_ORDER};
 use self::bouncer_h::{cf_dns_max_ttl, cf_dns_nxdomain_ttl, cf_resolv_conf, pgb_event_base};

@@ -61,27 +61,9 @@ pub mod _uid_t_h {
     use super::sys__types_h::__darwin_uid_t;
 }
 
-pub mod _size_t_h {
-    
-    pub type size_t = __darwin_size_t;
-    use super::_types_h::__darwin_size_t;
-}
 
-pub mod _ssize_t_h {
-    
-    pub type ssize_t = __darwin_ssize_t;
-    use super::_types_h::__darwin_ssize_t;
-}
 
-pub mod _uint8_t_h {
-    
-    pub type uint8_t = u8;
-}
 
-pub mod _uint32_t_h {
-    
-    pub type uint32_t = u32;
-}
 
 pub mod _stdio_h {
     
@@ -134,8 +116,8 @@ pub mod _stdio_h {
     }
     
     pub type FILE = __sFILE;
-    use super::_size_t_h::size_t;
-    use super::_ssize_t_h::ssize_t;
+    use crate::types::size_t;
+    use crate::types::ssize_t;
     use super::sys__types_h::__darwin_off_t;
     extern "C" {
         
@@ -429,7 +411,7 @@ pub mod cxalloc_h {
         pub ops: *const CxOps,
         pub ctx: *mut ::core::ffi::c_void,
     }
-    use super::_size_t_h::size_t;
+    use crate::types::size_t;
     extern "C" {
         
         pub fn cx_alloc(cx: *const CxMem, len: size_t) -> *mut ::core::ffi::c_void;
@@ -519,7 +501,7 @@ pub mod hba_h {
     
     pub const NAME_REPLICATION: ::core::ffi::c_int = 4 as ::core::ffi::c_int;
     use super::StrSet;
-    use super::_uint8_t_h::uint8_t;
+    use crate::types::uint8_t;
     use crate::types::List;
 }
 
@@ -535,7 +517,7 @@ pub mod cbtree_h {
             *mut *const ::core::ffi::c_void,
         ) -> size_t,
     >;
-    use super::_size_t_h::size_t;
+    use crate::types::size_t;
     use super::cxalloc_h::CxMem;
     extern "C" {
         
@@ -559,7 +541,7 @@ pub mod cbtree_h {
 }
 
 pub mod _malloc_h {
-    use super::_size_t_h::size_t;
+    use crate::types::size_t;
     extern "C" {
         
         pub fn malloc(__size: size_t) -> *mut ::core::ffi::c_void;
@@ -642,7 +624,7 @@ pub mod inet_h {
 }
 
 pub mod _string_h {
-    use super::_size_t_h::size_t;
+    use crate::types::size_t;
     extern "C" {
         
         pub fn memcmp(
@@ -688,7 +670,7 @@ pub mod _string_h {
 }
 
 pub mod cxextra_h {
-    use super::_size_t_h::size_t;
+    use crate::types::size_t;
     use super::cxalloc_h::CxMem;
     extern "C" {
         
@@ -732,9 +714,9 @@ use self::_malloc_h::{calloc, free, malloc, realloc};
 pub use self::_null_h::NULL;
 pub use self::_pid_t_h::pid_t;
 pub use self::_sa_family_t_h::sa_family_t;
-pub use self::_size_t_h::size_t;
+pub use crate::types::size_t;
 pub use self::_socklen_t_h::socklen_t;
-pub use self::_ssize_t_h::ssize_t;
+pub use crate::types::ssize_t;
 pub use self::_stdio_h::{__sFILE, __sFILEX, __sbuf, fclose, fopen, fpos_t, getline, FILE};
 use self::_stdlib_h::strtoul;
 use self::_string_h::{memcmp, memcpy, memset, strchr, strcmp, strdup, strerror, strlen, strncmp};
@@ -743,8 +725,8 @@ pub use self::_types_h::{
     __darwin_wchar_t, __int32_t, __int64_t, __uint16_t, __uint32_t, __uint8_t,
 };
 pub use self::_uid_t_h::uid_t;
-pub use self::_uint32_t_h::uint32_t;
-pub use self::_uint8_t_h::uint8_t;
+pub use crate::types::uint32_t;
+pub use crate::types::uint8_t;
 pub use self::bouncer_h::{
     auth_type, pga_family, pga_is_unix, sockaddr_ucreds, PgAddr, ReplicationType, AUTH_TYPE_ANY,
     AUTH_TYPE_CERT, AUTH_TYPE_HBA, AUTH_TYPE_LDAP, AUTH_TYPE_MD5, AUTH_TYPE_PAM, AUTH_TYPE_PEER,
