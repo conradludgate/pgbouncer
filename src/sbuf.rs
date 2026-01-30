@@ -1709,7 +1709,7 @@ pub unsafe extern "C" fn sbuf_queue_packet(
     mut pkt: *mut PktBuf,
 ) -> bool {
     let mut res: bool = false;
-    if pkt.is_null() || (*pkt).failed() as ::core::ffi::c_int != 0 {
+    if pkt.is_null() || (*pkt).failed() {
         pktbuf_free(pkt);
         return false;
     }

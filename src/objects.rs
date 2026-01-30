@@ -1965,7 +1965,7 @@ pub unsafe extern "C" fn change_server_state(mut server: *mut PgSocket, mut news
             );
         }
         12 => {
-            if (*server).close_needed() as ::core::ffi::c_int != 0 || cf_server_round_robin != 0 {
+            if (*server).close_needed() || cf_server_round_robin != 0 {
                 statlist_append(&raw mut (*pool).idle_server_list, &raw mut (*server).head);
             } else {
                 statlist_prepend(&raw mut (*pool).idle_server_list, &raw mut (*server).head);
@@ -3893,7 +3893,7 @@ unsafe extern "C" fn dns_connect(mut server: *mut PgSocket) {
         let mut n: ::core::ffi::c_int = 0;
         if (*(*(*server).pool).db).load_balance_hosts as ::core::ffi::c_uint
             == LOAD_BALANCE_HOSTS_DISABLE as ::core::ffi::c_int as ::core::ffi::c_uint
-            && (*(*server).pool).last_connect_failed() as ::core::ffi::c_int != 0
+            && (*(*server).pool).last_connect_failed()
         {
             (*(*server).pool).rrcounter = (*(*server).pool).rrcounter.wrapping_add(1);
         }

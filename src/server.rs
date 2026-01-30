@@ -1298,7 +1298,7 @@ unsafe extern "C" fn handle_server_startup(
                     finish_welcome_msg(server);
                     res = release_server(server);
                     if res as ::core::ffi::c_int != 0
-                        && (*(*(*server).pool).db).admin as ::core::ffi::c_int != 0
+                        && (*(*(*server).pool).db).admin
                     {
                         res = takeover_login(server);
                     }
@@ -1491,7 +1491,7 @@ unsafe extern "C" fn handle_server_work(mut server: *mut PgSocket, mut pkt: *mut
                 server,
                 &raw mut fresh2 as *mut ::core::ffi::c_char as *const ::core::ffi::c_char,
                 &raw mut ignore_packet,
-            ) && (*server).query_failed() as ::core::ffi::c_int != 0
+            ) && (*server).query_failed()
             {
                 let mut fresh3: [::core::ffi::c_char; 2] = [
                     PqMsg_Sync as ::core::ffi::c_char,
@@ -2124,7 +2124,7 @@ pub unsafe extern "C" fn server_proto(
         }
         _ => {}
     }
-    if !res && (*(*pool).db).admin as ::core::ffi::c_int != 0 {
+    if !res && (*(*pool).db).admin {
         takeover_login_failed();
     }
     res

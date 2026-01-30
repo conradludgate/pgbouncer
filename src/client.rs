@@ -2139,7 +2139,7 @@ unsafe extern "C" fn finish_set_pool(mut client: *mut PgSocket, mut takeover: bo
         return true;
     }
     if !(*client).pool.is_null()
-        && (*(*(*client).pool).db).admin as ::core::ffi::c_int != 0
+        && (*(*(*client).pool).db).admin
         && !admin_post_login(client)
     {
         return false;
@@ -2235,7 +2235,7 @@ pub unsafe extern "C" fn check_db_connection_count(mut client: *mut PgSocket) ->
     {
         return true;
     }
-    if (*(*client).c2rust_unnamed.db).admin as ::core::ffi::c_int != 0
+    if (*(*client).c2rust_unnamed.db).admin
         && strlist_contains(
             cf_admin_users,
             &raw mut (*(*client).login_user_credentials).name as *mut ::core::ffi::c_char,
@@ -2277,7 +2277,7 @@ pub unsafe extern "C" fn check_user_connection_count(mut client: *mut PgSocket) 
         (*(*(*client).login_user_credentials).global_user).client_connection_count += 1;
         (*client).set_user_connection_counted(true);
     }
-    if (*(*client).c2rust_unnamed.db).admin as ::core::ffi::c_int != 0
+    if (*(*client).c2rust_unnamed.db).admin
         && strlist_contains(
             cf_admin_users,
             &raw mut (*(*client).login_user_credentials).name as *mut ::core::ffi::c_char,
@@ -3411,7 +3411,7 @@ unsafe extern "C" fn handle_client_startup(
             return false;
         }
     }
-    if (*client).wait_for_welcome() as ::core::ffi::c_int != 0
+    if (*client).wait_for_welcome()
         || (*client).wait_for_auth() as ::core::ffi::c_int != 0
     {
         if finish_client_login(client) {

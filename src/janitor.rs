@@ -1334,7 +1334,7 @@ unsafe extern "C" fn per_loop_activate(mut pool: *mut PgPool) {
         if (*client).replication as u64 != 0 {
             launch_new_connection(pool, true);
         } else if !statlist_empty(&raw mut (*pool).idle_server_list) {
-            if (*client).wait_for_welcome() as ::core::ffi::c_int != 0
+            if (*client).wait_for_welcome()
                 && !(*pool).welcome_msg_ready()
             {
                 launch_new_connection(pool, true);
@@ -1738,12 +1738,12 @@ unsafe extern "C" fn pool_server_maint(mut pool: *mut PgPool) {
             as *mut PgSocket;
         if cf_server_fast_close != 0
             && (*server).ready() as ::core::ffi::c_int != 0
-            && (*server).close_needed() as ::core::ffi::c_int != 0
+            && (*server).close_needed()
         {
             disconnect_server(server, true, c"database configuration changed".as_ptr());
         }
         if (*server).replication as ::core::ffi::c_uint != 0
-            && (*server).close_needed() as ::core::ffi::c_int != 0
+            && (*server).close_needed()
         {
             disconnect_server(server, true, c"database configuration changed".as_ptr());
         }
