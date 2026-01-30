@@ -188,30 +188,12 @@ pub mod cfparser_h {
     }
 }
 
-pub mod time_h {
-    
-    pub type usec_t = uint64_t;
-    
-    pub const USEC: usec_t = 1000000 as ::core::ffi::c_int as usec_t;
-    use super::_uint64_t_h::uint64_t;
-    extern "C" {
-        
-        pub fn get_cached_time() -> usec_t;
-    }
-}
 
 pub mod list_h {
     pub use super::super::common::types::{List, list_empty};
 }
 
-pub mod statlist_h {
-    pub use super::super::common::types::{StatList, statlist_count, statlist_empty};
-    pub use super::list_h::List;
-}
 
-pub mod aatree_h {
-    pub use super::super::common::types::{AATree, AANode, aatree_walker_f, aatree_cmp_f, AATreeWalkType, AA_WALK_IN_ORDER, AA_WALK_PRE_ORDER, AA_WALK_POST_ORDER, aatree_init, aatree_destroy, aatree_search, aatree_insert, aatree_walk};
-}
 
 pub mod _sa_family_t_h {
     
@@ -857,7 +839,7 @@ pub mod bouncer_h {
     use super::_uint16_t_h::uint16_t;
     use super::_uint64_t_h::uint64_t;
     use super::_uint8_t_h::uint8_t;
-    use super::aatree_h::{AANode, AATree};
+    use crate::types::{AANode, AATree};
     use super::cfparser_h::CfLookup;
     use super::cryptohash_h::pg_cryptohash_type;
     use super::dnslookup_h::{DNSContext, DNSToken};
@@ -870,8 +852,8 @@ pub mod bouncer_h {
     use crate::types::PktHdr;
     use super::sbuf_h::SBuf;
     use super::socket_h::{sockaddr, AF_UNIX};
-    use super::statlist_h::{statlist_empty, StatList};
-    use super::time_h::usec_t;
+    use crate::types::{statlist_empty, StatList};
+    use crate::types::usec_t;
     use super::varcache_h::VarCache;
     extern "C" {
         
@@ -1151,7 +1133,7 @@ pub mod dnslookup_h {
     >;
     use super::_uint32_t_h::uint32_t;
     use super::netdb_h::addrinfo;
-    use super::time_h::usec_t;
+    use crate::types::usec_t;
     extern "C" {
         
         pub type DNSToken;
@@ -1292,7 +1274,7 @@ pub mod slab_h {
 pub mod objects_h {
     use super::bouncer_h::{PgCredentials, PgDatabase, PgGlobalUser, PgPool, PgSocket};
 
-    use super::statlist_h::StatList;
+    use crate::types::StatList;
     extern "C" {
         
         pub type Slab;
@@ -1472,7 +1454,7 @@ pub mod _string_h {
 
 pub mod stats_h {
     use super::bouncer_h::PgSocket;
-    use super::statlist_h::StatList;
+    use crate::types::StatList;
     extern "C" {
         
         pub fn admin_database_stats(client: *mut PgSocket, pool_list_0: *mut StatList) -> bool;
@@ -1670,7 +1652,7 @@ pub use self::_uint64_t_h::uint64_t;
 pub use self::_uint8_t_h::uint8_t;
 pub use self::_uintptr_t_h::uintptr_t;
 pub use self::_va_list_h::va_list;
-pub use self::aatree_h::{aatree_cmp_f, aatree_walker_f, AANode, AATree};
+pub use crate::types::{aatree_cmp_f, aatree_walker_f, AANode, AATree};
 pub use self::bouncer_h::{
     adns, auth_type, cf_admin_users, cf_auth_type, cf_default_pool_size, cf_listen_port,
     cf_log_connections, cf_min_pool_size, cf_pause_mode, cf_res_pool_size, cf_server_lifetime,
@@ -1763,7 +1745,7 @@ use self::server_h::{
 };
 pub use self::slab_h::{slab_active_count, slab_free_count, slab_stat_fn, slab_stats};
 pub use self::socket_h::{cmsghdr, msghdr, sockaddr, AF_UNIX, SCM_RIGHTS, SOL_SOCKET};
-pub use self::statlist_h::{statlist_count, statlist_empty, StatList};
+pub use crate::types::{statlist_count, statlist_empty, StatList};
 use self::stats_h::{
     admin_database_stats, admin_database_stats_averages, admin_database_stats_totals,
     show_stat_totals,
@@ -1774,7 +1756,7 @@ pub use self::sys__types_h::{
     __darwin_gid_t, __darwin_off_t, __darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t,
     __DARWIN_NULL,
 };
-pub use self::time_h::{get_cached_time, usec_t, USEC};
+pub use crate::types::{usec_t, USEC};
 use self::tls_h::tls_get_connection_info;
 use self::unistd_h::{getpeereid, getuid};
 use self::usual_socket_h::{sa2str, socket_set_nonblocking};
@@ -5836,4 +5818,9 @@ pub unsafe extern "C" fn admin_handle_cancel(mut admin: *mut PgSocket) {
     if cf_pause_mode != P_NONE as ::core::ffi::c_int {
         full_resume();
     }
+}
+
+
+extern "C" {
+    pub fn get_cached_time() -> usec_t;
 }

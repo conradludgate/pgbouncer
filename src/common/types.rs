@@ -145,6 +145,7 @@ pub type FILE = __sFILE;
 // =============================================================================
 
 pub type usec_t = uint64_t;
+pub const USEC: usec_t = 1000000;
 
 #[derive(Copy, Clone)]
 #[repr(C)]

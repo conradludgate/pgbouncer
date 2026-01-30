@@ -136,35 +136,12 @@ pub mod tls_h {
     }
 }
 
-pub mod time_h {
-    
-    pub type usec_t = uint64_t;
-    use super::_uint64_t_h::uint64_t;
-}
 
 pub mod list_h {
     pub use super::super::common::types::{List, list_empty};
 }
 
-pub mod statlist_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct StatList {
-        pub head: List,
-        pub cur_count: ::core::ffi::c_int,
-    }
-    #[inline]
-    
-    pub unsafe extern "C" fn statlist_empty(mut list: *const StatList) -> bool {
-        list_empty(&raw const (*list).head) != 0
-    }
-    use super::list_h::{list_empty, List};
-}
 
-pub mod aatree_h {
-    pub use super::super::common::types::{AATree, AANode, aatree_walker_f, aatree_cmp_f, AATreeWalkType, AA_WALK_IN_ORDER, AA_WALK_PRE_ORDER, AA_WALK_POST_ORDER, aatree_init, aatree_destroy, aatree_search, aatree_insert, aatree_walk};
-}
 
 pub mod _sa_family_t_h {
     
@@ -720,7 +697,7 @@ pub mod bouncer_h {
     use super::_uint16_t_h::uint16_t;
     use super::_uint64_t_h::uint64_t;
     use super::_uint8_t_h::uint8_t;
-    use super::aatree_h::{AANode, AATree};
+    use crate::types::{AANode, AATree};
     use super::cryptohash_h::pg_cryptohash_type;
     use super::dnslookup_h::DNSToken;
     use super::in6_h::sockaddr_in6;
@@ -731,8 +708,8 @@ pub mod bouncer_h {
     use crate::types::PktHdr;
     use super::sbuf_h::SBuf;
     use super::socket_h::sockaddr;
-    use super::statlist_h::{statlist_empty, StatList};
-    use super::time_h::usec_t;
+    use crate::types::{statlist_empty, StatList};
+    use crate::types::usec_t;
     use super::varcache_h::VarCache;
     extern "C" {
         
@@ -1182,7 +1159,7 @@ pub use self::_uint64_t_h::uint64_t;
 pub use self::_uint8_t_h::uint8_t;
 pub use self::_uintptr_t_h::uintptr_t;
 pub use self::_va_list_h::va_list;
-pub use self::aatree_h::{aatree_cmp_f, aatree_walker_f, AANode, AATree};
+pub use crate::types::{aatree_cmp_f, aatree_walker_f, AANode, AATree};
 pub use self::bouncer_h::{
     cf_log_pooler_errors, cf_max_packet_size, cf_peer_id, first_socket,
     replication_type_parameters, sockaddr_ucreds, C2RustUnnamed_9, CallbackState, LoadBalanceHosts,
@@ -1244,11 +1221,11 @@ pub use self::scram_h::{
 };
 use self::server_h::kill_pool_logins;
 pub use self::socket_h::sockaddr;
-pub use self::statlist_h::{statlist_empty, StatList};
+pub use crate::types::{statlist_empty, StatList};
 pub use self::stdbool_h::{false_0, true_0};
 pub use crate::types::{PStr, StrPool};
 pub use self::sys__types_h::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
-pub use self::time_h::usec_t;
+pub use crate::types::usec_t;
 
 pub use self::uthash_h::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 use self::util_h::{get_random_bytes, pg_md5_encrypt};

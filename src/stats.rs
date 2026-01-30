@@ -117,30 +117,12 @@ pub mod tls_h {
     }
 }
 
-pub mod time_h {
-    
-    pub type usec_t = uint64_t;
-    
-    pub const USEC: usec_t = 1000000 as ::core::ffi::c_int as usec_t;
-    use super::_uint64_t_h::uint64_t;
-    extern "C" {
-        
-        pub fn get_cached_time() -> usec_t;
-    }
-}
 
 pub mod list_h {
     pub use super::super::common::types::List;
 }
 
-pub mod statlist_h {
-    pub use super::super::common::types::StatList;
-    pub use super::list_h::List;
-}
 
-pub mod aatree_h {
-    pub use super::super::common::types::{AATree, AANode, aatree_walker_f, aatree_cmp_f, AATreeWalkType, AA_WALK_IN_ORDER, AA_WALK_PRE_ORDER, AA_WALK_POST_ORDER, aatree_init, aatree_destroy, aatree_search, aatree_insert, aatree_walk};
-}
 
 pub mod _sa_family_t_h {
     
@@ -693,7 +675,7 @@ pub mod bouncer_h {
     use super::_uint16_t_h::uint16_t;
     use super::_uint64_t_h::uint64_t;
     use super::_uint8_t_h::uint8_t;
-    use super::aatree_h::{AANode, AATree};
+    use crate::types::{AANode, AATree};
     use super::cryptohash_h::pg_cryptohash_type;
     use super::dnslookup_h::DNSToken;
     use super::event_h::event_base;
@@ -705,8 +687,8 @@ pub mod bouncer_h {
     use crate::types::PktHdr;
     use super::sbuf_h::SBuf;
     use super::socket_h::sockaddr;
-    use super::statlist_h::StatList;
-    use super::time_h::usec_t;
+    use crate::types::StatList;
+    use crate::types::usec_t;
     use super::varcache_h::VarCache;
     extern "C" {
         
@@ -900,7 +882,7 @@ pub mod admin_h {
 
 pub mod objects_h {
 
-    use super::statlist_h::StatList;
+    use crate::types::StatList;
     extern "C" {
         
         pub static mut pool_list: StatList;
@@ -945,7 +927,7 @@ pub use self::_uint32_t_h::uint32_t;
 pub use self::_uint64_t_h::uint64_t;
 pub use self::_uint8_t_h::uint8_t;
 pub use self::_uintptr_t_h::uintptr_t;
-pub use self::aatree_h::{aatree_cmp_f, aatree_walker_f, AANode, AATree};
+pub use crate::types::{aatree_cmp_f, aatree_walker_f, AANode, AATree};
 use self::admin_h::{admin_error, admin_flush};
 pub use self::bouncer_h::{
     cf_log_stats, cf_stats_period, pgb_event_base, sockaddr_ucreds, C2RustUnnamed_9, CallbackState,
@@ -987,11 +969,11 @@ pub use self::sbuf_h::{
     SBUF_EV_TLS_READY,
 };
 pub use self::socket_h::sockaddr;
-pub use self::statlist_h::StatList;
+pub use crate::types::StatList;
 pub use self::stdbool_h::true_0;
 pub use crate::types::{PStr, StrPool};
 pub use self::sys__types_h::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
-pub use self::time_h::{get_cached_time, usec_t, USEC};
+pub use crate::types::{usec_t, USEC};
 
 pub use self::uthash_h::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 pub use self::varcache_h::VarCache;
@@ -1811,4 +1793,9 @@ pub unsafe extern "C" fn stats_setup() {
             strerror(*__error()),
         );
     }
+}
+
+
+extern "C" {
+    pub fn get_cached_time() -> usec_t;
 }

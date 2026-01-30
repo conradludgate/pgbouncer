@@ -117,24 +117,12 @@ pub mod tls_h {
     }
 }
 
-pub mod time_h {
-    
-    pub type usec_t = uint64_t;
-    use super::_uint64_t_h::uint64_t;
-}
 
 pub mod list_h {
     pub use super::super::common::types::{List, list_init, list_empty, list_prepend, list_append, list_del, list_pop, list_first, list_last};
 }
 
-pub mod statlist_h {
-    pub use super::super::common::types::{StatList, statlist_init, statlist_count, statlist_empty, statlist_prepend, statlist_append, statlist_remove, statlist_pop, statlist_first, statlist_last, statlist_put_before};
-    pub use super::list_h::List;
-}
 
-pub mod aatree_h {
-    pub use super::super::common::types::{AATree, AANode, aatree_walker_f, aatree_cmp_f, AATreeWalkType, AA_WALK_IN_ORDER, AA_WALK_PRE_ORDER, AA_WALK_POST_ORDER, aatree_init, aatree_destroy, aatree_search, aatree_insert, aatree_walk};
-}
 
 pub mod _sa_family_t_h {
     
@@ -690,7 +678,7 @@ pub mod bouncer_h {
     use super::_uint16_t_h::uint16_t;
     use super::_uint64_t_h::uint64_t;
     use super::_uint8_t_h::uint8_t;
-    use super::aatree_h::{AANode, AATree};
+    use crate::types::{AANode, AATree};
     use super::cryptohash_h::pg_cryptohash_type;
     use super::dnslookup_h::DNSToken;
     use super::in6_h::sockaddr_in6;
@@ -701,8 +689,8 @@ pub mod bouncer_h {
     use crate::types::PktHdr;
     use super::sbuf_h::SBuf;
     use super::socket_h::sockaddr;
-    use super::statlist_h::StatList;
-    use super::time_h::usec_t;
+    use crate::types::StatList;
+    use crate::types::usec_t;
     use super::varcache_h::VarCache;
     extern "C" {
         
@@ -1097,7 +1085,7 @@ pub use self::_uint32_t_h::uint32_t;
 pub use self::_uint64_t_h::uint64_t;
 pub use self::_uint8_t_h::uint8_t;
 pub use self::_uintptr_t_h::uintptr_t;
-pub use self::aatree_h::{aatree_cmp_f, aatree_walker_f, AANode, AATree};
+pub use crate::types::{aatree_cmp_f, aatree_walker_f, AANode, AATree};
 pub use self::bouncer_h::{
     cf_max_prepared_statements, sockaddr_ucreds, C2RustUnnamed_9, CallbackState, LoadBalanceHosts,
     OutstandingRequest, PacketCallbackFlag, PgAddr, PgCredentials, PgDatabase, PgGlobalUser,
@@ -1150,11 +1138,11 @@ pub use self::sbuf_h::{
 };
 use self::slab_h::{slab_alloc, slab_free};
 pub use self::socket_h::sockaddr;
-pub use self::statlist_h::{statlist_count, statlist_last, StatList};
+pub use crate::types::{statlist_count, statlist_last, StatList};
 pub use self::stdbool_h::{false_0, true_0};
 pub use crate::types::{PStr, StrPool};
 pub use self::sys__types_h::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
-pub use self::time_h::usec_t;
+pub use crate::types::usec_t;
 
 pub use crate::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 pub use self::uthash_h::{

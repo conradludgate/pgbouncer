@@ -139,30 +139,12 @@ pub mod tls_h {
     }
 }
 
-pub mod time_h {
-    
-    pub type usec_t = uint64_t;
-    
-    pub const USEC: usec_t = 1000000 as ::core::ffi::c_int as usec_t;
-    use super::_uint64_t_h::uint64_t;
-    extern "C" {
-        
-        pub fn get_cached_time() -> usec_t;
-    }
-}
 
 pub mod list_h {
     pub use super::super::common::types::{List, list_init, list_empty, list_prepend, list_append, list_del, list_pop, list_first, list_last};
 }
 
-pub mod statlist_h {
-    pub use super::super::common::types::{StatList, statlist_init, statlist_count, statlist_empty, statlist_prepend, statlist_append, statlist_remove, statlist_pop, statlist_first, statlist_last, statlist_put_before};
-    pub use super::list_h::List;
-}
 
-pub mod aatree_h {
-    pub use super::super::common::types::{AATree, AANode, aatree_walker_f, aatree_cmp_f, AATreeWalkType, AA_WALK_IN_ORDER, AA_WALK_PRE_ORDER, AA_WALK_POST_ORDER, aatree_init, aatree_destroy, aatree_search, aatree_insert, aatree_walk};
-}
 
 pub mod _sa_family_t_h {
     
@@ -811,7 +793,7 @@ pub mod bouncer_h {
     use super::_uint16_t_h::uint16_t;
     use super::_uint64_t_h::uint64_t;
     use super::_uint8_t_h::uint8_t;
-    use super::aatree_h::{AANode, AATree};
+    use crate::types::{AANode, AATree};
     use super::cryptohash_h::pg_cryptohash_type;
     use super::dnslookup_h::{DNSContext, DNSToken};
     use super::in6_h::sockaddr_in6;
@@ -822,8 +804,8 @@ pub mod bouncer_h {
     use crate::types::PktHdr;
     use super::sbuf_h::SBuf;
     use super::socket_h::{sockaddr, AF_UNIX};
-    use super::statlist_h::{statlist_empty, StatList};
-    use super::time_h::usec_t;
+    use crate::types::{statlist_empty, StatList};
+    use crate::types::usec_t;
     use super::varcache_h::VarCache;
     extern "C" {
         
@@ -1339,7 +1321,7 @@ pub mod server_h {
     use super::bouncer_h::{PgDatabase, PgGlobalUser, PgPool, PgSocket};
     use super::sbuf_h::{SBuf, SBufEvent};
     use crate::types::MBuf;
-    use super::time_h::usec_t;
+    use crate::types::usec_t;
     extern "C" {
         
         pub fn server_proto(sbuf: *mut SBuf, evtype: SBufEvent, pkt: *mut MBuf) -> bool;
@@ -1367,7 +1349,7 @@ pub mod scram_h {
 }
 
 pub mod janitor_h {
-    use super::aatree_h::AATree;
+    use crate::types::AATree;
     use super::bouncer_h::PgDatabase;
     extern "C" {
         
@@ -1484,9 +1466,7 @@ pub use self::_uint64_t_h::uint64_t;
 pub use self::_uint8_t_h::uint8_t;
 pub use self::_uintptr_t_h::uintptr_t;
 pub use self::_va_list_h::va_list;
-pub use self::aatree_h::{
-    aatree_cmp_f, aatree_init, aatree_insert, aatree_search, aatree_walker_f, AANode, AATree,
-};
+pub use crate::types::{aatree_cmp_f, aatree_init, aatree_insert, aatree_search, aatree_walker_f, AANode, AATree};
 use self::admin_h::admin_handle_cancel;
 pub use self::bouncer_h::{
     adns, auth_type, cf_auth_type, cf_autodb_connstr, cf_log_connections, cf_log_disconnections,
@@ -1588,14 +1568,11 @@ pub use self::slab_h::{
     slab_active_count, slab_alloc, slab_create, slab_destroy, slab_free, slab_init_fn,
 };
 pub use self::socket_h::{sockaddr, AF_INET, AF_INET6, AF_UNIX};
-pub use self::statlist_h::{
-    statlist_append, statlist_count, statlist_empty, statlist_first, statlist_init, statlist_pop,
-    statlist_prepend, statlist_put_before, statlist_remove, StatList,
-};
+pub use crate::types::{statlist_append, statlist_count, statlist_empty, statlist_first, statlist_init, statlist_pop, statlist_prepend, statlist_put_before, statlist_remove, StatList};
 pub use self::stdbool_h::{false_0, true_0};
 pub use crate::types::{PStr, StrPool};
 pub use self::sys__types_h::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
-pub use self::time_h::{get_cached_time, usec_t, USEC};
+pub use crate::types::{usec_t, USEC};
 
 pub use self::un_h::sockaddr_un;
 use self::usual_socket_h::sa2str;
@@ -5900,3 +5877,8 @@ unsafe extern "C" fn run_static_initializers() {
 #[cfg_attr(target_os = "windows", link_section = ".CRT$XIB")]
 #[cfg_attr(target_os = "macos", link_section = "__DATA,__mod_init_func")]
 static INIT_ARRAY: [unsafe extern "C" fn(); 1] = [run_static_initializers];
+
+
+extern "C" {
+    pub fn get_cached_time() -> usec_t;
+}

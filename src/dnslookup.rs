@@ -66,30 +66,12 @@ pub mod _timeval_h {
     use super::sys__types_h::__darwin_suseconds_t;
 }
 
-pub mod time_h {
-    
-    pub type usec_t = uint64_t;
-    
-    pub const USEC: usec_t = 1000000 as ::core::ffi::c_int as usec_t;
-    use super::_uint64_t_h::uint64_t;
-    extern "C" {
-        
-        pub fn get_cached_time() -> usec_t;
-    }
-}
 
 pub mod list_h {
     pub use super::super::common::types::{List, list_init, list_empty, list_prepend, list_append, list_del, list_pop, list_first, list_last};
 }
 
-pub mod statlist_h {
-    pub use super::super::common::types::{StatList, statlist_init, statlist_count, statlist_empty, statlist_prepend, statlist_append, statlist_remove, statlist_pop, statlist_first, statlist_last, statlist_put_before};
-    pub use super::list_h::List;
-}
 
-pub mod aatree_h {
-    pub use super::super::common::types::{AATree, AANode, aatree_walker_f, aatree_cmp_f, AATreeWalkType, AA_WALK_IN_ORDER, AA_WALK_PRE_ORDER, AA_WALK_POST_ORDER, aatree_init, aatree_destroy, aatree_search, aatree_insert, aatree_walk};
-}
 
 pub mod _sa_family_t_h {
     
@@ -294,7 +276,7 @@ pub mod dnslookup_h {
     use super::_uint32_t_h::uint32_t;
     use super::netdb_h::addrinfo;
     use super::socket_h::sockaddr;
-    use super::time_h::usec_t;
+    use crate::types::usec_t;
 }
 
 pub mod logging_h {
@@ -449,7 +431,7 @@ pub mod _string_h {
 
 pub mod bouncer_h {
     use super::event_h::event_base;
-    use super::time_h::usec_t;
+    use crate::types::usec_t;
     extern "C" {
         
         pub static mut pgb_event_base: *mut event_base;
@@ -511,11 +493,7 @@ pub use self::_uint32_t_h::uint32_t;
 pub use self::_uint64_t_h::uint64_t;
 pub use self::_uint8_t_h::uint8_t;
 pub use self::_uintptr_t_h::uintptr_t;
-pub use self::aatree_h::{
-    aatree_cmp_f, aatree_destroy, aatree_init, aatree_insert, aatree_search, aatree_walk,
-    aatree_walker_f, AANode, AATree, AATreeWalkType, AA_WALK_IN_ORDER, AA_WALK_POST_ORDER,
-    AA_WALK_PRE_ORDER,
-};
+pub use crate::types::{aatree_cmp_f, aatree_destroy, aatree_init, aatree_insert, aatree_search, aatree_walk, aatree_walker_f, AANode, AATree, AATreeWalkType, AA_WALK_IN_ORDER, AA_WALK_POST_ORDER, AA_WALK_PRE_ORDER};
 use self::bouncer_h::{cf_dns_max_ttl, cf_dns_nxdomain_ttl, cf_resolv_conf, pgb_event_base};
 pub use self::dns_h::{
     evdns_base, evdns_base_free, evdns_base_new, evdns_base_resolv_conf_parse, evdns_getaddrinfo,
@@ -537,12 +515,10 @@ pub use self::logging_h::{
 pub use self::netdb_h::addrinfo;
 use self::objects_h::tag_host_addr_dirty;
 pub use self::socket_h::{sockaddr, SOCK_STREAM};
-pub use self::statlist_h::{
-    statlist_append, statlist_count, statlist_init, statlist_remove, StatList,
-};
+pub use crate::types::{statlist_append, statlist_count, statlist_init, statlist_remove, StatList};
 pub use self::stdbool_h::{false_0, true_0};
 pub use self::sys__types_h::{__darwin_suseconds_t, __DARWIN_NULL};
-pub use self::time_h::{get_cached_time, usec_t, USEC};
+pub use crate::types::{usec_t, USEC};
 use self::usual_socket_h::sa2str;
 use self::util_h::evutil_freeaddrinfo;
 #[derive(Copy, Clone)]
@@ -1386,3 +1362,8 @@ pub unsafe extern "C" fn adns_walk_zones(
 #[no_mangle]
 
 pub unsafe extern "C" fn adns_per_loop(mut _ctx: *mut DNSContext) {}
+
+
+extern "C" {
+    pub fn get_cached_time() -> usec_t;
+}

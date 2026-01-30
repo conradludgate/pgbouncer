@@ -231,24 +231,12 @@ pub mod tls_h {
     }
 }
 
-pub mod time_h {
-    
-    pub type usec_t = uint64_t;
-    use super::_uint64_t_h::uint64_t;
-}
 
 pub mod list_h {
     pub use super::super::common::types::{List, list_init, list_empty, list_prepend, list_append, list_del, list_pop, list_first, list_last};
 }
 
-pub mod statlist_h {
-    pub use super::super::common::types::{StatList, statlist_init, statlist_count, statlist_empty, statlist_prepend, statlist_append, statlist_remove, statlist_pop, statlist_first, statlist_last, statlist_put_before};
-    pub use super::list_h::List;
-}
 
-pub mod aatree_h {
-    pub use super::super::common::types::{AATree, AANode, aatree_walker_f, aatree_cmp_f, AATreeWalkType, AA_WALK_IN_ORDER, AA_WALK_PRE_ORDER, AA_WALK_POST_ORDER, aatree_init, aatree_destroy, aatree_search, aatree_insert, aatree_walk};
-}
 
 pub mod _sa_family_t_h {
     
@@ -934,7 +922,7 @@ pub mod bouncer_h {
     use super::_uint16_t_h::uint16_t;
     use super::_uint64_t_h::uint64_t;
     use super::_uint8_t_h::uint8_t;
-    use super::aatree_h::{AANode, AATree};
+    use crate::types::{AANode, AATree};
     use super::cryptohash_h::pg_cryptohash_type;
     use super::dnslookup_h::DNSToken;
     use super::event_h::event_base;
@@ -946,8 +934,8 @@ pub mod bouncer_h {
     use crate::types::PktHdr;
     use super::sbuf_h::SBuf;
     use super::socket_h::{sockaddr, AF_UNIX};
-    use super::statlist_h::StatList;
-    use super::time_h::usec_t;
+    use crate::types::StatList;
+    use crate::types::usec_t;
     use super::varcache_h::VarCache;
     extern "C" {
         
@@ -1339,7 +1327,7 @@ pub use self::_uint32_t_h::uint32_t;
 pub use self::_uint64_t_h::uint64_t;
 pub use self::_uint8_t_h::uint8_t;
 pub use self::_uintptr_t_h::uintptr_t;
-pub use self::aatree_h::{aatree_cmp_f, aatree_walker_f, AANode, AATree};
+pub use crate::types::{aatree_cmp_f, aatree_walker_f, AANode, AATree};
 pub use self::bouncer_h::{
     cf_listen_addr, cf_listen_backlog, cf_listen_port, cf_pause_mode, cf_so_reuseport,
     cf_tcp_defer_accept, cf_unix_socket_dir, cf_unix_socket_group, cf_unix_socket_mode, pga_copy,
@@ -1391,7 +1379,7 @@ pub use self::socket_h::{
     AF_UNIX, AF_UNSPEC, SOCK_STREAM, SOL_SOCKET, SO_REUSEADDR, SO_REUSEPORT,
 };
 pub use self::stat_h::{lstat, stat};
-pub use self::statlist_h::{statlist_append, statlist_count, statlist_remove, StatList};
+pub use crate::types::{statlist_append, statlist_count, statlist_remove, StatList};
 pub use self::stdbool_h::{false_0, true_0};
 pub use self::string_h::{parse_word_list, str_cb};
 pub use crate::types::{PStr, StrPool};
@@ -1401,7 +1389,7 @@ pub use self::sys__types_h::{
     __DARWIN_NULL,
 };
 use self::system_h::change_file_mode;
-pub use self::time_h::usec_t;
+pub use crate::types::usec_t;
 
 pub use self::un_h::sockaddr_un;
 use self::unistd_h::unlink;
