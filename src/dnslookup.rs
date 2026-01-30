@@ -88,55 +88,7 @@ pub mod statlist_h {
 }
 
 pub mod aatree_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct AATree {
-        pub root: *mut AANode,
-        pub count: ::core::ffi::c_int,
-        pub node_cmp: aatree_cmp_f,
-        pub release_cb: aatree_walker_f,
-    }
-    
-    pub type aatree_walker_f =
-        Option<unsafe extern "C" fn(*mut AANode, *mut ::core::ffi::c_void) -> ()>;
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct AANode {
-        pub left: *mut AANode,
-        pub right: *mut AANode,
-        pub level: ::core::ffi::c_int,
-    }
-    
-    pub type aatree_cmp_f =
-        Option<unsafe extern "C" fn(uintptr_t, *mut AANode) -> ::core::ffi::c_int>;
-    
-    pub type AATreeWalkType = ::core::ffi::c_uint;
-    
-    pub const AA_WALK_POST_ORDER: AATreeWalkType = 2;
-    
-    pub const AA_WALK_PRE_ORDER: AATreeWalkType = 1;
-    
-    pub const AA_WALK_IN_ORDER: AATreeWalkType = 0;
-    use super::_uintptr_t_h::uintptr_t;
-    extern "C" {
-        
-        pub fn aatree_init(tree: *mut AATree, cmpfn: aatree_cmp_f, release_cb: aatree_walker_f);
-        
-        pub fn aatree_search(tree: *mut AATree, value: uintptr_t) -> *mut AANode;
-        
-        pub fn aatree_insert(tree: *mut AATree, value: uintptr_t, node: *mut AANode);
-        
-        pub fn aatree_walk(
-            tree: *mut AATree,
-            wtype: AATreeWalkType,
-            walker: aatree_walker_f,
-            arg: *mut ::core::ffi::c_void,
-        );
-        
-        pub fn aatree_destroy(tree: *mut AATree);
-    }
+    pub use super::super::common::types::{AATree, AANode, aatree_walker_f, aatree_cmp_f, AATreeWalkType, AA_WALK_IN_ORDER, AA_WALK_PRE_ORDER, AA_WALK_POST_ORDER, aatree_init, aatree_destroy, aatree_search, aatree_insert, aatree_walk};
 }
 
 pub mod _sa_family_t_h {

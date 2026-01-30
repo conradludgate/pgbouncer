@@ -133,30 +133,7 @@ pub mod statlist_h {
 }
 
 pub mod aatree_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct AATree {
-        pub root: *mut AANode,
-        pub count: ::core::ffi::c_int,
-        pub node_cmp: aatree_cmp_f,
-        pub release_cb: aatree_walker_f,
-    }
-    
-    pub type aatree_walker_f =
-        Option<unsafe extern "C" fn(*mut AANode, *mut ::core::ffi::c_void) -> ()>;
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct AANode {
-        pub left: *mut AANode,
-        pub right: *mut AANode,
-        pub level: ::core::ffi::c_int,
-    }
-    
-    pub type aatree_cmp_f =
-        Option<unsafe extern "C" fn(uintptr_t, *mut AANode) -> ::core::ffi::c_int>;
-    use super::_uintptr_t_h::uintptr_t;
+    pub use super::super::common::types::{AATree, AANode, aatree_walker_f, aatree_cmp_f, AATreeWalkType, AA_WALK_IN_ORDER, AA_WALK_PRE_ORDER, AA_WALK_POST_ORDER, aatree_init, aatree_destroy, aatree_search, aatree_insert, aatree_walk};
 }
 
 pub mod _sa_family_t_h {

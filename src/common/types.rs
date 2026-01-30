@@ -310,6 +310,19 @@ pub struct AANode {
 
 pub type aatree_cmp_f = Option<unsafe extern "C" fn(uintptr_t, *mut AANode) -> ::core::ffi::c_int>;
 
+pub type AATreeWalkType = ::core::ffi::c_uint;
+pub const AA_WALK_IN_ORDER: AATreeWalkType = 0;
+pub const AA_WALK_PRE_ORDER: AATreeWalkType = 1;
+pub const AA_WALK_POST_ORDER: AATreeWalkType = 2;
+
+extern "C" {
+    pub fn aatree_init(tree: *mut AATree, cmpfn: aatree_cmp_f, release_cb: aatree_walker_f);
+    pub fn aatree_destroy(tree: *mut AATree);
+    pub fn aatree_search(tree: *mut AATree, value: uintptr_t) -> *mut AANode;
+    pub fn aatree_insert(tree: *mut AATree, value: uintptr_t, node: *mut AANode);
+    pub fn aatree_walk(tree: *mut AATree, wtype: AATreeWalkType, walker: aatree_walker_f, arg: *mut ::core::ffi::c_void);
+}
+
 #[derive(Copy, Clone)]
 #[repr(C)]
 pub struct MBuf {
