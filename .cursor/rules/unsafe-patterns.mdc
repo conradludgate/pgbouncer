@@ -1,0 +1,165 @@
+---
+description: Common unsafe patterns and how to refactor them safely
+globs:
+  - "src/**/*.rs"
+  - "lib/usual/**/*.rs"
+---
+
+# Unsafe Pattern Refactoring Guide
+
+## Linked List Iteration
+
+c2rust generates awkward list traversal. When refactoring:
+
+```rust
+// Before (c2rust style):
+let mut item = database_list.head.next;
+while item != &raw mut database_list.head {
+    let db = (item as *mut c_char).offset(-(0 as c_ulong as isize)) as *mut PgDatabase;
+    // ... use db ...
+    item = (*item).next;
+}
+
+// After (when list abstraction exists):
+for db in database_list.iter() {
+    // ... use db ...
+}
+```
+
+## Null Pointer Checks
+
+```rust
+// Before:
+if !ptr.is_null() {
+    let val = (*ptr).field;
+}
+
+// After (with Option<&T>):
+if let Some(obj) = ptr.as_ref() {
+    let val = obj.field;
+}
+
+// Or with early return:
+let obj = ptr.as_ref()?;
+let val = obj.field;
+```
+
+## Function Pointers
+
+```rust
+// Before:
+(*lookup).func.expect("non-null function pointer")(admin, arg)
+
+// After (when refactoring callback system):
+(lookup.func)(admin, arg)
+// Or use closures/traits when redesigning
+```
+
+## Buffer Operations
+
+```rust
+// Before:
+let mut buf: [c_char; 1024] = [0; 1024];
+vsnprintf(&raw mut buf as *mut c_char, size_of::<[c_char; 1024]>() as size_t, fmt, ap);
+
+// After (eventual goal):
+let msg = format!("{}", args);
+// or use a proper buffer type
+```
+
+## Cast Chains
+
+c2rust produces excessive casts. Simplify when types are known:
+
+```rust
+// Before:
+len as c_ulong as usize
+
+// After:
+len as usize
+
+// Before:
+0 as c_int as c_uint
+
+// After:
+0u32
+```
+
+## Struct Field Access Through Pointers
+
+```rust
+// Before:
+(*socket).state = STATE_ACTIVE;
+(*(*socket).pool).db_name
+
+// After (with references):
+socket.state = State::Active;
+socket.pool.db_name
+```
+
+## Mutable Static Access
+
+```rust
+// Before:
+unsafe { cf_verbose = 1; }
+
+// After (thread-local):
+CF_VERBOSE.with(|v| *v.borrow_mut() = 1);
+
+// For read access:
+let verbose = CF_VERBOSE.with(|v| *v.borrow());
+```
+
+## Pointer-to-Reference Conversion
+
+Only convert when you can prove the pointer is valid and properly aligned:
+
+```rust
+// Safe to convert when:
+// 1. Pointer is known non-null (checked or from reference)
+// 2. Lifetime is properly bounded
+// 3. No aliasing violations
+
+// Before:
+unsafe fn process(ptr: *mut Foo) {
+    if ptr.is_null() { return; }
+    (*ptr).field = value;
+}
+
+// After:
+fn process(foo: Option<&mut Foo>) {
+    if let Some(f) = foo {
+        f.field = value;
+    }
+}
+
+// Or with non-optional:
+fn process(foo: &mut Foo) {
+    foo.field = value;
+}
+```
+
+## String Handling
+
+```rust
+// Before (C string literal):
+b"SELECT 1\0" as *const u8 as *const c_char
+
+// Intermediate (still needs C compat):
+c"SELECT 1".as_ptr()
+
+// After (pure Rust):
+"SELECT 1"
+```
+
+## Conditional Compilation Remnants
+
+Remove platform-specific type modules when consolidating:
+
+```rust
+// Remove these c2rust-generated modules:
+#[c2rust::header_src = "/...MacOSX.sdk/.../types.h"]
+pub mod _types_h { ... }
+
+// Replace with direct Rust types in the code that uses them
+```

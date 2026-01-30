@@ -1,0 +1,100 @@
+---
+description: Codebase structure and module responsibilities
+globs:
+alwaysApply: false
+---
+
+# Codebase Structure
+
+## Directory Layout
+
+```
+src/
+├── main.rs          # Entry point
+├── admin.rs         # Admin console commands (SHOW, RELOAD, etc.)
+├── client.rs        # Client connection handling
+├── server.rs        # Server (PostgreSQL backend) connection handling
+├── proto.rs         # PostgreSQL protocol parsing/generation
+├── pooler.rs        # Connection pooling logic
+├── objects.rs       # Core data structures (PgSocket, PgDatabase, PgPool, etc.)
+├── sbuf.rs          # Socket buffer abstraction
+├── scram.rs         # SCRAM authentication
+├── hba.rs           # Host-based authentication (pg_hba.conf parsing)
+├── loader.rs        # Configuration loading
+├── janitor.rs       # Maintenance tasks (cleanup, stats)
+├── stats.rs         # Statistics collection
+├── varcache.rs      # PostgreSQL parameter caching
+├── prepare.rs       # Prepared statement handling
+├── messages.rs      # Protocol message definitions
+├── dnslookup.rs     # DNS resolution
+├── pktbuf.rs        # Packet buffer handling
+├── takeover.rs      # Online restart / socket takeover
+├── util.rs          # Utility functions
+├── system.rs        # System-level operations
+├── pam.rs           # PAM authentication
+├── ldapauth.rs      # LDAP authentication
+└── common/          # Shared utilities (crypto, string handling, types)
+    ├── types.rs     # Shared type definitions
+    ├── cryptohash.rs
+    ├── scram_common.rs
+    ├── string.rs
+    └── ...
+
+lib/usual/           # "libusual" support library (also c2rust translated)
+├── tls/             # TLS handling (OpenSSL wrappers)
+└── ...              # Various utilities
+
+test/                # Integration tests (Python/pytest)
+```
+
+## Key Data Structures (in objects.rs)
+
+- `PgSocket` — Represents a client or server connection
+- `PgDatabase` — Database configuration
+- `PgPool` — Connection pool for a database/user pair
+- `PgUser` — User credentials and settings
+- `PgStats` — Statistics counters
+
+## Module Dependencies (high-level)
+
+```
+main
+ └── pooler (event loop)
+      ├── client (client connections)
+      │    ├── proto (protocol)
+      │    ├── scram/hba (auth)
+      │    └── sbuf (I/O)
+      ├── server (backend connections)
+      │    ├── proto
+      │    └── sbuf
+      ├── admin (admin commands)
+      └── janitor (maintenance)
+
+objects ← used by almost everything
+loader  ← configuration, used at startup
+```
+
+## lib/usual
+
+This is a translated version of "libusual", a C utility library. Contains:
+- TLS/OpenSSL wrappers
+- Event loop primitives
+- Socket utilities
+- Logging
+
+Treat as lower-level infrastructure. Refactor `src/` modules first.
+
+## Global State Locations
+
+Major globals (to eventually wrap in thread-local):
+- `database_list`, `pool_list`, `user_list` — in objects.rs
+- `cf_*` config variables — scattered, many in loader.rs
+- Statistics counters — in stats.rs
+
+## Protocol Flow
+
+1. Client connects → `client.rs` handles handshake
+2. Authentication → `scram.rs`, `hba.rs`, `pam.rs`, or `ldapauth.rs`
+3. Query → routed through pooler to available server connection
+4. Server response → forwarded back to client
+5. Connection returned to pool or closed

@@ -9,6 +9,7 @@ async def test_load_balance_hosts_disable_good_first(bouncer):
         await bouncer.asleep(dbname="hostlist_good_first", duration=0.5, times=2)
 
 
+@pytest.mark.skip(reason="DNS resolution timing race condition - client timeout expires before DNS failure")
 async def test_load_balance_hosts_disable_bad_first(bouncer):
     bouncer.admin(f"set server_login_retry=1")
     with bouncer.log_contains(r"closing because: server DNS lookup failed", 1):

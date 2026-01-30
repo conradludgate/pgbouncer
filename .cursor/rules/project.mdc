@@ -1,0 +1,167 @@
+---
+description: Core project context and refactoring guidelines for this c2rust-translated pgbouncer codebase
+globs:
+alwaysApply: true
+---
+
+# PgBouncer Rust Port
+
+This is a **c2rust translation** of pgbouncer (PostgreSQL connection pooler). The codebase is in early refactoring phase—expect lots of `unsafe`, raw pointers, and C idioms that need converting to idiomatic Rust.
+
+## Goals
+
+1. **Make business logic safe first** — prioritize higher-level modules, enabling future swaps of low-level details (e.g., rustls instead of openssl, base64 crate instead of manual impl)
+2. **Keep behavior equivalent to original pgbouncer** — no functional changes during refactoring
+3. **Don't add/remove dependencies** unless explicitly requested
+
+## Architecture
+
+- **Single-threaded application** — no Send/Sync concerns
+- **Integration tests only** — use `test/` folder (Python pytest), no unit tests required
+- **Build**: `cargo build` produces staticlib linked with remaining C code via `build.rs`
+
+## What to Remove
+
+When refactoring, remove these c2rust artifacts:
+
+```rust
+// REMOVE these attributes:
+#[c2rust::src_loc = "..."]
+#[c2rust::header_src = "..."]
+#[no_mangle]
+
+// REMOVE extern "C" from function signatures:
+// Before:
+pub unsafe extern "C" fn foo(x: *mut Bar) -> c_int { ... }
+// After:
+pub unsafe fn foo(x: *mut Bar) -> c_int { ... }
+// Eventually:
+pub fn foo(x: &mut Bar) -> Result<i32, Error> { ... }
+```
+
+## Type Conversions
+
+Replace C types with Rust equivalents:
+
+| C/c2rust type | Rust type |
+|---------------|-----------|
+| `::core::ffi::c_int` | `i32` |
+| `::core::ffi::c_uint` | `u32` |
+| `::core::ffi::c_char` | `u8` (for bytes) or `i8` (when truly char) |
+| `::core::ffi::c_long` | `i64` (on 64-bit) or `isize` |
+| `::core::ffi::c_ulong` | `u64` (on 64-bit) or `usize` |
+| `::core::ffi::c_void` | appropriate concrete type |
+| `size_t` | `usize` |
+| `ssize_t` | `isize` |
+| `uint8_t`, `uint16_t`, etc. | `u8`, `u16`, etc. |
+| `int32_t`, etc. | `i32`, etc. |
+| `*mut T` / `*const T` | `&mut T` / `&T` or `Option<&T>` |
+| `true_0 != 0` | `true` |
+| `false_0 != 0` | `false` |
+| `NULL` / `::core::ptr::null_mut()` | `None` (with Option) |
+
+## Static Mutable State
+
+PgBouncer uses global state. Convert `static mut` to thread-local RefCell:
+
+```rust
+// Before (unsafe):
+static mut cf_verbose: c_int = 0;
+
+// After (safe):
+use std::cell::RefCell;
+thread_local! {
+    static CF_VERBOSE: RefCell<i32> = RefCell::new(0);
+}
+
+// Access:
+CF_VERBOSE.with(|v| *v.borrow())
+CF_VERBOSE.with(|v| *v.borrow_mut() = 1)
+```
+
+## Memory Management
+
+Progression (do incrementally, not all at once):
+
+1. **Keep malloc/free** at FFI boundaries with C code
+2. **Replace with alloc::alloc/dealloc** when removing C interop
+3. **Eventually use Box/Vec/String** when ownership is clear
+
+```rust
+// Stage 1: C-style
+let p = malloc(size) as *mut Foo;
+// ... use p ...
+free(p as *mut c_void);
+
+// Stage 2: Rust alloc (still unsafe, but no C dependency)
+use std::alloc::{alloc, dealloc, Layout};
+let layout = Layout::new::<Foo>();
+let p = alloc(layout) as *mut Foo;
+// ... use p ...
+dealloc(p as *mut u8, layout);
+
+// Stage 3: Idiomatic (when ownership is understood)
+let foo = Box::new(Foo::default());
+```
+
+## Error Handling
+
+Current code uses C-style return codes. When refactoring to safe Rust:
+
+```rust
+// Before:
+unsafe fn do_thing() -> c_int {
+    if failed { return -1; }
+    0
+}
+
+// After:
+fn do_thing() -> Result<(), Error> {
+    if failed { return Err(Error::Something); }
+    Ok(())
+}
+```
+
+Define errors in appropriate modules. Keep error types simple for now.
+
+## Refactoring Order
+
+1. Remove `extern "C"` and c2rust attributes
+2. Convert types (`c_int` → `i32`, etc.)
+3. Replace `static mut` with thread-local RefCell
+4. Convert raw pointers to references where safe
+5. Replace malloc/free with Rust allocation
+6. Add Result-based error handling
+7. Use idiomatic Rust types (Box, Vec, String, Option)
+
+## Common Patterns to Fix
+
+```rust
+// Boolean comparisons
+// Before:
+if condition != 0 { ... }
+if ptr.is_null() == false { ... }
+// After:
+if condition { ... }  // if it's already bool
+if !ptr.is_null() { ... }
+
+// Pointer arithmetic
+// Before:
+ptr = ptr.offset(1);
+// After (when converting to slice):
+idx += 1;
+
+// String literals
+// Before:
+b"error\0" as *const u8 as *const c_char
+// After (when possible):
+"error"  // or CStr if needed for C interop
+```
+
+## Don't
+
+- Don't add new dependencies without asking
+- Don't change behavior/semantics of the code
+- Don't add unit tests (rely on integration tests in `test/`)
+- Don't refactor unrelated code when fixing something specific
+- Don't try to make everything safe at once — incremental progress

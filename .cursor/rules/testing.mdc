@@ -1,0 +1,145 @@
+---
+description: Testing guidelines for pgbouncer
+globs:
+  - "test/**/*.py"
+---
+
+# Testing
+
+## Test Suite
+
+All testing is done via **integration tests** in the `test/` directory using Python pytest.
+
+## Building
+
+**Do NOT use `make`** — that builds the original C codebase. Instead:
+
+```bash
+# Build the Rust port
+cargo build
+
+# Copy binary to repo root (required for tests)
+cp target/debug/pgbouncer .
+```
+
+## Test Environment Setup
+
+```bash
+# Create and activate Python virtual environment
+python3 -m venv env
+source env/bin/activate
+pip install -r requirements.txt
+
+# Ensure PostgreSQL server binaries are in PATH
+# On macOS with Homebrew:
+export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH"
+# Adjust version number as needed (e.g., postgresql@17)
+
+# Required for PostgreSQL 18+ on macOS:
+export LC_ALL=C
+```
+
+## Running Tests
+
+```bash
+# Activate environment first
+source env/bin/activate
+export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH"
+export LC_ALL=C
+
+# Run all tests
+cd test && pytest
+
+# Run specific test file
+pytest test_admin.py
+
+# Run specific test
+pytest test_admin.py::test_show
+
+# Run with verbose output
+pytest test_admin.py -v
+
+# Run with timeout (recommended)
+pytest test_admin.py --timeout=120
+```
+
+## Quick Test Command (from repo root)
+
+```bash
+cargo build && cp target/debug/pgbouncer . && \
+  source env/bin/activate && \
+  export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH" && \
+  export LC_ALL=C && \
+  cd test && pytest test_admin.py -v
+```
+
+## Test Files
+
+| File | Coverage |
+|------|----------|
+| `test_admin.py` | Admin console commands |
+| `test_auth.py` | Authentication methods |
+| `test_cancel.py` | Query cancellation |
+| `test_copy.py` | COPY protocol |
+| `test_limits.py` | Connection limits |
+| `test_misc.py` | Miscellaneous functionality |
+| `test_operations.py` | Basic operations |
+| `test_prepared.py` | Prepared statements |
+| `test_ssl.py` | TLS/SSL |
+| `test_timeouts.py` | Timeout handling |
+| `test_replication.py` | Replication connections |
+| `test_peering.py` | Peer connections |
+| `test_no_database.py` | No database scenarios |
+| `test_no_user.py` | No user scenarios |
+| `test_load_balance_hosts.py` | Load balancing |
+| `conftest.py` | Pytest fixtures and utilities |
+| `utils.py` | Test helper functions |
+
+## Test Requirements
+
+- PostgreSQL server binaries (full installation, not just libpq)
+- Python 3.x with pytest
+- The `pgbouncer` binary in repo root
+
+## Optional Environment Variables
+
+Some tests are skipped by default but can be enabled:
+
+```bash
+# Enable IPv6 localhost tests
+export HAVE_IPV6_LOCALHOST=1
+
+# Enable tests requiring sudo (iptables for packet dropping)
+# Only works on Linux
+export USE_SUDO=1
+```
+
+## Platform-Specific Skipped Tests
+
+Some tests are skipped based on platform/features:
+
+| Test | Reason |
+|------|--------|
+| `test_ldap_auth` | Requires LDAP support in build |
+| `test_server_check_query_*_negative` | Requires socat (Linux only) |
+| `test_host_list` | Requires `HAVE_IPV6_LOCALHOST=1` |
+| `test_prepared_statement_pipeline_latency` | Requires Linux + sudo |
+| `test_server_connect_timeout_drop_traffic` | Requires sudo (iptables) |
+| `test_tcp_user_timeout` | Requires Linux + sudo |
+| `test_server_check_delay` | Requires sudo |
+| `test_cancel_wait_timeout` | Requires sudo |
+| `test_load_balance_hosts_disable_bad_first` | DNS timing race condition |
+| `test_peering.py` (entire module) | Requires Linux (so_reuseport) |
+
+## Configuration Files
+
+- `test.ini` — Main test configuration
+- `pgbouncer_hba.conf` — HBA rules for testing
+- `userlist.txt` — Test user credentials
+
+## When Refactoring
+
+- **Don't add unit tests** — rely on integration tests
+- Run relevant integration tests after changes
+- If a test fails, the refactoring likely changed behavior (unintended)
+- Run at minimum `test_admin.py` as a smoke test
