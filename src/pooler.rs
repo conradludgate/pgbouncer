@@ -1656,7 +1656,7 @@ unsafe extern "C" fn create_unix_socket(
 }
 
 unsafe extern "C" fn tune_accept(mut _sock: ::core::ffi::c_int, mut on: bool) {
-    let mut act = if on as ::core::ffi::c_int != 0 {
+    let mut act = if on {
         c"install".as_ptr()
     } else {
         c"uninstall".as_ptr()
@@ -1953,9 +1953,9 @@ pub unsafe extern "C" fn resume_pooler() {
 #[no_mangle]
 
 pub unsafe extern "C" fn per_loop_pooler_maint() {
-    if need_active as ::core::ffi::c_int != 0 && !pooler_active {
+    if need_active && !pooler_active {
         resume_pooler();
-    } else if !need_active && pooler_active as ::core::ffi::c_int != 0 {
+    } else if !need_active && pooler_active {
         suspend_pooler();
     }
 }

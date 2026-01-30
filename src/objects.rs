@@ -3668,7 +3668,7 @@ pub unsafe extern "C" fn disconnect_client_sqlstate(
             exit(1 as ::core::ffi::c_int);
         }
     }
-    if notify as ::core::ffi::c_int != 0
+    if notify
         && !reason.is_null()
         && (*client).state() as ::core::ffi::c_int != CL_WAITING_CANCEL as ::core::ffi::c_int
     {
@@ -4296,7 +4296,7 @@ pub unsafe extern "C" fn launch_new_connection(mut pool: *mut PgPool, mut evict_
                         && (*c).replication as ::core::ffi::c_uint != 0
                         && !sending_auth_query(c)
                     {
-                        while evict_if_needed as ::core::ffi::c_int != 0
+                        while evict_if_needed
                             && pool_pool_size(pool) >= max
                         {
                             if !evict_pool_connection(pool) {
@@ -4333,7 +4333,7 @@ pub unsafe extern "C" fn launch_new_connection(mut pool: *mut PgPool, mut evict_
         }
         max = database_max_connections((*pool).db);
         if max > 0 as ::core::ffi::c_int {
-            while evict_if_needed as ::core::ffi::c_int != 0
+            while evict_if_needed
                 && (*(*pool).db).connection_count >= max
             {
                 if !evict_connection((*pool).db) {
@@ -4358,7 +4358,7 @@ pub unsafe extern "C" fn launch_new_connection(mut pool: *mut PgPool, mut evict_
         }
         max = user_max_connections((*(*pool).user_credentials).global_user);
         if max > 0 as ::core::ffi::c_int {
-            while evict_if_needed as ::core::ffi::c_int != 0
+            while evict_if_needed
                 && (*(*(*pool).user_credentials).global_user).connection_count >= max
             {
                 if !evict_user_connection((*pool).user_credentials) {

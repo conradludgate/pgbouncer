@@ -1483,7 +1483,7 @@ pub unsafe extern "C" fn per_loop_maint() {
             current_block_28 = 13345507216710712890;
         }
         0 => {
-            if partial_pause as ::core::ffi::c_int != 0 && active_count == 0 {
+            if partial_pause && active_count == 0 {
                 admin_pause_done();
             }
             current_block_28 = 17500079516916021833;
@@ -1495,7 +1495,7 @@ pub unsafe extern "C" fn per_loop_maint() {
     if current_block_28 == 13345507216710712890 && active_count == 0 {
         admin_pause_done();
     }
-    if partial_wait as ::core::ffi::c_int != 0 && waiting_count == 0 {
+    if partial_wait && waiting_count == 0 {
         admin_wait_close_done();
     }
 }
@@ -1508,7 +1508,7 @@ unsafe extern "C" fn pool_client_maint(mut pool: *mut PgPool) {
     let mut user = ::core::ptr::null_mut::<PgGlobalUser>();
     let mut age: usec_t = 0;
     let mut effective_client_idle_timeout: usec_t = 0;
-    if cf_client_idle_timeout > 0 || any_user_level_client_timeout_set as ::core::ffi::c_int != 0 {
+    if cf_client_idle_timeout > 0 || any_user_level_client_timeout_set {
         item = (*pool).active_client_list.head.next;
         tmp = (*(*pool).active_client_list.head.next).next;
         while item != &raw mut (*pool).active_client_list.head {
@@ -1656,7 +1656,7 @@ unsafe extern "C" fn check_unused_servers(
             }
         } else if cf_pause_mode == P_PAUSE as ::core::ffi::c_int {
             disconnect_server(server, true, c"pause mode".as_ptr());
-        } else if idle_test as ::core::ffi::c_int != 0
+        } else if idle_test
             && *cf_server_check_query as ::core::ffi::c_int != 0
             && idle > cf_server_check_delay
         {
@@ -1753,7 +1753,7 @@ unsafe extern "C" fn pool_server_maint(mut pool: *mut PgPool) {
     if cf_query_timeout > 0
         || cf_idle_transaction_timeout > 0
         || cf_transaction_timeout > 0
-        || any_user_level_timeout_set as ::core::ffi::c_int != 0
+        || any_user_level_timeout_set
     {
         item = (*pool).active_server_list.head.next;
         tmp = (*(*pool).active_server_list.head.next).next;

@@ -2672,7 +2672,7 @@ pub const SKF_DBG: [::core::ffi::c_char; 29] = unsafe {
 unsafe extern "C" fn socket_header(mut buf: *mut PktBuf, mut debug: bool) {
     pktbuf_write_RowDescription(
         buf,
-        if debug as ::core::ffi::c_int != 0 {
+        if debug {
             SKF_DBG.as_ptr()
         } else {
             SKF_STD.as_ptr()
@@ -2823,7 +2823,7 @@ unsafe extern "C" fn socket_row(
     }
     pktbuf_write_DataRow(
         buf,
-        if debug as ::core::ffi::c_int != 0 {
+        if debug {
             SKF_DBG.as_ptr()
         } else {
             SKF_STD.as_ptr()
@@ -3563,7 +3563,7 @@ unsafe extern "C" fn show_one_param(
         name,
         val,
         defval,
-        if reloadable as ::core::ffi::c_int != 0 {
+        if reloadable {
             c"yes".as_ptr()
         } else {
             c"no".as_ptr()

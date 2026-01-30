@@ -2212,7 +2212,7 @@ unsafe extern "C" fn set_defer_accept(
     let mut ok: bool = false;
     let mut oldval = *p;
     ok = cf_set_int(cv, val);
-    if ok as ::core::ffi::c_int != 0
+    if ok
         && (oldval != 0) as ::core::ffi::c_int != (*p != 0) as ::core::ffi::c_int
     {
         pooler_tune_accept(*p != 0);
