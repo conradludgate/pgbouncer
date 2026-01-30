@@ -182,190 +182,54 @@ pub mod tls_internal_h {
         pub fn tls_ocsp_info_free(info: *mut tls_ocsp_info);
     }
 }
-#[c2rust::header_src = "/opt/homebrew/Cellar/openssl@3/3.6.0/include/openssl/types.h:18"]
+// OpenSSL types - use shared openssl_types module
 pub mod types_h {
-    #[c2rust::src_loc = "169:1"]
-    pub type X509 = x509_st;
-    #[c2rust::src_loc = "197:1"]
-    pub type SSL_CTX = ssl_ctx_st;
-    #[c2rust::src_loc = "196:1"]
-    pub type SSL = ssl_st;
-    #[c2rust::src_loc = "95:1"]
-    pub type BIO = bio_st;
-    #[c2rust::src_loc = "116:1"]
-    pub type EVP_PKEY = evp_pkey_st;
-    #[c2rust::src_loc = "177:1"]
-    pub type X509_STORE_CTX = x509_store_ctx_st;
-    #[c2rust::src_loc = "182:1"]
-    pub type X509_VERIFY_PARAM = X509_VERIFY_PARAM_st;
-    #[c2rust::src_loc = "235:1"]
-    pub type pem_password_cb = unsafe extern "C" fn(
-        *mut ::core::ffi::c_char,
-        ::core::ffi::c_int,
-        ::core::ffi::c_int,
-        *mut ::core::ffi::c_void,
-    ) -> ::core::ffi::c_int;
-    extern "C" {
-        #[c2rust::src_loc = "169:9"]
-        pub type x509_st;
-        #[c2rust::src_loc = "197:9"]
-        pub type ssl_ctx_st;
-        #[c2rust::src_loc = "196:9"]
-        pub type ssl_st;
-        #[c2rust::src_loc = "95:9"]
-        pub type bio_st;
-        #[c2rust::src_loc = "116:9"]
-        pub type evp_pkey_st;
-        #[c2rust::src_loc = "177:9"]
-        pub type x509_store_ctx_st;
-        #[c2rust::src_loc = "182:9"]
-        pub type X509_VERIFY_PARAM_st;
-    }
+    pub use super::super::openssl_types::{
+        bio_st, evp_pkey_st, pem_password_cb, ssl_ctx_st, ssl_st, x509_st, x509_store_ctx_st,
+        X509_VERIFY_PARAM_st, BIO, EVP_PKEY, SSL, SSL_CTX, X509, X509_STORE_CTX, X509_VERIFY_PARAM,
+    };
 }
 #[c2rust::header_src = "/opt/homebrew/Cellar/openssl@3/3.6.0/include/openssl/ssl.h:18"]
+// OpenSSL SSL functions - use shared openssl_types module
 pub mod ssl_h {
-    #[c2rust::src_loc = "343:1"]
-    pub type SSL_verify_cb =
-        Option<unsafe extern "C" fn(::core::ffi::c_int, *mut X509_STORE_CTX) -> ::core::ffi::c_int>;
-    #[c2rust::src_loc = "225:10"]
-    pub const SSL_FILETYPE_PEM: ::core::ffi::c_int = X509_FILETYPE_PEM;
-    #[c2rust::src_loc = "426:10"]
-    pub const SSL_OP_NO_SSLv3: uint64_t =
-        (1 as ::core::ffi::c_int as uint64_t) << 25 as ::core::ffi::c_int as uint64_t;
-    #[c2rust::src_loc = "427:10"]
-    pub const SSL_OP_NO_TLSv1: uint64_t =
-        (1 as ::core::ffi::c_int as uint64_t) << 26 as ::core::ffi::c_int as uint64_t;
-    #[c2rust::src_loc = "428:10"]
-    pub const SSL_OP_NO_TLSv1_2: uint64_t =
-        (1 as ::core::ffi::c_int as uint64_t) << 27 as ::core::ffi::c_int as uint64_t;
-    #[c2rust::src_loc = "429:10"]
-    pub const SSL_OP_NO_TLSv1_1: uint64_t =
-        (1 as ::core::ffi::c_int as uint64_t) << 28 as ::core::ffi::c_int as uint64_t;
-    #[c2rust::src_loc = "430:10"]
-    pub const SSL_OP_NO_TLSv1_3: uint64_t =
-        (1 as ::core::ffi::c_int as uint64_t) << 29 as ::core::ffi::c_int as uint64_t;
-    #[c2rust::src_loc = "485:10"]
-    pub const SSL_OP_NO_SSLv2: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "1142:10"]
-    pub const SSL_CB_HANDSHAKE_START: ::core::ffi::c_int = 0x10 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "1254:10"]
-    pub const SSL_ERROR_NONE: ::core::ffi::c_int = 0;
-    #[c2rust::src_loc = "1255:10"]
-    pub const SSL_ERROR_SSL: ::core::ffi::c_int = 1;
-    #[c2rust::src_loc = "1256:10"]
-    pub const SSL_ERROR_WANT_READ: ::core::ffi::c_int = 2;
-    #[c2rust::src_loc = "1257:10"]
-    pub const SSL_ERROR_WANT_WRITE: ::core::ffi::c_int = 3;
-    #[c2rust::src_loc = "1258:10"]
-    pub const SSL_ERROR_WANT_X509_LOOKUP: ::core::ffi::c_int = 4;
-    #[c2rust::src_loc = "1259:10"]
-    pub const SSL_ERROR_SYSCALL: ::core::ffi::c_int = 5;
-    #[c2rust::src_loc = "1261:10"]
-    pub const SSL_ERROR_ZERO_RETURN: ::core::ffi::c_int = 6;
-    #[c2rust::src_loc = "1262:10"]
-    pub const SSL_ERROR_WANT_CONNECT: ::core::ffi::c_int = 7;
-    #[c2rust::src_loc = "1263:10"]
-    pub const SSL_ERROR_WANT_ACCEPT: ::core::ffi::c_int = 8;
-    #[c2rust::src_loc = "1298:10"]
-    pub const SSL_CTRL_MODE: ::core::ffi::c_int = 33 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "1373:10"]
-    pub const SSL_CTRL_SET_MIN_PROTO_VERSION: ::core::ffi::c_int = 123 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "1374:10"]
-    pub const SSL_CTRL_SET_MAX_PROTO_VERSION: ::core::ffi::c_int = 124 as ::core::ffi::c_int;
+    use super::super::openssl_types as ossl;
     use super::_uint64_t_h::uint64_t;
-    use super::types_h::{EVP_PKEY, SSL, SSL_CTX, X509, X509_STORE_CTX, X509_VERIFY_PARAM};
-    use super::x509_h::X509_FILETYPE_PEM;
-    extern "C" {
-        #[c2rust::src_loc = "626:1"]
-        pub fn SSL_CTX_clear_options(ctx: *mut SSL_CTX, op: uint64_t) -> uint64_t;
-        #[c2rust::src_loc = "628:1"]
-        pub fn SSL_CTX_set_options(ctx: *mut SSL_CTX, op: uint64_t) -> uint64_t;
-        #[c2rust::src_loc = "767:1"]
-        pub fn SSL_CTX_set_info_callback(
-            ctx: *mut SSL_CTX,
-            cb: Option<
-                unsafe extern "C" fn(*const SSL, ::core::ffi::c_int, ::core::ffi::c_int) -> (),
-            >,
-        );
-        #[c2rust::src_loc = "1620:8"]
-        pub fn SSL_CTX_set_cipher_list(
-            _: *mut SSL_CTX,
-            str: *const ::core::ffi::c_char,
-        ) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "1625:1"]
-        pub fn SSL_CTX_free(_: *mut SSL_CTX);
-        #[c2rust::src_loc = "1673:8"]
-        pub fn SSL_CTX_set_ciphersuites(
-            ctx: *mut SSL_CTX,
-            str: *const ::core::ffi::c_char,
-        ) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "1722:8"]
-        pub fn SSL_CTX_use_PrivateKey_file(
-            ctx: *mut SSL_CTX,
-            file: *const ::core::ffi::c_char,
-            type_0: ::core::ffi::c_int,
-        ) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "1727:8"]
-        pub fn SSL_CTX_use_certificate_chain_file(
-            ctx: *mut SSL_CTX,
-            file: *const ::core::ffi::c_char,
-        ) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "1822:8"]
-        pub fn SSL_get1_peer_certificate(s: *const SSL) -> *mut X509;
-        #[c2rust::src_loc = "1834:1"]
-        pub fn SSL_CTX_set_verify(
-            ctx: *mut SSL_CTX,
-            mode: ::core::ffi::c_int,
-            callback: SSL_verify_cb,
-        );
-        #[c2rust::src_loc = "1835:1"]
-        pub fn SSL_CTX_set_verify_depth(ctx: *mut SSL_CTX, depth: ::core::ffi::c_int);
-        #[c2rust::src_loc = "1848:8"]
-        pub fn SSL_CTX_use_PrivateKey(ctx: *mut SSL_CTX, pkey: *mut EVP_PKEY)
-            -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "1866:8"]
-        pub fn SSL_CTX_check_private_key(ctx: *const SSL_CTX) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "1917:8"]
-        pub fn SSL_CTX_get0_param(ctx: *mut SSL_CTX) -> *mut X509_VERIFY_PARAM;
-        #[c2rust::src_loc = "1981:1"]
-        pub fn SSL_free(ssl: *mut SSL);
-        #[c2rust::src_loc = "2001:8"]
-        pub fn SSL_read(
-            ssl: *mut SSL,
-            buf: *mut ::core::ffi::c_void,
-            num: ::core::ffi::c_int,
-        ) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "2014:8"]
-        pub fn SSL_write(
-            ssl: *mut SSL,
-            buf: *const ::core::ffi::c_void,
-            num: ::core::ffi::c_int,
-        ) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "2020:1"]
-        pub fn SSL_CTX_ctrl(
-            ctx: *mut SSL_CTX,
-            cmd: ::core::ffi::c_int,
-            larg: ::core::ffi::c_long,
-            parg: *mut ::core::ffi::c_void,
-        ) -> ::core::ffi::c_long;
-        #[c2rust::src_loc = "2035:8"]
-        pub fn SSL_get_error(s: *const SSL, ret_code: ::core::ffi::c_int) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "2121:1"]
-        pub fn SSL_shutdown(s: *mut SSL) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "2178:8"]
-        pub fn SSL_version(ssl: *const SSL) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "2187:8"]
-        pub fn SSL_CTX_load_verify_locations(
-            ctx: *mut SSL_CTX,
-            CAfile: *const ::core::ffi::c_char,
-            CApath: *const ::core::ffi::c_char,
-        ) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "2218:1"]
-        pub fn SSL_get_ex_data(
-            ssl: *const SSL,
-            idx: ::core::ffi::c_int,
-        ) -> *mut ::core::ffi::c_void;
-    }
+
+    // Re-export types
+    pub use ossl::{SSL_verify_cb, X509_FILETYPE_PEM as SSL_FILETYPE_PEM};
+    pub use ossl::{
+        SSL_CB_HANDSHAKE_START, SSL_CTRL_MODE, SSL_CTRL_SET_MAX_PROTO_VERSION,
+        SSL_CTRL_SET_MIN_PROTO_VERSION, SSL_ERROR_NONE, SSL_ERROR_SSL, SSL_ERROR_SYSCALL,
+        SSL_ERROR_WANT_ACCEPT, SSL_ERROR_WANT_CONNECT, SSL_ERROR_WANT_READ, SSL_ERROR_WANT_WRITE,
+        SSL_ERROR_WANT_X509_LOOKUP, SSL_ERROR_ZERO_RETURN,
+    };
+    pub use ossl::{SSL_OP_NO_SSLv2, SSL_OP_NO_SSLv3, SSL_OP_NO_TLSv1};
+    pub use ossl::{SSL_OP_NO_TLSv1_1, SSL_OP_NO_TLSv1_2, SSL_OP_NO_TLSv1_3};
+
+    // Re-export functions
+    pub use ossl::SSL_CTX_check_private_key;
+    pub use ossl::SSL_CTX_clear_options;
+    pub use ossl::SSL_CTX_ctrl;
+    pub use ossl::SSL_CTX_free;
+    pub use ossl::SSL_CTX_get0_param;
+    pub use ossl::SSL_CTX_load_verify_locations;
+    pub use ossl::SSL_CTX_set_cipher_list;
+    pub use ossl::SSL_CTX_set_ciphersuites;
+    pub use ossl::SSL_CTX_set_info_callback;
+    pub use ossl::SSL_CTX_set_options;
+    pub use ossl::SSL_CTX_set_verify;
+    pub use ossl::SSL_CTX_set_verify_depth;
+    pub use ossl::SSL_CTX_use_PrivateKey;
+    pub use ossl::SSL_CTX_use_PrivateKey_file;
+    pub use ossl::SSL_CTX_use_certificate_chain_file;
+    pub use ossl::SSL_free;
+    pub use ossl::SSL_get1_peer_certificate;
+    pub use ossl::SSL_get_error;
+    pub use ossl::SSL_get_ex_data;
+    pub use ossl::SSL_read;
+    pub use ossl::SSL_shutdown;
+    pub use ossl::SSL_version;
+    pub use ossl::SSL_write;
 }
 #[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/malloc/_malloc.h:18"]
 pub mod _malloc_h {
@@ -410,14 +274,9 @@ pub mod tls_h {
     }
 }
 #[c2rust::header_src = "/opt/homebrew/Cellar/openssl@3/3.6.0/include/openssl/x509.h:18"]
+// OpenSSL X509 functions - use shared openssl_types module
 pub mod x509_h {
-    #[c2rust::src_loc = "164:10"]
-    pub const X509_FILETYPE_PEM: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    use super::types_h::X509;
-    extern "C" {
-        #[c2rust::src_loc = "766:1"]
-        pub fn X509_free(a: *mut X509);
-    }
+    pub use super::super::openssl_types::{X509_FILETYPE_PEM, X509_free};
 }
 #[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_string.h:18"]
 pub mod _string_h {
@@ -435,52 +294,22 @@ pub mod _string_h {
         pub fn strlen(__s: *const ::core::ffi::c_char) -> size_t;
     }
 }
-#[c2rust::header_src = "/opt/homebrew/Cellar/openssl@3/3.6.0/include/openssl/bio.h:18"]
+// OpenSSL BIO functions - use shared openssl_types module
 pub mod bio_h {
-    use super::types_h::BIO;
-    extern "C" {
-        #[c2rust::src_loc = "730:1"]
-        pub fn BIO_free(a: *mut BIO) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "780:1"]
-        pub fn BIO_new_mem_buf(
-            buf: *const ::core::ffi::c_void,
-            len: ::core::ffi::c_int,
-        ) -> *mut BIO;
-    }
+    pub use super::super::openssl_types::{BIO_free, BIO_new_mem_buf};
 }
-#[c2rust::header_src = "/opt/homebrew/Cellar/openssl@3/3.6.0/include/openssl/evp.h:18"]
+// OpenSSL EVP functions - use shared openssl_types module
 pub mod evp_h {
-    use super::types_h::EVP_PKEY;
-    extern "C" {
-        #[c2rust::src_loc = "1449:1"]
-        pub fn EVP_PKEY_free(pkey: *mut EVP_PKEY);
-    }
+    pub use super::super::openssl_types::EVP_PKEY_free;
 }
-#[c2rust::header_src = "/opt/homebrew/Cellar/openssl@3/3.6.0/include/openssl/x509_vfy.h:18"]
+// OpenSSL X509 verification - use shared openssl_types module
 pub mod x509_vfy_h {
-    #[c2rust::src_loc = "475:10"]
-    pub const X509_V_FLAG_NO_CHECK_TIME: ::core::ffi::c_int = 0x200000 as ::core::ffi::c_int;
-    use super::types_h::X509_VERIFY_PARAM;
-    extern "C" {
-        #[c2rust::src_loc = "827:1"]
-        pub fn X509_VERIFY_PARAM_set_flags(
-            param: *mut X509_VERIFY_PARAM,
-            flags: ::core::ffi::c_ulong,
-        ) -> ::core::ffi::c_int;
-    }
+    pub const X509_V_FLAG_NO_CHECK_TIME: ::core::ffi::c_int = 0x200000;
+    pub use super::super::openssl_types::X509_VERIFY_PARAM_set_flags;
 }
-#[c2rust::header_src = "/opt/homebrew/Cellar/openssl@3/3.6.0/include/openssl/pem.h:18"]
+// OpenSSL PEM functions - use shared openssl_types module
 pub mod pem_h {
-    use super::types_h::{pem_password_cb, BIO, EVP_PKEY};
-    extern "C" {
-        #[c2rust::src_loc = "483:1"]
-        pub fn PEM_read_bio_PrivateKey(
-            out: *mut BIO,
-            x: *mut *mut EVP_PKEY,
-            cb: Option<pem_password_cb>,
-            u: *mut ::core::ffi::c_void,
-        ) -> *mut EVP_PKEY;
-    }
+    pub use super::super::openssl_types::PEM_read_bio_PrivateKey;
 }
 #[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/tls/tls_compat.h:18"]
 pub mod tls_compat_h {
@@ -585,39 +414,21 @@ pub mod socket_h {
         pub fn shutdown(_: ::core::ffi::c_int, _: ::core::ffi::c_int) -> ::core::ffi::c_int;
     }
 }
-#[c2rust::header_src = "/opt/homebrew/Cellar/openssl@3/3.6.0/include/openssl/crypto.h:18"]
+// OpenSSL crypto functions - use shared openssl_types module
 pub mod crypto_h {
-    extern "C" {
-        #[c2rust::src_loc = "533:1"]
-        pub fn OPENSSL_cleanup();
-    }
+    pub use super::super::openssl_types::OPENSSL_cleanup;
 }
-#[c2rust::header_src = "/opt/homebrew/Cellar/openssl@3/3.6.0/include/openssl/prov_ssl.h:18"]
+// OpenSSL TLS version constants - use shared openssl_types module
 pub mod prov_ssl_h {
-    #[c2rust::src_loc = "24:10"]
-    pub const TLS1_VERSION: ::core::ffi::c_int = 0x301 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "25:10"]
-    pub const TLS1_1_VERSION: ::core::ffi::c_int = 0x302 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "26:10"]
-    pub const TLS1_2_VERSION: ::core::ffi::c_int = 0x303 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "27:10"]
-    pub const TLS1_3_VERSION: ::core::ffi::c_int = 0x304 as ::core::ffi::c_int;
+    pub use super::super::openssl_types::{
+        TLS1_1_VERSION, TLS1_2_VERSION, TLS1_3_VERSION, TLS1_VERSION,
+    };
 }
-#[c2rust::header_src = "/opt/homebrew/Cellar/openssl@3/3.6.0/include/openssl/err.h:18"]
+// OpenSSL error functions - use shared openssl_types module
 pub mod err_h {
-    extern "C" {
-        #[c2rust::src_loc = "428:1"]
-        pub fn ERR_peek_error() -> ::core::ffi::c_ulong;
-        #[c2rust::src_loc = "453:1"]
-        pub fn ERR_clear_error();
-        #[c2rust::src_loc = "455:1"]
-        pub fn ERR_error_string(
-            e: ::core::ffi::c_ulong,
-            buf: *mut ::core::ffi::c_char,
-        ) -> *mut ::core::ffi::c_char;
-        #[c2rust::src_loc = "461:1"]
-        pub fn ERR_reason_error_string(e: ::core::ffi::c_ulong) -> *const ::core::ffi::c_char;
-    }
+    pub use super::super::openssl_types::{
+        ERR_clear_error, ERR_error_string, ERR_peek_error, ERR_reason_error_string,
+    };
 }
 use self::_malloc_h::{calloc, free};
 pub use self::_null_h::NULL;

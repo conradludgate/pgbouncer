@@ -11,44 +11,34 @@
 )]
 
 // =============================================================================
-// Primitive C types (libc equivalents)
+// Primitive C types (re-exported from libc)
 // =============================================================================
 
-// Internal darwin types
+// Internal darwin types (for compatibility with c2rust output)
 pub type __uint8_t = u8;
 pub type __uint16_t = u16;
 pub type __int32_t = i32;
 pub type __uint32_t = u32;
 pub type __int64_t = i64;
 pub type __uint64_t = u64;
-pub type __darwin_ptrdiff_t = isize;
-pub type __darwin_size_t = usize;
-pub type __darwin_socklen_t = __uint32_t;
-pub type __darwin_ssize_t = isize;
-pub type __darwin_time_t = ::core::ffi::c_long;
-pub type __darwin_off_t = __int64_t;
-pub type __darwin_pid_t = __int32_t;
-pub type __darwin_sigset_t = __uint32_t;
-pub type __darwin_suseconds_t = __int32_t;
-pub type __darwin_uid_t = __uint32_t;
 
-// Standard C types
-pub type uintptr_t = usize;
-pub type in_addr_t = __uint32_t;
-pub type in_port_t = __uint16_t;
-pub type pid_t = __darwin_pid_t;
-pub type uid_t = __darwin_uid_t;
-pub type size_t = __darwin_size_t;
-pub type ssize_t = __darwin_ssize_t;
-pub type time_t = __darwin_time_t;
-pub type sigset_t = __darwin_sigset_t;
-pub type ptrdiff_t = __darwin_ptrdiff_t;
-pub type socklen_t = __darwin_socklen_t;
-pub type sa_family_t = __uint8_t;
-pub type rlim_t = __uint64_t;
-pub type fpos_t = __darwin_off_t;
+// Standard C types - use libc types
+pub type uintptr_t = libc::uintptr_t;
+pub type in_addr_t = libc::in_addr_t;
+pub type in_port_t = libc::in_port_t;
+pub type pid_t = libc::pid_t;
+pub type uid_t = libc::uid_t;
+pub type size_t = libc::size_t;
+pub type ssize_t = libc::ssize_t;
+pub type time_t = libc::time_t;
+pub type sigset_t = libc::sigset_t;
+pub type ptrdiff_t = libc::ptrdiff_t;
+pub type socklen_t = libc::socklen_t;
+pub type sa_family_t = libc::sa_family_t;
+pub type rlim_t = libc::rlim_t;
+pub type fpos_t = libc::fpos_t;
 
-// Fixed-width integers
+// Fixed-width integers - use Rust primitive types directly
 pub type int8_t = i8;
 pub type int16_t = i16;
 pub type int32_t = i32;
@@ -59,25 +49,25 @@ pub type uint32_t = u32;
 pub type uint64_t = u64;
 
 // =============================================================================
-// libc constants
+// libc constants (re-exported from libc crate)
 // =============================================================================
 
 pub const __DARWIN_NULL: *mut ::core::ffi::c_void = ::core::ptr::null_mut::<::core::ffi::c_void>();
-pub const ENOMEM: ::core::ffi::c_int = 12;
-pub const EINTR: ::core::ffi::c_int = 4;
-pub const EAGAIN: ::core::ffi::c_int = 35;
-pub const EWOULDBLOCK: ::core::ffi::c_int = EAGAIN;
-pub const EINPROGRESS: ::core::ffi::c_int = 36;
+pub const ENOMEM: ::core::ffi::c_int = libc::ENOMEM;
+pub const EINTR: ::core::ffi::c_int = libc::EINTR;
+pub const EAGAIN: ::core::ffi::c_int = libc::EAGAIN;
+pub const EWOULDBLOCK: ::core::ffi::c_int = libc::EWOULDBLOCK;
+pub const EINPROGRESS: ::core::ffi::c_int = libc::EINPROGRESS;
 
 // Socket constants
-pub const AF_UNIX: ::core::ffi::c_int = 1;
-pub const AF_INET: ::core::ffi::c_int = 2;
-pub const AF_INET6: ::core::ffi::c_int = 30;
-pub const SOCK_STREAM: ::core::ffi::c_int = 1;
-pub const SOCK_DGRAM: ::core::ffi::c_int = 2;
+pub const AF_UNIX: ::core::ffi::c_int = libc::AF_UNIX;
+pub const AF_INET: ::core::ffi::c_int = libc::AF_INET;
+pub const AF_INET6: ::core::ffi::c_int = libc::AF_INET6;
+pub const SOCK_STREAM: ::core::ffi::c_int = libc::SOCK_STREAM;
+pub const SOCK_DGRAM: ::core::ffi::c_int = libc::SOCK_DGRAM;
 
 // Resource limits
-pub const RLIMIT_NOFILE: ::core::ffi::c_int = 8;
+pub const RLIMIT_NOFILE: ::core::ffi::c_int = libc::RLIMIT_NOFILE as ::core::ffi::c_int;
 
 // Boolean constants (for c2rust compatibility)
 pub const true_0: ::core::ffi::c_int = 1;
@@ -87,84 +77,19 @@ pub const false_0: ::core::ffi::c_int = 0;
 // Struct definitions - libc types
 // =============================================================================
 
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct timeval {
-    pub tv_sec: __darwin_time_t,
-    pub tv_usec: __darwin_suseconds_t,
-}
+pub type timeval = libc::timeval;
 
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct timespec {
-    pub tv_sec: time_t,
-    pub tv_nsec: ::core::ffi::c_long,
-}
+pub type timespec = libc::timespec;
 
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct rlimit {
-    pub rlim_cur: rlim_t,
-    pub rlim_max: rlim_t,
-}
+pub type rlimit = libc::rlimit;
 
-// Socket address structures
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct sockaddr {
-    pub sa_len: __uint8_t,
-    pub sa_family: sa_family_t,
-    pub sa_data: [::core::ffi::c_char; 14],
-}
-
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct sockaddr_un {
-    pub sun_len: ::core::ffi::c_uchar,
-    pub sun_family: sa_family_t,
-    pub sun_path: [::core::ffi::c_char; 104],
-}
-
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct in_addr {
-    pub s_addr: in_addr_t,
-}
-
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct sockaddr_in {
-    pub sin_len: __uint8_t,
-    pub sin_family: sa_family_t,
-    pub sin_port: in_port_t,
-    pub sin_addr: in_addr,
-    pub sin_zero: [::core::ffi::c_char; 8],
-}
-
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct in6_addr {
-    pub __u6_addr: in6_addr_union,
-}
-
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub union in6_addr_union {
-    pub __u6_addr8: [__uint8_t; 16],
-    pub __u6_addr16: [__uint16_t; 8],
-    pub __u6_addr32: [__uint32_t; 4],
-}
-
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct sockaddr_in6 {
-    pub sin6_len: __uint8_t,
-    pub sin6_family: sa_family_t,
-    pub sin6_port: in_port_t,
-    pub sin6_flowinfo: __uint32_t,
-    pub sin6_addr: in6_addr,
-    pub sin6_scope_id: __uint32_t,
-}
+// Socket address structures - use libc types
+pub type sockaddr = libc::sockaddr;
+pub type sockaddr_un = libc::sockaddr_un;
+pub type in_addr = libc::in_addr;
+pub type sockaddr_in = libc::sockaddr_in;
+pub type in6_addr = libc::in6_addr;
+pub type sockaddr_in6 = libc::sockaddr_in6;
 
 // FILE structure
 #[derive(Copy, Clone)]
@@ -694,200 +619,104 @@ extern "C" {
 }
 
 // =============================================================================
-// Extern functions - libc
+// Re-exports from libc crate
 // =============================================================================
 
+// Standard I/O streams (macOS-specific)
 extern "C" {
+    #[link_name = "__stderrp"]
     pub static mut __stderrp: *mut FILE;
+    #[link_name = "__stdoutp"]
     pub static mut __stdoutp: *mut FILE;
+    #[link_name = "__stdinp"]
     pub static mut __stdinp: *mut FILE;
+}
 
-    pub fn __error() -> *mut ::core::ffi::c_int;
+// errno access (macOS-specific)
+pub use libc::__error;
 
-    pub fn malloc(__size: size_t) -> *mut ::core::ffi::c_void;
-    pub fn calloc(__count: size_t, __size: size_t) -> *mut ::core::ffi::c_void;
-    pub fn realloc(__ptr: *mut ::core::ffi::c_void, __size: size_t) -> *mut ::core::ffi::c_void;
-    pub fn free(_: *mut ::core::ffi::c_void);
-    pub fn exit(_: ::core::ffi::c_int) -> !;
-    pub fn abort() -> !;
+// Memory allocation
+pub use libc::calloc;
+pub use libc::free;
+pub use libc::malloc;
+pub use libc::realloc;
 
-    pub fn memcpy(
-        __dst: *mut ::core::ffi::c_void,
-        __src: *const ::core::ffi::c_void,
-        __n: size_t,
-    ) -> *mut ::core::ffi::c_void;
-    pub fn memmove(
-        __dst: *mut ::core::ffi::c_void,
-        __src: *const ::core::ffi::c_void,
-        __len: size_t,
-    ) -> *mut ::core::ffi::c_void;
-    pub fn memset(
-        __b: *mut ::core::ffi::c_void,
-        __c: ::core::ffi::c_int,
-        __len: size_t,
-    ) -> *mut ::core::ffi::c_void;
-    pub fn memcmp(
-        __s1: *const ::core::ffi::c_void,
-        __s2: *const ::core::ffi::c_void,
-        __n: size_t,
-    ) -> ::core::ffi::c_int;
-    pub fn memchr(
-        __s: *const ::core::ffi::c_void,
-        __c: ::core::ffi::c_int,
-        __n: size_t,
-    ) -> *mut ::core::ffi::c_void;
+// Process control
+pub use libc::abort;
+pub use libc::exit;
 
-    pub fn strlen(_: *const ::core::ffi::c_char) -> size_t;
-    pub fn strcmp(
-        _: *const ::core::ffi::c_char,
-        _: *const ::core::ffi::c_char,
-    ) -> ::core::ffi::c_int;
-    pub fn strncmp(
-        _: *const ::core::ffi::c_char,
-        _: *const ::core::ffi::c_char,
-        _: size_t,
-    ) -> ::core::ffi::c_int;
-    pub fn strcasecmp(
-        _: *const ::core::ffi::c_char,
-        _: *const ::core::ffi::c_char,
-    ) -> ::core::ffi::c_int;
-    pub fn strncasecmp(
-        _: *const ::core::ffi::c_char,
-        _: *const ::core::ffi::c_char,
-        _: size_t,
-    ) -> ::core::ffi::c_int;
-    pub fn strcpy(
-        _: *mut ::core::ffi::c_char,
-        _: *const ::core::ffi::c_char,
-    ) -> *mut ::core::ffi::c_char;
-    pub fn strncpy(
-        __dst: *mut ::core::ffi::c_char,
-        __src: *const ::core::ffi::c_char,
-        __n: size_t,
-    ) -> *mut ::core::ffi::c_char;
-    pub fn strcat(
-        _: *mut ::core::ffi::c_char,
-        _: *const ::core::ffi::c_char,
-    ) -> *mut ::core::ffi::c_char;
-    pub fn strncat(
-        __s1: *mut ::core::ffi::c_char,
-        __s2: *const ::core::ffi::c_char,
-        __n: size_t,
-    ) -> *mut ::core::ffi::c_char;
-    pub fn strchr(_: *const ::core::ffi::c_char, _: ::core::ffi::c_int)
-        -> *mut ::core::ffi::c_char;
-    pub fn strrchr(
-        _: *const ::core::ffi::c_char,
-        _: ::core::ffi::c_int,
-    ) -> *mut ::core::ffi::c_char;
-    pub fn strstr(
-        __big: *const ::core::ffi::c_char,
-        __little: *const ::core::ffi::c_char,
-    ) -> *mut ::core::ffi::c_char;
-    pub fn strdup(_: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
-    pub fn strerror(_: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;
+// Memory operations
+pub use libc::memchr;
+pub use libc::memcmp;
+pub use libc::memcpy;
+pub use libc::memmove;
+pub use libc::memset;
 
-    pub fn fprintf(_: *mut FILE, _: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;
-    pub fn printf(_: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;
-    pub fn sprintf(
-        _: *mut ::core::ffi::c_char,
-        _: *const ::core::ffi::c_char,
-        ...
-    ) -> ::core::ffi::c_int;
-    pub fn snprintf(
-        __str: *mut ::core::ffi::c_char,
-        __size: size_t,
-        __format: *const ::core::ffi::c_char,
-        ...
-    ) -> ::core::ffi::c_int;
-    pub fn sscanf(
-        _: *const ::core::ffi::c_char,
-        _: *const ::core::ffi::c_char,
-        ...
-    ) -> ::core::ffi::c_int;
+// String operations
+pub use libc::strcasecmp;
+pub use libc::strcat;
+pub use libc::strchr;
+pub use libc::strcmp;
+pub use libc::strcpy;
+pub use libc::strdup;
+pub use libc::strerror;
+pub use libc::strlen;
+pub use libc::strncasecmp;
+pub use libc::strncat;
+pub use libc::strncmp;
+pub use libc::strncpy;
+pub use libc::strrchr;
+pub use libc::strstr;
 
-    pub fn fopen(_: *const ::core::ffi::c_char, _: *const ::core::ffi::c_char) -> *mut FILE;
-    pub fn fclose(_: *mut FILE) -> ::core::ffi::c_int;
-    pub fn fread(
-        __ptr: *mut ::core::ffi::c_void,
-        __size: size_t,
-        __nitems: size_t,
-        __stream: *mut FILE,
-    ) -> size_t;
-    pub fn fwrite(
-        __ptr: *const ::core::ffi::c_void,
-        __size: size_t,
-        __nitems: size_t,
-        __stream: *mut FILE,
-    ) -> size_t;
-    pub fn fgets(
-        _: *mut ::core::ffi::c_char,
-        _: ::core::ffi::c_int,
-        _: *mut FILE,
-    ) -> *mut ::core::ffi::c_char;
-    pub fn feof(_: *mut FILE) -> ::core::ffi::c_int;
-    pub fn ferror(_: *mut FILE) -> ::core::ffi::c_int;
-    pub fn fflush(_: *mut FILE) -> ::core::ffi::c_int;
+// Formatted I/O
+pub use libc::fprintf;
+pub use libc::printf;
+pub use libc::snprintf;
+pub use libc::sprintf;
+pub use libc::sscanf;
 
-    pub fn atoi(_: *const ::core::ffi::c_char) -> ::core::ffi::c_int;
-    pub fn atol(_: *const ::core::ffi::c_char) -> ::core::ffi::c_long;
-    pub fn strtol(
-        _: *const ::core::ffi::c_char,
-        _: *mut *mut ::core::ffi::c_char,
-        _: ::core::ffi::c_int,
-    ) -> ::core::ffi::c_long;
-    pub fn strtoul(
-        _: *const ::core::ffi::c_char,
-        _: *mut *mut ::core::ffi::c_char,
-        _: ::core::ffi::c_int,
-    ) -> ::core::ffi::c_ulong;
+// File operations
+pub use libc::fclose;
+pub use libc::feof;
+pub use libc::ferror;
+pub use libc::fflush;
+pub use libc::fgets;
+pub use libc::fopen;
+pub use libc::fread;
+pub use libc::fwrite;
 
-    pub fn getrlimit(_: ::core::ffi::c_int, _: *mut rlimit) -> ::core::ffi::c_int;
-    pub fn setrlimit(_: ::core::ffi::c_int, _: *const rlimit) -> ::core::ffi::c_int;
+// Number parsing
+pub use libc::atoi;
+pub use libc::atol;
+pub use libc::strtol;
+pub use libc::strtoul;
 
-    pub fn close(_: ::core::ffi::c_int) -> ::core::ffi::c_int;
-    pub fn read(_: ::core::ffi::c_int, _: *mut ::core::ffi::c_void, _: size_t) -> ssize_t;
-    pub fn write(_: ::core::ffi::c_int, _: *const ::core::ffi::c_void, _: size_t) -> ssize_t;
+// Resource limits
+pub use libc::getrlimit;
+pub use libc::setrlimit;
 
-    pub fn socket(
-        _: ::core::ffi::c_int,
-        _: ::core::ffi::c_int,
-        _: ::core::ffi::c_int,
-    ) -> ::core::ffi::c_int;
-    pub fn connect(_: ::core::ffi::c_int, _: *const sockaddr, _: socklen_t) -> ::core::ffi::c_int;
-    pub fn bind(_: ::core::ffi::c_int, _: *const sockaddr, _: socklen_t) -> ::core::ffi::c_int;
-    pub fn listen(_: ::core::ffi::c_int, _: ::core::ffi::c_int) -> ::core::ffi::c_int;
-    pub fn accept(_: ::core::ffi::c_int, _: *mut sockaddr, _: *mut socklen_t)
-        -> ::core::ffi::c_int;
-    pub fn send(
-        _: ::core::ffi::c_int,
-        _: *const ::core::ffi::c_void,
-        _: size_t,
-        _: ::core::ffi::c_int,
-    ) -> ssize_t;
-    pub fn recv(
-        _: ::core::ffi::c_int,
-        _: *mut ::core::ffi::c_void,
-        _: size_t,
-        _: ::core::ffi::c_int,
-    ) -> ssize_t;
-    pub fn getsockopt(
-        _: ::core::ffi::c_int,
-        _: ::core::ffi::c_int,
-        _: ::core::ffi::c_int,
-        _: *mut ::core::ffi::c_void,
-        _: *mut socklen_t,
-    ) -> ::core::ffi::c_int;
-    pub fn setsockopt(
-        _: ::core::ffi::c_int,
-        _: ::core::ffi::c_int,
-        _: ::core::ffi::c_int,
-        _: *const ::core::ffi::c_void,
-        _: socklen_t,
-    ) -> ::core::ffi::c_int;
+// Basic I/O
+pub use libc::close;
+pub use libc::read;
+pub use libc::write;
 
-    pub fn getpid() -> pid_t;
-    pub fn getuid() -> uid_t;
+// Socket operations
+pub use libc::accept;
+pub use libc::bind;
+pub use libc::connect;
+pub use libc::getsockopt;
+pub use libc::listen;
+pub use libc::recv;
+pub use libc::send;
+pub use libc::setsockopt;
+pub use libc::socket;
+
+// Process info
+pub use libc::getpid;
+pub use libc::getuid;
+
+// macOS-specific peer credentials
+extern "C" {
     pub fn getpeereid(
         _: ::core::ffi::c_int,
         _: *mut uid_t,

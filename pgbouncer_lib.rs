@@ -53,6 +53,7 @@ pub mod lib {
         pub mod strpool;
         pub mod time;
         pub mod tls {
+            pub mod openssl_types;
             pub mod tls;
             pub mod tls_cert;
             pub mod tls_client;

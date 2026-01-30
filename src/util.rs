@@ -1142,18 +1142,12 @@ pub mod logging_h {
         );
     }
 }
-#[c2rust::header_src = "/opt/homebrew/Cellar/openssl@3/3.6.0/include/openssl/types.h:31"]
+// OpenSSL types - use openssl-sys crate
 pub mod types_h {
-    #[c2rust::src_loc = "113:1"]
-    pub type EVP_MD_CTX = evp_md_ctx_st;
-    #[c2rust::src_loc = "112:1"]
-    pub type EVP_MD = evp_md_st;
-    extern "C" {
-        #[c2rust::src_loc = "113:9"]
-        pub type evp_md_ctx_st;
-        #[c2rust::src_loc = "112:9"]
-        pub type evp_md_st;
-    }
+    pub type EVP_MD_CTX = openssl_sys::EVP_MD_CTX;
+    pub type EVP_MD = openssl_sys::EVP_MD;
+    pub type evp_md_ctx_st = openssl_sys::EVP_MD_CTX;
+    pub type evp_md_st = openssl_sys::EVP_MD;
 }
 #[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libkern/arm/_OSByteOrder.h:23"]
 pub mod _OSByteOrder_h {
@@ -1340,32 +1334,14 @@ pub mod _string_h {
         ) -> ::core::ffi::c_ulong;
     }
 }
-#[c2rust::header_src = "/opt/homebrew/Cellar/openssl@3/3.6.0/include/openssl/evp.h:32"]
+// OpenSSL EVP functions - use openssl-sys crate
 pub mod evp_h {
-    use super::_size_t_h::size_t;
-    use super::types_h::{EVP_MD, EVP_MD_CTX};
-    extern "C" {
-        #[c2rust::src_loc = "734:1"]
-        pub fn EVP_MD_CTX_new() -> *mut EVP_MD_CTX;
-        #[c2rust::src_loc = "736:1"]
-        pub fn EVP_MD_CTX_free(ctx: *mut EVP_MD_CTX);
-        #[c2rust::src_loc = "749:8"]
-        pub fn EVP_DigestUpdate(
-            ctx: *mut EVP_MD_CTX,
-            d: *const ::core::ffi::c_void,
-            cnt: size_t,
-        ) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "751:8"]
-        pub fn EVP_DigestFinal_ex(
-            ctx: *mut EVP_MD_CTX,
-            md: *mut ::core::ffi::c_uchar,
-            s: *mut ::core::ffi::c_uint,
-        ) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "761:8"]
-        pub fn EVP_DigestInit(ctx: *mut EVP_MD_CTX, type_0: *const EVP_MD) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "969:1"]
-        pub fn EVP_md5() -> *const EVP_MD;
-    }
+    pub use openssl_sys::EVP_DigestFinal_ex;
+    pub use openssl_sys::EVP_DigestInit;
+    pub use openssl_sys::EVP_DigestUpdate;
+    pub use openssl_sys::EVP_MD_CTX_free;
+    pub use openssl_sys::EVP_MD_CTX_new;
+    pub use openssl_sys::EVP_md5;
 }
 #[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/crypto/csrandom.h:26"]
 pub mod csrandom_h {
@@ -1410,16 +1386,11 @@ pub mod md5_h {
     #[c2rust::src_loc = "34:9"]
     pub const MD5_DIGEST_LENGTH: ::core::ffi::c_int = 16 as ::core::ffi::c_int;
 }
-#[c2rust::header_src = "/opt/homebrew/Cellar/openssl@3/3.6.0/include/openssl/err.h:31"]
+// OpenSSL error functions - use openssl-sys crate
 pub mod err_h {
-    extern "C" {
-        #[c2rust::src_loc = "417:1"]
-        pub fn ERR_get_error() -> ::core::ffi::c_ulong;
-        #[c2rust::src_loc = "453:1"]
-        pub fn ERR_clear_error();
-        #[c2rust::src_loc = "461:1"]
-        pub fn ERR_reason_error_string(e: ::core::ffi::c_ulong) -> *const ::core::ffi::c_char;
-    }
+    pub use openssl_sys::ERR_clear_error;
+    pub use openssl_sys::ERR_get_error;
+    pub use openssl_sys::ERR_reason_error_string;
 }
 pub use self::_OSByteOrder_h::{_OSSwapInt16, _OSSwapInt32};
 pub use self::_ctype_h::{__istype, __maskrune, isascii, isspace, _CTYPE_S};
