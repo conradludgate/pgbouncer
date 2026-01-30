@@ -11,7 +11,7 @@ pub const ERANGE: ::core::ffi::c_int = 34;
 pub const HIGHBIT: ::core::ffi::c_int = 0x80;
 
 #[no_mangle]
-#[c2rust::src_loc = "26:1"]
+
 pub unsafe extern "C" fn pg_str_endswith(
     mut str: *const ::core::ffi::c_char,
     mut end: *const ::core::ffi::c_char,
@@ -26,7 +26,7 @@ pub unsafe extern "C" fn pg_str_endswith(
 }
 
 #[no_mangle]
-#[c2rust::src_loc = "45:1"]
+
 pub unsafe extern "C" fn strtoint(
     mut str: *const ::core::ffi::c_char,
     mut endptr: *mut *mut ::core::ffi::c_char,
@@ -41,7 +41,7 @@ pub unsafe extern "C" fn strtoint(
 }
 
 #[no_mangle]
-#[c2rust::src_loc = "80:1"]
+
 pub unsafe extern "C" fn pg_clean_ascii(
     mut str: *const ::core::ffi::c_char,
     mut _alloc_flags: ::core::ffi::c_int,
@@ -80,7 +80,7 @@ pub unsafe extern "C" fn pg_clean_ascii(
 }
 
 #[no_mangle]
-#[c2rust::src_loc = "127:1"]
+
 pub unsafe extern "C" fn pg_is_ascii(mut str: *const ::core::ffi::c_char) -> bool {
     while *str != 0 {
         if *str as ::core::ffi::c_uchar as ::core::ffi::c_int & HIGHBIT != 0 {
@@ -92,7 +92,7 @@ pub unsafe extern "C" fn pg_is_ascii(mut str: *const ::core::ffi::c_char) -> boo
 }
 
 #[no_mangle]
-#[c2rust::src_loc = "149:1"]
+
 pub unsafe extern "C" fn pg_strip_crlf(mut str: *mut ::core::ffi::c_char) -> ::core::ffi::c_int {
     let mut len = strlen(str) as ::core::ffi::c_int;
     while len > 0 as ::core::ffi::c_int

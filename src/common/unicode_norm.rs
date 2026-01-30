@@ -1,65 +1,65 @@
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arm/_types.h:15"]
+
 pub mod _types_h {
-    #[c2rust::src_loc = "87:1"]
+    
     pub type __darwin_size_t = usize;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_size_t.h:15"]
+
 pub mod _size_t_h {
-    #[c2rust::src_loc = "50:1"]
+    
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types/_uint8_t.h:15"]
+
 pub mod _uint8_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type uint8_t = u8;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types/_uint16_t.h:15"]
+
 pub mod _uint16_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type uint16_t = u16;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types/_uint32_t.h:15"]
+
 pub mod _uint32_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type uint32_t = u32;
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/common/pg_wchar.h:21"]
+
 pub mod pg_wchar_h {
-    #[c2rust::src_loc = "28:1"]
+    
     pub type pg_wchar = ::core::ffi::c_uint;
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/common/unicode_norm.h:21"]
+
 pub mod unicode_norm_h {
-    #[c2rust::src_loc = "20:9"]
+    
     pub type UnicodeNormalizationForm = ::core::ffi::c_uint;
-    #[c2rust::src_loc = "25:2"]
+    
     pub const UNICODE_NFKD: UnicodeNormalizationForm = 3;
-    #[c2rust::src_loc = "24:2"]
+    
     pub const UNICODE_NFKC: UnicodeNormalizationForm = 2;
-    #[c2rust::src_loc = "23:2"]
+    
     pub const UNICODE_NFD: UnicodeNormalizationForm = 1;
-    #[c2rust::src_loc = "22:2"]
+    
     pub const UNICODE_NFC: UnicodeNormalizationForm = 0;
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/common/unicode_norm_table.h:0"]
+
 pub mod unicode_norm_table_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "19:9"]
+    
     pub struct pg_unicode_decomposition {
         pub codepoint: uint32_t,
         pub comb_class: uint8_t,
         pub dec_size_flags: uint8_t,
         pub dec_index: uint16_t,
     }
-    #[c2rust::src_loc = "28:9"]
+    
     pub const DECOMP_NO_COMPOSE: ::core::ffi::c_int = 0x80 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "29:9"]
+    
     pub const DECOMP_INLINE: ::core::ffi::c_int = 0x40 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "31:9"]
+    
     pub const DECOMP_COMPAT: ::core::ffi::c_int = 0x20 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "39:1"]
+    
     pub static mut UnicodeDecompMain: [pg_unicode_decomposition; 6843] = [
         pg_unicode_decomposition {
             codepoint: 0xa0 as uint32_t,
@@ -41120,7 +41120,7 @@ pub mod unicode_norm_table_h {
             dec_index: 5137 as uint16_t,
         },
     ];
-    #[c2rust::src_loc = "6888:1"]
+    
     pub static mut UnicodeDecomp_codepoints: [uint32_t; 5138] = [
         0x20 as ::core::ffi::c_int as uint32_t,
         0x308 as ::core::ffi::c_int as uint32_t,
@@ -46265,21 +46265,21 @@ pub mod unicode_norm_table_h {
     use super::_uint32_t_h::uint32_t;
     use super::_uint8_t_h::uint8_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/malloc/_malloc.h:15"]
+
 pub mod _malloc_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        #[c2rust::src_loc = "54:1"]
+        
         pub fn malloc(__size: size_t) -> *mut ::core::ffi::c_void;
-        #[c2rust::src_loc = "56:1"]
+        
         pub fn free(_: *mut ::core::ffi::c_void);
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_stdlib.h:15"]
+
 pub mod _stdlib_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        #[c2rust::src_loc = "156:1"]
+        
         pub fn bsearch(
             __key: *const ::core::ffi::c_void,
             __base: *const ::core::ffi::c_void,
@@ -46294,23 +46294,23 @@ pub mod _stdlib_h {
         ) -> *mut ::core::ffi::c_void;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_null.h:27"]
+
 pub mod _null_h {
-    #[c2rust::src_loc = "49:9"]
+    
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
     use super::sys__types_h::__DARWIN_NULL;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types.h:15"]
+
 pub mod sys__types_h {
-    #[c2rust::src_loc = "64:9"]
+    
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
 }
-#[c2rust::header_src = "/opt/homebrew/Cellar/llvm/21.1.8/lib/clang/21/include/stdbool.h:15"]
+
 pub mod stdbool_h {
-    #[c2rust::src_loc = "25:9"]
+    
     pub const true_0: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "26:9"]
+    
     pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 }
 use self::_malloc_h::{free, malloc};
@@ -46331,21 +46331,21 @@ pub use self::unicode_norm_table_h::{
     pg_unicode_decomposition, UnicodeDecompMain, UnicodeDecomp_codepoints, DECOMP_COMPAT,
     DECOMP_INLINE, DECOMP_NO_COMPOSE,
 };
-#[c2rust::src_loc = "39:9"]
+
 pub const SBASE: ::core::ffi::c_int = 0xac00 as ::core::ffi::c_int;
-#[c2rust::src_loc = "40:9"]
+
 pub const LBASE: ::core::ffi::c_int = 0x1100 as ::core::ffi::c_int;
-#[c2rust::src_loc = "41:9"]
+
 pub const VBASE: ::core::ffi::c_int = 0x1161 as ::core::ffi::c_int;
-#[c2rust::src_loc = "42:9"]
+
 pub const TBASE: ::core::ffi::c_int = 0x11a7 as ::core::ffi::c_int;
-#[c2rust::src_loc = "43:9"]
+
 pub const LCOUNT: ::core::ffi::c_int = 19 as ::core::ffi::c_int;
-#[c2rust::src_loc = "44:9"]
+
 pub const VCOUNT: ::core::ffi::c_int = 21 as ::core::ffi::c_int;
-#[c2rust::src_loc = "45:9"]
+
 pub const TCOUNT: ::core::ffi::c_int = 28 as ::core::ffi::c_int;
-#[c2rust::src_loc = "51:1"]
+
 unsafe extern "C" fn conv_compare(
     mut p1: *const ::core::ffi::c_void,
     mut p2: *const ::core::ffi::c_void,
@@ -46362,7 +46362,7 @@ unsafe extern "C" fn conv_compare(
         -(1 as ::core::ffi::c_int)
     }
 }
-#[c2rust::src_loc = "71:1"]
+
 unsafe extern "C" fn get_code_entry(mut code: pg_wchar) -> *const pg_unicode_decomposition {
     bsearch(
         &raw mut code as *const ::core::ffi::c_void,
@@ -46380,7 +46380,7 @@ unsafe extern "C" fn get_code_entry(mut code: pg_wchar) -> *const pg_unicode_dec
         ),
     ) as *const pg_unicode_decomposition
 }
-#[c2rust::src_loc = "111:1"]
+
 unsafe extern "C" fn get_canonical_class(mut code: pg_wchar) -> uint8_t {
     let mut entry = get_code_entry(code);
     if entry.is_null() {
@@ -46389,7 +46389,7 @@ unsafe extern "C" fn get_canonical_class(mut code: pg_wchar) -> uint8_t {
         (*entry).comb_class
     }
 }
-#[c2rust::src_loc = "133:1"]
+
 unsafe extern "C" fn get_code_decomposition(
     mut entry: *const pg_unicode_decomposition,
     mut dec_size: *mut ::core::ffi::c_int,
@@ -46405,7 +46405,7 @@ unsafe extern "C" fn get_code_decomposition(
             as *const pg_wchar
     }
 }
-#[c2rust::src_loc = "158:1"]
+
 unsafe extern "C" fn get_decomposed_size(
     mut code: pg_wchar,
     mut compat: bool,
@@ -46444,7 +46444,7 @@ unsafe extern "C" fn get_decomposed_size(
     }
     size
 }
-#[c2rust::src_loc = "217:1"]
+
 unsafe extern "C" fn recompose_code(
     mut start: uint32_t,
     mut code: uint32_t,
@@ -46505,7 +46505,7 @@ unsafe extern "C" fn recompose_code(
     }
     false_0 != 0
 }
-#[c2rust::src_loc = "320:1"]
+
 unsafe extern "C" fn decompose_code(
     mut code: pg_wchar,
     mut compat: bool,
@@ -46562,7 +46562,7 @@ unsafe extern "C" fn decompose_code(
     }
 }
 #[no_mangle]
-#[c2rust::src_loc = "401:1"]
+
 pub unsafe extern "C" fn unicode_normalize(
     mut form: UnicodeNormalizationForm,
     mut input: *const pg_wchar,

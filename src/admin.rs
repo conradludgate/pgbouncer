@@ -1,135 +1,135 @@
-#[c2rust::header_src = "internal:0"]
+
 pub mod internal {
-    #[c2rust::src_loc = "0:0"]
+    
     pub type __builtin_va_list = *mut ::core::ffi::c_char;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arm/_types.h:23"]
+
 pub mod _types_h {
-    #[c2rust::src_loc = "32:1"]
+    
     pub type __uint8_t = u8;
-    #[c2rust::src_loc = "34:1"]
+    
     pub type __uint16_t = u16;
-    #[c2rust::src_loc = "35:1"]
+    
     pub type __int32_t = i32;
-    #[c2rust::src_loc = "36:1"]
+    
     pub type __uint32_t = u32;
-    #[c2rust::src_loc = "37:1"]
+    
     pub type __int64_t = i64;
-    #[c2rust::src_loc = "77:1"]
+    
     pub type __darwin_ptrdiff_t = isize;
-    #[c2rust::src_loc = "87:1"]
+    
     pub type __darwin_size_t = usize;
-    #[c2rust::src_loc = "95:1"]
+    
     pub type __darwin_va_list = __builtin_va_list;
-    #[c2rust::src_loc = "117:1"]
+    
     pub type __darwin_socklen_t = __uint32_t;
-    #[c2rust::src_loc = "118:1"]
+    
     pub type __darwin_ssize_t = isize;
-    #[c2rust::src_loc = "119:1"]
+    
     pub type __darwin_time_t = ::core::ffi::c_long;
     use super::internal::__builtin_va_list;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_uintptr_t.h:23"]
+
 pub mod _uintptr_t_h {
-    #[c2rust::src_loc = "34:1"]
+    
     pub type uintptr_t = usize;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types.h:23"]
+
 pub mod sys__types_h {
-    #[c2rust::src_loc = "72:1"]
+    
     pub type __darwin_gid_t = __uint32_t;
-    #[c2rust::src_loc = "83:1"]
+    
     pub type __darwin_off_t = __int64_t;
-    #[c2rust::src_loc = "84:1"]
+    
     pub type __darwin_pid_t = __int32_t;
-    #[c2rust::src_loc = "86:1"]
+    
     pub type __darwin_suseconds_t = __int32_t;
-    #[c2rust::src_loc = "87:1"]
+    
     pub type __darwin_uid_t = __uint32_t;
-    #[c2rust::src_loc = "64:9"]
+    
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
     use super::_types_h::{__int32_t, __int64_t, __uint32_t};
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_gid_t.h:23"]
+
 pub mod _gid_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type gid_t = __darwin_gid_t;
     use super::sys__types_h::__darwin_gid_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_in_addr_t.h:23"]
+
 pub mod _in_addr_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type in_addr_t = __uint32_t;
     use super::_types_h::__uint32_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_in_port_t.h:23"]
+
 pub mod _in_port_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type in_port_t = __uint16_t;
     use super::_types_h::__uint16_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_pid_t.h:23"]
+
 pub mod _pid_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type pid_t = __darwin_pid_t;
     use super::sys__types_h::__darwin_pid_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_uid_t.h:23"]
+
 pub mod _uid_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type uid_t = __darwin_uid_t;
     use super::sys__types_h::__darwin_uid_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_size_t.h:23"]
+
 pub mod _size_t_h {
-    #[c2rust::src_loc = "50:1"]
+    
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_ssize_t.h:23"]
+
 pub mod _ssize_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type ssize_t = __darwin_ssize_t;
     use super::_types_h::__darwin_ssize_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_ptrdiff_t.h:23"]
+
 pub mod _ptrdiff_t_h {
-    #[c2rust::src_loc = "51:1"]
+    
     pub type ptrdiff_t = __darwin_ptrdiff_t;
     use super::_types_h::__darwin_ptrdiff_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types/_uint8_t.h:23"]
+
 pub mod _uint8_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type uint8_t = u8;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types/_uint16_t.h:23"]
+
 pub mod _uint16_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type uint16_t = u16;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types/_uint32_t.h:23"]
+
 pub mod _uint32_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type uint32_t = u32;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types/_uint64_t.h:23"]
+
 pub mod _uint64_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type uint64_t = u64;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_va_list.h:23"]
+
 pub mod _va_list_h {
-    #[c2rust::src_loc = "44:1"]
+    
     pub type va_list = __darwin_va_list;
     use super::_types_h::__darwin_va_list;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_timeval.h:23"]
+
 pub mod _timeval_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "34:1"]
+    
     pub struct timeval {
         pub tv_sec: __darwin_time_t,
         pub tv_usec: __darwin_suseconds_t,
@@ -137,14 +137,14 @@ pub mod _timeval_h {
     use super::_types_h::__darwin_time_t;
     use super::sys__types_h::__darwin_suseconds_t;
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/tls/tls.h:23"]
+
 pub mod tls_h {
     use super::_size_t_h::size_t;
     use super::_ssize_t_h::ssize_t;
     extern "C" {
-        #[c2rust::src_loc = "66:1"]
+        
         pub type tls;
-        #[c2rust::src_loc = "153:1"]
+        
         pub fn tls_get_connection_info(
             ctx: *mut tls,
             buf: *mut ::core::ffi::c_char,
@@ -152,22 +152,22 @@ pub mod tls_h {
         ) -> ssize_t;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_iovec_t.h:23"]
+
 pub mod _iovec_t_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "31:1"]
+    
     pub struct iovec {
         pub iov_base: *mut ::core::ffi::c_void,
         pub iov_len: size_t,
     }
     use super::_size_t_h::size_t;
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/cfparser.h:23"]
+
 pub mod cfparser_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "66:1"]
+    
     pub struct CfValue {
         pub value_p: *mut ::core::ffi::c_void,
         pub extra: *const ::core::ffi::c_void,
@@ -177,108 +177,108 @@ pub mod cfparser_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "199:1"]
+    
     pub struct CfLookup {
         pub name: *const ::core::ffi::c_char,
         pub value: ::core::ffi::c_int,
     }
     extern "C" {
-        #[c2rust::src_loc = "168:1"]
+        
         pub fn cf_get_lookup(cv: *mut CfValue) -> *const ::core::ffi::c_char;
     }
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/time.h:23"]
+
 pub mod time_h {
-    #[c2rust::src_loc = "40:1"]
+    
     pub type usec_t = uint64_t;
-    #[c2rust::src_loc = "43:9"]
+    
     pub const USEC: usec_t = 1000000 as ::core::ffi::c_int as usec_t;
     use super::_uint64_t_h::uint64_t;
     extern "C" {
-        #[c2rust::src_loc = "54:1"]
+        
         pub fn get_cached_time() -> usec_t;
     }
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/list.h:23"]
+
 pub mod list_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "35:1"]
+    
     pub struct List {
         pub next: *mut List,
         pub prev: *mut List,
     }
     #[inline]
-    #[c2rust::src_loc = "52:1"]
+    
     pub unsafe extern "C" fn list_empty(mut list: *const List) -> ::core::ffi::c_int {
         std::ptr::eq((*list).next, list) as ::core::ffi::c_int
     }
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/statlist.h:23"]
+
 pub mod statlist_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "36:1"]
+    
     pub struct StatList {
         pub head: List,
         pub cur_count: ::core::ffi::c_int,
     }
     #[inline]
-    #[c2rust::src_loc = "88:1"]
+    
     pub unsafe extern "C" fn statlist_count(mut list: *const StatList) -> ::core::ffi::c_int {
         (*list).cur_count
     }
     #[inline]
-    #[c2rust::src_loc = "120:1"]
+    
     pub unsafe extern "C" fn statlist_empty(mut list: *const StatList) -> bool {
         list_empty(&raw const (*list).head) != 0
     }
     use super::list_h::{list_empty, List};
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/aatree.h:23"]
+
 pub mod aatree_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "41:1"]
+    
     pub struct AATree {
         pub root: *mut AANode,
         pub count: ::core::ffi::c_int,
         pub node_cmp: aatree_cmp_f,
         pub release_cb: aatree_walker_f,
     }
-    #[c2rust::src_loc = "36:1"]
+    
     pub type aatree_walker_f =
         Option<unsafe extern "C" fn(*mut AANode, *mut ::core::ffi::c_void) -> ()>;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "57:1"]
+    
     pub struct AANode {
         pub left: *mut AANode,
         pub right: *mut AANode,
         pub level: ::core::ffi::c_int,
     }
-    #[c2rust::src_loc = "33:1"]
+    
     pub type aatree_cmp_f =
         Option<unsafe extern "C" fn(uintptr_t, *mut AANode) -> ::core::ffi::c_int>;
     use super::_uintptr_t_h::uintptr_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_sa_family_t.h:23"]
+
 pub mod _sa_family_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type sa_family_t = __uint8_t;
     use super::_types_h::__uint8_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_socklen_t.h:23"]
+
 pub mod _socklen_t_h {
-    #[c2rust::src_loc = "31:1"]
+    
     pub type socklen_t = __darwin_socklen_t;
     use super::_types_h::__darwin_socklen_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/socket.h:23"]
+
 pub mod socket_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "414:1"]
+    
     pub struct sockaddr {
         pub sa_len: __uint8_t,
         pub sa_family: sa_family_t,
@@ -286,7 +286,7 @@ pub mod socket_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "560:1"]
+    
     pub struct msghdr {
         pub msg_name: *mut ::core::ffi::c_void,
         pub msg_namelen: socklen_t,
@@ -298,34 +298,34 @@ pub mod socket_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "606:1"]
+    
     pub struct cmsghdr {
         pub cmsg_len: socklen_t,
         pub cmsg_level: ::core::ffi::c_int,
         pub cmsg_type: ::core::ffi::c_int,
     }
-    #[c2rust::src_loc = "354:9"]
+    
     pub const SOL_SOCKET: ::core::ffi::c_int = 0xffff as ::core::ffi::c_int;
-    #[c2rust::src_loc = "361:9"]
+    
     pub const AF_UNIX: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "677:9"]
+    
     pub const SCM_RIGHTS: ::core::ffi::c_int = 0x1 as ::core::ffi::c_int;
     use super::_iovec_t_h::iovec;
     use super::_sa_family_t_h::sa_family_t;
     use super::_socklen_t_h::socklen_t;
     use super::_types_h::__uint8_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/netinet/in.h:23"]
+
 pub mod in_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "301:1"]
+    
     pub struct in_addr {
         pub s_addr: in_addr_t,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "374:1"]
+    
     pub struct sockaddr_in {
         pub sin_len: __uint8_t,
         pub sin_family: sa_family_t,
@@ -338,17 +338,17 @@ pub mod in_h {
     use super::_sa_family_t_h::sa_family_t;
     use super::_types_h::__uint8_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/netinet6/in6.h:23"]
+
 pub mod in6_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "152:9"]
+    
     pub struct in6_addr {
         pub __u6_addr: C2RustUnnamed,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "153:2"]
+    
     pub union C2RustUnnamed {
         pub __u6_addr8: [__uint8_t; 16],
         pub __u6_addr16: [__uint16_t; 8],
@@ -356,7 +356,7 @@ pub mod in6_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "170:1"]
+    
     pub struct sockaddr_in6 {
         pub sin6_len: __uint8_t,
         pub sin6_family: sa_family_t,
@@ -369,11 +369,11 @@ pub mod in6_h {
     use super::_sa_family_t_h::sa_family_t;
     use super::_types_h::{__uint16_t, __uint32_t, __uint8_t};
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/netdb.h:23"]
+
 pub mod netdb_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "147:1"]
+    
     pub struct addrinfo {
         pub ai_flags: ::core::ffi::c_int,
         pub ai_family: ::core::ffi::c_int,
@@ -387,20 +387,20 @@ pub mod netdb_h {
     use super::_socklen_t_h::socklen_t;
     use super::socket_h::sockaddr;
 }
-#[c2rust::header_src = "/opt/homebrew/Cellar/libevent/2.1.12_1/include/event2/event.h:23"]
+
 pub mod event_h {
     extern "C" {
-        #[c2rust::src_loc = "217:1"]
+        
         pub type event_base;
-        #[c2rust::src_loc = "860:1"]
+        
         pub fn event_base_loopbreak(_: *mut event_base) -> ::core::ffi::c_int;
     }
 }
-#[c2rust::header_src = "/opt/homebrew/Cellar/libevent/2.1.12_1/include/event2/event_struct.h:23"]
+
 pub mod event_struct_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "123:1"]
+    
     pub struct event {
         pub ev_evcallback: event_callback,
         pub ev_timeout_pos: C2RustUnnamed_5,
@@ -413,14 +413,14 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "135:2"]
+    
     pub union C2RustUnnamed_0 {
         pub ev_io: C2RustUnnamed_3,
         pub ev_signal: C2RustUnnamed_1,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "143:3"]
+    
     pub struct C2RustUnnamed_1 {
         pub ev_signal_next: C2RustUnnamed_2,
         pub ev_ncalls: ::core::ffi::c_short,
@@ -428,42 +428,42 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "144:4"]
+    
     pub struct C2RustUnnamed_2 {
         pub le_next: *mut event,
         pub le_prev: *mut *mut event,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "137:3"]
+    
     pub struct C2RustUnnamed_3 {
         pub ev_io_next: C2RustUnnamed_4,
         pub ev_timeout: timeval,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "138:4"]
+    
     pub struct C2RustUnnamed_4 {
         pub le_next: *mut event,
         pub le_prev: *mut *mut event,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "127:2"]
+    
     pub union C2RustUnnamed_5 {
         pub ev_next_with_common_timeout: C2RustUnnamed_6,
         pub min_heap_idx: ::core::ffi::c_int,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "128:3"]
+    
     pub struct C2RustUnnamed_6 {
         pub tqe_next: *mut event,
         pub tqe_prev: *mut *mut event,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "107:1"]
+    
     pub struct event_callback {
         pub evcb_active_next: C2RustUnnamed_8,
         pub evcb_flags: ::core::ffi::c_short,
@@ -474,7 +474,7 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "113:9"]
+    
     pub union C2RustUnnamed_7 {
         pub evcb_callback: Option<
             unsafe extern "C" fn(
@@ -492,7 +492,7 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "108:2"]
+    
     pub struct C2RustUnnamed_8 {
         pub tqe_next: *mut event_callback,
         pub tqe_prev: *mut *mut event_callback,
@@ -501,24 +501,24 @@ pub mod event_struct_h {
     use super::_uint8_t_h::uint8_t;
     use super::event_h::event_base;
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/common/cryptohash.h:23"]
+
 pub mod cryptohash_h {
-    #[c2rust::src_loc = "19:9"]
+    
     pub type pg_cryptohash_type = ::core::ffi::c_uint;
-    #[c2rust::src_loc = "24:2"]
+    
     pub const PG_SHA512: pg_cryptohash_type = 3;
-    #[c2rust::src_loc = "23:2"]
+    
     pub const PG_SHA384: pg_cryptohash_type = 2;
-    #[c2rust::src_loc = "22:2"]
+    
     pub const PG_SHA256: pg_cryptohash_type = 1;
-    #[c2rust::src_loc = "21:2"]
+    
     pub const PG_SHA224: pg_cryptohash_type = 0;
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/common/uthash.h:23"]
+
 pub mod uthash_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "1072:9"]
+    
     pub struct UT_hash_bucket {
         pub hh_head: *mut UT_hash_handle,
         pub count: ::core::ffi::c_uint,
@@ -526,7 +526,7 @@ pub mod uthash_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "1129:9"]
+    
     pub struct UT_hash_handle {
         pub tbl: *mut UT_hash_table,
         pub prev: *mut ::core::ffi::c_void,
@@ -539,7 +539,7 @@ pub mod uthash_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "1096:9"]
+    
     pub struct UT_hash_table {
         pub buckets: *mut UT_hash_bucket,
         pub num_buckets: ::core::ffi::c_uint,
@@ -556,79 +556,79 @@ pub mod uthash_h {
     use super::_ptrdiff_t_h::ptrdiff_t;
     use super::_uint32_t_h::uint32_t;
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/bouncer.h:23"]
+
 pub mod bouncer_h {
-    #[c2rust::src_loc = "70:1"]
+    
     pub type SocketState = ::core::ffi::c_uint;
-    #[c2rust::src_loc = "88:2"]
+    
     pub const SV_TESTED: SocketState = 16;
-    #[c2rust::src_loc = "87:2"]
+    
     pub const SV_USED: SocketState = 15;
-    #[c2rust::src_loc = "86:2"]
+    
     pub const SV_ACTIVE_CANCEL: SocketState = 14;
-    #[c2rust::src_loc = "85:2"]
+    
     pub const SV_ACTIVE: SocketState = 13;
-    #[c2rust::src_loc = "84:2"]
+    
     pub const SV_IDLE: SocketState = 12;
-    #[c2rust::src_loc = "83:2"]
+    
     pub const SV_BEING_CANCELED: SocketState = 11;
-    #[c2rust::src_loc = "82:2"]
+    
     pub const SV_LOGIN: SocketState = 10;
-    #[c2rust::src_loc = "81:2"]
+    
     pub const SV_JUSTFREE: SocketState = 9;
-    #[c2rust::src_loc = "80:2"]
+    
     pub const SV_FREE: SocketState = 8;
-    #[c2rust::src_loc = "78:2"]
+    
     pub const CL_ACTIVE_CANCEL: SocketState = 7;
-    #[c2rust::src_loc = "77:2"]
+    
     pub const CL_WAITING_CANCEL: SocketState = 6;
-    #[c2rust::src_loc = "76:2"]
+    
     pub const CL_ACTIVE: SocketState = 5;
-    #[c2rust::src_loc = "75:2"]
+    
     pub const CL_WAITING_LOGIN: SocketState = 4;
-    #[c2rust::src_loc = "74:2"]
+    
     pub const CL_WAITING: SocketState = 3;
-    #[c2rust::src_loc = "73:2"]
+    
     pub const CL_LOGIN: SocketState = 2;
-    #[c2rust::src_loc = "72:2"]
+    
     pub const CL_JUSTFREE: SocketState = 1;
-    #[c2rust::src_loc = "71:2"]
+    
     pub const CL_FREE: SocketState = 0;
-    #[c2rust::src_loc = "91:1"]
+    
     pub type PauseMode = ::core::ffi::c_uint;
-    #[c2rust::src_loc = "94:2"]
+    
     pub const P_SUSPEND: PauseMode = 2;
-    #[c2rust::src_loc = "93:2"]
+    
     pub const P_PAUSE: PauseMode = 1;
-    #[c2rust::src_loc = "92:2"]
+    
     pub const P_NONE: PauseMode = 0;
-    #[c2rust::src_loc = "97:1"]
+    
     pub type ShutDownMode = ::core::ffi::c_uint;
-    #[c2rust::src_loc = "119:2"]
+    
     pub const SHUTDOWN_IMMEDIATE: ShutDownMode = 3;
-    #[c2rust::src_loc = "117:2"]
+    
     pub const SHUTDOWN_WAIT_FOR_CLIENTS: ShutDownMode = 2;
-    #[c2rust::src_loc = "106:2"]
+    
     pub const SHUTDOWN_WAIT_FOR_SERVERS: ShutDownMode = 1;
-    #[c2rust::src_loc = "99:2"]
+    
     pub const SHUTDOWN_NONE: ShutDownMode = 0;
-    #[c2rust::src_loc = "131:1"]
+    
     pub type PacketCallbackFlag = ::core::ffi::c_uint;
-    #[c2rust::src_loc = "144:2"]
+    
     pub const CB_HANDLE_COMPLETE_PACKET: PacketCallbackFlag = 2;
-    #[c2rust::src_loc = "139:2"]
+    
     pub const CB_WANT_COMPLETE_PACKET: PacketCallbackFlag = 1;
-    #[c2rust::src_loc = "133:2"]
+    
     pub const CB_NONE: PacketCallbackFlag = 0;
-    #[c2rust::src_loc = "147:1"]
+    
     pub type LoadBalanceHosts = ::core::ffi::c_uint;
-    #[c2rust::src_loc = "149:2"]
+    
     pub const LOAD_BALANCE_HOSTS_ROUND_ROBIN: LoadBalanceHosts = 1;
-    #[c2rust::src_loc = "148:2"]
+    
     pub const LOAD_BALANCE_HOSTS_DISABLE: LoadBalanceHosts = 0;
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    #[c2rust::src_loc = "663:1"]
+    
     pub struct PgSocket {
         pub head: List,
         pub cancel_head: List,
@@ -685,7 +685,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    #[c2rust::src_loc = "768:2"]
+    
     pub struct CallbackState {
         #[bitfield(name = "flag", ty = "PacketCallbackFlag", bits = "0..=7")]
         pub flag: [u8; 1],
@@ -695,7 +695,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "732:2"]
+    
     pub struct ScramState {
         pub client_nonce: *mut ::core::ffi::c_char,
         pub client_first_message_bare: *mut ::core::ffi::c_char,
@@ -717,14 +717,14 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "727:2"]
+    
     pub union C2RustUnnamed_9 {
         pub dns_token: *mut DNSToken,
         pub db: *mut PgDatabase,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "570:1"]
+    
     pub struct PgDatabase {
         pub head: List,
         pub name: [::core::ffi::c_char; 64],
@@ -762,7 +762,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "509:1"]
+    
     pub struct PgCredentials {
         pub tree_node: AANode,
         pub name: [::core::ffi::c_char; 128],
@@ -780,7 +780,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "549:1"]
+    
     pub struct PgGlobalUser {
         pub credentials: PgCredentials,
         pub head: List,
@@ -799,7 +799,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    #[c2rust::src_loc = "345:1"]
+    
     pub struct PgPool {
         pub head: List,
         pub map_head: List,
@@ -833,7 +833,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "320:1"]
+    
     pub struct PgStats {
         pub server_assignment_count: uint64_t,
         pub xact_count: uint64_t,
@@ -849,7 +849,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "292:1"]
+    
     pub union PgAddr {
         pub sa: sockaddr,
         pub sin: sockaddr_in,
@@ -858,55 +858,55 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "282:1"]
+    
     pub struct sockaddr_ucreds {
         pub sin: sockaddr_in,
         pub uid: uid_t,
         pub pid: pid_t,
     }
-    #[c2rust::src_loc = "650:1"]
+    
     pub type ReplicationType = ::core::ffi::c_uint;
-    #[c2rust::src_loc = "653:2"]
+    
     pub const REPLICATION_PHYSICAL: ReplicationType = 2;
-    #[c2rust::src_loc = "652:2"]
+    
     pub const REPLICATION_LOGICAL: ReplicationType = 1;
-    #[c2rust::src_loc = "651:2"]
+    
     pub const REPLICATION_NONE: ReplicationType = 0;
-    #[c2rust::src_loc = "240:2"]
+    
     pub const AUTH_TYPE_PAM: auth_type = 7;
-    #[c2rust::src_loc = "233:2"]
+    
     pub const AUTH_TYPE_ANY: auth_type = 0;
-    #[c2rust::src_loc = "232:1"]
+    
     pub type auth_type = ::core::ffi::c_uint;
-    #[c2rust::src_loc = "243:2"]
+    
     pub const AUTH_TYPE_REJECT: auth_type = 10;
-    #[c2rust::src_loc = "242:2"]
+    
     pub const AUTH_TYPE_PEER: auth_type = 9;
-    #[c2rust::src_loc = "241:2"]
+    
     pub const AUTH_TYPE_SCRAM_SHA_256: auth_type = 8;
-    #[c2rust::src_loc = "239:2"]
+    
     pub const AUTH_TYPE_LDAP: auth_type = 6;
-    #[c2rust::src_loc = "238:2"]
+    
     pub const AUTH_TYPE_HBA: auth_type = 5;
-    #[c2rust::src_loc = "237:2"]
+    
     pub const AUTH_TYPE_CERT: auth_type = 4;
-    #[c2rust::src_loc = "236:2"]
+    
     pub const AUTH_TYPE_MD5: auth_type = 3;
-    #[c2rust::src_loc = "235:2"]
+    
     pub const AUTH_TYPE_PLAIN: auth_type = 2;
-    #[c2rust::src_loc = "234:2"]
+    
     pub const AUTH_TYPE_TRUST: auth_type = 1;
-    #[c2rust::src_loc = "257:9"]
+    
     pub const POOL_STMT: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "258:9"]
+    
     pub const POOL_INHERIT: ::core::ffi::c_int = 3 as ::core::ffi::c_int;
     #[inline]
-    #[c2rust::src_loc = "303:1"]
+    
     pub unsafe extern "C" fn pga_is_unix(mut a: *const PgAddr) -> bool {
         (*a).sa.sa_family as ::core::ffi::c_int == AF_UNIX
     }
     #[inline]
-    #[c2rust::src_loc = "917:1"]
+    
     pub unsafe extern "C" fn first_socket(mut slist: *mut StatList) -> *mut PgSocket {
         if statlist_empty(slist) {
             return ::core::ptr::null_mut::<PgSocket>();
@@ -938,54 +938,54 @@ pub mod bouncer_h {
     use super::time_h::usec_t;
     use super::varcache_h::VarCache;
     extern "C" {
-        #[c2rust::src_loc = "66:1"]
+        
         pub static mut pgb_event_base: *mut event_base;
-        #[c2rust::src_loc = "308:1"]
+        
         pub fn pga_port(a: *const PgAddr) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "312:1"]
+        
         pub fn pga_ntop(
             a: *const PgAddr,
             dst: *mut ::core::ffi::c_char,
             dstlen: ::core::ffi::c_int,
         ) -> *const ::core::ffi::c_char;
-        #[c2rust::src_loc = "806:1"]
+        
         pub static mut cf_listen_port: ::core::ffi::c_int;
-        #[c2rust::src_loc = "812:1"]
+        
         pub static mut cf_default_pool_size: ::core::ffi::c_int;
-        #[c2rust::src_loc = "813:1"]
+        
         pub static mut cf_min_pool_size: ::core::ffi::c_int;
-        #[c2rust::src_loc = "814:1"]
+        
         pub static mut cf_res_pool_size: ::core::ffi::c_int;
-        #[c2rust::src_loc = "825:1"]
+        
         pub static mut cf_server_lifetime: usec_t;
-        #[c2rust::src_loc = "851:1"]
+        
         pub static mut cf_auth_type: ::core::ffi::c_int;
-        #[c2rust::src_loc = "863:1"]
+        
         pub static mut cf_admin_users: *mut ::core::ffi::c_char;
-        #[c2rust::src_loc = "864:1"]
+        
         pub static mut cf_stats_users: *mut ::core::ffi::c_char;
-        #[c2rust::src_loc = "868:1"]
+        
         pub static mut cf_pause_mode: ::core::ffi::c_int;
-        #[c2rust::src_loc = "869:1"]
+        
         pub static mut cf_shutdown: ::core::ffi::c_int;
-        #[c2rust::src_loc = "884:1"]
+        
         pub static mut cf_log_connections: ::core::ffi::c_int;
-        #[c2rust::src_loc = "909:1"]
+        
         pub static pool_mode_map: [CfLookup; 0];
-        #[c2rust::src_loc = "910:1"]
+        
         pub static load_balance_hosts_map: [CfLookup; 0];
-        #[c2rust::src_loc = "912:1"]
+        
         pub static mut g_suspend_start: usec_t;
-        #[c2rust::src_loc = "914:1"]
+        
         pub static mut adns: *mut DNSContext;
-        #[c2rust::src_loc = "944:1"]
+        
         pub fn load_config() -> bool;
-        #[c2rust::src_loc = "947:1"]
+        
         pub fn set_config_param(
             key: *const ::core::ffi::c_char,
             val: *const ::core::ffi::c_char,
         ) -> bool;
-        #[c2rust::src_loc = "948:1"]
+        
         pub fn config_for_each(
             param_cb: Option<
                 unsafe extern "C" fn(
@@ -1000,11 +1000,11 @@ pub mod bouncer_h {
         );
     }
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/sbuf.h:23"]
+
 pub mod sbuf_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "71:1"]
+    
     pub struct SBuf {
         pub ev: event,
         pub wait_type: uint8_t,
@@ -1024,7 +1024,7 @@ pub mod sbuf_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "58:1"]
+    
     pub struct SBufIO {
         pub sbufio_peek:
             Option<unsafe extern "C" fn(*mut SBuf, *mut ::core::ffi::c_void, size_t) -> ssize_t>,
@@ -1034,34 +1034,34 @@ pub mod sbuf_h {
             Option<unsafe extern "C" fn(*mut SBuf, *const ::core::ffi::c_void, size_t) -> ssize_t>,
         pub sbufio_close: Option<unsafe extern "C" fn(*mut SBuf) -> ::core::ffi::c_int>,
     }
-    #[c2rust::src_loc = "54:1"]
+    
     pub type sbuf_cb_t = Option<unsafe extern "C" fn(*mut SBuf, SBufEvent, *mut MBuf) -> bool>;
-    #[c2rust::src_loc = "24:9"]
+    
     pub type SBufEvent = ::core::ffi::c_uint;
-    #[c2rust::src_loc = "32:2"]
+    
     pub const SBUF_EV_TLS_READY: SBufEvent = 7;
-    #[c2rust::src_loc = "31:2"]
+    
     pub const SBUF_EV_PKT_CALLBACK: SBufEvent = 6;
-    #[c2rust::src_loc = "30:2"]
+    
     pub const SBUF_EV_FLUSH: SBufEvent = 5;
-    #[c2rust::src_loc = "29:2"]
+    
     pub const SBUF_EV_CONNECT_OK: SBufEvent = 4;
-    #[c2rust::src_loc = "28:2"]
+    
     pub const SBUF_EV_CONNECT_FAILED: SBufEvent = 3;
-    #[c2rust::src_loc = "27:2"]
+    
     pub const SBUF_EV_SEND_FAILED: SBufEvent = 2;
-    #[c2rust::src_loc = "26:2"]
+    
     pub const SBUF_EV_RECV_FAILED: SBufEvent = 1;
-    #[c2rust::src_loc = "25:2"]
+    
     pub const SBUF_EV_READ: SBufEvent = 0;
     #[inline]
-    #[c2rust::src_loc = "144:1"]
+    
     pub unsafe extern "C" fn sbuf_is_empty(mut sbuf: *mut SBuf) -> bool {
         iobuf_empty((*sbuf).io) as ::core::ffi::c_int != 0
             && (*sbuf).pkt_remain == 0 as ::core::ffi::c_uint
     }
     #[inline]
-    #[c2rust::src_loc = "168:1"]
+    
     pub unsafe extern "C" fn sbuf_op_send(
         mut sbuf: *mut SBuf,
         mut buf: *const ::core::ffi::c_void,
@@ -1079,19 +1079,19 @@ pub mod sbuf_h {
     use super::mbuf_h::MBuf;
     use super::tls_h::tls;
     extern "C" {
-        #[c2rust::src_loc = "117:1"]
+        
         pub fn sbuf_tls_setup() -> bool;
-        #[c2rust::src_loc = "129:1"]
+        
         pub fn sbuf_prepare_skip(sbuf: *mut SBuf, amount: ::core::ffi::c_uint);
     }
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/iobuf.h:23"]
+
 pub mod iobuf_h {
-    #[c2rust::src_loc = "55:1"]
+    
     pub type IOBuf = iobuf;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "49:1"]
+    
     pub struct iobuf {
         pub done_pos: ::core::ffi::c_uint,
         pub parse_pos: ::core::ffi::c_uint,
@@ -1099,27 +1099,27 @@ pub mod iobuf_h {
         pub buf: [uint8_t; 0],
     }
     #[inline]
-    #[c2rust::src_loc = "65:1"]
+    
     pub unsafe extern "C" fn iobuf_empty(mut io: *const IOBuf) -> bool {
         io.is_null() || (*io).done_pos == (*io).recv_pos
     }
     #[inline]
-    #[c2rust::src_loc = "71:1"]
+    
     pub unsafe extern "C" fn iobuf_amount_pending(mut buf: *const IOBuf) -> ::core::ffi::c_uint {
         (*buf).parse_pos.wrapping_sub((*buf).done_pos)
     }
     #[inline]
-    #[c2rust::src_loc = "77:1"]
+    
     pub unsafe extern "C" fn iobuf_amount_parse(mut buf: *const IOBuf) -> ::core::ffi::c_uint {
         (*buf).recv_pos.wrapping_sub((*buf).parse_pos)
     }
     use super::_uint8_t_h::uint8_t;
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/mbuf.h:23"]
+
 pub mod mbuf_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "14:1"]
+    
     pub struct MBuf {
         pub data: *mut uint8_t,
         pub read_pos: ::core::ffi::c_uint,
@@ -1129,7 +1129,7 @@ pub mod mbuf_h {
         pub fixed: bool,
     }
     #[inline]
-    #[c2rust::src_loc = "33:1"]
+    
     pub unsafe extern "C" fn mbuf_init_fixed_reader(
         mut buf: *mut MBuf,
         mut ptr: *const ::core::ffi::c_void,
@@ -1143,17 +1143,17 @@ pub mod mbuf_h {
         (*buf).fixed = true_0 != 0;
     }
     #[inline]
-    #[c2rust::src_loc = "99:1"]
+    
     pub unsafe extern "C" fn mbuf_avail_for_read(mut buf: *const MBuf) -> ::core::ffi::c_uint {
         (*buf).write_pos.wrapping_sub((*buf).read_pos)
     }
     #[inline]
-    #[c2rust::src_loc = "113:1"]
+    
     pub unsafe extern "C" fn mbuf_written(mut buf: *const MBuf) -> ::core::ffi::c_uint {
         (*buf).write_pos
     }
     #[inline]
-    #[c2rust::src_loc = "184:1"]
+    
     pub unsafe extern "C" fn mbuf_get_uint32be(
         mut buf: *mut MBuf,
         mut dst_p: *mut uint32_t,
@@ -1184,7 +1184,7 @@ pub mod mbuf_h {
         true_0 != 0
     }
     #[inline]
-    #[c2rust::src_loc = "199:1"]
+    
     pub unsafe extern "C" fn mbuf_get_uint64be(
         mut buf: *mut MBuf,
         mut dst_p: *mut uint64_t,
@@ -1198,7 +1198,7 @@ pub mod mbuf_h {
         true_0 != 0
     }
     #[inline]
-    #[c2rust::src_loc = "231:1"]
+    
     pub unsafe extern "C" fn mbuf_get_string(
         mut buf: *mut MBuf,
         mut dst_p: *mut *const ::core::ffi::c_char,
@@ -1226,23 +1226,23 @@ pub mod mbuf_h {
     use super::_uint8_t_h::uint8_t;
     use super::stdbool_h::{false_0, true_0};
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/proto.h:23"]
+
 pub mod proto_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "34:1"]
+    
     pub struct PktHdr {
         pub type_0: ::core::ffi::c_uint,
         pub len: ::core::ffi::c_uint,
         pub data: MBuf,
     }
     #[inline]
-    #[c2rust::src_loc = "66:1"]
+    
     pub unsafe extern "C" fn incomplete_pkt(mut pkt: *const PktHdr) -> bool {
         mbuf_written(&raw const (*pkt).data) != (*pkt).len
     }
     #[inline]
-    #[c2rust::src_loc = "102:1"]
+    
     pub unsafe extern "C" fn pkt_desc(mut pkt: *const PktHdr) -> ::core::ffi::c_char {
         (if (*pkt).type_0 > 256 as ::core::ffi::c_uint {
             '!' as i32 as ::core::ffi::c_uint
@@ -1253,7 +1253,7 @@ pub mod proto_h {
     use super::bouncer_h::PgSocket;
     use super::mbuf_h::{mbuf_written, MBuf};
     extern "C" {
-        #[c2rust::src_loc = "42:1"]
+        
         pub fn send_pooler_error(
             client: *mut PgSocket,
             send_ready: bool,
@@ -1263,11 +1263,11 @@ pub mod proto_h {
         ) -> bool;
     }
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/prepare.h:23"]
+
 pub mod prepare_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "28:9"]
+    
     pub struct PgServerPreparedStatement {
         pub query_id: uint64_t,
         pub hh: UT_hash_handle,
@@ -1275,7 +1275,7 @@ pub mod prepare_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "10:9"]
+    
     pub struct PgPreparedStatement {
         pub hh: UT_hash_handle,
         pub query_id: uint64_t,
@@ -1287,7 +1287,7 @@ pub mod prepare_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "21:9"]
+    
     pub struct PgClientPreparedStatement {
         pub hh: UT_hash_handle,
         pub ps: *mut PgPreparedStatement,
@@ -1299,35 +1299,35 @@ pub mod prepare_h {
     use super::_uint8_t_h::uint8_t;
     use super::uthash_h::UT_hash_handle;
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/varcache.h:23"]
+
 pub mod varcache_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "14:1"]
+    
     pub struct VarCache {
         pub var_list: *mut *mut PStr,
     }
-    #[c2rust::src_loc = "3:1"]
+    
     pub type VarCacheIdx = ::core::ffi::c_uint;
-    #[c2rust::src_loc = "9:2"]
+    
     pub const NumVars: VarCacheIdx = 5;
-    #[c2rust::src_loc = "8:2"]
+    
     pub const VAppName: VarCacheIdx = 4;
-    #[c2rust::src_loc = "7:2"]
+    
     pub const VStdStr: VarCacheIdx = 3;
-    #[c2rust::src_loc = "6:2"]
+    
     pub const VTimeZone: VarCacheIdx = 2;
-    #[c2rust::src_loc = "5:2"]
+    
     pub const VClientEncoding: VarCacheIdx = 1;
-    #[c2rust::src_loc = "4:2"]
+    
     pub const VDateStyle: VarCacheIdx = 0;
     use super::strpool_h::PStr;
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/strpool.h:23"]
+
 pub mod strpool_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "37:1"]
+    
     pub struct PStr {
         pub pool: *mut StrPool,
         pub len: size_t,
@@ -1336,15 +1336,15 @@ pub mod strpool_h {
     }
     use super::_size_t_h::size_t;
     extern "C" {
-        #[c2rust::src_loc = "34:1"]
+        
         pub type StrPool;
     }
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/pktbuf.h:23"]
+
 pub mod pktbuf_h {
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    #[c2rust::src_loc = "26:1"]
+    
     pub struct PktBuf {
         pub buf: *mut uint8_t,
         pub buf_len: ::core::ffi::c_int,
@@ -1364,38 +1364,38 @@ pub mod pktbuf_h {
     use super::bouncer_h::PgSocket;
     use super::event_struct_h::event;
     extern "C" {
-        #[c2rust::src_loc = "44:1"]
+        
         pub fn pktbuf_dynamic(start_len: ::core::ffi::c_int) -> *mut PktBuf;
-        #[c2rust::src_loc = "45:1"]
+        
         pub fn pktbuf_static(buf: *mut PktBuf, data: *mut uint8_t, len: ::core::ffi::c_int);
-        #[c2rust::src_loc = "50:1"]
+        
         pub fn pktbuf_temp() -> *mut PktBuf;
-        #[c2rust::src_loc = "56:1"]
+        
         pub fn pktbuf_send_immediate(buf: *mut PktBuf, sk: *mut PgSocket) -> bool;
-        #[c2rust::src_loc = "57:1"]
+        
         pub fn pktbuf_send_queued(buf: *mut PktBuf, sk: *mut PgSocket) -> bool;
-        #[c2rust::src_loc = "67:1"]
+        
         pub fn pktbuf_put_string(buf: *mut PktBuf, str: *const ::core::ffi::c_char);
-        #[c2rust::src_loc = "76:1"]
+        
         pub fn pktbuf_write_generic(
             buf: *mut PktBuf,
             type_0: ::core::ffi::c_int,
             fmt: *const ::core::ffi::c_char,
             ...
         );
-        #[c2rust::src_loc = "77:1"]
+        
         pub fn pktbuf_write_RowDescription(
             buf: *mut PktBuf,
             tupdesc: *const ::core::ffi::c_char,
             ...
         );
-        #[c2rust::src_loc = "78:1"]
+        
         pub fn pktbuf_write_DataRow(buf: *mut PktBuf, tupdesc: *const ::core::ffi::c_char, ...);
     }
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/dnslookup.h:23"]
+
 pub mod dnslookup_h {
-    #[c2rust::src_loc = "39:1"]
+    
     pub type adns_walk_name_f = Option<
         unsafe extern "C" fn(
             *mut ::core::ffi::c_void,
@@ -1404,7 +1404,7 @@ pub mod dnslookup_h {
             usec_t,
         ) -> (),
     >;
-    #[c2rust::src_loc = "40:1"]
+    
     pub type adns_walk_zone_f = Option<
         unsafe extern "C" fn(
             *mut ::core::ffi::c_void,
@@ -1417,11 +1417,11 @@ pub mod dnslookup_h {
     use super::netdb_h::addrinfo;
     use super::time_h::usec_t;
     extern "C" {
-        #[c2rust::src_loc = "20:1"]
+        
         pub type DNSToken;
-        #[c2rust::src_loc = "19:1"]
+        
         pub type DNSContext;
-        #[c2rust::src_loc = "37:1"]
+        
         pub fn adns_info(
             ctx: *mut DNSContext,
             names: *mut ::core::ffi::c_int,
@@ -1429,13 +1429,13 @@ pub mod dnslookup_h {
             queries: *mut ::core::ffi::c_int,
             pending: *mut ::core::ffi::c_int,
         );
-        #[c2rust::src_loc = "42:1"]
+        
         pub fn adns_walk_names(
             ctx: *mut DNSContext,
             cb: adns_walk_name_f,
             arg: *mut ::core::ffi::c_void,
         );
-        #[c2rust::src_loc = "43:1"]
+        
         pub fn adns_walk_zones(
             ctx: *mut DNSContext,
             cb: adns_walk_zone_f,
@@ -1443,35 +1443,35 @@ pub mod dnslookup_h {
         );
     }
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/logging.h:23"]
+
 pub mod logging_h {
-    #[c2rust::src_loc = "47:1"]
+    
     pub type LogLevel = ::core::ffi::c_uint;
-    #[c2rust::src_loc = "54:2"]
+    
     pub const LG_NOISE: LogLevel = 6;
-    #[c2rust::src_loc = "53:2"]
+    
     pub const LG_DEBUG: LogLevel = 5;
-    #[c2rust::src_loc = "52:2"]
+    
     pub const LG_INFO: LogLevel = 4;
-    #[c2rust::src_loc = "51:2"]
+    
     pub const LG_STATS: LogLevel = 3;
-    #[c2rust::src_loc = "50:2"]
+    
     pub const LG_WARNING: LogLevel = 2;
-    #[c2rust::src_loc = "49:2"]
+    
     pub const LG_ERROR: LogLevel = 1;
-    #[c2rust::src_loc = "48:2"]
+    
     pub const LG_FATAL: LogLevel = 0;
     extern "C" {
-        #[c2rust::src_loc = "85:1"]
+        
         pub static mut cf_verbose: ::core::ffi::c_int;
-        #[c2rust::src_loc = "117:1"]
+        
         pub fn log_generic(
             level: LogLevel,
             ctx: *mut ::core::ffi::c_void,
             s: *const ::core::ffi::c_char,
             ...
         );
-        #[c2rust::src_loc = "120:1"]
+        
         pub fn log_fatal(
             file: *const ::core::ffi::c_char,
             line: ::core::ffi::c_int,
@@ -1483,42 +1483,42 @@ pub mod logging_h {
         );
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_regex.h:25"]
+
 pub mod _regex_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "120:9"]
+    
     pub struct regmatch_t {
         pub rm_so: regoff_t,
         pub rm_eo: regoff_t,
     }
-    #[c2rust::src_loc = "111:1"]
+    
     pub type regoff_t = __darwin_off_t;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    #[c2rust::src_loc = "113:9"]
+    
     pub struct regex_t {
         pub re_magic: ::core::ffi::c_int,
         pub re_nsub: size_t,
         pub re_endp: *const ::core::ffi::c_char,
         pub re_g: *mut re_guts,
     }
-    #[c2rust::src_loc = "132:9"]
+    
     pub const REG_EXTENDED: ::core::ffi::c_int = 0o1 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "133:9"]
+    
     pub const REG_ICASE: ::core::ffi::c_int = 0o2 as ::core::ffi::c_int;
     use super::_size_t_h::size_t;
     use super::sys__types_h::__darwin_off_t;
     extern "C" {
-        #[c2rust::src_loc = "117:2"]
+        
         pub type re_guts;
-        #[c2rust::src_loc = "212:1"]
+        
         pub fn regcomp(
             _: *mut regex_t,
             _: *const ::core::ffi::c_char,
             _: ::core::ffi::c_int,
         ) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "218:1"]
+        
         pub fn regexec(
             _: *const regex_t,
             _: *const ::core::ffi::c_char,
@@ -1526,13 +1526,13 @@ pub mod _regex_h {
             __pmatch: *mut regmatch_t,
             _: ::core::ffi::c_int,
         ) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "220:1"]
+        
         pub fn regfree(_: *mut regex_t);
     }
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/slab.h:29"]
+
 pub mod slab_h {
-    #[c2rust::src_loc = "67:1"]
+    
     pub type slab_stat_fn = Option<
         unsafe extern "C" fn(
             *mut ::core::ffi::c_void,
@@ -1544,108 +1544,108 @@ pub mod slab_h {
     >;
     use super::objects_h::Slab;
     extern "C" {
-        #[c2rust::src_loc = "61:1"]
+        
         pub fn slab_free_count(slab: *const Slab) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "64:1"]
+        
         pub fn slab_active_count(slab: *const Slab) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "72:1"]
+        
         pub fn slab_stats(cb_func: slab_stat_fn, cb_arg: *mut ::core::ffi::c_void);
     }
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/objects.h:23"]
+
 pub mod objects_h {
     use super::bouncer_h::{PgCredentials, PgDatabase, PgGlobalUser, PgPool, PgSocket};
 
     use super::statlist_h::StatList;
     extern "C" {
-        #[c2rust::src_loc = "27:8"]
+        
         pub type Slab;
-        #[c2rust::src_loc = "19:1"]
+        
         pub static mut user_list: StatList;
-        #[c2rust::src_loc = "21:1"]
+        
         pub static mut pool_list: StatList;
-        #[c2rust::src_loc = "22:1"]
+        
         pub static mut peer_pool_list: StatList;
-        #[c2rust::src_loc = "23:1"]
+        
         pub static mut database_list: StatList;
-        #[c2rust::src_loc = "24:1"]
+        
         pub static mut peer_list: StatList;
-        #[c2rust::src_loc = "26:1"]
+        
         pub static mut login_client_list: StatList;
-        #[c2rust::src_loc = "27:1"]
+        
         pub static mut client_cache: *mut Slab;
-        #[c2rust::src_loc = "28:1"]
+        
         pub static mut server_cache: *mut Slab;
-        #[c2rust::src_loc = "44:1"]
+        
         pub fn find_database(name: *const ::core::ffi::c_char) -> *mut PgDatabase;
-        #[c2rust::src_loc = "45:1"]
+        
         pub fn find_or_register_database(
             connection: *mut PgSocket,
             name: *const ::core::ffi::c_char,
         ) -> *mut PgDatabase;
-        #[c2rust::src_loc = "46:1"]
+        
         pub fn find_global_user(name: *const ::core::ffi::c_char) -> *mut PgGlobalUser;
-        #[c2rust::src_loc = "48:1"]
+        
         pub fn get_pool(db: *mut PgDatabase, user_credentials: *mut PgCredentials) -> *mut PgPool;
-        #[c2rust::src_loc = "62:1"]
+        
         pub fn disconnect_client(
             client: *mut PgSocket,
             notify: bool,
             reason: *const ::core::ffi::c_char,
             ...
         );
-        #[c2rust::src_loc = "66:1"]
+        
         pub fn add_database(name: *const ::core::ffi::c_char) -> *mut PgDatabase;
-        #[c2rust::src_loc = "69:1"]
+        
         pub fn force_user_credentials(
             db: *mut PgDatabase,
             username: *const ::core::ffi::c_char,
             passwd: *const ::core::ffi::c_char,
         ) -> *mut PgCredentials;
-        #[c2rust::src_loc = "76:1"]
+        
         pub fn find_or_add_new_global_user(
             name: *const ::core::ffi::c_char,
             passwd: *const ::core::ffi::c_char,
         ) -> *mut PgGlobalUser;
-        #[c2rust::src_loc = "106:1"]
+        
         pub fn tag_database_dirty(db: *mut PgDatabase);
     }
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/pooler.h:23"]
+
 pub mod pooler_h {
-    #[c2rust::src_loc = "28:1"]
+    
     pub type pooler_cb = Option<
         unsafe extern "C" fn(*mut ::core::ffi::c_void, ::core::ffi::c_int, *const PgAddr) -> bool,
     >;
     use super::bouncer_h::PgAddr;
     extern "C" {
-        #[c2rust::src_loc = "22:1"]
+        
         pub fn suspend_pooler();
-        #[c2rust::src_loc = "25:1"]
+        
         pub fn cleanup_tcp_sockets();
-        #[c2rust::src_loc = "29:1"]
+        
         pub fn for_each_pooler_fd(cb: pooler_cb, arg: *mut ::core::ffi::c_void) -> bool;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_stdio.h:23"]
+
 pub mod _stdio_h {
     use super::_size_t_h::size_t;
 
     extern "C" {
-        #[c2rust::src_loc = "282:1"]
+        
         pub fn sscanf(
             _: *const ::core::ffi::c_char,
             _: *const ::core::ffi::c_char,
             ...
         ) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "435:1"]
+        
         pub fn snprintf(
             __str: *mut ::core::ffi::c_char,
             __size: size_t,
             __format: *const ::core::ffi::c_char,
             ...
         ) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "438:1"]
+        
         pub fn vsnprintf(
             __str: *mut ::core::ffi::c_char,
             __size: size_t,
@@ -1654,14 +1654,14 @@ pub mod _stdio_h {
         ) -> ::core::ffi::c_int;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/unistd.h:23"]
+
 pub mod unistd_h {
     use super::_gid_t_h::gid_t;
     use super::_uid_t_h::uid_t;
     extern "C" {
-        #[c2rust::src_loc = "466:1"]
+        
         pub fn getuid() -> uid_t;
-        #[c2rust::src_loc = "663:1"]
+        
         pub fn getpeereid(
             _: ::core::ffi::c_int,
             _: *mut uid_t,
@@ -1669,20 +1669,20 @@ pub mod unistd_h {
         ) -> ::core::ffi::c_int;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_null.h:23"]
+
 pub mod _null_h {
-    #[c2rust::src_loc = "49:9"]
+    
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
     use super::sys__types_h::__DARWIN_NULL;
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/socket.h:23"]
+
 pub mod usual_socket_h {
     use super::_size_t_h::size_t;
     use super::socket_h::sockaddr;
     extern "C" {
-        #[c2rust::src_loc = "85:1"]
+        
         pub fn socket_set_nonblocking(sock: ::core::ffi::c_int, non_block: bool) -> bool;
-        #[c2rust::src_loc = "103:1"]
+        
         pub fn sa2str(
             sa: *const sockaddr,
             buf: *mut ::core::ffi::c_char,
@@ -1690,95 +1690,95 @@ pub mod usual_socket_h {
         ) -> *const ::core::ffi::c_char;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_string.h:23"]
+
 pub mod _string_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        #[c2rust::src_loc = "73:1"]
+        
         pub fn memchr(
             __s: *const ::core::ffi::c_void,
             __c: ::core::ffi::c_int,
             __n: size_t,
         ) -> *mut ::core::ffi::c_void;
-        #[c2rust::src_loc = "77:1"]
+        
         pub fn memcpy(
             __dst: *mut ::core::ffi::c_void,
             __src: *const ::core::ffi::c_void,
             __n: size_t,
         ) -> *mut ::core::ffi::c_void;
-        #[c2rust::src_loc = "83:1"]
+        
         pub fn memset(
             __b: *mut ::core::ffi::c_void,
             __c: ::core::ffi::c_int,
             __len: size_t,
         ) -> *mut ::core::ffi::c_void;
-        #[c2rust::src_loc = "88:1"]
+        
         pub fn strchr(
             __s: *const ::core::ffi::c_char,
             __c: ::core::ffi::c_int,
         ) -> *mut ::core::ffi::c_char;
-        #[c2rust::src_loc = "89:1"]
+        
         pub fn strcmp(
             __s1: *const ::core::ffi::c_char,
             __s2: *const ::core::ffi::c_char,
         ) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "95:1"]
+        
         pub fn strerror(__errnum: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;
-        #[c2rust::src_loc = "96:1"]
+        
         pub fn strlen(__s: *const ::core::ffi::c_char) -> size_t;
-        #[c2rust::src_loc = "110:1"]
+        
         pub fn strstr(
             __big: *const ::core::ffi::c_char,
             __little: *const ::core::ffi::c_char,
         ) -> *mut ::core::ffi::c_char;
     }
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/stats.h:23"]
+
 pub mod stats_h {
     use super::bouncer_h::PgSocket;
     use super::statlist_h::StatList;
     extern "C" {
-        #[c2rust::src_loc = "21:1"]
+        
         pub fn admin_database_stats(client: *mut PgSocket, pool_list_0: *mut StatList) -> bool;
-        #[c2rust::src_loc = "22:1"]
+        
         pub fn admin_database_stats_totals(
             client: *mut PgSocket,
             pool_list_0: *mut StatList,
         ) -> bool;
-        #[c2rust::src_loc = "23:1"]
+        
         pub fn admin_database_stats_averages(
             client: *mut PgSocket,
             pool_list_0: *mut StatList,
         ) -> bool;
-        #[c2rust::src_loc = "24:1"]
+        
         pub fn show_stat_totals(client: *mut PgSocket, pool_list_0: *mut StatList) -> bool;
     }
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/server.h:23"]
+
 pub mod server_h {
     use super::bouncer_h::{PgDatabase, PgGlobalUser, PgPool};
     extern "C" {
-        #[c2rust::src_loc = "23:1"]
+        
         pub fn probably_wrong_pool_pool_mode(pool: *mut PgPool) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "29:1"]
+        
         pub fn database_max_connections(db: *mut PgDatabase) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "30:1"]
+        
         pub fn database_max_client_connections(db: *mut PgDatabase) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "31:1"]
+        
         pub fn user_max_connections(user: *mut PgGlobalUser) -> ::core::ffi::c_int;
-        #[c2rust::src_loc = "32:1"]
+        
         pub fn user_client_max_connections(user: *mut PgGlobalUser) -> ::core::ffi::c_int;
     }
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/endian.h:27"]
+
 pub mod endian_h {
     #[inline]
-    #[c2rust::src_loc = "144:1"]
+    
     pub unsafe extern "C" fn usual_bswap32(mut x: uint32_t) -> uint32_t {
         x.swap_bytes()
     }
     #[inline]
-    #[c2rust::src_loc = "250:1"]
+    
     pub unsafe extern "C" fn usual_be32dec(mut p: *const ::core::ffi::c_void) -> uint32_t {
         let mut tmp: uint32_t = 0;
         memcpy(
@@ -1792,12 +1792,12 @@ pub mod endian_h {
     use super::_string_h::memcpy;
     use super::_uint32_t_h::uint32_t;
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/safeio.h:28"]
+
 pub mod safeio_h {
     use super::_ssize_t_h::ssize_t;
     use super::socket_h::msghdr;
     extern "C" {
-        #[c2rust::src_loc = "39:1"]
+        
         pub fn safe_sendmsg(
             fd: ::core::ffi::c_int,
             msg: *const msghdr,
@@ -1805,102 +1805,102 @@ pub mod safeio_h {
         ) -> ssize_t;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arm/_param.h:23"]
+
 pub mod _param_h {
-    #[c2rust::src_loc = "20:14"]
+    
     pub const __DARWIN_ALIGNBYTES32: usize =
         ::core::mem::size_of::<__uint32_t>().wrapping_sub(1_usize);
     use super::_types_h::__uint32_t;
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/janitor.h:23"]
+
 pub mod janitor_h {
     use super::bouncer_h::PgPool;
     extern "C" {
-        #[c2rust::src_loc = "21:1"]
+        
         pub fn resume_all();
-        #[c2rust::src_loc = "24:1"]
+        
         pub fn kill_pool(pool: *mut PgPool);
     }
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/client.h:23"]
+
 pub mod client_h {
     use super::bouncer_h::PgSocket;
     extern "C" {
-        #[c2rust::src_loc = "22:1"]
+        
         pub fn check_db_connection_count(client: *mut PgSocket) -> bool;
-        #[c2rust::src_loc = "23:1"]
+        
         pub fn check_user_connection_count(client: *mut PgSocket) -> bool;
     }
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/lib/usual/config.h:23"]
+
 pub mod config_h {
-    #[c2rust::src_loc = "356:9"]
+    
     pub const PACKAGE_STRING: [::core::ffi::c_char; 17] = unsafe {
         ::core::mem::transmute::<[u8; 17], [::core::ffi::c_char; 17]>(*b"PgBouncer 1.25.1\0")
     };
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_stdlib.h:23"]
+
 pub mod _stdlib_h {
     extern "C" {
-        #[c2rust::src_loc = "160:1"]
+        
         pub fn exit(_: ::core::ffi::c_int) -> !;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/errno.h:23"]
+
 pub mod errno_h {
     extern "C" {
-        #[c2rust::src_loc = "80:1"]
+        
         pub fn __error() -> *mut ::core::ffi::c_int;
     }
 }
-#[c2rust::header_src = "/opt/homebrew/Cellar/llvm/21.1.8/lib/clang/21/include/stdbool.h:23"]
+
 pub mod stdbool_h {
-    #[c2rust::src_loc = "25:9"]
+    
     pub const true_0: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "26:9"]
+    
     pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_strings.h:23"]
+
 pub mod _strings_h {
     extern "C" {
-        #[c2rust::src_loc = "81:1"]
+        
         pub fn strcasecmp(
             _: *const ::core::ffi::c_char,
             _: *const ::core::ffi::c_char,
         ) -> ::core::ffi::c_int;
     }
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/util.h:23"]
+
 pub mod util_h {
     extern "C" {
-        #[c2rust::src_loc = "51:1"]
+        
         pub fn strlist_contains(
             liststr: *const ::core::ffi::c_char,
             str: *const ::core::ffi::c_char,
         ) -> bool;
     }
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/common/protocol.h:23"]
+
 pub mod protocol_h {
-    #[c2rust::src_loc = "19:9"]
+    
     pub const PqMsg_Bind: ::core::ffi::c_uint = 66 as ::core::ffi::c_uint;
-    #[c2rust::src_loc = "22:9"]
+    
     pub const PqMsg_Execute: ::core::ffi::c_uint = 69 as ::core::ffi::c_uint;
-    #[c2rust::src_loc = "25:9"]
+    
     pub const PqMsg_Parse: ::core::ffi::c_uint = 80 as ::core::ffi::c_uint;
-    #[c2rust::src_loc = "26:9"]
+    
     pub const PqMsg_Query: ::core::ffi::c_uint = 81 as ::core::ffi::c_uint;
-    #[c2rust::src_loc = "28:9"]
+    
     pub const PqMsg_Terminate: ::core::ffi::c_uint = 88 as ::core::ffi::c_uint;
-    #[c2rust::src_loc = "42:9"]
+    
     pub const PqMsg_CommandComplete: ::core::ffi::c_int = 'C' as i32;
-    #[c2rust::src_loc = "49:9"]
+    
     pub const PqMsg_NoticeResponse: ::core::ffi::c_int = 'N' as i32;
-    #[c2rust::src_loc = "50:9"]
+    
     pub const PqMsg_AuthenticationRequest: ::core::ffi::c_int = 'R' as i32;
-    #[c2rust::src_loc = "51:9"]
+    
     pub const PqMsg_ParameterStatus: ::core::ffi::c_int = 'S' as i32;
-    #[c2rust::src_loc = "55:9"]
+    
     pub const PqMsg_ReadyForQuery: ::core::ffi::c_int = 'Z' as i32;
 }
 pub use self::_gid_t_h::gid_t;
@@ -2037,32 +2037,32 @@ pub use self::varcache_h::{
 };
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[c2rust::src_loc = "164:1"]
+
 pub struct FakeParam {
     pub name: *const ::core::ffi::c_char,
     pub value: *const ::core::ffi::c_char,
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
-#[c2rust::src_loc = "48:1"]
+
 pub struct cmd_lookup {
     pub word: *const ::core::ffi::c_char,
     pub func: cmd_func_t,
 }
-#[c2rust::src_loc = "47:1"]
+
 pub type cmd_func_t =
     Option<unsafe extern "C" fn(*mut PgSocket, *const ::core::ffi::c_char) -> bool>;
-#[c2rust::src_loc = "39:9"]
+
 pub const MAX_GROUPS: ::core::ffi::c_int = 10 as ::core::ffi::c_int;
-#[c2rust::src_loc = "42:9"]
+
 pub const CMD_NAME: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-#[c2rust::src_loc = "43:9"]
+
 pub const CMD_ARG: ::core::ffi::c_int = 4 as ::core::ffi::c_int;
-#[c2rust::src_loc = "44:9"]
+
 pub const SET_KEY: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-#[c2rust::src_loc = "45:9"]
+
 pub const SET_VAL: ::core::ffi::c_int = 4 as ::core::ffi::c_int;
-#[c2rust::src_loc = "54:1"]
+
 static mut cmd_normal_rx: [::core::ffi::c_char; 90] = unsafe {
     ::core::mem::transmute::<
         [u8; 90],
@@ -2071,7 +2071,7 @@ static mut cmd_normal_rx: [::core::ffi::c_char; 90] = unsafe {
         *b"^[ \t\n\r]*(\"([^\"]+|\"\")*\"|[0-9a-z_]+)([ \t\n\r]+(\"([^\"]+|\"\")*\"|[0-9a-z_]+))?[ \t\n\r]*(;[ \t\n\r]*)?$\0",
     )
 };
-#[c2rust::src_loc = "58:1"]
+
 static mut cmd_set_word_rx: [::core::ffi::c_char; 110] = unsafe {
     ::core::mem::transmute::<
         [u8; 110],
@@ -2080,7 +2080,7 @@ static mut cmd_set_word_rx: [::core::ffi::c_char; 110] = unsafe {
         *b"^[ \t\n\r]*set[ \t\n\r]+(\"([^\"]+|\"\")*\"|[0-9a-z_]+)[ \t\n\r]*(=|to)[ \t\n\r]*(\"([^\"]+|\"\")*\"|[0-9a-z_]+)[ \t\n\r]*(;[ \t\n\r]*)?$\0",
     )
 };
-#[c2rust::src_loc = "62:1"]
+
 static mut cmd_set_str_rx: [::core::ffi::c_char; 98] = unsafe {
     ::core::mem::transmute::<
         [u8; 98],
@@ -2089,40 +2089,40 @@ static mut cmd_set_str_rx: [::core::ffi::c_char; 98] = unsafe {
         *b"^[ \t\n\r]*set[ \t\n\r]+(\"([^\"]+|\"\")*\"|[0-9a-z_]+)[ \t\n\r]*(=|to)[ \t\n\r]*('([^']|'')*')[ \t\n\r]*(;[ \t\n\r]*)?$\0",
     )
 };
-#[c2rust::src_loc = "66:1"]
+
 static mut rc_cmd: regex_t = regex_t {
     re_magic: 0,
     re_nsub: 0,
     re_endp: ::core::ptr::null::<::core::ffi::c_char>(),
     re_g: ::core::ptr::null::<re_guts>() as *mut re_guts,
 };
-#[c2rust::src_loc = "67:1"]
+
 static mut rc_set_word: regex_t = regex_t {
     re_magic: 0,
     re_nsub: 0,
     re_endp: ::core::ptr::null::<::core::ffi::c_char>(),
     re_g: ::core::ptr::null::<re_guts>() as *mut re_guts,
 };
-#[c2rust::src_loc = "68:1"]
+
 static mut rc_set_str: regex_t = regex_t {
     re_magic: 0,
     re_nsub: 0,
     re_endp: ::core::ptr::null::<::core::ffi::c_char>(),
     re_g: ::core::ptr::null::<re_guts>() as *mut re_guts,
 };
-#[c2rust::src_loc = "70:1"]
+
 static mut admin_pool: *mut PgPool = ::core::ptr::null::<PgPool>() as *mut PgPool;
-#[c2rust::src_loc = "73:1"]
+
 static mut current_query: *const ::core::ffi::c_char = ::core::ptr::null::<::core::ffi::c_char>();
 #[no_mangle]
-#[c2rust::src_loc = "75:1"]
+
 pub unsafe extern "C" fn admin_cleanup() {
     regfree(&raw mut rc_cmd);
     regfree(&raw mut rc_set_str);
     regfree(&raw mut rc_set_word);
     admin_pool = ::core::ptr::null_mut::<PgPool>();
 }
-#[c2rust::src_loc = "83:1"]
+
 unsafe extern "C" fn syntax_error(mut admin: *mut PgSocket) -> bool {
     admin_error(
         admin,
@@ -2134,7 +2134,7 @@ unsafe extern "C" fn syntax_error(mut admin: *mut PgSocket) -> bool {
         },
     )
 }
-#[c2rust::src_loc = "89:1"]
+
 unsafe extern "C" fn exec_cmd(
     mut lookup: *mut cmd_lookup,
     mut admin: *mut PgSocket,
@@ -2150,7 +2150,7 @@ unsafe extern "C" fn exec_cmd(
     syntax_error(admin)
 }
 #[no_mangle]
-#[c2rust::src_loc = "99:1"]
+
 pub unsafe extern "C" fn admin_error(
     mut admin: *mut PgSocket,
     mut fmt: *const ::core::ffi::c_char,
@@ -2184,7 +2184,7 @@ pub unsafe extern "C" fn admin_error(
     }
     res
 }
-#[c2rust::src_loc = "115:1"]
+
 unsafe extern "C" fn count_paused_databases() -> ::core::ffi::c_int {
     let mut item = ::core::ptr::null_mut::<List>();
     let mut db = ::core::ptr::null_mut::<PgDatabase>();
@@ -2198,7 +2198,7 @@ unsafe extern "C" fn count_paused_databases() -> ::core::ffi::c_int {
     }
     cnt
 }
-#[c2rust::src_loc = "128:1"]
+
 unsafe extern "C" fn count_db_active(mut db: *mut PgDatabase) -> ::core::ffi::c_int {
     let mut item = ::core::ptr::null_mut::<List>();
     let mut pool = ::core::ptr::null_mut::<PgPool>();
@@ -2221,7 +2221,7 @@ unsafe extern "C" fn count_db_active(mut db: *mut PgDatabase) -> ::core::ffi::c_
     cnt
 }
 #[no_mangle]
-#[c2rust::src_loc = "143:1"]
+
 pub unsafe extern "C" fn admin_flush(
     mut admin: *mut PgSocket,
     mut buf: *mut PktBuf,
@@ -2242,7 +2242,7 @@ pub unsafe extern "C" fn admin_flush(
     pktbuf_send_queued(buf, admin)
 }
 #[no_mangle]
-#[c2rust::src_loc = "150:1"]
+
 pub unsafe extern "C" fn admin_ready(
     mut admin: *mut PgSocket,
     mut desc: *const ::core::ffi::c_char,
@@ -2278,7 +2278,7 @@ pub unsafe extern "C" fn admin_ready(
     );
     pktbuf_send_immediate(&raw mut buf, admin)
 }
-#[c2rust::src_loc = "169:1"]
+
 static mut fake_param_list: [FakeParam; 6] = [
     FakeParam {
         name: b"client_encoding\0" as *const u8 as *const ::core::ffi::c_char,
@@ -2305,7 +2305,7 @@ static mut fake_param_list: [FakeParam; 6] = [
         value: ::core::ptr::null::<::core::ffi::c_char>(),
     },
 ];
-#[c2rust::src_loc = "179:1"]
+
 unsafe extern "C" fn fake_show(
     mut admin: *mut PgSocket,
     mut name: *const ::core::ffi::c_char,
@@ -2349,7 +2349,7 @@ unsafe extern "C" fn fake_show(
     }
     got
 }
-#[c2rust::src_loc = "205:1"]
+
 unsafe extern "C" fn fake_set(
     mut admin: *mut PgSocket,
     mut key: *const ::core::ffi::c_char,
@@ -2394,7 +2394,7 @@ unsafe extern "C" fn fake_set(
     }
     got
 }
-#[c2rust::src_loc = "231:1"]
+
 unsafe extern "C" fn admin_set(
     mut admin: *mut PgSocket,
     mut key: *const ::core::ffi::c_char,
@@ -2452,7 +2452,7 @@ unsafe extern "C" fn admin_set(
         )
     }
 }
-#[c2rust::src_loc = "261:1"]
+
 unsafe extern "C" fn send_one_fd(
     mut admin: *mut PgSocket,
     mut fd: ::core::ffi::c_int,
@@ -2588,7 +2588,7 @@ unsafe extern "C" fn send_one_fd(
     }
     true_0 != 0
 }
-#[c2rust::src_loc = "332:1"]
+
 unsafe extern "C" fn show_one_fd(mut admin: *mut PgSocket, mut sk: *mut PgSocket) -> bool {
     let mut addr: *mut PgAddr = &raw mut (*sk).remote_addr;
     let mut tmp = MBuf {
@@ -2723,7 +2723,7 @@ unsafe extern "C" fn show_one_fd(mut admin: *mut PgSocket, mut sk: *mut PgSocket
         },
     )
 }
-#[c2rust::src_loc = "383:1"]
+
 unsafe extern "C" fn show_pooler_cb(
     mut arg: *mut ::core::ffi::c_void,
     mut fd: ::core::ffi::c_int,
@@ -2755,7 +2755,7 @@ unsafe extern "C" fn show_pooler_cb(
         -(1 as ::core::ffi::c_int),
     )
 }
-#[c2rust::src_loc = "393:1"]
+
 unsafe extern "C" fn show_pooler_fds(mut admin: *mut PgSocket) -> bool {
     for_each_pooler_fd(
         Some(
@@ -2769,7 +2769,7 @@ unsafe extern "C" fn show_pooler_fds(mut admin: *mut PgSocket) -> bool {
         admin as *mut ::core::ffi::c_void,
     )
 }
-#[c2rust::src_loc = "398:1"]
+
 unsafe extern "C" fn show_fds_from_list(mut admin: *mut PgSocket, mut list: *mut StatList) -> bool {
     let mut item = ::core::ptr::null_mut::<List>();
     let mut sk = ::core::ptr::null_mut::<PgSocket>();
@@ -2786,7 +2786,7 @@ unsafe extern "C" fn show_fds_from_list(mut admin: *mut PgSocket, mut list: *mut
     }
     res
 }
-#[c2rust::src_loc = "418:1"]
+
 unsafe extern "C" fn admin_show_fds(
     mut admin: *mut PgSocket,
     mut _arg: *const ::core::ffi::c_char,
@@ -2889,7 +2889,7 @@ unsafe extern "C" fn admin_show_fds(
     socket_set_nonblocking((*admin).sbuf.sock, 1 as ::core::ffi::c_int != 0);
     res
 }
-#[c2rust::src_loc = "480:1"]
+
 unsafe extern "C" fn admin_show_databases(
     mut admin: *mut PgSocket,
     mut _arg: *const ::core::ffi::c_char,
@@ -3015,7 +3015,7 @@ unsafe extern "C" fn admin_show_databases(
     );
     true_0 != 0
 }
-#[c2rust::src_loc = "542:1"]
+
 unsafe extern "C" fn admin_show_peers(
     mut admin: *mut PgSocket,
     mut _arg: *const ::core::ffi::c_char,
@@ -3064,7 +3064,7 @@ unsafe extern "C" fn admin_show_peers(
     );
     true_0 != 0
 }
-#[c2rust::src_loc = "569:1"]
+
 unsafe extern "C" fn admin_show_lists(
     mut admin: *mut PgSocket,
     mut _arg: *const ::core::ffi::c_char,
@@ -3185,7 +3185,7 @@ unsafe extern "C" fn admin_show_lists(
     );
     true_0 != 0
 }
-#[c2rust::src_loc = "601:1"]
+
 unsafe extern "C" fn admin_show_users(
     mut admin: *mut PgSocket,
     mut _arg: *const ::core::ffi::c_char,
@@ -3271,17 +3271,17 @@ unsafe extern "C" fn admin_show_users(
     );
     true_0 != 0
 }
-#[c2rust::src_loc = "645:9"]
+
 pub const SKF_STD: [::core::ffi::c_char; 22] = unsafe {
     ::core::mem::transmute::<[u8; 22], [::core::ffi::c_char; 22]>(*b"ssssssisiTTiiississii\0")
 };
-#[c2rust::src_loc = "646:9"]
+
 pub const SKF_DBG: [::core::ffi::c_char; 29] = unsafe {
     ::core::mem::transmute::<[u8; 29], [::core::ffi::c_char; 29]>(
         *b"ssssssisiTTiiississiiiiiiiii\0",
     )
 };
-#[c2rust::src_loc = "648:1"]
+
 unsafe extern "C" fn socket_header(mut buf: *mut PktBuf, mut debug: bool) {
     pktbuf_write_RowDescription(
         buf,
@@ -3320,7 +3320,7 @@ unsafe extern "C" fn socket_header(mut buf: *mut PktBuf, mut debug: bool) {
         b"send_avail\0" as *const u8 as *const ::core::ffi::c_char,
     );
 }
-#[c2rust::src_loc = "664:1"]
+
 unsafe extern "C" fn adr2txt(
     mut adr: *const PgAddr,
     mut dst: *mut ::core::ffi::c_char,
@@ -3328,7 +3328,7 @@ unsafe extern "C" fn adr2txt(
 ) {
     pga_ntop(adr, dst, dstlen as ::core::ffi::c_int);
 }
-#[c2rust::src_loc = "669:1"]
+
 unsafe extern "C" fn socket_row(
     mut buf: *mut PktBuf,
     mut sk: *mut PgSocket,
@@ -3513,7 +3513,7 @@ unsafe extern "C" fn socket_row(
         send_avail,
     );
 }
-#[c2rust::src_loc = "748:1"]
+
 unsafe extern "C" fn show_socket_list(
     mut buf: *mut PktBuf,
     mut list: *mut StatList,
@@ -3530,7 +3530,7 @@ unsafe extern "C" fn show_socket_list(
         item = (*item).next;
     }
 }
-#[c2rust::src_loc = "760:1"]
+
 unsafe extern "C" fn admin_show_clients(
     mut admin: *mut PgSocket,
     mut _arg: *const ::core::ffi::c_char,
@@ -3601,7 +3601,7 @@ unsafe extern "C" fn admin_show_clients(
     );
     true_0 != 0
 }
-#[c2rust::src_loc = "793:1"]
+
 unsafe extern "C" fn admin_show_servers(
     mut admin: *mut PgSocket,
     mut _arg: *const ::core::ffi::c_char,
@@ -3691,7 +3691,7 @@ unsafe extern "C" fn admin_show_servers(
     );
     true_0 != 0
 }
-#[c2rust::src_loc = "826:1"]
+
 unsafe extern "C" fn admin_show_sockets(
     mut admin: *mut PgSocket,
     mut _arg: *const ::core::ffi::c_char,
@@ -3769,7 +3769,7 @@ unsafe extern "C" fn admin_show_sockets(
     );
     true_0 != 0
 }
-#[c2rust::src_loc = "855:1"]
+
 unsafe extern "C" fn show_active_socket_list(
     mut buf: *mut PktBuf,
     mut list: *mut StatList,
@@ -3786,7 +3786,7 @@ unsafe extern "C" fn show_active_socket_list(
         item = (*item).next;
     }
 }
-#[c2rust::src_loc = "866:1"]
+
 unsafe extern "C" fn admin_show_active_sockets(
     mut admin: *mut PgSocket,
     mut _arg: *const ::core::ffi::c_char,
@@ -3856,7 +3856,7 @@ unsafe extern "C" fn admin_show_active_sockets(
     );
     true_0 != 0
 }
-#[c2rust::src_loc = "896:1"]
+
 unsafe extern "C" fn admin_show_pools(
     mut admin: *mut PgSocket,
     mut _arg: *const ::core::ffi::c_char,
@@ -3963,7 +3963,7 @@ unsafe extern "C" fn admin_show_pools(
     );
     true_0 != 0
 }
-#[c2rust::src_loc = "965:1"]
+
 unsafe extern "C" fn admin_show_peer_pools(
     mut admin: *mut PgSocket,
     mut _arg: *const ::core::ffi::c_char,
@@ -4010,7 +4010,7 @@ unsafe extern "C" fn admin_show_peer_pools(
     );
     true_0 != 0
 }
-#[c2rust::src_loc = "996:1"]
+
 unsafe extern "C" fn slab_stat_cb(
     mut arg: *mut ::core::ffi::c_void,
     mut slab_name: *const ::core::ffi::c_char,
@@ -4030,7 +4030,7 @@ unsafe extern "C" fn slab_stat_cb(
         alloc,
     );
 }
-#[c2rust::src_loc = "1007:1"]
+
 unsafe extern "C" fn admin_show_mem(
     mut admin: *mut PgSocket,
     mut _arg: *const ::core::ffi::c_char,
@@ -4073,7 +4073,7 @@ unsafe extern "C" fn admin_show_mem(
     );
     true_0 != 0
 }
-#[c2rust::src_loc = "1024:1"]
+
 unsafe extern "C" fn admin_show_state(
     mut admin: *mut PgSocket,
     mut _arg: *const ::core::ffi::c_char,
@@ -4130,7 +4130,7 @@ unsafe extern "C" fn admin_show_state(
     );
     true_0 != 0
 }
-#[c2rust::src_loc = "1047:1"]
+
 unsafe extern "C" fn dns_name_cb(
     mut arg: *mut ::core::ffi::c_void,
     mut name: *const ::core::ffi::c_char,
@@ -4173,7 +4173,7 @@ unsafe extern "C" fn dns_name_cb(
         &raw mut adrs as *mut ::core::ffi::c_char,
     );
 }
-#[c2rust::src_loc = "1072:1"]
+
 unsafe extern "C" fn admin_show_dns_hosts(
     mut admin: *mut PgSocket,
     mut _arg: *const ::core::ffi::c_char,
@@ -4214,7 +4214,7 @@ unsafe extern "C" fn admin_show_dns_hosts(
     );
     true_0 != 0
 }
-#[c2rust::src_loc = "1089:1"]
+
 unsafe extern "C" fn dns_zone_cb(
     mut arg: *mut ::core::ffi::c_void,
     mut name: *const ::core::ffi::c_char,
@@ -4230,7 +4230,7 @@ unsafe extern "C" fn dns_zone_cb(
         nhosts,
     );
 }
-#[c2rust::src_loc = "1095:1"]
+
 unsafe extern "C" fn admin_show_dns_zones(
     mut admin: *mut PgSocket,
     mut _arg: *const ::core::ffi::c_char,
@@ -4271,7 +4271,7 @@ unsafe extern "C" fn admin_show_dns_zones(
     );
     true_0 != 0
 }
-#[c2rust::src_loc = "1112:1"]
+
 unsafe extern "C" fn show_one_param(
     mut arg: *mut ::core::ffi::c_void,
     mut name: *const ::core::ffi::c_char,
@@ -4293,7 +4293,7 @@ unsafe extern "C" fn show_one_param(
         },
     );
 }
-#[c2rust::src_loc = "1119:1"]
+
 unsafe extern "C" fn admin_show_config(
     mut admin: *mut PgSocket,
     mut _arg: *const ::core::ffi::c_char,
@@ -4335,7 +4335,7 @@ unsafe extern "C" fn admin_show_config(
     );
     true_0 != 0
 }
-#[c2rust::src_loc = "1139:1"]
+
 unsafe extern "C" fn admin_cmd_reload(
     mut admin: *mut PgSocket,
     mut arg: *const ::core::ffi::c_char,
@@ -4392,7 +4392,7 @@ unsafe extern "C" fn admin_cmd_reload(
         )
     }
 }
-#[c2rust::src_loc = "1167:1"]
+
 unsafe extern "C" fn admin_cmd_shutdown(
     mut admin: *mut PgSocket,
     mut arg: *const ::core::ffi::c_char,
@@ -4461,7 +4461,7 @@ unsafe extern "C" fn admin_cmd_shutdown(
         )
     }
 }
-#[c2rust::src_loc = "1208:1"]
+
 unsafe extern "C" fn full_resume() {
     let mut tmp_mode = cf_pause_mode;
     cf_pause_mode = P_NONE as ::core::ffi::c_int;
@@ -4469,7 +4469,7 @@ unsafe extern "C" fn full_resume() {
         resume_all();
     }
 }
-#[c2rust::src_loc = "1217:1"]
+
 unsafe extern "C" fn admin_cmd_resume(
     mut admin: *mut PgSocket,
     mut arg: *const ::core::ffi::c_char,
@@ -4530,7 +4530,7 @@ unsafe extern "C" fn admin_cmd_resume(
         b"RESUME\0" as *const u8 as *const ::core::ffi::c_char,
     )
 }
-#[c2rust::src_loc = "1244:1"]
+
 unsafe extern "C" fn admin_cmd_suspend(
     mut admin: *mut PgSocket,
     mut arg: *const ::core::ffi::c_char,
@@ -4568,7 +4568,7 @@ unsafe extern "C" fn admin_cmd_suspend(
     g_suspend_start = get_cached_time();
     true_0 != 0
 }
-#[c2rust::src_loc = "1270:1"]
+
 unsafe extern "C" fn admin_cmd_pause(
     mut admin: *mut PgSocket,
     mut arg: *const ::core::ffi::c_char,
@@ -4627,7 +4627,7 @@ unsafe extern "C" fn admin_cmd_pause(
     }
     true_0 != 0
 }
-#[c2rust::src_loc = "1301:1"]
+
 unsafe extern "C" fn admin_cmd_reconnect(
     mut admin: *mut PgSocket,
     mut arg: *const ::core::ffi::c_char,
@@ -4687,7 +4687,7 @@ unsafe extern "C" fn admin_cmd_reconnect(
         b"RECONNECT\0" as *const u8 as *const ::core::ffi::c_char,
     )
 }
-#[c2rust::src_loc = "1333:1"]
+
 unsafe extern "C" fn admin_cmd_disable(
     mut admin: *mut PgSocket,
     mut arg: *const ::core::ffi::c_char,
@@ -4733,7 +4733,7 @@ unsafe extern "C" fn admin_cmd_disable(
         b"DISABLE\0" as *const u8 as *const ::core::ffi::c_char,
     )
 }
-#[c2rust::src_loc = "1355:1"]
+
 unsafe extern "C" fn admin_cmd_enable(
     mut admin: *mut PgSocket,
     mut arg: *const ::core::ffi::c_char,
@@ -4779,7 +4779,7 @@ unsafe extern "C" fn admin_cmd_enable(
         b"ENABLE\0" as *const u8 as *const ::core::ffi::c_char,
     )
 }
-#[c2rust::src_loc = "1377:1"]
+
 unsafe extern "C" fn find_socket_in_list(
     mut target_id: ::core::ffi::c_ulonglong,
     mut sockets: *mut StatList,
@@ -4797,7 +4797,7 @@ unsafe extern "C" fn find_socket_in_list(
     }
     ::core::ptr::null_mut::<PgSocket>()
 }
-#[c2rust::src_loc = "1391:1"]
+
 unsafe extern "C" fn find_client_global(mut target_id: ::core::ffi::c_ulonglong) -> *mut PgSocket {
     let mut kill_client = ::core::ptr::null_mut::<PgSocket>();
     let mut item = ::core::ptr::null_mut::<List>();
@@ -4840,7 +4840,7 @@ unsafe extern "C" fn find_client_global(mut target_id: ::core::ffi::c_ulonglong)
     }
     ::core::ptr::null_mut::<PgSocket>()
 }
-#[c2rust::src_loc = "1434:1"]
+
 unsafe extern "C" fn admin_cmd_kill_client(
     mut admin: *mut PgSocket,
     mut arg: *const ::core::ffi::c_char,
@@ -4875,7 +4875,7 @@ unsafe extern "C" fn admin_cmd_kill_client(
         b"KILL_CLIENT\0" as *const u8 as *const ::core::ffi::c_char,
     )
 }
-#[c2rust::src_loc = "1452:1"]
+
 unsafe extern "C" fn admin_cmd_kill(
     mut admin: *mut PgSocket,
     mut arg: *const ::core::ffi::c_char,
@@ -4953,7 +4953,7 @@ unsafe extern "C" fn admin_cmd_kill(
     }
     admin_ready(admin, b"KILL\0" as *const u8 as *const ::core::ffi::c_char)
 }
-#[c2rust::src_loc = "1497:1"]
+
 unsafe extern "C" fn admin_cmd_wait_close(
     mut admin: *mut PgSocket,
     mut arg: *const ::core::ffi::c_char,
@@ -5028,7 +5028,7 @@ unsafe extern "C" fn admin_cmd_wait_close(
     }
     true_0 != 0
 }
-#[c2rust::src_loc = "1540:1"]
+
 unsafe extern "C" fn copy_arg(
     mut src: *const ::core::ffi::c_char,
     mut glist: *mut regmatch_t,
@@ -5078,7 +5078,7 @@ unsafe extern "C" fn copy_arg(
     *dst.offset(len as isize) = 0 as ::core::ffi::c_char;
     true_0 != 0
 }
-#[c2rust::src_loc = "1580:1"]
+
 unsafe extern "C" fn admin_show_help(
     mut admin: *mut PgSocket,
     mut _arg: *const ::core::ffi::c_char,
@@ -5118,7 +5118,7 @@ unsafe extern "C" fn admin_show_help(
     }
     res
 }
-#[c2rust::src_loc = "1610:1"]
+
 unsafe extern "C" fn admin_show_version(
     mut admin: *mut PgSocket,
     mut _arg: *const ::core::ffi::c_char,
@@ -5149,35 +5149,35 @@ unsafe extern "C" fn admin_show_version(
     );
     true_0 != 0
 }
-#[c2rust::src_loc = "1628:1"]
+
 unsafe extern "C" fn admin_show_stats(
     mut admin: *mut PgSocket,
     mut _arg: *const ::core::ffi::c_char,
 ) -> bool {
     admin_database_stats(admin, &raw mut pool_list)
 }
-#[c2rust::src_loc = "1633:1"]
+
 unsafe extern "C" fn admin_show_stats_totals(
     mut admin: *mut PgSocket,
     mut _arg: *const ::core::ffi::c_char,
 ) -> bool {
     admin_database_stats_totals(admin, &raw mut pool_list)
 }
-#[c2rust::src_loc = "1638:1"]
+
 unsafe extern "C" fn admin_show_stats_averages(
     mut admin: *mut PgSocket,
     mut _arg: *const ::core::ffi::c_char,
 ) -> bool {
     admin_database_stats_averages(admin, &raw mut pool_list)
 }
-#[c2rust::src_loc = "1643:1"]
+
 unsafe extern "C" fn admin_show_totals(
     mut admin: *mut PgSocket,
     mut _arg: *const ::core::ffi::c_char,
 ) -> bool {
     show_stat_totals(admin, &raw mut pool_list)
 }
-#[c2rust::src_loc = "1649:1"]
+
 static mut show_map: [cmd_lookup; 23] = unsafe {
     [
         cmd_lookup {
@@ -5340,7 +5340,7 @@ static mut show_map: [cmd_lookup; 23] = unsafe {
         },
     ]
 };
-#[c2rust::src_loc = "1675:1"]
+
 unsafe extern "C" fn admin_cmd_show(
     mut admin: *mut PgSocket,
     mut arg: *const ::core::ffi::c_char,
@@ -5355,7 +5355,7 @@ unsafe extern "C" fn admin_cmd_show(
         ::core::ptr::null::<::core::ffi::c_char>(),
     )
 }
-#[c2rust::src_loc = "1682:1"]
+
 static mut cmd_list: [cmd_lookup; 14] = unsafe {
     [
         cmd_lookup {
@@ -5455,7 +5455,7 @@ static mut cmd_list: [cmd_lookup; 14] = unsafe {
         },
     ]
 };
-#[c2rust::src_loc = "1700:1"]
+
 unsafe extern "C" fn admin_parse_query(
     mut admin: *mut PgSocket,
     mut q: *const ::core::ffi::c_char,
@@ -5604,7 +5604,7 @@ unsafe extern "C" fn admin_parse_query(
     res
 }
 #[no_mangle]
-#[c2rust::src_loc = "1749:1"]
+
 pub unsafe extern "C" fn admin_handle_client(
     mut admin: *mut PgSocket,
     mut pkt: *mut PktHdr,
@@ -5682,7 +5682,7 @@ pub unsafe extern "C" fn admin_handle_client(
     false_0 != 0
 }
 #[no_mangle]
-#[c2rust::src_loc = "1796:1"]
+
 pub unsafe extern "C" fn admin_pre_login(
     mut client: *mut PgSocket,
     mut username: *const ::core::ffi::c_char,
@@ -5740,7 +5740,7 @@ pub unsafe extern "C" fn admin_pre_login(
     false_0 != 0
 }
 #[no_mangle]
-#[c2rust::src_loc = "1846:1"]
+
 pub unsafe extern "C" fn admin_post_login(mut client: *mut PgSocket) -> bool {
     let mut username: *const ::core::ffi::c_char =
         &raw mut (*(*client).login_user_credentials).name as *mut ::core::ffi::c_char;
@@ -5763,7 +5763,7 @@ pub unsafe extern "C" fn admin_post_login(mut client: *mut PgSocket) -> bool {
     false_0 != 0
 }
 #[no_mangle]
-#[c2rust::src_loc = "1865:1"]
+
 pub unsafe extern "C" fn admin_setup() {
     let mut db = ::core::ptr::null_mut::<PgDatabase>();
     let mut pool = ::core::ptr::null_mut::<PgPool>();
@@ -5970,7 +5970,7 @@ pub unsafe extern "C" fn admin_setup() {
     }
 }
 #[no_mangle]
-#[c2rust::src_loc = "1936:1"]
+
 pub unsafe extern "C" fn admin_pause_done() {
     let mut item = ::core::ptr::null_mut::<List>();
     let mut tmp = ::core::ptr::null_mut::<List>();
@@ -6041,7 +6041,7 @@ pub unsafe extern "C" fn admin_pause_done() {
     }
 }
 #[no_mangle]
-#[c2rust::src_loc = "1978:1"]
+
 pub unsafe extern "C" fn admin_wait_close_done() {
     let mut item = ::core::ptr::null_mut::<List>();
     let mut tmp = ::core::ptr::null_mut::<List>();
@@ -6072,7 +6072,7 @@ pub unsafe extern "C" fn admin_wait_close_done() {
     }
 }
 #[no_mangle]
-#[c2rust::src_loc = "1999:1"]
+
 pub unsafe extern "C" fn admin_handle_cancel(mut admin: *mut PgSocket) {
     if !(*admin).wait_for_response() {
         log_generic(

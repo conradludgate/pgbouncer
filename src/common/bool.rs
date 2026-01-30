@@ -6,7 +6,7 @@ use super::types::{false_0, size_t, strlen, true_0};
 
 // pg_strncasecmp is defined in pgstrcasecmp.rs within this module
 extern "C" {
-    #[c2rust::src_loc = "18:1"]
+    
     pub fn pg_strncasecmp(
         s1: *const ::core::ffi::c_char,
         s2: *const ::core::ffi::c_char,
@@ -15,7 +15,7 @@ extern "C" {
 }
 
 #[no_mangle]
-#[c2rust::src_loc = "26:1"]
+
 pub unsafe extern "C" fn parse_bool(
     mut value: *const ::core::ffi::c_char,
     mut result: *mut bool,
@@ -24,7 +24,7 @@ pub unsafe extern "C" fn parse_bool(
 }
 
 #[no_mangle]
-#[c2rust::src_loc = "32:1"]
+
 pub unsafe extern "C" fn parse_bool_with_len(
     mut value: *const ::core::ffi::c_char,
     mut len: size_t,

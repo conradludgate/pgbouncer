@@ -1,33 +1,33 @@
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arm/_types.h:22"]
+
 pub mod _types_h {
-    #[c2rust::src_loc = "87:1"]
+    
     pub type __darwin_size_t = usize;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_size_t.h:22"]
+
 pub mod _size_t_h {
-    #[c2rust::src_loc = "50:1"]
+    
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/common/saslprep.h:28"]
+
 pub mod saslprep_h {
-    #[c2rust::src_loc = "20:9"]
+    
     pub type pg_saslprep_rc = ::core::ffi::c_int;
-    #[c2rust::src_loc = "25:2"]
+    
     pub const SASLPREP_PROHIBITED: pg_saslprep_rc = -3;
-    #[c2rust::src_loc = "24:2"]
+    
     pub const SASLPREP_INVALID_UTF8: pg_saslprep_rc = -2;
-    #[c2rust::src_loc = "23:2"]
+    
     pub const SASLPREP_OOM: pg_saslprep_rc = -1;
-    #[c2rust::src_loc = "22:2"]
+    
     pub const SASLPREP_SUCCESS: pg_saslprep_rc = 0;
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/common/pg_wchar.h:30"]
+
 pub mod pg_wchar_h {
-    #[c2rust::src_loc = "28:1"]
+    
     pub type pg_wchar = ::core::ffi::c_uint;
     #[inline]
-    #[c2rust::src_loc = "564:1"]
+    
     pub unsafe extern "C" fn utf8_to_unicode(mut c: *const ::core::ffi::c_uchar) -> pg_wchar {
         if *c as ::core::ffi::c_int & 0x80 as ::core::ffi::c_int == 0 as ::core::ffi::c_int {
             *c.offset(0 as ::core::ffi::c_int as isize) as pg_wchar
@@ -69,7 +69,7 @@ pub mod pg_wchar_h {
         }
     }
     #[inline]
-    #[c2rust::src_loc = "590:1"]
+    
     pub unsafe extern "C" fn unicode_to_utf8(
         mut c: pg_wchar,
         mut utf8string: *mut ::core::ffi::c_uchar,
@@ -107,51 +107,51 @@ pub mod pg_wchar_h {
         utf8string
     }
     extern "C" {
-        #[c2rust::src_loc = "681:1"]
+        
         pub fn pg_utf8_islegal(
             source: *const ::core::ffi::c_uchar,
             length: ::core::ffi::c_int,
         ) -> bool;
-        #[c2rust::src_loc = "682:1"]
+        
         pub fn pg_utf_mblen(s: *const ::core::ffi::c_uchar) -> ::core::ffi::c_int;
     }
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/common/unicode_norm.h:30"]
+
 pub mod unicode_norm_h {
-    #[c2rust::src_loc = "20:9"]
+    
     pub type UnicodeNormalizationForm = ::core::ffi::c_uint;
-    #[c2rust::src_loc = "25:2"]
+    
     pub const UNICODE_NFKD: UnicodeNormalizationForm = 3;
-    #[c2rust::src_loc = "24:2"]
+    
     pub const UNICODE_NFKC: UnicodeNormalizationForm = 2;
-    #[c2rust::src_loc = "23:2"]
+    
     pub const UNICODE_NFD: UnicodeNormalizationForm = 1;
-    #[c2rust::src_loc = "22:2"]
+    
     pub const UNICODE_NFC: UnicodeNormalizationForm = 0;
     use super::pg_wchar_h::pg_wchar;
     extern "C" {
-        #[c2rust::src_loc = "36:1"]
+        
         pub fn unicode_normalize(
             form: UnicodeNormalizationForm,
             input: *const pg_wchar,
         ) -> *mut pg_wchar;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/malloc/_malloc.h:22"]
+
 pub mod _malloc_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        #[c2rust::src_loc = "54:1"]
+        
         pub fn malloc(__size: size_t) -> *mut ::core::ffi::c_void;
-        #[c2rust::src_loc = "56:1"]
+        
         pub fn free(_: *mut ::core::ffi::c_void);
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_stdlib.h:22"]
+
 pub mod _stdlib_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        #[c2rust::src_loc = "156:1"]
+        
         pub fn bsearch(
             __key: *const ::core::ffi::c_void,
             __base: *const ::core::ffi::c_void,
@@ -166,45 +166,45 @@ pub mod _stdlib_h {
         ) -> *mut ::core::ffi::c_void;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_string.h:22"]
+
 pub mod _string_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        #[c2rust::src_loc = "96:1"]
+        
         pub fn strlen(__s: *const ::core::ffi::c_char) -> size_t;
-        #[c2rust::src_loc = "141:1"]
+        
         pub fn strdup(__s1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
     }
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_null.h:30"]
+
 pub mod _null_h {
-    #[c2rust::src_loc = "49:9"]
+    
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
     use super::sys__types_h::__DARWIN_NULL;
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/common/postgres_compat.h:22"]
+
 pub mod postgres_compat_h {
-    #[c2rust::src_loc = "42:9"]
+    
     pub const MaxAllocSize: size_t = 0x3fffffff as ::core::ffi::c_int as size_t;
     use super::_size_t_h::size_t;
 }
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types.h:22"]
+
 pub mod sys__types_h {
-    #[c2rust::src_loc = "64:9"]
+    
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
 }
-#[c2rust::header_src = "/opt/homebrew/Cellar/llvm/21.1.8/lib/clang/21/include/stdbool.h:22"]
+
 pub mod stdbool_h {
-    #[c2rust::src_loc = "25:9"]
+    
     pub const true_0: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    #[c2rust::src_loc = "26:9"]
+    
     pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 }
-#[c2rust::header_src = "/Users/conrad.ludgate/Documents/code/pgbouncer/include/common/string.h:29"]
+
 pub mod string_h {
     extern "C" {
-        #[c2rust::src_loc = "31:1"]
+        
         pub fn pg_is_ascii(str: *const ::core::ffi::c_char) -> bool;
     }
 }
@@ -228,7 +228,7 @@ pub use self::unicode_norm_h::{
     unicode_normalize, UnicodeNormalizationForm, UNICODE_NFC, UNICODE_NFD, UNICODE_NFKC,
     UNICODE_NFKD,
 };
-#[c2rust::src_loc = "66:1"]
+
 static mut non_ascii_space_ranges: [pg_wchar; 12] = [
     0xa0 as ::core::ffi::c_int as pg_wchar,
     0xa0 as ::core::ffi::c_int as pg_wchar,
@@ -243,7 +243,7 @@ static mut non_ascii_space_ranges: [pg_wchar; 12] = [
     0x3000 as ::core::ffi::c_int as pg_wchar,
     0x3000 as ::core::ffi::c_int as pg_wchar,
 ];
-#[c2rust::src_loc = "81:1"]
+
 static mut commonly_mapped_to_nothing_ranges: [pg_wchar; 16] = [
     0xad as ::core::ffi::c_int as pg_wchar,
     0xad as ::core::ffi::c_int as pg_wchar,
@@ -262,7 +262,7 @@ static mut commonly_mapped_to_nothing_ranges: [pg_wchar; 16] = [
     0xfeff as ::core::ffi::c_int as pg_wchar,
     0xfeff as ::core::ffi::c_int as pg_wchar,
 ];
-#[c2rust::src_loc = "116:1"]
+
 static mut prohibited_output_ranges: [pg_wchar; 72] = [
     0 as ::core::ffi::c_int as pg_wchar,
     0x1f as ::core::ffi::c_int as pg_wchar,
@@ -337,7 +337,7 @@ static mut prohibited_output_ranges: [pg_wchar; 72] = [
     0x100000 as ::core::ffi::c_int as pg_wchar,
     0x10ffff as ::core::ffi::c_int as pg_wchar,
 ];
-#[c2rust::src_loc = "157:1"]
+
 static mut unassigned_codepoint_ranges: [pg_wchar; 792] = [
     0x221 as ::core::ffi::c_int as pg_wchar,
     0x221 as ::core::ffi::c_int as pg_wchar,
@@ -1132,7 +1132,7 @@ static mut unassigned_codepoint_ranges: [pg_wchar; 792] = [
     0xe0080 as ::core::ffi::c_int as pg_wchar,
     0xefffd as ::core::ffi::c_int as pg_wchar,
 ];
-#[c2rust::src_loc = "558:1"]
+
 static mut RandALCat_codepoint_ranges: [pg_wchar; 68] = [
     0x5be as ::core::ffi::c_int as pg_wchar,
     0x5be as ::core::ffi::c_int as pg_wchar,
@@ -1203,7 +1203,7 @@ static mut RandALCat_codepoint_ranges: [pg_wchar; 68] = [
     0xfe76 as ::core::ffi::c_int as pg_wchar,
     0xfefc as ::core::ffi::c_int as pg_wchar,
 ];
-#[c2rust::src_loc = "597:1"]
+
 static mut LCat_codepoint_ranges: [pg_wchar; 720] = [
     0x41 as ::core::ffi::c_int as pg_wchar,
     0x5a as ::core::ffi::c_int as pg_wchar,
@@ -1926,7 +1926,7 @@ static mut LCat_codepoint_ranges: [pg_wchar; 720] = [
     0x100000 as ::core::ffi::c_int as pg_wchar,
     0x10fffd as ::core::ffi::c_int as pg_wchar,
 ];
-#[c2rust::src_loc = "967:1"]
+
 unsafe extern "C" fn codepoint_range_cmp(
     mut a: *const ::core::ffi::c_void,
     mut b: *const ::core::ffi::c_void,
@@ -1941,7 +1941,7 @@ unsafe extern "C" fn codepoint_range_cmp(
     }
     0 as ::core::ffi::c_int
 }
-#[c2rust::src_loc = "981:1"]
+
 unsafe extern "C" fn is_code_in_table(
     mut code: pg_wchar,
     mut map: *const pg_wchar,
@@ -1972,7 +1972,7 @@ unsafe extern "C" fn is_code_in_table(
         false_0 != 0
     }
 }
-#[c2rust::src_loc = "1001:1"]
+
 unsafe extern "C" fn pg_utf8_string_len(
     mut source: *const ::core::ffi::c_char,
 ) -> ::core::ffi::c_int {
@@ -1992,7 +1992,7 @@ unsafe extern "C" fn pg_utf8_string_len(
     num_chars
 }
 #[no_mangle]
-#[c2rust::src_loc = "1045:1"]
+
 pub unsafe extern "C" fn pg_saslprep(
     mut input: *const ::core::ffi::c_char,
     mut output: *mut *mut ::core::ffi::c_char,

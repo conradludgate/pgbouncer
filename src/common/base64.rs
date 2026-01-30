@@ -4,14 +4,14 @@
 
 use super::types::{int8_t, memset, size_t, uint32_t, uint8_t};
 
-#[c2rust::src_loc = "23:1"]
+
 static mut _base64: [::core::ffi::c_char; 65] = unsafe {
     ::core::mem::transmute::<[u8; 65], [::core::ffi::c_char; 65]>(
         *b"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/\0",
     )
 };
 
-#[c2rust::src_loc = "26:1"]
+
 static mut b64lookup: [int8_t; 128] = [
     -(1 as ::core::ffi::c_int) as int8_t,
     -(1 as ::core::ffi::c_int) as int8_t,
@@ -144,7 +144,7 @@ static mut b64lookup: [int8_t; 128] = [
 ];
 
 #[no_mangle]
-#[c2rust::src_loc = "44:1"]
+
 pub unsafe extern "C" fn pg_b64_encode(
     mut src: *const uint8_t,
     mut len: ::core::ffi::c_int,
@@ -236,7 +236,7 @@ pub unsafe extern "C" fn pg_b64_encode(
 }
 
 #[no_mangle]
-#[c2rust::src_loc = "111:1"]
+
 pub unsafe extern "C" fn pg_b64_decode(
     mut src: *const ::core::ffi::c_char,
     mut len: ::core::ffi::c_int,
@@ -343,13 +343,13 @@ pub unsafe extern "C" fn pg_b64_decode(
 }
 
 #[no_mangle]
-#[c2rust::src_loc = "219:1"]
+
 pub unsafe extern "C" fn pg_b64_enc_len(mut srclen: ::core::ffi::c_int) -> ::core::ffi::c_int {
     (srclen + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int * 4 as ::core::ffi::c_int
 }
 
 #[no_mangle]
-#[c2rust::src_loc = "234:1"]
+
 pub unsafe extern "C" fn pg_b64_dec_len(mut srclen: ::core::ffi::c_int) -> ::core::ffi::c_int {
     (srclen * 3 as ::core::ffi::c_int) >> 2 as ::core::ffi::c_int
 }
