@@ -666,7 +666,7 @@ pub mod bouncer_h {
     use super::socket_h::sockaddr;
     use crate::types::{statlist_empty, StatList};
     use crate::types::usec_t;
-    use super::varcache_h::VarCache;
+    use crate::types::VarCache;
     extern "C" {
         
         pub static mut pgb_event_base: *mut event_base;
@@ -813,19 +813,6 @@ pub mod iobuf_h {
     use super::_uint8_t_h::uint8_t;
 }
 
-pub mod varcache_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct VarCache {
-        pub var_list: *mut *mut PStr,
-    }
-    use crate::types::PStr;
-    extern "C" {
-        
-        pub fn varcache_clean(cache: *mut VarCache);
-    }
-}
 
 
 pub mod pktbuf_h {
@@ -1156,7 +1143,7 @@ pub use self::sys__types_h::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_
 pub use crate::types::{usec_t, USEC};
 
 pub use crate::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
-pub use self::varcache_h::{varcache_clean, VarCache};
+pub use crate::types::VarCache;
 
 static mut full_maint_period: timeval = timeval {
     tv_sec: 0,
@@ -2514,4 +2501,8 @@ static INIT_ARRAY: [unsafe extern "C" fn(); 1] = [run_static_initializers];
 
 extern "C" {
     pub fn get_cached_time() -> usec_t;
+}
+
+extern "C" {
+    pub fn varcache_clean(cache: *mut VarCache);
 }

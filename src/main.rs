@@ -993,7 +993,7 @@ pub mod bouncer_h {
     use super::socket_h::sockaddr;
     use pgbouncer::types::StatList;
     use pgbouncer::types::usec_t;
-    use super::varcache_h::VarCache;
+    use pgbouncer::types::VarCache;
     extern "C" {
         
         pub static mut any_user_level_timeout_set: bool;
@@ -1083,19 +1083,6 @@ pub mod iobuf_h {
     use super::_uint8_t_h::uint8_t;
 }
 
-pub mod varcache_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct VarCache {
-        pub var_list: *mut *mut PStr,
-    }
-    use pgbouncer::types::PStr;
-    extern "C" {
-        
-        pub fn init_var_lookup(cf_track_extra_parameters_0: *const ::core::ffi::c_char);
-    }
-}
 
 
 pub mod pktbuf_h {
@@ -1732,7 +1719,7 @@ use self::unistd_h::{
 };
 pub use pgbouncer::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 use self::util_h::{cf_set_authdb, log_socket_prefix, rescue_timers};
-pub use self::varcache_h::{init_var_lookup, VarCache};
+pub use pgbouncer::types::VarCache;
 
 unsafe extern "C" fn usage(mut exe: *const ::core::ffi::c_char) {
     printf(
@@ -6035,4 +6022,8 @@ static INIT_ARRAY: [unsafe extern "C" fn(); 1] = [run_static_initializers];
 
 extern "C" {
     pub fn reset_time_cache();
+}
+
+extern "C" {
+    pub fn init_var_lookup(cf_track_extra_parameters_0: *const ::core::ffi::c_char);
 }

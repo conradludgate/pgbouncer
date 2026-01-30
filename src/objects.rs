@@ -753,7 +753,7 @@ pub mod bouncer_h {
     use super::socket_h::{sockaddr, AF_UNIX};
     use crate::types::{statlist_empty, StatList};
     use crate::types::usec_t;
-    use super::varcache_h::VarCache;
+    use crate::types::VarCache;
     extern "C" {
         
         pub static mut cf_sbuf_len: ::core::ffi::c_int;
@@ -927,34 +927,6 @@ pub mod iobuf_h {
     use super::_uint8_t_h::uint8_t;
 }
 
-pub mod varcache_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct VarCache {
-        pub var_list: *mut *mut PStr,
-    }
-    use super::bouncer_h::PgSocket;
-    use crate::types::PStr;
-    extern "C" {
-        
-        pub fn get_num_var_cached() -> ::core::ffi::c_int;
-        
-        pub fn varcache_set(
-            cache: *mut VarCache,
-            key: *const ::core::ffi::c_char,
-            value: *const ::core::ffi::c_char,
-        ) -> bool;
-        
-        pub fn varcache_apply(
-            server: *mut PgSocket,
-            client: *mut PgSocket,
-            changes_p: *mut bool,
-        ) -> bool;
-        
-        pub fn varcache_clean(cache: *mut VarCache);
-    }
-}
 
 
 pub mod pktbuf_h {
@@ -1519,9 +1491,7 @@ pub use self::un_h::sockaddr_un;
 use self::usual_socket_h::sa2str;
 pub use crate::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 use self::util_h::{fill_local_addr, fill_remote_addr};
-pub use self::varcache_h::{
-    get_num_var_cached, varcache_apply, varcache_clean, varcache_set, VarCache,
-};
+pub use crate::types::VarCache;
 #[no_mangle]
 
 pub static mut user_list: StatList = StatList {
@@ -5822,4 +5792,19 @@ static INIT_ARRAY: [unsafe extern "C" fn(); 1] = [run_static_initializers];
 
 extern "C" {
     pub fn get_cached_time() -> usec_t;
+}
+
+extern "C" {
+    pub fn get_num_var_cached() -> ::core::ffi::c_int;
+    pub fn varcache_set(
+    cache: *mut VarCache,
+    key: *const ::core::ffi::c_char,
+    value: *const ::core::ffi::c_char,
+    ) -> bool;
+    pub fn varcache_apply(
+    server: *mut PgSocket,
+    client: *mut PgSocket,
+    changes_p: *mut bool,
+    ) -> bool;
+    pub fn varcache_clean(cache: *mut VarCache);
 }

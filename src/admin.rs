@@ -801,7 +801,7 @@ pub mod bouncer_h {
     use super::socket_h::{sockaddr, AF_UNIX};
     use crate::types::{statlist_empty, StatList};
     use crate::types::usec_t;
-    use super::varcache_h::VarCache;
+    use crate::types::VarCache;
     extern "C" {
         
         pub static mut pgb_event_base: *mut event_base;
@@ -981,29 +981,6 @@ pub mod iobuf_h {
     use super::_uint8_t_h::uint8_t;
 }
 
-pub mod varcache_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct VarCache {
-        pub var_list: *mut *mut PStr,
-    }
-    
-    pub type VarCacheIdx = ::core::ffi::c_uint;
-    
-    pub const NumVars: VarCacheIdx = 5;
-    
-    pub const VAppName: VarCacheIdx = 4;
-    
-    pub const VStdStr: VarCacheIdx = 3;
-    
-    pub const VTimeZone: VarCacheIdx = 2;
-    
-    pub const VClientEncoding: VarCacheIdx = 1;
-    
-    pub const VDateStyle: VarCacheIdx = 0;
-    use crate::types::PStr;
-}
 
 
 pub mod pktbuf_h {
@@ -1703,9 +1680,7 @@ use self::unistd_h::{getpeereid, getuid};
 use self::usual_socket_h::{sa2str, socket_set_nonblocking};
 pub use crate::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 use self::util_h::strlist_contains;
-pub use self::varcache_h::{
-    NumVars, VAppName, VClientEncoding, VDateStyle, VStdStr, VTimeZone, VarCache, VarCacheIdx,
-};
+pub use crate::types::{VarCache, VarCacheIdx, VDateStyle, VClientEncoding, VTimeZone, VStdStr, VAppName, NumVars};
 #[derive(Copy, Clone)]
 #[repr(C)]
 

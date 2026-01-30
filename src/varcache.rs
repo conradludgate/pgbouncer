@@ -614,7 +614,7 @@ pub mod bouncer_h {
     use super::socket_h::sockaddr;
     use crate::types::StatList;
     use crate::types::usec_t;
-    use super::varcache_h::VarCache;
+    use crate::types::VarCache;
     extern "C" {}
 }
 
@@ -695,15 +695,6 @@ pub mod iobuf_h {
     use super::_uint8_t_h::uint8_t;
 }
 
-pub mod varcache_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct VarCache {
-        pub var_list: *mut *mut PStr,
-    }
-    use crate::types::PStr;
-}
 
 
 pub mod pktbuf_h {
@@ -1050,7 +1041,7 @@ pub use self::sys__types_h::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_
 pub use crate::types::usec_t;
 
 pub use crate::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table, HASH_BKT_CAPACITY_THRESH, HASH_INITIAL_NUM_BUCKETS, HASH_INITIAL_NUM_BUCKETS_LOG2, HASH_SIGNATURE};
-pub use self::varcache_h::VarCache;
+pub use crate::types::VarCache;
 #[derive(Copy, Clone)]
 #[repr(C)]
 

@@ -853,7 +853,7 @@ pub mod bouncer_h {
     use super::socket_h::sockaddr;
     use crate::types::StatList;
     use crate::types::usec_t;
-    use super::varcache_h::VarCache;
+    use crate::types::VarCache;
     extern "C" {
         
         pub static mut pgb_event_base: *mut event_base;
@@ -1123,15 +1123,6 @@ pub mod iobuf_h {
     use crate::types::MBuf;
 }
 
-pub mod varcache_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct VarCache {
-        pub var_list: *mut *mut PStr,
-    }
-    use crate::types::PStr;
-}
 
 
 pub mod pktbuf_h {
@@ -1462,7 +1453,7 @@ pub use self::tls_h::{
 use self::usual_socket_h::sa2str;
 pub use crate::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 use self::util_h::tune_socket;
-pub use self::varcache_h::VarCache;
+pub use crate::types::VarCache;
 
 pub const SBUF_TLS_OK: TLSState = 3;
 

@@ -612,7 +612,7 @@ pub mod bouncer_h {
     use super::socket_h::sockaddr;
     use crate::types::StatList;
     use crate::types::usec_t;
-    use super::varcache_h::VarCache;
+    use crate::types::VarCache;
     extern "C" {}
 }
 
@@ -693,15 +693,6 @@ pub mod iobuf_h {
     use super::_uint8_t_h::uint8_t;
 }
 
-pub mod varcache_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct VarCache {
-        pub var_list: *mut *mut PStr,
-    }
-    use crate::types::PStr;
-}
 
 
 pub mod pktbuf_h {
@@ -1116,7 +1107,7 @@ pub use crate::types::usec_t;
 
 pub use crate::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 pub use self::util_h::{get_random_bytes, MD5_PASSWD_LEN};
-pub use self::varcache_h::VarCache;
+pub use crate::types::VarCache;
 #[no_mangle]
 
 pub unsafe extern "C" fn free_scram_state(mut state: *mut ScramState) {

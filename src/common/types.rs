@@ -717,6 +717,15 @@ extern "C" {
     pub fn log_server_error(note: *const ::core::ffi::c_char, pkt: *mut PktHdr);
 }
 
+// VarCache types and constants
+pub type VarCacheIdx = u32;
+pub const VDateStyle: VarCacheIdx = 0;
+pub const VClientEncoding: VarCacheIdx = 1;
+pub const VTimeZone: VarCacheIdx = 2;
+pub const VStdStr: VarCacheIdx = 3;
+pub const VAppName: VarCacheIdx = 4;
+pub const NumVars: VarCacheIdx = 5;
+
 #[derive(Copy, Clone)]
 #[repr(C)]
 pub struct VarCache {

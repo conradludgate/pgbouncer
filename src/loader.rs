@@ -835,7 +835,7 @@ pub mod bouncer_h {
     use super::socket_h::sockaddr;
     use crate::types::StatList;
     use crate::types::usec_t;
-    use super::varcache_h::VarCache;
+    use crate::types::VarCache;
     extern "C" {
         
         pub static mut cf_autodb_connstr: *mut ::core::ffi::c_char;
@@ -925,15 +925,6 @@ pub mod iobuf_h {
     use super::_uint8_t_h::uint8_t;
 }
 
-pub mod varcache_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct VarCache {
-        pub var_list: *mut *mut PStr,
-    }
-    use crate::types::PStr;
-}
 
 
 pub mod pktbuf_h {
@@ -1272,7 +1263,7 @@ pub use crate::types::{usec_t, USEC};
 
 pub use crate::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 use self::util_h::check_reserved_database;
-pub use self::varcache_h::VarCache;
+pub use crate::types::VarCache;
 #[no_mangle]
 
 pub static mut any_user_level_timeout_set: bool = false;

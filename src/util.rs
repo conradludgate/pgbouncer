@@ -772,7 +772,7 @@ pub mod bouncer_h {
     use super::socket_h::{sockaddr, AF_UNIX};
     use crate::types::StatList;
     use crate::types::usec_t;
-    use super::varcache_h::VarCache;
+    use crate::types::VarCache;
     extern "C" {
         
         pub static mut cf_listen_port: ::core::ffi::c_int;
@@ -868,15 +868,6 @@ pub mod iobuf_h {
     use super::_uint8_t_h::uint8_t;
 }
 
-pub mod varcache_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct VarCache {
-        pub var_list: *mut *mut PStr,
-    }
-    use crate::types::PStr;
-}
 
 
 pub mod pktbuf_h {
@@ -1289,7 +1280,7 @@ pub use self::types_h::{evp_md_ctx_st, evp_md_st, EVP_MD, EVP_MD_CTX};
 use self::unistd_h::{geteuid, gethostname, getpid};
 use self::usual_socket_h::{socket_set_keepalive, socket_setup, usual_getpeercreds};
 pub use crate::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
-pub use self::varcache_h::VarCache;
+pub use crate::types::VarCache;
 #[derive(Copy, Clone)]
 #[repr(C)]
 

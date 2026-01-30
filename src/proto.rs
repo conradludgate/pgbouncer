@@ -657,7 +657,7 @@ pub mod bouncer_h {
     use super::socket_h::sockaddr;
     use crate::types::{statlist_empty, StatList};
     use crate::types::usec_t;
-    use super::varcache_h::VarCache;
+    use crate::types::VarCache;
     extern "C" {
         
         pub static mut replication_type_parameters: [*const ::core::ffi::c_char; 3];
@@ -747,31 +747,6 @@ pub mod iobuf_h {
     use super::_uint8_t_h::uint8_t;
 }
 
-pub mod varcache_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct VarCache {
-        pub var_list: *mut *mut PStr,
-    }
-    use super::bouncer_h::PgSocket;
-    use super::pktbuf_h::PktBuf;
-    use crate::types::PStr;
-    extern "C" {
-        
-        pub fn varcache_set(
-            cache: *mut VarCache,
-            key: *const ::core::ffi::c_char,
-            value: *const ::core::ffi::c_char,
-        ) -> bool;
-        
-        pub fn varcache_apply_startup(pkt: *mut PktBuf, client: *mut PgSocket);
-        
-        pub fn varcache_fill_unset(src: *mut VarCache, dst: *mut PgSocket);
-        
-        pub fn varcache_add_params(pkt: *mut PktBuf, vars: *mut VarCache);
-    }
-}
 
 
 pub mod pktbuf_h {
@@ -1170,9 +1145,7 @@ pub use crate::types::usec_t;
 
 pub use crate::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 use self::util_h::{get_random_bytes, pg_md5_encrypt};
-pub use self::varcache_h::{
-    varcache_add_params, varcache_apply_startup, varcache_fill_unset, varcache_set, VarCache,
-};
+pub use crate::types::VarCache;
 #[no_mangle]
 
 pub unsafe extern "C" fn get_header(mut data: *mut MBuf, mut pkt: *mut PktHdr) -> bool {
@@ -2340,4 +2313,16 @@ pub unsafe extern "C" fn scan_text_result(
         11793792312832361944 => ncol as ::core::ffi::c_int,
         _ => -(1 as ::core::ffi::c_int),
     }
+}
+
+
+extern "C" {
+    pub fn varcache_set(
+    cache: *mut VarCache,
+    key: *const ::core::ffi::c_char,
+    value: *const ::core::ffi::c_char,
+    ) -> bool;
+    pub fn varcache_apply_startup(pkt: *mut PktBuf, client: *mut PgSocket);
+    pub fn varcache_fill_unset(src: *mut VarCache, dst: *mut PgSocket);
+    pub fn varcache_add_params(pkt: *mut PktBuf, vars: *mut VarCache);
 }

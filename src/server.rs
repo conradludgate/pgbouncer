@@ -668,7 +668,7 @@ pub mod bouncer_h {
     use super::socket_h::{sockaddr, AF_UNIX};
     use crate::types::StatList;
     use crate::types::usec_t;
-    use super::varcache_h::VarCache;
+    use crate::types::VarCache;
     extern "C" {
         
         pub fn pga_str(
@@ -790,26 +790,6 @@ pub mod iobuf_h {
     use super::_uint8_t_h::uint8_t;
 }
 
-pub mod varcache_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct VarCache {
-        pub var_list: *mut *mut PStr,
-    }
-    use super::bouncer_h::PgSocket;
-    use crate::types::PStr;
-    extern "C" {
-        
-        pub fn varcache_set(
-            cache: *mut VarCache,
-            key: *const ::core::ffi::c_char,
-            value: *const ::core::ffi::c_char,
-        ) -> bool;
-        
-        pub fn varcache_set_canonical(server: *mut PgSocket, client: *mut PgSocket);
-    }
-}
 
 
 pub mod pktbuf_h {
@@ -1207,7 +1187,7 @@ pub use crate::types::usec_t;
 use self::tls_h::tls_get_connection_info;
 pub use crate::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 use self::util_h::fill_local_addr;
-pub use self::varcache_h::{varcache_set, varcache_set_canonical, VarCache};
+pub use crate::types::VarCache;
 
 pub const ERRCODE_CANNOT_CONNECT_NOW: [::core::ffi::c_char; 6] =
     unsafe { ::core::mem::transmute::<[u8; 6], [::core::ffi::c_char; 6]>(*b"57P03\0") };
@@ -2427,4 +2407,13 @@ pub unsafe extern "C" fn server_proto(
 
 extern "C" {
     pub fn get_cached_time() -> usec_t;
+}
+
+extern "C" {
+    pub fn varcache_set(
+    cache: *mut VarCache,
+    key: *const ::core::ffi::c_char,
+    value: *const ::core::ffi::c_char,
+    ) -> bool;
+    pub fn varcache_set_canonical(server: *mut PgSocket, client: *mut PgSocket);
 }

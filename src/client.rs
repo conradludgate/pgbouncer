@@ -784,7 +784,7 @@ pub mod bouncer_h {
     use super::socket_h::{sockaddr, AF_UNIX};
     use crate::types::StatList;
     use crate::types::usec_t;
-    use super::varcache_h::VarCache;
+    use crate::types::VarCache;
     extern "C" {
         
         pub static mut cf_sbuf_len: ::core::ffi::c_int;
@@ -923,23 +923,6 @@ pub mod iobuf_h {
     use super::_uint8_t_h::uint8_t;
 }
 
-pub mod varcache_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct VarCache {
-        pub var_list: *mut *mut PStr,
-    }
-    use crate::types::PStr;
-    extern "C" {
-        
-        pub fn varcache_set(
-            cache: *mut VarCache,
-            key: *const ::core::ffi::c_char,
-            value: *const ::core::ffi::c_char,
-        ) -> bool;
-    }
-}
 
 
 pub mod pktbuf_h {
@@ -1723,7 +1706,7 @@ pub use crate::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 pub use self::util_h::{
     bin2hex, get_random_bytes, pg_md5_encrypt, strlist_contains, MD5_PASSWD_LEN,
 };
-pub use self::varcache_h::{varcache_set, VarCache};
+pub use crate::types::VarCache;
 
 unsafe extern "C" fn hdr2hex(
     mut data: *const MBuf,
@@ -4626,4 +4609,12 @@ pub unsafe extern "C" fn client_proto(
 
 extern "C" {
     pub fn get_cached_time() -> usec_t;
+}
+
+extern "C" {
+    pub fn varcache_set(
+    cache: *mut VarCache,
+    key: *const ::core::ffi::c_char,
+    value: *const ::core::ffi::c_char,
+    ) -> bool;
 }
