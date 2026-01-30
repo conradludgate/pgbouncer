@@ -37,15 +37,16 @@ We start from the entry point (`main.rs`) and core connection handling (`client.
 | Consolidate stdbool_h types | ✅ Complete |
 | Consolidate varcache_h types | ✅ Complete |
 | Remove list_h re-export modules | ✅ Complete |
+| Consolidate C type alias modules | ✅ Complete |
 | Remove duplicate type modules | 📋 In Progress |
 
-**Lines saved from type consolidation: ~5,500** (5,200 + 211 from varcache_h + 66 from list_h)
+**Lines saved from type consolidation: ~7,400+** (previous + ~1,900 from C type aliases)
 
 ## Current State Metrics
 
 | Metric | Original | Current |
 |--------|----------|---------|
-| Total Rust lines (src/) | ~126,000 | ~65,750 |
+| Total Rust lines (src/) | ~126,000 | ~60,500 |
 | Total Rust lines (lib/usual/) | ~26,000 | ~25,900 |
 | `static mut` occurrences (src/) | 430 | 430 |
 | `unsafe extern "C" fn` (src/) | 1,787 | ~1,787 |
