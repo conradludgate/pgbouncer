@@ -48,6 +48,9 @@ pub type uint16_t = u16;
 pub type uint32_t = u32;
 pub type uint64_t = u64;
 
+// NULL constant
+pub const NULL: *mut ::core::ffi::c_void = ::core::ptr::null_mut();
+
 // =============================================================================
 // libc constants (re-exported from libc crate)
 // =============================================================================

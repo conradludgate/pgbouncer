@@ -33,11 +33,6 @@ pub mod _mode_t_h {
     use super::sys__types_h::__darwin_mode_t;
 }
 
-pub mod _uid_t_h {
-    
-    pub type uid_t = __darwin_uid_t;
-    use super::sys__types_h::__darwin_uid_t;
-}
 
 pub mod pwd_h {
     #[derive(Copy, Clone)]
@@ -57,7 +52,7 @@ pub mod pwd_h {
     }
     use super::_gid_t_h::gid_t;
     use super::_types_h::__darwin_time_t;
-    use super::_uid_t_h::uid_t;
+    use crate::types::uid_t;
     extern "C" {
         
         pub fn getpwuid(_: uid_t) -> *mut passwd;
@@ -113,7 +108,7 @@ pub mod grp_h {
 
 pub mod unistd_h {
     use super::_gid_t_h::gid_t;
-    use super::_uid_t_h::uid_t;
+    use crate::types::uid_t;
     extern "C" {
         
         pub fn chown(_: *const ::core::ffi::c_char, _: uid_t, _: gid_t) -> ::core::ffi::c_int;
@@ -144,11 +139,6 @@ pub mod stat_h {
     }
 }
 
-pub mod _null_h {
-    
-    pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
-    use super::sys__types_h::__DARWIN_NULL;
-}
 
 pub mod _stdlib_h {
     extern "C" {
@@ -184,11 +174,11 @@ pub mod _string_h {
 }
 pub use self::_gid_t_h::gid_t;
 pub use self::_mode_t_h::mode_t;
-pub use self::_null_h::NULL;
+pub use crate::types::NULL;
 use self::_stdlib_h::{exit, strtoul};
 use self::_string_h::{strcmp, strerror};
 pub use self::_types_h::{__darwin_time_t, __uint16_t, __uint32_t};
-pub use self::_uid_t_h::uid_t;
+pub use crate::types::uid_t;
 use self::errno_h::__error;
 pub use self::grp_h::{getgrnam, group};
 pub use self::logging_h::{

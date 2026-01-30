@@ -28,10 +28,6 @@ pub mod _types_h {
     pub type __darwin_time_t = ::core::ffi::c_long;
 }
 
-pub mod _uintptr_t_h {
-    
-    pub type uintptr_t = usize;
-}
 
 pub mod sys__types_h {
     
@@ -84,17 +80,7 @@ pub mod _gid_t_h {
     use super::sys__types_h::__darwin_gid_t;
 }
 
-pub mod _in_addr_t_h {
-    
-    pub type in_addr_t = __uint32_t;
-    use super::_types_h::__uint32_t;
-}
 
-pub mod _in_port_t_h {
-    
-    pub type in_port_t = __uint16_t;
-    use super::_types_h::__uint16_t;
-}
 
 pub mod _mode_t_h {
     
@@ -108,11 +94,6 @@ pub mod _nlink_t_h {
     use super::_types_h::__uint16_t;
 }
 
-pub mod _pid_t_h {
-    
-    pub type pid_t = __darwin_pid_t;
-    use super::sys__types_h::__darwin_pid_t;
-}
 
 pub mod _off_t_h {
     
@@ -120,11 +101,6 @@ pub mod _off_t_h {
     use super::sys__types_h::__darwin_off_t;
 }
 
-pub mod _uid_t_h {
-    
-    pub type uid_t = __darwin_uid_t;
-    use super::sys__types_h::__darwin_uid_t;
-}
 
 
 
@@ -133,17 +109,6 @@ pub mod _uid_t_h {
 
 
 
-pub mod _timeval_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct timeval {
-        pub tv_sec: __darwin_time_t,
-        pub tv_usec: __darwin_suseconds_t,
-    }
-    use super::_types_h::__darwin_time_t;
-    use super::sys__types_h::__darwin_suseconds_t;
-}
 
 pub mod _timespec_h {
     #[derive(Copy, Clone)]
@@ -253,7 +218,7 @@ pub mod stat_h {
     use super::_off_t_h::off_t;
     use super::_timespec_h::timespec;
     use super::_types_h::{__int32_t, __int64_t, __uint32_t};
-    use super::_uid_t_h::uid_t;
+    use crate::types::uid_t;
     use super::sys__types_h::__darwin_ino64_t;
     extern "C" {
         
@@ -296,11 +261,6 @@ pub mod cfparser_h {
 
 
 
-pub mod _sa_family_t_h {
-    
-    pub type sa_family_t = __uint8_t;
-    use super::_types_h::__uint8_t;
-}
 
 pub mod socket_h {
     #[derive(Copy, Clone)]
@@ -311,7 +271,7 @@ pub mod socket_h {
         pub sa_family: sa_family_t,
         pub sa_data: [::core::ffi::c_char; 14],
     }
-    use super::_sa_family_t_h::sa_family_t;
+    use crate::types::sa_family_t;
     use super::_types_h::__uint8_t;
 }
 
@@ -332,9 +292,9 @@ pub mod in_h {
         pub sin_addr: in_addr,
         pub sin_zero: [::core::ffi::c_char; 8],
     }
-    use super::_in_addr_t_h::in_addr_t;
-    use super::_in_port_t_h::in_port_t;
-    use super::_sa_family_t_h::sa_family_t;
+    use crate::types::in_addr_t;
+    use crate::types::in_port_t;
+    use crate::types::sa_family_t;
     use super::_types_h::__uint8_t;
 }
 
@@ -364,8 +324,8 @@ pub mod in6_h {
         pub sin6_addr: in6_addr,
         pub sin6_scope_id: __uint32_t,
     }
-    use super::_in_port_t_h::in_port_t;
-    use super::_sa_family_t_h::sa_family_t;
+    use crate::types::in_port_t;
+    use crate::types::sa_family_t;
     use super::_types_h::{__uint16_t, __uint32_t, __uint8_t};
 }
 
@@ -476,7 +436,7 @@ pub mod event_struct_h {
         pub tqe_next: *mut event_callback,
         pub tqe_prev: *mut *mut event_callback,
     }
-    use super::_timeval_h::timeval;
+    use crate::types::timeval;
     use crate::types::uint8_t;
     use super::event_h::event_base;
 }
@@ -782,8 +742,8 @@ pub mod bouncer_h {
         }
         p
     }
-    use super::_pid_t_h::pid_t;
-    use super::_uid_t_h::uid_t;
+    use crate::types::pid_t;
+    use crate::types::uid_t;
     use crate::types::uint16_t;
     use crate::types::uint64_t;
     use crate::types::uint8_t;
@@ -1005,11 +965,6 @@ pub mod ctype_h {
     use super::_ctype_h::isspace;
 }
 
-pub mod _null_h {
-    
-    pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
-    use super::sys__types_h::__DARWIN_NULL;
-}
 
 pub mod _string_h {
     use crate::types::size_t;
@@ -1137,33 +1092,33 @@ pub use self::_blksize_t_h::blksize_t;
 pub use self::_ctype_h::{__istype, __maskrune, isascii, isspace, _CTYPE_S};
 pub use self::_dev_t_h::dev_t;
 pub use self::_gid_t_h::gid_t;
-pub use self::_in_addr_t_h::in_addr_t;
-pub use self::_in_port_t_h::in_port_t;
+pub use crate::types::in_addr_t;
+pub use crate::types::in_port_t;
 use self::_malloc_h::free;
 pub use self::_mode_t_h::mode_t;
 pub use self::_nlink_t_h::nlink_t;
-pub use self::_null_h::NULL;
+pub use crate::types::NULL;
 pub use self::_off_t_h::off_t;
-pub use self::_pid_t_h::pid_t;
+pub use crate::types::pid_t;
 pub use crate::types::ptrdiff_t;
-pub use self::_sa_family_t_h::sa_family_t;
+pub use crate::types::sa_family_t;
 pub use crate::types::size_t;
 pub use crate::types::ssize_t;
 use self::_stdlib_h::{atoi, exit, strtonum};
 use self::_string_h::{memset, strcmp, strdup, strerror};
 pub use self::_timespec_h::timespec;
-pub use self::_timeval_h::timeval;
+pub use crate::types::timeval;
 pub use self::_types_h::{
     __darwin_ct_rune_t, __darwin_ptrdiff_t, __darwin_rune_t, __darwin_size_t, __darwin_ssize_t,
     __darwin_time_t, __darwin_wchar_t, __int32_t, __int64_t, __uint16_t, __uint32_t, __uint64_t,
     __uint8_t,
 };
-pub use self::_uid_t_h::uid_t;
+pub use crate::types::uid_t;
 pub use crate::types::uint16_t;
 pub use crate::types::uint32_t;
 pub use crate::types::uint64_t;
 pub use crate::types::uint8_t;
-pub use self::_uintptr_t_h::uintptr_t;
+pub use crate::types::uintptr_t;
 pub use crate::types::{aatree_cmp_f, aatree_walker_f, AANode, AATree};
 pub use self::bouncer_h::{
     cf_auth_file, cf_autodb_connstr, cstr_skip_ws, load_balance_hosts_map, pool_mode_map,

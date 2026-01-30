@@ -19,10 +19,6 @@ pub mod _int32_t_h {
     pub type int32_t = i32;
 }
 
-pub mod _uintptr_t_h {
-    
-    pub type uintptr_t = usize;
-}
 
 pub mod sys__types_h {
     
@@ -37,27 +33,11 @@ pub mod sys__types_h {
 
 
 
-pub mod _timeval_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct timeval {
-        pub tv_sec: __darwin_time_t,
-        pub tv_usec: __darwin_suseconds_t,
-    }
-    use super::_types_h::__darwin_time_t;
-    use super::sys__types_h::__darwin_suseconds_t;
-}
 
 
 
 
 
-pub mod _sa_family_t_h {
-    
-    pub type sa_family_t = __uint8_t;
-    use super::_types_h::__uint8_t;
-}
 
 pub mod _socklen_t_h {
     
@@ -76,7 +56,7 @@ pub mod socket_h {
     }
     
     pub const SOCK_STREAM: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    use super::_sa_family_t_h::sa_family_t;
+    use crate::types::sa_family_t;
     use super::_types_h::__uint8_t;
 }
 
@@ -225,7 +205,7 @@ pub mod event_struct_h {
         pub tqe_next: *mut event_callback,
         pub tqe_prev: *mut *mut event_callback,
     }
-    use super::_timeval_h::timeval;
+    use crate::types::timeval;
     use crate::types::uint8_t;
     use super::event_h::event_base;
 }
@@ -350,11 +330,6 @@ pub mod _malloc_h {
     }
 }
 
-pub mod _null_h {
-    
-    pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
-    use super::sys__types_h::__DARWIN_NULL;
-}
 
 pub mod usual_socket_h {
     use crate::types::size_t;
@@ -425,7 +400,7 @@ pub mod bouncer_h {
 }
 
 pub mod include_util_h {
-    use super::_timeval_h::timeval;
+    use crate::types::timeval;
     use super::event_struct_h::event;
     extern "C" {
         
@@ -453,20 +428,20 @@ pub mod _strings_h {
 }
 pub use self::_int32_t_h::int32_t;
 use self::_malloc_h::{calloc, free};
-pub use self::_null_h::NULL;
-pub use self::_sa_family_t_h::sa_family_t;
+pub use crate::types::NULL;
+pub use crate::types::sa_family_t;
 pub use crate::types::size_t;
 pub use self::_socklen_t_h::socklen_t;
 use self::_string_h::{memcmp, memset, strchr, strcmp, strdup, strlen};
 use self::_strings_h::strcasecmp;
-pub use self::_timeval_h::timeval;
+pub use crate::types::timeval;
 pub use self::_types_h::{
     __darwin_size_t, __darwin_socklen_t, __darwin_time_t, __int32_t, __uint32_t, __uint8_t,
 };
 pub use crate::types::uint32_t;
 pub use crate::types::uint64_t;
 pub use crate::types::uint8_t;
-pub use self::_uintptr_t_h::uintptr_t;
+pub use crate::types::uintptr_t;
 pub use crate::types::{aatree_cmp_f, aatree_destroy, aatree_init, aatree_insert, aatree_search, aatree_walk, aatree_walker_f, AANode, AATree, AATreeWalkType, AA_WALK_IN_ORDER, AA_WALK_POST_ORDER, AA_WALK_PRE_ORDER};
 use self::bouncer_h::{cf_dns_max_ttl, cf_dns_nxdomain_ttl, cf_resolv_conf, pgb_event_base};
 pub use self::dns_h::{

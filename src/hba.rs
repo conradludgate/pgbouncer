@@ -37,29 +37,9 @@ pub mod sys__types_h {
     use super::_types_h::{__int32_t, __int64_t, __uint32_t};
 }
 
-pub mod _in_addr_t_h {
-    
-    pub type in_addr_t = __uint32_t;
-    use super::_types_h::__uint32_t;
-}
 
-pub mod _in_port_t_h {
-    
-    pub type in_port_t = __uint16_t;
-    use super::_types_h::__uint16_t;
-}
 
-pub mod _pid_t_h {
-    
-    pub type pid_t = __darwin_pid_t;
-    use super::sys__types_h::__darwin_pid_t;
-}
 
-pub mod _uid_t_h {
-    
-    pub type uid_t = __darwin_uid_t;
-    use super::sys__types_h::__darwin_uid_t;
-}
 
 
 
@@ -203,11 +183,6 @@ pub mod runetype_h {
 }
 
 
-pub mod _sa_family_t_h {
-    
-    pub type sa_family_t = __uint8_t;
-    use super::_types_h::__uint8_t;
-}
 
 pub mod _socklen_t_h {
     
@@ -230,7 +205,7 @@ pub mod socket_h {
     pub const AF_INET: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
     
     pub const AF_INET6: ::core::ffi::c_int = 30 as ::core::ffi::c_int;
-    use super::_sa_family_t_h::sa_family_t;
+    use crate::types::sa_family_t;
     use super::_types_h::__uint8_t;
 }
 
@@ -251,9 +226,9 @@ pub mod in_h {
         pub sin_addr: in_addr,
         pub sin_zero: [::core::ffi::c_char; 8],
     }
-    use super::_in_addr_t_h::in_addr_t;
-    use super::_in_port_t_h::in_port_t;
-    use super::_sa_family_t_h::sa_family_t;
+    use crate::types::in_addr_t;
+    use crate::types::in_port_t;
+    use crate::types::sa_family_t;
     use super::_types_h::__uint8_t;
 }
 
@@ -283,8 +258,8 @@ pub mod in6_h {
         pub sin6_addr: in6_addr,
         pub sin6_scope_id: __uint32_t,
     }
-    use super::_in_port_t_h::in_port_t;
-    use super::_sa_family_t_h::sa_family_t;
+    use crate::types::in_port_t;
+    use crate::types::sa_family_t;
     use super::_types_h::{__uint16_t, __uint32_t, __uint8_t};
 }
 
@@ -348,9 +323,9 @@ pub mod bouncer_h {
     pub unsafe extern "C" fn pga_is_unix(mut a: *const PgAddr) -> bool {
         (*a).sa.sa_family as ::core::ffi::c_int == AF_UNIX
     }
-    use super::_pid_t_h::pid_t;
+    use crate::types::pid_t;
 
-    use super::_uid_t_h::uid_t;
+    use crate::types::uid_t;
     use super::in6_h::sockaddr_in6;
     use super::in_h::sockaddr_in;
     use super::socket_h::{sockaddr, AF_UNIX};
@@ -598,11 +573,6 @@ pub mod ctype_h {
     use super::_ctype_h::isspace;
 }
 
-pub mod _null_h {
-    
-    pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
-    use super::sys__types_h::__DARWIN_NULL;
-}
 
 pub mod inet_h {
     use super::_socklen_t_h::socklen_t;
@@ -708,12 +678,12 @@ pub mod string_h {
     }
 }
 pub use self::_ctype_h::{__istype, __maskrune, isascii, isspace, _CTYPE_S};
-pub use self::_in_addr_t_h::in_addr_t;
-pub use self::_in_port_t_h::in_port_t;
+pub use crate::types::in_addr_t;
+pub use crate::types::in_port_t;
 use self::_malloc_h::{calloc, free, malloc, realloc};
-pub use self::_null_h::NULL;
-pub use self::_pid_t_h::pid_t;
-pub use self::_sa_family_t_h::sa_family_t;
+pub use crate::types::NULL;
+pub use crate::types::pid_t;
+pub use crate::types::sa_family_t;
 pub use crate::types::size_t;
 pub use self::_socklen_t_h::socklen_t;
 pub use crate::types::ssize_t;
@@ -724,7 +694,7 @@ pub use self::_types_h::{
     __darwin_ct_rune_t, __darwin_rune_t, __darwin_size_t, __darwin_socklen_t, __darwin_ssize_t,
     __darwin_wchar_t, __int32_t, __int64_t, __uint16_t, __uint32_t, __uint8_t,
 };
-pub use self::_uid_t_h::uid_t;
+pub use crate::types::uid_t;
 pub use crate::types::uint32_t;
 pub use crate::types::uint8_t;
 pub use self::bouncer_h::{

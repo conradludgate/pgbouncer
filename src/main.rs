@@ -38,10 +38,6 @@ pub mod _types_h {
     pub type __darwin_time_t = ::core::ffi::c_long;
 }
 
-pub mod _uintptr_t_h {
-    
-    pub type uintptr_t = usize;
-}
 
 pub mod sys__types_h {
     
@@ -60,29 +56,9 @@ pub mod sys__types_h {
     use super::_types_h::{__int32_t, __int64_t, __uint32_t};
 }
 
-pub mod _in_addr_t_h {
-    
-    pub type in_addr_t = __uint32_t;
-    use super::_types_h::__uint32_t;
-}
 
-pub mod _in_port_t_h {
-    
-    pub type in_port_t = __uint16_t;
-    use super::_types_h::__uint16_t;
-}
 
-pub mod _pid_t_h {
-    
-    pub type pid_t = __darwin_pid_t;
-    use super::sys__types_h::__darwin_pid_t;
-}
 
-pub mod _uid_t_h {
-    
-    pub type uid_t = __darwin_uid_t;
-    use super::sys__types_h::__darwin_uid_t;
-}
 
 
 
@@ -173,17 +149,6 @@ pub mod _stdio_h {
     }
 }
 
-pub mod _timeval_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct timeval {
-        pub tv_sec: __darwin_time_t,
-        pub tv_usec: __darwin_suseconds_t,
-    }
-    use super::_types_h::__darwin_time_t;
-    use super::sys__types_h::__darwin_suseconds_t;
-}
 
 pub mod resource_h {
     
@@ -296,7 +261,7 @@ pub mod cfparser_h {
     
     pub const CF_READONLY: ::core::ffi::c_int =
         (1 as ::core::ffi::c_int) << 3 as ::core::ffi::c_int;
-    use super::_uintptr_t_h::uintptr_t;
+    use pgbouncer::types::uintptr_t;
     extern "C" {
         
         pub fn cf_set_str(cv: *mut CfValue, value: *const ::core::ffi::c_char) -> bool;
@@ -342,11 +307,6 @@ pub mod cfparser_h {
 
 
 
-pub mod _sa_family_t_h {
-    
-    pub type sa_family_t = __uint8_t;
-    use super::_types_h::__uint8_t;
-}
 
 pub mod _socklen_t_h {
     
@@ -367,7 +327,7 @@ pub mod socket_h {
     pub const SOCK_STREAM: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
     
     pub const AF_UNIX: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    use super::_sa_family_t_h::sa_family_t;
+    use pgbouncer::types::sa_family_t;
     use super::_types_h::__uint8_t;
     extern "C" {
         
@@ -388,7 +348,7 @@ pub mod un_h {
         pub sun_family: sa_family_t,
         pub sun_path: [::core::ffi::c_char; 104],
     }
-    use super::_sa_family_t_h::sa_family_t;
+    use pgbouncer::types::sa_family_t;
 }
 
 pub mod in_h {
@@ -408,9 +368,9 @@ pub mod in_h {
         pub sin_addr: in_addr,
         pub sin_zero: [::core::ffi::c_char; 8],
     }
-    use super::_in_addr_t_h::in_addr_t;
-    use super::_in_port_t_h::in_port_t;
-    use super::_sa_family_t_h::sa_family_t;
+    use pgbouncer::types::in_addr_t;
+    use pgbouncer::types::in_port_t;
+    use pgbouncer::types::sa_family_t;
     use super::_types_h::__uint8_t;
 }
 
@@ -440,8 +400,8 @@ pub mod in6_h {
         pub sin6_addr: in6_addr,
         pub sin6_scope_id: __uint32_t,
     }
-    use super::_in_port_t_h::in_port_t;
-    use super::_sa_family_t_h::sa_family_t;
+    use pgbouncer::types::in_port_t;
+    use pgbouncer::types::sa_family_t;
     use super::_types_h::{__uint16_t, __uint32_t, __uint8_t};
 }
 
@@ -460,7 +420,7 @@ pub mod event_h {
     pub const EV_SIGNAL: ::core::ffi::c_int = 0x8 as ::core::ffi::c_int;
     
     pub const EV_PERSIST: ::core::ffi::c_int = 0x10 as ::core::ffi::c_int;
-    use super::_timeval_h::timeval;
+    use pgbouncer::types::timeval;
     use super::event_struct_h::event;
     extern "C" {
         
@@ -589,7 +549,7 @@ pub mod event_struct_h {
         pub tqe_next: *mut event_callback,
         pub tqe_prev: *mut *mut event_callback,
     }
-    use super::_timeval_h::timeval;
+    use pgbouncer::types::timeval;
     use pgbouncer::types::uint8_t;
     use super::event_h::event_base;
 }
@@ -941,8 +901,8 @@ pub mod bouncer_h {
     pub const POOL_TX: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
     
     pub const POOL_STMT: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
-    use super::_pid_t_h::pid_t;
-    use super::_uid_t_h::uid_t;
+    use pgbouncer::types::pid_t;
+    use pgbouncer::types::uid_t;
     use pgbouncer::types::uint16_t;
     use pgbouncer::types::uint64_t;
     use pgbouncer::types::uint8_t;
@@ -1206,10 +1166,10 @@ pub mod getopt_h {
 }
 
 pub mod unistd_h {
-    use super::_pid_t_h::pid_t;
+    use pgbouncer::types::pid_t;
     use pgbouncer::types::size_t;
     use pgbouncer::types::ssize_t;
-    use super::_uid_t_h::uid_t;
+    use pgbouncer::types::uid_t;
     extern "C" {
         
         pub fn _exit(_: ::core::ffi::c_int) -> !;
@@ -1245,11 +1205,6 @@ pub mod _time_h {
     }
 }
 
-pub mod _null_h {
-    
-    pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
-    use super::sys__types_h::__DARWIN_NULL;
-}
 
 pub mod _string_h {
     use pgbouncer::types::size_t;
@@ -1314,7 +1269,7 @@ pub mod include_signal_h {
             (1 as ::core::ffi::c_int) << (__signo - 1 as ::core::ffi::c_int)
         }
     }
-    use super::_pid_t_h::pid_t;
+    use pgbouncer::types::pid_t;
     use super::_sigset_t_h::sigset_t;
     use super::signal_h::__DARWIN_NSIG;
     extern "C" {
@@ -1564,14 +1519,14 @@ pub mod err_h {
         pub fn xstrdup(s: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
     }
 }
-pub use self::_in_addr_t_h::in_addr_t;
-pub use self::_in_port_t_h::in_port_t;
+pub use pgbouncer::types::in_addr_t;
+pub use pgbouncer::types::in_port_t;
 use self::_malloc_h::free;
-pub use self::_null_h::NULL;
-pub use self::_pid_t_h::pid_t;
+pub use pgbouncer::types::NULL;
+pub use pgbouncer::types::pid_t;
 use self::_printf_h::printf;
 pub use pgbouncer::types::ptrdiff_t;
-pub use self::_sa_family_t_h::sa_family_t;
+pub use pgbouncer::types::sa_family_t;
 pub use self::_sigset_t_h::sigset_t;
 pub use pgbouncer::types::size_t;
 pub use self::_socklen_t_h::socklen_t;
@@ -1581,17 +1536,17 @@ use self::_stdlib_h::{atexit, atol, exit, getenv, setprogname, srandom};
 use self::_string_h::{memset, strerror, strlen};
 use self::_time_h::time;
 pub use self::_time_t_h::time_t;
-pub use self::_timeval_h::timeval;
+pub use pgbouncer::types::timeval;
 pub use self::_types_h::{
     __darwin_ptrdiff_t, __darwin_size_t, __darwin_socklen_t, __darwin_ssize_t, __darwin_time_t,
     __int32_t, __int64_t, __uint16_t, __uint32_t, __uint64_t, __uint8_t,
 };
-pub use self::_uid_t_h::uid_t;
+pub use pgbouncer::types::uid_t;
 pub use pgbouncer::types::uint16_t;
 pub use pgbouncer::types::uint32_t;
 pub use pgbouncer::types::uint64_t;
 pub use pgbouncer::types::uint8_t;
-pub use self::_uintptr_t_h::uintptr_t;
+pub use pgbouncer::types::uintptr_t;
 pub use pgbouncer::types::{aatree_cmp_f, aatree_walker_f, AANode, AATree};
 use self::admin_h::admin_setup;
 pub use self::bouncer_h::{
