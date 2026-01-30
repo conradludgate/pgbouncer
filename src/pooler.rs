@@ -1385,7 +1385,7 @@ unsafe extern "C" fn add_listen(
     let mut buf: [::core::ffi::c_char; 128] = [0; 128];
     let mut errpos = ::core::ptr::null::<::core::ffi::c_char>();
     let mut _log_ctx = NULL;
-    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 0 as ::core::ffi::c_int {
         log_generic(
             LG_DEBUG,
             _log_ctx,
@@ -1804,7 +1804,7 @@ unsafe extern "C" fn pool_accept(
             return;
         }
         let mut _log_ctx_1 = NULL;
-        if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 1 as ::core::ffi::c_int
         {
             log_generic(LG_NOISE, _log_ctx_1, c"new fd from accept=%d".as_ptr(), fd);
         }
@@ -1814,8 +1814,7 @@ unsafe extern "C" fn pool_accept(
             client = accept_client(fd, false);
         }
         if !client.is_null()
-            && (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            && cf_verbose > 0 as ::core::ffi::c_int
         {
             log_generic(
                 LG_DEBUG,

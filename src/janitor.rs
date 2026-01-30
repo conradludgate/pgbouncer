@@ -1217,7 +1217,7 @@ unsafe extern "C" fn launch_recheck(mut pool: *mut PgPool) {
         }
     }
     if need_check {
-        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 0 as ::core::ffi::c_int
         {
             log_generic(
                 LG_DEBUG,
@@ -1699,7 +1699,7 @@ unsafe extern "C" fn check_pool_size(mut pool: *mut PgPool) {
             || !(*(*pool).db).forced_user_credentials.is_null())
     {
         let mut _log_ctx = NULL;
-        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 0 as ::core::ffi::c_int
         {
             log_generic(
                 LG_DEBUG,

@@ -593,7 +593,7 @@ unsafe extern "C" fn impl_launch_query(mut req: *mut DNSRequest) {
         req as *mut ::core::ffi::c_void,
     );
     let mut _log_ctx = NULL;
-    if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 1 as ::core::ffi::c_int {
         log_generic(
             LG_NOISE,
             _log_ctx,
@@ -624,7 +624,7 @@ unsafe extern "C" fn deliver_info(mut req: *mut DNSRequest) {
         ucb = (el as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
             as *mut DNSToken;
         let mut _log_ctx = NULL;
-        if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 1 as ::core::ffi::c_int
         {
             log_generic(
                 LG_NOISE,
@@ -715,7 +715,7 @@ unsafe extern "C" fn req_free(mut node: *mut AANode, mut _arg: *mut ::core::ffi:
 pub unsafe extern "C" fn adns_create_context() -> *mut DNSContext {
     let mut ctx = ::core::ptr::null_mut::<DNSContext>();
     let mut _log_ctx = NULL;
-    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 0 as ::core::ffi::c_int {
         log_generic(
             LG_DEBUG,
             _log_ctx,
@@ -769,7 +769,7 @@ pub unsafe extern "C" fn adns_resolve(
         current_block = 6009453772311597924;
     } else {
         let mut _log_ctx = NULL;
-        if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 1 as ::core::ffi::c_int
         {
             log_generic(LG_NOISE, _log_ctx, c"dns: new req: %s".as_ptr(), name);
         }
@@ -809,9 +809,7 @@ pub unsafe extern "C" fn adns_resolve(
             if (*req).done {
                 if (*req).res_ttl < get_cached_time() {
                     let mut _log_ctx_0 = NULL;
-                    if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int
-                        as ::core::ffi::c_long
-                        != 0
+                    if cf_verbose > 1 as ::core::ffi::c_int
                     {
                         log_generic(
                             LG_NOISE,
@@ -907,9 +905,7 @@ unsafe extern "C" fn got_result_gai(
             let mut buf: [::core::ffi::c_char; 128] = [0; 128];
             while !ai.is_null() {
                 let mut _log_ctx = NULL;
-                if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int
-                    as ::core::ffi::c_long
-                    != 0
+                if cf_verbose > 1 as ::core::ffi::c_int
                 {
                     let fresh0 = n;
                     n += 1;
@@ -1008,7 +1004,7 @@ unsafe extern "C" fn zone_register(mut ctx: *mut DNSContext, mut req: *mut DNSRe
     let mut n = ::core::ptr::null_mut::<AANode>();
     let mut name = ::core::ptr::null::<::core::ffi::c_char>();
     let mut _log_ctx = NULL;
-    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 0 as ::core::ffi::c_int {
         log_generic(
             LG_DEBUG,
             _log_ctx,
@@ -1025,7 +1021,7 @@ unsafe extern "C" fn zone_register(mut ctx: *mut DNSContext, mut req: *mut DNSRe
     }
     name = name.offset(1);
     let mut _log_ctx_0 = NULL;
-    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 0 as ::core::ffi::c_int {
         log_generic(
             LG_DEBUG,
             _log_ctx_0,
@@ -1166,8 +1162,7 @@ unsafe extern "C" fn got_zone_serial(mut ctx: *mut DNSContext, mut serial: *mut 
             zone_requeue(ctx, z);
         } else {
             let mut _log_ctx_0 = NULL;
-            if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 0 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_DEBUG,
@@ -1180,7 +1175,7 @@ unsafe extern "C" fn got_zone_serial(mut ctx: *mut DNSContext, mut serial: *mut 
         }
     } else {
         let mut _log_ctx_1 = NULL;
-        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 0 as ::core::ffi::c_int
         {
             log_generic(
                 LG_DEBUG,

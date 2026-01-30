@@ -1081,7 +1081,7 @@ unsafe extern "C" fn load_parameter(
     if mbuf_get_string(&raw mut (*pkt).data, &raw mut key)
         && mbuf_get_string(&raw mut (*pkt).data, &raw mut val)
     {
-        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 0 as ::core::ffi::c_int
         {
             log_generic(
                 LG_DEBUG,
@@ -1093,8 +1093,7 @@ unsafe extern "C" fn load_parameter(
         }
         varcache_set(&raw mut (*server).vars, key, val);
         if !client.is_null() {
-            if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 0 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_DEBUG,
@@ -1165,7 +1164,7 @@ pub unsafe extern "C" fn kill_pool_logins_server_error(
     );
     if strcmp(sqlstate, ERRCODE_CANNOT_CONNECT_NOW.as_ptr()) != 0 as ::core::ffi::c_int {
         let mut _log_ctx_0 = NULL;
-        if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 1 as ::core::ffi::c_int
         {
             log_generic(
                 LG_NOISE,
@@ -1223,8 +1222,7 @@ unsafe extern "C" fn handle_server_startup(
             }
         }
         82 => {
-            if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 0 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_DEBUG,
@@ -1246,9 +1244,7 @@ unsafe extern "C" fn handle_server_startup(
                 current_block_60 = 18435049525520518667;
             } else if !(*(*(*server).pool).db).connect_query.is_null() {
                 (*server).set_exec_on_connect(true);
-                if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int
-                    as ::core::ffi::c_long
-                    != 0
+                if cf_verbose > 0 as ::core::ffi::c_int
                 {
                     log_generic(
                         LG_DEBUG,
@@ -1290,9 +1286,7 @@ unsafe extern "C" fn handle_server_startup(
             match current_block_60 {
                 6721012065216013753 => {}
                 _ => {
-                    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int
-                        as ::core::ffi::c_long
-                        != 0
+                    if cf_verbose > 0 as ::core::ffi::c_int
                     {
                         log_generic(
                             LG_DEBUG,
@@ -1328,8 +1322,7 @@ unsafe extern "C" fn handle_server_startup(
             res = true;
         }
         78 => {
-            if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 1 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_NOISE,
@@ -1539,9 +1532,7 @@ unsafe extern "C" fn handle_server_work(mut server: *mut PgSocket, mut pkt: *mut
                 return false;
             }
             if (*server).copy_mode() {
-                if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int
-                    as ::core::ffi::c_long
-                    != 0
+                if cf_verbose > 0 as ::core::ffi::c_int
                 {
                     log_generic(
                         LG_DEBUG,
@@ -1566,9 +1557,7 @@ unsafe extern "C" fn handle_server_work(mut server: *mut PgSocket, mut pkt: *mut
         }
         67 => {
             if (*server).copy_mode() {
-                if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int
-                    as ::core::ffi::c_long
-                    != 0
+                if cf_verbose > 0 as ::core::ffi::c_int
                 {
                     log_generic(
                         LG_DEBUG,
@@ -1630,8 +1619,7 @@ unsafe extern "C" fn handle_server_work(mut server: *mut PgSocket, mut pkt: *mut
             async_response = true;
         }
         71 | 87 => {
-            if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 0 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_DEBUG,
@@ -1720,8 +1708,7 @@ unsafe extern "C" fn handle_server_work(mut server: *mut PgSocket, mut pkt: *mut
         if (*client).state() as ::core::ffi::c_int == CL_LOGIN as ::core::ffi::c_int {
             return handle_auth_query_response(client, pkt);
         } else if ignore_packet {
-            if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 1 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_NOISE,
@@ -1741,9 +1728,7 @@ unsafe extern "C" fn handle_server_work(mut server: *mut PgSocket, mut pkt: *mut
                         (*client).query_start = 0;
                         (*(*server).pool).stats.query_time =
                             (*(*server).pool).stats.query_time.wrapping_add(total);
-                        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int
-                            as ::core::ffi::c_long
-                            != 0
+                        if cf_verbose > 0 as ::core::ffi::c_int
                         {
                             log_generic(
                                 LG_DEBUG,
@@ -1767,9 +1752,7 @@ unsafe extern "C" fn handle_server_work(mut server: *mut PgSocket, mut pkt: *mut
                         (*client).xact_start = 0;
                         (*(*server).pool).stats.xact_time =
                             (*(*server).pool).stats.xact_time.wrapping_add(total_0);
-                        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int
-                            as ::core::ffi::c_long
-                            != 0
+                        if cf_verbose > 0 as ::core::ffi::c_int
                         {
                             log_generic(
                                 LG_DEBUG,
@@ -1854,7 +1837,7 @@ unsafe extern "C" fn handle_connect(mut server: *mut PgSocket) -> bool {
         }
     }
     if !statlist_empty(&raw mut (*pool).waiting_cancel_req_list) {
-        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 0 as ::core::ffi::c_int
         {
             log_generic(
                 LG_DEBUG,
@@ -1872,8 +1855,7 @@ unsafe extern "C" fn handle_connect(mut server: *mut PgSocket) -> bool {
         );
     } else {
         if server_connect_sslmode > SSLMODE_DISABLED as ::core::ffi::c_int && !is_unix {
-            if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 1 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_NOISE,
@@ -1886,8 +1868,7 @@ unsafe extern "C" fn handle_connect(mut server: *mut PgSocket) -> bool {
                 (*server).set_wait_sslchar(true);
             }
         } else {
-            if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 1 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_NOISE,
@@ -1923,7 +1904,7 @@ unsafe extern "C" fn handle_sslchar(mut server: *mut PgSocket, mut data: *mut MB
         return false;
     }
     if schar as ::core::ffi::c_int == 'S' as i32 {
-        if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 1 as ::core::ffi::c_int
         {
             log_generic(
                 LG_NOISE,
@@ -1987,9 +1968,7 @@ pub unsafe extern "C" fn server_proto(
             if (*server).wait_sslchar() {
                 res = handle_sslchar(server, data);
             } else if incomplete_header(data) {
-                if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int
-                    as ::core::ffi::c_long
-                    != 0
+                if cf_verbose > 1 as ::core::ffi::c_int
                 {
                     log_generic(
                         LG_NOISE,
@@ -2000,9 +1979,7 @@ pub unsafe extern "C" fn server_proto(
             } else if !get_header(data, &raw mut pkt) {
                 disconnect_server(server, true, c"bad pkt header".as_ptr());
             } else {
-                if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int
-                    as ::core::ffi::c_long
-                    != 0
+                if cf_verbose > 1 as ::core::ffi::c_int
                 {
                     log_generic(
                         LG_NOISE,
@@ -2040,8 +2017,7 @@ pub unsafe extern "C" fn server_proto(
             disconnect_server(server, false, c"connect failed".as_ptr());
         }
         4 => {
-            if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 0 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_DEBUG,
@@ -2060,9 +2036,7 @@ pub unsafe extern "C" fn server_proto(
                     varcache_set_canonical(server, client);
                     (*server).set_setting_vars(false);
                     let mut _log_ctx_0 = NULL;
-                    if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int
-                        as ::core::ffi::c_long
-                        != 0
+                    if cf_verbose > 1 as ::core::ffi::c_int
                     {
                         log_generic(
                             LG_NOISE,
@@ -2131,9 +2105,7 @@ pub unsafe extern "C" fn server_proto(
                     c"SSL established: %s".as_ptr(),
                     &raw mut infobuf as *mut ::core::ffi::c_char,
                 );
-            } else if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int
-                as ::core::ffi::c_long
-                != 0
+            } else if cf_verbose > 1 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_NOISE,

@@ -2695,7 +2695,7 @@ pub unsafe extern "C" fn get_peer_pool(mut db: *mut PgDatabase) -> *mut PgPool {
 }
 
 unsafe extern "C" fn pause_client(mut client: *mut PgSocket) {
-    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 0 as ::core::ffi::c_int {
         log_generic(
             LG_DEBUG,
             client as *mut ::core::ffi::c_void,
@@ -2713,7 +2713,7 @@ unsafe extern "C" fn pause_client(mut client: *mut PgSocket) {
 }
 
 unsafe extern "C" fn pause_cancel_request(mut client: *mut PgSocket) {
-    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 0 as ::core::ffi::c_int {
         log_generic(
             LG_DEBUG,
             client as *mut ::core::ffi::c_void,
@@ -2732,7 +2732,7 @@ pub unsafe extern "C" fn activate_client(mut client: *mut PgSocket) {
         .stats
         .wait_time
         .wrapping_add(get_cached_time().wrapping_sub((*client).wait_start));
-    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 0 as ::core::ffi::c_int {
         log_generic(
             LG_DEBUG,
             client as *mut ::core::ffi::c_void,
@@ -2784,7 +2784,7 @@ pub unsafe extern "C" fn find_server(mut client: *mut PgSocket) -> bool {
     if !(*client).link.is_null() {
         return true;
     }
-    if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 1 as ::core::ffi::c_int {
         log_generic(
             LG_NOISE,
             client as *mut ::core::ffi::c_void,
@@ -2825,7 +2825,7 @@ pub unsafe extern "C" fn find_server(mut client: *mut PgSocket) -> bool {
         }
     }
     if !server.is_null() {
-        if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 1 as ::core::ffi::c_int
         {
             log_generic(
                 LG_NOISE,
@@ -2845,8 +2845,7 @@ pub unsafe extern "C" fn find_server(mut client: *mut PgSocket) -> bool {
             (*server).set_setting_vars(true);
             (*server).set_ready(false);
             res = false;
-            if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 1 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_NOISE,
@@ -2871,7 +2870,7 @@ unsafe extern "C" fn reuse_on_release(mut server: *mut PgSocket) -> bool {
     let mut res = true;
     let mut pool = (*server).pool;
     let mut client = ::core::ptr::null_mut::<PgSocket>();
-    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 0 as ::core::ffi::c_int {
         log_generic(
             LG_DEBUG,
             server as *mut ::core::ffi::c_void,
@@ -2902,7 +2901,7 @@ pub unsafe extern "C" fn queue_fake_response(
     let mut res = true;
     let mut server = (*client).link;
     if request_type as ::core::ffi::c_int == PqMsg_Parse {
-        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 0 as ::core::ffi::c_int
         {
             log_generic(
                 LG_DEBUG,
@@ -2934,7 +2933,7 @@ pub unsafe extern "C" fn queue_fake_response(
             &raw mut _buf,
         );
     } else if request_type as ::core::ffi::c_int == PqMsg_Close {
-        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 0 as ::core::ffi::c_int
         {
             log_generic(
                 LG_DEBUG,
@@ -3016,7 +3015,7 @@ pub unsafe extern "C" fn add_outstanding_request(
     if action as ::core::ffi::c_uint == RA_FAKE as ::core::ffi::c_int as ::core::ffi::c_uint
         && statlist_empty(&raw mut (*server).outstanding_requests) as ::core::ffi::c_int != 0
     {
-        if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 1 as ::core::ffi::c_int
         {
             log_generic(
                 LG_NOISE,
@@ -3037,7 +3036,7 @@ pub unsafe extern "C" fn add_outstanding_request(
         &raw mut (*server).outstanding_requests,
         &raw mut (*request).node,
     );
-    if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 1 as ::core::ffi::c_int {
         log_generic(
             LG_NOISE,
             client as *mut ::core::ffi::c_void,
@@ -3086,7 +3085,7 @@ pub unsafe extern "C" fn pop_outstanding_request(
         *skip = (*request).action as ::core::ffi::c_uint
             == RA_SKIP as ::core::ffi::c_int as ::core::ffi::c_uint;
     }
-    if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 1 as ::core::ffi::c_int {
         log_generic(
             LG_NOISE,
             server as *mut ::core::ffi::c_void,
@@ -3124,8 +3123,7 @@ pub unsafe extern "C" fn clear_outstanding_requests_until(
         let mut type_0 = (*request).type_0;
         if type_0 as ::core::ffi::c_int == PqMsg_Parse && (*request).server_ps_query_id > 0 {
             unregister_prepared_statement(server, (*request).server_ps_query_id);
-            if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 1 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_NOISE,
@@ -3147,8 +3145,7 @@ pub unsafe extern "C" fn clear_outstanding_requests_until(
                 disconnect_server(server, true, c"out of memory".as_ptr());
                 return false;
             }
-            if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 1 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_NOISE,
@@ -3179,7 +3176,7 @@ pub unsafe extern "C" fn clear_outstanding_requests_until(
         item = tmp;
         tmp = (*tmp).next;
     }
-    if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 1 as ::core::ffi::c_int {
         log_generic(
             LG_NOISE,
             server as *mut ::core::ffi::c_void,
@@ -3192,7 +3189,7 @@ pub unsafe extern "C" fn clear_outstanding_requests_until(
 
 unsafe extern "C" fn reset_on_release(mut server: *mut PgSocket) -> bool {
     let mut res: bool = false;
-    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 0 as ::core::ffi::c_int {
         log_generic(
             LG_DEBUG,
             server as *mut ::core::ffi::c_void,
@@ -3331,8 +3328,7 @@ pub unsafe extern "C" fn release_server(mut server: *mut PgSocket) -> bool {
     }
     if (*server).replication as u64 != 0 {
         if !(*server).link.is_null() {
-            if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 0 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_DEBUG,
@@ -3348,7 +3344,7 @@ pub unsafe extern "C" fn release_server(mut server: *mut PgSocket) -> bool {
             return false;
         }
     }
-    if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 1 as ::core::ffi::c_int {
         log_generic(
             LG_NOISE,
             server as *mut ::core::ffi::c_void,
@@ -3509,7 +3505,7 @@ pub unsafe extern "C" fn disconnect_server(
     change_server_state(server, SV_JUSTFREE);
     if !sbuf_close(&raw mut (*server).sbuf) {
         let mut _log_ctx_1 = NULL;
-        if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 1 as ::core::ffi::c_int
         {
             log_generic(
                 LG_NOISE,
@@ -3697,7 +3693,7 @@ pub unsafe extern "C" fn disconnect_client_sqlstate(
     change_client_state(client, CL_JUSTFREE);
     if !sbuf_close(&raw mut (*client).sbuf) {
         let mut _log_ctx_0 = NULL;
-        if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 1 as ::core::ffi::c_int
         {
             log_generic(
                 LG_NOISE,
@@ -3728,7 +3724,7 @@ unsafe extern "C" fn connect_server(
     } else {
         pga_copy(&raw mut (*server).remote_addr, sa);
     }
-    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 0 as ::core::ffi::c_int {
         log_generic(
             LG_DEBUG,
             server as *mut ::core::ffi::c_void,
@@ -3743,7 +3739,7 @@ unsafe extern "C" fn connect_server(
     );
     if !res {
         let mut _log_ctx = NULL;
-        if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 1 as ::core::ffi::c_int
         {
             log_generic(
                 LG_NOISE,
@@ -3805,7 +3801,7 @@ unsafe extern "C" fn dns_callback(
         }) as __uint16_t as in_port_t;
         sa = &raw mut sa_in as *mut sockaddr;
         salen = ::core::mem::size_of::<sockaddr_in>() as ::core::ffi::c_int;
-        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 0 as ::core::ffi::c_int
         {
             log_generic(
                 LG_DEBUG,
@@ -3835,7 +3831,7 @@ unsafe extern "C" fn dns_callback(
         }) as __uint16_t as in_port_t;
         sa = &raw mut sa_in6 as *mut sockaddr;
         salen = ::core::mem::size_of::<sockaddr_in6>() as ::core::ffi::c_int;
-        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 0 as ::core::ffi::c_int
         {
             log_generic(
                 LG_DEBUG,
@@ -3966,8 +3962,7 @@ unsafe extern "C" fn dns_connect(mut server: *mut PgSocket) {
                 unix_dir,
                 (*db).port,
             );
-            if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 1 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_NOISE,
@@ -3993,8 +3988,7 @@ unsafe extern "C" fn dns_connect(mut server: *mut PgSocket) {
         }
     } else {
         if !strchr(host, ':' as i32).is_null() {
-            if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 1 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_NOISE,
@@ -4027,8 +4021,7 @@ unsafe extern "C" fn dns_connect(mut server: *mut PgSocket) {
             sa = &raw mut sa_in6 as *mut sockaddr;
             sa_len = ::core::mem::size_of::<sockaddr_in6>() as ::core::ffi::c_int;
         } else {
-            if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 1 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_NOISE,
@@ -4066,8 +4059,7 @@ unsafe extern "C" fn dns_connect(mut server: *mut PgSocket) {
     if current_block == 6072622540298447352 {
         if res != 1 as ::core::ffi::c_int {
             let mut tk = ::core::ptr::null_mut::<DNSToken>();
-            if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 1 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_NOISE,
@@ -4205,12 +4197,12 @@ pub unsafe extern "C" fn launch_new_connection(mut pool: *mut PgPool, mut evict_
     let mut server = ::core::ptr::null_mut::<PgSocket>();
     let mut max: ::core::ffi::c_int = 0;
     let mut _log_ctx = NULL;
-    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 0 as ::core::ffi::c_int {
         log_generic(LG_DEBUG, _log_ctx, c"launch_new_connection: start".as_ptr());
     }
     if !statlist_empty(&raw mut (*pool).new_server_list) {
         let mut _log_ctx_0 = NULL;
-        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 0 as ::core::ffi::c_int
         {
             log_generic(
                 LG_DEBUG,
@@ -4224,8 +4216,7 @@ pub unsafe extern "C" fn launch_new_connection(mut pool: *mut PgPool, mut evict_
         let mut now = get_cached_time();
         if now.wrapping_sub((*pool).last_connect_time) < cf_server_login_retry {
             let mut _log_ctx_1 = NULL;
-            if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 0 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_DEBUG,
@@ -4249,8 +4240,7 @@ pub unsafe extern "C" fn launch_new_connection(mut pool: *mut PgPool, mut evict_
     if (*(*pool).db).peer_id != 0 {
         if max >= pool_pool_size(pool) {
             let mut _log_ctx_2 = NULL;
-            if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 0 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_DEBUG,
@@ -4266,7 +4256,7 @@ pub unsafe extern "C" fn launch_new_connection(mut pool: *mut PgPool, mut evict_
         && max < 2 as ::core::ffi::c_int * pool_pool_size(pool)
     {
         let mut _log_ctx_3 = NULL;
-        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 0 as ::core::ffi::c_int
         {
             log_generic(
                 LG_DEBUG,
@@ -4325,9 +4315,7 @@ pub unsafe extern "C" fn launch_new_connection(mut pool: *mut PgPool, mut evict_
                         14785029078859074793 => {}
                         _ => {
                             let mut _log_ctx_4 = NULL;
-                            if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int
-                                as ::core::ffi::c_long
-                                != 0
+                            if cf_verbose > 0 as ::core::ffi::c_int
                             {
                                 log_generic(
                                     LG_DEBUG,
@@ -4354,9 +4342,7 @@ pub unsafe extern "C" fn launch_new_connection(mut pool: *mut PgPool, mut evict_
             }
             if (*(*pool).db).connection_count >= max {
                 let mut _log_ctx_5 = NULL;
-                if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int
-                    as ::core::ffi::c_long
-                    != 0
+                if cf_verbose > 0 as ::core::ffi::c_int
                 {
                     log_generic(
                         LG_DEBUG,
@@ -4381,9 +4367,7 @@ pub unsafe extern "C" fn launch_new_connection(mut pool: *mut PgPool, mut evict_
             }
             if (*(*(*pool).user_credentials).global_user).connection_count >= max {
                 let mut _log_ctx_6 = NULL;
-                if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int
-                    as ::core::ffi::c_long
-                    != 0
+                if cf_verbose > 0 as ::core::ffi::c_int
                 {
                     log_generic(
                         LG_DEBUG,
@@ -4401,7 +4385,7 @@ pub unsafe extern "C" fn launch_new_connection(mut pool: *mut PgPool, mut evict_
     server = slab_alloc(server_cache) as *mut PgSocket;
     if server.is_null() {
         let mut _log_ctx_7 = NULL;
-        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 0 as ::core::ffi::c_int
         {
             log_generic(
                 LG_DEBUG,
@@ -4454,8 +4438,7 @@ pub unsafe extern "C" fn accept_client(
     res = sbuf_accept(&raw mut (*client).sbuf, sock, is_unix);
     if !res {
         if cf_log_connections != 0
-            && (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            && cf_verbose > 0 as ::core::ffi::c_int
         {
             log_generic(
                 LG_DEBUG,
@@ -4528,7 +4511,7 @@ pub unsafe extern "C" fn finish_client_login(mut client: *mut PgSocket) -> bool 
     (*client).set_wait_for_auth(false);
     if !(*(*client).pool).welcome_msg_ready() {
         let mut _log_ctx_0 = NULL;
-        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 0 as ::core::ffi::c_int
         {
             log_generic(
                 LG_DEBUG,
@@ -4548,7 +4531,7 @@ pub unsafe extern "C" fn finish_client_login(mut client: *mut PgSocket) -> bool 
         return false;
     }
     (*client).set_welcome_sent(true);
-    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 0 as ::core::ffi::c_int {
         log_generic(
             LG_DEBUG,
             client as *mut ::core::ffi::c_void,
@@ -4586,7 +4569,7 @@ unsafe extern "C" fn accept_cancel_request_for_peer(
         return;
     }
     let mut _log_ctx = NULL;
-    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 0 as ::core::ffi::c_int {
         log_generic(
             LG_DEBUG,
             _log_ctx,
@@ -4777,7 +4760,7 @@ pub unsafe extern "C" fn forward_cancel_request(mut server: *mut PgSocket) {
         disconnect_client(req, false, c"failed to send cancel request".as_ptr());
         return;
     }
-    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 0 as ::core::ffi::c_int {
         log_generic(
             LG_DEBUG,
             req as *mut ::core::ffi::c_void,

@@ -1232,7 +1232,7 @@ unsafe extern "C" fn cstr_get_pair(
         return ::core::ptr::null_mut::<::core::ffi::c_char>();
     }
     let mut _log_ctx = NULL;
-    if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 1 as ::core::ffi::c_int {
         log_generic(
             LG_NOISE,
             _log_ctx,
@@ -2088,7 +2088,7 @@ pub unsafe extern "C" fn load_auth_file(mut fn_0: *const ::core::ffi::c_char) ->
         return false;
     }
     let mut _log_ctx_0 = NULL;
-    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 0 as ::core::ffi::c_int {
         log_generic(
             LG_DEBUG,
             _log_ctx_0,

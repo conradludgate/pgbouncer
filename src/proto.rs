@@ -1041,7 +1041,7 @@ pub unsafe extern "C" fn get_header(mut data: *mut MBuf, mut pkt: *mut PktHdr) -
     mbuf_copy(data, &raw mut hdr);
     if mbuf_avail_for_read(&raw mut hdr) < NEW_HEADER_LEN as ::core::ffi::c_uint {
         let mut _log_ctx = NULL;
-        if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 1 as ::core::ffi::c_int
         {
             log_generic(
                 LG_NOISE,
@@ -1068,8 +1068,7 @@ pub unsafe extern "C" fn get_header(mut data: *mut MBuf, mut pkt: *mut PktHdr) -
         }
         if type8 as ::core::ffi::c_int != 0 as ::core::ffi::c_int {
             let mut _log_ctx_0 = NULL;
-            if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 1 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_NOISE,
@@ -1083,8 +1082,7 @@ pub unsafe extern "C" fn get_header(mut data: *mut MBuf, mut pkt: *mut PktHdr) -
             < (OLD_HEADER_LEN - 2 as ::core::ffi::c_int) as ::core::ffi::c_uint
         {
             let mut _log_ctx_1 = NULL;
-            if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 1 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_NOISE,
@@ -1120,8 +1118,7 @@ pub unsafe extern "C" fn get_header(mut data: *mut MBuf, mut pkt: *mut PktHdr) -
             type_0 = PKT_STARTUP_V2 as ::core::ffi::c_uint;
         } else {
             let mut _log_ctx_2 = NULL;
-            if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 1 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_NOISE,
@@ -1321,7 +1318,7 @@ pub unsafe extern "C" fn welcome_client(mut client: *mut PgSocket) -> bool {
     let mut pool = (*client).pool;
     let mut pmsg: *const PktBuf = (*pool).welcome_msg;
     let mut msg = ::core::ptr::null_mut::<PktBuf>();
-    if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 1 as ::core::ffi::c_int {
         log_generic(
             LG_NOISE,
             client as *mut ::core::ffi::c_void,
@@ -1416,7 +1413,7 @@ unsafe extern "C" fn send_password(
 
 unsafe extern "C" fn login_clear_psw(mut server: *mut PgSocket) -> bool {
     let mut credentials = get_srv_psw(server);
-    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 0 as ::core::ffi::c_int {
         log_generic(
             LG_DEBUG,
             server as *mut ::core::ffi::c_void,
@@ -1433,7 +1430,7 @@ unsafe extern "C" fn login_md5_psw(mut server: *mut PgSocket, mut salt: *const u
     let mut txt: [::core::ffi::c_char; 36] = [0; 36];
     let mut src = ::core::ptr::null_mut::<::core::ffi::c_char>();
     let mut credentials = get_srv_psw(server);
-    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 0 as ::core::ffi::c_int {
         log_generic(
             LG_DEBUG,
             server as *mut ::core::ffi::c_void,
@@ -1533,7 +1530,7 @@ unsafe extern "C" fn login_scram_sha_256(mut server: *mut PgSocket) -> bool {
     if client_first_message.is_null() {
         return false;
     }
-    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 0 as ::core::ffi::c_int {
         log_generic(
             LG_DEBUG,
             server as *mut ::core::ffi::c_void,
@@ -1541,7 +1538,7 @@ unsafe extern "C" fn login_scram_sha_256(mut server: *mut PgSocket) -> bool {
             client_first_message,
         );
     }
-    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 0 as ::core::ffi::c_int {
         log_generic(
             LG_DEBUG,
             server as *mut ::core::ffi::c_void,
@@ -1617,7 +1614,7 @@ unsafe extern "C" fn login_scram_sha_256_cont(
     );
     *ibuf.offset(datalen as isize) = '\0' as i32 as ::core::ffi::c_char;
     input = ibuf;
-    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 0 as ::core::ffi::c_int {
         log_generic(
             LG_DEBUG,
             server as *mut ::core::ffi::c_void,
@@ -1632,7 +1629,7 @@ unsafe extern "C" fn login_scram_sha_256_cont(
     } else {
         client_final_message = build_client_final_message(server, credentials);
         free(ibuf as *mut ::core::ffi::c_void);
-        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 0 as ::core::ffi::c_int
         {
             log_generic(
                 LG_DEBUG,
@@ -1641,7 +1638,7 @@ unsafe extern "C" fn login_scram_sha_256_cont(
                 client_final_message,
             );
         }
-        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 0 as ::core::ffi::c_int
         {
             log_generic(
                 LG_DEBUG,
@@ -1710,7 +1707,7 @@ unsafe extern "C" fn login_scram_sha_256_final(
     );
     *ibuf.offset(datalen as isize) = '\0' as i32 as ::core::ffi::c_char;
     input = ibuf;
-    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 0 as ::core::ffi::c_int {
         log_generic(
             LG_DEBUG,
             server as *mut ::core::ffi::c_void,
@@ -1767,8 +1764,7 @@ pub unsafe extern "C" fn answer_authreq(mut server: *mut PgSocket, mut pkt: *mut
     }
     match cmd {
         0 => {
-            if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 0 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_DEBUG,
@@ -1779,8 +1775,7 @@ pub unsafe extern "C" fn answer_authreq(mut server: *mut PgSocket, mut pkt: *mut
             res = true;
         }
         3 => {
-            if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 0 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_DEBUG,
@@ -1791,8 +1786,7 @@ pub unsafe extern "C" fn answer_authreq(mut server: *mut PgSocket, mut pkt: *mut
             res = login_clear_psw(server);
         }
         5 => {
-            if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 0 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_DEBUG,
@@ -1811,8 +1805,7 @@ pub unsafe extern "C" fn answer_authreq(mut server: *mut PgSocket, mut pkt: *mut
         }
         10 => {
             let mut selected_mechanism = false;
-            if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 0 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_DEBUG,
@@ -1828,9 +1821,7 @@ pub unsafe extern "C" fn answer_authreq(mut server: *mut PgSocket, mut pkt: *mut
                 if *mech.offset(0 as ::core::ffi::c_int as isize) == 0 {
                     break;
                 }
-                if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int
-                    as ::core::ffi::c_long
-                    != 0
+                if cf_verbose > 0 as ::core::ffi::c_int
                 {
                     log_generic(
                         LG_DEBUG,
@@ -1864,8 +1855,7 @@ pub unsafe extern "C" fn answer_authreq(mut server: *mut PgSocket, mut pkt: *mut
         11 => {
             let mut len: ::core::ffi::c_uint = 0;
             let mut data = ::core::ptr::null::<uint8_t>();
-            if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 0 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_DEBUG,
@@ -1882,8 +1872,7 @@ pub unsafe extern "C" fn answer_authreq(mut server: *mut PgSocket, mut pkt: *mut
         12 => {
             let mut len_0: ::core::ffi::c_uint = 0;
             let mut data_0 = ::core::ptr::null::<uint8_t>();
-            if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 0 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_DEBUG,
@@ -1932,7 +1921,7 @@ pub unsafe extern "C" fn send_startup_packet(mut server: *mut PgSocket) -> bool 
     {
         (*server).replication = (*client).replication;
         pktbuf_put_string(pkt, c"replication".as_ptr());
-        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 0 as ::core::ffi::c_int
         {
             log_generic(
                 LG_DEBUG,

@@ -1865,7 +1865,7 @@ unsafe extern "C" fn sbuf_send_cb(
     let mut sbuf = arg as *mut SBuf;
     let mut res: bool = false;
     let mut _log_ctx = NULL;
-    if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 1 as ::core::ffi::c_int {
         log_generic(LG_NOISE, _log_ctx, c"Socket is writable again".as_ptr());
     }
     if (*sbuf).sock == 0 {
@@ -1928,7 +1928,7 @@ unsafe extern "C" fn sbuf_queue_send(mut sbuf: *mut SBuf) -> bool {
 pub unsafe extern "C" fn sbuf_flush(mut sbuf: *mut SBuf) -> bool {
     if !(*sbuf).io.is_null() {
         let mut _log_ctx = NULL;
-        if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 1 as ::core::ffi::c_int
         {
             log_generic(LG_NOISE, _log_ctx, c"sbuf_flush".as_ptr());
         }
@@ -1942,7 +1942,7 @@ unsafe extern "C" fn sbuf_send_pending_iobuf(mut sbuf: *mut SBuf) -> bool {
     let mut res: ssize_t = 0;
     let mut io = (*sbuf).io;
     let mut _log_ctx = NULL;
-    if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 1 as ::core::ffi::c_int {
         log_generic(LG_NOISE, _log_ctx, c"sbuf_send_pending_iobuf".as_ptr());
     }
     loop {
@@ -1986,7 +1986,7 @@ unsafe extern "C" fn sbuf_send_pending_extra_packets(mut sbuf: *mut SBuf) -> boo
     let mut res: ssize_t = 0;
     let mut mbuf: *mut MBuf = &raw mut (*sbuf).extra_packets;
     let mut _log_ctx = NULL;
-    if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 1 as ::core::ffi::c_int {
         log_generic(
             LG_NOISE,
             _log_ctx,
@@ -2036,16 +2036,14 @@ unsafe extern "C" fn sbuf_process_pending(mut sbuf: *mut SBuf) -> bool {
     let mut full = iobuf_amount_recv(io) <= 0 as ::core::ffi::c_uint;
     let mut loop_number = 0 as ::core::ffi::c_int;
     let mut _log_ctx = NULL;
-    if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 1 as ::core::ffi::c_int {
         log_generic(LG_NOISE, _log_ctx, c"sbuf_process_pending: start".as_ptr());
     }
     loop {
         if mbuf_avail_for_read(extra_packets) != 0 {
             if (*sbuf).extra_packet_queue_after && !sbuf_send_pending_iobuf(sbuf) {
                 let mut _log_ctx_0 = NULL;
-                if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int
-                    as ::core::ffi::c_long
-                    != 0
+                if cf_verbose > 1 as ::core::ffi::c_int
                 {
                     log_generic(
                         LG_NOISE,
@@ -2057,9 +2055,7 @@ unsafe extern "C" fn sbuf_process_pending(mut sbuf: *mut SBuf) -> bool {
             }
             if !sbuf_send_pending_extra_packets(sbuf) {
                 let mut _log_ctx_1 = NULL;
-                if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int
-                    as ::core::ffi::c_long
-                    != 0
+                if cf_verbose > 1 as ::core::ffi::c_int
                 {
                     log_generic(
                         LG_NOISE,
@@ -2079,7 +2075,7 @@ unsafe extern "C" fn sbuf_process_pending(mut sbuf: *mut SBuf) -> bool {
         }
         loop_number += 1;
         let mut _log_ctx_2 = NULL;
-        if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 1 as ::core::ffi::c_int
         {
             log_generic(
                 LG_NOISE,
@@ -2158,9 +2154,7 @@ unsafe extern "C" fn sbuf_process_pending(mut sbuf: *mut SBuf) -> bool {
                 }
                 if !io.is_null() && (*io).recv_pos == cf_sbuf_len as ::core::ffi::c_uint {
                     let mut _log_ctx_6 = NULL;
-                    if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int
-                        as ::core::ffi::c_long
-                        != 0
+                    if cf_verbose > 1 as ::core::ffi::c_int
                     {
                         log_generic(
                             LG_NOISE,
@@ -2179,8 +2173,7 @@ unsafe extern "C" fn sbuf_process_pending(mut sbuf: *mut SBuf) -> bool {
         }
         _ => {
             let mut _log_ctx_3 = NULL;
-            if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 1 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_NOISE,
@@ -2190,9 +2183,7 @@ unsafe extern "C" fn sbuf_process_pending(mut sbuf: *mut SBuf) -> bool {
             }
             if !sbuf_send_pending_iobuf(sbuf) {
                 let mut _log_ctx_4 = NULL;
-                if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int
-                    as ::core::ffi::c_long
-                    != 0
+                if cf_verbose > 1 as ::core::ffi::c_int
                 {
                     log_generic(
                         LG_NOISE,
@@ -2203,8 +2194,7 @@ unsafe extern "C" fn sbuf_process_pending(mut sbuf: *mut SBuf) -> bool {
                 return false;
             }
             let mut _log_ctx_5 = NULL;
-            if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 1 as ::core::ffi::c_int
             {
                 log_generic(LG_NOISE, _log_ctx_5, c"sbuf_process_pending: end".as_ptr());
             }
@@ -2217,7 +2207,7 @@ unsafe extern "C" fn sbuf_try_resync(mut sbuf: *mut SBuf, mut release: bool) {
     let mut io = (*sbuf).io;
     if !io.is_null() {
         let mut _log_ctx = NULL;
-        if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 1 as ::core::ffi::c_int
         {
             log_generic(
                 LG_NOISE,
@@ -2306,9 +2296,7 @@ unsafe extern "C" fn sbuf_main_loop(mut sbuf: *mut SBuf, mut skip_recv: bool) {
                 if cf_sbuf_loopcnt > 0 as ::core::ffi::c_int && loopcnt >= cf_sbuf_loopcnt {
                     let mut _ignore: bool = false;
                     let mut _log_ctx = NULL;
-                    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int
-                        as ::core::ffi::c_long
-                        != 0
+                    if cf_verbose > 0 as ::core::ffi::c_int
                     {
                         log_generic(LG_DEBUG, _log_ctx, c"loopcnt full".as_ptr());
                     }
@@ -2370,7 +2358,7 @@ unsafe extern "C" fn sbuf_after_connect_check(mut sbuf: *mut SBuf) -> bool {
     );
     if err < 0 as ::core::ffi::c_int {
         let mut _log_ctx = NULL;
-        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 0 as ::core::ffi::c_int
         {
             log_generic(
                 LG_DEBUG,
@@ -2383,7 +2371,7 @@ unsafe extern "C" fn sbuf_after_connect_check(mut sbuf: *mut SBuf) -> bool {
     }
     if optval != 0 as ::core::ffi::c_int {
         let mut _log_ctx_0 = NULL;
-        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 0 as ::core::ffi::c_int
         {
             log_generic(
                 LG_DEBUG,
@@ -2428,7 +2416,7 @@ pub unsafe extern "C" fn sbuf_answer(
     res = sbuf_op_send(sbuf, buf, len);
     if res < 0 as ssize_t {
         let mut _log_ctx = NULL;
-        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 0 as ::core::ffi::c_int
         {
             log_generic(
                 LG_DEBUG,
@@ -2439,7 +2427,7 @@ pub unsafe extern "C" fn sbuf_answer(
         }
     } else if res as ::core::ffi::c_uint as size_t != len {
         let mut _log_ctx_0 = NULL;
-        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 0 as ::core::ffi::c_int
         {
             log_generic(
                 LG_DEBUG,
@@ -2653,7 +2641,7 @@ unsafe extern "C" fn tls_change_requires_reconnect(
 ) -> bool {
     if server_connect_sslmode != cf_server_tls_sslmode {
         let mut _log_ctx = NULL;
-        if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 1 as ::core::ffi::c_int
         {
             log_generic(
                 LG_NOISE,
@@ -2664,7 +2652,7 @@ unsafe extern "C" fn tls_change_requires_reconnect(
         true
     } else if server_connect_conf.is_null() {
         let mut _log_ctx_0 = NULL;
-        if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 1 as ::core::ffi::c_int
         {
             log_generic(
                 LG_NOISE,
@@ -2675,7 +2663,7 @@ unsafe extern "C" fn tls_change_requires_reconnect(
         true
     } else if tls_config_equal(new_server_connect_conf, server_connect_conf) {
         let mut _log_ctx_1 = NULL;
-        if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 1 as ::core::ffi::c_int
         {
             log_generic(
                 LG_NOISE,
@@ -2686,7 +2674,7 @@ unsafe extern "C" fn tls_change_requires_reconnect(
         false
     } else {
         let mut _log_ctx_2 = NULL;
-        if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 1 as ::core::ffi::c_int
         {
             log_generic(
                 LG_NOISE,
@@ -2874,7 +2862,7 @@ unsafe extern "C" fn handle_tls_handshake(mut sbuf: *mut SBuf) -> bool {
     let mut err: ::core::ffi::c_int = 0;
     err = tls_handshake((*sbuf).tls);
     let mut _log_ctx = NULL;
-    if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 1 as ::core::ffi::c_int {
         log_generic(LG_NOISE, _log_ctx, c"tls_handshake: err=%d".as_ptr(), err);
     }
     if err == TLS_WANT_POLLIN {
@@ -2945,7 +2933,7 @@ pub unsafe extern "C" fn sbuf_tls_accept(mut sbuf: *mut SBuf) -> bool {
         (*sbuf).sock,
     );
     let mut _log_ctx = NULL;
-    if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 1 as ::core::ffi::c_int {
         log_generic(LG_NOISE, _log_ctx, c"tls_accept_fds: err=%d".as_ptr(), err);
     }
     if err < 0 as ::core::ffi::c_int {
@@ -3029,7 +3017,7 @@ unsafe extern "C" fn tls_sbufio_recv(
     }
     out = tls_read((*sbuf).tls, dst, len);
     let mut _log_ctx = NULL;
-    if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 1 as ::core::ffi::c_int {
         log_generic(
             LG_NOISE,
             _log_ctx,
@@ -3075,7 +3063,7 @@ unsafe extern "C" fn tls_sbufio_send(
     }
     out = tls_write((*sbuf).tls, data, len);
     let mut _log_ctx = NULL;
-    if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 1 as ::core::ffi::c_int {
         log_generic(
             LG_NOISE,
             _log_ctx,
@@ -3111,7 +3099,7 @@ unsafe extern "C" fn tls_sbufio_send(
 
 unsafe extern "C" fn tls_sbufio_close(mut sbuf: *mut SBuf) -> ::core::ffi::c_int {
     let mut _log_ctx = NULL;
-    if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 1 as ::core::ffi::c_int {
         log_generic(LG_NOISE, _log_ctx, c"tls_close".as_ptr());
     }
     if !(*sbuf).tls.is_null() {
@@ -3186,7 +3174,7 @@ unsafe extern "C" fn sbuf_possible_direct_tls_startup_cb(
         return;
     }
     let mut _log_ctx = NULL;
-    if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 1 as ::core::ffi::c_int {
         log_generic(LG_NOISE, _log_ctx, c"Starting TLS handshake".as_ptr());
     }
     if !sbuf_tls_accept(sbuf) {

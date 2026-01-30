@@ -1826,7 +1826,7 @@ unsafe extern "C" fn send_client_authreq(mut client: *mut PgSocket) -> bool {
         return false;
     }
     if res == 0 {
-        if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 1 as ::core::ffi::c_int
         {
             log_generic(
                 LG_NOISE,
@@ -1835,8 +1835,7 @@ unsafe extern "C" fn send_client_authreq(mut client: *mut PgSocket) -> bool {
             );
         }
         disconnect_client(client, false, c"failed to send auth req".as_ptr());
-    } else if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-        != 0
+    } else if cf_verbose > 1 as ::core::ffi::c_int
     {
         log_generic(
             LG_NOISE,
@@ -1881,7 +1880,7 @@ unsafe extern "C" fn start_auth_query(
     if !find_server(client) {
         return;
     }
-    if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 1 as ::core::ffi::c_int {
         log_generic(
             LG_NOISE,
             client as *mut ::core::ffi::c_void,
@@ -1930,7 +1929,7 @@ unsafe extern "C" fn login_via_cert(mut client: *mut PgSocket, mut rule: *mut HB
         );
     } else if !(*(*client).login_user_credentials).mock_auth {
         let mut _log_ctx = NULL;
-        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 0 as ::core::ffi::c_int
         {
             log_generic(
                 LG_DEBUG,
@@ -1968,9 +1967,7 @@ unsafe extern "C" fn login_via_cert(mut client: *mut PgSocket, mut rule: *mut HB
                     match current_block_12 {
                         7651349459974463963 => {}
                         _ => {
-                            if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int
-                                as ::core::ffi::c_long
-                                != 0
+                            if cf_verbose > 1 as ::core::ffi::c_int
                             {
                                 log_generic(
                                     LG_NOISE,
@@ -2043,9 +2040,7 @@ unsafe extern "C" fn login_as_unix_peer(mut client: *mut PgSocket, mut rule: *mu
                                 as *mut ::core::ffi::c_char,
                         ) == 0 as ::core::ffi::c_int)
                 {
-                    if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int
-                        as ::core::ffi::c_long
-                        != 0
+                    if cf_verbose > 1 as ::core::ffi::c_int
                     {
                         log_generic(
                             LG_NOISE,
@@ -2167,7 +2162,7 @@ unsafe extern "C" fn finish_set_pool(mut client: *mut PgSocket, mut takeover: bo
             return false;
         }
         auth = (*rule).rule_method;
-        if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 1 as ::core::ffi::c_int
         {
             log_generic(
                 LG_NOISE,
@@ -2250,7 +2245,7 @@ pub unsafe extern "C" fn check_db_connection_count(mut client: *mut PgSocket) ->
         return true;
     }
     let mut _log_ctx = NULL;
-    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 0 as ::core::ffi::c_int {
         log_generic(
             LG_DEBUG,
             _log_ctx,
@@ -2302,7 +2297,7 @@ pub unsafe extern "C" fn check_user_connection_count(mut client: *mut PgSocket) 
         return true;
     }
     let mut _log_ctx = NULL;
-    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 0 as ::core::ffi::c_int {
         log_generic(
             LG_DEBUG,
             _log_ctx,
@@ -2454,9 +2449,7 @@ pub unsafe extern "C" fn set_pool(
                 .is_null()
             {
                 if (*(*client).c2rust_unnamed.db).fake {
-                    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int
-                        as ::core::ffi::c_long
-                        != 0
+                    if cf_verbose > 0 as ::core::ffi::c_int
                     {
                         log_generic(
                             LG_DEBUG,
@@ -2648,8 +2641,7 @@ pub unsafe extern "C" fn handle_auth_query_response(
                 password as *const ::core::ffi::c_void,
                 length as size_t,
             );
-            if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 0 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_DEBUG,
@@ -2689,9 +2681,7 @@ pub unsafe extern "C" fn handle_auth_query_response(
                 }
                 disconnect_client(client, true, c"no such user".as_ptr());
             } else {
-                if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int
-                    as ::core::ffi::c_long
-                    != 0
+                if cf_verbose > 1 as ::core::ffi::c_int
                 {
                     log_generic(
                         LG_NOISE,
@@ -2794,7 +2784,7 @@ unsafe extern "C" fn set_startup_options(
         &raw mut arg_buf as *mut ::core::ffi::c_char as *mut ::core::ffi::c_void,
         ::core::mem::size_of::<[::core::ffi::c_char; 400]>() as ::core::ffi::c_uint,
     );
-    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 0 as ::core::ffi::c_int {
         log_generic(
             LG_DEBUG,
             client as *mut ::core::ffi::c_void,
@@ -2843,9 +2833,7 @@ unsafe extern "C" fn set_startup_options(
             value_string =
                 (equals as *const ::core::ffi::c_char).offset(1 as ::core::ffi::c_int as isize);
             if varcache_set(&raw mut (*client).vars, key_string, value_string) {
-                if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int
-                    as ::core::ffi::c_long
-                    != 0
+                if cf_verbose > 0 as ::core::ffi::c_int
                 {
                     log_generic(
                         LG_DEBUG,
@@ -2861,9 +2849,7 @@ unsafe extern "C" fn set_startup_options(
                     as ::core::ffi::c_int
                     != 0
             {
-                if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int
-                    as ::core::ffi::c_long
-                    != 0
+                if cf_verbose > 0 as ::core::ffi::c_int
                 {
                     log_generic(
                         LG_DEBUG,
@@ -2935,7 +2921,7 @@ unsafe extern "C" fn set_appname(
         app_name = &raw mut buf as *mut ::core::ffi::c_char;
     }
     if !app_name.is_null() {
-        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 0 as ::core::ffi::c_int
         {
             log_generic(
                 LG_DEBUG,
@@ -3000,8 +2986,7 @@ unsafe extern "C" fn decide_startup_pool(mut client: *mut PgSocket, mut pkt: *mu
             break;
         }
         if strcmp(key, c"replication".as_ptr()) == 0 as ::core::ffi::c_int {
-            if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 0 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_DEBUG,
@@ -3025,8 +3010,7 @@ unsafe extern "C" fn decide_startup_pool(mut client: *mut PgSocket, mut pkt: *mu
             break;
         }
         if strcmp(key, c"database".as_ptr()) == 0 as ::core::ffi::c_int {
-            if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 0 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_DEBUG,
@@ -3038,8 +3022,7 @@ unsafe extern "C" fn decide_startup_pool(mut client: *mut PgSocket, mut pkt: *mu
             }
             dbname = val;
         } else if strcmp(key, c"user".as_ptr()) == 0 as ::core::ffi::c_int {
-            if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 0 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_DEBUG,
@@ -3059,9 +3042,7 @@ unsafe extern "C" fn decide_startup_pool(mut client: *mut PgSocket, mut pkt: *mu
             appname_found = true;
         } else if strcmp(key, c"replication".as_ptr()) != 0 as ::core::ffi::c_int {
             if strncmp(c"_pq_.".as_ptr(), key, 5 as size_t) == 0 as ::core::ffi::c_int {
-                if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int
-                    as ::core::ffi::c_long
-                    != 0
+                if cf_verbose > 0 as ::core::ffi::c_int
                 {
                     log_generic(
                         LG_DEBUG,
@@ -3080,9 +3061,7 @@ unsafe extern "C" fn decide_startup_pool(mut client: *mut PgSocket, mut pkt: *mu
                     return false;
                 }
             } else if varcache_set(&raw mut (*client).vars, key, val) {
-                if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int
-                    as ::core::ffi::c_long
-                    != 0
+                if cf_verbose > 0 as ::core::ffi::c_int
                 {
                     log_generic(
                         LG_DEBUG,
@@ -3093,9 +3072,7 @@ unsafe extern "C" fn decide_startup_pool(mut client: *mut PgSocket, mut pkt: *mu
                     );
                 }
             } else if strlist_contains(cf_ignore_startup_params, key) {
-                if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int
-                    as ::core::ffi::c_long
-                    != 0
+                if cf_verbose > 0 as ::core::ffi::c_int
                 {
                     log_generic(
                         LG_DEBUG,
@@ -3206,7 +3183,7 @@ unsafe extern "C" fn scram_client_first(
     );
     *ibuf.offset(datalen as isize) = '\0' as i32 as ::core::ffi::c_char;
     input = ibuf;
-    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 0 as ::core::ffi::c_int {
         log_generic(
             LG_DEBUG,
             client as *mut ::core::ffi::c_void,
@@ -3216,8 +3193,7 @@ unsafe extern "C" fn scram_client_first(
     }
     if read_client_first_message(client, input) {
         if !(*user).mock_auth {
-            if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 0 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_DEBUG,
@@ -3258,9 +3234,7 @@ unsafe extern "C" fn scram_client_first(
                 )
                 .is_null()
                 {
-                    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int
-                        as ::core::ffi::c_long
-                        != 0
+                    if cf_verbose > 0 as ::core::ffi::c_int
                     {
                         log_generic(
                             LG_DEBUG,
@@ -3328,7 +3302,7 @@ unsafe extern "C" fn scram_client_final(
     );
     *ibuf.offset(datalen as isize) = '\0' as i32 as ::core::ffi::c_char;
     input = ibuf;
-    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 0 as ::core::ffi::c_int {
         log_generic(
             LG_DEBUG,
             client as *mut ::core::ffi::c_void,
@@ -3343,7 +3317,7 @@ unsafe extern "C" fn scram_client_final(
         &raw mut client_final_nonce,
         &raw mut proof,
     ) {
-        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 0 as ::core::ffi::c_int
         {
             log_generic(
                 LG_DEBUG,
@@ -3369,9 +3343,7 @@ unsafe extern "C" fn scram_client_final(
         } else {
             server_final_message = build_server_final_message(client);
             if !server_final_message.is_null() {
-                if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int
-                    as ::core::ffi::c_long
-                    != 0
+                if cf_verbose > 0 as ::core::ffi::c_int
                 {
                     log_generic(
                         LG_DEBUG,
@@ -3455,8 +3427,7 @@ unsafe extern "C" fn handle_client_startup(
     }
     match (*pkt).type_0 {
         80877103 => {
-            if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 1 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_NOISE,
@@ -3469,9 +3440,7 @@ unsafe extern "C" fn handle_client_startup(
                 return false;
             }
             if client_accept_sslmode != SSLMODE_DISABLED as ::core::ffi::c_int && !is_unix {
-                if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int
-                    as ::core::ffi::c_long
-                    != 0
+                if cf_verbose > 1 as ::core::ffi::c_int
                 {
                     log_generic(
                         LG_NOISE,
@@ -3492,9 +3461,7 @@ unsafe extern "C" fn handle_client_startup(
                     return false;
                 }
             } else {
-                if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int
-                    as ::core::ffi::c_long
-                    != 0
+                if cf_verbose > 1 as ::core::ffi::c_int
                 {
                     log_generic(
                         LG_NOISE,
@@ -3513,8 +3480,7 @@ unsafe extern "C" fn handle_client_startup(
             }
         }
         80877104 => {
-            if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 1 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_NOISE,
@@ -3573,9 +3539,7 @@ unsafe extern "C" fn handle_client_startup(
                     if !mbuf_get_string(&raw mut (*pkt).data, &raw mut mech) {
                         return false;
                     }
-                    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int
-                        as ::core::ffi::c_long
-                        != 0
+                    if cf_verbose > 0 as ::core::ffi::c_int
                     {
                         log_generic(
                             LG_DEBUG,
@@ -4003,9 +3967,7 @@ pub unsafe extern "C" fn client_proto(
         }
         0 => {
             if incomplete_header(data) {
-                if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int
-                    as ::core::ffi::c_long
-                    != 0
+                if cf_verbose > 1 as ::core::ffi::c_int
                 {
                     log_generic(
                         LG_NOISE,
@@ -4029,8 +3991,7 @@ pub unsafe extern "C" fn client_proto(
                 );
                 return false;
             }
-            if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 1 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_NOISE,
@@ -4092,9 +4053,7 @@ pub unsafe extern "C" fn client_proto(
             match (*client).packet_cb_state.flag() as ::core::ffi::c_int {
                 1 => {
                     if first {
-                        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int
-                            as ::core::ffi::c_long
-                            != 0
+                        if cf_verbose > 0 as ::core::ffi::c_int
                         {
                             log_generic(
                                 LG_DEBUG,

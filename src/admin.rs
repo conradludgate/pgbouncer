@@ -2014,7 +2014,7 @@ unsafe extern "C" fn send_one_fd(
         );
         msg.msg_controllen = (*cmsg).cmsg_len;
     }
-    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 0 as ::core::ffi::c_int {
         log_generic(
             LG_DEBUG,
             admin as *mut ::core::ffi::c_void,
@@ -4693,8 +4693,7 @@ pub unsafe extern "C" fn admin_handle_client(
                 return false;
             }
             let mut _log_ctx = NULL;
-            if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 0 as ::core::ffi::c_int
             {
                 log_generic(LG_DEBUG, _log_ctx, c"got admin query: %s".as_ptr(), q);
             }

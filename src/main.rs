@@ -3155,7 +3155,7 @@ unsafe extern "C" fn check_limits() {
     let mut item = ::core::ptr::null_mut::<List>();
     let mut db = ::core::ptr::null_mut::<PgDatabase>();
     let mut _log_ctx = NULL;
-    if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 1 as ::core::ffi::c_int {
         log_generic(
             LG_NOISE,
             _log_ctx,

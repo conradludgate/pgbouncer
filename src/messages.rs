@@ -790,7 +790,7 @@ pub unsafe extern "C" fn inspect_parse_packet(
         return PS_INSPECT_FAILED;
     }
     if *statement == 0 {
-        if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 1 as ::core::ffi::c_int
         {
             log_generic(
                 LG_NOISE,
@@ -802,7 +802,7 @@ pub unsafe extern "C" fn inspect_parse_packet(
         }
         return PS_IGNORE;
     }
-    if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 1 as ::core::ffi::c_int {
         log_generic(
             LG_NOISE,
             client as *mut ::core::ffi::c_void,
@@ -829,7 +829,7 @@ pub unsafe extern "C" fn inspect_bind_packet(
         return PS_INSPECT_FAILED;
     }
     if *statement == 0 {
-        if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 1 as ::core::ffi::c_int
         {
             log_generic(
                 LG_NOISE,
@@ -841,7 +841,7 @@ pub unsafe extern "C" fn inspect_bind_packet(
         }
         return PS_IGNORE;
     }
-    if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 1 as ::core::ffi::c_int {
         log_generic(
             LG_NOISE,
             client as *mut ::core::ffi::c_void,
@@ -865,7 +865,7 @@ pub unsafe extern "C" fn inspect_describe_or_close_packet(
         return PS_INSPECT_FAILED;
     }
     if describe as ::core::ffi::c_int != 'S' as i32 {
-        if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 1 as ::core::ffi::c_int
         {
             log_generic(
                 LG_NOISE,
@@ -882,7 +882,7 @@ pub unsafe extern "C" fn inspect_describe_or_close_packet(
         return PS_INSPECT_FAILED;
     }
     if *statement == 0 {
-        if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 1 as ::core::ffi::c_int
         {
             log_generic(
                 LG_NOISE,
@@ -896,7 +896,7 @@ pub unsafe extern "C" fn inspect_describe_or_close_packet(
         }
         return PS_IGNORE;
     }
-    if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 1 as ::core::ffi::c_int {
         log_generic(
             LG_NOISE,
             client as *mut ::core::ffi::c_void,
@@ -1003,7 +1003,7 @@ pub unsafe extern "C" fn unmarshall_close_packet(
     {
         (*close_packet).type_0 = type_0;
         (*close_packet).name = name;
-        if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 1 as ::core::ffi::c_int
         {
             log_generic(
                 LG_NOISE,

@@ -910,7 +910,7 @@ unsafe extern "C" fn pktbuf_free_internal(mut buf: *mut PktBuf) {
         return;
     }
     let mut _log_ctx = NULL;
-    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 0 as ::core::ffi::c_int {
         log_generic(LG_DEBUG, _log_ctx, c"pktbuf_free(%p)".as_ptr(), buf);
     }
     free((*buf).buf as *mut ::core::ffi::c_void);
@@ -932,7 +932,7 @@ pub unsafe extern "C" fn pktbuf_free(mut buf: *mut PktBuf) {
 pub unsafe extern "C" fn pktbuf_dynamic(mut start_len: ::core::ffi::c_int) -> *mut PktBuf {
     let mut buf = zmalloc(::core::mem::size_of::<PktBuf>() as size_t) as *mut PktBuf;
     let mut _log_ctx = NULL;
-    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 0 as ::core::ffi::c_int {
         log_generic(
             LG_DEBUG,
             _log_ctx,
@@ -1021,7 +1021,7 @@ pub unsafe extern "C" fn pktbuf_send_immediate(
     );
     if res < 0 as ssize_t {
         let mut _log_ctx = NULL;
-        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 0 as ::core::ffi::c_int
         {
             log_generic(
                 LG_DEBUG,
@@ -1044,7 +1044,7 @@ unsafe extern "C" fn pktbuf_send_func(
     let mut amount: ::core::ffi::c_int = 0;
     let mut res: ::core::ffi::c_int = 0;
     let mut _log_ctx = NULL;
-    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 0 as ::core::ffi::c_int {
         log_generic(
             LG_DEBUG,
             _log_ctx,
@@ -1152,7 +1152,7 @@ unsafe extern "C" fn make_room(mut buf: *mut PktBuf, mut len: ::core::ffi::c_int
         newlen *= 2 as ::core::ffi::c_int;
     }
     let mut _log_ctx = NULL;
-    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 0 as ::core::ffi::c_int {
         log_generic(
             LG_DEBUG,
             _log_ctx,
@@ -1361,7 +1361,7 @@ pub unsafe extern "C" fn pktbuf_write_RowDescription(
     let mut i: ::core::ffi::c_int = 0;
     let mut ncol = strlen(tupdesc) as ::core::ffi::c_int;
     let mut _log_ctx = NULL;
-    if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 1 as ::core::ffi::c_int {
         log_generic(LG_NOISE, _log_ctx, c"write RowDescription".as_ptr());
     }
     pktbuf_start_packet(buf, PqMsg_RowDescription);

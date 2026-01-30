@@ -1515,8 +1515,7 @@ pub unsafe extern "C" fn fill_remote_addr(
             >= 0 as ::core::ffi::c_int
         {
             let mut _log_ctx = NULL;
-            if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 1 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_NOISE,

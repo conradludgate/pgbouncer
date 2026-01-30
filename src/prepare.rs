@@ -1934,7 +1934,7 @@ unsafe extern "C" fn register_prepared_statement(
     if !add_prepared_statement(server, server_ps) {
         return false;
     }
-    if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 1 as ::core::ffi::c_int {
         log_generic(
             LG_NOISE,
             server as *mut ::core::ffi::c_void,
@@ -2002,7 +2002,7 @@ unsafe extern "C" fn register_prepared_statement(
             .offset(-(0 as ::core::ffi::c_ulong as isize))
             as *mut OutstandingRequest;
         (*outstanding_request).server_ps = current as *mut PgServerPreparedStatement;
-        if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 1 as ::core::ffi::c_int
         {
             log_generic(
                 LG_NOISE,
@@ -2588,9 +2588,7 @@ pub unsafe extern "C" fn handle_parse_command(
                         }
                     }
                     if !server_ps.is_null() {
-                        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int
-                            as ::core::ffi::c_long
-                            != 0
+                        if cf_verbose > 0 as ::core::ffi::c_int
                         {
                             log_generic(
                                 LG_DEBUG,
@@ -2621,9 +2619,7 @@ pub unsafe extern "C" fn handle_parse_command(
                     5810280148545133055 => {}
                     _ => {
                         if current_block == 3760002206039831082 {
-                            if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int
-                                as ::core::ffi::c_long
-                                != 0
+                            if cf_verbose > 0 as ::core::ffi::c_int
                             {
                                 log_generic(
                                     LG_DEBUG,
@@ -2895,7 +2891,7 @@ unsafe extern "C" fn ensure_statement_is_prepared_on_server(
         }
         return true;
     }
-    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 0 as ::core::ffi::c_int {
         log_generic(
             LG_DEBUG,
             server as *mut ::core::ffi::c_void,
@@ -2964,7 +2960,7 @@ pub unsafe extern "C" fn handle_bind_command(
     }
     ps = (*client_ps).ps;
     if ensure_statement_is_prepared_on_server(server, ps) {
-        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 0 as ::core::ffi::c_int
         {
             log_generic(
                 LG_DEBUG,
@@ -3051,7 +3047,7 @@ pub unsafe extern "C" fn handle_describe_command(
     }
     ps = (*client_ps).ps;
     if ensure_statement_is_prepared_on_server(server, ps) {
-        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 0 as ::core::ffi::c_int
         {
             log_generic(
                 LG_DEBUG,
@@ -3176,7 +3172,7 @@ pub unsafe extern "C" fn handle_close_statement_command(
         }
     }
     if !client_ps.is_null() {
-        if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 1 as ::core::ffi::c_int
         {
             log_generic(
                 LG_NOISE,
@@ -3319,7 +3315,7 @@ pub unsafe extern "C" fn handle_close_statement_command(
         || statlist_count(&raw mut (*(*client).link).outstanding_requests)
             == 0 as ::core::ffi::c_int
     {
-        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 0 as ::core::ffi::c_int
         {
             log_generic(
                 LG_DEBUG,

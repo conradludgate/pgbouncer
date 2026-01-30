@@ -147,6 +147,12 @@ def transform_simple_casts(content: str) -> tuple[str, int]:
             count += content.count(f'0 as {typ}') - new_content.count(f'0 as {typ}')
             content = new_content
     
+    # NOTE: FFI type casts (0 as ::core::ffi::c_int, etc.) are NOT safe to
+    # convert automatically because:
+    # 1. The cast is often needed for type inference in expressions
+    # 2. Removing them can cause type mismatches with surrounding code
+    # These should be handled manually on a case-by-case basis.
+    
     return content, count
 
 
@@ -169,6 +175,30 @@ def transform_redundant_wrapping(content: str) -> tuple[str, int]:
     if matches:
         count += matches
         content = re.sub(pattern, '', content)
+    
+    return content, count
+
+
+def transform_verbose_bool_checks(content: str) -> tuple[str, int]:
+    """
+    Transform verbose c2rust boolean patterns:
+    - (expr) as ::core::ffi::c_int as ::core::ffi::c_long != 0 → expr
+    
+    This pattern appears when C code does: if (comparison) { ... }
+    and c2rust converts it to checking if the comparison cast to int is non-zero.
+    """
+    count = 0
+    
+    # Pattern: (comparison) as c_int as c_long != 0 → comparison
+    # We need to match balanced parentheses for the expression
+    pattern = r'\(([^()]+)\)\s+as\s+::core::ffi::c_int\s+as\s+::core::ffi::c_long\s*!=\s*0'
+    
+    def replace_verbose(m):
+        nonlocal count
+        count += 1
+        return m.group(1)
+    
+    content = re.sub(pattern, replace_verbose, content)
     
     return content, count
 
@@ -278,6 +308,7 @@ def process_file(file_path: Path, dry_run: bool = False) -> dict:
         'byte_strings': 0,
         'simple_casts': 0,
         'redundant_wrapping': 0,
+        'verbose_bool_checks': 0,
         'boolean_literals': 0,
         'zeroing_suggestions': [],
         'total_changes': 0,
@@ -296,6 +327,9 @@ def process_file(file_path: Path, dry_run: bool = False) -> dict:
     content, count = transform_redundant_wrapping(content)
     stats['redundant_wrapping'] = count
     
+    content, count = transform_verbose_bool_checks(content)
+    stats['verbose_bool_checks'] = count
+    
     content, count = transform_boolean_literals(content)
     stats['boolean_literals'] = count
     
@@ -307,6 +341,7 @@ def process_file(file_path: Path, dry_run: bool = False) -> dict:
         stats['byte_strings'] + 
         stats['simple_casts'] +
         stats['redundant_wrapping'] +
+        stats['verbose_bool_checks'] +
         stats['boolean_literals']
     )
     
@@ -333,6 +368,8 @@ def print_stats(stats: dict, dry_run: bool = False):
         print(f"  - Simple casts: {stats['simple_casts']} changes")
     if stats['redundant_wrapping']:
         print(f"  - Redundant wrapping: {stats['redundant_wrapping']} changes")
+    if stats['verbose_bool_checks']:
+        print(f"  - Verbose bool checks: {stats['verbose_bool_checks']} changes")
     if stats['boolean_literals']:
         print(f"  - Boolean literals: {stats['boolean_literals']} changes")
     

@@ -1357,7 +1357,7 @@ unsafe extern "C" fn takeover_load_fd(mut pkt: *mut MBuf, mut cmsg: *const cmsgh
             ::core::mem::size_of::<::core::ffi::c_int>() as size_t,
         );
         let mut _log_ctx = NULL;
-        if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
+        if cf_verbose > 0 as ::core::ffi::c_int
         {
             log_generic(LG_DEBUG, _log_ctx, c"got fd: %d".as_ptr(), fd);
         }
@@ -1413,7 +1413,7 @@ unsafe extern "C" fn takeover_load_fd(mut pkt: *mut MBuf, mut cmsg: *const cmsgh
         exit(1 as ::core::ffi::c_int);
     }
     let mut _log_ctx_3 = NULL;
-    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 0 as ::core::ffi::c_int {
         log_generic(
             LG_DEBUG,
             _log_ctx_3,
@@ -1617,7 +1617,7 @@ unsafe extern "C" fn next_command(mut bouncer: *mut PgSocket, mut pkt: *mut MBuf
         exit(1 as ::core::ffi::c_int);
     }
     let mut _log_ctx_0 = NULL;
-    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 0 as ::core::ffi::c_int {
         log_generic(
             LG_DEBUG,
             _log_ctx_0,
@@ -1743,9 +1743,7 @@ unsafe extern "C" fn takeover_parse_data(
         match pkt.type_0 {
             84 => {
                 let mut _log_ctx_1 = NULL;
-                if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int
-                    as ::core::ffi::c_long
-                    != 0
+                if cf_verbose > 0 as ::core::ffi::c_int
                 {
                     log_generic(
                         LG_DEBUG,
@@ -1756,9 +1754,7 @@ unsafe extern "C" fn takeover_parse_data(
             }
             68 => {
                 let mut _log_ctx_2 = NULL;
-                if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int
-                    as ::core::ffi::c_long
-                    != 0
+                if cf_verbose > 0 as ::core::ffi::c_int
                 {
                     log_generic(
                         LG_DEBUG,
@@ -1810,9 +1806,7 @@ unsafe extern "C" fn takeover_parse_data(
             }
             90 => {
                 let mut _log_ctx_4 = NULL;
-                if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int
-                    as ::core::ffi::c_long
-                    != 0
+                if cf_verbose > 0 as ::core::ffi::c_int
                 {
                     log_generic(
                         LG_DEBUG,
@@ -1823,9 +1817,7 @@ unsafe extern "C" fn takeover_parse_data(
             }
             67 => {
                 let mut _log_ctx_5 = NULL;
-                if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int
-                    as ::core::ffi::c_long
-                    != 0
+                if cf_verbose > 0 as ::core::ffi::c_int
                 {
                     log_generic(
                         LG_DEBUG,

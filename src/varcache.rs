@@ -2854,7 +2854,7 @@ pub unsafe extern "C" fn varcache_apply(
     }
     pktbuf_put_char(pkt as *mut PktBuf, 0 as ::core::ffi::c_char);
     pktbuf_finish_packet(pkt as *mut PktBuf);
-    if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
+    if cf_verbose > 0 as ::core::ffi::c_int {
         log_generic(
             LG_DEBUG,
             server as *mut ::core::ffi::c_void,
@@ -2884,8 +2884,7 @@ pub unsafe extern "C" fn varcache_set_canonical(
         server_val = *(*server).vars.var_list.offset((*lk).idx as isize);
         client_val = *(*client).vars.var_list.offset((*lk).idx as isize);
         if !client_val.is_null() && !server_val.is_null() && client_val != server_val {
-            if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 0 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_DEBUG,
@@ -2921,8 +2920,7 @@ pub unsafe extern "C" fn varcache_apply_startup(mut pkt: *mut PktBuf, mut client
     while !lk.is_null() {
         let mut val = get_value(&raw mut (*client).vars, lk);
         if !val.is_null() {
-            if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
-                != 0
+            if cf_verbose > 0 as ::core::ffi::c_int
             {
                 log_generic(
                     LG_DEBUG,
