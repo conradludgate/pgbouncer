@@ -1,53 +1,16 @@
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arm/_types.h:15"]
-pub mod _types_h {
-    #[c2rust::src_loc = "87:1"]
-    pub type __darwin_size_t = usize;
-}
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_int8_t.h:15"]
-pub mod _int8_t_h {
-    #[c2rust::src_loc = "30:1"]
-    pub type int8_t = i8;
-}
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_size_t.h:15"]
-pub mod _size_t_h {
-    #[c2rust::src_loc = "50:1"]
-    pub type size_t = __darwin_size_t;
-    use super::_types_h::__darwin_size_t;
-}
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types/_uint8_t.h:15"]
-pub mod _uint8_t_h {
-    #[c2rust::src_loc = "31:1"]
-    pub type uint8_t = u8;
-}
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types/_uint32_t.h:15"]
-pub mod _uint32_t_h {
-    #[c2rust::src_loc = "31:1"]
-    pub type uint32_t = u32;
-}
-#[c2rust::header_src = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_string.h:15"]
-pub mod _string_h {
-    use super::_size_t_h::size_t;
-    extern "C" {
-        #[c2rust::src_loc = "83:1"]
-        pub fn memset(
-            __b: *mut ::core::ffi::c_void,
-            __c: ::core::ffi::c_int,
-            __len: size_t,
-        ) -> *mut ::core::ffi::c_void;
-    }
-}
-pub use self::_int8_t_h::int8_t;
-pub use self::_size_t_h::size_t;
-use self::_string_h::memset;
-pub use self::_types_h::__darwin_size_t;
-pub use self::_uint32_t_h::uint32_t;
-pub use self::_uint8_t_h::uint8_t;
+//! Base64 encoding/decoding for PostgreSQL
+//!
+//! Refactored to use shared types module.
+
+use super::types::{int8_t, memset, size_t, uint32_t, uint8_t};
+
 #[c2rust::src_loc = "23:1"]
 static mut _base64: [::core::ffi::c_char; 65] = unsafe {
     ::core::mem::transmute::<[u8; 65], [::core::ffi::c_char; 65]>(
         *b"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/\0",
     )
 };
+
 #[c2rust::src_loc = "26:1"]
 static mut b64lookup: [int8_t; 128] = [
     -(1 as ::core::ffi::c_int) as int8_t,
@@ -179,6 +142,7 @@ static mut b64lookup: [int8_t; 128] = [
     -(1 as ::core::ffi::c_int) as int8_t,
     -(1 as ::core::ffi::c_int) as int8_t,
 ];
+
 #[no_mangle]
 #[c2rust::src_loc = "44:1"]
 pub unsafe extern "C" fn pg_b64_encode(
@@ -270,6 +234,7 @@ pub unsafe extern "C" fn pg_b64_encode(
     );
     -(1 as ::core::ffi::c_int)
 }
+
 #[no_mangle]
 #[c2rust::src_loc = "111:1"]
 pub unsafe extern "C" fn pg_b64_decode(
@@ -376,11 +341,13 @@ pub unsafe extern "C" fn pg_b64_decode(
     );
     -(1 as ::core::ffi::c_int)
 }
+
 #[no_mangle]
 #[c2rust::src_loc = "219:1"]
 pub unsafe extern "C" fn pg_b64_enc_len(mut srclen: ::core::ffi::c_int) -> ::core::ffi::c_int {
     (srclen + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int * 4 as ::core::ffi::c_int
 }
+
 #[no_mangle]
 #[c2rust::src_loc = "234:1"]
 pub unsafe extern "C" fn pg_b64_dec_len(mut srclen: ::core::ffi::c_int) -> ::core::ffi::c_int {

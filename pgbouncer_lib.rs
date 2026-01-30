@@ -13,6 +13,9 @@
 #[macro_use]
 extern crate c2rust_bitfields;
 extern crate libc;
+
+// Re-export shared types at crate root for easy access from all modules
+pub use src::common::types;
 pub mod lib {
     pub mod usual {
         pub mod aatree;
@@ -78,6 +81,7 @@ pub mod src {
         pub mod scram_common;
         pub mod sha2;
         pub mod string;
+        pub mod types;
         pub mod unicode_norm;
         pub mod wchar;
     } // mod common
