@@ -668,7 +668,7 @@ pub mod bouncer_h {
     use super::in_h::sockaddr_in;
     use super::list_h::List;
     use super::pktbuf_h::PktBuf;
-    use super::prepare_h::{PgClientPreparedStatement, PgServerPreparedStatement};
+    use crate::types::{PgClientPreparedStatement, PgServerPreparedStatement};
     use crate::types::PktHdr;
     use super::sbuf_h::SBuf;
     use super::socket_h::sockaddr;
@@ -753,42 +753,6 @@ pub mod iobuf_h {
         pub buf: [uint8_t; 0],
     }
     use super::_uint8_t_h::uint8_t;
-}
-
-pub mod prepare_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct PgServerPreparedStatement {
-        pub query_id: uint64_t,
-        pub hh: UT_hash_handle,
-        pub ps: *mut PgPreparedStatement,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct PgPreparedStatement {
-        pub hh: UT_hash_handle,
-        pub query_id: uint64_t,
-        pub use_count: uint32_t,
-        pub query_and_parameters_len: size_t,
-        pub stmt_name_len: uint8_t,
-        pub stmt_name: [::core::ffi::c_char; 31],
-        pub query_and_parameters: [::core::ffi::c_char; 0],
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct PgClientPreparedStatement {
-        pub hh: UT_hash_handle,
-        pub ps: *mut PgPreparedStatement,
-        pub stmt_name: [::core::ffi::c_char; 0],
-    }
-    use super::_size_t_h::size_t;
-    use super::_uint32_t_h::uint32_t;
-    use super::_uint64_t_h::uint64_t;
-    use super::_uint8_t_h::uint8_t;
-    use super::uthash_h::UT_hash_handle;
 }
 
 pub mod varcache_h {
@@ -1011,7 +975,7 @@ pub use self::messages_h::{
 };
 use self::objects_h::disconnect_client;
 pub use self::pktbuf_h::PktBuf;
-pub use self::prepare_h::{
+pub use crate::types::{
     PgClientPreparedStatement, PgPreparedStatement, PgServerPreparedStatement,
 };
 pub use crate::types::{incomplete_pkt, PktHdr};

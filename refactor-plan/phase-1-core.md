@@ -106,9 +106,11 @@ SV_IDLE, SV_ACTIVE, SV_ACTIVE_CANCEL, SV_USED, SV_TESTED
 - [x] All: Remove mbuf_h modules from all 22 files
 - [x] All: Consolidate proto_h (PktHdr) type and inline functions to types.rs
 - [x] All: Remove proto_h modules from all 20 files
+- [x] All: Consolidate prepare_h types to types.rs
+- [x] All: Remove prepare_h modules from all 20 files
 
 ### In Progress 🔄
-- [ ] Remove remaining c2rust type modules (iobuf_h, bouncer_h, etc.)
+- [ ] Remove remaining c2rust type modules (iobuf_h, bouncer_h, uthash_h, etc.)
 - [ ] Continue consolidating common type modules
 
 ### Pending 📋
