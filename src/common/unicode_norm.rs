@@ -46640,8 +46640,8 @@ pub unsafe extern "C" fn unicode_normalize(
     last_class = -(1 as ::core::ffi::c_int);
     starter_pos = 0 as ::core::ffi::c_int;
     target_pos = 1 as ::core::ffi::c_int;
-    let fresh0 = &mut *recomp_chars.offset(0 as ::core::ffi::c_int as isize);
-    *fresh0 = *decomp_chars.offset(0 as ::core::ffi::c_int as isize);
+    let fresh0 = &mut *recomp_chars;
+    *fresh0 = *decomp_chars;
     starter_ch = *fresh0 as uint32_t;
     count = 1 as ::core::ffi::c_int;
     while count < decomp_size {

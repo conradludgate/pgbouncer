@@ -2834,7 +2834,7 @@ pub unsafe extern "C" fn sbuf_tls_setup() -> bool {
                     item = pool_list.head.next;
                     while item != &raw mut pool_list.head {
                         pool = (item as *mut ::core::ffi::c_char)
-                            .offset(-(0 as ::core::ffi::c_ulong as isize))
+                            
                             as *mut PgPool;
                         tag_pool_dirty(pool);
                         item = (*item).next;

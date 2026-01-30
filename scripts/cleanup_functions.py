@@ -179,6 +179,44 @@ def transform_redundant_wrapping(content: str) -> tuple[str, int]:
     return content, count
 
 
+def transform_offset_zero(content: str) -> tuple[str, int]:
+    """
+    Transform .offset(0 as ::core::ffi::c_int as isize) to nothing (remove it).
+    ptr.offset(0) == ptr, so this is a no-op.
+    """
+    count = 0
+    
+    # Pattern: .offset(0 as ::core::ffi::c_int as isize) → remove
+    pattern = r'\.offset\(0\s+as\s+::core::ffi::c_int\s+as\s+isize\)'
+    matches = len(re.findall(pattern, content))
+    if matches:
+        count += matches
+        content = re.sub(pattern, '', content)
+    
+    # Also handle simpler variant: .offset(0 as isize) → remove
+    pattern = r'\.offset\(0\s+as\s+isize\)'
+    matches = len(re.findall(pattern, content))
+    if matches:
+        count += matches
+        content = re.sub(pattern, '', content)
+    
+    # And even simpler: .offset(0) → remove
+    pattern = r'\.offset\(0\)'
+    matches = len(re.findall(pattern, content))
+    if matches:
+        count += matches
+        content = re.sub(pattern, '', content)
+    
+    # .offset(-(0 as ::core::ffi::c_ulong as isize)) → remove (it's -0 = 0)
+    pattern = r'\.offset\(-\(0\s+as\s+::core::ffi::c_ulong\s+as\s+isize\)\)'
+    matches = len(re.findall(pattern, content))
+    if matches:
+        count += matches
+        content = re.sub(pattern, '', content)
+    
+    return content, count
+
+
 def transform_verbose_bool_checks(content: str) -> tuple[str, int]:
     """
     Transform verbose c2rust boolean patterns:
@@ -308,6 +346,7 @@ def process_file(file_path: Path, dry_run: bool = False) -> dict:
         'byte_strings': 0,
         'simple_casts': 0,
         'redundant_wrapping': 0,
+        'offset_zero': 0,
         'verbose_bool_checks': 0,
         'boolean_literals': 0,
         'zeroing_suggestions': [],
@@ -327,6 +366,9 @@ def process_file(file_path: Path, dry_run: bool = False) -> dict:
     content, count = transform_redundant_wrapping(content)
     stats['redundant_wrapping'] = count
     
+    content, count = transform_offset_zero(content)
+    stats['offset_zero'] = count
+    
     content, count = transform_verbose_bool_checks(content)
     stats['verbose_bool_checks'] = count
     
@@ -341,6 +383,7 @@ def process_file(file_path: Path, dry_run: bool = False) -> dict:
         stats['byte_strings'] + 
         stats['simple_casts'] +
         stats['redundant_wrapping'] +
+        stats['offset_zero'] +
         stats['verbose_bool_checks'] +
         stats['boolean_literals']
     )
@@ -368,6 +411,8 @@ def print_stats(stats: dict, dry_run: bool = False):
         print(f"  - Simple casts: {stats['simple_casts']} changes")
     if stats['redundant_wrapping']:
         print(f"  - Redundant wrapping: {stats['redundant_wrapping']} changes")
+    if stats['offset_zero']:
+        print(f"  - Offset zero removal: {stats['offset_zero']} changes")
     if stats['verbose_bool_checks']:
         print(f"  - Verbose bool checks: {stats['verbose_bool_checks']} changes")
     if stats['boolean_literals']:

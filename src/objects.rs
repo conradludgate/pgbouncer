@@ -603,7 +603,7 @@ pub mod bouncer_h {
             return ::core::ptr::null_mut::<PgSocket>();
         }
         ((*slist).head.next as *mut ::core::ffi::c_char)
-            .offset(-(0 as ::core::ffi::c_ulong as isize)) as *mut PgSocket
+             as *mut PgSocket
     }
     #[inline]
 
@@ -612,7 +612,7 @@ pub mod bouncer_h {
             return ::core::ptr::null_mut::<PgSocket>();
         }
         ((*slist).head.prev as *mut ::core::ffi::c_char)
-            .offset(-(0 as ::core::ffi::c_ulong as isize)) as *mut PgSocket
+             as *mut PgSocket
     }
 
     use crate::types::pid_t;
@@ -1570,7 +1570,7 @@ unsafe extern "C" fn global_user_node_cmp(
 ) -> ::core::ffi::c_int {
     let mut name = userptr as *const ::core::ffi::c_char;
     let mut global_user = (node as *mut ::core::ffi::c_char)
-        .offset(-(0 as ::core::ffi::c_ulong as isize))
+        
         as *mut PgGlobalUser;
     strcmp(
         name,
@@ -1584,7 +1584,7 @@ unsafe extern "C" fn credentials_node_cmp(
 ) -> ::core::ffi::c_int {
     let mut name = userptr as *const ::core::ffi::c_char;
     let mut credentials = (node as *mut ::core::ffi::c_char)
-        .offset(-(0 as ::core::ffi::c_ulong as isize))
+        
         as *mut PgCredentials;
     strcmp(
         name,
@@ -1596,7 +1596,7 @@ unsafe extern "C" fn credentials_node_release(
     mut node: *mut AANode,
     mut _arg: *mut ::core::ffi::c_void,
 ) {
-    let mut user = (node as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+    let mut user = (node as *mut ::core::ffi::c_char)
         as *mut PgCredentials;
     slab_free(credentials_cache, user as *mut ::core::ffi::c_void);
 }
@@ -1749,7 +1749,7 @@ unsafe extern "C" fn server_free(mut server: *mut PgSocket) {
     el = (*server).outstanding_requests.head.next;
     tmp_l = (*(*server).outstanding_requests.head.next).next;
     while el != &raw mut (*server).outstanding_requests.head {
-        request = (el as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        request = (el as *mut ::core::ffi::c_char)
             as *mut OutstandingRequest;
         statlist_remove(&raw mut (*server).canceling_clients, el);
         if !(*request).server_ps.is_null() {
@@ -1997,9 +1997,9 @@ pub unsafe extern "C" fn change_server_state(mut server: *mut PgSocket, mut news
 }
 
 unsafe extern "C" fn cmp_pool(mut i1: *mut List, mut i2: *mut List) -> ::core::ffi::c_int {
-    let mut p1 = (i1 as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+    let mut p1 = (i1 as *mut ::core::ffi::c_char)
         as *mut PgPool;
-    let mut p2 = (i2 as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+    let mut p2 = (i2 as *mut ::core::ffi::c_char)
         as *mut PgPool;
     if (*p1).db != (*p2).db {
         return strcmp(
@@ -2023,9 +2023,9 @@ unsafe extern "C" fn cmp_pool(mut i1: *mut List, mut i2: *mut List) -> ::core::f
 }
 
 unsafe extern "C" fn cmp_peer_pool(mut i1: *mut List, mut i2: *mut List) -> ::core::ffi::c_int {
-    let mut p1 = (i1 as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+    let mut p1 = (i1 as *mut ::core::ffi::c_char)
         as *mut PgPool;
-    let mut p2 = (i2 as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+    let mut p2 = (i2 as *mut ::core::ffi::c_char)
         as *mut PgPool;
     if (*p1).db != (*p2).db {
         return (*(*p1).db).peer_id - (*(*p2).db).peer_id;
@@ -2045,17 +2045,17 @@ unsafe extern "C" fn cmp_user(mut i1: *mut List, mut i2: *mut List) -> ::core::f
 }
 
 unsafe extern "C" fn cmp_peer(mut i1: *mut List, mut i2: *mut List) -> ::core::ffi::c_int {
-    let mut db1 = (i1 as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+    let mut db1 = (i1 as *mut ::core::ffi::c_char)
         as *mut PgDatabase;
-    let mut db2 = (i2 as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+    let mut db2 = (i2 as *mut ::core::ffi::c_char)
         as *mut PgDatabase;
     (*db1).peer_id - (*db2).peer_id
 }
 
 unsafe extern "C" fn cmp_database(mut i1: *mut List, mut i2: *mut List) -> ::core::ffi::c_int {
-    let mut db1 = (i1 as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+    let mut db1 = (i1 as *mut ::core::ffi::c_char)
         as *mut PgDatabase;
-    let mut db2 = (i2 as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+    let mut db2 = (i2 as *mut ::core::ffi::c_char)
         as *mut PgDatabase;
     strcmp(
         &raw mut (*db1).name as *mut ::core::ffi::c_char,
@@ -2261,7 +2261,7 @@ pub unsafe extern "C" fn add_dynamic_credentials(
     let mut node = ::core::ptr::null_mut::<AANode>();
     node = aatree_search(&raw mut (*db).user_tree, name as uintptr_t);
     credentials = if !node.is_null() {
-        (node as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        (node as *mut ::core::ffi::c_char)
             as *mut PgCredentials
     } else {
         ::core::ptr::null_mut::<PgCredentials>()
@@ -2332,7 +2332,7 @@ pub unsafe extern "C" fn add_pam_credentials(
     let mut node = ::core::ptr::null_mut::<AANode>();
     node = aatree_search(&raw mut pam_user_tree, name as uintptr_t);
     credentials = if !node.is_null() {
-        (node as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        (node as *mut ::core::ffi::c_char)
             as *mut PgCredentials
     } else {
         ::core::ptr::null_mut::<PgCredentials>()
@@ -2460,7 +2460,7 @@ pub unsafe extern "C" fn find_peer(mut peer_id: ::core::ffi::c_int) -> *mut PgDa
     let mut peer = ::core::ptr::null_mut::<PgDatabase>();
     item = peer_list.head.next;
     while item != &raw mut peer_list.head {
-        peer = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        peer = (item as *mut ::core::ffi::c_char)
             as *mut PgDatabase;
         if (*peer).peer_id == peer_id {
             return peer;
@@ -2477,7 +2477,7 @@ pub unsafe extern "C" fn find_database(mut name: *const ::core::ffi::c_char) -> 
     let mut db = ::core::ptr::null_mut::<PgDatabase>();
     item = database_list.head.next;
     while item != &raw mut database_list.head {
-        db = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        db = (item as *mut ::core::ffi::c_char)
             as *mut PgDatabase;
         if strcmp(&raw mut (*db).name as *mut ::core::ffi::c_char, name) == 0 as ::core::ffi::c_int
         {
@@ -2488,7 +2488,7 @@ pub unsafe extern "C" fn find_database(mut name: *const ::core::ffi::c_char) -> 
     item = autodatabase_idle_list.head.next;
     tmp = (*autodatabase_idle_list.head.next).next;
     while item != &raw mut autodatabase_idle_list.head {
-        db = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        db = (item as *mut ::core::ffi::c_char)
             as *mut PgDatabase;
         if strcmp(&raw mut (*db).name as *mut ::core::ffi::c_char, name) == 0 as ::core::ffi::c_int
         {
@@ -2538,7 +2538,7 @@ pub unsafe extern "C" fn find_global_user(
     let mut node = ::core::ptr::null_mut::<AANode>();
     node = aatree_search(&raw mut user_tree, name as uintptr_t);
     user = if !node.is_null() {
-        (node as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        (node as *mut ::core::ffi::c_char)
             as *mut PgCredentials as *mut PgGlobalUser
     } else {
         ::core::ptr::null_mut::<PgGlobalUser>()
@@ -3059,7 +3059,7 @@ pub unsafe extern "C" fn pop_outstanding_request(
     if item.is_null() {
         return false;
     }
-    request = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+    request = (item as *mut ::core::ffi::c_char)
         as *mut OutstandingRequest;
     if (*request).action as ::core::ffi::c_uint
         == RA_FAKE as ::core::ffi::c_int as ::core::ffi::c_uint
@@ -3118,7 +3118,7 @@ pub unsafe extern "C" fn clear_outstanding_requests_until(
     tmp = (*(*server).outstanding_requests.head.next).next;
     while item != &raw mut (*server).outstanding_requests.head {
         let mut request = (item as *mut ::core::ffi::c_char)
-            .offset(-(0 as ::core::ffi::c_ulong as isize))
+            
             as *mut OutstandingRequest;
         let mut type_0 = (*request).type_0;
         if type_0 as ::core::ffi::c_int == PqMsg_Parse && (*request).server_ps_query_id > 0 {
@@ -3929,8 +3929,8 @@ unsafe extern "C" fn dns_connect(mut server: *mut PgSocket) {
         (*server).host = xstrdup(host);
     }
     if host.is_null()
-        || *host.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int == '/' as i32
-        || *host.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int == '@' as i32
+        || *host as ::core::ffi::c_int == '/' as i32
+        || *host as ::core::ffi::c_int == '@' as i32
     {
         let mut unix_dir = ::core::ptr::null::<::core::ffi::c_char>();
         memset(
@@ -3971,7 +3971,7 @@ unsafe extern "C" fn dns_connect(mut server: *mut PgSocket) {
                     &raw mut sa_un.sun_path as *mut ::core::ffi::c_char,
                 );
             }
-            if *unix_dir.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+            if *unix_dir as ::core::ffi::c_int
                 == '@' as i32
             {
                 sa_len = (2 as size_t)
@@ -4116,7 +4116,7 @@ pub unsafe extern "C" fn evict_connection(mut db: *mut PgDatabase) -> bool {
     let mut oldest_connection = ::core::ptr::null_mut::<PgSocket>();
     item = pool_list.head.next;
     while item != &raw mut pool_list.head {
-        pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        pool = (item as *mut ::core::ffi::c_char)
             as *mut PgPool;
         if (*pool).db == db {
             oldest_connection = compare_connections_by_time(
@@ -4164,7 +4164,7 @@ pub unsafe extern "C" fn evict_user_connection(mut user_credentials: *mut PgCred
     let mut oldest_connection = ::core::ptr::null_mut::<PgSocket>();
     item = pool_list.head.next;
     while item != &raw mut pool_list.head {
-        pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        pool = (item as *mut ::core::ffi::c_char)
             as *mut PgPool;
         if (*pool).user_credentials == user_credentials {
             oldest_connection = compare_connections_by_time(
@@ -4612,12 +4612,12 @@ pub unsafe extern "C" fn accept_cancel_request(mut req: *mut PgSocket) {
     }
     pitem = pool_list.head.next;
     's_45: while pitem != &raw mut pool_list.head {
-        pool = (pitem as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        pool = (pitem as *mut ::core::ffi::c_char)
             as *mut PgPool;
         citem = (*pool).active_client_list.head.next;
         while citem != &raw mut (*pool).active_client_list.head {
             client = (citem as *mut ::core::ffi::c_char)
-                .offset(-(0 as ::core::ffi::c_ulong as isize))
+                
                 as *mut PgSocket;
             if memcmp(
                 &raw mut (*client).cancel_key as *mut uint8_t as *const ::core::ffi::c_void,
@@ -4634,7 +4634,7 @@ pub unsafe extern "C" fn accept_cancel_request(mut req: *mut PgSocket) {
         citem = (*pool).waiting_client_list.head.next;
         while citem != &raw mut (*pool).waiting_client_list.head {
             client = (citem as *mut ::core::ffi::c_char)
-                .offset(-(0 as ::core::ffi::c_ulong as isize))
+                
                 as *mut PgSocket;
             if memcmp(
                 &raw mut (*client).cancel_key as *mut uint8_t as *const ::core::ffi::c_void,
@@ -5012,7 +5012,7 @@ pub unsafe extern "C" fn for_each_server(
     item = (*pool).idle_server_list.head.next;
     while item != &raw mut (*pool).idle_server_list.head {
         func.expect("non-null function pointer")(
-            (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+            (item as *mut ::core::ffi::c_char)
                 as *mut PgSocket,
         );
         item = (*item).next;
@@ -5020,7 +5020,7 @@ pub unsafe extern "C" fn for_each_server(
     item = (*pool).used_server_list.head.next;
     while item != &raw mut (*pool).used_server_list.head {
         func.expect("non-null function pointer")(
-            (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+            (item as *mut ::core::ffi::c_char)
                 as *mut PgSocket,
         );
         item = (*item).next;
@@ -5028,7 +5028,7 @@ pub unsafe extern "C" fn for_each_server(
     item = (*pool).tested_server_list.head.next;
     while item != &raw mut (*pool).tested_server_list.head {
         func.expect("non-null function pointer")(
-            (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+            (item as *mut ::core::ffi::c_char)
                 as *mut PgSocket,
         );
         item = (*item).next;
@@ -5036,7 +5036,7 @@ pub unsafe extern "C" fn for_each_server(
     item = (*pool).active_server_list.head.next;
     while item != &raw mut (*pool).active_server_list.head {
         func.expect("non-null function pointer")(
-            (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+            (item as *mut ::core::ffi::c_char)
                 as *mut PgSocket,
         );
         item = (*item).next;
@@ -5044,7 +5044,7 @@ pub unsafe extern "C" fn for_each_server(
     item = (*pool).new_server_list.head.next;
     while item != &raw mut (*pool).new_server_list.head {
         func.expect("non-null function pointer")(
-            (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+            (item as *mut ::core::ffi::c_char)
                 as *mut PgSocket,
         );
         item = (*item).next;
@@ -5061,7 +5061,7 @@ unsafe extern "C" fn for_each_server_filtered(
     let mut sk = ::core::ptr::null_mut::<PgSocket>();
     item = (*pool).idle_server_list.head.next;
     while item != &raw mut (*pool).idle_server_list.head {
-        sk = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        sk = (item as *mut ::core::ffi::c_char)
             as *mut PgSocket;
         if filter.expect("non-null function pointer")(sk, filter_arg) {
             func.expect("non-null function pointer")(sk);
@@ -5070,7 +5070,7 @@ unsafe extern "C" fn for_each_server_filtered(
     }
     item = (*pool).used_server_list.head.next;
     while item != &raw mut (*pool).used_server_list.head {
-        sk = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        sk = (item as *mut ::core::ffi::c_char)
             as *mut PgSocket;
         if filter.expect("non-null function pointer")(sk, filter_arg) {
             func.expect("non-null function pointer")(sk);
@@ -5079,7 +5079,7 @@ unsafe extern "C" fn for_each_server_filtered(
     }
     item = (*pool).tested_server_list.head.next;
     while item != &raw mut (*pool).tested_server_list.head {
-        sk = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        sk = (item as *mut ::core::ffi::c_char)
             as *mut PgSocket;
         if filter.expect("non-null function pointer")(sk, filter_arg) {
             func.expect("non-null function pointer")(sk);
@@ -5088,7 +5088,7 @@ unsafe extern "C" fn for_each_server_filtered(
     }
     item = (*pool).active_server_list.head.next;
     while item != &raw mut (*pool).active_server_list.head {
-        sk = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        sk = (item as *mut ::core::ffi::c_char)
             as *mut PgSocket;
         if filter.expect("non-null function pointer")(sk, filter_arg) {
             func.expect("non-null function pointer")(sk);
@@ -5097,7 +5097,7 @@ unsafe extern "C" fn for_each_server_filtered(
     }
     item = (*pool).new_server_list.head.next;
     while item != &raw mut (*pool).new_server_list.head {
-        sk = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        sk = (item as *mut ::core::ffi::c_char)
             as *mut PgSocket;
         if filter.expect("non-null function pointer")(sk, filter_arg) {
             func.expect("non-null function pointer")(sk);
@@ -5130,7 +5130,7 @@ pub unsafe extern "C" fn tag_pool_dirty(mut pool: *mut PgPool) {
     item = (*pool).new_server_list.head.next;
     tmp = (*(*pool).new_server_list.head.next).next;
     while item != &raw mut (*pool).new_server_list.head {
-        server = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        server = (item as *mut ::core::ffi::c_char)
             as *mut PgSocket as *mut PgSocket;
         disconnect_server(
             server as *mut PgSocket,
@@ -5148,7 +5148,7 @@ pub unsafe extern "C" fn tag_database_dirty(mut db: *mut PgDatabase) {
     let mut pool = ::core::ptr::null_mut::<PgPool>();
     item = pool_list.head.next;
     while item != &raw mut pool_list.head {
-        pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        pool = (item as *mut ::core::ffi::c_char)
             as *mut PgPool;
         if (*pool).db == db {
             tag_pool_dirty(pool);
@@ -5165,7 +5165,7 @@ pub unsafe extern "C" fn tag_autodb_dirty() {
     let mut pool = ::core::ptr::null_mut::<PgPool>();
     item = database_list.head.next;
     while item != &raw mut database_list.head {
-        db = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        db = (item as *mut ::core::ffi::c_char)
             as *mut PgDatabase;
         if (*db).db_auto {
             register_auto_database(&raw mut (*db).name as *mut ::core::ffi::c_char);
@@ -5175,7 +5175,7 @@ pub unsafe extern "C" fn tag_autodb_dirty() {
     item = autodatabase_idle_list.head.next;
     tmp = (*autodatabase_idle_list.head.next).next;
     while item != &raw mut autodatabase_idle_list.head {
-        db = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        db = (item as *mut ::core::ffi::c_char)
             as *mut PgDatabase;
         if (*db).db_auto {
             register_auto_database(&raw mut (*db).name as *mut ::core::ffi::c_char);
@@ -5185,7 +5185,7 @@ pub unsafe extern "C" fn tag_autodb_dirty() {
     }
     item = pool_list.head.next;
     while item != &raw mut pool_list.head {
-        pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        pool = (item as *mut ::core::ffi::c_char)
             as *mut PgPool;
         if (*(*pool).db).db_auto {
             tag_pool_dirty(pool);
@@ -5224,7 +5224,7 @@ pub unsafe extern "C" fn tag_host_addr_dirty(
     pga_copy(&raw mut addr, sa);
     item = pool_list.head.next;
     while item != &raw mut pool_list.head {
-        pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        pool = (item as *mut ::core::ffi::c_char)
             as *mut PgPool;
         if !(*(*pool).db).host.is_null()
             && strcmp(host, (*(*pool).db).host) == 0 as ::core::ffi::c_int
@@ -5252,7 +5252,7 @@ pub unsafe extern "C" fn reuse_just_freed_objects() {
     item = justfree_client_list.head.next;
     tmp = (*justfree_client_list.head.next).next;
     while item != &raw mut justfree_client_list.head {
-        sk = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        sk = (item as *mut ::core::ffi::c_char)
             as *mut PgSocket;
         if sbuf_is_closed(&raw mut (*sk).sbuf) {
             change_client_state(sk, CL_FREE);
@@ -5265,7 +5265,7 @@ pub unsafe extern "C" fn reuse_just_freed_objects() {
     item = justfree_server_list.head.next;
     tmp = (*justfree_server_list.head.next).next;
     while item != &raw mut justfree_server_list.head {
-        sk = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        sk = (item as *mut ::core::ffi::c_char)
             as *mut PgSocket;
         if sbuf_is_closed(&raw mut (*sk).sbuf) {
             change_server_state(sk, SV_FREE);
@@ -5287,7 +5287,7 @@ pub unsafe extern "C" fn objects_cleanup() {
     item = autodatabase_idle_list.head.next;
     tmp = (*autodatabase_idle_list.head.next).next;
     while item != &raw mut autodatabase_idle_list.head {
-        db = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        db = (item as *mut ::core::ffi::c_char)
             as *mut PgDatabase;
         kill_database(db);
         item = tmp;
@@ -5296,7 +5296,7 @@ pub unsafe extern "C" fn objects_cleanup() {
     item = database_list.head.next;
     tmp = (*database_list.head.next).next;
     while item != &raw mut database_list.head {
-        db = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        db = (item as *mut ::core::ffi::c_char)
             as *mut PgDatabase;
         kill_database(db);
         item = tmp;
@@ -5306,7 +5306,7 @@ pub unsafe extern "C" fn objects_cleanup() {
     tmp = (*peer_list.head.next).next;
     while item != &raw mut peer_list.head {
         let mut peer = (item as *mut ::core::ffi::c_char)
-            .offset(-(0 as ::core::ffi::c_ulong as isize))
+            
             as *mut PgDatabase;
         kill_peer(peer);
         item = tmp;
@@ -5316,7 +5316,7 @@ pub unsafe extern "C" fn objects_cleanup() {
     tmp = (*justfree_server_list.head.next).next;
     while item != &raw mut justfree_server_list.head {
         let mut server = (item as *mut ::core::ffi::c_char)
-            .offset(-(0 as ::core::ffi::c_ulong as isize))
+            
             as *mut PgSocket;
         server_free(server);
         item = tmp;
@@ -5326,7 +5326,7 @@ pub unsafe extern "C" fn objects_cleanup() {
     tmp = (*justfree_client_list.head.next).next;
     while item != &raw mut justfree_client_list.head {
         let mut client = (item as *mut ::core::ffi::c_char)
-            .offset(-(0 as ::core::ffi::c_ulong as isize))
+            
             as *mut PgSocket;
         client_free(client);
         item = tmp;

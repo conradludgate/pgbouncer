@@ -1166,7 +1166,7 @@ unsafe extern "C" fn cstr_unquote_value(
         if *p == 0 {
             return ::core::ptr::null_mut::<::core::ffi::c_char>();
         }
-        if *p.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int == '\'' as i32 {
+        if *p as ::core::ffi::c_int == '\'' as i32 {
             if *p.offset(1 as ::core::ffi::c_int as isize) as ::core::ffi::c_int != '\'' as i32 {
                 break;
             }
@@ -1204,7 +1204,7 @@ unsafe extern "C" fn cstr_get_value(
         *p = 0 as ::core::ffi::c_char;
         p = p.offset(1);
     }
-    if **dst_p.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+    if **dst_p as ::core::ffi::c_int
         == 0 as ::core::ffi::c_int
     {
         return ::core::ptr::null_mut::<::core::ffi::c_char>();
@@ -1342,7 +1342,7 @@ pub unsafe extern "C" fn parse_peer(
             current_block = 1844502831972581562;
             break;
         } else {
-            if *key.offset(0 as ::core::ffi::c_int as isize) == 0 {
+            if *key == 0 {
                 current_block = 6417057564578538666;
                 break;
             }
@@ -1499,7 +1499,7 @@ pub unsafe extern "C" fn parse_database(
             current_block = 17902695515181753043;
             break;
         } else {
-            if *key.offset(0 as ::core::ffi::c_int as isize) == 0 {
+            if *key == 0 {
                 current_block = 2705889988320590074;
                 break;
             }
@@ -1789,7 +1789,7 @@ pub unsafe extern "C" fn parse_user(
             current_block = 15018837909795791711;
             break;
         } else {
-            if *key.offset(0 as ::core::ffi::c_int as isize) == 0 {
+            if *key == 0 {
                 current_block = 7990025728955927862;
                 break;
             }
@@ -1871,7 +1871,7 @@ unsafe extern "C" fn find_quote(
         while *p as ::core::ffi::c_int != 0 && *p as ::core::ffi::c_int != '"' as i32 {
             p = p.offset(1);
         }
-        if !(*p.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int == '"' as i32
+        if !(*p as ::core::ffi::c_int == '"' as i32
             && *p.offset(1 as ::core::ffi::c_int as isize) as ::core::ffi::c_int == '"' as i32
             && !start)
         {

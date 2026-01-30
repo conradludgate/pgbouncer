@@ -656,7 +656,7 @@ pub mod bouncer_h {
             return ::core::ptr::null_mut::<PgSocket>();
         }
         ((*slist).head.next as *mut ::core::ffi::c_char)
-            .offset(-(0 as ::core::ffi::c_ulong as isize)) as *mut PgSocket
+             as *mut PgSocket
     }
 
     use crate::types::pid_t;
@@ -1707,7 +1707,7 @@ unsafe extern "C" fn count_paused_databases() -> ::core::ffi::c_int {
     let mut cnt = 0 as ::core::ffi::c_int;
     item = database_list.head.next;
     while item != &raw mut database_list.head {
-        db = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        db = (item as *mut ::core::ffi::c_char)
             as *mut PgDatabase;
         cnt += (*db).db_paused as ::core::ffi::c_int;
         item = (*item).next;
@@ -1721,7 +1721,7 @@ unsafe extern "C" fn count_db_active(mut db: *mut PgDatabase) -> ::core::ffi::c_
     let mut cnt = 0 as ::core::ffi::c_int;
     item = pool_list.head.next;
     while item != &raw mut pool_list.head {
-        pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        pool = (item as *mut ::core::ffi::c_char)
             as *mut PgPool;
         if (*pool).db == db {
             cnt += statlist_count(&raw mut (*pool).active_server_list)
@@ -2240,7 +2240,7 @@ unsafe extern "C" fn show_fds_from_list(mut admin: *mut PgSocket, mut list: *mut
     let mut res = true;
     item = (*list).head.next;
     while item != &raw mut (*list).head {
-        sk = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        sk = (item as *mut ::core::ffi::c_char)
             as *mut PgSocket;
         res = show_one_fd(admin, sk);
         if !res {
@@ -2307,7 +2307,7 @@ unsafe extern "C" fn admin_show_fds(
     }
     item = pool_list.head.next;
     while item != &raw mut pool_list.head {
-        pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        pool = (item as *mut ::core::ffi::c_char)
             as *mut PgPool;
         if !(*(*pool).db).admin {
             res = res as ::core::ffi::c_int != 0
@@ -2407,7 +2407,7 @@ unsafe extern "C" fn admin_show_databases(
     );
     item = database_list.head.next;
     while item != &raw mut database_list.head {
-        db = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        db = (item as *mut ::core::ffi::c_char)
             as *mut PgDatabase;
         server_lifetime_secs = (if (*db).server_lifetime > 0 {
             (*db).server_lifetime
@@ -2492,7 +2492,7 @@ unsafe extern "C" fn admin_show_peers(
     );
     item = peer_list.head.next;
     while item != &raw mut peer_list.head {
-        peer = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        peer = (item as *mut ::core::ffi::c_char)
             as *mut PgDatabase;
         pktbuf_write_DataRow(
             buf,
@@ -2924,7 +2924,7 @@ unsafe extern "C" fn show_socket_list(
     let mut sk = ::core::ptr::null_mut::<PgSocket>();
     item = (*list).head.next;
     while item != &raw mut (*list).head {
-        sk = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        sk = (item as *mut ::core::ffi::c_char)
             as *mut PgSocket;
         socket_row(buf, sk, state, debug);
         item = (*item).next;
@@ -2945,7 +2945,7 @@ unsafe extern "C" fn admin_show_clients(
     socket_header(buf, false);
     item = pool_list.head.next;
     while item != &raw mut pool_list.head {
-        pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        pool = (item as *mut ::core::ffi::c_char)
             as *mut PgPool;
         show_socket_list(
             buf,
@@ -2975,7 +2975,7 @@ unsafe extern "C" fn admin_show_clients(
     }
     item = peer_pool_list.head.next;
     while item != &raw mut peer_pool_list.head {
-        pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        pool = (item as *mut ::core::ffi::c_char)
             as *mut PgPool;
         show_socket_list(
             buf,
@@ -3010,7 +3010,7 @@ unsafe extern "C" fn admin_show_servers(
     socket_header(buf, false);
     item = pool_list.head.next;
     while item != &raw mut pool_list.head {
-        pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        pool = (item as *mut ::core::ffi::c_char)
             as *mut PgPool;
         show_socket_list(
             buf,
@@ -3058,7 +3058,7 @@ unsafe extern "C" fn admin_show_servers(
     }
     item = peer_pool_list.head.next;
     while item != &raw mut peer_pool_list.head {
-        pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        pool = (item as *mut ::core::ffi::c_char)
             as *mut PgPool;
         show_socket_list(
             buf,
@@ -3093,7 +3093,7 @@ unsafe extern "C" fn admin_show_sockets(
     socket_header(buf, true);
     item = pool_list.head.next;
     while item != &raw mut pool_list.head {
-        pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        pool = (item as *mut ::core::ffi::c_char)
             as *mut PgPool;
         show_socket_list(
             buf,
@@ -3153,7 +3153,7 @@ unsafe extern "C" fn show_active_socket_list(
     item = (*list).head.next;
     while item != &raw mut (*list).head {
         let mut sk = (item as *mut ::core::ffi::c_char)
-            .offset(-(0 as ::core::ffi::c_ulong as isize)) as *mut PgSocket;
+             as *mut PgSocket;
         if !sbuf_is_empty(&raw mut (*sk).sbuf) {
             socket_row(buf, sk, state, true);
         }
@@ -3176,7 +3176,7 @@ unsafe extern "C" fn admin_show_active_sockets(
     socket_header(buf, true);
     item = pool_list.head.next;
     while item != &raw mut pool_list.head {
-        pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        pool = (item as *mut ::core::ffi::c_char)
             as *mut PgPool;
         show_active_socket_list(
             buf,
@@ -3266,7 +3266,7 @@ unsafe extern "C" fn admin_show_pools(
     );
     item = pool_list.head.next;
     while item != &raw mut pool_list.head {
-        pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        pool = (item as *mut ::core::ffi::c_char)
             as *mut PgPool;
         waiter = first_socket(&raw mut (*pool).waiting_client_list);
         max_wait = if !waiter.is_null() && (*waiter).query_start != 0 {
@@ -3331,7 +3331,7 @@ unsafe extern "C" fn admin_show_peer_pools(
     );
     item = peer_pool_list.head.next;
     while item != &raw mut peer_pool_list.head {
-        pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        pool = (item as *mut ::core::ffi::c_char)
             as *mut PgPool;
         pktbuf_write_DataRow(
             buf,
@@ -3735,7 +3735,7 @@ unsafe extern "C" fn admin_cmd_resume(
     if !(*admin).admin_user() {
         return admin_error(admin, c"admin access needed".as_ptr());
     }
-    if *arg.offset(0 as ::core::ffi::c_int as isize) == 0 {
+    if *arg == 0 {
         let mut _log_ctx = NULL;
         log_generic(LG_INFO, _log_ctx, c"RESUME command issued".as_ptr());
         if cf_shutdown != 0 {
@@ -3800,7 +3800,7 @@ unsafe extern "C" fn admin_cmd_pause(
     if cf_pause_mode != 0 {
         return admin_error(admin, c"already suspended/paused".as_ptr());
     }
-    if *arg.offset(0 as ::core::ffi::c_int as isize) == 0 {
+    if *arg == 0 {
         let mut _log_ctx = NULL;
         log_generic(LG_INFO, _log_ctx, c"PAUSE command issued".as_ptr());
         cf_pause_mode = P_PAUSE as ::core::ffi::c_int;
@@ -3838,14 +3838,14 @@ unsafe extern "C" fn admin_cmd_reconnect(
     if !(*admin).admin_user() {
         return admin_error(admin, c"admin access needed".as_ptr());
     }
-    if *arg.offset(0 as ::core::ffi::c_int as isize) == 0 {
+    if *arg == 0 {
         let mut item = ::core::ptr::null_mut::<List>();
         let mut pool = ::core::ptr::null_mut::<PgPool>();
         let mut _log_ctx = NULL;
         log_generic(LG_INFO, _log_ctx, c"RECONNECT command issued".as_ptr());
         item = pool_list.head.next;
         while item != &raw mut pool_list.head {
-            pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+            pool = (item as *mut ::core::ffi::c_char)
                 as *mut PgPool;
             if !(*(*pool).db).admin {
                 tag_database_dirty((*pool).db);
@@ -3881,7 +3881,7 @@ unsafe extern "C" fn admin_cmd_disable(
     if !(*admin).admin_user() {
         return admin_error(admin, c"admin access needed".as_ptr());
     }
-    if *arg.offset(0 as ::core::ffi::c_int as isize) == 0 {
+    if *arg == 0 {
         return admin_error(admin, c"a database is required".as_ptr());
     }
     let mut _log_ctx = NULL;
@@ -3910,7 +3910,7 @@ unsafe extern "C" fn admin_cmd_enable(
     if !(*admin).admin_user() {
         return admin_error(admin, c"admin access needed".as_ptr());
     }
-    if *arg.offset(0 as ::core::ffi::c_int as isize) == 0 {
+    if *arg == 0 {
         return admin_error(admin, c"a database is required".as_ptr());
     }
     let mut _log_ctx = NULL;
@@ -3939,7 +3939,7 @@ unsafe extern "C" fn find_socket_in_list(
     let mut socket = ::core::ptr::null_mut::<PgSocket>();
     item = (*sockets).head.next;
     while item != &raw mut (*sockets).head {
-        socket = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        socket = (item as *mut ::core::ffi::c_char)
             as *mut PgSocket;
         if target_id == (*socket).id {
             return socket;
@@ -3955,7 +3955,7 @@ unsafe extern "C" fn find_client_global(mut target_id: ::core::ffi::c_ulonglong)
     let mut pool = ::core::ptr::null_mut::<PgPool>();
     item = pool_list.head.next;
     while item != &raw mut pool_list.head {
-        pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        pool = (item as *mut ::core::ffi::c_char)
             as *mut PgPool;
         kill_client = find_socket_in_list(target_id, &raw mut (*pool).active_client_list);
         if !kill_client.is_null() {
@@ -3977,7 +3977,7 @@ unsafe extern "C" fn find_client_global(mut target_id: ::core::ffi::c_ulonglong)
     }
     item = peer_pool_list.head.next;
     while item != &raw mut peer_pool_list.head {
-        pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        pool = (item as *mut ::core::ffi::c_char)
             as *mut PgPool;
         kill_client = find_socket_in_list(target_id, &raw mut (*pool).active_cancel_req_list);
         if !kill_client.is_null() {
@@ -4022,13 +4022,13 @@ unsafe extern "C" fn admin_cmd_kill(
     if cf_pause_mode != 0 {
         return admin_error(admin, c"already suspended/paused".as_ptr());
     }
-    if *arg.offset(0 as ::core::ffi::c_int as isize) == 0 {
+    if *arg == 0 {
         let mut _log_ctx = NULL;
         log_generic(LG_INFO, _log_ctx, c"KILL command issued".as_ptr());
         item = pool_list.head.next;
         tmp = (*pool_list.head.next).next;
         while item != &raw mut pool_list.head {
-            pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+            pool = (item as *mut ::core::ffi::c_char)
                 as *mut PgPool;
             if !(*(*pool).db).admin {
                 (*(*pool).db).db_paused = true;
@@ -4057,7 +4057,7 @@ unsafe extern "C" fn admin_cmd_kill(
         item = pool_list.head.next;
         tmp = (*pool_list.head.next).next;
         while item != &raw mut pool_list.head {
-            pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+            pool = (item as *mut ::core::ffi::c_char)
                 as *mut PgPool;
             if (*pool).db == db {
                 kill_pool(pool);
@@ -4076,7 +4076,7 @@ unsafe extern "C" fn admin_cmd_wait_close(
     if !(*admin).admin_user() {
         return admin_error(admin, c"admin access needed".as_ptr());
     }
-    if *arg.offset(0 as ::core::ffi::c_int as isize) == 0 {
+    if *arg == 0 {
         let mut item = ::core::ptr::null_mut::<List>();
         let mut pool = ::core::ptr::null_mut::<PgPool>();
         let mut active = 0 as ::core::ffi::c_int;
@@ -4085,7 +4085,7 @@ unsafe extern "C" fn admin_cmd_wait_close(
         item = pool_list.head.next;
         while item != &raw mut pool_list.head {
             let mut db = ::core::ptr::null_mut::<PgDatabase>();
-            pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+            pool = (item as *mut ::core::ffi::c_char)
                 as *mut PgPool;
             db = (*pool).db;
             (*db).db_wait_close = true;
@@ -4137,13 +4137,13 @@ unsafe extern "C" fn copy_arg(
     let mut d = dst;
     let mut i: ::core::ffi::c_uint = 0;
     if (*g).rm_so < 0 as regoff_t || (*g).rm_eo < 0 as regoff_t {
-        *dst.offset(0 as ::core::ffi::c_int as isize) = 0 as ::core::ffi::c_char;
+        *dst = 0 as ::core::ffi::c_char;
         return true;
     }
     len = ((*g).rm_eo - (*g).rm_so) as ::core::ffi::c_uint;
     s = src.offset((*g).rm_so as isize);
     if len >= dstmax {
-        *dst.offset(0 as ::core::ffi::c_int as isize) = 0 as ::core::ffi::c_char;
+        *dst = 0 as ::core::ffi::c_char;
         return false;
     }
     if *s as ::core::ffi::c_int == qchar as ::core::ffi::c_int {
@@ -4981,7 +4981,7 @@ pub unsafe extern "C" fn admin_pause_done() {
     item = (*admin_pool).active_client_list.head.next;
     tmp = (*(*admin_pool).active_client_list.head.next).next;
     while item != &raw mut (*admin_pool).active_client_list.head {
-        admin = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        admin = (item as *mut ::core::ffi::c_char)
             as *mut PgSocket;
         if (*admin).wait_for_response() {
             match cf_pause_mode {
@@ -5040,7 +5040,7 @@ pub unsafe extern "C" fn admin_wait_close_done() {
     item = (*admin_pool).active_client_list.head.next;
     tmp = (*(*admin_pool).active_client_list.head.next).next;
     while item != &raw mut (*admin_pool).active_client_list.head {
-        admin = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        admin = (item as *mut ::core::ffi::c_char)
             as *mut PgSocket;
         if (*admin).wait_for_response() {
             res = admin_ready(admin, c"WAIT_CLOSE".as_ptr());

@@ -1229,7 +1229,7 @@ pub unsafe extern "C" fn takeover_finish() {
     disconnect_server(old_bouncer, false, c"disko over".as_ptr());
     old_bouncer = ::core::ptr::null_mut::<PgSocket>();
     if !cf_pidfile.is_null()
-        && *cf_pidfile.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int != 0
+        && *cf_pidfile as ::core::ffi::c_int != 0
     {
         let mut _log_ctx_2 = NULL;
         log_generic(
@@ -1531,7 +1531,7 @@ unsafe extern "C" fn takeover_create_link(mut pool: *mut PgPool, mut client: *mu
     let mut server = ::core::ptr::null_mut::<PgSocket>();
     item = (*pool).active_server_list.head.next;
     while item != &raw mut (*pool).active_server_list.head {
-        server = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        server = (item as *mut ::core::ffi::c_char)
             as *mut PgSocket;
         if (*server).request_time == (*client).query_start {
             (*server).link = client;
@@ -1557,7 +1557,7 @@ unsafe extern "C" fn takeover_clean_socket_list(mut list: *mut StatList) {
     let mut sk = ::core::ptr::null_mut::<PgSocket>();
     item = (*list).head.next;
     while item != &raw mut (*list).head {
-        sk = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        sk = (item as *mut ::core::ffi::c_char)
             as *mut PgSocket;
         if (*sk).suspended() {
             (*sk).request_time = get_cached_time();
@@ -1574,13 +1574,13 @@ unsafe extern "C" fn takeover_postprocess_fds() {
     let mut pool = ::core::ptr::null_mut::<PgPool>();
     item = pool_list.head.next;
     while item != &raw mut pool_list.head {
-        pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        pool = (item as *mut ::core::ffi::c_char)
             as *mut PgPool;
         if !(*(*pool).db).admin {
             item2 = (*pool).active_client_list.head.next;
             while item2 != &raw mut (*pool).active_client_list.head {
                 client = (item2 as *mut ::core::ffi::c_char)
-                    .offset(-(0 as ::core::ffi::c_ulong as isize))
+                    
                     as *mut PgSocket;
                 if (*client).suspended() as ::core::ffi::c_int != 0 && (*client).query_start != 0 {
                     takeover_create_link(pool, client);
@@ -1592,7 +1592,7 @@ unsafe extern "C" fn takeover_postprocess_fds() {
     }
     item = pool_list.head.next;
     while item != &raw mut pool_list.head {
-        pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        pool = (item as *mut ::core::ffi::c_char)
             as *mut PgPool;
         takeover_clean_socket_list(&raw mut (*pool).active_client_list);
         takeover_clean_socket_list(&raw mut (*pool).active_server_list);

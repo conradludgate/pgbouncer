@@ -29,11 +29,11 @@ pub mod pg_wchar_h {
 
     pub unsafe extern "C" fn utf8_to_unicode(mut c: *const ::core::ffi::c_uchar) -> pg_wchar {
         if *c as ::core::ffi::c_int & 0x80 as ::core::ffi::c_int == 0 as ::core::ffi::c_int {
-            *c.offset(0 as ::core::ffi::c_int as isize) as pg_wchar
+            *c as pg_wchar
         } else if *c as ::core::ffi::c_int & 0xe0 as ::core::ffi::c_int
             == 0xc0 as ::core::ffi::c_int
         {
-            ((*c.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+            ((*c as ::core::ffi::c_int
                 & 0x1f as ::core::ffi::c_int)
                 << 6 as ::core::ffi::c_int
                 | *c.offset(1 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
@@ -41,7 +41,7 @@ pub mod pg_wchar_h {
         } else if *c as ::core::ffi::c_int & 0xf0 as ::core::ffi::c_int
             == 0xe0 as ::core::ffi::c_int
         {
-            ((*c.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+            ((*c as ::core::ffi::c_int
                 & 0xf as ::core::ffi::c_int)
                 << 12 as ::core::ffi::c_int
                 | (*c.offset(1 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
@@ -52,7 +52,7 @@ pub mod pg_wchar_h {
         } else if *c as ::core::ffi::c_int & 0xf8 as ::core::ffi::c_int
             == 0xf0 as ::core::ffi::c_int
         {
-            ((*c.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+            ((*c as ::core::ffi::c_int
                 & 0x7 as ::core::ffi::c_int)
                 << 18 as ::core::ffi::c_int
                 | (*c.offset(1 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
@@ -74,15 +74,15 @@ pub mod pg_wchar_h {
         mut utf8string: *mut ::core::ffi::c_uchar,
     ) -> *mut ::core::ffi::c_uchar {
         if c <= 0x7f as pg_wchar {
-            *utf8string.offset(0 as ::core::ffi::c_int as isize) = c as ::core::ffi::c_uchar;
+            *utf8string = c as ::core::ffi::c_uchar;
         } else if c <= 0x7ff as pg_wchar {
-            *utf8string.offset(0 as ::core::ffi::c_int as isize) = (0xc0 as pg_wchar
+            *utf8string = (0xc0 as pg_wchar
                 | c >> 6 as ::core::ffi::c_int & 0x1f as pg_wchar)
                 as ::core::ffi::c_uchar;
             *utf8string.offset(1 as ::core::ffi::c_int as isize) =
                 (0x80 as pg_wchar | c & 0x3f as pg_wchar) as ::core::ffi::c_uchar;
         } else if c <= 0xffff as pg_wchar {
-            *utf8string.offset(0 as ::core::ffi::c_int as isize) = (0xe0 as pg_wchar
+            *utf8string = (0xe0 as pg_wchar
                 | c >> 12 as ::core::ffi::c_int & 0xf as pg_wchar)
                 as ::core::ffi::c_uchar;
             *utf8string.offset(1 as ::core::ffi::c_int as isize) = (0x80 as pg_wchar
@@ -91,7 +91,7 @@ pub mod pg_wchar_h {
             *utf8string.offset(2 as ::core::ffi::c_int as isize) =
                 (0x80 as pg_wchar | c & 0x3f as pg_wchar) as ::core::ffi::c_uchar;
         } else {
-            *utf8string.offset(0 as ::core::ffi::c_int as isize) = (0xf0 as pg_wchar
+            *utf8string = (0xf0 as pg_wchar
                 | c >> 18 as ::core::ffi::c_int & 0x7 as pg_wchar)
                 as ::core::ffi::c_uchar;
             *utf8string.offset(1 as ::core::ffi::c_int as isize) = (0x80 as pg_wchar
@@ -1932,7 +1932,7 @@ unsafe extern "C" fn codepoint_range_cmp(
 ) -> ::core::ffi::c_int {
     let mut key = a as *const pg_wchar;
     let mut range = b as *const pg_wchar;
-    if *key < *range.offset(0 as ::core::ffi::c_int as isize) {
+    if *key < *range {
         return -(1 as ::core::ffi::c_int);
     }
     if *key > *range.offset(1 as ::core::ffi::c_int as isize) {
@@ -1946,7 +1946,7 @@ unsafe extern "C" fn is_code_in_table(
     mut map: *const pg_wchar,
     mut mapsize: ::core::ffi::c_int,
 ) -> bool {
-    if code < *map.offset(0 as ::core::ffi::c_int as isize)
+    if code < *map
         || code > *map.offset((mapsize - 1 as ::core::ffi::c_int) as isize)
     {
         return false;
@@ -2121,7 +2121,7 @@ pub unsafe extern "C" fn pg_saslprep(
                                 }
                                 if contains_RandALCat {
                                     let mut first =
-                                        *input_chars.offset(0 as ::core::ffi::c_int as isize);
+                                        *input_chars;
                                     let mut last = *input_chars
                                         .offset((input_size - 1 as ::core::ffi::c_int) as isize);
                                     i = 0 as ::core::ffi::c_int;

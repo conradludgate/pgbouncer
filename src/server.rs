@@ -1137,7 +1137,7 @@ pub unsafe extern "C" fn kill_pool_logins(
     item = (*pool).waiting_client_list.head.next;
     tmp = (*(*pool).waiting_client_list.head.next).next;
     while item != &raw mut (*pool).waiting_client_list.head {
-        client = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        client = (item as *mut ::core::ffi::c_char)
             as *mut PgSocket;
         disconnect_client_sqlstate(client, true, sqlstate, msg);
         item = tmp;
@@ -1774,7 +1774,7 @@ unsafe extern "C" fn handle_server_work(mut server: *mut PgSocket, mut pkt: *mut
             tmp = (*(*server).outstanding_requests.head.next).next;
             while item != &raw mut (*server).outstanding_requests.head {
                 let mut request = (item as *mut ::core::ffi::c_char)
-                    .offset(-(0 as ::core::ffi::c_ulong as isize))
+                    
                     as *mut OutstandingRequest;
                 if (*request).action as ::core::ffi::c_uint
                     != RA_FAKE as ::core::ffi::c_int as ::core::ffi::c_uint

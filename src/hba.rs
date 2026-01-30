@@ -905,28 +905,28 @@ unsafe extern "C" fn next_token(mut p: *mut TokParser) -> TokType {
     }
     (*p).cur_tok_str = ::core::ptr::null_mut::<::core::ffi::c_char>();
     (*p).cur_tok = TOK_FAIL;
-    while *(*p).pos.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int != 0
+    while *(*p).pos as ::core::ffi::c_int != 0
         && safe_isspace(
-            *(*p).pos.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_uchar
+            *(*p).pos as ::core::ffi::c_uchar
                 as ::core::ffi::c_int,
         ) != 0
     {
         (*p).pos = (*p).pos.offset(1);
     }
-    if *(*p).pos.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int == '#' as i32
-        || *(*p).pos.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int == '\0' as i32
+    if *(*p).pos as ::core::ffi::c_int == '#' as i32
+        || *(*p).pos as ::core::ffi::c_int == '\0' as i32
     {
         (*p).cur_tok = TOK_EOL;
         (*p).pos = ::core::ptr::null::<::core::ffi::c_char>();
-    } else if *(*p).pos.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int == ',' as i32
+    } else if *(*p).pos as ::core::ffi::c_int == ',' as i32
     {
         (*p).cur_tok = TOK_COMMA;
         (*p).pos = (*p).pos.offset(1);
-    } else if *(*p).pos.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int == '"' as i32
+    } else if *(*p).pos as ::core::ffi::c_int == '"' as i32
     {
         s = (*p).pos.offset(1 as ::core::ffi::c_int as isize);
-        while *s.offset(0 as ::core::ffi::c_int as isize) != 0 {
-            if *s.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int == '"' as i32 {
+        while *s != 0 {
+            if *s as ::core::ffi::c_int == '"' as i32 {
                 if *s.offset(1 as ::core::ffi::c_int as isize) as ::core::ffi::c_int != '"' as i32 {
                     break;
                 }
@@ -934,7 +934,7 @@ unsafe extern "C" fn next_token(mut p: *mut TokParser) -> TokType {
             }
             s = s.offset(1);
         }
-        if *s.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int != '"' as i32
+        if *s as ::core::ffi::c_int != '"' as i32
             || !tok_buf_check(p, s.offset_from((*p).pos) as ::core::ffi::c_long as size_t)
         {
             return TOK_FAIL;
@@ -1041,8 +1041,8 @@ unsafe extern "C" fn path_join(
     let mut len2: size_t = 0;
     let mut res = ::core::ptr::null_mut::<::core::ffi::c_char>();
     let mut pos = ::core::ptr::null_mut::<::core::ffi::c_char>();
-    if *p2.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int == '/' as i32
-        || *p1.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+    if *p2 as ::core::ffi::c_int == '/' as i32
+        || *p1 as ::core::ffi::c_int
             == 0 as ::core::ffi::c_int
         || memcmp(
             p1 as *const ::core::ffi::c_void,
@@ -1087,7 +1087,7 @@ unsafe extern "C" fn path_join_dirname(
     let mut tmp = ::core::ptr::null_mut::<::core::ffi::c_char>();
     let mut res = ::core::ptr::null_mut::<::core::ffi::c_char>();
     let mut basedir = ::core::ptr::null::<::core::ffi::c_char>();
-    if *fn_0.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int == '/' as i32 {
+    if *fn_0 as ::core::ffi::c_int == '/' as i32 {
         return strdup(fn_0);
     }
     tmp = strdup(parent);
@@ -1220,12 +1220,12 @@ unsafe extern "C" fn parse_names(
                 13429877768294522094 => {}
                 _ => {
                     if expect(tp, TOK_IDENT, &raw mut tok) {
-                        if *tok.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                        if *tok as ::core::ffi::c_int
                             == '+' as i32
                         {
                             return false;
                         }
-                        if *tok.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                        if *tok as ::core::ffi::c_int
                             == '@' as i32
                         {
                             let mut ok: bool = false;
@@ -1378,7 +1378,7 @@ unsafe extern "C" fn match_map(
     }
     el = (*ident).maps.next;
     while el != &raw mut (*ident).maps {
-        map = (el as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        map = (el as *mut ::core::ffi::c_char)
             as *mut IdentMap;
         if strcmp((*map).map_name, mapname) == 0 as ::core::ffi::c_int {
             (*rule).identmap = map as *mut IdentMap;
@@ -1444,7 +1444,7 @@ unsafe extern "C" fn ident_map_free(mut ident_map: *mut IdentMap) {
     el = (*ident_map).mappings.next;
     tmp = (*(*ident_map).mappings.next).next;
     while el != &raw mut (*ident_map).mappings {
-        mapping = (el as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        mapping = (el as *mut ::core::ffi::c_char)
             as *mut Mapping;
         list_del(&raw mut (*mapping).node);
         mapping_free(mapping);
@@ -1463,7 +1463,7 @@ unsafe extern "C" fn find_ident_map(
     let mut el = ::core::ptr::null_mut::<List>();
     el = (*ident).maps.next;
     while el != &raw mut (*ident).maps {
-        *ident_map = (el as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        *ident_map = (el as *mut ::core::ffi::c_char)
             as *mut IdentMap;
         if strcmp((**ident_map).map_name, mapname) == 0 {
             return true;
@@ -2003,7 +2003,7 @@ pub unsafe extern "C" fn ident_free(mut ident: *mut Ident) {
     el = (*ident).maps.next;
     tmp = (*(*ident).maps.next).next;
     while el != &raw mut (*ident).maps {
-        map = (el as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        map = (el as *mut ::core::ffi::c_char)
             as *mut IdentMap;
         list_del(&raw mut (*map).node);
         ident_map_free(map);
@@ -2024,7 +2024,7 @@ pub unsafe extern "C" fn hba_free(mut hba: *mut HBA) {
     el = (*hba).rules.next;
     tmp = (*(*hba).rules.next).next;
     while el != &raw mut (*hba).rules {
-        rule = (el as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        rule = (el as *mut ::core::ffi::c_char)
             as *mut HBARule;
         list_del(&raw mut (*rule).node);
         rule_free(rule);
@@ -2064,8 +2064,8 @@ unsafe extern "C" fn match_inet4(mut haddress: *const HBAAddress, mut addr: *mut
     src = &raw mut (*addr).sin.sin_addr.s_addr as *mut uint32_t;
     base = &raw const (*haddress).addr as *const uint8_t as *mut uint32_t;
     mask = &raw const (*haddress).mask as *const uint8_t as *mut uint32_t;
-    *src.offset(0 as ::core::ffi::c_int as isize) & *mask.offset(0 as ::core::ffi::c_int as isize)
-        == *base.offset(0 as ::core::ffi::c_int as isize)
+    *src & *mask
+        == *base
 }
 
 unsafe extern "C" fn match_inet6(mut haddress: *const HBAAddress, mut addr: *mut PgAddr) -> bool {
@@ -2078,8 +2078,8 @@ unsafe extern "C" fn match_inet6(mut haddress: *const HBAAddress, mut addr: *mut
     src = &raw mut (*addr).sin6.sin6_addr.__u6_addr.__u6_addr8 as *mut __uint8_t as *mut uint32_t;
     base = &raw const (*haddress).addr as *const uint8_t as *mut uint32_t;
     mask = &raw const (*haddress).mask as *const uint8_t as *mut uint32_t;
-    *src.offset(0 as ::core::ffi::c_int as isize) & *mask.offset(0 as ::core::ffi::c_int as isize)
-        == *base.offset(0 as ::core::ffi::c_int as isize)
+    *src & *mask
+        == *base
         && *src.offset(1 as ::core::ffi::c_int as isize)
             & *mask.offset(1 as ::core::ffi::c_int as isize)
             == *base.offset(1 as ::core::ffi::c_int as isize)
@@ -2121,7 +2121,7 @@ pub unsafe extern "C" fn hba_eval(
     let mut current_block_4: u64;
     el = (*hba).rules.next;
     while el != &raw mut (*hba).rules {
-        rule = (el as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        rule = (el as *mut ::core::ffi::c_char)
             as *mut HBARule;
         if pga_is_unix(addr) {
             if (*rule).rule_type as ::core::ffi::c_uint

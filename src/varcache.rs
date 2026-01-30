@@ -997,7 +997,7 @@ unsafe extern "C" fn init_var_lookup_from_config(
             while _hj_k >= 12 as ::core::ffi::c_uint {
                 _hj_i = _hj_i.wrapping_add(
                     (safe_tolower(
-                        *_hj_key.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                        *_hj_key as ::core::ffi::c_int
                     ) as ::core::ffi::c_uint)
                         .wrapping_add(
                             (safe_tolower(*_hj_key.offset(1 as ::core::ffi::c_int as isize)
@@ -1219,7 +1219,7 @@ unsafe extern "C" fn init_var_lookup_from_config(
             }
             if current_block_58 == 16419358174521838934 {
                 _hj_i = _hj_i.wrapping_add(safe_tolower(
-                    *_hj_key.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int,
+                    *_hj_key as ::core::ffi::c_int,
                 ) as ::core::ffi::c_uint);
             }
             _hj_i = _hj_i.wrapping_sub(_hj_j);
@@ -1307,7 +1307,7 @@ unsafe extern "C" fn init_var_lookup_from_config(
         while _hj_k_0 >= 12 as ::core::ffi::c_uint {
             _hj_i_0 = _hj_i_0.wrapping_add(
                 (safe_tolower(
-                    *_hj_key_0.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                    *_hj_key_0 as ::core::ffi::c_int
                 ) as ::core::ffi::c_uint)
                     .wrapping_add(
                         (safe_tolower(*_hj_key_0.offset(1 as ::core::ffi::c_int as isize)
@@ -1521,7 +1521,7 @@ unsafe extern "C" fn init_var_lookup_from_config(
         }
         if current_block_180 == 17622820276845907441 {
             _hj_i_0 = _hj_i_0.wrapping_add(safe_tolower(
-                *_hj_key_0.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int,
+                *_hj_key_0 as ::core::ffi::c_int,
             ) as ::core::ffi::c_uint);
         }
         _hj_i_0 = _hj_i_0.wrapping_sub(_hj_j_0);
@@ -1863,7 +1863,7 @@ pub unsafe extern "C" fn init_var_lookup(
         while _hj_k >= 12 as ::core::ffi::c_uint {
             _hj_i = _hj_i.wrapping_add(
                 (safe_tolower(
-                    *_hj_key.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                    *_hj_key as ::core::ffi::c_int
                 ) as ::core::ffi::c_uint)
                     .wrapping_add(
                         (safe_tolower(
@@ -2084,7 +2084,7 @@ pub unsafe extern "C" fn init_var_lookup(
         }
         if current_block_54 == 16420434121503669123 {
             _hj_i = _hj_i.wrapping_add(safe_tolower(
-                *_hj_key.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int,
+                *_hj_key as ::core::ffi::c_int,
             ) as ::core::ffi::c_uint);
         }
         _hj_i = _hj_i.wrapping_sub(_hj_j);
@@ -2426,7 +2426,7 @@ pub unsafe extern "C" fn varcache_set(
         while _hj_k >= 12 as ::core::ffi::c_uint {
             _hj_i = _hj_i.wrapping_add(
                 (safe_tolower(
-                    *_hj_key.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+                    *_hj_key as ::core::ffi::c_int
                 ) as ::core::ffi::c_uint)
                     .wrapping_add(
                         (safe_tolower(
@@ -2647,7 +2647,7 @@ pub unsafe extern "C" fn varcache_set(
         }
         if current_block_57 == 14328819089967601331 {
             _hj_i = _hj_i.wrapping_add(safe_tolower(
-                *_hj_key.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int,
+                *_hj_key as ::core::ffi::c_int,
             ) as ::core::ffi::c_uint);
         }
         _hj_i = _hj_i.wrapping_sub(_hj_j);

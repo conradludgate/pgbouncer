@@ -2225,7 +2225,7 @@ unsafe extern "C" fn set_dbs_dead(mut flag: bool) {
     let mut db = ::core::ptr::null_mut::<PgDatabase>();
     item = database_list.head.next;
     while item != &raw mut database_list.head {
-        db = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        db = (item as *mut ::core::ffi::c_char)
             as *mut PgDatabase;
         if !(*db).admin && !(*db).db_auto {
             (*db).db_dead = flag;
@@ -2239,7 +2239,7 @@ unsafe extern "C" fn set_peers_dead(mut flag: bool) {
     let mut db = ::core::ptr::null_mut::<PgDatabase>();
     item = peer_list.head.next;
     while item != &raw mut peer_list.head {
-        db = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        db = (item as *mut ::core::ffi::c_char)
             as *mut PgDatabase;
         (*db).db_dead = flag;
         item = (*item).next;
@@ -2941,7 +2941,7 @@ unsafe extern "C" fn signal_setup() {
 unsafe extern "C" fn go_daemon() {
     let mut pid: ::core::ffi::c_int = 0;
     let mut fd: ::core::ffi::c_int = 0;
-    if cf_pidfile.is_null() || *cf_pidfile.offset(0 as ::core::ffi::c_int as isize) == 0 {
+    if cf_pidfile.is_null() || *cf_pidfile == 0 {
         let mut _log_ctx = NULL;
         log_generic(
             LG_FATAL,
@@ -3011,7 +3011,7 @@ unsafe extern "C" fn go_daemon() {
 
 unsafe extern "C" fn remove_pidfile() {
     if !cf_pidfile.is_null() {
-        if *cf_pidfile.offset(0 as ::core::ffi::c_int as isize) != 0 {
+        if *cf_pidfile != 0 {
             unlink(cf_pidfile);
         }
         free(cf_pidfile as *mut ::core::ffi::c_void);
@@ -3025,7 +3025,7 @@ unsafe extern "C" fn check_pidfile() {
     let mut fd: ::core::ffi::c_int = 0;
     let mut res: ::core::ffi::c_int = 0;
     let mut err: ::core::ffi::c_int = 0;
-    if cf_pidfile.is_null() || *cf_pidfile.offset(0 as ::core::ffi::c_int as isize) == 0 {
+    if cf_pidfile.is_null() || *cf_pidfile == 0 {
         return;
     }
     fd = open(cf_pidfile, O_RDONLY);
@@ -3098,7 +3098,7 @@ unsafe extern "C" fn write_pidfile() {
     let mut pid: pid_t = 0;
     let mut res: ::core::ffi::c_int = 0;
     let mut fd: ::core::ffi::c_int = 0;
-    if cf_pidfile.is_null() || *cf_pidfile.offset(0 as ::core::ffi::c_int as isize) == 0 {
+    if cf_pidfile.is_null() || *cf_pidfile == 0 {
         return;
     }
     pid = getpid();
@@ -3181,7 +3181,7 @@ unsafe extern "C" fn check_limits() {
     fd_count = cf_max_client_conn + 10 as ::core::ffi::c_int;
     item = database_list.head.next;
     while item != &raw mut database_list.head {
-        db = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        db = (item as *mut ::core::ffi::c_char)
             as *mut PgDatabase;
         if !(*db).forced_user_credentials.is_null() {
             fd_count += if (*db).pool_size >= 0 as ::core::ffi::c_int {
@@ -3295,7 +3295,7 @@ unsafe extern "C" fn takeover_part1() {
         );
         exit(1 as ::core::ffi::c_int);
     }
-    if *cf_unix_socket_dir.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+    if *cf_unix_socket_dir as ::core::ffi::c_int
         == '@' as i32
     {
         let mut _log_ctx_0 = NULL;
@@ -3394,7 +3394,7 @@ unsafe fn main_0(
         },
     ];
     setprogname(usual_basename(
-        *argv.offset(0 as ::core::ffi::c_int as isize),
+        *argv,
     ));
     loop {
         c = getopt_long(
@@ -3434,14 +3434,14 @@ unsafe fn main_0(
                 arg_username = optarg;
             }
             104 => {
-                usage(*argv.offset(0 as ::core::ffi::c_int as isize));
+                usage(*argv);
             }
             _ => {
                 fprintf(
                     __stderrp,
                     b"Try \"%s --help\" for more information.\n\0" as *const u8
                         as *const ::core::ffi::c_char,
-                    *argv.offset(0 as ::core::ffi::c_int as isize),
+                    *argv,
                 );
                 exit(1 as ::core::ffi::c_int);
             }
@@ -3451,13 +3451,13 @@ unsafe fn main_0(
         fprintf(
             __stderrp,
             c"%s: no configuration file specified\n".as_ptr(),
-            *argv.offset(0 as ::core::ffi::c_int as isize),
+            *argv,
         );
         fprintf(
             __stderrp,
             b"Try \"%s --help\" for more information.\n\0" as *const u8
                 as *const ::core::ffi::c_char,
-            *argv.offset(0 as ::core::ffi::c_int as isize),
+            *argv,
         );
         exit(1 as ::core::ffi::c_int);
     }

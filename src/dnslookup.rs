@@ -526,7 +526,7 @@ unsafe extern "C" fn _evdns_base_resolv_conf_parse_err_to_string(
 
 unsafe extern "C" fn impl_init(mut ctx: *mut DNSContext) -> bool {
     if !cf_resolv_conf.is_null()
-        && *cf_resolv_conf.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int != 0
+        && *cf_resolv_conf as ::core::ffi::c_int != 0
     {
         let mut err: ::core::ffi::c_int = 0;
         (*ctx).edns =
@@ -621,7 +621,7 @@ unsafe extern "C" fn deliver_info(mut req: *mut DNSRequest) {
         if el.is_null() {
             return;
         }
-        ucb = (el as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        ucb = (el as *mut ::core::ffi::c_char)
             as *mut DNSToken;
         let mut _log_ctx = NULL;
         if cf_verbose > 1 as ::core::ffi::c_int
@@ -667,7 +667,7 @@ unsafe extern "C" fn deliver_info(mut req: *mut DNSRequest) {
 
 unsafe extern "C" fn req_cmp(mut arg: uintptr_t, mut node: *mut AANode) -> ::core::ffi::c_int {
     let mut s1: *const ::core::ffi::c_char = arg as *mut ::core::ffi::c_char;
-    let mut req = (node as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+    let mut req = (node as *mut ::core::ffi::c_char)
         as *mut DNSRequest;
     strcmp(s1, (*req).name)
 }
@@ -688,14 +688,14 @@ unsafe extern "C" fn req_free(mut node: *mut AANode, mut _arg: *mut ::core::ffi:
     let mut ucb = ::core::ptr::null_mut::<DNSToken>();
     let mut req = ::core::ptr::null_mut::<DNSRequest>();
     let mut el = ::core::ptr::null_mut::<List>();
-    req = (node as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+    req = (node as *mut ::core::ffi::c_char)
         as *mut DNSRequest;
     loop {
         el = list_pop(&raw mut (*req).ucb_list);
         if el.is_null() {
             break;
         }
-        ucb = (el as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        ucb = (el as *mut ::core::ffi::c_char)
             as *mut DNSToken;
         free(ucb as *mut ::core::ffi::c_void);
     }
@@ -764,7 +764,7 @@ pub unsafe extern "C" fn adns_resolve(
     let mut node = ::core::ptr::null_mut::<AANode>();
     node = aatree_search(&raw mut (*ctx).req_tree, name as uintptr_t);
     if !node.is_null() {
-        req = (node as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        req = (node as *mut ::core::ffi::c_char)
             as *mut DNSRequest;
         current_block = 6009453772311597924;
     } else {
@@ -1072,7 +1072,7 @@ unsafe extern "C" fn zone_timer(
         return;
     }
     el = list_first(&raw mut (*ctx).zone_list);
-    z = (el as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+    z = (el as *mut ::core::ffi::c_char)
         as *mut DNSZone;
     (*ctx).zone_state = 1 as ::core::ffi::c_int;
     (*ctx).cur_zone = z;
@@ -1187,7 +1187,7 @@ unsafe extern "C" fn got_zone_serial(mut ctx: *mut DNSContext, mut serial: *mut 
     }
     el = (*z).lnode.next;
     if el != &raw mut (*ctx).zone_list {
-        z = (el as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        z = (el as *mut ::core::ffi::c_char)
             as *mut DNSZone;
         (*ctx).cur_zone = z;
         (*ctx).active += 1;
@@ -1198,7 +1198,7 @@ unsafe extern "C" fn got_zone_serial(mut ctx: *mut DNSContext, mut serial: *mut 
 
 unsafe extern "C" fn walk_name(mut n: *mut AANode, mut arg: *mut ::core::ffi::c_void) {
     let mut w = arg as *mut WalkInfo;
-    let mut req = (n as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+    let mut req = (n as *mut ::core::ffi::c_char)
         as *mut DNSRequest;
     (*w).name_cb.expect("non-null function pointer")(
         (*w).arg,

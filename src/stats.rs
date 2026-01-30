@@ -1017,7 +1017,7 @@ pub unsafe extern "C" fn admin_database_stats(
     );
     item = (*pool_list_0).head.next;
     while item != &raw mut (*pool_list_0).head {
-        pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        pool = (item as *mut ::core::ffi::c_char)
             as *mut PgPool;
         if cur_db.is_null() {
             cur_db = (*pool).db;
@@ -1133,7 +1133,7 @@ pub unsafe extern "C" fn admin_database_stats_totals(
     );
     item = (*pool_list_0).head.next;
     while item != &raw mut (*pool_list_0).head {
-        pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        pool = (item as *mut ::core::ffi::c_char)
             as *mut PgPool;
         if cur_db.is_null() {
             cur_db = (*pool).db;
@@ -1263,7 +1263,7 @@ pub unsafe extern "C" fn admin_database_stats_averages(
     );
     item = (*pool_list_0).head.next;
     while item != &raw mut (*pool_list_0).head {
-        pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        pool = (item as *mut ::core::ffi::c_char)
             as *mut PgPool;
         if cur_db.is_null() {
             cur_db = (*pool).db;
@@ -1351,7 +1351,7 @@ pub unsafe extern "C" fn show_stat_totals(
     }
     item = (*pool_list_0).head.next;
     while item != &raw mut (*pool_list_0).head {
-        pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        pool = (item as *mut ::core::ffi::c_char)
             as *mut PgPool;
         stat_add(&raw mut st_total, &raw mut (*pool).stats);
         stat_add(&raw mut old_total, &raw mut (*pool).older_stats);

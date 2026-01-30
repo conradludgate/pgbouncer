@@ -1206,7 +1206,7 @@ pub unsafe extern "C" fn pktbuf_put_uint32(mut buf: *mut PktBuf, mut val: uint32
         return;
     }
     pos = (*buf).buf.offset((*buf).write_pos as isize);
-    *pos.offset(0 as ::core::ffi::c_int as isize) =
+    *pos =
         (val >> 24 as ::core::ffi::c_int & 255 as uint32_t) as uint8_t;
     *pos.offset(1 as ::core::ffi::c_int as isize) =
         (val >> 16 as ::core::ffi::c_int & 255 as uint32_t) as uint8_t;

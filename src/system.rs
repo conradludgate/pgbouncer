@@ -238,7 +238,7 @@ pub unsafe extern "C" fn change_file_mode(
     let mut val: ::core::ffi::c_ulong = 0;
     let mut end = ::core::ptr::null_mut::<::core::ffi::c_char>();
     if !user_name.is_null()
-        && *user_name.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int != 0
+        && *user_name as ::core::ffi::c_int != 0
     {
         let mut pw = ::core::ptr::null::<passwd>();
         val = strtoul(user_name, &raw mut end, 0 as ::core::ffi::c_int);
@@ -261,7 +261,7 @@ pub unsafe extern "C" fn change_file_mode(
         }
     }
     if !group_name.is_null()
-        && *group_name.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int != 0
+        && *group_name as ::core::ffi::c_int != 0
     {
         let mut gr = ::core::ptr::null_mut::<group>();
         val = strtoul(group_name, &raw mut end, 0 as ::core::ffi::c_int);

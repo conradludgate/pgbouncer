@@ -1302,7 +1302,7 @@ pub unsafe extern "C" fn cleanup_tcp_sockets() {
     el = sock_list.head.next;
     tmp_l = (*sock_list.head.next).next;
     while el != &raw mut sock_list.head {
-        ls = (el as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        ls = (el as *mut ::core::ffi::c_char)
             as *mut ListenSocket;
         if !pga_is_unix(&raw mut (*ls).addr) {
             if event_del(&raw mut (*ls).ev) < 0 as ::core::ffi::c_int {
@@ -1337,7 +1337,7 @@ pub unsafe extern "C" fn cleanup_unix_sockets() {
     el = sock_list.head.next;
     tmp_l = (*sock_list.head.next).next;
     while el != &raw mut sock_list.head {
-        ls = (el as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        ls = (el as *mut ::core::ffi::c_char)
             as *mut ListenSocket;
         if event_del(&raw mut (*ls).ev) < 0 as ::core::ffi::c_int {
             let mut _log_ctx = NULL;
@@ -1353,7 +1353,7 @@ pub unsafe extern "C" fn cleanup_unix_sockets() {
             (*ls).fd = 0 as ::core::ffi::c_int;
         }
         if pga_is_unix(&raw mut (*ls).addr) as ::core::ffi::c_int != 0
-            && *cf_unix_socket_dir.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
+            && *cf_unix_socket_dir as ::core::ffi::c_int
                 != '@' as i32
         {
             let mut buf: [::core::ffi::c_char; 126] = [0; 126];
@@ -1492,7 +1492,7 @@ unsafe extern "C" fn add_listen(
                                                 }
                                                 if af == AF_UNIX {
                                                     if *cf_unix_socket_dir
-                                                        .offset(0 as ::core::ffi::c_int as isize)
+                                                        
                                                         as ::core::ffi::c_int
                                                         != '@' as i32
                                                     {
@@ -1616,7 +1616,7 @@ unsafe extern "C" fn create_unix_socket(
         socket_dir,
         listen_port,
     );
-    if *socket_dir.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int == '@' as i32 {
+    if *socket_dir as ::core::ffi::c_int == '@' as i32 {
         addrlen = (2 as size_t)
             .wrapping_add(strlen(&raw mut un.sun_path as *mut ::core::ffi::c_char))
             as ::core::ffi::c_int;
@@ -1624,7 +1624,7 @@ unsafe extern "C" fn create_unix_socket(
     } else {
         addrlen = ::core::mem::size_of::<sockaddr_un>() as ::core::ffi::c_int;
     }
-    if *socket_dir.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int != '@' as i32 {
+    if *socket_dir as ::core::ffi::c_int != '@' as i32 {
         snprintf(
             &raw mut lockfile as *mut ::core::ffi::c_char,
             ::core::mem::size_of::<[::core::ffi::c_char; 116]>() as size_t,
@@ -1684,7 +1684,7 @@ pub unsafe extern "C" fn pooler_tune_accept(mut on: bool) {
     let mut ls = ::core::ptr::null_mut::<ListenSocket>();
     el = sock_list.head.next;
     while el != &raw mut sock_list.head {
-        ls = (el as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        ls = (el as *mut ::core::ffi::c_char)
             as *mut ListenSocket;
         if !pga_is_unix(&raw mut (*ls).addr) {
             tune_accept((*ls).fd, on);
@@ -1887,7 +1887,7 @@ pub unsafe extern "C" fn suspend_pooler() {
     need_active = false;
     el = sock_list.head.next;
     while el != &raw mut sock_list.head {
-        ls = (el as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        ls = (el as *mut ::core::ffi::c_char)
             as *mut ListenSocket;
         if (*ls).active {
             if event_del(&raw mut (*ls).ev) < 0 as ::core::ffi::c_int {
@@ -1914,7 +1914,7 @@ pub unsafe extern "C" fn resume_pooler() {
     need_active = true;
     el = sock_list.head.next;
     while el != &raw mut sock_list.head {
-        ls = (el as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        ls = (el as *mut ::core::ffi::c_char)
             as *mut ListenSocket;
         if !(*ls).active {
             event_assign(
@@ -2135,7 +2135,7 @@ pub unsafe extern "C" fn for_each_pooler_fd(
     let mut ok: bool = false;
     el = sock_list.head.next;
     while el != &raw mut sock_list.head {
-        ls = (el as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
+        ls = (el as *mut ::core::ffi::c_char)
             as *mut ListenSocket;
         ok = cbfunc.expect("non-null function pointer")(arg, (*ls).fd, &raw mut (*ls).addr);
         if !ok {

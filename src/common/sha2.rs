@@ -185,7 +185,7 @@ unsafe extern "C" fn SHA256_Transform(mut context: *mut pg_sha256_ctx, mut data:
         *W256.offset(j as isize) = *data.offset(3) as uint32_t
             | (*data.offset(2) as uint32_t) << 8
             | (*data.offset(1) as uint32_t) << 16
-            | (*data.offset(0) as uint32_t) << 24;
+            | (*data as uint32_t) << 24;
         data = data.offset(4);
         T1 = h
             .wrapping_add((e >> 6 | e << 26) ^ (e >> 11 | e << 21) ^ (e >> 25 | e << 7))
@@ -433,7 +433,7 @@ unsafe extern "C" fn SHA512_Transform(mut context: *mut pg_sha512_ctx, mut data:
             | (*data.offset(3) as uint64_t) << 32
             | (*data.offset(2) as uint64_t) << 40
             | (*data.offset(1) as uint64_t) << 48
-            | (*data.offset(0) as uint64_t) << 56;
+            | (*data as uint64_t) << 56;
         data = data.offset(8);
         T1 = h
             .wrapping_add((e >> 14 | e << 50) ^ (e >> 18 | e << 46) ^ (e >> 41 | e << 23))

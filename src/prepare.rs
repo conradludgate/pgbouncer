@@ -1928,7 +1928,7 @@ unsafe extern "C" fn register_prepared_statement(
     let mut res: ::core::ffi::c_int = 0;
     el = statlist_last(&raw mut (*server).outstanding_requests);
     outstanding_request = (el as *mut ::core::ffi::c_char)
-        .offset(-(0 as ::core::ffi::c_ulong as isize))
+        
         as *mut OutstandingRequest;
     (*outstanding_request).server_ps_query_id = (*(*server_ps).ps).query_id;
     if !add_prepared_statement(server, server_ps) {
@@ -1999,7 +1999,7 @@ unsafe extern "C" fn register_prepared_statement(
         }
         el = statlist_last(&raw mut (*server).outstanding_requests);
         outstanding_request = (el as *mut ::core::ffi::c_char)
-            .offset(-(0 as ::core::ffi::c_ulong as isize))
+            
             as *mut OutstandingRequest;
         (*outstanding_request).server_ps = current as *mut PgServerPreparedStatement;
         if cf_verbose > 1 as ::core::ffi::c_int
@@ -2197,7 +2197,7 @@ pub unsafe extern "C" fn handle_parse_command(
             let mut _ha_hashv: ::core::ffi::c_uint = 0;
             let mut _hb_keylen_0 = _uthash_hastr_keylen;
             let mut _hb_key_0 = (&raw mut (*client_ps).stmt_name as *mut ::core::ffi::c_char)
-                .offset(0 as ::core::ffi::c_int as isize)
+                
                 as *mut ::core::ffi::c_char
                 as *const ::core::ffi::c_uchar;
             _ha_hashv = 0 as ::core::ffi::c_uint;
@@ -2216,7 +2216,7 @@ pub unsafe extern "C" fn handle_parse_command(
             let mut _ha_oomed = 0 as ::core::ffi::c_int;
             (*client_ps).hh.hashv = _ha_hashv;
             (*client_ps).hh.key = (&raw mut (*client_ps).stmt_name as *mut ::core::ffi::c_char)
-                .offset(0 as ::core::ffi::c_int as isize)
+                
                 as *mut ::core::ffi::c_char
                 as *const ::core::ffi::c_void;
             (*client_ps).hh.keylen = _uthash_hastr_keylen;

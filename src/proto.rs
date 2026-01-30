@@ -519,7 +519,7 @@ pub mod bouncer_h {
             return ::core::ptr::null_mut::<PgSocket>();
         }
         ((*slist).head.next as *mut ::core::ffi::c_char)
-            .offset(-(0 as ::core::ffi::c_ulong as isize)) as *mut PgSocket
+             as *mut PgSocket
     }
 
     use super::dnslookup_h::DNSToken;
@@ -1818,7 +1818,7 @@ pub unsafe extern "C" fn answer_authreq(mut server: *mut PgSocket, mut pkt: *mut
                 if !mbuf_get_string(&raw mut (*pkt).data, &raw mut mech) {
                     return false;
                 }
-                if *mech.offset(0 as ::core::ffi::c_int as isize) == 0 {
+                if *mech == 0 {
                     break;
                 }
                 if cf_verbose > 0 as ::core::ffi::c_int

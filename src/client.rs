@@ -1946,7 +1946,7 @@ unsafe extern "C" fn login_via_cert(mut client: *mut PgSocket, mut rule: *mut HB
             el = (*(*rule).identmap).mappings.next;
             while el != &raw mut (*(*rule).identmap).mappings {
                 mapping = (el as *mut ::core::ffi::c_char)
-                    .offset(-(0 as ::core::ffi::c_ulong as isize))
+                    
                     as *mut Mapping;
                 if tls_peer_cert_contains_name((*client).sbuf.tls, (*mapping).system_user_name) != 0
                 {
@@ -2030,7 +2030,7 @@ unsafe extern "C" fn login_as_unix_peer(mut client: *mut PgSocket, mut rule: *mu
             el = (*(*rule).identmap).mappings.next;
             while el != &raw mut (*(*rule).identmap).mappings {
                 mapping = (el as *mut ::core::ffi::c_char)
-                    .offset(-(0 as ::core::ffi::c_ulong as isize))
+                    
                     as *mut Mapping;
                 if check_unix_peer_name((*client).sbuf.sock, (*mapping).system_user_name)
                     && ((*mapping).name_flags & NAME_ALL as ::core::ffi::c_uint != 0
@@ -3108,11 +3108,11 @@ unsafe extern "C" fn decide_startup_pool(mut client: *mut PgSocket, mut pkt: *mu
         );
         return false;
     }
-    if username.is_null() || *username.offset(0 as ::core::ffi::c_int as isize) == 0 {
+    if username.is_null() || *username == 0 {
         disconnect_client(client, true, c"no username supplied".as_ptr());
         return false;
     }
-    if dbname.is_null() || *dbname.offset(0 as ::core::ffi::c_int as isize) == 0 {
+    if dbname.is_null() || *dbname == 0 {
         dbname = username;
     }
     if !appname_found {
