@@ -2275,7 +2275,7 @@ pub unsafe extern "C" fn check_user_connection_count(mut client: *mut PgSocket) 
     }
     if !(*client).user_connection_counted() {
         (*(*(*client).login_user_credentials).global_user).client_connection_count += 1;
-        (*client).set_user_connection_counted(1 as ::core::ffi::c_int != 0);
+        (*client).set_user_connection_counted(true);
     }
     if (*(*client).c2rust_unnamed.db).admin as ::core::ffi::c_int != 0
         && strlist_contains(

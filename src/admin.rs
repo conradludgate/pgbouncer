@@ -801,7 +801,7 @@ pub mod sbuf_h {
     #[inline]
 
     pub unsafe extern "C" fn sbuf_is_empty(mut sbuf: *mut SBuf) -> bool {
-        iobuf_empty((*sbuf).io) as ::core::ffi::c_int != 0
+        iobuf_empty((*sbuf).io)
             && (*sbuf).pkt_remain == 0 as ::core::ffi::c_uint
     }
     #[inline]
@@ -1987,8 +1987,8 @@ unsafe extern "C" fn send_one_fd(
     );
     msg.msg_iov = &raw mut iovec;
     msg.msg_iovlen = 1 as ::core::ffi::c_int;
-    if pga_is_unix(&raw mut (*admin).remote_addr) as ::core::ffi::c_int != 0
-        && (*admin).own_user() as ::core::ffi::c_int != 0
+    if pga_is_unix(&raw mut (*admin).remote_addr)
+        && (*admin).own_user()
         && (*admin).sbuf.tls.is_null()
     {
         msg.msg_control = &raw mut cntbuf as *mut uint8_t as *mut ::core::ffi::c_void;
@@ -2165,22 +2165,22 @@ unsafe extern "C" fn show_one_fd(mut admin: *mut PgSocket, mut sk: *mut PgSocket
             ::core::ptr::null::<::core::ffi::c_char>()
         },
         password,
-        if send_scram_keys as ::core::ffi::c_int != 0 {
+        if send_scram_keys {
             &raw mut (*(*(*sk).pool).user_credentials).scram_ClientKey as *mut uint8_t
         } else {
             ::core::ptr::null_mut::<uint8_t>()
         },
-        if send_scram_keys as ::core::ffi::c_int != 0 {
+        if send_scram_keys {
             ::core::mem::size_of::<[uint8_t; 32]>() as ::core::ffi::c_int
         } else {
             -(1 as ::core::ffi::c_int)
         },
-        if send_scram_keys as ::core::ffi::c_int != 0 {
+        if send_scram_keys {
             &raw mut (*(*(*sk).pool).user_credentials).scram_ServerKey as *mut uint8_t
         } else {
             ::core::ptr::null_mut::<uint8_t>()
         },
-        if send_scram_keys as ::core::ffi::c_int != 0 {
+        if send_scram_keys {
             ::core::mem::size_of::<[uint8_t; 32]>() as ::core::ffi::c_int
         } else {
             -(1 as ::core::ffi::c_int)
@@ -2261,7 +2261,7 @@ unsafe extern "C" fn admin_show_fds(
     if !(*admin).admin_user() {
         return admin_error(admin, c"admin access needed".as_ptr());
     }
-    socket_set_nonblocking((*admin).sbuf.sock, 0 as ::core::ffi::c_int != 0);
+    socket_set_nonblocking((*admin).sbuf.sock, false);
     let mut _data: [uint8_t; 512] = [0; 512];
     let mut _buf = PktBuf {
         buf: ::core::ptr::null_mut::<uint8_t>(),
@@ -2310,34 +2310,13 @@ unsafe extern "C" fn admin_show_fds(
         pool = (item as *mut ::core::ffi::c_char)
             as *mut PgPool;
         if !(*(*pool).db).admin {
-            res = res as ::core::ffi::c_int != 0
-                && show_fds_from_list(admin, &raw mut (*pool).active_client_list)
-                    as ::core::ffi::c_int
-                    != 0;
-            res = res as ::core::ffi::c_int != 0
-                && show_fds_from_list(admin, &raw mut (*pool).waiting_client_list)
-                    as ::core::ffi::c_int
-                    != 0;
-            res = res as ::core::ffi::c_int != 0
-                && show_fds_from_list(admin, &raw mut (*pool).active_server_list)
-                    as ::core::ffi::c_int
-                    != 0;
-            res = res as ::core::ffi::c_int != 0
-                && show_fds_from_list(admin, &raw mut (*pool).idle_server_list)
-                    as ::core::ffi::c_int
-                    != 0;
-            res = res as ::core::ffi::c_int != 0
-                && show_fds_from_list(admin, &raw mut (*pool).used_server_list)
-                    as ::core::ffi::c_int
-                    != 0;
-            res = res as ::core::ffi::c_int != 0
-                && show_fds_from_list(admin, &raw mut (*pool).tested_server_list)
-                    as ::core::ffi::c_int
-                    != 0;
-            res = res as ::core::ffi::c_int != 0
-                && show_fds_from_list(admin, &raw mut (*pool).new_server_list)
-                    as ::core::ffi::c_int
-                    != 0;
+            res = res && show_fds_from_list(admin, &raw mut (*pool).active_client_list);
+            res = res && show_fds_from_list(admin, &raw mut (*pool).waiting_client_list);
+            res = res && show_fds_from_list(admin, &raw mut (*pool).active_server_list);
+            res = res && show_fds_from_list(admin, &raw mut (*pool).idle_server_list);
+            res = res && show_fds_from_list(admin, &raw mut (*pool).used_server_list);
+            res = res && show_fds_from_list(admin, &raw mut (*pool).tested_server_list);
+            res = res && show_fds_from_list(admin, &raw mut (*pool).new_server_list);
             if !res {
                 break;
             }
@@ -2347,7 +2326,7 @@ unsafe extern "C" fn admin_show_fds(
     if res {
         res = admin_ready(admin, c"SHOW".as_ptr());
     }
-    socket_set_nonblocking((*admin).sbuf.sock, 1 as ::core::ffi::c_int != 0);
+    socket_set_nonblocking((*admin).sbuf.sock, true);
     res
 }
 
@@ -4786,8 +4765,8 @@ pub unsafe extern "C" fn admin_post_login(mut client: *mut PgSocket) -> bool {
     if cf_auth_type == AUTH_TYPE_ANY as ::core::ffi::c_int {
         return true;
     }
-    if (*client).admin_user() as ::core::ffi::c_int != 0
-        || strlist_contains(cf_admin_users, username) as ::core::ffi::c_int != 0
+    if (*client).admin_user()
+        || strlist_contains(cf_admin_users, username)
     {
         (*client).set_admin_user(true);
         return true;
@@ -5017,7 +4996,7 @@ pub unsafe extern "C" fn admin_pause_done() {
         item = tmp;
         tmp = (*tmp).next;
     }
-    if statlist_empty(&raw mut (*admin_pool).active_client_list) as ::core::ffi::c_int != 0
+    if statlist_empty(&raw mut (*admin_pool).active_client_list)
         && cf_pause_mode == P_SUSPEND as ::core::ffi::c_int
     {
         let mut _log_ctx_0 = NULL;

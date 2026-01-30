@@ -737,7 +737,7 @@ pub mod sbuf_h {
     #[inline]
 
     pub unsafe extern "C" fn sbuf_is_empty(mut sbuf: *mut SBuf) -> bool {
-        iobuf_empty((*sbuf).io) as ::core::ffi::c_int != 0
+        iobuf_empty((*sbuf).io)
             && (*sbuf).pkt_remain == 0 as ::core::ffi::c_uint
     }
     #[inline]

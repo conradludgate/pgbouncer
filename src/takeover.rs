@@ -1175,7 +1175,7 @@ pub unsafe extern "C" fn takeover_finish() {
     let mut got: ssize_t = 0;
     let mut _log_ctx = NULL;
     log_generic(LG_INFO, _log_ctx, c"sending SHUTDOWN;".as_ptr());
-    socket_set_nonblocking(fd, 0 as ::core::ffi::c_int != 0);
+    socket_set_nonblocking(fd, false);
     let mut _data: [uint8_t; 512] = [0; 512];
     let mut _buf = PktBuf {
         buf: ::core::ptr::null_mut::<uint8_t>(),

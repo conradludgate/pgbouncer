@@ -661,7 +661,7 @@ pub mod sbuf_h {
     #[inline]
 
     pub unsafe extern "C" fn sbuf_is_empty(mut sbuf: *mut SBuf) -> bool {
-        iobuf_empty((*sbuf).io) as ::core::ffi::c_int != 0
+        iobuf_empty((*sbuf).io)
             && (*sbuf).pkt_remain == 0 as ::core::ffi::c_uint
     }
     use super::event_struct_h::event;
@@ -1719,17 +1719,17 @@ unsafe extern "C" fn pool_server_maint(mut pool: *mut PgPool) {
     check_unused_servers(
         pool,
         &raw mut (*pool).used_server_list,
-        0 as ::core::ffi::c_int != 0,
+        false,
     );
     check_unused_servers(
         pool,
         &raw mut (*pool).tested_server_list,
-        0 as ::core::ffi::c_int != 0,
+        false,
     );
     check_unused_servers(
         pool,
         &raw mut (*pool).idle_server_list,
-        1 as ::core::ffi::c_int != 0,
+        true,
     );
     item = (*pool).active_server_list.head.next;
     tmp = (*(*pool).active_server_list.head.next).next;

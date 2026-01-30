@@ -1352,7 +1352,7 @@ pub unsafe extern "C" fn cleanup_unix_sockets() {
             safe_close((*ls).fd);
             (*ls).fd = 0 as ::core::ffi::c_int;
         }
-        if pga_is_unix(&raw mut (*ls).addr) as ::core::ffi::c_int != 0
+        if pga_is_unix(&raw mut (*ls).addr)
             && *cf_unix_socket_dir as ::core::ffi::c_int
                 != '@' as i32
         {

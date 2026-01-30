@@ -846,7 +846,7 @@ pub mod sbuf_h {
     #[inline]
 
     pub unsafe extern "C" fn sbuf_is_empty(mut sbuf: *mut SBuf) -> bool {
-        iobuf_empty((*sbuf).io) as ::core::ffi::c_int != 0
+        iobuf_empty((*sbuf).io)
             && (*sbuf).pkt_remain == 0 as ::core::ffi::c_uint
     }
     #[inline]
@@ -2223,7 +2223,7 @@ unsafe extern "C" fn sbuf_try_resync(mut sbuf: *mut SBuf, mut release: bool) {
     if io.is_null() {
         return;
     }
-    if release as ::core::ffi::c_int != 0 && iobuf_empty(io) as ::core::ffi::c_int != 0 {
+    if release && iobuf_empty(io) {
         slab_free(iobuf_cache, io as *mut ::core::ffi::c_void);
         (*sbuf).io = ::core::ptr::null_mut::<IOBuf>();
     } else {
