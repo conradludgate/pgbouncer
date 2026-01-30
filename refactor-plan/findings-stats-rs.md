@@ -67,21 +67,21 @@ This is a **bug** from c2rust translation:
 
 ### Type Consolidation Results
 
-**PgStats consolidated successfully!**
+**Multiple types consolidated successfully!**
 
-```
-Before: 20 definitions across src/ files
-After:  1 definition in src/common/types.rs
+| Type | Before | After | Lines Saved |
+|------|--------|-------|-------------|
+| PgStats | 20 defs | 1 def | ~337 |
+| List + StatList | 22 defs | 1 def | ~523 |
+| AATree + AANode | 21 defs | 1 def | ~522 |
+| **Total** | - | - | **~1,382 lines** |
 
-Net change: -337 lines (141 insertions, 478 deletions)
-```
-
-All 15 admin tests pass.
+All tests pass.
 
 Next targets for consolidation:
+- `MBuf` - 20 definitions (has inline functions)
 - `PgPool` - ~20 definitions (complex, has bitfields)
 - `PgSocket` - ~20 definitions (complex, has bitfields)
-- `PgDatabase` - ~20 definitions
 - Other `bouncer_h` types
 
 ---
