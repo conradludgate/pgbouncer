@@ -32,9 +32,12 @@ We start from the entry point (`main.rs`) and core connection handling (`client.
 | Consolidate statlist_h types | ✅ Complete |
 | Consolidate aatree_h types | ✅ Complete |
 | Consolidate time_h types | ✅ Complete |
+| Consolidate uthash_h types | ✅ Complete |
+| Consolidate cryptohash_h types | ✅ Complete |
+| Consolidate stdbool_h types | ✅ Complete |
 | Remove duplicate type modules | 📋 In Progress |
 
-**Lines saved from type consolidation: ~3,920** (3,633 + 95 from statlist_h + 63 from aatree_h + 129 from time_h)
+**Lines saved from type consolidation: ~5,200** (3,920 + 836 from uthash_h + 250 from cryptohash_h + 122 from stdbool_h)
 
 ## Current State Metrics
 
