@@ -789,6 +789,11 @@ extern "C" {
 
     pub fn fprintf(_: *mut FILE, _: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;
     pub fn printf(_: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;
+    pub fn sprintf(
+        _: *mut ::core::ffi::c_char,
+        _: *const ::core::ffi::c_char,
+        ...
+    ) -> ::core::ffi::c_int;
     pub fn snprintf(
         __str: *mut ::core::ffi::c_char,
         __size: size_t,
@@ -913,6 +918,58 @@ extern "C" {
     pub fn event_add(ev: *mut event, timeout: *const timeval) -> ::core::ffi::c_int;
     pub fn event_del(ev: *mut event) -> ::core::ffi::c_int;
     pub fn event_get_version() -> *const ::core::ffi::c_char;
+}
+
+// =============================================================================
+// Crypto types - SHA2, cryptohash, HMAC
+// =============================================================================
+
+// SHA context structures
+#[derive(Copy, Clone)]
+#[repr(C)]
+pub struct pg_sha256_ctx {
+    pub state: [uint32_t; 8],
+    pub bitcount: uint64_t,
+    pub buffer: [uint8_t; 64],
+}
+
+#[derive(Copy, Clone)]
+#[repr(C)]
+pub struct pg_sha512_ctx {
+    pub state: [uint64_t; 8],
+    pub bitcount: [uint64_t; 2],
+    pub buffer: [uint8_t; 128],
+}
+
+pub type pg_sha224_ctx = pg_sha256_ctx;
+pub type pg_sha384_ctx = pg_sha512_ctx;
+
+// SHA constants
+pub const PG_SHA224_BLOCK_LENGTH: ::core::ffi::c_int = 64;
+pub const PG_SHA224_DIGEST_LENGTH: ::core::ffi::c_int = 28;
+pub const PG_SHA256_BLOCK_LENGTH: ::core::ffi::c_int = 64;
+pub const PG_SHA256_DIGEST_LENGTH: ::core::ffi::c_int = 32;
+pub const PG_SHA384_BLOCK_LENGTH: ::core::ffi::c_int = 128;
+pub const PG_SHA384_DIGEST_LENGTH: ::core::ffi::c_int = 48;
+pub const PG_SHA512_BLOCK_LENGTH: ::core::ffi::c_int = 128;
+pub const PG_SHA512_DIGEST_LENGTH: ::core::ffi::c_int = 64;
+
+// SASL prep return codes
+pub type pg_saslprep_rc = ::core::ffi::c_int;
+pub const SASLPREP_SUCCESS: pg_saslprep_rc = 0;
+pub const SASLPREP_OOM: pg_saslprep_rc = -1;
+pub const SASLPREP_INVALID_UTF8: pg_saslprep_rc = -2;
+pub const SASLPREP_PROHIBITED: pg_saslprep_rc = -3;
+
+// Wide char type for unicode
+pub type pg_wchar = ::core::ffi::c_uint;
+
+// =============================================================================
+// Extern functions - Crypto
+// =============================================================================
+
+extern "C" {
+    pub fn usual_explicit_bzero(buf: *mut ::core::ffi::c_void, len: size_t);
 }
 
 // =============================================================================
