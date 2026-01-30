@@ -1,32 +1,31 @@
-
 pub mod _types_h {
-    
+
     pub type __darwin_size_t = usize;
-    
+
     pub type __darwin_time_t = ::core::ffi::c_long;
 }
 
 pub mod _size_t_h {
-    
+
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
 
 pub mod _time_t_h {
-    
+
     pub type time_t = __darwin_time_t;
     use super::_types_h::__darwin_time_t;
 }
 
 pub mod _uint32_t_h {
-    
+
     pub type uint32_t = u32;
 }
 
 pub mod tls_internal_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls {
         pub config: *mut tls_config,
         pub error: tls_error,
@@ -46,7 +45,7 @@ pub mod tls_internal_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls_ocsp_info {
         pub response_status: ::core::ffi::c_int,
         pub cert_status: ::core::ffi::c_int,
@@ -57,7 +56,7 @@ pub mod tls_internal_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls_conninfo {
         pub issuer: *mut ::core::ffi::c_char,
         pub subject: *mut ::core::ffi::c_char,
@@ -71,14 +70,14 @@ pub mod tls_internal_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls_error {
         pub msg: *mut ::core::ffi::c_char,
         pub num: ::core::ffi::c_int,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls_config {
         pub error: tls_error,
         pub ca_file: *const ::core::ffi::c_char,
@@ -103,7 +102,7 @@ pub mod tls_internal_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls_keypair {
         pub next: *mut tls_keypair,
         pub cert_file: *const ::core::ffi::c_char,
@@ -119,15 +118,15 @@ pub mod tls_internal_h {
     use super::_uint32_t_h::uint32_t;
     use super::types_h::{SSL, SSL_CTX, X509};
     extern "C" {
-        
+
         pub type tls_ocsp_query;
-        
+
         pub fn tls_set_errorx(
             ctx: *mut tls,
             fmt: *const ::core::ffi::c_char,
             ...
         ) -> ::core::ffi::c_int;
-        
+
         pub fn asn1_time_parse(
             _: *const ::core::ffi::c_char,
             _: size_t,
@@ -138,29 +137,29 @@ pub mod tls_internal_h {
 }
 
 pub mod types_h {
-    
+
     pub type X509 = x509_st;
-    
+
     pub type SSL_CTX = ssl_ctx_st;
-    
+
     pub type SSL = ssl_st;
-    
+
     pub type ASN1_TIME = asn1_string_st;
-    
+
     pub type EVP_MD = evp_md_st;
-    
+
     pub type X509_NAME = X509_name_st;
     use super::asn1_h::asn1_string_st;
     extern "C" {
-        
+
         pub type x509_st;
-        
+
         pub type ssl_ctx_st;
-        
+
         pub type ssl_st;
-        
+
         pub type evp_md_st;
-        
+
         pub type X509_name_st;
     }
 }
@@ -168,7 +167,7 @@ pub mod types_h {
 pub mod _time_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tm {
         pub tm_sec: ::core::ffi::c_int,
         pub tm_min: ::core::ffi::c_int,
@@ -184,7 +183,7 @@ pub mod _time_h {
     }
     use super::_time_t_h::time_t;
     extern "C" {
-        
+
         pub fn timegm(_: *mut tm) -> time_t;
     }
 }
@@ -192,7 +191,7 @@ pub mod _time_h {
 pub mod asn1_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct asn1_string_st {
         pub length: ::core::ffi::c_int,
         pub type_0: ::core::ffi::c_int,
@@ -202,17 +201,17 @@ pub mod asn1_h {
 }
 
 pub mod ssl_h {
-    
+
     pub type SSL_CIPHER = ssl_cipher_st;
     use super::types_h::SSL;
     extern "C" {
-        
+
         pub type ssl_cipher_st;
-        
+
         pub fn SSL_get_current_cipher(s: *const SSL) -> *const SSL_CIPHER;
-        
+
         pub fn SSL_CIPHER_get_name(c: *const SSL_CIPHER) -> *const ::core::ffi::c_char;
-        
+
         pub fn SSL_get_version(s: *const SSL) -> *const ::core::ffi::c_char;
     }
 }
@@ -220,7 +219,7 @@ pub mod ssl_h {
 pub mod base_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn usual_reallocarray(
             p: *mut ::core::ffi::c_void,
             count: size_t,
@@ -230,7 +229,7 @@ pub mod base_h {
 }
 
 pub mod _null_h {
-    
+
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
     use super::sys__types_h::__DARWIN_NULL;
 }
@@ -238,13 +237,13 @@ pub mod _null_h {
 pub mod _string_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn memset(
             __b: *mut ::core::ffi::c_void,
             __c: ::core::ffi::c_int,
             __len: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn strdup(__s1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
     }
 }
@@ -252,7 +251,7 @@ pub mod _string_h {
 pub mod evp_h {
     use super::types_h::EVP_MD;
     extern "C" {
-        
+
         pub fn EVP_sha256() -> *const EVP_MD;
     }
 }
@@ -260,46 +259,46 @@ pub mod evp_h {
 pub mod x509_h {
     use super::types_h::{ASN1_TIME, EVP_MD, X509, X509_NAME};
     extern "C" {
-        
+
         pub fn X509_digest(
             data: *const X509,
             type_0: *const EVP_MD,
             md: *mut ::core::ffi::c_uchar,
             len: *mut ::core::ffi::c_uint,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn X509_NAME_oneline(
             a: *const X509_NAME,
             buf: *mut ::core::ffi::c_char,
             size: ::core::ffi::c_int,
         ) -> *mut ::core::ffi::c_char;
-        
+
         pub fn X509_get_issuer_name(a: *const X509) -> *mut X509_NAME;
-        
+
         pub fn X509_get_subject_name(a: *const X509) -> *mut X509_NAME;
-        
+
         pub fn X509_getm_notBefore(x: *const X509) -> *mut ASN1_TIME;
-        
+
         pub fn X509_getm_notAfter(x: *const X509) -> *mut ASN1_TIME;
     }
 }
 
 pub mod sys__types_h {
-    
+
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
 }
 
 pub mod stdint_h {
-    
+
     pub const UINTPTR_MAX: ::core::ffi::c_ulong = 18446744073709551615 as ::core::ffi::c_ulong;
-    
+
     pub const SIZE_MAX: ::core::ffi::c_ulong = UINTPTR_MAX;
 }
 
 pub mod _stdio_h {
     extern "C" {
-        
+
         pub fn asprintf(
             _: *mut *mut ::core::ffi::c_char,
             _: *const ::core::ffi::c_char,
@@ -310,14 +309,14 @@ pub mod _stdio_h {
 
 pub mod _malloc_h {
     extern "C" {
-        
+
         pub fn free(_: *mut ::core::ffi::c_void);
     }
 }
 
 pub mod crypto_h {
     extern "C" {
-        
+
         pub fn CRYPTO_free(
             ptr: *mut ::core::ffi::c_void,
             file: *const ::core::ffi::c_char,

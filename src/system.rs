@@ -1,43 +1,32 @@
-
-pub mod _types_h {
-    
-    pub type __uint16_t = u16;
-    
-    pub type __uint32_t = u32;
-    
-    pub type __darwin_time_t = ::core::ffi::c_long;
-}
-
 pub mod sys__types_h {
-    
+
     pub type __darwin_gid_t = __uint32_t;
-    
+
     pub type __darwin_mode_t = __uint16_t;
-    
+
     pub type __darwin_uid_t = __uint32_t;
-    
+
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
-    use super::_types_h::{__uint16_t, __uint32_t};
+    use crate::types::{__uint16_t, __uint32_t};
 }
 
 pub mod _gid_t_h {
-    
+
     pub type gid_t = __darwin_gid_t;
     use super::sys__types_h::__darwin_gid_t;
 }
 
 pub mod _mode_t_h {
-    
+
     pub type mode_t = __darwin_mode_t;
     use super::sys__types_h::__darwin_mode_t;
 }
 
-
 pub mod pwd_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct passwd {
         pub pw_name: *mut ::core::ffi::c_char,
         pub pw_passwd: *mut ::core::ffi::c_char,
@@ -51,35 +40,35 @@ pub mod pwd_h {
         pub pw_expire: __darwin_time_t,
     }
     use super::_gid_t_h::gid_t;
-    use super::_types_h::__darwin_time_t;
+    use crate::types::__darwin_time_t;
     use crate::types::uid_t;
     extern "C" {
-        
+
         pub fn getpwuid(_: uid_t) -> *mut passwd;
-        
+
         pub fn getpwnam(_: *const ::core::ffi::c_char) -> *mut passwd;
     }
 }
 
 pub mod logging_h {
-    
+
     pub type LogLevel = ::core::ffi::c_uint;
-    
+
     pub const LG_NOISE: LogLevel = 6;
-    
+
     pub const LG_DEBUG: LogLevel = 5;
-    
+
     pub const LG_INFO: LogLevel = 4;
-    
+
     pub const LG_STATS: LogLevel = 3;
-    
+
     pub const LG_WARNING: LogLevel = 2;
-    
+
     pub const LG_ERROR: LogLevel = 1;
-    
+
     pub const LG_FATAL: LogLevel = 0;
     extern "C" {
-        
+
         pub fn log_generic(
             level: LogLevel,
             ctx: *mut ::core::ffi::c_void,
@@ -92,7 +81,7 @@ pub mod logging_h {
 pub mod grp_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct group {
         pub gr_name: *mut ::core::ffi::c_char,
         pub gr_passwd: *mut ::core::ffi::c_char,
@@ -101,7 +90,7 @@ pub mod grp_h {
     }
     use super::_gid_t_h::gid_t;
     extern "C" {
-        
+
         pub fn getgrnam(_: *const ::core::ffi::c_char) -> *mut group;
     }
 }
@@ -110,23 +99,23 @@ pub mod unistd_h {
     use super::_gid_t_h::gid_t;
     use crate::types::uid_t;
     extern "C" {
-        
+
         pub fn chown(_: *const ::core::ffi::c_char, _: uid_t, _: gid_t) -> ::core::ffi::c_int;
-        
+
         pub fn geteuid() -> uid_t;
-        
+
         pub fn getuid() -> uid_t;
-        
+
         pub fn setgid(_: gid_t) -> ::core::ffi::c_int;
-        
+
         pub fn setuid(_: uid_t) -> ::core::ffi::c_int;
-        
+
         pub fn getpeereid(
             _: ::core::ffi::c_int,
             _: *mut uid_t,
             _: *mut gid_t,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn setgroups(_: ::core::ffi::c_int, _: *const gid_t) -> ::core::ffi::c_int;
     }
 }
@@ -134,17 +123,16 @@ pub mod unistd_h {
 pub mod stat_h {
     use super::_mode_t_h::mode_t;
     extern "C" {
-        
+
         pub fn chmod(_: *const ::core::ffi::c_char, _: mode_t) -> ::core::ffi::c_int;
     }
 }
 
-
 pub mod _stdlib_h {
     extern "C" {
-        
+
         pub fn exit(_: ::core::ffi::c_int) -> !;
-        
+
         pub fn strtoul(
             __str: *const ::core::ffi::c_char,
             __endptr: *mut *mut ::core::ffi::c_char,
@@ -155,30 +143,26 @@ pub mod _stdlib_h {
 
 pub mod errno_h {
     extern "C" {
-        
+
         pub fn __error() -> *mut ::core::ffi::c_int;
     }
 }
 
-
 pub mod _string_h {
     extern "C" {
-        
+
         pub fn strcmp(
             __s1: *const ::core::ffi::c_char,
             __s2: *const ::core::ffi::c_char,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn strerror(__errnum: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;
     }
 }
 pub use self::_gid_t_h::gid_t;
 pub use self::_mode_t_h::mode_t;
-pub use crate::types::NULL;
 use self::_stdlib_h::{exit, strtoul};
 use self::_string_h::{strcmp, strerror};
-pub use self::_types_h::{__darwin_time_t, __uint16_t, __uint32_t};
-pub use crate::types::uid_t;
 use self::errno_h::__error;
 pub use self::grp_h::{getgrnam, group};
 pub use self::logging_h::{
@@ -186,9 +170,12 @@ pub use self::logging_h::{
 };
 pub use self::pwd_h::{getpwnam, getpwuid, passwd};
 use self::stat_h::chmod;
-pub use crate::types::false_0;
 pub use self::sys__types_h::{__darwin_gid_t, __darwin_mode_t, __darwin_uid_t, __DARWIN_NULL};
 use self::unistd_h::{chown, geteuid, getpeereid, getuid, setgid, setgroups, setuid};
+pub use crate::types::false_0;
+pub use crate::types::uid_t;
+pub use crate::types::NULL;
+pub use crate::types::{__darwin_time_t, __uint16_t, __uint32_t};
 #[no_mangle]
 
 pub unsafe extern "C" fn change_user(mut user: *const ::core::ffi::c_char) {
@@ -200,7 +187,7 @@ pub unsafe extern "C" fn change_user(mut user: *const ::core::ffi::c_char) {
         log_generic(
             LG_FATAL,
             _log_ctx,
-            b"could not find user '%s' to switch to\0" as *const u8 as *const ::core::ffi::c_char,
+            c"could not find user '%s' to switch to".as_ptr(),
             user,
         );
         exit(1 as ::core::ffi::c_int);
@@ -213,7 +200,7 @@ pub unsafe extern "C" fn change_user(mut user: *const ::core::ffi::c_char) {
         log_generic(
             LG_FATAL,
             _log_ctx_0,
-            b"failed to reset groups: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"failed to reset groups: %s".as_ptr(),
             strerror(*__error()),
         );
         exit(1 as ::core::ffi::c_int);
@@ -225,8 +212,7 @@ pub unsafe extern "C" fn change_user(mut user: *const ::core::ffi::c_char) {
         log_generic(
             LG_FATAL,
             _log_ctx_1,
-            b"failed to assume identity of user '%s': %s\0" as *const u8
-                as *const ::core::ffi::c_char,
+            c"failed to assume identity of user '%s': %s".as_ptr(),
             user,
             strerror(*__error()),
         );
@@ -234,11 +220,7 @@ pub unsafe extern "C" fn change_user(mut user: *const ::core::ffi::c_char) {
     }
     if getuid() != (*pw).pw_uid || geteuid() != (*pw).pw_uid {
         let mut _log_ctx_2 = NULL;
-        log_generic(
-            LG_FATAL,
-            _log_ctx_2,
-            b"setuid() failed to work\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        log_generic(LG_FATAL, _log_ctx_2, c"setuid() failed to work".as_ptr());
         exit(1 as ::core::ffi::c_int);
     }
 }
@@ -269,7 +251,7 @@ pub unsafe extern "C" fn change_file_mode(
                 log_generic(
                     LG_FATAL,
                     _log_ctx,
-                    b"could not find user '%s': %s\0" as *const u8 as *const ::core::ffi::c_char,
+                    c"could not find user '%s': %s".as_ptr(),
                     user_name,
                     strerror(*__error()),
                 );
@@ -292,7 +274,7 @@ pub unsafe extern "C" fn change_file_mode(
                 log_generic(
                     LG_FATAL,
                     _log_ctx_0,
-                    b"could not find group '%s': %s\0" as *const u8 as *const ::core::ffi::c_char,
+                    c"could not find group '%s': %s".as_ptr(),
                     group_name,
                     strerror(*__error()),
                 );
@@ -308,7 +290,7 @@ pub unsafe extern "C" fn change_file_mode(
             log_generic(
                 LG_FATAL,
                 _log_ctx_1,
-                b"chown(%s, %u, %u) failed: %s\0" as *const u8 as *const ::core::ffi::c_char,
+                c"chown(%s, %u, %u) failed: %s".as_ptr(),
                 fn_0,
                 uid,
                 gid,
@@ -323,7 +305,7 @@ pub unsafe extern "C" fn change_file_mode(
         log_generic(
             LG_FATAL,
             _log_ctx_2,
-            b"failure to chmod(%s, 0%o): %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"failure to chmod(%s, 0%o): %s".as_ptr(),
             fn_0,
             mode as ::core::ffi::c_int,
             strerror(*__error()),
@@ -343,11 +325,11 @@ pub unsafe extern "C" fn check_unix_peer_name(
     let mut pw = ::core::ptr::null_mut::<passwd>();
     res = getpeereid(fd, &raw mut peer_uid, &raw mut peer_gid);
     if res < 0 as ::core::ffi::c_int {
-        return false_0 != 0;
+        return false;
     }
     pw = getpwuid(peer_uid);
     if pw.is_null() {
-        return false_0 != 0;
+        return false;
     }
     strcmp((*pw).pw_name, username) == 0 as ::core::ffi::c_int
 }

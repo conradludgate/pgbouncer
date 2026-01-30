@@ -153,7 +153,7 @@ pub unsafe extern "C" fn pg_sha256_init(mut context: *mut pg_sha256_ctx) {
         0 as ::core::ffi::c_int,
         PG_SHA256_BLOCK_LENGTH as size_t,
     );
-    (*context).bitcount = 0 as uint64_t;
+    (*context).bitcount = 0;
 }
 
 unsafe extern "C" fn SHA256_Transform(mut context: *mut pg_sha256_ctx, mut data: *const uint8_t) {
@@ -282,7 +282,7 @@ pub unsafe extern "C" fn pg_sha256_update(
                 data as *const ::core::ffi::c_void,
                 len,
             );
-            (*context).bitcount = (*context).bitcount.wrapping_add((len << 3) as uint64_t);
+            (*context).bitcount += ((len << 3) as uint64_t);
             return;
         }
     }
@@ -300,7 +300,7 @@ pub unsafe extern "C" fn pg_sha256_update(
             data as *const ::core::ffi::c_void,
             len,
         );
-        (*context).bitcount = (*context).bitcount.wrapping_add((len << 3) as uint64_t);
+        (*context).bitcount += ((len << 3) as uint64_t);
     }
 }
 

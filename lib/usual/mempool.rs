@@ -1,11 +1,10 @@
-
 pub mod _types_h {
-    
+
     pub type __darwin_size_t = usize;
 }
 
 pub mod _size_t_h {
-    
+
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
@@ -13,28 +12,28 @@ pub mod _size_t_h {
 pub mod _malloc_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn calloc(__count: size_t, __size: size_t) -> *mut ::core::ffi::c_void;
-        
+
         pub fn free(_: *mut ::core::ffi::c_void);
     }
 }
 
 pub mod _null_h {
-    
+
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
     use super::sys__types_h::__DARWIN_NULL;
 }
 
 pub mod _param_h {
-    
+
     pub const __DARWIN_ALIGNBYTES: usize =
         ::core::mem::size_of::<__darwin_size_t>().wrapping_sub(1_usize);
     use super::_types_h::__darwin_size_t;
 }
 
 pub mod sys__types_h {
-    
+
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
 }

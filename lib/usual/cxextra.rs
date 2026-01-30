@@ -1,16 +1,15 @@
-
 pub mod _types_h {
-    
+
     pub type __darwin_size_t = usize;
 }
 
 pub mod _uintptr_t_h {
-    
+
     pub type uintptr_t = usize;
 }
 
 pub mod _size_t_h {
-    
+
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
@@ -18,7 +17,7 @@ pub mod _size_t_h {
 pub mod cxalloc_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct CxOps {
         pub c_alloc: Option<
             unsafe extern "C" fn(*mut ::core::ffi::c_void, size_t) -> *mut ::core::ffi::c_void,
@@ -36,26 +35,26 @@ pub mod cxalloc_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct CxMem {
         pub ops: *const CxOps,
         pub ctx: *mut ::core::ffi::c_void,
     }
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn cx_alloc(cx: *const CxMem, len: size_t) -> *mut ::core::ffi::c_void;
-        
+
         pub fn cx_realloc(
             cx: *const CxMem,
             ptr: *mut ::core::ffi::c_void,
             len: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn cx_free(cx: *const CxMem, ptr: *mut ::core::ffi::c_void);
-        
+
         pub fn cx_destroy(cx: *const CxMem);
-        
+
         pub static cx_libc_allocator: CxMem;
     }
 }
@@ -63,19 +62,19 @@ pub mod cxalloc_h {
 pub mod list_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct List {
         pub next: *mut List,
         pub prev: *mut List,
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn list_init(mut list: *mut List) {
         (*list).prev = list;
         (*list).next = (*list).prev;
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn list_append(mut list: *mut List, mut item: *mut List) -> *mut List {
         (*item).next = list;
         (*item).prev = (*list).prev;
@@ -84,7 +83,7 @@ pub mod list_h {
         item
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn list_del(mut item: *mut List) -> *mut List {
         (*(*item).prev).next = (*item).next;
         (*(*item).next).prev = (*item).prev;
@@ -95,7 +94,7 @@ pub mod list_h {
 }
 
 pub mod _null_h {
-    
+
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
     use super::sys__types_h::__DARWIN_NULL;
 }
@@ -103,13 +102,13 @@ pub mod _null_h {
 pub mod _string_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn memcpy(
             __dst: *mut ::core::ffi::c_void,
             __src: *const ::core::ffi::c_void,
             __n: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn memset(
             __b: *mut ::core::ffi::c_void,
             __c: ::core::ffi::c_int,
@@ -119,33 +118,33 @@ pub mod _string_h {
 }
 
 pub mod _param_h {
-    
+
     pub const __DARWIN_ALIGNBYTES: usize =
         ::core::mem::size_of::<__darwin_size_t>().wrapping_sub(1_usize);
     use super::_types_h::__darwin_size_t;
 }
 
 pub mod sys__types_h {
-    
+
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
 }
 
 pub mod _stdlib_h {
     extern "C" {
-        
+
         pub fn exit(_: ::core::ffi::c_int) -> !;
     }
 }
 
 pub mod stdbool_h {
-    
+
     pub const true_0: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
 }
 
 pub mod bits_h {
     #[inline]
-    
+
     pub unsafe extern "C" fn is_power_of_2(mut n: ::core::ffi::c_uint) -> bool {
         n > 0 as ::core::ffi::c_uint && n & n.wrapping_sub(1 as ::core::ffi::c_uint) == 0
     }

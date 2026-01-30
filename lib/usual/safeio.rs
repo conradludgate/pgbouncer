@@ -1,38 +1,37 @@
-
 pub mod _types_h {
-    
+
     pub type __uint8_t = u8;
-    
+
     pub type __int32_t = i32;
-    
+
     pub type __uint32_t = u32;
-    
+
     pub type __darwin_size_t = usize;
-    
+
     pub type __darwin_socklen_t = __uint32_t;
-    
+
     pub type __darwin_ssize_t = isize;
-    
+
     pub type __darwin_time_t = ::core::ffi::c_long;
 }
 
 pub mod sys__types_h {
-    
+
     pub type __darwin_suseconds_t = __int32_t;
-    
+
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
     use super::_types_h::__int32_t;
 }
 
 pub mod _size_t_h {
-    
+
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
 
 pub mod _ssize_t_h {
-    
+
     pub type ssize_t = __darwin_ssize_t;
     use super::_types_h::__darwin_ssize_t;
 }
@@ -40,7 +39,7 @@ pub mod _ssize_t_h {
 pub mod _fd_def_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct fd_set {
         pub fds_bits: [__int32_t; 32],
     }
@@ -50,7 +49,7 @@ pub mod _fd_def_h {
 pub mod _timeval_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct timeval {
         pub tv_sec: __darwin_time_t,
         pub tv_usec: __darwin_suseconds_t,
@@ -60,13 +59,13 @@ pub mod _timeval_h {
 }
 
 pub mod _sa_family_t_h {
-    
+
     pub type sa_family_t = __uint8_t;
     use super::_types_h::__uint8_t;
 }
 
 pub mod _socklen_t_h {
-    
+
     pub type socklen_t = __darwin_socklen_t;
     use super::_types_h::__darwin_socklen_t;
 }
@@ -74,7 +73,7 @@ pub mod _socklen_t_h {
 pub mod _iovec_t_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct iovec {
         pub iov_base: *mut ::core::ffi::c_void,
         pub iov_len: size_t,
@@ -85,7 +84,7 @@ pub mod _iovec_t_h {
 pub mod socket_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr {
         pub sa_len: __uint8_t,
         pub sa_family: sa_family_t,
@@ -93,7 +92,7 @@ pub mod socket_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct msghdr {
         pub msg_name: *mut ::core::ffi::c_void,
         pub msg_namelen: socklen_t,
@@ -103,7 +102,7 @@ pub mod socket_h {
         pub msg_controllen: socklen_t,
         pub msg_flags: ::core::ffi::c_int,
     }
-    
+
     pub const AF_UNIX: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
     use super::_iovec_t_h::iovec;
     use super::_sa_family_t_h::sa_family_t;
@@ -112,60 +111,60 @@ pub mod socket_h {
     use super::_ssize_t_h::ssize_t;
     use super::_types_h::__uint8_t;
     extern "C" {
-        
+
         pub fn accept(
             _: ::core::ffi::c_int,
             _: *mut sockaddr,
             _: *mut socklen_t,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn connect(
             _: ::core::ffi::c_int,
             _: *const sockaddr,
             _: socklen_t,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn recv(
             _: ::core::ffi::c_int,
             _: *mut ::core::ffi::c_void,
             _: size_t,
             _: ::core::ffi::c_int,
         ) -> ssize_t;
-        
+
         pub fn recvmsg(_: ::core::ffi::c_int, _: *mut msghdr, _: ::core::ffi::c_int) -> ssize_t;
-        
+
         pub fn send(
             _: ::core::ffi::c_int,
             _: *const ::core::ffi::c_void,
             _: size_t,
             _: ::core::ffi::c_int,
         ) -> ssize_t;
-        
+
         pub fn sendmsg(_: ::core::ffi::c_int, _: *const msghdr, _: ::core::ffi::c_int) -> ssize_t;
     }
 }
 
 pub mod logging_h {
-    
+
     pub type LogLevel = ::core::ffi::c_uint;
-    
+
     pub const LG_NOISE: LogLevel = 6;
-    
+
     pub const LG_DEBUG: LogLevel = 5;
-    
+
     pub const LG_INFO: LogLevel = 4;
-    
+
     pub const LG_STATS: LogLevel = 3;
-    
+
     pub const LG_WARNING: LogLevel = 2;
-    
+
     pub const LG_ERROR: LogLevel = 1;
-    
+
     pub const LG_FATAL: LogLevel = 0;
     extern "C" {
-        
+
         pub static mut cf_verbose: ::core::ffi::c_int;
-        
+
         pub fn log_generic(
             level: LogLevel,
             ctx: *mut ::core::ffi::c_void,
@@ -179,12 +178,12 @@ pub mod unistd_h {
     use super::_size_t_h::size_t;
     use super::_ssize_t_h::ssize_t;
     extern "C" {
-        
+
         pub fn close(_: ::core::ffi::c_int) -> ::core::ffi::c_int;
-        
+
         pub fn read(_: ::core::ffi::c_int, _: *mut ::core::ffi::c_void, __nbyte: size_t)
             -> ssize_t;
-        
+
         pub fn write(
             __fd: ::core::ffi::c_int,
             __buf: *const ::core::ffi::c_void,
@@ -197,7 +196,7 @@ pub mod _select_h {
     use super::_fd_def_h::fd_set;
     use super::_timeval_h::timeval;
     extern "C" {
-        
+
         pub fn select(
             _: ::core::ffi::c_int,
             _: *mut fd_set,
@@ -212,7 +211,7 @@ pub mod usual_socket_h {
     use super::_size_t_h::size_t;
     use super::socket_h::sockaddr;
     extern "C" {
-        
+
         pub fn sa2str(
             sa: *const sockaddr,
             buf: *mut ::core::ffi::c_char,
@@ -222,7 +221,7 @@ pub mod usual_socket_h {
 }
 
 pub mod _null_h {
-    
+
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
     use super::sys__types_h::__DARWIN_NULL;
 }
@@ -230,7 +229,7 @@ pub mod _null_h {
 pub mod string_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn usual_strerror_r(
             e: ::core::ffi::c_int,
             dst: *mut ::core::ffi::c_char,
@@ -240,14 +239,14 @@ pub mod string_h {
 }
 
 pub mod errno_h {
-    
+
     pub const EINTR: ::core::ffi::c_int = 4 as ::core::ffi::c_int;
-    
+
     pub const EINPROGRESS: ::core::ffi::c_int = 36 as ::core::ffi::c_int;
-    
+
     pub const EMSGSIZE: ::core::ffi::c_int = 40 as ::core::ffi::c_int;
     extern "C" {
-        
+
         pub fn __error() -> *mut ::core::ffi::c_int;
     }
 }

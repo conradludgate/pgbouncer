@@ -260,16 +260,16 @@ pub unsafe extern "C" fn pg_hmac_free(mut ctx: *mut pg_hmac_ctx) {
 #[no_mangle]
 pub unsafe extern "C" fn pg_hmac_error(mut ctx: *mut pg_hmac_ctx) -> *const ::core::ffi::c_char {
     if ctx.is_null() {
-        return b"out of memory\0" as *const u8 as *const ::core::ffi::c_char;
+        return c"out of memory".as_ptr();
     }
     if !(*ctx).errreason.is_null() {
         return (*ctx).errreason;
     }
     match (*ctx).error as ::core::ffi::c_uint {
-        0 => return b"success\0" as *const u8 as *const ::core::ffi::c_char,
-        2 => return b"internal error\0" as *const u8 as *const ::core::ffi::c_char,
-        1 => return b"out of memory\0" as *const u8 as *const ::core::ffi::c_char,
+        0 => return c"success".as_ptr(),
+        2 => return c"internal error".as_ptr(),
+        1 => return c"out of memory".as_ptr(),
         _ => {}
     }
-    b"success\0" as *const u8 as *const ::core::ffi::c_char
+    c"success".as_ptr()
 }

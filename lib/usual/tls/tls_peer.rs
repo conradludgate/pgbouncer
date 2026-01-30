@@ -1,32 +1,31 @@
-
 pub mod _types_h {
-    
+
     pub type __darwin_size_t = usize;
-    
+
     pub type __darwin_time_t = ::core::ffi::c_long;
 }
 
 pub mod _size_t_h {
-    
+
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
 
 pub mod _time_t_h {
-    
+
     pub type time_t = __darwin_time_t;
     use super::_types_h::__darwin_time_t;
 }
 
 pub mod _uint32_t_h {
-    
+
     pub type uint32_t = u32;
 }
 
 pub mod tls_internal_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls {
         pub config: *mut tls_config,
         pub error: tls_error,
@@ -46,7 +45,7 @@ pub mod tls_internal_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls_ocsp_info {
         pub response_status: ::core::ffi::c_int,
         pub cert_status: ::core::ffi::c_int,
@@ -57,7 +56,7 @@ pub mod tls_internal_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls_conninfo {
         pub issuer: *mut ::core::ffi::c_char,
         pub subject: *mut ::core::ffi::c_char,
@@ -71,14 +70,14 @@ pub mod tls_internal_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls_error {
         pub msg: *mut ::core::ffi::c_char,
         pub num: ::core::ffi::c_int,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls_config {
         pub error: tls_error,
         pub ca_file: *const ::core::ffi::c_char,
@@ -103,7 +102,7 @@ pub mod tls_internal_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls_keypair {
         pub next: *mut tls_keypair,
         pub cert_file: *const ::core::ffi::c_char,
@@ -118,9 +117,9 @@ pub mod tls_internal_h {
     use super::_uint32_t_h::uint32_t;
     use super::types_h::{SSL, SSL_CTX, X509};
     extern "C" {
-        
+
         pub type tls_ocsp_query;
-        
+
         pub fn tls_check_name(
             ctx: *mut tls,
             cert: *mut X509,
@@ -130,30 +129,30 @@ pub mod tls_internal_h {
 }
 
 pub mod types_h {
-    
+
     pub type X509 = x509_st;
-    
+
     pub type SSL_CTX = ssl_ctx_st;
-    
+
     pub type SSL = ssl_st;
     extern "C" {
-        
+
         pub type x509_st;
-        
+
         pub type ssl_ctx_st;
-        
+
         pub type ssl_st;
     }
 }
 
 pub mod _null_h {
-    
+
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
     use super::sys__types_h::__DARWIN_NULL;
 }
 
 pub mod sys__types_h {
-    
+
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
 }

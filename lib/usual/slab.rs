@@ -1,16 +1,15 @@
-
 pub mod _types_h {
-    
+
     pub type __darwin_size_t = usize;
 }
 
 pub mod _uintptr_t_h {
-    
+
     pub type uintptr_t = usize;
 }
 
 pub mod _size_t_h {
-    
+
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
@@ -18,7 +17,7 @@ pub mod _size_t_h {
 pub mod cxalloc_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct CxOps {
         pub c_alloc: Option<
             unsafe extern "C" fn(*mut ::core::ffi::c_void, size_t) -> *mut ::core::ffi::c_void,
@@ -36,24 +35,24 @@ pub mod cxalloc_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct CxMem {
         pub ops: *const CxOps,
         pub ctx: *mut ::core::ffi::c_void,
     }
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn cx_free(cx: *const CxMem, ptr: *mut ::core::ffi::c_void);
-        
+
         pub fn cx_alloc0(cx: *const CxMem, len: size_t) -> *mut ::core::ffi::c_void;
     }
 }
 
 pub mod slab_h {
-    
+
     pub type slab_init_fn = Option<unsafe extern "C" fn(*mut ::core::ffi::c_void) -> ()>;
-    
+
     pub type slab_stat_fn = Option<
         unsafe extern "C" fn(
             *mut ::core::ffi::c_void,
@@ -68,31 +67,31 @@ pub mod slab_h {
 pub mod statlist_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct StatList {
         pub head: List,
         pub cur_count: ::core::ffi::c_int,
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn statlist_prepend(mut list: *mut StatList, mut item: *mut List) {
         list_prepend(&raw mut (*list).head, item);
         (*list).cur_count += 1;
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn statlist_append(mut list: *mut StatList, mut item: *mut List) {
         list_append(&raw mut (*list).head, item);
         (*list).cur_count += 1;
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn statlist_remove(mut list: *mut StatList, mut item: *mut List) {
         list_del(item);
         (*list).cur_count -= 1;
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn statlist_init(
         mut list: *mut StatList,
         mut _name: *const ::core::ffi::c_char,
@@ -101,12 +100,12 @@ pub mod statlist_h {
         (*list).cur_count = 0 as ::core::ffi::c_int;
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn statlist_count(mut list: *const StatList) -> ::core::ffi::c_int {
         (*list).cur_count
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn statlist_pop(mut list: *mut StatList) -> *mut List {
         let mut item = list_pop(&raw mut (*list).head);
         if !item.is_null() {
@@ -120,24 +119,24 @@ pub mod statlist_h {
 pub mod list_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct List {
         pub next: *mut List,
         pub prev: *mut List,
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn list_init(mut list: *mut List) {
         (*list).prev = list;
         (*list).next = (*list).prev;
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn list_empty(mut list: *const List) -> ::core::ffi::c_int {
         std::ptr::eq((*list).next, list) as ::core::ffi::c_int
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn list_prepend(mut list: *mut List, mut item: *mut List) -> *mut List {
         (*item).next = (*list).next;
         (*item).prev = list;
@@ -146,7 +145,7 @@ pub mod list_h {
         item
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn list_append(mut list: *mut List, mut item: *mut List) -> *mut List {
         (*item).next = list;
         (*item).prev = (*list).prev;
@@ -155,7 +154,7 @@ pub mod list_h {
         item
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn list_del(mut item: *mut List) -> *mut List {
         (*(*item).prev).next = (*item).next;
         (*(*item).next).prev = (*item).prev;
@@ -164,7 +163,7 @@ pub mod list_h {
         item
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn list_pop(mut list: *mut List) -> *mut List {
         if list_empty(list) != 0 {
             return ::core::ptr::null_mut::<List>();
@@ -174,7 +173,7 @@ pub mod list_h {
 }
 
 pub mod _param_h {
-    
+
     pub const __DARWIN_ALIGNBYTES: usize =
         ::core::mem::size_of::<__darwin_size_t>().wrapping_sub(1_usize);
     use super::_types_h::__darwin_size_t;
@@ -183,31 +182,31 @@ pub mod _param_h {
 pub mod _string_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn memcpy(
             __dst: *mut ::core::ffi::c_void,
             __src: *const ::core::ffi::c_void,
             __n: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn memset(
             __b: *mut ::core::ffi::c_void,
             __c: ::core::ffi::c_int,
             __len: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn strlen(__s: *const ::core::ffi::c_char) -> size_t;
     }
 }
 
 pub mod _null_h {
-    
+
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
     use super::sys__types_h::__DARWIN_NULL;
 }
 
 pub mod sys__types_h {
-    
+
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
 }

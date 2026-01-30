@@ -1,30 +1,29 @@
-
 pub mod _types_h {
-    
+
     pub type __darwin_size_t = usize;
 }
 
 pub mod _size_t_h {
-    
+
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
 
 pub mod _uint8_t_h {
-    
+
     pub type uint8_t = u8;
 }
 
 pub mod _uint32_t_h {
-    
+
     pub type uint32_t = u32;
 }
 
 pub mod types_h {
-    
+
     pub type SSL_CTX = ssl_ctx_st;
     extern "C" {
-        
+
         pub type ssl_ctx_st;
     }
 }
@@ -32,14 +31,14 @@ pub mod types_h {
 pub mod tls_internal_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls_error {
         pub msg: *mut ::core::ffi::c_char,
         pub num: ::core::ffi::c_int,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls_config {
         pub error: tls_error,
         pub ca_file: *const ::core::ffi::c_char,
@@ -64,7 +63,7 @@ pub mod tls_internal_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls_keypair {
         pub next: *mut tls_keypair,
         pub cert_file: *const ::core::ffi::c_char,
@@ -74,13 +73,13 @@ pub mod tls_internal_h {
         pub key_mem: *mut ::core::ffi::c_char,
         pub key_len: size_t,
     }
-    
+
     pub const _PATH_SSL_CA_FILE: [::core::ffi::c_char; 18] = USUAL_TLS_CA_FILE;
     use super::_size_t_h::size_t;
     use super::_uint32_t_h::uint32_t;
     use super::config_h::USUAL_TLS_CA_FILE;
     extern "C" {
-        
+
         pub fn tls_config_set_errorx(
             cfg: *mut tls_config,
             fmt: *const ::core::ffi::c_char,
@@ -90,22 +89,22 @@ pub mod tls_internal_h {
 }
 
 pub mod ssl_h {
-    
+
     pub type SSL_METHOD = ssl_method_st;
     use super::types_h::SSL_CTX;
     extern "C" {
-        
+
         pub type ssl_method_st;
-        
+
         pub fn SSL_CTX_set_cipher_list(
             _: *mut SSL_CTX,
             str: *const ::core::ffi::c_char,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn SSL_CTX_new(meth: *const SSL_METHOD) -> *mut SSL_CTX;
-        
+
         pub fn SSL_CTX_free(_: *mut SSL_CTX);
-        
+
         pub fn TLS_method() -> *const SSL_METHOD;
     }
 }
@@ -113,17 +112,17 @@ pub mod ssl_h {
 pub mod _malloc_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn malloc(__size: size_t) -> *mut ::core::ffi::c_void;
-        
+
         pub fn calloc(__count: size_t, __size: size_t) -> *mut ::core::ffi::c_void;
-        
+
         pub fn free(_: *mut ::core::ffi::c_void);
     }
 }
 
 pub mod _null_h {
-    
+
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
     use super::sys__types_h::__DARWIN_NULL;
 }
@@ -131,17 +130,17 @@ pub mod _null_h {
 pub mod _string_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn memcpy(
             __dst: *mut ::core::ffi::c_void,
             __src: *const ::core::ffi::c_void,
             __n: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn strlen(__s: *const ::core::ffi::c_char) -> size_t;
-        
+
         pub fn strdup(__s1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
-        
+
         pub fn strsep(
             __stringp: *mut *mut ::core::ffi::c_char,
             __delim: *const ::core::ffi::c_char,
@@ -152,50 +151,50 @@ pub mod _string_h {
 pub mod string_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn usual_explicit_bzero(buf: *mut ::core::ffi::c_void, len: size_t);
     }
 }
 
 pub mod config_h {
-    
+
     pub const USUAL_TLS_CA_FILE: [::core::ffi::c_char; 18] = unsafe {
         ::core::mem::transmute::<[u8; 18], [::core::ffi::c_char; 18]>(*b"/etc/ssl/cert.pem\0")
     };
 }
 
 pub mod sys__types_h {
-    
+
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
 }
 
 pub mod tls_h {
-    
+
     pub const TLS_PROTOCOL_TLSv1_0: ::core::ffi::c_int =
         (1 as ::core::ffi::c_int) << 1 as ::core::ffi::c_int;
-    
+
     pub const TLS_PROTOCOL_TLSv1_1: ::core::ffi::c_int =
         (1 as ::core::ffi::c_int) << 2 as ::core::ffi::c_int;
-    
+
     pub const TLS_PROTOCOL_TLSv1_2: ::core::ffi::c_int =
         (1 as ::core::ffi::c_int) << 3 as ::core::ffi::c_int;
-    
+
     pub const TLS_PROTOCOL_TLSv1_3: ::core::ffi::c_int =
         (1 as ::core::ffi::c_int) << 4 as ::core::ffi::c_int;
-    
+
     pub const TLS_PROTOCOL_TLSv1: ::core::ffi::c_int =
         TLS_PROTOCOL_TLSv1_0 | TLS_PROTOCOL_TLSv1_1 | TLS_PROTOCOL_TLSv1_2 | TLS_PROTOCOL_TLSv1_3;
-    
+
     pub const TLS_PROTOCOLS_ALL: ::core::ffi::c_int = TLS_PROTOCOL_TLSv1;
-    
+
     pub const TLS_PROTOCOLS_DEFAULT: ::core::ffi::c_int =
         TLS_PROTOCOL_TLSv1_2 | TLS_PROTOCOL_TLSv1_3;
 }
 
 pub mod _strings_h {
     extern "C" {
-        
+
         pub fn strcasecmp(
             _: *const ::core::ffi::c_char,
             _: *const ::core::ffi::c_char,
@@ -204,13 +203,13 @@ pub mod _strings_h {
 }
 
 pub mod obj_mac_h {
-    
+
     pub const NID_undef: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 }
 
 pub mod objects_h {
     extern "C" {
-        
+
         pub fn OBJ_txt2nid(s: *const ::core::ffi::c_char) -> ::core::ffi::c_int;
     }
 }

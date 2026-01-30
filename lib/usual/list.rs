@@ -1,30 +1,29 @@
-
 pub mod list_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct List {
         pub next: *mut List,
         pub prev: *mut List,
     }
-    
+
     pub type list_cmp_f =
         Option<unsafe extern "C" fn(*const List, *const List) -> ::core::ffi::c_int>;
     #[inline]
-    
+
     pub unsafe extern "C" fn list_empty(mut list: *const List) -> ::core::ffi::c_int {
         std::ptr::eq((*list).next, list) as ::core::ffi::c_int
     }
 }
 
 pub mod _null_h {
-    
+
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
     use super::_types_h::__DARWIN_NULL;
 }
 
 pub mod _types_h {
-    
+
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
 }

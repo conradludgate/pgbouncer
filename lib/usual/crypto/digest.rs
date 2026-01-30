@@ -1,29 +1,28 @@
-
 pub mod _types_h {
-    
+
     pub type __darwin_size_t = usize;
 }
 
 pub mod _size_t_h {
-    
+
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
 
 pub mod _uint8_t_h {
-    
+
     pub type uint8_t = u8;
 }
 
 pub mod _uint64_t_h {
-    
+
     pub type uint64_t = u64;
 }
 
 pub mod cxalloc_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct CxOps {
         pub c_alloc: Option<
             unsafe extern "C" fn(*mut ::core::ffi::c_void, size_t) -> *mut ::core::ffi::c_void,
@@ -41,34 +40,34 @@ pub mod cxalloc_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct CxMem {
         pub ops: *const CxOps,
         pub ctx: *mut ::core::ffi::c_void,
     }
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn cx_alloc(cx: *const CxMem, len: size_t) -> *mut ::core::ffi::c_void;
-        
+
         pub fn cx_free(cx: *const CxMem, ptr: *mut ::core::ffi::c_void);
     }
 }
 
 pub mod digest_h {
-    
+
     pub type DigestInitFunc = unsafe extern "C" fn(*mut ::core::ffi::c_void) -> ();
-    
+
     pub type DigestUpdateFunc = unsafe extern "C" fn(
         *mut ::core::ffi::c_void,
         *const ::core::ffi::c_void,
         ::core::ffi::c_uint,
     ) -> ();
-    
+
     pub type DigestFinalFunc = unsafe extern "C" fn(*mut ::core::ffi::c_void, *mut uint8_t) -> ();
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct DigestInfo {
         pub init: Option<DigestInitFunc>,
         pub update: Option<DigestUpdateFunc>,
@@ -81,7 +80,7 @@ pub mod digest_h {
 }
 
 pub mod _null_h {
-    
+
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
     use super::sys__types_h::__DARWIN_NULL;
 }
@@ -89,7 +88,7 @@ pub mod _null_h {
 pub mod _string_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn memset(
             __b: *mut ::core::ffi::c_void,
             __c: ::core::ffi::c_int,
@@ -99,7 +98,7 @@ pub mod _string_h {
 }
 
 pub mod sys__types_h {
-    
+
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
 }

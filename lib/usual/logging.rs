@@ -1,76 +1,75 @@
-
 pub mod internal {
-    
+
     pub type __builtin_va_list = *mut ::core::ffi::c_char;
 }
 
 pub mod _types_h {
-    
+
     pub type __int32_t = i32;
-    
+
     pub type __uint32_t = u32;
-    
+
     pub type __int64_t = i64;
-    
+
     pub type __darwin_ct_rune_t = ::core::ffi::c_int;
-    
+
     pub type __darwin_size_t = usize;
-    
+
     pub type __darwin_va_list = __builtin_va_list;
-    
+
     pub type __darwin_wchar_t = ::libc::wchar_t;
-    
+
     pub type __darwin_rune_t = __darwin_wchar_t;
     use super::internal::__builtin_va_list;
 }
 
 pub mod sys__types_h {
-    
+
     pub type __darwin_off_t = __int64_t;
-    
+
     pub type __darwin_pid_t = __int32_t;
-    
+
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
     use super::_types_h::{__int32_t, __int64_t};
 }
 
 pub mod _pid_t_h {
-    
+
     pub type pid_t = __darwin_pid_t;
     use super::sys__types_h::__darwin_pid_t;
 }
 
 pub mod _size_t_h {
-    
+
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
 
 pub mod _uint64_t_h {
-    
+
     pub type uint64_t = u64;
 }
 
 pub mod _va_list_h {
-    
+
     pub type va_list = __darwin_va_list;
     use super::_types_h::__darwin_va_list;
 }
 
 pub mod _stdio_h {
-    
+
     pub type fpos_t = __darwin_off_t;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct __sbuf {
         pub _base: *mut ::core::ffi::c_uchar,
         pub _size: ::core::ffi::c_int,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct __sFILE {
         pub _p: *mut ::core::ffi::c_uchar,
         pub _r: ::core::ffi::c_int,
@@ -107,35 +106,35 @@ pub mod _stdio_h {
         pub _blksize: ::core::ffi::c_int,
         pub _offset: fpos_t,
     }
-    
+
     pub type FILE = __sFILE;
-    
+
     pub const _IONBF: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
     use super::_size_t_h::size_t;
 
     use super::sys__types_h::__darwin_off_t;
     extern "C" {
-        
+
         pub type __sFILEX;
-        
+
         pub static mut __stderrp: *mut FILE;
-        
+
         pub fn fclose(_: *mut FILE) -> ::core::ffi::c_int;
-        
+
         pub fn fopen(
             __filename: *const ::core::ffi::c_char,
             __mode: *const ::core::ffi::c_char,
         ) -> *mut FILE;
-        
+
         pub fn fprintf(_: *mut FILE, _: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;
-        
+
         pub fn setvbuf(
             _: *mut FILE,
             _: *mut ::core::ffi::c_char,
             _: ::core::ffi::c_int,
             __size: size_t,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn vsnprintf(
             __str: *mut ::core::ffi::c_char,
             __size: size_t,
@@ -146,23 +145,23 @@ pub mod _stdio_h {
 }
 
 pub mod logging_h {
-    
+
     pub type LogLevel = ::core::ffi::c_uint;
-    
+
     pub const LG_NOISE: LogLevel = 6;
-    
+
     pub const LG_DEBUG: LogLevel = 5;
-    
+
     pub const LG_INFO: LogLevel = 4;
-    
+
     pub const LG_STATS: LogLevel = 3;
-    
+
     pub const LG_WARNING: LogLevel = 2;
-    
+
     pub const LG_ERROR: LogLevel = 1;
-    
+
     pub const LG_FATAL: LogLevel = 0;
-    
+
     pub type logging_prefix_fn_t = Option<
         unsafe extern "C" fn(
             LogLevel,
@@ -174,11 +173,11 @@ pub mod logging_h {
 }
 
 pub mod time_h {
-    
+
     pub type usec_t = uint64_t;
     use super::_uint64_t_h::uint64_t;
     extern "C" {
-        
+
         pub fn format_time_ms(
             time: usec_t,
             dest: *mut ::core::ffi::c_char,
@@ -190,7 +189,7 @@ pub mod time_h {
 pub mod runetype_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct _RuneLocale {
         pub __magic: [::core::ffi::c_char; 8],
         pub __encoding: [::core::ffi::c_char; 32],
@@ -223,21 +222,21 @@ pub mod runetype_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct _RuneCharClass {
         pub __name: [::core::ffi::c_char; 14],
         pub __mask: __uint32_t,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct _RuneRange {
         pub __nranges: ::core::ffi::c_int,
         pub __ranges: *mut _RuneEntry,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct _RuneEntry {
         pub __min: __darwin_rune_t,
         pub __max: __darwin_rune_t,
@@ -246,7 +245,7 @@ pub mod runetype_h {
     }
     use super::_types_h::{__darwin_rune_t, __darwin_size_t, __uint32_t};
     extern "C" {
-        
+
         pub static mut _DefaultRuneLocale: _RuneLocale;
     }
 }
@@ -254,13 +253,13 @@ pub mod runetype_h {
 pub mod unistd_h {
     use super::_pid_t_h::pid_t;
     extern "C" {
-        
+
         pub fn getpid() -> pid_t;
     }
 }
 
 pub mod _null_h {
-    
+
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
     use super::sys__types_h::__DARWIN_NULL;
 }
@@ -268,7 +267,7 @@ pub mod _null_h {
 pub mod string_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn usual_strerror_r(
             e: ::core::ffi::c_int,
             dst: *mut ::core::ffi::c_char,
@@ -279,7 +278,7 @@ pub mod string_h {
 
 pub mod ctype_h {
     #[inline]
-    
+
     pub unsafe extern "C" fn safe_isspace(mut c: ::core::ffi::c_int) -> ::core::ffi::c_int {
         isspace(c as ::core::ffi::c_uchar as ::core::ffi::c_int)
     }
@@ -287,15 +286,15 @@ pub mod ctype_h {
 }
 
 pub mod _ctype_h {
-    
+
     pub const _CTYPE_S: ::core::ffi::c_long = 0x4000 as ::core::ffi::c_long;
     #[inline]
-    
+
     pub unsafe extern "C" fn isascii(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
         (_c & !(0x7f as ::core::ffi::c_int) == 0 as ::core::ffi::c_int) as ::core::ffi::c_int
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn __istype(
         mut _c: __darwin_ct_rune_t,
         mut _f: ::core::ffi::c_ulong,
@@ -308,47 +307,47 @@ pub mod _ctype_h {
         }
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn isspace(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
         __istype(_c as __darwin_ct_rune_t, _CTYPE_S as ::core::ffi::c_ulong)
     }
     use super::_types_h::__darwin_ct_rune_t;
     use super::runetype_h::_DefaultRuneLocale;
     extern "C" {
-        
+
         pub fn __maskrune(_: __darwin_ct_rune_t, _: ::core::ffi::c_ulong) -> ::core::ffi::c_int;
     }
 }
 
 pub mod _stdlib_h {
     extern "C" {
-        
+
         pub fn exit(_: ::core::ffi::c_int) -> !;
-        
+
         pub fn getprogname() -> *const ::core::ffi::c_char;
     }
 }
 
 pub mod errno_h {
     extern "C" {
-        
+
         pub fn __error() -> *mut ::core::ffi::c_int;
     }
 }
 
 pub mod stdbool_h {
-    
+
     pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 }
 
 pub mod _string_h {
     extern "C" {
-        
+
         pub fn strchr(
             __s: *const ::core::ffi::c_char,
             __c: ::core::ffi::c_int,
         ) -> *mut ::core::ffi::c_char;
-        
+
         pub fn strcmp(
             __s1: *const ::core::ffi::c_char,
             __s2: *const ::core::ffi::c_char,
@@ -357,57 +356,57 @@ pub mod _string_h {
 }
 
 pub mod syslog_h {
-    
+
     pub const LOG_CRIT: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
-    
+
     pub const LOG_ERR: ::core::ffi::c_int = 3 as ::core::ffi::c_int;
-    
+
     pub const LOG_WARNING: ::core::ffi::c_int = 4 as ::core::ffi::c_int;
-    
+
     pub const LOG_INFO: ::core::ffi::c_int = 6 as ::core::ffi::c_int;
-    
+
     pub const LOG_DEBUG: ::core::ffi::c_int = 7 as ::core::ffi::c_int;
-    
+
     pub const LOG_USER: ::core::ffi::c_int = (1 as ::core::ffi::c_int) << 3 as ::core::ffi::c_int;
-    
+
     pub const LOG_DAEMON: ::core::ffi::c_int = (3 as ::core::ffi::c_int) << 3 as ::core::ffi::c_int;
-    
+
     pub const LOG_AUTH: ::core::ffi::c_int = (4 as ::core::ffi::c_int) << 3 as ::core::ffi::c_int;
-    
+
     pub const LOG_AUTHPRIV: ::core::ffi::c_int =
         (10 as ::core::ffi::c_int) << 3 as ::core::ffi::c_int;
-    
+
     pub const LOG_LOCAL0: ::core::ffi::c_int =
         (16 as ::core::ffi::c_int) << 3 as ::core::ffi::c_int;
-    
+
     pub const LOG_LOCAL1: ::core::ffi::c_int =
         (17 as ::core::ffi::c_int) << 3 as ::core::ffi::c_int;
-    
+
     pub const LOG_LOCAL2: ::core::ffi::c_int =
         (18 as ::core::ffi::c_int) << 3 as ::core::ffi::c_int;
-    
+
     pub const LOG_LOCAL3: ::core::ffi::c_int =
         (19 as ::core::ffi::c_int) << 3 as ::core::ffi::c_int;
-    
+
     pub const LOG_LOCAL4: ::core::ffi::c_int =
         (20 as ::core::ffi::c_int) << 3 as ::core::ffi::c_int;
-    
+
     pub const LOG_LOCAL5: ::core::ffi::c_int =
         (21 as ::core::ffi::c_int) << 3 as ::core::ffi::c_int;
-    
+
     pub const LOG_LOCAL6: ::core::ffi::c_int =
         (22 as ::core::ffi::c_int) << 3 as ::core::ffi::c_int;
-    
+
     pub const LOG_LOCAL7: ::core::ffi::c_int =
         (23 as ::core::ffi::c_int) << 3 as ::core::ffi::c_int;
-    
+
     pub const LOG_PID: ::core::ffi::c_int = 0x1 as ::core::ffi::c_int;
     extern "C" {
-        
+
         pub fn closelog();
-        
+
         pub fn openlog(_: *const ::core::ffi::c_char, _: ::core::ffi::c_int, _: ::core::ffi::c_int);
-        
+
         pub fn syslog(_: ::core::ffi::c_int, _: *const ::core::ffi::c_char, ...);
     }
 }

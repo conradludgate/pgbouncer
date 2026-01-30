@@ -1,37 +1,36 @@
-
 pub mod _types_h {
-    
+
     pub type __darwin_size_t = usize;
-    
+
     pub type __darwin_time_t = ::core::ffi::c_long;
 }
 
 pub mod _size_t_h {
-    
+
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
 
 pub mod _time_t_h {
-    
+
     pub type time_t = __darwin_time_t;
     use super::_types_h::__darwin_time_t;
 }
 
 pub mod _uint32_t_h {
-    
+
     pub type uint32_t = u32;
 }
 
 pub mod _uint64_t_h {
-    
+
     pub type uint64_t = u64;
 }
 
 pub mod tls_internal_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls {
         pub config: *mut tls_config,
         pub error: tls_error,
@@ -51,7 +50,7 @@ pub mod tls_internal_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls_ocsp_info {
         pub response_status: ::core::ffi::c_int,
         pub cert_status: ::core::ffi::c_int,
@@ -62,7 +61,7 @@ pub mod tls_internal_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls_conninfo {
         pub issuer: *mut ::core::ffi::c_char,
         pub subject: *mut ::core::ffi::c_char,
@@ -76,14 +75,14 @@ pub mod tls_internal_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls_error {
         pub msg: *mut ::core::ffi::c_char,
         pub num: ::core::ffi::c_int,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls_config {
         pub error: tls_error,
         pub ca_file: *const ::core::ffi::c_char,
@@ -108,7 +107,7 @@ pub mod tls_internal_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls_keypair {
         pub next: *mut tls_keypair,
         pub cert_file: *const ::core::ffi::c_char,
@@ -123,15 +122,15 @@ pub mod tls_internal_h {
     use super::_uint32_t_h::uint32_t;
     use super::types_h::{SSL, SSL_CTX, X509};
     extern "C" {
-        
+
         pub type tls_ocsp_query;
-        
+
         pub fn tls_set_error(
             ctx: *mut tls,
             fmt: *const ::core::ffi::c_char,
             ...
         ) -> ::core::ffi::c_int;
-        
+
         pub fn tls_set_errorx(
             ctx: *mut tls,
             fmt: *const ::core::ffi::c_char,
@@ -141,69 +140,69 @@ pub mod tls_internal_h {
 }
 
 pub mod types_h {
-    
+
     pub type X509 = x509_st;
-    
+
     pub type SSL_CTX = ssl_ctx_st;
-    
+
     pub type SSL = ssl_st;
-    
+
     pub type ASN1_INTEGER = asn1_string_st;
-    
+
     pub type ASN1_ENUMERATED = asn1_string_st;
-    
+
     pub type ASN1_BIT_STRING = asn1_string_st;
-    
+
     pub type ASN1_OCTET_STRING = asn1_string_st;
-    
+
     pub type ASN1_PRINTABLESTRING = asn1_string_st;
-    
+
     pub type ASN1_T61STRING = asn1_string_st;
-    
+
     pub type ASN1_IA5STRING = asn1_string_st;
-    
+
     pub type ASN1_GENERALSTRING = asn1_string_st;
-    
+
     pub type ASN1_UNIVERSALSTRING = asn1_string_st;
-    
+
     pub type ASN1_BMPSTRING = asn1_string_st;
-    
+
     pub type ASN1_UTCTIME = asn1_string_st;
-    
+
     pub type ASN1_TIME = asn1_string_st;
-    
+
     pub type ASN1_GENERALIZEDTIME = asn1_string_st;
-    
+
     pub type ASN1_VISIBLESTRING = asn1_string_st;
-    
+
     pub type ASN1_UTF8STRING = asn1_string_st;
-    
+
     pub type ASN1_STRING = asn1_string_st;
-    
+
     pub type ASN1_BOOLEAN = ::core::ffi::c_int;
-    
+
     pub type ASN1_OBJECT = asn1_object_st;
-    
+
     pub type ASN1_TYPE = asn1_type_st;
-    
+
     pub type BIO = bio_st;
-    
+
     pub type EVP_CIPHER = evp_cipher_st;
-    
+
     pub type EVP_PKEY = evp_pkey_st;
-    
+
     pub type DH = dh_st;
-    
+
     pub type X509_ALGOR = X509_algor_st;
-    
+
     pub type EC_KEY = ec_key_st;
-    
+
     pub type X509_CRL = X509_crl_st;
-    
+
     pub type X509_STORE = x509_store_st;
-    
+
     pub type OSSL_PARAM = ossl_param_st;
-    
+
     pub type pem_password_cb = unsafe extern "C" fn(
         *mut ::core::ffi::c_char,
         ::core::ffi::c_int,
@@ -214,27 +213,27 @@ pub mod types_h {
     use super::core_h::ossl_param_st;
     use super::x509_h::X509_algor_st;
     extern "C" {
-        
+
         pub type x509_st;
-        
+
         pub type ssl_ctx_st;
-        
+
         pub type ssl_st;
-        
+
         pub type asn1_object_st;
-        
+
         pub type bio_st;
-        
+
         pub type evp_cipher_st;
-        
+
         pub type evp_pkey_st;
-        
+
         pub type dh_st;
-        
+
         pub type ec_key_st;
-        
+
         pub type X509_crl_st;
-        
+
         pub type x509_store_st;
     }
 }
@@ -242,7 +241,7 @@ pub mod types_h {
 pub mod _time_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tm {
         pub tm_sec: ::core::ffi::c_int,
         pub tm_min: ::core::ffi::c_int,
@@ -258,27 +257,27 @@ pub mod _time_h {
     }
     use super::_time_t_h::time_t;
     extern "C" {
-        
+
         pub fn timegm(_: *mut tm) -> time_t;
     }
 }
 
 pub mod stack_h {
-    
+
     pub type OPENSSL_STACK = stack_st;
-    
+
     pub type OPENSSL_sk_freefunc = Option<unsafe extern "C" fn(*mut ::core::ffi::c_void) -> ()>;
     extern "C" {
-        
+
         pub type stack_st;
-        
+
         pub fn OPENSSL_sk_num(_: *const OPENSSL_STACK) -> ::core::ffi::c_int;
-        
+
         pub fn OPENSSL_sk_value(
             _: *const OPENSSL_STACK,
             _: ::core::ffi::c_int,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn OPENSSL_sk_pop_free(st: *mut OPENSSL_STACK, func: OPENSSL_sk_freefunc);
     }
 }
@@ -286,7 +285,7 @@ pub mod stack_h {
 pub mod asn1_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct asn1_string_st {
         pub length: ::core::ffi::c_int,
         pub type_0: ::core::ffi::c_int,
@@ -295,14 +294,14 @@ pub mod asn1_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct asn1_type_st {
         pub type_0: ::core::ffi::c_int,
         pub value: C2RustUnnamed,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed {
         pub ptr: *mut ::core::ffi::c_char,
         pub boolean: ASN1_BOOLEAN,
@@ -326,11 +325,11 @@ pub mod asn1_h {
         pub sequence: *mut ASN1_STRING,
         pub asn1_value: *mut ASN1_VALUE,
     }
-    
+
     pub type ASN1_VALUE = ASN1_VALUE_st;
-    
+
     pub const V_ASN1_UTCTIME: ::core::ffi::c_int = 23 as ::core::ffi::c_int;
-    
+
     pub const V_ASN1_GENERALIZEDTIME: ::core::ffi::c_int = 24 as ::core::ffi::c_int;
     use super::types_h::{
         ASN1_BIT_STRING, ASN1_BMPSTRING, ASN1_BOOLEAN, ASN1_ENUMERATED, ASN1_GENERALIZEDTIME,
@@ -339,7 +338,7 @@ pub mod asn1_h {
         ASN1_UTF8STRING, ASN1_VISIBLESTRING,
     };
     extern "C" {
-        
+
         pub type ASN1_VALUE_st;
     }
 }
@@ -347,14 +346,14 @@ pub mod asn1_h {
 pub mod x509_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct X509_algor_st {
         pub algorithm: *mut ASN1_OBJECT,
         pub parameter: *mut ASN1_TYPE,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct private_key_st {
         pub version: ::core::ffi::c_int,
         pub enc_algor: *mut X509_ALGOR,
@@ -365,11 +364,11 @@ pub mod x509_h {
         pub key_free: ::core::ffi::c_int,
         pub cipher: EVP_CIPHER_INFO,
     }
-    
+
     pub type X509_PKEY = private_key_st;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct X509_info_st {
         pub x509: *mut X509,
         pub crl: *mut X509_CRL,
@@ -378,26 +377,26 @@ pub mod x509_h {
         pub enc_len: ::core::ffi::c_int,
         pub enc_data: *mut ::core::ffi::c_char,
     }
-    
+
     pub type X509_INFO = X509_info_st;
-    
+
     pub type sk_X509_INFO_freefunc = Option<unsafe extern "C" fn(*mut X509_INFO) -> ()>;
     #[inline]
-    
+
     pub unsafe extern "C" fn ossl_check_const_X509_INFO_sk_type(
         mut sk: *const stack_st_X509_INFO,
     ) -> *const OPENSSL_STACK {
         sk as *const OPENSSL_STACK
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn ossl_check_X509_INFO_sk_type(
         mut sk: *mut stack_st_X509_INFO,
     ) -> *mut OPENSSL_STACK {
         sk as *mut OPENSSL_STACK
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn ossl_check_X509_INFO_freefunc_type(
         mut fr: sk_X509_INFO_freefunc,
     ) -> OPENSSL_sk_freefunc {
@@ -409,11 +408,11 @@ pub mod x509_h {
         ASN1_OBJECT, ASN1_OCTET_STRING, ASN1_TYPE, EVP_PKEY, X509, X509_ALGOR, X509_CRL,
     };
     extern "C" {
-        
+
         pub type stack_st_X509_INFO;
-        
+
         pub fn X509_free(a: *mut X509);
-        
+
         pub fn X509_INFO_free(a: *mut X509_INFO);
     }
 }
@@ -421,7 +420,7 @@ pub mod x509_h {
 pub mod core_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct ossl_param_st {
         pub key: *const ::core::ffi::c_char,
         pub data_type: ::core::ffi::c_uint,
@@ -435,18 +434,18 @@ pub mod core_h {
 pub mod evp_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct evp_cipher_info_st {
         pub cipher: *const EVP_CIPHER,
         pub iv: [::core::ffi::c_uchar; 16],
     }
-    
+
     pub type EVP_CIPHER_INFO = evp_cipher_info_st;
     use super::types_h::{EVP_CIPHER, EVP_PKEY, OSSL_PARAM};
     extern "C" {
-        
+
         pub fn EVP_PKEY_get_bits(pkey: *const EVP_PKEY) -> ::core::ffi::c_int;
-        
+
         pub fn EVP_PKEY_get_params(
             pkey: *const EVP_PKEY,
             params: *mut OSSL_PARAM,
@@ -457,19 +456,19 @@ pub mod evp_h {
 pub mod _string_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn memcpy(
             __dst: *mut ::core::ffi::c_void,
             __src: *const ::core::ffi::c_void,
             __n: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn memset(
             __b: *mut ::core::ffi::c_void,
             __c: ::core::ffi::c_int,
             __len: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn strlen(__s: *const ::core::ffi::c_char) -> size_t;
     }
 }
@@ -477,9 +476,9 @@ pub mod _string_h {
 pub mod bio_h {
     use super::types_h::BIO;
     extern "C" {
-        
+
         pub fn BIO_free(a: *mut BIO) -> ::core::ffi::c_int;
-        
+
         pub fn BIO_new_mem_buf(
             buf: *const ::core::ffi::c_void,
             len: ::core::ffi::c_int,
@@ -490,12 +489,12 @@ pub mod bio_h {
 pub mod params_h {
     use super::types_h::OSSL_PARAM;
     extern "C" {
-        
+
         pub fn OSSL_PARAM_construct_int(
             key: *const ::core::ffi::c_char,
             buf: *mut ::core::ffi::c_int,
         ) -> OSSL_PARAM;
-        
+
         pub fn OSSL_PARAM_construct_end() -> OSSL_PARAM;
     }
 }
@@ -503,7 +502,7 @@ pub mod params_h {
 pub mod ec_h {
     use super::types_h::EC_KEY;
     extern "C" {
-        
+
         pub fn EC_KEY_free(key: *mut EC_KEY);
     }
 }
@@ -511,9 +510,9 @@ pub mod ec_h {
 pub mod dh_h {
     use super::types_h::DH;
     extern "C" {
-        
+
         pub fn DH_free(dh: *mut DH);
-        
+
         pub fn DH_size(dh: *const DH) -> ::core::ffi::c_int;
     }
 }
@@ -521,9 +520,9 @@ pub mod dh_h {
 pub mod x509_vfy_h {
     use super::types_h::{X509, X509_CRL, X509_STORE};
     extern "C" {
-        
+
         pub fn X509_STORE_add_cert(xs: *mut X509_STORE, x: *mut X509) -> ::core::ffi::c_int;
-        
+
         pub fn X509_STORE_add_crl(xs: *mut X509_STORE, x: *mut X509_CRL) -> ::core::ffi::c_int;
     }
 }
@@ -532,28 +531,28 @@ pub mod pem_h {
     use super::types_h::{pem_password_cb, BIO, DH, X509};
     use super::x509_h::stack_st_X509_INFO;
     extern "C" {
-        
+
         pub fn PEM_X509_INFO_read_bio(
             bp: *mut BIO,
             sk: *mut stack_st_X509_INFO,
             cb: Option<pem_password_cb>,
             u: *mut ::core::ffi::c_void,
         ) -> *mut stack_st_X509_INFO;
-        
+
         pub fn PEM_read_bio_X509(
             out: *mut BIO,
             x: *mut *mut X509,
             cb: Option<pem_password_cb>,
             u: *mut ::core::ffi::c_void,
         ) -> *mut X509;
-        
+
         pub fn PEM_read_bio_X509_AUX(
             out: *mut BIO,
             x: *mut *mut X509,
             cb: Option<pem_password_cb>,
             u: *mut ::core::ffi::c_void,
         ) -> *mut X509;
-        
+
         pub fn PEM_read_bio_DHparams(
             out: *mut BIO,
             x: *mut *mut DH,
@@ -564,38 +563,38 @@ pub mod pem_h {
 }
 
 pub mod ssl_h {
-    
+
     pub const SSL_OP_SINGLE_ECDH_USE: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
-    
+
     pub const SSL_OP_SINGLE_DH_USE: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
-    
+
     pub const SSL_CTRL_EXTRA_CHAIN_CERT: ::core::ffi::c_int = 14 as ::core::ffi::c_int;
-    
+
     pub const SSL_CTRL_CLEAR_EXTRA_CHAIN_CERTS: ::core::ffi::c_int = 83 as ::core::ffi::c_int;
     use super::_uint64_t_h::uint64_t;
     use super::types_h::{evp_pkey_st, DH, SSL, SSL_CTX, X509, X509_STORE};
     extern "C" {
-        
+
         pub fn SSL_CTX_set_options(ctx: *mut SSL_CTX, op: uint64_t) -> uint64_t;
-        
+
         pub fn SSL_CTX_get_cert_store(_: *const SSL_CTX) -> *mut X509_STORE;
-        
+
         pub fn SSL_CTX_use_certificate(ctx: *mut SSL_CTX, x: *mut X509) -> ::core::ffi::c_int;
-        
+
         pub fn SSL_CTX_ctrl(
             ctx: *mut SSL_CTX,
             cmd: ::core::ffi::c_int,
             larg: ::core::ffi::c_long,
             parg: *mut ::core::ffi::c_void,
         ) -> ::core::ffi::c_long;
-        
+
         pub fn SSL_get_privatekey(ssl: *const SSL) -> *mut evp_pkey_st;
-        
+
         pub fn SSL_get_ex_data(
             ssl: *const SSL,
             idx: ::core::ffi::c_int,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn SSL_CTX_set_tmp_dh_callback(
             ctx: *mut SSL_CTX,
             dh: Option<
@@ -606,23 +605,23 @@ pub mod ssl_h {
 }
 
 pub mod err_h {
-    
+
     pub const ERR_LIB_SYS: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
-    
+
     pub const ERR_LIB_PEM: ::core::ffi::c_int = 9 as ::core::ffi::c_int;
-    
+
     pub const ERR_SYSTEM_FLAG: ::core::ffi::c_uint =
         (INT_MAX as ::core::ffi::c_uint).wrapping_add(1 as ::core::ffi::c_uint);
-    
+
     pub const ERR_SYSTEM_MASK: ::core::ffi::c_uint = INT_MAX as ::core::ffi::c_uint;
-    
+
     pub const ERR_LIB_OFFSET: ::core::ffi::c_long = 23 as ::core::ffi::c_long;
-    
+
     pub const ERR_LIB_MASK: ::core::ffi::c_int = 0xff as ::core::ffi::c_int;
-    
+
     pub const ERR_REASON_MASK: ::core::ffi::c_int = 0x7fffff as ::core::ffi::c_int;
     #[inline]
-    
+
     pub unsafe extern "C" fn ERR_GET_LIB(mut errcode: ::core::ffi::c_ulong) -> ::core::ffi::c_int {
         if errcode & ERR_SYSTEM_FLAG as ::core::ffi::c_ulong != 0 as ::core::ffi::c_ulong {
             return ERR_LIB_SYS;
@@ -630,7 +629,7 @@ pub mod err_h {
         (errcode >> ERR_LIB_OFFSET & ERR_LIB_MASK as ::core::ffi::c_ulong) as ::core::ffi::c_int
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn ERR_GET_REASON(
         mut errcode: ::core::ffi::c_ulong,
     ) -> ::core::ffi::c_int {
@@ -641,46 +640,46 @@ pub mod err_h {
     }
     use super::limits_h::INT_MAX;
     extern "C" {
-        
+
         pub fn ERR_peek_error() -> ::core::ffi::c_ulong;
-        
+
         pub fn ERR_peek_last_error() -> ::core::ffi::c_ulong;
-        
+
         pub fn ERR_clear_error();
     }
 }
 
 pub mod _null_h {
-    
+
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
     use super::sys__types_h::__DARWIN_NULL;
 }
 
 pub mod sys__types_h {
-    
+
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
 }
 
 pub mod limits_h {
-    
+
     pub const INT_MAX: ::core::ffi::c_int = 2147483647 as ::core::ffi::c_int;
 }
 
 pub mod stdbool_h {
-    
+
     pub const true_0: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    
+
     pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 }
 
 pub mod obj_mac_h {
-    
+
     pub const NID_undef: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 }
 
 pub mod pemerr_h {
-    
+
     pub const PEM_R_NO_START_LINE: ::core::ffi::c_int = 108 as ::core::ffi::c_int;
 }
 pub use self::_null_h::NULL;

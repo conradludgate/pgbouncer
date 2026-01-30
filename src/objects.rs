@@ -1,112 +1,69 @@
-
 pub mod internal {
-    
+
     pub type __builtin_va_list = *mut ::core::ffi::c_char;
 }
 
-pub mod _types_h {
-    
-    pub type __uint8_t = u8;
-    
-    pub type __uint16_t = u16;
-    
-    pub type __int32_t = i32;
-    
-    pub type __uint32_t = u32;
-    
-    pub type __darwin_ptrdiff_t = isize;
-    
-    pub type __darwin_size_t = usize;
-    
-    pub type __darwin_va_list = __builtin_va_list;
-    
-    pub type __darwin_socklen_t = __uint32_t;
-    
-    pub type __darwin_ssize_t = isize;
-    
-    pub type __darwin_time_t = ::core::ffi::c_long;
-    use super::internal::__builtin_va_list;
-}
-
-
 pub mod sys__types_h {
-    
+
     pub type __darwin_pid_t = __int32_t;
-    
+
     pub type __darwin_suseconds_t = __int32_t;
-    
+
     pub type __darwin_uid_t = __uint32_t;
-    
+
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
-    use super::_types_h::{__int32_t, __uint32_t};
+    use crate::types::{__int32_t, __uint32_t};
 }
-
-
-
-
-
-
 
 pub mod _time_t_h {
-    
+
     pub type time_t = __darwin_time_t;
-    use super::_types_h::__darwin_time_t;
+    use crate::types::__darwin_time_t;
 }
-
-
-
-
-
 
 pub mod _va_list_h {
-    
-    pub type va_list = __darwin_va_list;
-    use super::_types_h::__darwin_va_list;
-}
 
+    pub type va_list = __darwin_va_list;
+    use crate::types::__darwin_va_list;
+}
 
 pub mod tls_h {
     extern "C" {
-        
+
         pub type tls;
     }
 }
 
-
-
-
-
-
 pub mod _socklen_t_h {
-    
+
     pub type socklen_t = __darwin_socklen_t;
-    use super::_types_h::__darwin_socklen_t;
+    use crate::types::__darwin_socklen_t;
 }
 
 pub mod socket_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr {
         pub sa_len: __uint8_t,
         pub sa_family: sa_family_t,
         pub sa_data: [::core::ffi::c_char; 14],
     }
-    
+
     pub const AF_UNIX: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    
+
     pub const AF_INET: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
-    
+
     pub const AF_INET6: ::core::ffi::c_int = 30 as ::core::ffi::c_int;
+    use crate::types::__uint8_t;
     use crate::types::sa_family_t;
-    use super::_types_h::__uint8_t;
 }
 
 pub mod un_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr_un {
         pub sun_len: ::core::ffi::c_uchar,
         pub sun_family: sa_family_t,
@@ -118,13 +75,13 @@ pub mod un_h {
 pub mod in_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct in_addr {
         pub s_addr: in_addr_t,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr_in {
         pub sin_len: __uint8_t,
         pub sin_family: sa_family_t,
@@ -132,22 +89,22 @@ pub mod in_h {
         pub sin_addr: in_addr,
         pub sin_zero: [::core::ffi::c_char; 8],
     }
+    use crate::types::__uint8_t;
     use crate::types::in_addr_t;
     use crate::types::in_port_t;
     use crate::types::sa_family_t;
-    use super::_types_h::__uint8_t;
 }
 
 pub mod in6_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct in6_addr {
         pub __u6_addr: C2RustUnnamed,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed {
         pub __u6_addr8: [__uint8_t; 16],
         pub __u6_addr16: [__uint16_t; 8],
@@ -155,7 +112,7 @@ pub mod in6_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr_in6 {
         pub sin6_len: __uint8_t,
         pub sin6_family: sa_family_t,
@@ -166,12 +123,12 @@ pub mod in6_h {
     }
     use crate::types::in_port_t;
     use crate::types::sa_family_t;
-    use super::_types_h::{__uint16_t, __uint32_t, __uint8_t};
+    use crate::types::{__uint16_t, __uint32_t, __uint8_t};
 }
 
 pub mod event_h {
     extern "C" {
-        
+
         pub type event_base;
     }
 }
@@ -179,7 +136,7 @@ pub mod event_h {
 pub mod event_struct_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct event {
         pub ev_evcallback: event_callback,
         pub ev_timeout_pos: C2RustUnnamed_5,
@@ -192,14 +149,14 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_0 {
         pub ev_io: C2RustUnnamed_3,
         pub ev_signal: C2RustUnnamed_1,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_1 {
         pub ev_signal_next: C2RustUnnamed_2,
         pub ev_ncalls: ::core::ffi::c_short,
@@ -207,42 +164,42 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_2 {
         pub le_next: *mut event,
         pub le_prev: *mut *mut event,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_3 {
         pub ev_io_next: C2RustUnnamed_4,
         pub ev_timeout: timeval,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_4 {
         pub le_next: *mut event,
         pub le_prev: *mut *mut event,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_5 {
         pub ev_next_with_common_timeout: C2RustUnnamed_6,
         pub min_heap_idx: ::core::ffi::c_int,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_6 {
         pub tqe_next: *mut event,
         pub tqe_prev: *mut *mut event,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct event_callback {
         pub evcb_active_next: C2RustUnnamed_8,
         pub evcb_flags: ::core::ffi::c_short,
@@ -253,7 +210,7 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_7 {
         pub evcb_callback: Option<
             unsafe extern "C" fn(
@@ -271,90 +228,88 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_8 {
         pub tqe_next: *mut event_callback,
         pub tqe_prev: *mut *mut event_callback,
     }
+    use super::event_h::event_base;
     use crate::types::timeval;
     use crate::types::uint8_t;
-    use super::event_h::event_base;
 }
 
-
-
 pub mod bouncer_h {
-    
+
     pub type SocketState = ::core::ffi::c_uint;
-    
+
     pub const SV_TESTED: SocketState = 16;
-    
+
     pub const SV_USED: SocketState = 15;
-    
+
     pub const SV_ACTIVE_CANCEL: SocketState = 14;
-    
+
     pub const SV_ACTIVE: SocketState = 13;
-    
+
     pub const SV_IDLE: SocketState = 12;
-    
+
     pub const SV_BEING_CANCELED: SocketState = 11;
-    
+
     pub const SV_LOGIN: SocketState = 10;
-    
+
     pub const SV_JUSTFREE: SocketState = 9;
-    
+
     pub const SV_FREE: SocketState = 8;
-    
+
     pub const CL_ACTIVE_CANCEL: SocketState = 7;
-    
+
     pub const CL_WAITING_CANCEL: SocketState = 6;
-    
+
     pub const CL_ACTIVE: SocketState = 5;
-    
+
     pub const CL_WAITING_LOGIN: SocketState = 4;
-    
+
     pub const CL_WAITING: SocketState = 3;
-    
+
     pub const CL_LOGIN: SocketState = 2;
-    
+
     pub const CL_JUSTFREE: SocketState = 1;
-    
+
     pub const CL_FREE: SocketState = 0;
-    
+
     pub type PauseMode = ::core::ffi::c_uint;
-    
+
     pub const P_SUSPEND: PauseMode = 2;
-    
+
     pub const P_PAUSE: PauseMode = 1;
-    
+
     pub const P_NONE: PauseMode = 0;
-    
+
     pub type ShutDownMode = ::core::ffi::c_uint;
-    
+
     pub const SHUTDOWN_IMMEDIATE: ShutDownMode = 3;
-    
+
     pub const SHUTDOWN_WAIT_FOR_CLIENTS: ShutDownMode = 2;
-    
+
     pub const SHUTDOWN_WAIT_FOR_SERVERS: ShutDownMode = 1;
-    
+
     pub const SHUTDOWN_NONE: ShutDownMode = 0;
-    
+
     pub type PacketCallbackFlag = ::core::ffi::c_uint;
-    
+
     pub const CB_HANDLE_COMPLETE_PACKET: PacketCallbackFlag = 2;
-    
+
     pub const CB_WANT_COMPLETE_PACKET: PacketCallbackFlag = 1;
-    
+
     pub const CB_NONE: PacketCallbackFlag = 0;
-    
+
     pub type LoadBalanceHosts = ::core::ffi::c_uint;
-    
+
     pub const LOAD_BALANCE_HOSTS_ROUND_ROBIN: LoadBalanceHosts = 1;
-    
+
     pub const LOAD_BALANCE_HOSTS_DISABLE: LoadBalanceHosts = 0;
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    
+
     pub struct PgSocket {
         pub head: List,
         pub cancel_head: List,
@@ -411,7 +366,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    
+
     pub struct CallbackState {
         #[bitfield(name = "flag", ty = "PacketCallbackFlag", bits = "0..=7")]
         pub flag: [u8; 1],
@@ -421,7 +376,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct ScramState {
         pub client_nonce: *mut ::core::ffi::c_char,
         pub client_first_message_bare: *mut ::core::ffi::c_char,
@@ -443,14 +398,14 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_9 {
         pub dns_token: *mut DNSToken,
         pub db: *mut PgDatabase,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct PgDatabase {
         pub head: List,
         pub name: [::core::ffi::c_char; 64],
@@ -488,7 +443,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct PgCredentials {
         pub tree_node: AANode,
         pub name: [::core::ffi::c_char; 128],
@@ -506,7 +461,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct PgGlobalUser {
         pub credentials: PgCredentials,
         pub head: List,
@@ -525,7 +480,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    
+
     pub struct PgPool {
         pub head: List,
         pub map_head: List,
@@ -561,7 +516,7 @@ pub mod bouncer_h {
     pub use super::super::common::types::PgStats;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union PgAddr {
         pub sa: sockaddr,
         pub sin: sockaddr_in,
@@ -570,31 +525,31 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr_ucreds {
         pub sin: sockaddr_in,
         pub uid: uid_t,
         pub pid: pid_t,
     }
-    
+
     pub type ReplicationType = ::core::ffi::c_uint;
-    
+
     pub const REPLICATION_PHYSICAL: ReplicationType = 2;
-    
+
     pub const REPLICATION_LOGICAL: ReplicationType = 1;
-    
+
     pub const REPLICATION_NONE: ReplicationType = 0;
-    
+
     pub const RA_FAKE: ResponseAction = 2;
-    
+
     pub const RA_SKIP: ResponseAction = 1;
-    
+
     pub const RA_FORWARD: ResponseAction = 0;
-    
+
     pub type ResponseAction = ::core::ffi::c_uint;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct OutstandingRequest {
         pub node: List,
         pub type_0: ::core::ffi::c_char,
@@ -602,47 +557,47 @@ pub mod bouncer_h {
         pub server_ps: *mut PgServerPreparedStatement,
         pub server_ps_query_id: uint64_t,
     }
-    
+
     pub const AUTH_TYPE_PAM: auth_type = 7;
-    
+
     pub type auth_type = ::core::ffi::c_uint;
-    
+
     pub const AUTH_TYPE_REJECT: auth_type = 10;
-    
+
     pub const AUTH_TYPE_PEER: auth_type = 9;
-    
+
     pub const AUTH_TYPE_SCRAM_SHA_256: auth_type = 8;
-    
+
     pub const AUTH_TYPE_LDAP: auth_type = 6;
-    
+
     pub const AUTH_TYPE_HBA: auth_type = 5;
-    
+
     pub const AUTH_TYPE_CERT: auth_type = 4;
-    
+
     pub const AUTH_TYPE_MD5: auth_type = 3;
-    
+
     pub const AUTH_TYPE_PLAIN: auth_type = 2;
-    
+
     pub const AUTH_TYPE_TRUST: auth_type = 1;
-    
+
     pub const AUTH_TYPE_ANY: auth_type = 0;
-    
+
     pub const PKT_CANCEL: ::core::ffi::c_int = 80877102 as ::core::ffi::c_int;
-    
+
     pub const POOL_SESSION: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
-    
+
     pub const POOL_INHERIT: ::core::ffi::c_int = 3 as ::core::ffi::c_int;
-    
+
     pub const CANCELLATION_TTL_MASK: ::core::ffi::c_int = 0x3 as ::core::ffi::c_int;
     #[inline]
-    
+
     pub unsafe extern "C" fn pga_is_unix(mut a: *const PgAddr) -> bool {
         (*a).sa.sa_family as ::core::ffi::c_int == AF_UNIX
     }
-    
+
     pub const RAW_IOBUF_SIZE: ::core::ffi::c_ulong = 12 as ::core::ffi::c_ulong;
     #[inline]
-    
+
     pub unsafe extern "C" fn first_socket(mut slist: *mut StatList) -> *mut PgSocket {
         if statlist_empty(slist) {
             return ::core::ptr::null_mut::<PgSocket>();
@@ -651,7 +606,7 @@ pub mod bouncer_h {
             .offset(-(0 as ::core::ffi::c_ulong as isize)) as *mut PgSocket
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn last_socket(mut slist: *mut StatList) -> *mut PgSocket {
         if statlist_empty(slist) {
             return ::core::ptr::null_mut::<PgSocket>();
@@ -662,66 +617,66 @@ pub mod bouncer_h {
 
     use crate::types::pid_t;
 
+    use super::dnslookup_h::{DNSContext, DNSToken};
+    use super::in6_h::sockaddr_in6;
+    use super::in_h::sockaddr_in;
+    use super::pktbuf_h::PktBuf;
+    use super::sbuf_h::SBuf;
+    use super::socket_h::{sockaddr, AF_UNIX};
+    use crate::types::pg_cryptohash_type;
     use crate::types::uid_t;
     use crate::types::uint16_t;
     use crate::types::uint64_t;
     use crate::types::uint8_t;
-    use crate::types::{AANode, AATree};
-    use crate::types::pg_cryptohash_type;
-    use super::dnslookup_h::{DNSContext, DNSToken};
-    use super::in6_h::sockaddr_in6;
-    use super::in_h::sockaddr_in;
-    use crate::types::List;
-    use super::pktbuf_h::PktBuf;
-    use crate::types::{PgClientPreparedStatement, PgServerPreparedStatement};
-    use crate::types::PktHdr;
-    use super::sbuf_h::SBuf;
-    use super::socket_h::{sockaddr, AF_UNIX};
-    use crate::types::{statlist_empty, StatList};
     use crate::types::usec_t;
+    use crate::types::List;
+    use crate::types::PktHdr;
     use crate::types::VarCache;
+    use crate::types::{statlist_empty, StatList};
+    use crate::types::{AANode, AATree};
+    use crate::types::{PgClientPreparedStatement, PgServerPreparedStatement};
     extern "C" {
-        
+
         pub static mut cf_sbuf_len: ::core::ffi::c_int;
-        
+
         pub fn pga_set(a: *mut PgAddr, fam: ::core::ffi::c_int, port: ::core::ffi::c_int);
-        
+
         pub fn pga_copy(a: *mut PgAddr, sa: *const sockaddr);
-        
+
         pub fn pga_cmp_addr(a: *const PgAddr, b: *const PgAddr) -> ::core::ffi::c_int;
-        
+
         pub static mut cf_unix_socket_dir: *mut ::core::ffi::c_char;
-        
+
         pub static mut cf_peer_id: ::core::ffi::c_int;
-        
+
         pub static mut cf_res_pool_timeout: usec_t;
-        
+
         pub static mut cf_autodb_connstr: *mut ::core::ffi::c_char;
-        
+
         pub static mut cf_server_reset_query: *mut ::core::ffi::c_char;
-        
+
         pub static mut cf_server_reset_query_always: ::core::ffi::c_int;
-        
+
         pub static mut cf_server_check_query: *mut ::core::ffi::c_char;
-        
+
         pub static mut cf_server_check_delay: usec_t;
-        
+
         pub static mut cf_server_connect_timeout: usec_t;
-        
+
         pub static mut cf_server_login_retry: usec_t;
-        
+
         pub static mut cf_server_round_robin: ::core::ffi::c_int;
-        
+
         pub static mut cf_auth_type: ::core::ffi::c_int;
-        
+
         pub static mut cf_pause_mode: ::core::ffi::c_int;
-        
+
         pub static mut cf_shutdown: ::core::ffi::c_int;
-        
+
         pub static mut cf_log_connections: ::core::ffi::c_int;
-        
+
         pub static mut cf_log_disconnections: ::core::ffi::c_int;
-        
+
         pub static mut adns: *mut DNSContext;
     }
 }
@@ -729,7 +684,7 @@ pub mod bouncer_h {
 pub mod sbuf_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct SBuf {
         pub ev: event,
         pub wait_type: uint8_t,
@@ -749,7 +704,7 @@ pub mod sbuf_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct SBufIO {
         pub sbufio_peek:
             Option<unsafe extern "C" fn(*mut SBuf, *mut ::core::ffi::c_void, size_t) -> ssize_t>,
@@ -759,79 +714,79 @@ pub mod sbuf_h {
             Option<unsafe extern "C" fn(*mut SBuf, *const ::core::ffi::c_void, size_t) -> ssize_t>,
         pub sbufio_close: Option<unsafe extern "C" fn(*mut SBuf) -> ::core::ffi::c_int>,
     }
-    
+
     pub type sbuf_cb_t = Option<unsafe extern "C" fn(*mut SBuf, SBufEvent, *mut MBuf) -> bool>;
-    
+
     pub type SBufEvent = ::core::ffi::c_uint;
-    
+
     pub const SBUF_EV_TLS_READY: SBufEvent = 7;
-    
+
     pub const SBUF_EV_PKT_CALLBACK: SBufEvent = 6;
-    
+
     pub const SBUF_EV_FLUSH: SBufEvent = 5;
-    
+
     pub const SBUF_EV_CONNECT_OK: SBufEvent = 4;
-    
+
     pub const SBUF_EV_CONNECT_FAILED: SBufEvent = 3;
-    
+
     pub const SBUF_EV_SEND_FAILED: SBufEvent = 2;
-    
+
     pub const SBUF_EV_RECV_FAILED: SBufEvent = 1;
-    
+
     pub const SBUF_EV_READ: SBufEvent = 0;
     #[inline]
-    
+
     pub unsafe extern "C" fn sbuf_is_empty(mut sbuf: *mut SBuf) -> bool {
         iobuf_empty((*sbuf).io) as ::core::ffi::c_int != 0
             && (*sbuf).pkt_remain == 0 as ::core::ffi::c_uint
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn sbuf_is_closed(mut sbuf: *mut SBuf) -> bool {
         (*sbuf).sock == 0 as ::core::ffi::c_int
     }
-    use crate::types::size_t;
     use super::_socklen_t_h::socklen_t;
-    use crate::types::ssize_t;
     use super::_time_t_h::time_t;
-    use crate::types::uint8_t;
     use super::event_struct_h::event;
     use super::iobuf_h::{iobuf_empty, IOBuf};
     use super::pktbuf_h::PktBuf;
-    use crate::types::MBuf;
     use super::socket_h::sockaddr;
     use super::tls_h::tls;
+    use crate::types::size_t;
+    use crate::types::ssize_t;
+    use crate::types::uint8_t;
+    use crate::types::MBuf;
     extern "C" {
-        
+
         pub fn sbuf_init(sbuf: *mut SBuf, proto_fn: sbuf_cb_t);
-        
+
         pub fn sbuf_accept(sbuf: *mut SBuf, read_sock: ::core::ffi::c_int, is_unix: bool) -> bool;
-        
+
         pub fn sbuf_connect(
             sbuf: *mut SBuf,
             sa: *const sockaddr,
             sa_len: socklen_t,
             timeout_sec: time_t,
         ) -> bool;
-        
+
         pub fn sbuf_pause(sbuf: *mut SBuf) -> bool;
-        
+
         pub fn sbuf_continue(sbuf: *mut SBuf);
-        
+
         pub fn sbuf_close(sbuf: *mut SBuf) -> bool;
-        
+
         pub fn sbuf_queue_packet(sbuf: *mut SBuf, dst: *mut SBuf, pkt: *mut PktBuf) -> bool;
-        
+
         pub fn sbuf_answer(sbuf: *mut SBuf, buf: *const ::core::ffi::c_void, len: size_t) -> bool;
     }
 }
 
 pub mod iobuf_h {
-    
+
     pub type IOBuf = iobuf;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct iobuf {
         pub done_pos: ::core::ffi::c_uint,
         pub parse_pos: ::core::ffi::c_uint,
@@ -839,12 +794,12 @@ pub mod iobuf_h {
         pub buf: [uint8_t; 0],
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn iobuf_empty(mut io: *const IOBuf) -> bool {
         io.is_null() || (*io).done_pos == (*io).recv_pos
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn iobuf_reset(mut io: *mut IOBuf) {
         (*io).done_pos = 0 as ::core::ffi::c_uint;
         (*io).parse_pos = (*io).done_pos;
@@ -853,12 +808,10 @@ pub mod iobuf_h {
     use crate::types::uint8_t;
 }
 
-
-
 pub mod pktbuf_h {
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    
+
     pub struct PktBuf {
         pub buf: *mut uint8_t,
         pub buf_len: ::core::ffi::c_int,
@@ -874,20 +827,20 @@ pub mod pktbuf_h {
         #[bitfield(padding)]
         pub c2rust_padding: [u8; 7],
     }
-    use crate::types::uint64_t;
-    use crate::types::uint8_t;
     use super::bouncer_h::PgSocket;
     use super::event_struct_h::event;
+    use crate::types::uint64_t;
+    use crate::types::uint8_t;
     extern "C" {
-        
+
         pub fn pktbuf_static(buf: *mut PktBuf, data: *mut uint8_t, len: ::core::ffi::c_int);
-        
+
         pub fn pktbuf_free(buf: *mut PktBuf);
-        
+
         pub fn pktbuf_send_immediate(buf: *mut PktBuf, sk: *mut PgSocket) -> bool;
-        
+
         pub fn pktbuf_put_uint64(buf: *mut PktBuf, val: uint64_t);
-        
+
         pub fn pktbuf_write_generic(
             buf: *mut PktBuf,
             type_0: ::core::ffi::c_int,
@@ -898,56 +851,56 @@ pub mod pktbuf_h {
 }
 
 pub mod dnslookup_h {
-    
+
     pub type adns_callback_f = Option<
         unsafe extern "C" fn(*mut ::core::ffi::c_void, *const sockaddr, ::core::ffi::c_int) -> (),
     >;
     use super::socket_h::sockaddr;
     extern "C" {
-        
+
         pub type DNSToken;
-        
+
         pub type DNSContext;
-        
+
         pub fn adns_resolve(
             ctx: *mut DNSContext,
             name: *const ::core::ffi::c_char,
             cb_func: adns_callback_f,
             arg: *mut ::core::ffi::c_void,
         ) -> *mut DNSToken;
-        
+
         pub fn adns_cancel(ctx: *mut DNSContext, tk: *mut DNSToken);
     }
 }
 
 pub mod logging_h {
-    
+
     pub type LogLevel = ::core::ffi::c_uint;
-    
+
     pub const LG_NOISE: LogLevel = 6;
-    
+
     pub const LG_DEBUG: LogLevel = 5;
-    
+
     pub const LG_INFO: LogLevel = 4;
-    
+
     pub const LG_STATS: LogLevel = 3;
-    
+
     pub const LG_WARNING: LogLevel = 2;
-    
+
     pub const LG_ERROR: LogLevel = 1;
-    
+
     pub const LG_FATAL: LogLevel = 0;
     extern "C" {
-        
+
         pub static mut cf_verbose: ::core::ffi::c_int;
-        
+
         pub fn log_generic(
             level: LogLevel,
             ctx: *mut ::core::ffi::c_void,
             s: *const ::core::ffi::c_char,
             ...
         );
-        
+
         pub fn log_fatal(
             file: *const ::core::ffi::c_char,
             line: ::core::ffi::c_int,
@@ -963,7 +916,7 @@ pub mod logging_h {
 pub mod cxalloc_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct CxOps {
         pub c_alloc: Option<
             unsafe extern "C" fn(*mut ::core::ffi::c_void, size_t) -> *mut ::core::ffi::c_void,
@@ -981,32 +934,32 @@ pub mod cxalloc_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct CxMem {
         pub ops: *const CxOps,
         pub ctx: *mut ::core::ffi::c_void,
     }
     use crate::types::size_t;
     extern "C" {
-        
+
         pub static cx_libc_allocator: CxMem;
     }
 }
 
 pub mod objects_h {
     extern "C" {
-        
+
         pub type Slab;
     }
 }
 
 pub mod slab_h {
-    
+
     pub type slab_init_fn = Option<unsafe extern "C" fn(*mut ::core::ffi::c_void) -> ()>;
     use super::cxalloc_h::CxMem;
     use super::objects_h::Slab;
     extern "C" {
-        
+
         pub fn slab_create(
             name: *const ::core::ffi::c_char,
             obj_size: ::core::ffi::c_uint,
@@ -1014,39 +967,39 @@ pub mod slab_h {
             init_func: slab_init_fn,
             cx: *const CxMem,
         ) -> *mut Slab;
-        
+
         pub fn slab_destroy(slab: *mut Slab);
-        
+
         pub fn slab_alloc(slab: *mut Slab) -> *mut ::core::ffi::c_void;
-        
+
         pub fn slab_free(slab: *mut Slab, obj: *mut ::core::ffi::c_void);
-        
+
         pub fn slab_active_count(slab: *const Slab) -> ::core::ffi::c_int;
     }
 }
 
 pub mod _OSByteOrder_h {
     #[inline]
-    
+
     pub unsafe extern "C" fn _OSSwapInt16(mut _data: __uint16_t) -> __uint16_t {
         ((_data as ::core::ffi::c_int) << 8 as ::core::ffi::c_int
             | _data as ::core::ffi::c_int >> 8 as ::core::ffi::c_int) as __uint16_t
     }
-    use super::_types_h::__uint16_t;
+    use crate::types::__uint16_t;
 }
 
 pub mod _stdio_h {
     use crate::types::size_t;
 
     extern "C" {
-        
+
         pub fn snprintf(
             __str: *mut ::core::ffi::c_char,
             __size: size_t,
             __format: *const ::core::ffi::c_char,
             ...
         ) -> ::core::ffi::c_int;
-        
+
         pub fn vsnprintf(
             __str: *mut ::core::ffi::c_char,
             __size: size_t,
@@ -1056,12 +1009,11 @@ pub mod _stdio_h {
     }
 }
 
-
 pub mod usual_socket_h {
-    use crate::types::size_t;
     use super::socket_h::sockaddr;
+    use crate::types::size_t;
     extern "C" {
-        
+
         pub fn sa2str(
             sa: *const sockaddr,
             buf: *mut ::core::ffi::c_char,
@@ -1073,44 +1025,44 @@ pub mod usual_socket_h {
 pub mod _string_h {
     use crate::types::size_t;
     extern "C" {
-        
+
         pub fn memcmp(
             __s1: *const ::core::ffi::c_void,
             __s2: *const ::core::ffi::c_void,
             __n: size_t,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn memcpy(
             __dst: *mut ::core::ffi::c_void,
             __src: *const ::core::ffi::c_void,
             __n: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn memset(
             __b: *mut ::core::ffi::c_void,
             __c: ::core::ffi::c_int,
             __len: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn strchr(
             __s: *const ::core::ffi::c_char,
             __c: ::core::ffi::c_int,
         ) -> *mut ::core::ffi::c_char;
-        
+
         pub fn strcmp(
             __s1: *const ::core::ffi::c_char,
             __s2: *const ::core::ffi::c_char,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn strerror(__errnum: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;
-        
+
         pub fn strlen(__s: *const ::core::ffi::c_char) -> size_t;
-        
+
         pub fn strtok(
             __str: *mut ::core::ffi::c_char,
             __sep: *const ::core::ffi::c_char,
         ) -> *mut ::core::ffi::c_char;
-        
+
         pub fn strlcpy(
             __dst: *mut ::core::ffi::c_char,
             __source: *const ::core::ffi::c_char,
@@ -1122,9 +1074,9 @@ pub mod _string_h {
 pub mod util_h {
     use super::bouncer_h::PgSocket;
     extern "C" {
-        
+
         pub fn fill_remote_addr(sk: *mut PgSocket, fd: ::core::ffi::c_int, is_unix: bool);
-        
+
         pub fn fill_local_addr(sk: *mut PgSocket, fd: ::core::ffi::c_int, is_unix: bool);
     }
 }
@@ -1132,7 +1084,7 @@ pub mod util_h {
 pub mod admin_h {
     use super::bouncer_h::PgSocket;
     extern "C" {
-        
+
         pub fn admin_handle_cancel(client: *mut PgSocket);
     }
 }
@@ -1142,9 +1094,9 @@ pub mod client_h {
     use super::sbuf_h::{SBuf, SBufEvent};
     use crate::types::MBuf;
     extern "C" {
-        
+
         pub fn client_proto(sbuf: *mut SBuf, evtype: SBufEvent, pkt: *mut MBuf) -> bool;
-        
+
         pub fn set_pool(
             client: *mut PgSocket,
             dbname: *const ::core::ffi::c_char,
@@ -1152,7 +1104,7 @@ pub mod client_h {
             password: *const ::core::ffi::c_char,
             takeover: bool,
         ) -> bool;
-        
+
         pub fn sending_auth_query(client: *mut PgSocket) -> bool;
     }
 }
@@ -1160,22 +1112,22 @@ pub mod client_h {
 pub mod server_h {
     use super::bouncer_h::{PgDatabase, PgGlobalUser, PgPool, PgSocket};
     use super::sbuf_h::{SBuf, SBufEvent};
-    use crate::types::MBuf;
     use crate::types::usec_t;
+    use crate::types::MBuf;
     extern "C" {
-        
+
         pub fn server_proto(sbuf: *mut SBuf, evtype: SBufEvent, pkt: *mut MBuf) -> bool;
-        
+
         pub fn connection_pool_mode(connection: *mut PgSocket) -> ::core::ffi::c_int;
-        
+
         pub fn pool_pool_size(pool: *mut PgPool) -> ::core::ffi::c_int;
-        
+
         pub fn pool_server_lifetime(pool: *mut PgPool) -> usec_t;
-        
+
         pub fn pool_res_pool_size(pool: *mut PgPool) -> ::core::ffi::c_int;
-        
+
         pub fn database_max_connections(db: *mut PgDatabase) -> ::core::ffi::c_int;
-        
+
         pub fn user_max_connections(user: *mut PgGlobalUser) -> ::core::ffi::c_int;
     }
 }
@@ -1183,49 +1135,48 @@ pub mod server_h {
 pub mod scram_h {
     use super::bouncer_h::ScramState;
     extern "C" {
-        
+
         pub fn free_scram_state(state: *mut ScramState);
     }
 }
 
 pub mod janitor_h {
-    use crate::types::AATree;
     use super::bouncer_h::PgDatabase;
+    use crate::types::AATree;
     extern "C" {
-        
+
         pub fn kill_database(db: *mut PgDatabase);
-        
+
         pub fn kill_peer(db: *mut PgDatabase);
-        
+
         pub fn clear_user_tree_cached_scram_keys(tree: *mut AATree);
     }
 }
 
 pub mod _malloc_h {
     extern "C" {
-        
+
         pub fn free(_: *mut ::core::ffi::c_void);
     }
 }
 
 pub mod _stdlib_h {
     extern "C" {
-        
+
         pub fn exit(_: ::core::ffi::c_int) -> !;
     }
 }
 
 pub mod errno_h {
     extern "C" {
-        
+
         pub fn __error() -> *mut ::core::ffi::c_int;
     }
 }
 
-
 pub mod inet_h {
     extern "C" {
-        
+
         pub fn inet_pton(
             _: ::core::ffi::c_int,
             _: *const ::core::ffi::c_char,
@@ -1235,23 +1186,23 @@ pub mod inet_h {
 }
 
 pub mod protocol_h {
-    
+
     pub const PqMsg_Close: ::core::ffi::c_int = 'C' as i32;
-    
+
     pub const PqMsg_Parse: ::core::ffi::c_int = 'P' as i32;
-    
+
     pub const PqMsg_Query: ::core::ffi::c_int = 'Q' as i32;
-    
+
     pub const PqMsg_Terminate: ::core::ffi::c_int = 'X' as i32;
-    
+
     pub const PqMsg_ParseComplete: ::core::ffi::c_int = '1' as i32;
-    
+
     pub const PqMsg_CloseComplete: ::core::ffi::c_int = '3' as i32;
 }
 
 pub mod loader_h {
     extern "C" {
-        
+
         pub fn parse_database(
             base: *mut ::core::ffi::c_void,
             name: *const ::core::ffi::c_char,
@@ -1262,45 +1213,25 @@ pub mod loader_h {
 
 pub mod err_h {
     extern "C" {
-        
+
         pub fn xstrdup(s: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
     }
 }
 
 pub mod safeio_h {
     extern "C" {
-        
+
         pub fn safe_close(fd: ::core::ffi::c_int) -> ::core::ffi::c_int;
     }
 }
 pub use self::_OSByteOrder_h::_OSSwapInt16;
-pub use crate::types::in_addr_t;
-pub use crate::types::in_port_t;
 use self::_malloc_h::free;
-pub use crate::types::NULL;
-pub use crate::types::pid_t;
-pub use crate::types::ptrdiff_t;
-pub use crate::types::sa_family_t;
-pub use crate::types::size_t;
 pub use self::_socklen_t_h::socklen_t;
-pub use crate::types::ssize_t;
 use self::_stdio_h::{snprintf, vsnprintf};
 use self::_stdlib_h::exit;
 use self::_string_h::{memcmp, memcpy, memset, strchr, strcmp, strerror, strlcpy, strlen, strtok};
 pub use self::_time_t_h::time_t;
-pub use crate::types::timeval;
-pub use self::_types_h::{
-    __darwin_ptrdiff_t, __darwin_size_t, __darwin_socklen_t, __darwin_ssize_t, __darwin_time_t,
-    __darwin_va_list, __int32_t, __uint16_t, __uint32_t, __uint8_t,
-};
-pub use crate::types::uid_t;
-pub use crate::types::uint16_t;
-pub use crate::types::uint32_t;
-pub use crate::types::uint64_t;
-pub use crate::types::uint8_t;
-pub use crate::types::uintptr_t;
 pub use self::_va_list_h::va_list;
-pub use crate::types::{aatree_cmp_f, aatree_init, aatree_insert, aatree_search, aatree_walker_f, AANode, AATree};
 use self::admin_h::admin_handle_cancel;
 pub use self::bouncer_h::{
     adns, auth_type, cf_auth_type, cf_autodb_connstr, cf_log_connections, cf_log_disconnections,
@@ -1323,11 +1254,33 @@ pub use self::bouncer_h::{
     SV_USED,
 };
 use self::client_h::{client_proto, sending_auth_query, set_pool};
-pub use crate::types::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
 pub use self::cxalloc_h::{cx_libc_allocator, CxMem, CxOps};
 pub use self::dnslookup_h::{adns_callback_f, adns_cancel, adns_resolve, DNSContext, DNSToken};
 use self::err_h::xstrdup;
 use self::errno_h::__error;
+pub use crate::types::in_addr_t;
+pub use crate::types::in_port_t;
+pub use crate::types::pid_t;
+pub use crate::types::ptrdiff_t;
+pub use crate::types::sa_family_t;
+pub use crate::types::size_t;
+pub use crate::types::ssize_t;
+pub use crate::types::timeval;
+pub use crate::types::uid_t;
+pub use crate::types::uint16_t;
+pub use crate::types::uint32_t;
+pub use crate::types::uint64_t;
+pub use crate::types::uint8_t;
+pub use crate::types::uintptr_t;
+pub use crate::types::NULL;
+pub use crate::types::{
+    __darwin_ptrdiff_t, __darwin_size_t, __darwin_socklen_t, __darwin_ssize_t, __darwin_time_t,
+    __darwin_va_list, __int32_t, __uint16_t, __uint32_t, __uint8_t,
+};
+pub use crate::types::{
+    aatree_cmp_f, aatree_init, aatree_insert, aatree_search, aatree_walker_f, AANode, AATree,
+};
+pub use crate::types::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
 
 pub use self::event_struct_h::{
     event, event_callback, C2RustUnnamed_0, C2RustUnnamed_1, C2RustUnnamed_2, C2RustUnnamed_3,
@@ -1339,24 +1292,22 @@ use self::inet_h::inet_pton;
 pub use self::internal::__builtin_va_list;
 pub use self::iobuf_h::{iobuf, iobuf_empty, iobuf_reset, IOBuf};
 use self::janitor_h::{clear_user_tree_cached_scram_keys, kill_database, kill_peer};
-pub use crate::types::{
-    list_append, list_del, list_empty, list_first, list_init, list_pop, list_prepend, List,
-};
 use self::loader_h::parse_database;
 pub use self::logging_h::{
     cf_verbose, log_fatal, log_generic, LogLevel, LG_DEBUG, LG_ERROR, LG_FATAL, LG_INFO, LG_NOISE,
     LG_STATS, LG_WARNING,
 };
-pub use crate::lib::usual::mbuf::mbuf_free;
-pub use crate::types::MBuf;
 use self::objects_h::Slab;
 pub use self::pktbuf_h::{
     pktbuf_free, pktbuf_put_uint64, pktbuf_send_immediate, pktbuf_static, pktbuf_write_generic,
     PktBuf,
 };
+pub use crate::lib::usual::mbuf::mbuf_free;
+pub use crate::types::MBuf;
 pub use crate::types::{
-    PgClientPreparedStatement, PgPreparedStatement, PgServerPreparedStatement,
+    list_append, list_del, list_empty, list_first, list_init, list_pop, list_prepend, List,
 };
+pub use crate::types::{PgClientPreparedStatement, PgPreparedStatement, PgServerPreparedStatement};
 
 // External function declarations (defined in prepare.rs)
 extern "C" {
@@ -1402,17 +1353,20 @@ pub use self::slab_h::{
     slab_active_count, slab_alloc, slab_create, slab_destroy, slab_free, slab_init_fn,
 };
 pub use self::socket_h::{sockaddr, AF_INET, AF_INET6, AF_UNIX};
-pub use crate::types::{statlist_append, statlist_count, statlist_empty, statlist_first, statlist_init, statlist_pop, statlist_prepend, statlist_put_before, statlist_remove, StatList};
-pub use crate::types::{false_0, true_0};
-pub use crate::types::{PStr, StrPool};
 pub use self::sys__types_h::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
+pub use crate::types::{false_0, true_0};
+pub use crate::types::{
+    statlist_append, statlist_count, statlist_empty, statlist_first, statlist_init, statlist_pop,
+    statlist_prepend, statlist_put_before, statlist_remove, StatList,
+};
 pub use crate::types::{usec_t, USEC};
+pub use crate::types::{PStr, StrPool};
 
 pub use self::un_h::sockaddr_un;
 use self::usual_socket_h::sa2str;
-pub use crate::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 use self::util_h::{fill_local_addr, fill_remote_addr};
 pub use crate::types::VarCache;
+pub use crate::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 #[no_mangle]
 
 pub static mut user_list: StatList = StatList {
@@ -1554,11 +1508,8 @@ pub static mut autodatabase_idle_list: StatList = StatList {
 };
 #[no_mangle]
 
-pub static mut replication_type_parameters: [*const ::core::ffi::c_char; 3] = [
-    b"no\0" as *const u8 as *const ::core::ffi::c_char,
-    b"database\0" as *const u8 as *const ::core::ffi::c_char,
-    b"yes\0" as *const u8 as *const ::core::ffi::c_char,
-];
+pub static mut replication_type_parameters: [*const ::core::ffi::c_char; 3] =
+    [c"no".as_ptr(), c"database".as_ptr(), c"yes".as_ptr()];
 #[no_mangle]
 
 pub unsafe extern "C" fn get_active_client_count() -> ::core::ffi::c_int {
@@ -1607,7 +1558,7 @@ unsafe extern "C" fn construct_server(mut obj: *mut ::core::ffi::c_void) {
     (*server).host = ::core::ptr::null_mut::<::core::ffi::c_char>();
     statlist_init(
         &raw mut (*server).outstanding_requests,
-        b"outstanding_requests\0" as *const u8 as *const ::core::ffi::c_char,
+        c"outstanding_requests".as_ptr(),
     );
     last_pgsocket_id = last_pgsocket_id.wrapping_add(1);
     (*server).id = last_pgsocket_id;
@@ -1669,49 +1620,49 @@ pub unsafe extern "C" fn init_objects() {
         None,
     );
     user_cache = slab_create(
-        b"user_cache\0" as *const u8 as *const ::core::ffi::c_char,
+        c"user_cache".as_ptr(),
         ::core::mem::size_of::<PgGlobalUser>() as ::core::ffi::c_uint,
         0 as ::core::ffi::c_uint,
         None,
         &raw const cx_libc_allocator,
     );
     credentials_cache = slab_create(
-        b"credentials_cache\0" as *const u8 as *const ::core::ffi::c_char,
+        c"credentials_cache".as_ptr(),
         ::core::mem::size_of::<PgCredentials>() as ::core::ffi::c_uint,
         0 as ::core::ffi::c_uint,
         None,
         &raw const cx_libc_allocator,
     );
     db_cache = slab_create(
-        b"db_cache\0" as *const u8 as *const ::core::ffi::c_char,
+        c"db_cache".as_ptr(),
         ::core::mem::size_of::<PgDatabase>() as ::core::ffi::c_uint,
         0 as ::core::ffi::c_uint,
         None,
         &raw const cx_libc_allocator,
     );
     peer_cache = slab_create(
-        b"peer_cache\0" as *const u8 as *const ::core::ffi::c_char,
+        c"peer_cache".as_ptr(),
         ::core::mem::size_of::<PgDatabase>() as ::core::ffi::c_uint,
         0 as ::core::ffi::c_uint,
         None,
         &raw const cx_libc_allocator,
     );
     peer_pool_cache = slab_create(
-        b"peer_pool_cache\0" as *const u8 as *const ::core::ffi::c_char,
+        c"peer_pool_cache".as_ptr(),
         ::core::mem::size_of::<PgPool>() as ::core::ffi::c_uint,
         0 as ::core::ffi::c_uint,
         None,
         &raw const cx_libc_allocator,
     );
     pool_cache = slab_create(
-        b"pool_cache\0" as *const u8 as *const ::core::ffi::c_char,
+        c"pool_cache".as_ptr(),
         ::core::mem::size_of::<PgPool>() as ::core::ffi::c_uint,
         0 as ::core::ffi::c_uint,
         None,
         &raw const cx_libc_allocator,
     );
     outstanding_request_cache = slab_create(
-        b"outstanding_request_cache\0" as *const u8 as *const ::core::ffi::c_char,
+        c"outstanding_request_cache".as_ptr(),
         ::core::mem::size_of::<OutstandingRequest>() as ::core::ffi::c_uint,
         0 as ::core::ffi::c_uint,
         None,
@@ -1725,12 +1676,12 @@ pub unsafe extern "C" fn init_objects() {
     {
         let mut _log_ctx = NULL;
         log_fatal(
-            b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+            c"src/objects.c".as_ptr(),
             171 as ::core::ffi::c_int,
-            b"init_objects\0" as *const u8 as *const ::core::ffi::c_char,
-            false_0 != 0,
+            c"init_objects".as_ptr(),
+            false,
             _log_ctx,
-            b"cannot create initial caches\0" as *const u8 as *const ::core::ffi::c_char,
+            c"cannot create initial caches".as_ptr(),
         );
         exit(1 as ::core::ffi::c_int);
     }
@@ -1744,28 +1695,28 @@ unsafe extern "C" fn do_iobuf_reset(mut arg: *mut ::core::ffi::c_void) {
 
 pub unsafe extern "C" fn init_caches() {
     server_cache = slab_create(
-        b"server_cache\0" as *const u8 as *const ::core::ffi::c_char,
+        c"server_cache".as_ptr(),
         ::core::mem::size_of::<PgSocket>() as ::core::ffi::c_uint,
         0 as ::core::ffi::c_uint,
         Some(construct_server as unsafe extern "C" fn(*mut ::core::ffi::c_void) -> ()),
         &raw const cx_libc_allocator,
     );
     client_cache = slab_create(
-        b"client_cache\0" as *const u8 as *const ::core::ffi::c_char,
+        c"client_cache".as_ptr(),
         ::core::mem::size_of::<PgSocket>() as ::core::ffi::c_uint,
         0 as ::core::ffi::c_uint,
         Some(construct_client as unsafe extern "C" fn(*mut ::core::ffi::c_void) -> ()),
         &raw const cx_libc_allocator,
     );
     iobuf_cache = slab_create(
-        b"iobuf_cache\0" as *const u8 as *const ::core::ffi::c_char,
+        c"iobuf_cache".as_ptr(),
         RAW_IOBUF_SIZE.wrapping_add(cf_sbuf_len as ::core::ffi::c_ulong) as ::core::ffi::c_uint,
         0 as ::core::ffi::c_uint,
         Some(do_iobuf_reset as unsafe extern "C" fn(*mut ::core::ffi::c_void) -> ()),
         &raw const cx_libc_allocator,
     );
     var_list_cache = slab_create(
-        b"var_list_cache\0" as *const u8 as *const ::core::ffi::c_char,
+        c"var_list_cache".as_ptr(),
         ::core::mem::size_of::<*mut PStr>().wrapping_mul(get_num_var_cached() as usize)
             as ::core::ffi::c_uint,
         0 as ::core::ffi::c_uint,
@@ -1773,7 +1724,7 @@ pub unsafe extern "C" fn init_caches() {
         &raw const cx_libc_allocator,
     );
     server_prepared_statement_cache = slab_create(
-        b"server_prepared_statement_cache\0" as *const u8 as *const ::core::ffi::c_char,
+        c"server_prepared_statement_cache".as_ptr(),
         ::core::mem::size_of::<PgServerPreparedStatement>() as ::core::ffi::c_uint,
         0 as ::core::ffi::c_uint,
         None,
@@ -1874,19 +1825,19 @@ pub unsafe extern "C" fn change_client_state(mut client: *mut PgSocket, mut news
         _ => {
             let mut _log_ctx = NULL;
             log_fatal(
-                b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+                c"src/objects.c".as_ptr(),
                 256 as ::core::ffi::c_int,
-                b"change_client_state\0" as *const u8 as *const ::core::ffi::c_char,
-                false_0 != 0,
+                c"change_client_state".as_ptr(),
+                false,
                 _log_ctx,
-                b"bad cur client state: %d\0" as *const u8 as *const ::core::ffi::c_char,
+                c"bad cur client state: %d".as_ptr(),
                 (*client).state() as ::core::ffi::c_int,
             );
             exit(1 as ::core::ffi::c_int);
         }
     }
     if current_block_14 == 2284361961084658740 {
-        (*client).set_sent_wait_notification((false_0 != 0));
+        (*client).set_sent_wait_notification((false));
         statlist_remove(
             &raw mut (*pool).waiting_client_list,
             &raw mut (*client).head,
@@ -1928,12 +1879,12 @@ pub unsafe extern "C" fn change_client_state(mut client: *mut PgSocket, mut news
         _ => {
             let mut _log_ctx_0 = NULL;
             log_fatal(
-                b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+                c"src/objects.c".as_ptr(),
                 287 as ::core::ffi::c_int,
-                b"change_client_state\0" as *const u8 as *const ::core::ffi::c_char,
-                false_0 != 0,
+                c"change_client_state".as_ptr(),
+                false,
                 _log_ctx_0,
-                b"bad new client state: %d\0" as *const u8 as *const ::core::ffi::c_char,
+                c"bad new client state: %d".as_ptr(),
                 (*client).state() as ::core::ffi::c_int,
             );
             exit(1 as ::core::ffi::c_int);
@@ -1979,12 +1930,12 @@ pub unsafe extern "C" fn change_server_state(mut server: *mut PgSocket, mut news
         _ => {
             let mut _log_ctx = NULL;
             log_fatal(
-                b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+                c"src/objects.c".as_ptr(),
                 325 as ::core::ffi::c_int,
-                b"change_server_state\0" as *const u8 as *const ::core::ffi::c_char,
-                false_0 != 0,
+                c"change_server_state".as_ptr(),
+                false,
                 _log_ctx,
-                b"bad old server state: %d\0" as *const u8 as *const ::core::ffi::c_char,
+                c"bad old server state: %d".as_ptr(),
                 (*server).state() as ::core::ffi::c_int,
             );
             exit(1 as ::core::ffi::c_int);
@@ -2032,12 +1983,12 @@ pub unsafe extern "C" fn change_server_state(mut server: *mut PgSocket, mut news
         _ => {
             let mut _log_ctx_0 = NULL;
             log_fatal(
-                b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+                c"src/objects.c".as_ptr(),
                 367 as ::core::ffi::c_int,
-                b"change_server_state\0" as *const u8 as *const ::core::ffi::c_char,
-                false_0 != 0,
+                c"change_server_state".as_ptr(),
+                false,
                 _log_ctx_0,
-                b"bad server state: %d\0" as *const u8 as *const ::core::ffi::c_char,
+                c"bad server state: %d".as_ptr(),
                 (*server).state() as ::core::ffi::c_int,
             );
             exit(1 as ::core::ffi::c_int);
@@ -2125,12 +2076,12 @@ unsafe extern "C" fn put_in_order(
         if res == 0 as ::core::ffi::c_int {
             let mut _log_ctx = NULL;
             log_fatal(
-                b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+                c"src/objects.c".as_ptr(),
                 435 as ::core::ffi::c_int,
-                b"put_in_order\0" as *const u8 as *const ::core::ffi::c_char,
-                false_0 != 0,
+                c"put_in_order".as_ptr(),
+                false,
                 _log_ctx,
-                b"put_in_order: found existing elem\0" as *const u8 as *const ::core::ffi::c_char,
+                c"put_in_order: found existing elem".as_ptr(),
             );
             exit(1 as ::core::ffi::c_int);
         } else if res > 0 as ::core::ffi::c_int {
@@ -2181,12 +2132,7 @@ pub unsafe extern "C" fn add_database(mut name: *const ::core::ffi::c_char) -> *
             >= ::core::mem::size_of::<[::core::ffi::c_char; 64]>()
         {
             let mut _log_ctx = NULL;
-            log_generic(
-                LG_WARNING,
-                _log_ctx,
-                b"too long db name: %s\0" as *const u8 as *const ::core::ffi::c_char,
-                name,
-            );
+            log_generic(LG_WARNING, _log_ctx, c"too long db name: %s".as_ptr(), name);
             slab_free(db_cache, db as *mut ::core::ffi::c_void);
             return ::core::ptr::null_mut::<PgDatabase>();
         }
@@ -2223,7 +2169,7 @@ pub unsafe extern "C" fn register_auto_database(
     }
     db = find_database(name);
     if !db.is_null() {
-        (*db).db_auto = true_0 != 0;
+        (*db).db_auto = true;
     }
     db
 }
@@ -2236,7 +2182,7 @@ pub unsafe extern "C" fn update_global_user_passwd(
     passwd = if !passwd.is_null() {
         passwd
     } else {
-        b"\0" as *const u8 as *const ::core::ffi::c_char
+        c"".as_ptr()
     };
     let mut needed = strlcpy(
         &raw mut (*user).credentials.passwd as *mut ::core::ffi::c_char,
@@ -2251,12 +2197,12 @@ pub unsafe extern "C" fn update_global_user_passwd(
         log_generic(
             LG_WARNING,
             _log_ctx,
-            b"bug in %s:%d - string truncated\0" as *const u8 as *const ::core::ffi::c_char,
-            b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+            c"bug in %s:%d - string truncated".as_ptr(),
+            c"src/objects.c".as_ptr(),
             510 as ::core::ffi::c_int,
         );
     }
-    (*user).credentials.dynamic_passwd = strlen(passwd) == 0 as size_t;
+    (*user).credentials.dynamic_passwd = strlen(passwd) == 0;
     user
 }
 
@@ -2284,8 +2230,8 @@ unsafe extern "C" fn add_new_global_user(
         log_generic(
             LG_WARNING,
             _log_ctx,
-            b"bug in %s:%d - string truncated\0" as *const u8 as *const ::core::ffi::c_char,
-            b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+            c"bug in %s:%d - string truncated".as_ptr(),
+            c"src/objects.c".as_ptr(),
             526 as ::core::ffi::c_int,
         );
     }
@@ -2338,8 +2284,8 @@ pub unsafe extern "C" fn add_dynamic_credentials(
             log_generic(
                 LG_WARNING,
                 _log_ctx,
-                b"bug in %s:%d - string truncated\0" as *const u8 as *const ::core::ffi::c_char,
-                b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+                c"bug in %s:%d - string truncated".as_ptr(),
+                c"src/objects.c".as_ptr(),
                 558 as ::core::ffi::c_int,
             );
         }
@@ -2368,12 +2314,12 @@ pub unsafe extern "C" fn add_dynamic_credentials(
         log_generic(
             LG_WARNING,
             _log_ctx_0,
-            b"bug in %s:%d - string truncated\0" as *const u8 as *const ::core::ffi::c_char,
-            b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+            c"bug in %s:%d - string truncated".as_ptr(),
+            c"src/objects.c".as_ptr(),
             569 as ::core::ffi::c_int,
         );
     }
-    (*credentials).dynamic_passwd = true_0 != 0;
+    (*credentials).dynamic_passwd = true;
     credentials
 }
 #[no_mangle]
@@ -2409,8 +2355,8 @@ pub unsafe extern "C" fn add_pam_credentials(
             log_generic(
                 LG_WARNING,
                 _log_ctx,
-                b"bug in %s:%d - string truncated\0" as *const u8 as *const ::core::ffi::c_char,
-                b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+                c"bug in %s:%d - string truncated".as_ptr(),
+                c"src/objects.c".as_ptr(),
                 589 as ::core::ffi::c_int,
             );
         }
@@ -2440,8 +2386,8 @@ pub unsafe extern "C" fn add_pam_credentials(
             log_generic(
                 LG_WARNING,
                 _log_ctx_0,
-                b"bug in %s:%d - string truncated\0" as *const u8 as *const ::core::ffi::c_char,
-                b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+                c"bug in %s:%d - string truncated".as_ptr(),
+                c"src/objects.c".as_ptr(),
                 600 as ::core::ffi::c_int,
             );
         }
@@ -2481,8 +2427,8 @@ pub unsafe extern "C" fn force_user_credentials(
         log_generic(
             LG_WARNING,
             _log_ctx,
-            b"bug in %s:%d - string truncated\0" as *const u8 as *const ::core::ffi::c_char,
-            b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+            c"bug in %s:%d - string truncated".as_ptr(),
+            c"src/objects.c".as_ptr(),
             619 as ::core::ffi::c_int,
         );
     }
@@ -2499,8 +2445,8 @@ pub unsafe extern "C" fn force_user_credentials(
         log_generic(
             LG_WARNING,
             _log_ctx_0,
-            b"bug in %s:%d - string truncated\0" as *const u8 as *const ::core::ffi::c_char,
-            b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+            c"bug in %s:%d - string truncated".as_ptr(),
+            c"src/objects.c".as_ptr(),
             620 as ::core::ffi::c_int,
         );
     }
@@ -2546,7 +2492,7 @@ pub unsafe extern "C" fn find_database(mut name: *const ::core::ffi::c_char) -> 
             as *mut PgDatabase;
         if strcmp(&raw mut (*db).name as *mut ::core::ffi::c_char, name) == 0 as ::core::ffi::c_int
         {
-            (*db).inactive_time = 0 as usec_t;
+            (*db).inactive_time = 0;
             statlist_remove(&raw mut autodatabase_idle_list, &raw mut (*db).head);
             put_in_order(
                 &raw mut (*db).head,
@@ -2576,7 +2522,7 @@ pub unsafe extern "C" fn find_or_register_database(
             log_generic(
                 LG_INFO,
                 connection as *mut ::core::ffi::c_void,
-                b"registered new auto-database: %s\0" as *const u8 as *const ::core::ffi::c_char,
+                c"registered new auto-database: %s".as_ptr(),
                 name,
             );
         }
@@ -2627,47 +2573,47 @@ unsafe extern "C" fn new_pool(
     (*pool).db = db;
     statlist_init(
         &raw mut (*pool).active_client_list,
-        b"active_client_list\0" as *const u8 as *const ::core::ffi::c_char,
+        c"active_client_list".as_ptr(),
     );
     statlist_init(
         &raw mut (*pool).waiting_client_list,
-        b"waiting_client_list\0" as *const u8 as *const ::core::ffi::c_char,
+        c"waiting_client_list".as_ptr(),
     );
     statlist_init(
         &raw mut (*pool).active_server_list,
-        b"active_server_list\0" as *const u8 as *const ::core::ffi::c_char,
+        c"active_server_list".as_ptr(),
     );
     statlist_init(
         &raw mut (*pool).idle_server_list,
-        b"idle_server_list\0" as *const u8 as *const ::core::ffi::c_char,
+        c"idle_server_list".as_ptr(),
     );
     statlist_init(
         &raw mut (*pool).tested_server_list,
-        b"tested_server_list\0" as *const u8 as *const ::core::ffi::c_char,
+        c"tested_server_list".as_ptr(),
     );
     statlist_init(
         &raw mut (*pool).used_server_list,
-        b"used_server_list\0" as *const u8 as *const ::core::ffi::c_char,
+        c"used_server_list".as_ptr(),
     );
     statlist_init(
         &raw mut (*pool).new_server_list,
-        b"new_server_list\0" as *const u8 as *const ::core::ffi::c_char,
+        c"new_server_list".as_ptr(),
     );
     statlist_init(
         &raw mut (*pool).waiting_cancel_req_list,
-        b"waiting_cancel_req_list\0" as *const u8 as *const ::core::ffi::c_char,
+        c"waiting_cancel_req_list".as_ptr(),
     );
     statlist_init(
         &raw mut (*pool).active_cancel_req_list,
-        b"active_cancel_req_list\0" as *const u8 as *const ::core::ffi::c_char,
+        c"active_cancel_req_list".as_ptr(),
     );
     statlist_init(
         &raw mut (*pool).active_cancel_server_list,
-        b"active_cancel_server_list\0" as *const u8 as *const ::core::ffi::c_char,
+        c"active_cancel_server_list".as_ptr(),
     );
     statlist_init(
         &raw mut (*pool).being_canceled_server_list,
-        b"being_canceled_server_list\0" as *const u8 as *const ::core::ffi::c_char,
+        c"being_canceled_server_list".as_ptr(),
     );
     list_append(
         &raw mut (*(*user_credentials).global_user).pool_list,
@@ -2693,19 +2639,19 @@ unsafe extern "C" fn new_peer_pool(mut db: *mut PgDatabase) -> *mut PgPool {
     (*pool).db = db;
     statlist_init(
         &raw mut (*pool).new_server_list,
-        b"new_server_list\0" as *const u8 as *const ::core::ffi::c_char,
+        c"new_server_list".as_ptr(),
     );
     statlist_init(
         &raw mut (*pool).waiting_cancel_req_list,
-        b"waiting_cancel_req_list\0" as *const u8 as *const ::core::ffi::c_char,
+        c"waiting_cancel_req_list".as_ptr(),
     );
     statlist_init(
         &raw mut (*pool).active_cancel_req_list,
-        b"active_cancel_req_list\0" as *const u8 as *const ::core::ffi::c_char,
+        c"active_cancel_req_list".as_ptr(),
     );
     statlist_init(
         &raw mut (*pool).active_cancel_server_list,
-        b"active_cancel_server_list\0" as *const u8 as *const ::core::ffi::c_char,
+        c"active_cancel_server_list".as_ptr(),
     );
     put_in_order(
         &raw mut (*pool).head,
@@ -2753,24 +2699,16 @@ unsafe extern "C" fn pause_client(mut client: *mut PgSocket) {
         log_generic(
             LG_DEBUG,
             client as *mut ::core::ffi::c_void,
-            b"pause_client\0" as *const u8 as *const ::core::ffi::c_char,
+            c"pause_client".as_ptr(),
         );
     }
     if cf_shutdown == SHUTDOWN_WAIT_FOR_SERVERS as ::core::ffi::c_int {
-        disconnect_client(
-            client,
-            true_0 != 0,
-            b"server shutting down\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        disconnect_client(client, true, c"server shutting down".as_ptr());
         return;
     }
     change_client_state(client, CL_WAITING);
     if !sbuf_pause(&raw mut (*client).sbuf) {
-        disconnect_client(
-            client,
-            true_0 != 0,
-            b"pause failed\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        disconnect_client(client, true, c"pause failed".as_ptr());
     }
 }
 
@@ -2779,16 +2717,12 @@ unsafe extern "C" fn pause_cancel_request(mut client: *mut PgSocket) {
         log_generic(
             LG_DEBUG,
             client as *mut ::core::ffi::c_void,
-            b"pause_cancel_request\0" as *const u8 as *const ::core::ffi::c_char,
+            c"pause_cancel_request".as_ptr(),
         );
     }
     change_client_state(client, CL_WAITING_CANCEL);
     if !sbuf_pause(&raw mut (*client).sbuf) {
-        disconnect_client(
-            client,
-            true_0 != 0,
-            b"pause cancel request failed\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        disconnect_client(client, true, c"pause cancel request failed".as_ptr());
     }
 }
 #[no_mangle]
@@ -2802,7 +2736,7 @@ pub unsafe extern "C" fn activate_client(mut client: *mut PgSocket) {
         log_generic(
             LG_DEBUG,
             client as *mut ::core::ffi::c_void,
-            b"activate_client\0" as *const u8 as *const ::core::ffi::c_char,
+            c"activate_client".as_ptr(),
         );
     }
     change_client_state(client, CL_ACTIVE);
@@ -2814,10 +2748,10 @@ pub unsafe extern "C" fn check_fast_fail(mut client: *mut PgSocket) -> bool {
     let mut cnt: ::core::ffi::c_int = 0;
     let mut pool = (*client).pool;
     if pool.is_null() {
-        return true_0 != 0;
+        return true;
     }
     if !(*pool).last_login_failed() {
-        return true_0 != 0;
+        return true;
     }
     cnt = statlist_count(&raw mut (*pool).active_server_list)
         + statlist_count(&raw mut (*pool).being_canceled_server_list)
@@ -2828,17 +2762,16 @@ pub unsafe extern "C" fn check_fast_fail(mut client: *mut PgSocket) -> bool {
         + statlist_count(&raw mut (*pool).active_cancel_server_list)
         - statlist_count(&raw mut (*pool).new_server_list);
     if cnt != 0 {
-        return true_0 != 0;
+        return true;
     }
     disconnect_client(
         client,
-        true_0 != 0,
-        b"server login has been failing, cached error: %s (server_login_retry)\0" as *const u8
-            as *const ::core::ffi::c_char,
+        true,
+        c"server login has been failing, cached error: %s (server_login_retry)".as_ptr(),
         &raw mut (*pool).last_connect_failed_message as *mut ::core::ffi::c_char,
     );
-    launch_new_connection(pool, true_0 != 0);
-    false_0 != 0
+    launch_new_connection(pool, true);
+    false
 }
 #[no_mangle]
 
@@ -2846,17 +2779,16 @@ pub unsafe extern "C" fn find_server(mut client: *mut PgSocket) -> bool {
     let mut pool = (*client).pool;
     let mut server = ::core::ptr::null_mut::<PgSocket>();
     let mut res: bool = false;
-    let mut varchange = false_0 != 0;
-    (*client).wait_start = 0 as usec_t;
+    let mut varchange = false;
+    (*client).wait_start = 0;
     if !(*client).link.is_null() {
-        return true_0 != 0;
+        return true;
     }
     if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
         log_generic(
             LG_NOISE,
             client as *mut ::core::ffi::c_void,
-            b"find_server: client had no linked server yet\0" as *const u8
-                as *const ::core::ffi::c_char,
+            c"find_server: client had no linked server yet".as_ptr(),
         );
     }
     if cf_pause_mode == P_PAUSE as ::core::ffi::c_int
@@ -2864,7 +2796,7 @@ pub unsafe extern "C" fn find_server(mut client: *mut PgSocket) -> bool {
     {
         server = ::core::ptr::null_mut::<PgSocket>();
     } else if (*client).replication as ::core::ffi::c_uint != 0 && !sending_auth_query(client) {
-        launch_new_connection(pool, true_0 != 0);
+        launch_new_connection(pool, true);
         server = ::core::ptr::null_mut::<PgSocket>();
     } else {
         loop {
@@ -2873,34 +2805,22 @@ pub unsafe extern "C" fn find_server(mut client: *mut PgSocket) -> bool {
                 break;
             }
             if (*server).close_needed() {
-                disconnect_server(
-                    server,
-                    true_0 != 0,
-                    b"obsolete connection\0" as *const u8 as *const ::core::ffi::c_char,
-                );
+                disconnect_server(server, true, c"obsolete connection".as_ptr());
             } else {
                 if (*server).ready() {
                     break;
                 }
-                disconnect_server(
-                    server,
-                    true_0 != 0,
-                    b"idle server got dirty\0" as *const u8 as *const ::core::ffi::c_char,
-                );
+                disconnect_server(server, true, c"idle server got dirty".as_ptr());
             }
         }
         if server.is_null() && !check_fast_fail(client) {
-            return false_0 != 0;
+            return false;
         }
     }
     if !server.is_null() && !sending_auth_query(client) {
         res = varcache_apply(server, client, &raw mut varchange);
         if !res {
-            disconnect_server(
-                server,
-                true_0 != 0,
-                b"var change failed\0" as *const u8 as *const ::core::ffi::c_char,
-            );
+            disconnect_server(server, true, c"var change failed".as_ptr());
             server = ::core::ptr::null_mut::<PgSocket>();
         }
     }
@@ -2910,7 +2830,7 @@ pub unsafe extern "C" fn find_server(mut client: *mut PgSocket) -> bool {
             log_generic(
                 LG_NOISE,
                 client as *mut ::core::ffi::c_void,
-                b"linking client to S-%p\0" as *const u8 as *const ::core::ffi::c_char,
+                c"linking client to S-%p".as_ptr(),
                 server,
             );
         }
@@ -2922,45 +2842,40 @@ pub unsafe extern "C" fn find_server(mut client: *mut PgSocket) -> bool {
             .wrapping_add(1);
         change_server_state(server, SV_ACTIVE);
         if varchange {
-            (*server).set_setting_vars(true_0 != 0);
-            (*server).set_ready(false_0 != 0);
-            res = false_0 != 0;
+            (*server).set_setting_vars(true);
+            (*server).set_ready(false);
+            res = false;
             if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
                 != 0
             {
                 log_generic(
                     LG_NOISE,
                     client as *mut ::core::ffi::c_void,
-                    b"pausing client while applying vars\0" as *const u8
-                        as *const ::core::ffi::c_char,
+                    c"pausing client while applying vars".as_ptr(),
                 );
             }
             if !sbuf_pause(&raw mut (*client).sbuf) {
-                disconnect_client(
-                    client,
-                    true_0 != 0,
-                    b"pause failed\0" as *const u8 as *const ::core::ffi::c_char,
-                );
+                disconnect_client(client, true, c"pause failed".as_ptr());
             }
         } else {
-            res = true_0 != 0;
+            res = true;
         }
     } else {
         pause_client(client);
-        res = false_0 != 0;
+        res = false;
     }
     res
 }
 
 unsafe extern "C" fn reuse_on_release(mut server: *mut PgSocket) -> bool {
-    let mut res = true_0 != 0;
+    let mut res = true;
     let mut pool = (*server).pool;
     let mut client = ::core::ptr::null_mut::<PgSocket>();
     if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
         log_generic(
             LG_DEBUG,
             server as *mut ::core::ffi::c_void,
-            b"reuse_on_release: replication %d\0" as *const u8 as *const ::core::ffi::c_char,
+            c"reuse_on_release: replication %d".as_ptr(),
             (*server).replication as ::core::ffi::c_uint,
         );
     }
@@ -2973,7 +2888,7 @@ unsafe extern "C" fn reuse_on_release(mut server: *mut PgSocket) -> bool {
         if (*server).state() as ::core::ffi::c_int == SV_FREE as ::core::ffi::c_int
             || (*server).state() as ::core::ffi::c_int == SV_JUSTFREE as ::core::ffi::c_int
         {
-            res = false_0 != 0;
+            res = false;
         }
     }
     res
@@ -2984,7 +2899,7 @@ pub unsafe extern "C" fn queue_fake_response(
     mut client: *mut PgSocket,
     mut request_type: ::core::ffi::c_char,
 ) -> bool {
-    let mut res = true_0 != 0;
+    let mut res = true;
     let mut server = (*client).link;
     if request_type as ::core::ffi::c_int == PqMsg_Parse {
         if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
@@ -2992,7 +2907,7 @@ pub unsafe extern "C" fn queue_fake_response(
             log_generic(
                 LG_DEBUG,
                 client as *mut ::core::ffi::c_void,
-                b"Queuing fake ParseComplete packet\0" as *const u8 as *const ::core::ffi::c_char,
+                c"Queuing fake ParseComplete packet".as_ptr(),
             );
         }
         let mut _data: [uint8_t; 5] = [0; 5];
@@ -3012,11 +2927,7 @@ pub unsafe extern "C" fn queue_fake_response(
             &raw mut _data as *mut uint8_t,
             ::core::mem::size_of::<[uint8_t; 5]>() as ::core::ffi::c_int,
         );
-        pktbuf_write_generic(
-            &raw mut _buf,
-            PqMsg_ParseComplete,
-            b"\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        pktbuf_write_generic(&raw mut _buf, PqMsg_ParseComplete, c"".as_ptr());
         res = sbuf_queue_packet(
             &raw mut (*server).sbuf,
             &raw mut (*client).sbuf,
@@ -3028,7 +2939,7 @@ pub unsafe extern "C" fn queue_fake_response(
             log_generic(
                 LG_DEBUG,
                 client as *mut ::core::ffi::c_void,
-                b"Queuing fake CloseComplete packet\0" as *const u8 as *const ::core::ffi::c_char,
+                c"Queuing fake CloseComplete packet".as_ptr(),
             );
         }
         let mut _data_0: [uint8_t; 5] = [0; 5];
@@ -3048,11 +2959,7 @@ pub unsafe extern "C" fn queue_fake_response(
             &raw mut _data_0 as *mut uint8_t,
             ::core::mem::size_of::<[uint8_t; 5]>() as ::core::ffi::c_int,
         );
-        pktbuf_write_generic(
-            &raw mut _buf_0,
-            PqMsg_CloseComplete,
-            b"\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        pktbuf_write_generic(&raw mut _buf_0, PqMsg_CloseComplete, c"".as_ptr());
         res = sbuf_queue_packet(
             &raw mut (*server).sbuf,
             &raw mut (*client).sbuf,
@@ -3061,12 +2968,12 @@ pub unsafe extern "C" fn queue_fake_response(
     } else {
         let mut _log_ctx = NULL;
         log_fatal(
-            b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+            c"src/objects.c".as_ptr(),
             1021 as ::core::ffi::c_int,
-            b"queue_fake_response\0" as *const u8 as *const ::core::ffi::c_char,
-            false_0 != 0,
+            c"queue_fake_response".as_ptr(),
+            false,
             _log_ctx,
-            b"Unknown fake request type %c\0" as *const u8 as *const ::core::ffi::c_char,
+            c"Unknown fake request type %c".as_ptr(),
             request_type as ::core::ffi::c_int,
         );
         exit(1 as ::core::ffi::c_int);
@@ -3114,8 +3021,7 @@ pub unsafe extern "C" fn add_outstanding_request(
             log_generic(
                 LG_NOISE,
                 client as *mut ::core::ffi::c_void,
-                b"add_outstanding_request: queueing fake response right away %c\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"add_outstanding_request: queueing fake response right away %c".as_ptr(),
                 type_0 as ::core::ffi::c_int,
             );
         }
@@ -3123,7 +3029,7 @@ pub unsafe extern "C" fn add_outstanding_request(
     }
     request = slab_alloc(outstanding_request_cache) as *mut OutstandingRequest;
     if request.is_null() {
-        return false_0 != 0;
+        return false;
     }
     (*request).type_0 = type_0;
     (*request).action = action;
@@ -3135,13 +3041,12 @@ pub unsafe extern "C" fn add_outstanding_request(
         log_generic(
             LG_NOISE,
             client as *mut ::core::ffi::c_void,
-            b"add_outstanding_request: added %c, still outstanding %d\0" as *const u8
-                as *const ::core::ffi::c_char,
+            c"add_outstanding_request: added %c, still outstanding %d".as_ptr(),
             type_0 as ::core::ffi::c_int,
             statlist_count(&raw mut (*(*client).link).outstanding_requests),
         );
     }
-    true_0 != 0
+    true
 }
 #[no_mangle]
 
@@ -3153,7 +3058,7 @@ pub unsafe extern "C" fn pop_outstanding_request(
     let mut request = ::core::ptr::null_mut::<OutstandingRequest>();
     let mut item = statlist_first(&raw mut (*server).outstanding_requests);
     if item.is_null() {
-        return false_0 != 0;
+        return false;
     }
     request = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
         as *mut OutstandingRequest;
@@ -3163,11 +3068,10 @@ pub unsafe extern "C" fn pop_outstanding_request(
         log_generic(
             LG_WARNING,
             server as *mut ::core::ffi::c_void,
-            b"pop_outstanding_request: unexpected fake request of type %c\0" as *const u8
-                as *const ::core::ffi::c_char,
+            c"pop_outstanding_request: unexpected fake request of type %c".as_ptr(),
             (*request).type_0 as ::core::ffi::c_int,
         );
-        return false_0 != 0;
+        return false;
     }
     if strchr(
         types as *const ::core::ffi::c_char,
@@ -3175,7 +3079,7 @@ pub unsafe extern "C" fn pop_outstanding_request(
     )
     .is_null()
     {
-        return false_0 != 0;
+        return false;
     }
     statlist_pop(&raw mut (*server).outstanding_requests);
     if !skip.is_null() {
@@ -3186,8 +3090,7 @@ pub unsafe extern "C" fn pop_outstanding_request(
         log_generic(
             LG_NOISE,
             server as *mut ::core::ffi::c_void,
-            b"pop_outstanding_request: popped %c, still outstanding %d, skip %d\0" as *const u8
-                as *const ::core::ffi::c_char,
+            c"pop_outstanding_request: popped %c, still outstanding %d, skip %d".as_ptr(),
             (*request).type_0 as ::core::ffi::c_int,
             statlist_count(&raw mut (*server).outstanding_requests),
             ((*request).action as ::core::ffi::c_uint
@@ -3202,7 +3105,7 @@ pub unsafe extern "C" fn pop_outstanding_request(
         outstanding_request_cache,
         request as *mut ::core::ffi::c_void,
     );
-    true_0 != 0
+    true
 }
 #[no_mangle]
 
@@ -3219,9 +3122,7 @@ pub unsafe extern "C" fn clear_outstanding_requests_until(
             .offset(-(0 as ::core::ffi::c_ulong as isize))
             as *mut OutstandingRequest;
         let mut type_0 = (*request).type_0;
-        if type_0 as ::core::ffi::c_int == PqMsg_Parse
-            && (*request).server_ps_query_id > 0 as uint64_t
-        {
+        if type_0 as ::core::ffi::c_int == PqMsg_Parse && (*request).server_ps_query_id > 0 {
             unregister_prepared_statement(server, (*request).server_ps_query_id);
             if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
                 != 0
@@ -3229,8 +3130,7 @@ pub unsafe extern "C" fn clear_outstanding_requests_until(
                 log_generic(
                     LG_NOISE,
                     server as *mut ::core::ffi::c_void,
-                    b"failed prepared statement 'PGBOUNCER_%llu' removed from server cache, %d cached items\0"
-                        as *const u8 as *const ::core::ffi::c_char,
+                    c"failed prepared statement 'PGBOUNCER_%llu' removed from server cache, %d cached items".as_ptr(),
                     (*request).server_ps_query_id,
                     if !(*server).server_prepared_statements.is_null() {
                         (*(*(*server).server_prepared_statements).hh.tbl).num_items
@@ -3242,18 +3142,10 @@ pub unsafe extern "C" fn clear_outstanding_requests_until(
         } else if type_0 as ::core::ffi::c_int == PqMsg_Close && !(*request).server_ps.is_null() {
             if !add_prepared_statement(server, (*request).server_ps) {
                 if !(*server).link.is_null() {
-                    disconnect_client(
-                        (*server).link,
-                        true_0 != 0,
-                        b"out of memory\0" as *const u8 as *const ::core::ffi::c_char,
-                    );
+                    disconnect_client((*server).link, true, c"out of memory".as_ptr());
                 }
-                disconnect_server(
-                    server,
-                    true_0 != 0,
-                    b"out of memory\0" as *const u8 as *const ::core::ffi::c_char,
-                );
-                return false_0 != 0;
+                disconnect_server(server, true, c"out of memory".as_ptr());
+                return false;
             }
             if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
                 != 0
@@ -3261,8 +3153,7 @@ pub unsafe extern "C" fn clear_outstanding_requests_until(
                 log_generic(
                     LG_NOISE,
                     server as *mut ::core::ffi::c_void,
-                    b"prepared statement '%s' added back to server cache, %d cached items\0"
-                        as *const u8 as *const ::core::ffi::c_char,
+                    c"prepared statement '%s' added back to server cache, %d cached items".as_ptr(),
                     &raw mut (*(*(*request).server_ps).ps).stmt_name as *mut ::core::ffi::c_char,
                     if !(*server).server_prepared_statements.is_null() {
                         (*(*(*server).server_prepared_statements).hh.tbl).num_items
@@ -3292,12 +3183,11 @@ pub unsafe extern "C" fn clear_outstanding_requests_until(
         log_generic(
             LG_NOISE,
             server as *mut ::core::ffi::c_void,
-            b"clear_outstanding_requests_until_sync: still outstanding %d\0" as *const u8
-                as *const ::core::ffi::c_char,
+            c"clear_outstanding_requests_until_sync: still outstanding %d".as_ptr(),
             statlist_count(&raw mut (*server).outstanding_requests),
         );
     }
-    true_0 != 0
+    true
 }
 
 unsafe extern "C" fn reset_on_release(mut server: *mut PgSocket) -> bool {
@@ -3306,7 +3196,7 @@ unsafe extern "C" fn reset_on_release(mut server: *mut PgSocket) -> bool {
         log_generic(
             LG_DEBUG,
             server as *mut ::core::ffi::c_void,
-            b"resetting: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"resetting: %s".as_ptr(),
             cf_server_reset_query,
         );
     }
@@ -3330,16 +3220,12 @@ unsafe extern "C" fn reset_on_release(mut server: *mut PgSocket) -> bool {
     pktbuf_write_generic(
         &raw mut _buf,
         PqMsg_Query,
-        b"s\0" as *const u8 as *const ::core::ffi::c_char,
+        c"s".as_ptr(),
         cf_server_reset_query,
     );
     res = pktbuf_send_immediate(&raw mut _buf, server);
     if !res {
-        disconnect_server(
-            server,
-            false_0 != 0,
-            b"reset query failed\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        disconnect_server(server, false, c"reset query failed".as_ptr());
     }
     res
 }
@@ -3347,21 +3233,21 @@ unsafe extern "C" fn reset_on_release(mut server: *mut PgSocket) -> bool {
 
 pub unsafe extern "C" fn life_over(mut server: *mut PgSocket) -> bool {
     let mut pool = (*server).pool;
-    let mut lifetime_kill_gap: usec_t = 0 as usec_t;
+    let mut lifetime_kill_gap: usec_t = 0;
     let mut now = get_cached_time();
     let mut age: usec_t = now.wrapping_sub((*server).connect_time);
     let mut last_kill: usec_t = now.wrapping_sub((*pool).last_lifetime_disconnect);
     let mut server_lifetime = pool_server_lifetime(pool);
     if age < server_lifetime {
-        return false_0 != 0;
+        return false;
     }
     if pool_pool_size(pool) > 0 as ::core::ffi::c_int {
         lifetime_kill_gap = server_lifetime.wrapping_div(pool_pool_size(pool) as usec_t);
     }
     if last_kill >= lifetime_kill_gap {
-        return true_0 != 0;
+        return true;
     }
-    false_0 != 0
+    false
 }
 #[no_mangle]
 
@@ -3381,7 +3267,7 @@ pub unsafe extern "C" fn release_server(mut server: *mut PgSocket) -> bool {
                     || connection_pool_mode(server) == POOL_SESSION)
             {
                 newstate = SV_TESTED;
-            } else if cf_server_check_delay == 0 as usec_t
+            } else if cf_server_check_delay == 0
                 && *cf_server_check_query as ::core::ffi::c_int != 0
             {
                 newstate = SV_USED;
@@ -3389,18 +3275,18 @@ pub unsafe extern "C" fn release_server(mut server: *mut PgSocket) -> bool {
         }
         15 | 16 => {}
         10 => {
-            (*pool).set_last_login_failed(false_0 != 0);
-            (*pool).set_last_connect_failed(false_0 != 0);
+            (*pool).set_last_login_failed(false);
+            (*pool).set_last_connect_failed(false);
         }
         _ => {
             let mut _log_ctx = NULL;
             log_fatal(
-                b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+                c"src/objects.c".as_ptr(),
                 1241 as ::core::ffi::c_int,
-                b"release_server\0" as *const u8 as *const ::core::ffi::c_char,
-                false_0 != 0,
+                c"release_server".as_ptr(),
+                false,
                 _log_ctx,
-                b"bad server state: %d\0" as *const u8 as *const ::core::ffi::c_char,
+                c"bad server state: %d".as_ptr(),
                 (*server).state() as ::core::ffi::c_int,
             );
             exit(1 as ::core::ffi::c_int);
@@ -3423,34 +3309,25 @@ pub unsafe extern "C" fn release_server(mut server: *mut PgSocket) -> bool {
     if (*server).state() as ::core::ffi::c_int != SV_LOGIN as ::core::ffi::c_int
         && life_over(server) as ::core::ffi::c_int != 0
     {
-        disconnect_server(
-            server,
-            true_0 != 0,
-            b"server lifetime over\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        disconnect_server(server, true, c"server lifetime over".as_ptr());
         (*pool).last_lifetime_disconnect = get_cached_time();
-        return false_0 != 0;
+        return false;
     }
     if statlist_count(&raw mut (*server).outstanding_requests) > 0 as ::core::ffi::c_int {
         disconnect_server(
             server,
-            true_0 != 0,
-            b"client disconnected with queries in progress\0" as *const u8
-                as *const ::core::ffi::c_char,
+            true,
+            c"client disconnected with queries in progress".as_ptr(),
         );
-        return true_0 != 0;
+        return true;
     }
     if (*server).close_needed() {
-        disconnect_server(
-            server,
-            true_0 != 0,
-            b"close_needed\0" as *const u8 as *const ::core::ffi::c_char,
-        );
-        return false_0 != 0;
+        disconnect_server(server, true, c"close_needed".as_ptr());
+        return false;
     }
     if statlist_count(&raw mut (*server).canceling_clients) > 0 as ::core::ffi::c_int {
         change_server_state(server, SV_BEING_CANCELED);
-        return true_0 != 0;
+        return true;
     }
     if (*server).replication as u64 != 0 {
         if !(*server).link.is_null() {
@@ -3460,27 +3337,22 @@ pub unsafe extern "C" fn release_server(mut server: *mut PgSocket) -> bool {
                 log_generic(
                     LG_DEBUG,
                     server as *mut ::core::ffi::c_void,
-                    b"release_server: new replication connection ready\0" as *const u8
-                        as *const ::core::ffi::c_char,
+                    c"release_server: new replication connection ready".as_ptr(),
                 );
             }
             change_server_state(server, SV_ACTIVE);
             activate_client((*server).link);
-            return true_0 != 0;
+            return true;
         } else {
-            disconnect_server(
-                server,
-                true_0 != 0,
-                b"replication client was closed\0" as *const u8 as *const ::core::ffi::c_char,
-            );
-            return false_0 != 0;
+            disconnect_server(server, true, c"replication client was closed".as_ptr());
+            return false;
         }
     }
     if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
         log_generic(
             LG_NOISE,
             server as *mut ::core::ffi::c_void,
-            b"release_server: new state=%d\0" as *const u8 as *const ::core::ffi::c_char,
+            c"release_server: new state=%d".as_ptr(),
             newstate as ::core::ffi::c_uint,
         );
     }
@@ -3492,7 +3364,7 @@ pub unsafe extern "C" fn release_server(mut server: *mut PgSocket) -> bool {
     {
         return reset_on_release(server);
     }
-    true_0 != 0
+    true
 }
 
 unsafe extern "C" fn unlink_server(
@@ -3509,24 +3381,11 @@ unsafe extern "C" fn unlink_server(
     if (*client).state() as ::core::ffi::c_int == CL_ACTIVE as ::core::ffi::c_int
         || (*client).state() as ::core::ffi::c_int == CL_WAITING as ::core::ffi::c_int
     {
-        disconnect_client(
-            client,
-            true_0 != 0,
-            b"%s\0" as *const u8 as *const ::core::ffi::c_char,
-            reason,
-        );
+        disconnect_client(client, true, c"%s".as_ptr(), reason);
     } else if (*client).state() as ::core::ffi::c_int == CL_ACTIVE_CANCEL as ::core::ffi::c_int {
-        disconnect_client(
-            client,
-            false_0 != 0,
-            b"successfully sent cancel request\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        disconnect_client(client, false, c"successfully sent cancel request".as_ptr());
     } else {
-        disconnect_client(
-            client,
-            true_0 != 0,
-            b"bouncer config error\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        disconnect_client(client, true, c"bouncer config error".as_ptr());
     };
 }
 #[no_mangle]
@@ -3557,7 +3416,7 @@ pub unsafe extern "C" fn disconnect_server(
         log_generic(
             LG_INFO,
             server as *mut ::core::ffi::c_void,
-            b"closing because: %s (age=%llus)\0" as *const u8 as *const ::core::ffi::c_char,
+            c"closing because: %s (age=%llus)".as_ptr(),
             reason,
             now.wrapping_sub((*server).connect_time).wrapping_div(USEC),
         );
@@ -3569,8 +3428,8 @@ pub unsafe extern "C" fn disconnect_server(
         16 | 15 | 12 | 11 => {}
         10 => {
             if !(*server).ready() {
-                (*(*server).pool).set_last_login_failed(true_0 != 0);
-                (*(*server).pool).set_last_connect_failed(true_0 != 0);
+                (*(*server).pool).set_last_login_failed(true);
+                (*(*server).pool).set_last_connect_failed(true);
                 let mut needed = strlcpy(
                     &raw mut (*(*server).pool).last_connect_failed_message
                         as *mut ::core::ffi::c_char,
@@ -3585,15 +3444,14 @@ pub unsafe extern "C" fn disconnect_server(
                     log_generic(
                         LG_WARNING,
                         _log_ctx,
-                        b"bug in %s:%d - string truncated\0" as *const u8
-                            as *const ::core::ffi::c_char,
-                        b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+                        c"bug in %s:%d - string truncated".as_ptr(),
+                        c"src/objects.c".as_ptr(),
                         1383 as ::core::ffi::c_int,
                     );
                 }
             } else {
-                (*(*server).pool).set_last_connect_failed(false_0 != 0);
-                send_term = false_0 != 0;
+                (*(*server).pool).set_last_connect_failed(false);
+                send_term = false;
             }
             if (*server).replication as u64 != 0 {
                 unlink_server(server, reason);
@@ -3602,12 +3460,12 @@ pub unsafe extern "C" fn disconnect_server(
         _ => {
             let mut _log_ctx_0 = NULL;
             log_fatal(
-                b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+                c"src/objects.c".as_ptr(),
                 1398 as ::core::ffi::c_int,
-                b"disconnect_server\0" as *const u8 as *const ::core::ffi::c_char,
-                false_0 != 0,
+                c"disconnect_server".as_ptr(),
+                false,
                 _log_ctx_0,
-                b"bad server state: %d, %s\0" as *const u8 as *const ::core::ffi::c_char,
+                c"bad server state: %d, %s".as_ptr(),
                 (*server).state() as ::core::ffi::c_int,
                 reason,
             );
@@ -3656,7 +3514,7 @@ pub unsafe extern "C" fn disconnect_server(
             log_generic(
                 LG_NOISE,
                 _log_ctx_1,
-                b"sbuf_close failed, retry later\0" as *const u8 as *const ::core::ffi::c_char,
+                c"sbuf_close failed, retry later".as_ptr(),
             );
         }
     }
@@ -3718,7 +3576,7 @@ pub unsafe extern "C" fn disconnect_client_sqlstate(
         log_generic(
             LG_INFO,
             client as *mut ::core::ffi::c_void,
-            b"closing because: %s (age=%llus)\0" as *const u8 as *const ::core::ffi::c_char,
+            c"closing because: %s (age=%llus)".as_ptr(),
             reason,
             now.wrapping_sub((*client).connect_time).wrapping_div(USEC),
         );
@@ -3732,9 +3590,8 @@ pub unsafe extern "C" fn disconnect_client_sqlstate(
                     (*client).link = ::core::ptr::null_mut::<PgSocket>();
                     disconnect_server(
                         server,
-                        true_0 != 0,
-                        b"client disconnect while server was not ready\0" as *const u8
-                            as *const ::core::ffi::c_char,
+                        true,
+                        c"client disconnect while server was not ready".as_ptr(),
                     );
                 } else if statlist_count(&raw mut (*server).outstanding_requests)
                     > 0 as ::core::ffi::c_int
@@ -3743,18 +3600,16 @@ pub unsafe extern "C" fn disconnect_client_sqlstate(
                     (*client).link = ::core::ptr::null_mut::<PgSocket>();
                     disconnect_server(
                         server,
-                        true_0 != 0,
-                        b"client disconnected with query in progress\0" as *const u8
-                            as *const ::core::ffi::c_char,
+                        true,
+                        c"client disconnected with query in progress".as_ptr(),
                     );
                 } else if !sbuf_is_empty(&raw mut (*server).sbuf) {
                     (*server).link = ::core::ptr::null_mut::<PgSocket>();
                     (*client).link = ::core::ptr::null_mut::<PgSocket>();
                     disconnect_server(
                         server,
-                        true_0 != 0,
-                        b"client disconnect before everything was sent to the server\0" as *const u8
-                            as *const ::core::ffi::c_char,
+                        true,
+                        c"client disconnect before everything was sent to the server".as_ptr(),
                     );
                 } else {
                     release_server(server);
@@ -3766,12 +3621,12 @@ pub unsafe extern "C" fn disconnect_client_sqlstate(
                 let mut server_0 = (*client).link;
                 (*server_0).link = ::core::ptr::null_mut::<PgSocket>();
                 (*client).link = ::core::ptr::null_mut::<PgSocket>();
-                (*server_0).set_ready(true_0 != 0);
+                (*server_0).set_ready(true);
                 disconnect_server(
                     server_0,
-                    false_0 != 0,
-                    b"client gave up on cancel request, so we also give up forwarding to server\0"
-                        as *const u8 as *const ::core::ffi::c_char,
+                    false,
+                    c"client gave up on cancel request, so we also give up forwarding to server"
+                        .as_ptr(),
                 );
             }
             if !(*client).canceled_server.is_null() {
@@ -3795,27 +3650,23 @@ pub unsafe extern "C" fn disconnect_client_sqlstate(
                 let mut server_1 = (*client).link;
                 (*server_1).link = ::core::ptr::null_mut::<PgSocket>();
                 (*client).link = ::core::ptr::null_mut::<PgSocket>();
-                disconnect_server(
-                    server_1,
-                    false_0 != 0,
-                    b"replication client disconnected\0" as *const u8 as *const ::core::ffi::c_char,
-                );
+                disconnect_server(server_1, false, c"replication client disconnected".as_ptr());
             }
         }
         _ => {
             let mut _log_ctx = NULL;
             log_fatal(
-                b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+                c"src/objects.c".as_ptr(),
                 1580 as ::core::ffi::c_int,
-                b"disconnect_client_sqlstate\0" as *const u8 as *const ::core::ffi::c_char,
-                false_0 != 0,
+                c"disconnect_client_sqlstate".as_ptr(),
+                false,
                 _log_ctx,
-                b"bad client state: %d, %s\0" as *const u8 as *const ::core::ffi::c_char,
+                c"bad client state: %d, %s".as_ptr(),
                 (*client).state() as ::core::ffi::c_int,
                 if !reason.is_null() {
                     reason
                 } else {
-                    b"NULL\0" as *const u8 as *const ::core::ffi::c_char
+                    c"NULL".as_ptr()
                 },
             );
             exit(1 as ::core::ffi::c_int);
@@ -3825,7 +3676,7 @@ pub unsafe extern "C" fn disconnect_client_sqlstate(
         && !reason.is_null()
         && (*client).state() as ::core::ffi::c_int != CL_WAITING_CANCEL as ::core::ffi::c_int
     {
-        send_pooler_error(client, false_0 != 0, sqlstate, true_0 != 0, reason);
+        send_pooler_error(client, false, sqlstate, true, reason);
     }
     free_header(&raw mut (*client).packet_cb_state.pkt);
     free_scram_state(&raw mut (*client).scram_state);
@@ -3851,7 +3702,7 @@ pub unsafe extern "C" fn disconnect_client_sqlstate(
             log_generic(
                 LG_NOISE,
                 _log_ctx_0,
-                b"sbuf_close failed, retry later\0" as *const u8 as *const ::core::ffi::c_char,
+                c"sbuf_close failed, retry later".as_ptr(),
             );
         }
     }
@@ -3881,7 +3732,7 @@ unsafe extern "C" fn connect_server(
         log_generic(
             LG_DEBUG,
             server as *mut ::core::ffi::c_void,
-            b"launching new connection to server\0" as *const u8 as *const ::core::ffi::c_char,
+            c"launching new connection to server".as_ptr(),
         );
     }
     res = sbuf_connect(
@@ -3897,7 +3748,7 @@ unsafe extern "C" fn connect_server(
             log_generic(
                 LG_NOISE,
                 _log_ctx,
-                b"failed to launch new connection\0" as *const u8 as *const ::core::ffi::c_char,
+                c"failed to launch new connection".as_ptr(),
             );
         }
     }
@@ -3933,8 +3784,8 @@ unsafe extern "C" fn dns_callback(
     if sa.is_null() {
         disconnect_server(
             server as *mut PgSocket,
-            true_0 != 0,
-            b"server DNS lookup failed\0" as *const u8 as *const ::core::ffi::c_char,
+            true,
+            c"server DNS lookup failed".as_ptr(),
         );
         return;
     } else if (*sa).sa_family as ::core::ffi::c_int == AF_INET {
@@ -3959,7 +3810,7 @@ unsafe extern "C" fn dns_callback(
             log_generic(
                 LG_DEBUG,
                 server as *mut ::core::ffi::c_void,
-                b"dns_callback: inet4: %s\0" as *const u8 as *const ::core::ffi::c_char,
+                c"dns_callback: inet4: %s".as_ptr(),
                 sa2str(
                     sa,
                     &raw mut buf as *mut ::core::ffi::c_char,
@@ -3989,7 +3840,7 @@ unsafe extern "C" fn dns_callback(
             log_generic(
                 LG_DEBUG,
                 server as *mut ::core::ffi::c_void,
-                b"dns_callback: inet6: %s\0" as *const u8 as *const ::core::ffi::c_char,
+                c"dns_callback: inet6: %s".as_ptr(),
                 sa2str(
                     sa,
                     &raw mut buf_0 as *mut ::core::ffi::c_char,
@@ -4000,8 +3851,8 @@ unsafe extern "C" fn dns_callback(
     } else {
         disconnect_server(
             server as *mut PgSocket,
-            true_0 != 0,
-            b"unknown address family: %d\0" as *const u8 as *const ::core::ffi::c_char,
+            true,
+            c"unknown address family: %d".as_ptr(),
             (*sa).sa_family as ::core::ffi::c_int,
         );
         return;
@@ -4058,7 +3909,7 @@ unsafe extern "C" fn dns_connect(mut server: *mut PgSocket) {
             p = p.offset(1);
         }
         host_copy = xstrdup((*db).host);
-        host = strtok(host_copy, b",\0" as *const u8 as *const ::core::ffi::c_char);
+        host = strtok(host_copy, c",".as_ptr());
         n = 0 as ::core::ffi::c_int;
         while !host.is_null() {
             if (*(*server).pool).rrcounter as ::core::ffi::c_int % count == n {
@@ -4066,7 +3917,7 @@ unsafe extern "C" fn dns_connect(mut server: *mut PgSocket) {
             }
             host = strtok(
                 ::core::ptr::null_mut::<::core::ffi::c_char>(),
-                b",\0" as *const u8 as *const ::core::ffi::c_char,
+                c",".as_ptr(),
             );
             n += 1;
         }
@@ -4102,20 +3953,16 @@ unsafe extern "C" fn dns_connect(mut server: *mut PgSocket) {
             log_generic(
                 LG_ERROR,
                 _log_ctx,
-                b"unix socket dir not configured: %s\0" as *const u8 as *const ::core::ffi::c_char,
+                c"unix socket dir not configured: %s".as_ptr(),
                 &raw mut (*db).name as *mut ::core::ffi::c_char,
             );
-            disconnect_server(
-                server as *mut PgSocket,
-                false_0 != 0,
-                b"cannot connect\0" as *const u8 as *const ::core::ffi::c_char,
-            );
+            disconnect_server(server as *mut PgSocket, false, c"cannot connect".as_ptr());
             current_block = 6484020372121692021;
         } else {
             snprintf(
                 &raw mut sa_un.sun_path as *mut ::core::ffi::c_char,
                 ::core::mem::size_of::<[::core::ffi::c_char; 104]>() as size_t,
-                b"%s/.s.PGSQL.%d\0" as *const u8 as *const ::core::ffi::c_char,
+                c"%s/.s.PGSQL.%d".as_ptr(),
                 unix_dir,
                 (*db).port,
             );
@@ -4125,7 +3972,7 @@ unsafe extern "C" fn dns_connect(mut server: *mut PgSocket) {
                 log_generic(
                     LG_NOISE,
                     server as *mut ::core::ffi::c_void,
-                    b"unix socket: %s\0" as *const u8 as *const ::core::ffi::c_char,
+                    c"unix socket: %s".as_ptr(),
                     &raw mut sa_un.sun_path as *mut ::core::ffi::c_char,
                 );
             }
@@ -4152,7 +3999,7 @@ unsafe extern "C" fn dns_connect(mut server: *mut PgSocket) {
                 log_generic(
                     LG_NOISE,
                     server as *mut ::core::ffi::c_void,
-                    b"inet6 socket: %s\0" as *const u8 as *const ::core::ffi::c_char,
+                    c"inet6 socket: %s".as_ptr(),
                     host,
                 );
             }
@@ -4186,7 +4033,7 @@ unsafe extern "C" fn dns_connect(mut server: *mut PgSocket) {
                 log_generic(
                     LG_NOISE,
                     server as *mut ::core::ffi::c_void,
-                    b"inet socket: %s\0" as *const u8 as *const ::core::ffi::c_char,
+                    c"inet socket: %s".as_ptr(),
                     host,
                 );
             }
@@ -4225,7 +4072,7 @@ unsafe extern "C" fn dns_connect(mut server: *mut PgSocket) {
                 log_generic(
                     LG_NOISE,
                     server as *mut ::core::ffi::c_void,
-                    b"dns socket: %s\0" as *const u8 as *const ::core::ffi::c_char,
+                    c"dns socket: %s".as_ptr(),
                     host,
                 );
             }
@@ -4298,14 +4145,10 @@ pub unsafe extern "C" fn evict_connection(mut db: *mut PgDatabase) -> bool {
         item = (*item).next;
     }
     if !oldest_connection.is_null() {
-        disconnect_server(
-            oldest_connection,
-            true_0 != 0,
-            b"evicted\0" as *const u8 as *const ::core::ffi::c_char,
-        );
-        return true_0 != 0;
+        disconnect_server(oldest_connection, true, c"evicted".as_ptr());
+        return true;
     }
-    false_0 != 0
+    false
 }
 #[no_mangle]
 
@@ -4316,14 +4159,10 @@ pub unsafe extern "C" fn evict_pool_connection(mut pool: *mut PgPool) -> bool {
         last_socket(&raw mut (*pool).idle_server_list),
     );
     if !oldest_connection.is_null() {
-        disconnect_server(
-            oldest_connection,
-            true_0 != 0,
-            b"evicted\0" as *const u8 as *const ::core::ffi::c_char,
-        );
-        return true_0 != 0;
+        disconnect_server(oldest_connection, true, c"evicted".as_ptr());
+        return true;
     }
-    false_0 != 0
+    false
 }
 #[no_mangle]
 
@@ -4354,14 +4193,10 @@ pub unsafe extern "C" fn evict_user_connection(mut user_credentials: *mut PgCred
         item = (*item).next;
     }
     if !oldest_connection.is_null() {
-        disconnect_server(
-            oldest_connection,
-            true_0 != 0,
-            b"evicted\0" as *const u8 as *const ::core::ffi::c_char,
-        );
-        return true_0 != 0;
+        disconnect_server(oldest_connection, true, c"evicted".as_ptr());
+        return true;
     }
-    false_0 != 0
+    false
 }
 #[no_mangle]
 
@@ -4371,11 +4206,7 @@ pub unsafe extern "C" fn launch_new_connection(mut pool: *mut PgPool, mut evict_
     let mut max: ::core::ffi::c_int = 0;
     let mut _log_ctx = NULL;
     if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
-        log_generic(
-            LG_DEBUG,
-            _log_ctx,
-            b"launch_new_connection: start\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        log_generic(LG_DEBUG, _log_ctx, c"launch_new_connection: start".as_ptr());
     }
     if !statlist_empty(&raw mut (*pool).new_server_list) {
         let mut _log_ctx_0 = NULL;
@@ -4384,8 +4215,7 @@ pub unsafe extern "C" fn launch_new_connection(mut pool: *mut PgPool, mut evict_
             log_generic(
                 LG_DEBUG,
                 _log_ctx_0,
-                b"launch_new_connection: already progress\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"launch_new_connection: already progress".as_ptr(),
             );
         }
         return;
@@ -4400,8 +4230,7 @@ pub unsafe extern "C" fn launch_new_connection(mut pool: *mut PgPool, mut evict_
                 log_generic(
                     LG_DEBUG,
                     _log_ctx_1,
-                    b"launch_new_connection: last failed, not launching new connection yet, still waiting %llu s\0"
-                        as *const u8 as *const ::core::ffi::c_char,
+                    c"launch_new_connection: last failed, not launching new connection yet, still waiting %llu s".as_ptr(),
                     cf_server_login_retry
                         .wrapping_sub(now.wrapping_sub((*pool).last_connect_time))
                         .wrapping_div(1000000 as ::core::ffi::c_int as usec_t),
@@ -4426,8 +4255,7 @@ pub unsafe extern "C" fn launch_new_connection(mut pool: *mut PgPool, mut evict_
                 log_generic(
                     LG_DEBUG,
                     _log_ctx_2,
-                    b"launch_new_connection: peer pool full (%d >= %d)\0" as *const u8
-                        as *const ::core::ffi::c_char,
+                    c"launch_new_connection: peer pool full (%d >= %d)".as_ptr(),
                     max,
                     pool_pool_size(pool),
                 );
@@ -4443,8 +4271,7 @@ pub unsafe extern "C" fn launch_new_connection(mut pool: *mut PgPool, mut evict_
             log_generic(
                 LG_DEBUG,
                 _log_ctx_3,
-                b"launch_new_connection: bypass pool limitations for cancel request\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"launch_new_connection: bypass pool limitations for cancel request".as_ptr(),
             );
         }
     } else {
@@ -4460,8 +4287,7 @@ pub unsafe extern "C" fn launch_new_connection(mut pool: *mut PgPool, mut evict_
                         log_generic(
                             LG_WARNING,
                             c as *mut ::core::ffi::c_void,
-                            b"taking connection from reserve_pool\0" as *const u8
-                                as *const ::core::ffi::c_char,
+                            c"taking connection from reserve_pool".as_ptr(),
                         );
                         current_block = 14785029078859074793;
                     } else {
@@ -4506,8 +4332,7 @@ pub unsafe extern "C" fn launch_new_connection(mut pool: *mut PgPool, mut evict_
                                 log_generic(
                                     LG_DEBUG,
                                     _log_ctx_4,
-                                    b"launch_new_connection: pool full (%d >= %d)\0" as *const u8
-                                        as *const ::core::ffi::c_char,
+                                    c"launch_new_connection: pool full (%d >= %d)".as_ptr(),
                                     max,
                                     pool_pool_size(pool),
                                 );
@@ -4536,8 +4361,7 @@ pub unsafe extern "C" fn launch_new_connection(mut pool: *mut PgPool, mut evict_
                     log_generic(
                         LG_DEBUG,
                         _log_ctx_5,
-                        b"launch_new_connection: database '%s' full (%d >= %d)\0" as *const u8
-                            as *const ::core::ffi::c_char,
+                        c"launch_new_connection: database '%s' full (%d >= %d)".as_ptr(),
                         &raw mut (*(*pool).db).name as *mut ::core::ffi::c_char,
                         (*(*pool).db).connection_count,
                         max,
@@ -4564,8 +4388,7 @@ pub unsafe extern "C" fn launch_new_connection(mut pool: *mut PgPool, mut evict_
                     log_generic(
                         LG_DEBUG,
                         _log_ctx_6,
-                        b"launch_new_connection: user '%s' full (%d >= %d)\0" as *const u8
-                            as *const ::core::ffi::c_char,
+                        c"launch_new_connection: user '%s' full (%d >= %d)".as_ptr(),
                         &raw mut (*(*pool).user_credentials).name as *mut ::core::ffi::c_char,
                         (*(*(*pool).user_credentials).global_user).connection_count,
                         max,
@@ -4583,7 +4406,7 @@ pub unsafe extern "C" fn launch_new_connection(mut pool: *mut PgPool, mut evict_
             log_generic(
                 LG_DEBUG,
                 _log_ctx_7,
-                b"launch_new_connection: no memory\0" as *const u8 as *const ::core::ffi::c_char,
+                c"launch_new_connection: no memory".as_ptr(),
             );
         }
         return;
@@ -4593,7 +4416,7 @@ pub unsafe extern "C" fn launch_new_connection(mut pool: *mut PgPool, mut evict_
     (*server).connect_time = get_cached_time();
     statlist_init(
         &raw mut (*server).canceling_clients,
-        b"canceling_clients\0" as *const u8 as *const ::core::ffi::c_char,
+        c"canceling_clients".as_ptr(),
     );
     (*pool).last_connect_time = get_cached_time();
     change_server_state(server, SV_LOGIN);
@@ -4617,14 +4440,14 @@ pub unsafe extern "C" fn accept_client(
         log_generic(
             LG_WARNING,
             _log_ctx,
-            b"cannot allocate client struct\0" as *const u8 as *const ::core::ffi::c_char,
+            c"cannot allocate client struct".as_ptr(),
         );
         safe_close(sock);
         return ::core::ptr::null_mut::<PgSocket>();
     }
     (*client).request_time = get_cached_time();
     (*client).connect_time = (*client).request_time;
-    (*client).query_start = 0 as usec_t;
+    (*client).query_start = 0;
     fill_remote_addr(client, sock, is_unix);
     fill_local_addr(client, sock, is_unix);
     change_client_state(client, CL_LOGIN);
@@ -4637,7 +4460,7 @@ pub unsafe extern "C" fn accept_client(
             log_generic(
                 LG_DEBUG,
                 client as *mut ::core::ffi::c_void,
-                b"failed connection attempt\0" as *const u8 as *const ::core::ffi::c_char,
+                c"failed connection attempt".as_ptr(),
             );
         }
         return ::core::ptr::null_mut::<PgSocket>();
@@ -4652,40 +4475,36 @@ pub unsafe extern "C" fn finish_client_login(mut client: *mut PgSocket) -> bool 
             log_generic(
                 LG_INFO,
                 client as *mut ::core::ffi::c_void,
-                b"login failed: db=%s user=%s\0" as *const u8 as *const ::core::ffi::c_char,
+                c"login failed: db=%s user=%s".as_ptr(),
                 &raw mut (*(*client).c2rust_unnamed.db).name as *mut ::core::ffi::c_char,
                 &raw mut (*(*client).login_user_credentials).name as *mut ::core::ffi::c_char,
             );
         }
         disconnect_client(
             client,
-            true_0 != 0,
-            b"no such database: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            true,
+            c"no such database: %s".as_ptr(),
             &raw mut (*(*client).c2rust_unnamed.db).name as *mut ::core::ffi::c_char,
         );
-        return false_0 != 0;
+        return false;
     }
     if (*(*client).c2rust_unnamed.db).db_disabled {
         disconnect_client(
             client,
-            true_0 != 0,
+            true,
             b"database \"%s\" is disabled\0" as *const u8 as *const ::core::ffi::c_char,
             &raw mut (*(*client).c2rust_unnamed.db).name as *mut ::core::ffi::c_char,
         );
-        return false_0 != 0;
+        return false;
     }
     if cf_shutdown != 0
         && strcmp(
-            b"pgbouncer\0" as *const u8 as *const ::core::ffi::c_char,
+            c"pgbouncer".as_ptr(),
             &raw mut (*(*client).c2rust_unnamed.db).name as *mut ::core::ffi::c_char,
         ) != 0
     {
-        disconnect_client(
-            client,
-            true_0 != 0,
-            b"pooler is shutting down\0" as *const u8 as *const ::core::ffi::c_char,
-        );
-        return false_0 != 0;
+        disconnect_client(client, true, c"pooler is shutting down".as_ptr());
+        return false;
     }
     match (*client).state() as ::core::ffi::c_int {
         2 => {
@@ -4695,18 +4514,18 @@ pub unsafe extern "C" fn finish_client_login(mut client: *mut PgSocket) -> bool 
         _ => {
             let mut _log_ctx = NULL;
             log_fatal(
-                b"src/objects.c\0" as *const u8 as *const ::core::ffi::c_char,
+                c"src/objects.c".as_ptr(),
                 2058 as ::core::ffi::c_int,
-                b"finish_client_login\0" as *const u8 as *const ::core::ffi::c_char,
-                false_0 != 0,
+                c"finish_client_login".as_ptr(),
+                false,
                 _log_ctx,
-                b"bad client state: %d\0" as *const u8 as *const ::core::ffi::c_char,
+                c"bad client state: %d".as_ptr(),
                 (*client).state() as ::core::ffi::c_int,
             );
             exit(1 as ::core::ffi::c_int);
         }
     }
-    (*client).set_wait_for_auth(false_0 != 0);
+    (*client).set_wait_for_auth(false);
     if !(*(*client).pool).welcome_msg_ready() {
         let mut _log_ctx_0 = NULL;
         if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
@@ -4714,30 +4533,29 @@ pub unsafe extern "C" fn finish_client_login(mut client: *mut PgSocket) -> bool 
             log_generic(
                 LG_DEBUG,
                 _log_ctx_0,
-                b"finish_client_login: no welcome message, pause\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"finish_client_login: no welcome message, pause".as_ptr(),
             );
         }
-        (*client).set_wait_for_welcome(true_0 != 0);
+        (*client).set_wait_for_welcome(true);
         pause_client(client);
         if cf_pause_mode == P_NONE as ::core::ffi::c_int {
-            launch_new_connection((*client).pool, true_0 != 0);
+            launch_new_connection((*client).pool, true);
         }
-        return false_0 != 0;
+        return false;
     }
-    (*client).set_wait_for_welcome(false_0 != 0);
+    (*client).set_wait_for_welcome(false);
     if !welcome_client(client) {
-        return false_0 != 0;
+        return false;
     }
-    (*client).set_welcome_sent(true_0 != 0);
+    (*client).set_welcome_sent(true);
     if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
         log_generic(
             LG_DEBUG,
             client as *mut ::core::ffi::c_void,
-            b"logged in\0" as *const u8 as *const ::core::ffi::c_char,
+            c"logged in".as_ptr(),
         );
     }
-    true_0 != 0
+    true
 }
 
 unsafe extern "C" fn accept_cancel_request_for_peer(
@@ -4751,9 +4569,8 @@ unsafe extern "C" fn accept_cancel_request_for_peer(
     if ttl == 0 as ::core::ffi::c_int {
         disconnect_client(
             req,
-            false_0 != 0,
-            b"failed to forward cancel request because its TTL was exhausted\0" as *const u8
-                as *const ::core::ffi::c_char,
+            false,
+            c"failed to forward cancel request because its TTL was exhausted".as_ptr(),
         );
         return;
     }
@@ -4763,9 +4580,8 @@ unsafe extern "C" fn accept_cancel_request_for_peer(
     if peer.is_null() {
         disconnect_client(
             req,
-            false_0 != 0,
-            b"could not find peer to forward request to\0" as *const u8
-                as *const ::core::ffi::c_char,
+            false,
+            c"could not find peer to forward request to".as_ptr(),
         );
         return;
     }
@@ -4774,23 +4590,18 @@ unsafe extern "C" fn accept_cancel_request_for_peer(
         log_generic(
             LG_DEBUG,
             _log_ctx,
-            b"forwarding cancellation request to peer %d\0" as *const u8
-                as *const ::core::ffi::c_char,
+            c"forwarding cancellation request to peer %d".as_ptr(),
             peer_id,
         );
     }
     pool = get_peer_pool(peer);
     if pool.is_null() {
-        disconnect_client(
-            req,
-            false_0 != 0,
-            b"out of memory\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        disconnect_client(req, false, c"out of memory".as_ptr());
         return;
     }
     (*req).pool = pool;
     pause_cancel_request(req);
-    launch_new_connection(pool, true_0 != 0);
+    launch_new_connection(pool, true);
 }
 #[no_mangle]
 
@@ -4801,7 +4612,7 @@ pub unsafe extern "C" fn accept_cancel_request(mut req: *mut PgSocket) {
     let mut server = ::core::ptr::null_mut::<PgSocket>();
     let mut client = ::core::ptr::null_mut::<PgSocket>();
     let mut main_client = ::core::ptr::null_mut::<PgSocket>();
-    let mut peering_enabled = false_0 != 0;
+    let mut peering_enabled = false;
     peering_enabled = cf_peer_id > 0 as ::core::ffi::c_int;
     if peering_enabled {
         let mut peer_id = (*req).cancel_key[1 as ::core::ffi::c_int as usize] as ::core::ffi::c_int
@@ -4857,37 +4668,24 @@ pub unsafe extern "C" fn accept_cancel_request(mut req: *mut PgSocket) {
         pitem = (*pitem).next;
     }
     if main_client.is_null() {
-        disconnect_client(
-            req,
-            false_0 != 0,
-            b"failed cancel request\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        disconnect_client(req, false, c"failed cancel request".as_ptr());
         return;
     }
     if (*(*(*main_client).pool).db).admin {
-        disconnect_client(
-            req,
-            false_0 != 0,
-            b"cancel request for console client\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        disconnect_client(req, false, c"cancel request for console client".as_ptr());
         admin_handle_cancel(main_client);
         return;
     }
     if (*main_client).link.is_null() {
-        disconnect_client(
-            req,
-            false_0 != 0,
-            b"cancel request for idle client\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        disconnect_client(req, false, c"cancel request for idle client".as_ptr());
         return;
     }
     server = (*main_client).link;
     if (*server).setting_vars() {
         disconnect_client(
             req,
-            false_0 != 0,
-            b"ignoring cancel request for server that is setting vars\0" as *const u8
-                as *const ::core::ffi::c_char,
+            false,
+            c"ignoring cancel request for server that is setting vars".as_ptr(),
         );
         return;
     }
@@ -4898,7 +4696,7 @@ pub unsafe extern "C" fn accept_cancel_request(mut req: *mut PgSocket) {
     );
     (*req).pool = pool;
     pause_cancel_request(req);
-    launch_new_connection(pool, true_0 != 0);
+    launch_new_connection(pool, true);
 }
 #[no_mangle]
 
@@ -4911,9 +4709,8 @@ pub unsafe extern "C" fn forward_cancel_request(mut server: *mut PgSocket) {
     if !forwarding_to_peer && (*req).canceled_server.is_null() {
         disconnect_client(
             req,
-            false_0 != 0,
-            b"not sending cancel request for client that is now idle\0" as *const u8
-                as *const ::core::ffi::c_char,
+            false,
+            c"not sending cancel request for client that is now idle".as_ptr(),
         );
         return;
     }
@@ -4938,7 +4735,7 @@ pub unsafe extern "C" fn forward_cancel_request(mut server: *mut PgSocket) {
         pktbuf_write_generic(
             &raw mut _buf,
             PKT_CANCEL,
-            b"b\0" as *const u8 as *const ::core::ffi::c_char,
+            c"b".as_ptr(),
             &raw mut (*req).cancel_key as *mut uint8_t,
             8 as ::core::ffi::c_int,
         );
@@ -4964,7 +4761,7 @@ pub unsafe extern "C" fn forward_cancel_request(mut server: *mut PgSocket) {
         pktbuf_write_generic(
             &raw mut _buf_0,
             PKT_CANCEL,
-            b"b\0" as *const u8 as *const ::core::ffi::c_char,
+            c"b".as_ptr(),
             &raw mut (*(*req).canceled_server).cancel_key as *mut uint8_t,
             8 as ::core::ffi::c_int,
         );
@@ -4974,21 +4771,17 @@ pub unsafe extern "C" fn forward_cancel_request(mut server: *mut PgSocket) {
         log_generic(
             LG_WARNING,
             req as *mut ::core::ffi::c_void,
-            b"sending cancel request failed: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"sending cancel request failed: %s".as_ptr(),
             strerror(*__error()),
         );
-        disconnect_client(
-            req,
-            false_0 != 0,
-            b"failed to send cancel request\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        disconnect_client(req, false, c"failed to send cancel request".as_ptr());
         return;
     }
     if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
         log_generic(
             LG_DEBUG,
             req as *mut ::core::ffi::c_void,
-            b"started sending cancel request\0" as *const u8 as *const ::core::ffi::c_char,
+            c"started sending cancel request".as_ptr(),
         );
     }
     change_client_state(req, CL_ACTIVE_CANCEL);
@@ -5031,19 +4824,15 @@ pub unsafe extern "C" fn use_client_socket(
     if db.is_null() {
         db = register_auto_database(dbname);
         if db.is_null() {
-            return true_0 != 0;
+            return true;
         }
     }
     if !scram_client_key.is_null() || !scram_server_key.is_null() {
         let mut credentials = ::core::ptr::null_mut::<PgCredentials>();
         if scram_client_key.is_null() || scram_server_key.is_null() {
             let mut _log_ctx = NULL;
-            log_generic(
-                LG_ERROR,
-                _log_ctx,
-                b"incomplete SCRAM key data\0" as *const u8 as *const ::core::ffi::c_char,
-            );
-            return false_0 != 0;
+            log_generic(LG_ERROR, _log_ctx, c"incomplete SCRAM key data".as_ptr());
+            return false;
         }
         if ::core::mem::size_of::<[uint8_t; 32]>() != scram_client_key_len as usize
             || ::core::mem::size_of::<[uint8_t; 32]>() != scram_server_key_len as usize
@@ -5052,36 +4841,34 @@ pub unsafe extern "C" fn use_client_socket(
             log_generic(
                 LG_ERROR,
                 _log_ctx_0,
-                b"incompatible SCRAM key data\0" as *const u8 as *const ::core::ffi::c_char,
+                c"incompatible SCRAM key data".as_ptr(),
             );
-            return false_0 != 0;
+            return false;
         }
         if !(*db).forced_user_credentials.is_null() {
             let mut _log_ctx_1 = NULL;
             log_generic(
                 LG_ERROR,
                 _log_ctx_1,
-                b"SCRAM key data received for forced user\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"SCRAM key data received for forced user".as_ptr(),
             );
-            return false_0 != 0;
+            return false;
         }
         if cf_auth_type == AUTH_TYPE_PAM as ::core::ffi::c_int {
             let mut _log_ctx_2 = NULL;
             log_generic(
                 LG_ERROR,
                 _log_ctx_2,
-                b"SCRAM key data received for PAM user\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"SCRAM key data received for PAM user".as_ptr(),
             );
-            return false_0 != 0;
+            return false;
         }
         credentials = find_global_credentials(username);
         if credentials.is_null() && !(*db).auth_user_credentials.is_null() {
             credentials = add_dynamic_credentials(db, username, password);
         }
         if credentials.is_null() {
-            return false_0 != 0;
+            return false;
         }
         memcpy(
             &raw mut (*credentials).scram_ClientKey as *mut uint8_t as *mut ::core::ffi::c_void,
@@ -5093,15 +4880,15 @@ pub unsafe extern "C" fn use_client_socket(
             scram_server_key as *const ::core::ffi::c_void,
             ::core::mem::size_of::<[uint8_t; 32]>() as size_t,
         );
-        (*credentials).use_scram_keys = true_0 != 0;
+        (*credentials).use_scram_keys = true;
     }
     client = accept_client(fd, pga_is_unix(addr));
     if client.is_null() {
-        return false_0 != 0;
+        return false;
     }
-    (*client).set_suspended(true_0 != 0);
-    if !set_pool(client, dbname, username, password, true_0 != 0) {
-        return false_0 != 0;
+    (*client).set_suspended(true);
+    if !set_pool(client, dbname, username, password, true) {
+        return false;
     }
     change_client_state(client, CL_ACTIVE);
     pktbuf_static(
@@ -5114,25 +4901,17 @@ pub unsafe extern "C" fn use_client_socket(
     (*client).query_start = linkfd as usec_t;
     varcache_set(
         &raw mut (*client).vars,
-        b"client_encoding\0" as *const u8 as *const ::core::ffi::c_char,
+        c"client_encoding".as_ptr(),
         client_enc,
     );
     varcache_set(
         &raw mut (*client).vars,
-        b"standard_conforming_strings\0" as *const u8 as *const ::core::ffi::c_char,
+        c"standard_conforming_strings".as_ptr(),
         std_string,
     );
-    varcache_set(
-        &raw mut (*client).vars,
-        b"datestyle\0" as *const u8 as *const ::core::ffi::c_char,
-        datestyle,
-    );
-    varcache_set(
-        &raw mut (*client).vars,
-        b"timezone\0" as *const u8 as *const ::core::ffi::c_char,
-        timezone,
-    );
-    true_0 != 0
+    varcache_set(&raw mut (*client).vars, c"datestyle".as_ptr(), datestyle);
+    varcache_set(&raw mut (*client).vars, c"timezone".as_ptr(), timezone);
+    true
 }
 #[no_mangle]
 
@@ -5173,7 +4952,7 @@ pub unsafe extern "C" fn use_server_socket(
     if db.is_null() {
         db = register_auto_database(dbname);
         if db.is_null() {
-            return true_0 != 0;
+            return true;
         }
     }
     if !(*db).forced_user_credentials.is_null() {
@@ -5188,34 +4967,34 @@ pub unsafe extern "C" fn use_server_socket(
     }
     pool = get_pool(db, credentials);
     if pool.is_null() {
-        return false_0 != 0;
+        return false;
     }
     server = slab_alloc(server_cache) as *mut PgSocket;
     if server.is_null() {
-        return false_0 != 0;
+        return false;
     }
     res = sbuf_accept(&raw mut (*server).sbuf, fd, pga_is_unix(addr));
     if !res {
-        return false_0 != 0;
+        return false;
     }
     (*db).connection_count += 1;
-    (*server).set_suspended(true_0 != 0);
+    (*server).set_suspended(true);
     (*server).pool = pool;
     (*server).login_user_credentials = credentials;
     (*server).request_time = get_cached_time();
     (*server).connect_time = (*server).request_time;
-    (*server).query_start = 0 as usec_t;
+    (*server).query_start = 0;
     statlist_init(
         &raw mut (*server).canceling_clients,
-        b"canceling_clients\0" as *const u8 as *const ::core::ffi::c_char,
+        c"canceling_clients".as_ptr(),
     );
     fill_remote_addr(server, fd, pga_is_unix(addr));
     fill_local_addr(server, fd, pga_is_unix(addr));
     if linkfd != 0 {
-        (*server).set_ready(false_0 != 0);
+        (*server).set_ready(false);
         change_server_state(server, SV_ACTIVE);
     } else {
-        (*server).set_ready(true_0 != 0);
+        (*server).set_ready(true);
         change_server_state(server, SV_IDLE);
     }
     pktbuf_static(
@@ -5228,25 +5007,17 @@ pub unsafe extern "C" fn use_server_socket(
     (*server).query_start = linkfd as usec_t;
     varcache_set(
         &raw mut (*server).vars,
-        b"client_encoding\0" as *const u8 as *const ::core::ffi::c_char,
+        c"client_encoding".as_ptr(),
         client_enc,
     );
     varcache_set(
         &raw mut (*server).vars,
-        b"standard_conforming_strings\0" as *const u8 as *const ::core::ffi::c_char,
+        c"standard_conforming_strings".as_ptr(),
         std_string,
     );
-    varcache_set(
-        &raw mut (*server).vars,
-        b"datestyle\0" as *const u8 as *const ::core::ffi::c_char,
-        datestyle,
-    );
-    varcache_set(
-        &raw mut (*server).vars,
-        b"timezone\0" as *const u8 as *const ::core::ffi::c_char,
-        timezone,
-    );
-    true_0 != 0
+    varcache_set(&raw mut (*server).vars, c"datestyle".as_ptr(), datestyle);
+    varcache_set(&raw mut (*server).vars, c"timezone".as_ptr(), timezone);
+    true
 }
 #[no_mangle]
 
@@ -5353,7 +5124,7 @@ unsafe extern "C" fn for_each_server_filtered(
 }
 
 unsafe extern "C" fn tag_dirty(mut sk: *mut PgSocket) {
-    (*sk).set_close_needed(true_0 != 0);
+    (*sk).set_close_needed(true);
 }
 #[no_mangle]
 
@@ -5368,7 +5139,7 @@ pub unsafe extern "C" fn tag_pool_dirty(mut pool: *mut PgPool) {
         pktbuf_free((*pool).welcome_msg as *mut PktBuf);
         (*pool).welcome_msg = ::core::ptr::null_mut::<PktBuf>();
     }
-    (*pool).set_welcome_msg_ready(false_0 != 0);
+    (*pool).set_welcome_msg_ready(false);
     for_each_server(
         pool,
         Some(tag_dirty as unsafe extern "C" fn(*mut PgSocket) -> ()),
@@ -5380,8 +5151,8 @@ pub unsafe extern "C" fn tag_pool_dirty(mut pool: *mut PgPool) {
             as *mut PgSocket as *mut PgSocket;
         disconnect_server(
             server as *mut PgSocket,
-            true_0 != 0,
-            b"connect string changed\0" as *const u8 as *const ::core::ffi::c_char,
+            true,
+            c"connect string changed".as_ptr(),
         );
         item = tmp;
         tmp = (*tmp).next;
@@ -5494,7 +5265,7 @@ pub unsafe extern "C" fn reuse_just_freed_objects() {
     let mut tmp = ::core::ptr::null_mut::<List>();
     let mut item = ::core::ptr::null_mut::<List>();
     let mut sk = ::core::ptr::null_mut::<PgSocket>();
-    let mut close_works = true_0 != 0;
+    let mut close_works = true;
     item = justfree_client_list.head.next;
     tmp = (*justfree_client_list.head.next).next;
     while item != &raw mut justfree_client_list.head {
@@ -5710,7 +5481,6 @@ unsafe extern "C" fn run_static_initializers() {
 #[cfg_attr(target_os = "macos", link_section = "__DATA,__mod_init_func")]
 static INIT_ARRAY: [unsafe extern "C" fn(); 1] = [run_static_initializers];
 
-
 extern "C" {
     pub fn get_cached_time() -> usec_t;
 }
@@ -5718,14 +5488,14 @@ extern "C" {
 extern "C" {
     pub fn get_num_var_cached() -> ::core::ffi::c_int;
     pub fn varcache_set(
-    cache: *mut VarCache,
-    key: *const ::core::ffi::c_char,
-    value: *const ::core::ffi::c_char,
+        cache: *mut VarCache,
+        key: *const ::core::ffi::c_char,
+        value: *const ::core::ffi::c_char,
     ) -> bool;
     pub fn varcache_apply(
-    server: *mut PgSocket,
-    client: *mut PgSocket,
-    changes_p: *mut bool,
+        server: *mut PgSocket,
+        client: *mut PgSocket,
+        changes_p: *mut bool,
     ) -> bool;
     pub fn varcache_clean(cache: *mut VarCache);
 }

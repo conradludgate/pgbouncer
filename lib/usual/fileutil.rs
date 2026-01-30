@@ -1,119 +1,118 @@
-
 pub mod _types_h {
-    
+
     pub type __uint16_t = u16;
-    
+
     pub type __int32_t = i32;
-    
+
     pub type __uint32_t = u32;
-    
+
     pub type __int64_t = i64;
-    
+
     pub type __uint64_t = u64;
-    
+
     pub type __darwin_size_t = usize;
-    
+
     pub type __darwin_ssize_t = isize;
-    
+
     pub type __darwin_time_t = ::core::ffi::c_long;
 }
 
 pub mod sys__types_h {
-    
+
     pub type __darwin_blkcnt_t = __int64_t;
-    
+
     pub type __darwin_blksize_t = __int32_t;
-    
+
     pub type __darwin_dev_t = __int32_t;
-    
+
     pub type __darwin_gid_t = __uint32_t;
-    
+
     pub type __darwin_ino64_t = __uint64_t;
-    
+
     pub type __darwin_mode_t = __uint16_t;
-    
+
     pub type __darwin_off_t = __int64_t;
-    
+
     pub type __darwin_uid_t = __uint32_t;
-    
+
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
     use super::_types_h::{__int32_t, __int64_t, __uint16_t, __uint32_t, __uint64_t};
 }
 
 pub mod _dev_t_h {
-    
+
     pub type dev_t = __darwin_dev_t;
     use super::sys__types_h::__darwin_dev_t;
 }
 
 pub mod _blkcnt_t_h {
-    
+
     pub type blkcnt_t = __darwin_blkcnt_t;
     use super::sys__types_h::__darwin_blkcnt_t;
 }
 
 pub mod _blksize_t_h {
-    
+
     pub type blksize_t = __darwin_blksize_t;
     use super::sys__types_h::__darwin_blksize_t;
 }
 
 pub mod _gid_t_h {
-    
+
     pub type gid_t = __darwin_gid_t;
     use super::sys__types_h::__darwin_gid_t;
 }
 
 pub mod _mode_t_h {
-    
+
     pub type mode_t = __darwin_mode_t;
     use super::sys__types_h::__darwin_mode_t;
 }
 
 pub mod _nlink_t_h {
-    
+
     pub type nlink_t = __uint16_t;
     use super::_types_h::__uint16_t;
 }
 
 pub mod _off_t_h {
-    
+
     pub type off_t = __darwin_off_t;
     use super::sys__types_h::__darwin_off_t;
 }
 
 pub mod _uid_t_h {
-    
+
     pub type uid_t = __darwin_uid_t;
     use super::sys__types_h::__darwin_uid_t;
 }
 
 pub mod _size_t_h {
-    
+
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
 
 pub mod _ssize_t_h {
-    
+
     pub type ssize_t = __darwin_ssize_t;
     use super::_types_h::__darwin_ssize_t;
 }
 
 pub mod _stdio_h {
-    
+
     pub type fpos_t = __darwin_off_t;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct __sbuf {
         pub _base: *mut ::core::ffi::c_uchar,
         pub _size: ::core::ffi::c_int,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct __sFILE {
         pub _p: *mut ::core::ffi::c_uchar,
         pub _r: ::core::ffi::c_int,
@@ -150,33 +149,33 @@ pub mod _stdio_h {
         pub _blksize: ::core::ffi::c_int,
         pub _offset: fpos_t,
     }
-    
+
     pub type FILE = __sFILE;
     use super::_size_t_h::size_t;
     use super::_ssize_t_h::ssize_t;
     use super::sys__types_h::__darwin_off_t;
     extern "C" {
-        
+
         pub type __sFILEX;
-        
+
         pub fn fclose(_: *mut FILE) -> ::core::ffi::c_int;
-        
+
         pub fn feof(_: *mut FILE) -> ::core::ffi::c_int;
-        
+
         pub fn fopen(
             __filename: *const ::core::ffi::c_char,
             __mode: *const ::core::ffi::c_char,
         ) -> *mut FILE;
-        
+
         pub fn fread(
             __ptr: *mut ::core::ffi::c_void,
             __size: size_t,
             __nitems: size_t,
             __stream: *mut FILE,
         ) -> ::core::ffi::c_ulong;
-        
+
         pub fn fileno(_: *mut FILE) -> ::core::ffi::c_int;
-        
+
         pub fn getline(
             __linep: *mut *mut ::core::ffi::c_char,
             __linecapp: *mut size_t,
@@ -188,7 +187,7 @@ pub mod _stdio_h {
 pub mod _timespec_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct timespec {
         pub tv_sec: __darwin_time_t,
         pub tv_nsec: ::core::ffi::c_long,
@@ -199,13 +198,13 @@ pub mod _timespec_h {
 pub mod fileutil_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct MappedFile {
         pub fd: ::core::ffi::c_int,
         pub len: ::core::ffi::c_uint,
         pub ptr: *mut ::core::ffi::c_void,
     }
-    
+
     pub type procline_cb = Option<
         unsafe extern "C" fn(*mut ::core::ffi::c_void, *const ::core::ffi::c_char, ssize_t) -> bool,
     >;
@@ -215,7 +214,7 @@ pub mod fileutil_h {
 pub mod stat_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct stat {
         pub st_dev: dev_t,
         pub st_mode: mode_t,
@@ -248,9 +247,9 @@ pub mod stat_h {
     use super::_uid_t_h::uid_t;
     use super::sys__types_h::__darwin_ino64_t;
     extern "C" {
-        
+
         pub fn fstat(_: ::core::ffi::c_int, _: *mut stat) -> ::core::ffi::c_int;
-        
+
         pub fn stat(_: *const ::core::ffi::c_char, _: *mut stat) -> ::core::ffi::c_int;
     }
 }
@@ -258,33 +257,33 @@ pub mod stat_h {
 pub mod _malloc_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn malloc(__size: size_t) -> *mut ::core::ffi::c_void;
-        
+
         pub fn free(_: *mut ::core::ffi::c_void);
     }
 }
 
 pub mod _null_h {
-    
+
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
     use super::sys__types_h::__DARWIN_NULL;
 }
 
 pub mod mman_h {
-    
+
     pub const PROT_READ: ::core::ffi::c_int = 0x1 as ::core::ffi::c_int;
-    
+
     pub const PROT_WRITE: ::core::ffi::c_int = 0x2 as ::core::ffi::c_int;
-    
+
     pub const MAP_SHARED: ::core::ffi::c_int = 0x1 as ::core::ffi::c_int;
-    
+
     pub const MAP_FAILED: *mut ::core::ffi::c_void =
         -(1 as ::core::ffi::c_int) as *mut ::core::ffi::c_void;
     use super::_off_t_h::off_t;
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn mmap(
             _: *mut ::core::ffi::c_void,
             _: size_t,
@@ -293,39 +292,39 @@ pub mod mman_h {
             _: ::core::ffi::c_int,
             _: off_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn munmap(_: *mut ::core::ffi::c_void, _: size_t) -> ::core::ffi::c_int;
     }
 }
 
 pub mod errno_h {
     extern "C" {
-        
+
         pub fn __error() -> *mut ::core::ffi::c_int;
     }
 }
 
 pub mod unistd_h {
     extern "C" {
-        
+
         pub fn close(_: ::core::ffi::c_int) -> ::core::ffi::c_int;
     }
 }
 
 pub mod stdbool_h {
-    
+
     pub const true_0: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    
+
     pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 }
 
 pub mod fcntl_h {
-    
+
     pub const O_RDONLY: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
-    
+
     pub const O_RDWR: ::core::ffi::c_int = 0x2 as ::core::ffi::c_int;
     extern "C" {
-        
+
         pub fn open(
             _: *const ::core::ffi::c_char,
             _: ::core::ffi::c_int,

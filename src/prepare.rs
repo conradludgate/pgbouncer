@@ -1,84 +1,46 @@
-
-pub mod _types_h {
-    
-    pub type __uint8_t = u8;
-    
-    pub type __uint16_t = u16;
-    
-    pub type __int32_t = i32;
-    
-    pub type __uint32_t = u32;
-    
-    pub type __darwin_ptrdiff_t = isize;
-    
-    pub type __darwin_size_t = usize;
-    
-    pub type __darwin_ssize_t = isize;
-    
-    pub type __darwin_time_t = ::core::ffi::c_long;
-}
-
-
 pub mod sys__types_h {
-    
+
     pub type __darwin_pid_t = __int32_t;
-    
+
     pub type __darwin_suseconds_t = __int32_t;
-    
+
     pub type __darwin_uid_t = __uint32_t;
-    
+
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
-    use super::_types_h::{__int32_t, __uint32_t};
+    use crate::types::{__int32_t, __uint32_t};
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 pub mod tls_h {
     extern "C" {
-        
+
         pub type tls;
     }
 }
 
-
-
-
-
-
 pub mod socket_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr {
         pub sa_len: __uint8_t,
         pub sa_family: sa_family_t,
         pub sa_data: [::core::ffi::c_char; 14],
     }
+    use crate::types::__uint8_t;
     use crate::types::sa_family_t;
-    use super::_types_h::__uint8_t;
 }
 
 pub mod in_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct in_addr {
         pub s_addr: in_addr_t,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr_in {
         pub sin_len: __uint8_t,
         pub sin_family: sa_family_t,
@@ -86,22 +48,22 @@ pub mod in_h {
         pub sin_addr: in_addr,
         pub sin_zero: [::core::ffi::c_char; 8],
     }
+    use crate::types::__uint8_t;
     use crate::types::in_addr_t;
     use crate::types::in_port_t;
     use crate::types::sa_family_t;
-    use super::_types_h::__uint8_t;
 }
 
 pub mod in6_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct in6_addr {
         pub __u6_addr: C2RustUnnamed,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed {
         pub __u6_addr8: [__uint8_t; 16],
         pub __u6_addr16: [__uint16_t; 8],
@@ -109,7 +71,7 @@ pub mod in6_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr_in6 {
         pub sin6_len: __uint8_t,
         pub sin6_family: sa_family_t,
@@ -120,12 +82,12 @@ pub mod in6_h {
     }
     use crate::types::in_port_t;
     use crate::types::sa_family_t;
-    use super::_types_h::{__uint16_t, __uint32_t, __uint8_t};
+    use crate::types::{__uint16_t, __uint32_t, __uint8_t};
 }
 
 pub mod event_h {
     extern "C" {
-        
+
         pub type event_base;
     }
 }
@@ -133,7 +95,7 @@ pub mod event_h {
 pub mod event_struct_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct event {
         pub ev_evcallback: event_callback,
         pub ev_timeout_pos: C2RustUnnamed_5,
@@ -146,14 +108,14 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_0 {
         pub ev_io: C2RustUnnamed_3,
         pub ev_signal: C2RustUnnamed_1,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_1 {
         pub ev_signal_next: C2RustUnnamed_2,
         pub ev_ncalls: ::core::ffi::c_short,
@@ -161,42 +123,42 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_2 {
         pub le_next: *mut event,
         pub le_prev: *mut *mut event,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_3 {
         pub ev_io_next: C2RustUnnamed_4,
         pub ev_timeout: timeval,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_4 {
         pub le_next: *mut event,
         pub le_prev: *mut *mut event,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_5 {
         pub ev_next_with_common_timeout: C2RustUnnamed_6,
         pub min_heap_idx: ::core::ffi::c_int,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_6 {
         pub tqe_next: *mut event,
         pub tqe_prev: *mut *mut event,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct event_callback {
         pub evcb_active_next: C2RustUnnamed_8,
         pub evcb_flags: ::core::ffi::c_short,
@@ -207,7 +169,7 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_7 {
         pub evcb_callback: Option<
             unsafe extern "C" fn(
@@ -225,72 +187,70 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_8 {
         pub tqe_next: *mut event_callback,
         pub tqe_prev: *mut *mut event_callback,
     }
+    use super::event_h::event_base;
     use crate::types::timeval;
     use crate::types::uint8_t;
-    use super::event_h::event_base;
 }
 
-
-
 pub mod bouncer_h {
-    
+
     pub type SocketState = ::core::ffi::c_uint;
-    
+
     pub const SV_TESTED: SocketState = 16;
-    
+
     pub const SV_USED: SocketState = 15;
-    
+
     pub const SV_ACTIVE_CANCEL: SocketState = 14;
-    
+
     pub const SV_ACTIVE: SocketState = 13;
-    
+
     pub const SV_IDLE: SocketState = 12;
-    
+
     pub const SV_BEING_CANCELED: SocketState = 11;
-    
+
     pub const SV_LOGIN: SocketState = 10;
-    
+
     pub const SV_JUSTFREE: SocketState = 9;
-    
+
     pub const SV_FREE: SocketState = 8;
-    
+
     pub const CL_ACTIVE_CANCEL: SocketState = 7;
-    
+
     pub const CL_WAITING_CANCEL: SocketState = 6;
-    
+
     pub const CL_ACTIVE: SocketState = 5;
-    
+
     pub const CL_WAITING_LOGIN: SocketState = 4;
-    
+
     pub const CL_WAITING: SocketState = 3;
-    
+
     pub const CL_LOGIN: SocketState = 2;
-    
+
     pub const CL_JUSTFREE: SocketState = 1;
-    
+
     pub const CL_FREE: SocketState = 0;
-    
+
     pub type PacketCallbackFlag = ::core::ffi::c_uint;
-    
+
     pub const CB_HANDLE_COMPLETE_PACKET: PacketCallbackFlag = 2;
-    
+
     pub const CB_WANT_COMPLETE_PACKET: PacketCallbackFlag = 1;
-    
+
     pub const CB_NONE: PacketCallbackFlag = 0;
-    
+
     pub type LoadBalanceHosts = ::core::ffi::c_uint;
-    
+
     pub const LOAD_BALANCE_HOSTS_ROUND_ROBIN: LoadBalanceHosts = 1;
-    
+
     pub const LOAD_BALANCE_HOSTS_DISABLE: LoadBalanceHosts = 0;
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    
+
     pub struct PgSocket {
         pub head: List,
         pub cancel_head: List,
@@ -347,7 +307,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    
+
     pub struct CallbackState {
         #[bitfield(name = "flag", ty = "PacketCallbackFlag", bits = "0..=7")]
         pub flag: [u8; 1],
@@ -357,7 +317,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct ScramState {
         pub client_nonce: *mut ::core::ffi::c_char,
         pub client_first_message_bare: *mut ::core::ffi::c_char,
@@ -379,14 +339,14 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_9 {
         pub dns_token: *mut DNSToken,
         pub db: *mut PgDatabase,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct PgDatabase {
         pub head: List,
         pub name: [::core::ffi::c_char; 64],
@@ -424,7 +384,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct PgCredentials {
         pub tree_node: AANode,
         pub name: [::core::ffi::c_char; 128],
@@ -442,7 +402,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct PgGlobalUser {
         pub credentials: PgCredentials,
         pub head: List,
@@ -461,7 +421,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    
+
     pub struct PgPool {
         pub head: List,
         pub map_head: List,
@@ -497,7 +457,7 @@ pub mod bouncer_h {
     pub use super::super::common::types::PgStats;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union PgAddr {
         pub sa: sockaddr,
         pub sin: sockaddr_in,
@@ -506,31 +466,31 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr_ucreds {
         pub sin: sockaddr_in,
         pub uid: uid_t,
         pub pid: pid_t,
     }
-    
+
     pub type ReplicationType = ::core::ffi::c_uint;
-    
+
     pub const REPLICATION_PHYSICAL: ReplicationType = 2;
-    
+
     pub const REPLICATION_LOGICAL: ReplicationType = 1;
-    
+
     pub const REPLICATION_NONE: ReplicationType = 0;
-    
+
     pub const RA_FAKE: ResponseAction = 2;
-    
+
     pub const RA_SKIP: ResponseAction = 1;
-    
+
     pub const RA_FORWARD: ResponseAction = 0;
-    
+
     pub type ResponseAction = ::core::ffi::c_uint;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct OutstandingRequest {
         pub node: List,
         pub type_0: ::core::ffi::c_char,
@@ -538,27 +498,27 @@ pub mod bouncer_h {
         pub server_ps: *mut PgServerPreparedStatement,
         pub server_ps_query_id: uint64_t,
     }
+    use super::dnslookup_h::DNSToken;
+    use super::in6_h::sockaddr_in6;
+    use super::in_h::sockaddr_in;
+    use super::pktbuf_h::PktBuf;
+    use super::sbuf_h::SBuf;
+    use super::socket_h::sockaddr;
+    use crate::types::pg_cryptohash_type;
     use crate::types::pid_t;
     use crate::types::uid_t;
     use crate::types::uint16_t;
     use crate::types::uint64_t;
     use crate::types::uint8_t;
-    use crate::types::{AANode, AATree};
-    use crate::types::pg_cryptohash_type;
-    use super::dnslookup_h::DNSToken;
-    use super::in6_h::sockaddr_in6;
-    use super::in_h::sockaddr_in;
-    use crate::types::List;
-    use super::pktbuf_h::PktBuf;
-    use crate::types::{PgClientPreparedStatement, PgServerPreparedStatement};
-    use crate::types::PktHdr;
-    use super::sbuf_h::SBuf;
-    use super::socket_h::sockaddr;
-    use crate::types::StatList;
     use crate::types::usec_t;
+    use crate::types::List;
+    use crate::types::PktHdr;
+    use crate::types::StatList;
     use crate::types::VarCache;
+    use crate::types::{AANode, AATree};
+    use crate::types::{PgClientPreparedStatement, PgServerPreparedStatement};
     extern "C" {
-        
+
         pub static mut cf_max_prepared_statements: ::core::ffi::c_int;
     }
 }
@@ -566,7 +526,7 @@ pub mod bouncer_h {
 pub mod sbuf_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct SBuf {
         pub ev: event,
         pub wait_type: uint8_t,
@@ -586,7 +546,7 @@ pub mod sbuf_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct SBufIO {
         pub sbufio_peek:
             Option<unsafe extern "C" fn(*mut SBuf, *mut ::core::ffi::c_void, size_t) -> ssize_t>,
@@ -596,55 +556,55 @@ pub mod sbuf_h {
             Option<unsafe extern "C" fn(*mut SBuf, *const ::core::ffi::c_void, size_t) -> ssize_t>,
         pub sbufio_close: Option<unsafe extern "C" fn(*mut SBuf) -> ::core::ffi::c_int>,
     }
-    
+
     pub type sbuf_cb_t = Option<unsafe extern "C" fn(*mut SBuf, SBufEvent, *mut MBuf) -> bool>;
-    
+
     pub type SBufEvent = ::core::ffi::c_uint;
-    
+
     pub const SBUF_EV_TLS_READY: SBufEvent = 7;
-    
+
     pub const SBUF_EV_PKT_CALLBACK: SBufEvent = 6;
-    
+
     pub const SBUF_EV_FLUSH: SBufEvent = 5;
-    
+
     pub const SBUF_EV_CONNECT_OK: SBufEvent = 4;
-    
+
     pub const SBUF_EV_CONNECT_FAILED: SBufEvent = 3;
-    
+
     pub const SBUF_EV_SEND_FAILED: SBufEvent = 2;
-    
+
     pub const SBUF_EV_RECV_FAILED: SBufEvent = 1;
-    
+
     pub const SBUF_EV_READ: SBufEvent = 0;
+    use super::event_struct_h::event;
+    use super::iobuf_h::IOBuf;
+    use super::pktbuf_h::PktBuf;
+    use super::tls_h::tls;
     use crate::types::size_t;
     use crate::types::ssize_t;
     use crate::types::uint8_t;
-    use super::event_struct_h::event;
-    use super::iobuf_h::IOBuf;
     use crate::types::MBuf;
-    use super::pktbuf_h::PktBuf;
-    use super::tls_h::tls;
     extern "C" {
-        
+
         pub fn sbuf_prepare_skip(sbuf: *mut SBuf, amount: ::core::ffi::c_uint);
-        
+
         pub fn sbuf_prepare_skip_then_send_leftover(
             sbuf: *mut SBuf,
             dst: *mut SBuf,
             skip_amount: ::core::ffi::c_uint,
             total_amount: ::core::ffi::c_uint,
         );
-        
+
         pub fn sbuf_queue_packet(sbuf: *mut SBuf, dst: *mut SBuf, pkt: *mut PktBuf) -> bool;
     }
 }
 
 pub mod iobuf_h {
-    
+
     pub type IOBuf = iobuf;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct iobuf {
         pub done_pos: ::core::ffi::c_uint,
         pub parse_pos: ::core::ffi::c_uint,
@@ -654,12 +614,10 @@ pub mod iobuf_h {
     use crate::types::uint8_t;
 }
 
-
-
 pub mod pktbuf_h {
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    
+
     pub struct PktBuf {
         pub buf: *mut uint8_t,
         pub buf_len: ::core::ffi::c_int,
@@ -675,30 +633,30 @@ pub mod pktbuf_h {
         #[bitfield(padding)]
         pub c2rust_padding: [u8; 7],
     }
-    use crate::types::uint32_t;
-    use crate::types::uint8_t;
     use super::bouncer_h::PgSocket;
     use super::event_struct_h::event;
+    use crate::types::uint32_t;
+    use crate::types::uint8_t;
     extern "C" {
-        
+
         pub fn pktbuf_static(buf: *mut PktBuf, data: *mut uint8_t, len: ::core::ffi::c_int);
-        
+
         pub fn pktbuf_temp() -> *mut PktBuf;
-        
+
         pub fn pktbuf_send_immediate(buf: *mut PktBuf, sk: *mut PgSocket) -> bool;
-        
+
         pub fn pktbuf_put_char(buf: *mut PktBuf, val: ::core::ffi::c_char);
-        
+
         pub fn pktbuf_put_uint32(buf: *mut PktBuf, val: uint32_t);
-        
+
         pub fn pktbuf_put_string(buf: *mut PktBuf, str: *const ::core::ffi::c_char);
-        
+
         pub fn pktbuf_put_bytes(
             buf: *mut PktBuf,
             data: *const ::core::ffi::c_void,
             len: ::core::ffi::c_int,
         );
-        
+
         pub fn pktbuf_write_generic(
             buf: *mut PktBuf,
             type_0: ::core::ffi::c_int,
@@ -710,32 +668,32 @@ pub mod pktbuf_h {
 
 pub mod dnslookup_h {
     extern "C" {
-        
+
         pub type DNSToken;
     }
 }
 
 pub mod logging_h {
-    
+
     pub type LogLevel = ::core::ffi::c_uint;
-    
+
     pub const LG_NOISE: LogLevel = 6;
-    
+
     pub const LG_DEBUG: LogLevel = 5;
-    
+
     pub const LG_INFO: LogLevel = 4;
-    
+
     pub const LG_STATS: LogLevel = 3;
-    
+
     pub const LG_WARNING: LogLevel = 2;
-    
+
     pub const LG_ERROR: LogLevel = 1;
-    
+
     pub const LG_FATAL: LogLevel = 0;
     extern "C" {
-        
+
         pub static mut cf_verbose: ::core::ffi::c_int;
-        
+
         pub fn log_generic(
             level: LogLevel,
             ctx: *mut ::core::ffi::c_void,
@@ -749,27 +707,27 @@ pub mod objects_h {
     use super::bouncer_h::{PgSocket, ResponseAction};
     use crate::types::PgPreparedStatement;
     extern "C" {
-        
+
         pub type Slab;
-        
+
         pub static mut server_prepared_statement_cache: *mut Slab;
-        
+
         pub static mut prepared_statements: *mut PgPreparedStatement;
-        
+
         pub fn disconnect_server(
             server: *mut PgSocket,
             notify: bool,
             reason: *const ::core::ffi::c_char,
             ...
         );
-        
+
         pub fn disconnect_client(
             client: *mut PgSocket,
             notify: bool,
             reason: *const ::core::ffi::c_char,
             ...
         );
-        
+
         pub fn add_outstanding_request(
             client: *mut PgSocket,
             type_0: ::core::ffi::c_char,
@@ -781,7 +739,7 @@ pub mod objects_h {
 pub mod messages_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct PgParsePacket {
         pub len: ::core::ffi::c_uint,
         pub name: *const ::core::ffi::c_char,
@@ -790,7 +748,7 @@ pub mod messages_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct PgBindPacket {
         pub len: ::core::ffi::c_uint,
         pub portal: *const ::core::ffi::c_char,
@@ -798,35 +756,35 @@ pub mod messages_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct PgDescribePacket {
         pub type_0: ::core::ffi::c_char,
         pub name: *const ::core::ffi::c_char,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct PgClosePacket {
         pub type_0: ::core::ffi::c_char,
         pub name: *const ::core::ffi::c_char,
     }
-    use crate::types::size_t;
     use super::bouncer_h::PgSocket;
+    use crate::types::size_t;
     use crate::types::PktHdr;
     extern "C" {
-        
+
         pub fn unmarshall_parse_packet(
             client: *mut PgSocket,
             pkt: *mut PktHdr,
             parse_packet_p: *mut PgParsePacket,
         ) -> bool;
-        
+
         pub fn unmarshall_bind_packet(
             client: *mut PgSocket,
             pkt: *mut PktHdr,
             bind_packet_p: *mut PgBindPacket,
         ) -> bool;
-        
+
         pub fn unmarshall_describe_packet(
             client: *mut PgSocket,
             pkt: *mut PktHdr,
@@ -838,7 +796,7 @@ pub mod messages_h {
 pub mod _stdio_h {
     use crate::types::size_t;
     extern "C" {
-        
+
         pub fn snprintf(
             __str: *mut ::core::ffi::c_char,
             __size: size_t,
@@ -851,36 +809,35 @@ pub mod _stdio_h {
 pub mod _malloc_h {
     use crate::types::size_t;
     extern "C" {
-        
+
         pub fn malloc(__size: size_t) -> *mut ::core::ffi::c_void;
-        
+
         pub fn free(_: *mut ::core::ffi::c_void);
     }
 }
 
-
 pub mod _string_h {
     use crate::types::size_t;
     extern "C" {
-        
+
         pub fn memcmp(
             __s1: *const ::core::ffi::c_void,
             __s2: *const ::core::ffi::c_void,
             __n: size_t,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn memcpy(
             __dst: *mut ::core::ffi::c_void,
             __src: *const ::core::ffi::c_void,
             __n: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn memset(
             __b: *mut ::core::ffi::c_void,
             __c: ::core::ffi::c_int,
             __len: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn strlen(__s: *const ::core::ffi::c_char) -> size_t;
     }
 }
@@ -888,49 +845,28 @@ pub mod _string_h {
 pub mod slab_h {
     use super::objects_h::Slab;
     extern "C" {
-        
+
         pub fn slab_alloc(slab: *mut Slab) -> *mut ::core::ffi::c_void;
-        
+
         pub fn slab_free(slab: *mut Slab, obj: *mut ::core::ffi::c_void);
     }
 }
 
-
 pub mod protocol_h {
-    
+
     pub const PqMsg_Bind: ::core::ffi::c_int = 'B' as i32;
-    
+
     pub const PqMsg_Close: ::core::ffi::c_int = 'C' as i32;
-    
+
     pub const PqMsg_Describe: ::core::ffi::c_int = 'D' as i32;
-    
+
     pub const PqMsg_Parse: ::core::ffi::c_int = 'P' as i32;
-    
+
     pub const PqMsg_CloseComplete: ::core::ffi::c_int = '3' as i32;
 }
-pub use crate::types::in_addr_t;
-pub use crate::types::in_port_t;
 use self::_malloc_h::{free, malloc};
-pub use crate::types::NULL;
-pub use crate::types::pid_t;
-pub use crate::types::ptrdiff_t;
-pub use crate::types::sa_family_t;
-pub use crate::types::size_t;
-pub use crate::types::ssize_t;
 use self::_stdio_h::snprintf;
 use self::_string_h::{memcmp, memcpy, memset, strlen};
-pub use crate::types::timeval;
-pub use self::_types_h::{
-    __darwin_ptrdiff_t, __darwin_size_t, __darwin_ssize_t, __darwin_time_t, __int32_t, __uint16_t,
-    __uint32_t, __uint8_t,
-};
-pub use crate::types::uid_t;
-pub use crate::types::uint16_t;
-pub use crate::types::uint32_t;
-pub use crate::types::uint64_t;
-pub use crate::types::uint8_t;
-pub use crate::types::uintptr_t;
-pub use crate::types::{aatree_cmp_f, aatree_walker_f, AANode, AATree};
 pub use self::bouncer_h::{
     cf_max_prepared_statements, sockaddr_ucreds, C2RustUnnamed_9, CallbackState, LoadBalanceHosts,
     OutstandingRequest, PacketCallbackFlag, PgAddr, PgCredentials, PgDatabase, PgGlobalUser,
@@ -941,6 +877,26 @@ pub use self::bouncer_h::{
     REPLICATION_LOGICAL, REPLICATION_NONE, REPLICATION_PHYSICAL, SV_ACTIVE, SV_ACTIVE_CANCEL,
     SV_BEING_CANCELED, SV_FREE, SV_IDLE, SV_JUSTFREE, SV_LOGIN, SV_TESTED, SV_USED,
 };
+pub use crate::types::in_addr_t;
+pub use crate::types::in_port_t;
+pub use crate::types::pid_t;
+pub use crate::types::ptrdiff_t;
+pub use crate::types::sa_family_t;
+pub use crate::types::size_t;
+pub use crate::types::ssize_t;
+pub use crate::types::timeval;
+pub use crate::types::uid_t;
+pub use crate::types::uint16_t;
+pub use crate::types::uint32_t;
+pub use crate::types::uint64_t;
+pub use crate::types::uint8_t;
+pub use crate::types::uintptr_t;
+pub use crate::types::NULL;
+pub use crate::types::{
+    __darwin_ptrdiff_t, __darwin_size_t, __darwin_ssize_t, __darwin_time_t, __int32_t, __uint16_t,
+    __uint32_t, __uint8_t,
+};
+pub use crate::types::{aatree_cmp_f, aatree_walker_f, AANode, AATree};
 pub use crate::types::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
 
 pub use self::event_struct_h::{
@@ -950,12 +906,10 @@ pub use self::event_struct_h::{
 pub use self::in6_h::{in6_addr, sockaddr_in6, C2RustUnnamed};
 pub use self::in_h::{in_addr, sockaddr_in};
 pub use self::iobuf_h::{iobuf, IOBuf};
-pub use crate::types::{list_empty, list_last, List};
 pub use self::logging_h::{
     cf_verbose, log_generic, LogLevel, LG_DEBUG, LG_ERROR, LG_FATAL, LG_INFO, LG_NOISE, LG_STATS,
     LG_WARNING,
 };
-pub use crate::types::MBuf;
 pub use self::messages_h::{
     unmarshall_bind_packet, unmarshall_describe_packet, unmarshall_parse_packet, PgBindPacket,
     PgClosePacket, PgDescribePacket, PgParsePacket,
@@ -968,10 +922,6 @@ pub use self::pktbuf_h::{
     pktbuf_put_bytes, pktbuf_put_char, pktbuf_put_string, pktbuf_put_uint32, pktbuf_send_immediate,
     pktbuf_static, pktbuf_temp, pktbuf_write_generic, PktBuf,
 };
-pub use crate::types::{
-    PgClientPreparedStatement, PgPreparedStatement, PgServerPreparedStatement,
-};
-pub use crate::types::PktHdr;
 pub use self::protocol_h::{
     PqMsg_Bind, PqMsg_Close, PqMsg_CloseComplete, PqMsg_Describe, PqMsg_Parse,
 };
@@ -983,15 +933,22 @@ pub use self::sbuf_h::{
 };
 use self::slab_h::{slab_alloc, slab_free};
 pub use self::socket_h::sockaddr;
-pub use crate::types::{statlist_count, statlist_last, StatList};
-pub use crate::types::{false_0, true_0};
-pub use crate::types::{PStr, StrPool};
 pub use self::sys__types_h::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
 pub use crate::types::usec_t;
+pub use crate::types::MBuf;
+pub use crate::types::PktHdr;
+pub use crate::types::{false_0, true_0};
+pub use crate::types::{list_empty, list_last, List};
+pub use crate::types::{statlist_count, statlist_last, StatList};
+pub use crate::types::{PStr, StrPool};
+pub use crate::types::{PgClientPreparedStatement, PgPreparedStatement, PgServerPreparedStatement};
 
-pub use crate::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
-pub use crate::types::{HASH_BKT_CAPACITY_THRESH, HASH_INITIAL_NUM_BUCKETS, HASH_INITIAL_NUM_BUCKETS_LOG2, HASH_SIGNATURE};
 pub use crate::types::VarCache;
+pub use crate::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
+pub use crate::types::{
+    HASH_BKT_CAPACITY_THRESH, HASH_INITIAL_NUM_BUCKETS, HASH_INITIAL_NUM_BUCKETS_LOG2,
+    HASH_SIGNATURE,
+};
 
 static mut next_unique_query_id: uint64_t = 0;
 
@@ -1009,7 +966,7 @@ unsafe extern "C" fn create_prepared_statement(
     }
     next_unique_query_id = next_unique_query_id.wrapping_add(1 as uint64_t);
     (*ps).query_id = next_unique_query_id;
-    (*ps).use_count = 0 as uint32_t;
+    (*ps).use_count = 0;
     (*ps).query_and_parameters_len = (*pkt).query_and_parameters_len;
     memcpy(
         &raw mut (*ps).query_and_parameters as *mut ::core::ffi::c_char as *mut ::core::ffi::c_void,
@@ -1036,7 +993,7 @@ unsafe extern "C" fn create_client_prepared_statement(
         name_len,
     );
     (*client_ps).ps = ps;
-    (*ps).use_count = (*ps).use_count.wrapping_add(1 as uint32_t);
+    (*ps).use_count += 1 as uint32_t;
     client_ps
 }
 
@@ -1050,7 +1007,7 @@ unsafe extern "C" fn create_server_prepared_statement(
     }
     (*server_ps).ps = ps;
     (*server_ps).query_id = (*ps).query_id;
-    (*ps).use_count = (*ps).use_count.wrapping_add(1 as uint32_t);
+    (*ps).use_count += 1 as uint32_t;
     server_ps
 }
 
@@ -1124,7 +1081,7 @@ unsafe extern "C" fn get_prepared_statement(
         }
     }
     if !ps.is_null() {
-        *found = true_0 != 0;
+        *found = true;
         return ps;
     }
     ps = create_prepared_statement(pkt);
@@ -1213,7 +1170,7 @@ unsafe extern "C" fn get_prepared_statement(
             .buckets
             .offset(_ha_bkt as isize)
             as *mut UT_hash_bucket;
-        (*_ha_head).count = (*_ha_head).count.wrapping_add(1);
+        (*_ha_head).count += 1;
         (*ps).hh.hh_next = (*_ha_head).hh_head as *mut UT_hash_handle;
         (*ps).hh.hh_prev = ::core::ptr::null_mut::<UT_hash_handle>();
         if !(*_ha_head).hh_head.is_null() {
@@ -1279,7 +1236,7 @@ unsafe extern "C" fn get_prepared_statement(
                                 .wrapping_sub(1 as ::core::ffi::c_uint);
                         _he_newbkt =
                             _he_new_buckets.offset(_he_bkt as isize) as *mut UT_hash_bucket;
-                        (*_he_newbkt).count = (*_he_newbkt).count.wrapping_add(1);
+                        (*_he_newbkt).count += 1;
                         if (*_he_newbkt).count > (*(*ps).hh.tbl).ideal_chain_maxlen {
                             (*(*ps).hh.tbl).nonideal_items =
                                 (*(*ps).hh.tbl).nonideal_items.wrapping_add(1);
@@ -1288,8 +1245,7 @@ unsafe extern "C" fn get_prepared_statement(
                                     .expand_mult
                                     .wrapping_mul((*(*ps).hh.tbl).ideal_chain_maxlen)
                             {
-                                (*_he_newbkt).expand_mult =
-                                    (*_he_newbkt).expand_mult.wrapping_add(1);
+                                (*_he_newbkt).expand_mult += 1;
                             }
                         }
                         (*_he_thh).hh_prev = ::core::ptr::null_mut::<UT_hash_handle>();
@@ -1326,7 +1282,7 @@ unsafe extern "C" fn get_prepared_statement(
                     .buckets
                     .offset(_ha_bkt as isize)
                     as *mut UT_hash_bucket;
-                (*_hd_head).count = (*_hd_head).count.wrapping_sub(1);
+                (*_hd_head).count -= 1;
                 if (*_hd_head).hh_head == &raw mut (*ps).hh {
                     (*_hd_head).hh_head = (*ps).hh.hh_next as *mut UT_hash_handle;
                 }
@@ -1393,7 +1349,7 @@ unsafe extern "C" fn get_prepared_statement(
                     .buckets
                     .offset(_hd_bkt_0 as isize)
                     as *mut UT_hash_bucket;
-                (*_hd_head_0).count = (*_hd_head_0).count.wrapping_sub(1);
+                (*_hd_head_0).count -= 1;
                 if std::ptr::eq((*_hd_head_0).hh_head, _hd_hh_del) {
                     (*_hd_head_0).hh_head = (*_hd_hh_del).hh_next as *mut UT_hash_handle;
                 }
@@ -1407,24 +1363,24 @@ unsafe extern "C" fn get_prepared_statement(
                     (*(*prepared_statements).hh.tbl).num_items.wrapping_sub(1);
             }
             (*ps).hh.tbl = ::core::ptr::null_mut::<UT_hash_table>();
-            uthash_alloc_failed = true_0 != 0;
+            uthash_alloc_failed = true;
         }
     } else {
         (*ps).hh.tbl = ::core::ptr::null_mut::<UT_hash_table>();
-        uthash_alloc_failed = true_0 != 0;
+        uthash_alloc_failed = true;
     }
     if uthash_alloc_failed {
-        uthash_alloc_failed = false_0 != 0;
+        uthash_alloc_failed = false;
         free(ps as *mut ::core::ffi::c_void);
         return ::core::ptr::null_mut::<PgPreparedStatement>();
     }
     (*ps).stmt_name_len = snprintf(
         &raw mut (*ps).stmt_name as *mut ::core::ffi::c_char,
         ::core::mem::size_of::<[::core::ffi::c_char; 31]>() as size_t,
-        b"PGBOUNCER_%llu\0" as *const u8 as *const ::core::ffi::c_char,
+        c"PGBOUNCER_%llu".as_ptr(),
         (*ps).query_id,
     ) as uint8_t;
-    *found = false_0 != 0;
+    *found = false;
     ps
 }
 
@@ -1448,7 +1404,7 @@ pub unsafe extern "C" fn free_server_prepared_statement(
         return;
     }
     (*(*server_ps).ps).use_count = (*(*server_ps).ps).use_count.wrapping_sub(1);
-    if (*(*server_ps).ps).use_count == 0 as uint32_t {
+    if (*(*server_ps).ps).use_count == 0 {
         let mut _hd_hh_del: *const UT_hash_handle = &raw mut (*(*server_ps).ps).hh;
         if (*_hd_hh_del).prev.is_null() && (*_hd_hh_del).next.is_null() {
             free((*(*prepared_statements).hh.tbl).buckets as *mut ::core::ffi::c_void);
@@ -1490,7 +1446,7 @@ pub unsafe extern "C" fn free_server_prepared_statement(
                 .buckets
                 .offset(_hd_bkt as isize)
                 as *mut UT_hash_bucket;
-            (*_hd_head).count = (*_hd_head).count.wrapping_sub(1);
+            (*_hd_head).count -= 1;
             if std::ptr::eq((*_hd_head).hh_head, _hd_hh_del) {
                 (*_hd_head).hh_head = (*_hd_hh_del).hh_next as *mut UT_hash_handle;
             }
@@ -1632,7 +1588,7 @@ pub unsafe extern "C" fn unregister_prepared_statement(
                 (*(*(*server).server_prepared_statements).hh.tbl)
                     .buckets
                     .offset(_hd_bkt as isize) as *mut UT_hash_bucket;
-            (*_hd_head).count = (*_hd_head).count.wrapping_sub(1);
+            (*_hd_head).count -= 1;
             if std::ptr::eq((*_hd_head).hh_head, _hd_hh_del) {
                 (*_hd_head).hh_head = (*_hd_hh_del).hh_next as *mut UT_hash_handle;
             }
@@ -1743,7 +1699,7 @@ pub unsafe extern "C" fn add_prepared_statement(
             .buckets
             .offset(_ha_bkt as isize)
             as *mut UT_hash_bucket;
-        (*_ha_head).count = (*_ha_head).count.wrapping_add(1);
+        (*_ha_head).count += 1;
         (*server_ps).hh.hh_next = (*_ha_head).hh_head as *mut UT_hash_handle;
         (*server_ps).hh.hh_prev = ::core::ptr::null_mut::<UT_hash_handle>();
         if !(*_ha_head).hh_head.is_null() {
@@ -1809,7 +1765,7 @@ pub unsafe extern "C" fn add_prepared_statement(
                                 .wrapping_sub(1 as ::core::ffi::c_uint);
                         _he_newbkt =
                             _he_new_buckets.offset(_he_bkt as isize) as *mut UT_hash_bucket;
-                        (*_he_newbkt).count = (*_he_newbkt).count.wrapping_add(1);
+                        (*_he_newbkt).count += 1;
                         if (*_he_newbkt).count > (*(*server_ps).hh.tbl).ideal_chain_maxlen {
                             (*(*server_ps).hh.tbl).nonideal_items =
                                 (*(*server_ps).hh.tbl).nonideal_items.wrapping_add(1);
@@ -1818,8 +1774,7 @@ pub unsafe extern "C" fn add_prepared_statement(
                                     .expand_mult
                                     .wrapping_mul((*(*server_ps).hh.tbl).ideal_chain_maxlen)
                             {
-                                (*_he_newbkt).expand_mult =
-                                    (*_he_newbkt).expand_mult.wrapping_add(1);
+                                (*_he_newbkt).expand_mult += 1;
                             }
                         }
                         (*_he_thh).hh_prev = ::core::ptr::null_mut::<UT_hash_handle>();
@@ -1857,7 +1812,7 @@ pub unsafe extern "C" fn add_prepared_statement(
                     (*(*(*server).server_prepared_statements).hh.tbl)
                         .buckets
                         .offset(_ha_bkt as isize) as *mut UT_hash_bucket;
-                (*_hd_head).count = (*_hd_head).count.wrapping_sub(1);
+                (*_hd_head).count -= 1;
                 if (*_hd_head).hh_head == &raw mut (*server_ps).hh {
                     (*_hd_head).hh_head = (*server_ps).hh.hh_next as *mut UT_hash_handle;
                 }
@@ -1932,7 +1887,7 @@ pub unsafe extern "C" fn add_prepared_statement(
                     (*(*(*server).server_prepared_statements).hh.tbl)
                         .buckets
                         .offset(_hd_bkt_0 as isize) as *mut UT_hash_bucket;
-                (*_hd_head_0).count = (*_hd_head_0).count.wrapping_sub(1);
+                (*_hd_head_0).count -= 1;
                 if std::ptr::eq((*_hd_head_0).hh_head, _hd_hh_del) {
                     (*_hd_head_0).hh_head = (*_hd_hh_del).hh_next as *mut UT_hash_handle;
                 }
@@ -1948,17 +1903,17 @@ pub unsafe extern "C" fn add_prepared_statement(
                         .wrapping_sub(1);
             }
             (*server_ps).hh.tbl = ::core::ptr::null_mut::<UT_hash_table>();
-            uthash_alloc_failed = true_0 != 0;
+            uthash_alloc_failed = true;
         }
     } else {
         (*server_ps).hh.tbl = ::core::ptr::null_mut::<UT_hash_table>();
-        uthash_alloc_failed = true_0 != 0;
+        uthash_alloc_failed = true;
     }
     if uthash_alloc_failed {
-        uthash_alloc_failed = false_0 != 0;
-        return false_0 != 0;
+        uthash_alloc_failed = false;
+        return false;
     }
-    true_0 != 0
+    true
 }
 
 unsafe extern "C" fn register_prepared_statement(
@@ -1977,14 +1932,13 @@ unsafe extern "C" fn register_prepared_statement(
         as *mut OutstandingRequest;
     (*outstanding_request).server_ps_query_id = (*(*server_ps).ps).query_id;
     if !add_prepared_statement(server, server_ps) {
-        return false_0 != 0;
+        return false;
     }
     if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
         log_generic(
             LG_NOISE,
             server as *mut ::core::ffi::c_void,
-            b"prepared statement PGBOUNCER_%llu added to server cache, %d cached items\0"
-                as *const u8 as *const ::core::ffi::c_char,
+            c"prepared statement PGBOUNCER_%llu added to server cache, %d cached items".as_ptr(),
             (*(*server_ps).ps).query_id,
             if !(*server).server_prepared_statements.is_null() {
                 (*(*(*server).server_prepared_statements).hh.tbl).num_items
@@ -2028,7 +1982,7 @@ unsafe extern "C" fn register_prepared_statement(
         pktbuf_write_generic(
             &raw mut _buf,
             PqMsg_Close,
-            b"cs\0" as *const u8 as *const ::core::ffi::c_char,
+            c"cs".as_ptr(),
             'S' as i32,
             &raw mut (*(*current).ps).stmt_name as *mut ::core::ffi::c_char,
         );
@@ -2038,10 +1992,10 @@ unsafe extern "C" fn register_prepared_statement(
             &raw mut _buf,
         ) as ::core::ffi::c_int;
         if res == 0 {
-            return false_0 != 0;
+            return false;
         }
         if !add_outstanding_request(client, PqMsg_Close as ::core::ffi::c_char, RA_SKIP) {
-            return false_0 != 0;
+            return false;
         }
         el = statlist_last(&raw mut (*server).outstanding_requests);
         outstanding_request = (el as *mut ::core::ffi::c_char)
@@ -2053,8 +2007,7 @@ unsafe extern "C" fn register_prepared_statement(
             log_generic(
                 LG_NOISE,
                 server as *mut ::core::ffi::c_void,
-                b"prepared statement '%s' deleted from server cache\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"prepared statement '%s' deleted from server cache".as_ptr(),
                 &raw mut (*(*current).ps).stmt_name as *mut ::core::ffi::c_char,
             );
         }
@@ -2107,7 +2060,7 @@ unsafe extern "C" fn register_prepared_statement(
                 (*(*(*server).server_prepared_statements).hh.tbl)
                     .buckets
                     .offset(_hd_bkt as isize) as *mut UT_hash_bucket;
-            (*_hd_head).count = (*_hd_head).count.wrapping_sub(1);
+            (*_hd_head).count -= 1;
             if std::ptr::eq((*_hd_head).hh_head, _hd_hh_del) {
                 (*_hd_head).hh_head = (*_hd_hh_del).hh_next as *mut UT_hash_handle;
             }
@@ -2126,7 +2079,7 @@ unsafe extern "C" fn register_prepared_statement(
         tmp = (if !tmp.is_null() { (*tmp).hh.next } else { NULL }) as *mut PgServerPreparedStatement
             as *mut PgServerPreparedStatement;
     }
-    true_0 != 0
+    true
 }
 #[no_mangle]
 
@@ -2146,9 +2099,9 @@ pub unsafe extern "C" fn handle_parse_command(
     let mut client_ps = ::core::ptr::null_mut::<PgClientPreparedStatement>();
     let mut ps = ::core::ptr::null_mut::<PgPreparedStatement>();
     let mut buf = ::core::ptr::null_mut::<PktBuf>();
-    let mut found = false_0 != 0;
+    let mut found = false;
     if !unmarshall_parse_packet(client, pkt, &raw mut pp) {
-        return false_0 != 0;
+        return false;
     }
     let mut _uthash_hfstr_keylen = strlen(pp.name) as ::core::ffi::c_uint;
     client_ps = ::core::ptr::null_mut::<PgClientPreparedStatement>();
@@ -2220,17 +2173,15 @@ pub unsafe extern "C" fn handle_parse_command(
         log_generic(
             LG_ERROR,
             client as *mut ::core::ffi::c_void,
-            b"prepared statement '%s' was already prepared\0" as *const u8
-                as *const ::core::ffi::c_char,
+            c"prepared statement '%s' was already prepared".as_ptr(),
             pp.name,
         );
         disconnect_client(
             client,
-            true_0 != 0,
-            b"prepared statement name is already in use\0" as *const u8
-                as *const ::core::ffi::c_char,
+            true,
+            c"prepared statement name is already in use".as_ptr(),
         );
-        return false_0 != 0;
+        return false;
     }
     (*(*client).pool).stats.ps_client_parse_count = (*(*client).pool)
         .stats
@@ -2340,7 +2291,7 @@ pub unsafe extern "C" fn handle_parse_command(
                     (*(*(*client).client_prepared_statements).hh.tbl)
                         .buckets
                         .offset(_ha_bkt as isize) as *mut UT_hash_bucket;
-                (*_ha_head).count = (*_ha_head).count.wrapping_add(1);
+                (*_ha_head).count += 1;
                 (*client_ps).hh.hh_next = (*_ha_head).hh_head as *mut UT_hash_handle;
                 (*client_ps).hh.hh_prev = ::core::ptr::null_mut::<UT_hash_handle>();
                 if !(*_ha_head).hh_head.is_null() {
@@ -2409,7 +2360,7 @@ pub unsafe extern "C" fn handle_parse_command(
                                         .wrapping_sub(1 as ::core::ffi::c_uint);
                                 _he_newbkt =
                                     _he_new_buckets.offset(_he_bkt as isize) as *mut UT_hash_bucket;
-                                (*_he_newbkt).count = (*_he_newbkt).count.wrapping_add(1);
+                                (*_he_newbkt).count += 1;
                                 if (*_he_newbkt).count > (*(*client_ps).hh.tbl).ideal_chain_maxlen {
                                     (*(*client_ps).hh.tbl).nonideal_items =
                                         (*(*client_ps).hh.tbl).nonideal_items.wrapping_add(1);
@@ -2418,8 +2369,7 @@ pub unsafe extern "C" fn handle_parse_command(
                                             .expand_mult
                                             .wrapping_mul((*(*client_ps).hh.tbl).ideal_chain_maxlen)
                                     {
-                                        (*_he_newbkt).expand_mult =
-                                            (*_he_newbkt).expand_mult.wrapping_add(1);
+                                        (*_he_newbkt).expand_mult += 1;
                                     }
                                 }
                                 (*_he_thh).hh_prev = ::core::ptr::null_mut::<UT_hash_handle>();
@@ -2459,7 +2409,7 @@ pub unsafe extern "C" fn handle_parse_command(
                                 .buckets
                                 .offset(_ha_bkt as isize)
                                 as *mut UT_hash_bucket;
-                        (*_hd_head).count = (*_hd_head).count.wrapping_sub(1);
+                        (*_hd_head).count -= 1;
                         if (*_hd_head).hh_head == &raw mut (*client_ps).hh {
                             (*_hd_head).hh_head = (*client_ps).hh.hh_next as *mut UT_hash_handle;
                         }
@@ -2539,7 +2489,7 @@ pub unsafe extern "C" fn handle_parse_command(
                                 .buckets
                                 .offset(_hd_bkt_0 as isize)
                                 as *mut UT_hash_bucket;
-                        (*_hd_head_0).count = (*_hd_head_0).count.wrapping_sub(1);
+                        (*_hd_head_0).count -= 1;
                         if std::ptr::eq((*_hd_head_0).hh_head, _hd_hh_del) {
                             (*_hd_head_0).hh_head = (*_hd_hh_del).hh_next as *mut UT_hash_handle;
                         }
@@ -2555,14 +2505,14 @@ pub unsafe extern "C" fn handle_parse_command(
                                 .wrapping_sub(1);
                     }
                     (*client_ps).hh.tbl = ::core::ptr::null_mut::<UT_hash_table>();
-                    uthash_alloc_failed = true_0 != 0;
+                    uthash_alloc_failed = true;
                 }
             } else {
                 (*client_ps).hh.tbl = ::core::ptr::null_mut::<UT_hash_table>();
-                uthash_alloc_failed = true_0 != 0;
+                uthash_alloc_failed = true;
             }
             if uthash_alloc_failed {
-                uthash_alloc_failed = false_0 != 0;
+                uthash_alloc_failed = false;
             } else {
                 if found {
                     server_ps = ::core::ptr::null_mut::<PgServerPreparedStatement>();
@@ -2645,8 +2595,7 @@ pub unsafe extern "C" fn handle_parse_command(
                             log_generic(
                                 LG_DEBUG,
                                 client as *mut ::core::ffi::c_void,
-                                b"handle_parse_command: mapping statement '%s' to '%s' (query '%s')\0"
-                                    as *const u8 as *const ::core::ffi::c_char,
+                                c"handle_parse_command: mapping statement '%s' to '%s' (query '%s')".as_ptr(),
                                 &raw mut (*client_ps).stmt_name as *mut ::core::ffi::c_char,
                                 &raw mut (*ps).stmt_name as *mut ::core::ffi::c_char,
                                 &raw mut (*ps).query_and_parameters
@@ -2679,8 +2628,7 @@ pub unsafe extern "C" fn handle_parse_command(
                                 log_generic(
                                     LG_DEBUG,
                                     client as *mut ::core::ffi::c_void,
-                                    b"handle_parse_command: creating mapping for statement '%s' to '%s' (query '%s')\0"
-                                        as *const u8 as *const ::core::ffi::c_char,
+                                    c"handle_parse_command: creating mapping for statement '%s' to '%s' (query '%s')".as_ptr(),
                                     &raw mut (*client_ps).stmt_name as *mut ::core::ffi::c_char,
                                     &raw mut (*ps).stmt_name as *mut ::core::ffi::c_char,
                                     &raw mut (*ps).query_and_parameters
@@ -2691,7 +2639,7 @@ pub unsafe extern "C" fn handle_parse_command(
                             pktbuf_write_generic(
                                 buf,
                                 PqMsg_Parse,
-                                b"sb\0" as *const u8 as *const ::core::ffi::c_char,
+                                c"sb".as_ptr(),
                                 &raw mut (*ps).stmt_name as *mut ::core::ffi::c_char,
                                 &raw mut (*ps).query_and_parameters as *mut ::core::ffi::c_char,
                                 (*ps).query_and_parameters_len,
@@ -2731,7 +2679,7 @@ pub unsafe extern "C" fn handle_parse_command(
                             5810280148545133055 => {}
                             _ => {
                                 skip_possibly_completely_buffered_packet(client, pkt);
-                                return true_0 != 0;
+                                return true;
                             }
                         }
                     }
@@ -2741,17 +2689,9 @@ pub unsafe extern "C" fn handle_parse_command(
     }
     free(client_ps as *mut ::core::ffi::c_void);
     free_server_prepared_statement(server_ps);
-    disconnect_client(
-        client,
-        true_0 != 0,
-        b"out of memory\0" as *const u8 as *const ::core::ffi::c_char,
-    );
-    disconnect_server(
-        (*client).link,
-        true_0 != 0,
-        b"out of memory\0" as *const u8 as *const ::core::ffi::c_char,
-    );
-    false_0 != 0
+    disconnect_client(client, true, c"out of memory".as_ptr());
+    disconnect_server((*client).link, true, c"out of memory".as_ptr());
+    false
 }
 
 unsafe extern "C" fn get_client_prepared_statement(
@@ -2829,14 +2769,10 @@ unsafe extern "C" fn get_client_prepared_statement(
         log_generic(
             LG_ERROR,
             client as *mut ::core::ffi::c_void,
-            b"prepared statement '%s' not found\0" as *const u8 as *const ::core::ffi::c_char,
+            c"prepared statement '%s' not found".as_ptr(),
             name,
         );
-        disconnect_client(
-            client,
-            true_0 != 0,
-            b"prepared statement did not exist\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        disconnect_client(client, true, c"prepared statement did not exist".as_ptr());
     }
     client_ps
 }
@@ -2957,14 +2893,13 @@ unsafe extern "C" fn ensure_statement_is_prepared_on_server(
             (*(*(*server).server_prepared_statements).hh.tbl).tail =
                 &raw mut (*server_ps).hh as *mut UT_hash_handle;
         }
-        return true_0 != 0;
+        return true;
     }
     if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
         log_generic(
             LG_DEBUG,
             server as *mut ::core::ffi::c_void,
-            b"handle_bind_command: prepared statement '%s' (query '%s') not available on server, preparing '%s' before bind\0"
-                as *const u8 as *const ::core::ffi::c_char,
+            c"handle_bind_command: prepared statement '%s' (query '%s') not available on server, preparing '%s' before bind".as_ptr(),
             &raw mut (*ps).stmt_name as *mut ::core::ffi::c_char,
             &raw mut (*ps).query_and_parameters as *mut ::core::ffi::c_char,
             &raw mut (*ps).stmt_name as *mut ::core::ffi::c_char,
@@ -2975,13 +2910,13 @@ unsafe extern "C" fn ensure_statement_is_prepared_on_server(
         .ps_server_parse_count
         .wrapping_add(1);
     if !add_outstanding_request(client, PqMsg_Parse as ::core::ffi::c_char, RA_SKIP) {
-        return false_0 != 0;
+        return false;
     }
     buf = pktbuf_temp() as *mut PktBuf;
     pktbuf_write_generic(
         buf,
         PqMsg_Parse,
-        b"sb\0" as *const u8 as *const ::core::ffi::c_char,
+        c"sb".as_ptr(),
         &raw mut (*ps).stmt_name as *mut ::core::ffi::c_char,
         &raw mut (*ps).query_and_parameters as *mut ::core::ffi::c_char,
         (*ps).query_and_parameters_len,
@@ -2991,17 +2926,17 @@ unsafe extern "C" fn ensure_statement_is_prepared_on_server(
         &raw mut (*server).sbuf,
         buf as *mut PktBuf,
     ) {
-        return false_0 != 0;
+        return false;
     }
     server_ps = create_server_prepared_statement(ps);
     if server_ps.is_null() {
-        return false_0 != 0;
+        return false;
     }
     if !register_prepared_statement(client, server, server_ps) {
         free_server_prepared_statement(server_ps);
-        return false_0 != 0;
+        return false;
     }
-    true_0 != 0
+    true
 }
 #[no_mangle]
 
@@ -3020,12 +2955,12 @@ pub unsafe extern "C" fn handle_bind_command(
     let mut buf = ::core::ptr::null_mut::<PktBuf>();
     let mut diff: ::core::ffi::c_int = 0;
     if !unmarshall_bind_packet(client, pkt, &raw mut bp) {
-        return false_0 != 0;
+        return false;
     }
     (*(*client).pool).stats.ps_bind_count = (*(*client).pool).stats.ps_bind_count.wrapping_add(1);
     client_ps = get_client_prepared_statement(client, bp.name);
     if client_ps.is_null() {
-        return false_0 != 0;
+        return false;
     }
     ps = (*client_ps).ps;
     if ensure_statement_is_prepared_on_server(server, ps) {
@@ -3034,8 +2969,7 @@ pub unsafe extern "C" fn handle_bind_command(
             log_generic(
                 LG_DEBUG,
                 client as *mut ::core::ffi::c_void,
-                b"handle_bind_command: mapped statement '%s' (query '%s') to '%s'\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"handle_bind_command: mapped statement '%s' (query '%s') to '%s'".as_ptr(),
                 bp.name,
                 &raw mut (*ps).query_and_parameters as *mut ::core::ffi::c_char,
                 &raw mut (*ps).stmt_name as *mut ::core::ffi::c_char,
@@ -3070,7 +3004,7 @@ pub unsafe extern "C" fn handle_bind_command(
                         &raw mut (*server).sbuf,
                         buf as *mut PktBuf,
                     ) {
-                        return true_0 != 0;
+                        return true;
                     }
                 } else if sbuf_queue_packet(
                     &raw mut (*client).sbuf,
@@ -3083,22 +3017,14 @@ pub unsafe extern "C" fn handle_bind_command(
                         (*pkt).data.read_pos,
                         (*pkt).len,
                     );
-                    return true_0 != 0;
+                    return true;
                 }
             }
         }
     }
-    disconnect_client(
-        client,
-        true_0 != 0,
-        b"out of memory\0" as *const u8 as *const ::core::ffi::c_char,
-    );
-    disconnect_server(
-        (*client).link,
-        true_0 != 0,
-        b"out of memory\0" as *const u8 as *const ::core::ffi::c_char,
-    );
-    false_0 != 0
+    disconnect_client(client, true, c"out of memory".as_ptr());
+    disconnect_server((*client).link, true, c"out of memory".as_ptr());
+    false
 }
 #[no_mangle]
 
@@ -3117,11 +3043,11 @@ pub unsafe extern "C" fn handle_describe_command(
     if !unmarshall_describe_packet(client, pkt, &raw mut dp)
         || dp.type_0 as ::core::ffi::c_int != 'S' as i32
     {
-        return false_0 != 0;
+        return false;
     }
     client_ps = get_client_prepared_statement(client, dp.name);
     if client_ps.is_null() {
-        return false_0 != 0;
+        return false;
     }
     ps = (*client_ps).ps;
     if ensure_statement_is_prepared_on_server(server, ps) {
@@ -3130,8 +3056,7 @@ pub unsafe extern "C" fn handle_describe_command(
             log_generic(
                 LG_DEBUG,
                 client as *mut ::core::ffi::c_void,
-                b"handle_describe_command: mapped statement '%s' (query '%s') to '%s'\0"
-                    as *const u8 as *const ::core::ffi::c_char,
+                c"handle_describe_command: mapped statement '%s' (query '%s') to '%s'".as_ptr(),
                 dp.name,
                 &raw mut (*ps).query_and_parameters as *mut ::core::ffi::c_char,
                 &raw mut (*ps).stmt_name as *mut ::core::ffi::c_char,
@@ -3159,7 +3084,7 @@ pub unsafe extern "C" fn handle_describe_command(
             pktbuf_write_generic(
                 &raw mut _buf,
                 PqMsg_Describe,
-                b"cs\0" as *const u8 as *const ::core::ffi::c_char,
+                c"cs".as_ptr(),
                 'S' as i32,
                 &raw mut (*ps).stmt_name as *mut ::core::ffi::c_char,
             );
@@ -3171,17 +3096,9 @@ pub unsafe extern "C" fn handle_describe_command(
             return res;
         }
     }
-    disconnect_client(
-        client,
-        true_0 != 0,
-        b"out of memory\0" as *const u8 as *const ::core::ffi::c_char,
-    );
-    disconnect_server(
-        (*client).link,
-        true_0 != 0,
-        b"out of memory\0" as *const u8 as *const ::core::ffi::c_char,
-    );
-    false_0 != 0
+    disconnect_client(client, true, c"out of memory".as_ptr());
+    disconnect_server((*client).link, true, c"out of memory".as_ptr());
+    false
 }
 #[no_mangle]
 
@@ -3191,7 +3108,7 @@ pub unsafe extern "C" fn handle_close_statement_command(
     mut close_packet: *mut PgClosePacket,
 ) -> bool {
     let mut client_ps = ::core::ptr::null_mut::<PgClientPreparedStatement>();
-    let mut res = true_0 != 0;
+    let mut res = true;
     let mut _uthash_hfstr_keylen = strlen((*close_packet).name) as ::core::ffi::c_uint;
     client_ps = ::core::ptr::null_mut::<PgClientPreparedStatement>();
     if !(*client).client_prepared_statements.is_null() {
@@ -3264,8 +3181,7 @@ pub unsafe extern "C" fn handle_close_statement_command(
             log_generic(
                 LG_NOISE,
                 client as *mut ::core::ffi::c_void,
-                b"handle_close_command: removed '%s' from cached prepared statements, items remaining %u\0"
-                    as *const u8 as *const ::core::ffi::c_char,
+                c"handle_close_command: removed '%s' from cached prepared statements, items remaining %u".as_ptr(),
                 (*close_packet).name,
                 if !(*client).client_prepared_statements.is_null() {
                     (*(*(*client).client_prepared_statements).hh.tbl).num_items
@@ -3323,7 +3239,7 @@ pub unsafe extern "C" fn handle_close_statement_command(
                 (*(*(*client).client_prepared_statements).hh.tbl)
                     .buckets
                     .offset(_hd_bkt as isize) as *mut UT_hash_bucket;
-            (*_hd_head).count = (*_hd_head).count.wrapping_sub(1);
+            (*_hd_head).count -= 1;
             if std::ptr::eq((*_hd_head).hh_head, _hd_hh_del) {
                 (*_hd_head).hh_head = (*_hd_hh_del).hh_next as *mut UT_hash_handle;
             }
@@ -3339,7 +3255,7 @@ pub unsafe extern "C" fn handle_close_statement_command(
                     .wrapping_sub(1);
         }
         (*(*client_ps).ps).use_count = (*(*client_ps).ps).use_count.wrapping_sub(1);
-        if (*(*client_ps).ps).use_count == 0 as uint32_t {
+        if (*(*client_ps).ps).use_count == 0 {
             let mut _hd_hh_del_0: *const UT_hash_handle = &raw mut (*(*client_ps).ps).hh;
             if (*_hd_hh_del_0).prev.is_null() && (*_hd_hh_del_0).next.is_null() {
                 free((*(*prepared_statements).hh.tbl).buckets as *mut ::core::ffi::c_void);
@@ -3381,7 +3297,7 @@ pub unsafe extern "C" fn handle_close_statement_command(
                     .buckets
                     .offset(_hd_bkt_0 as isize)
                     as *mut UT_hash_bucket;
-                (*_hd_head_0).count = (*_hd_head_0).count.wrapping_sub(1);
+                (*_hd_head_0).count -= 1;
                 if std::ptr::eq((*_hd_head_0).hh_head, _hd_hh_del_0) {
                     (*_hd_head_0).hh_head = (*_hd_hh_del_0).hh_next as *mut UT_hash_handle;
                 }
@@ -3408,8 +3324,7 @@ pub unsafe extern "C" fn handle_close_statement_command(
             log_generic(
                 LG_DEBUG,
                 client as *mut ::core::ffi::c_void,
-                b"handle_close_statement_command: no outstanding requests so instantly answering client\0"
-                    as *const u8 as *const ::core::ffi::c_char,
+                c"handle_close_statement_command: no outstanding requests so instantly answering client".as_ptr(),
             );
         }
         let mut _data: [uint8_t; 5] = [0; 5];
@@ -3429,18 +3344,14 @@ pub unsafe extern "C" fn handle_close_statement_command(
             &raw mut _data as *mut uint8_t,
             ::core::mem::size_of::<[uint8_t; 5]>() as ::core::ffi::c_int,
         );
-        pktbuf_write_generic(
-            &raw mut _buf,
-            PqMsg_CloseComplete,
-            b"\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        pktbuf_write_generic(&raw mut _buf, PqMsg_CloseComplete, c"".as_ptr());
         res = pktbuf_send_immediate(&raw mut _buf, client);
         return res;
     }
     if !add_outstanding_request(client, PqMsg_Close as ::core::ffi::c_char, RA_FAKE) {
-        return false_0 != 0;
+        return false;
     }
-    true_0 != 0
+    true
 }
 #[no_mangle]
 
@@ -3503,7 +3414,7 @@ pub unsafe extern "C" fn free_client_prepared_statements(mut client: *mut PgSock
                 (*(*(*client).client_prepared_statements).hh.tbl)
                     .buckets
                     .offset(_hd_bkt as isize) as *mut UT_hash_bucket;
-            (*_hd_head).count = (*_hd_head).count.wrapping_sub(1);
+            (*_hd_head).count -= 1;
             if std::ptr::eq((*_hd_head).hh_head, _hd_hh_del) {
                 (*_hd_head).hh_head = (*_hd_hh_del).hh_next as *mut UT_hash_handle;
             }
@@ -3519,7 +3430,7 @@ pub unsafe extern "C" fn free_client_prepared_statements(mut client: *mut PgSock
                     .wrapping_sub(1);
         }
         (*(*client_ps).ps).use_count = (*(*client_ps).ps).use_count.wrapping_sub(1);
-        if (*(*client_ps).ps).use_count == 0 as uint32_t {
+        if (*(*client_ps).ps).use_count == 0 {
             let mut _hd_hh_del_0: *const UT_hash_handle = &raw mut (*(*client_ps).ps).hh;
             if (*_hd_hh_del_0).prev.is_null() && (*_hd_hh_del_0).next.is_null() {
                 free((*(*prepared_statements).hh.tbl).buckets as *mut ::core::ffi::c_void);
@@ -3561,7 +3472,7 @@ pub unsafe extern "C" fn free_client_prepared_statements(mut client: *mut PgSock
                     .buckets
                     .offset(_hd_bkt_0 as isize)
                     as *mut UT_hash_bucket;
-                (*_hd_head_0).count = (*_hd_head_0).count.wrapping_sub(1);
+                (*_hd_head_0).count -= 1;
                 if std::ptr::eq((*_hd_head_0).hh_head, _hd_hh_del_0) {
                     (*_hd_head_0).hh_head = (*_hd_hh_del_0).hh_next as *mut UT_hash_handle;
                 }
@@ -3645,7 +3556,7 @@ pub unsafe extern "C" fn free_server_prepared_statements(mut server: *mut PgSock
                 (*(*(*server).server_prepared_statements).hh.tbl)
                     .buckets
                     .offset(_hd_bkt as isize) as *mut UT_hash_bucket;
-            (*_hd_head).count = (*_hd_head).count.wrapping_sub(1);
+            (*_hd_head).count -= 1;
             if std::ptr::eq((*_hd_head).hh_head, _hd_hh_del) {
                 (*_hd_head).hh_head = (*_hd_hh_del).hh_next as *mut UT_hash_handle;
             }

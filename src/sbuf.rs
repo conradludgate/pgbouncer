@@ -1,183 +1,148 @@
-
-pub mod _types_h {
-    
-    pub type __uint8_t = u8;
-    
-    pub type __uint16_t = u16;
-    
-    pub type __int32_t = i32;
-    
-    pub type __uint32_t = u32;
-    
-    pub type __darwin_ptrdiff_t = isize;
-    
-    pub type __darwin_size_t = usize;
-    
-    pub type __darwin_socklen_t = __uint32_t;
-    
-    pub type __darwin_ssize_t = isize;
-    
-    pub type __darwin_time_t = ::core::ffi::c_long;
-}
-
-
 pub mod sys__types_h {
-    
+
     pub type __darwin_pid_t = __int32_t;
-    
+
     pub type __darwin_suseconds_t = __int32_t;
-    
+
     pub type __darwin_uid_t = __uint32_t;
-    
+
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
-    use super::_types_h::{__int32_t, __uint32_t};
+    use crate::types::{__int32_t, __uint32_t};
 }
-
-
-
-
-
-
 
 pub mod _time_t_h {
-    
+
     pub type time_t = __darwin_time_t;
-    use super::_types_h::__darwin_time_t;
+    use crate::types::__darwin_time_t;
 }
 
-
-
-
-
-
-
 pub mod tls_h {
-    
+
     pub const TLS_PROTOCOL_TLSv1_0: ::core::ffi::c_int =
         (1 as ::core::ffi::c_int) << 1 as ::core::ffi::c_int;
-    
+
     pub const TLS_PROTOCOL_TLSv1_1: ::core::ffi::c_int =
         (1 as ::core::ffi::c_int) << 2 as ::core::ffi::c_int;
-    
+
     pub const TLS_PROTOCOL_TLSv1_2: ::core::ffi::c_int =
         (1 as ::core::ffi::c_int) << 3 as ::core::ffi::c_int;
-    
+
     pub const TLS_PROTOCOL_TLSv1_3: ::core::ffi::c_int =
         (1 as ::core::ffi::c_int) << 4 as ::core::ffi::c_int;
-    
+
     pub const TLS_PROTOCOL_TLSv1: ::core::ffi::c_int =
         TLS_PROTOCOL_TLSv1_0 | TLS_PROTOCOL_TLSv1_1 | TLS_PROTOCOL_TLSv1_2 | TLS_PROTOCOL_TLSv1_3;
-    
+
     pub const TLS_PROTOCOLS_ALL: ::core::ffi::c_int = TLS_PROTOCOL_TLSv1;
-    
+
     pub const TLS_WANT_POLLIN: ::core::ffi::c_int = -(2 as ::core::ffi::c_int);
-    
+
     pub const TLS_WANT_POLLOUT: ::core::ffi::c_int = -(3 as ::core::ffi::c_int);
     use crate::types::size_t;
     use crate::types::ssize_t;
     use crate::types::uint32_t;
     extern "C" {
-        
+
         pub type tls;
-        
+
         pub type tls_config;
-        
+
         pub fn tls_init() -> ::core::ffi::c_int;
-        
+
         pub fn tls_error(_ctx: *mut tls) -> *const ::core::ffi::c_char;
-        
+
         pub fn tls_config_new() -> *mut tls_config;
-        
+
         pub fn tls_config_free(_config: *mut tls_config);
-        
+
         pub fn tls_config_set_ca_file(
             _config: *mut tls_config,
             _ca_file: *const ::core::ffi::c_char,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn tls_config_set_cert_file(
             _config: *mut tls_config,
             _cert_file: *const ::core::ffi::c_char,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn tls_config_set_ciphers(
             _config: *mut tls_config,
             _ciphers: *const ::core::ffi::c_char,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn tls_config_set_ciphers_v13(
             _config: *mut tls_config,
             _ciphers: *const ::core::ffi::c_char,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn tls_config_set_dheparams(
             _config: *mut tls_config,
             _params: *const ::core::ffi::c_char,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn tls_config_set_ecdhecurve(
             _config: *mut tls_config,
             _name: *const ::core::ffi::c_char,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn tls_config_set_key_file(
             _config: *mut tls_config,
             _key_file: *const ::core::ffi::c_char,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn tls_config_set_protocols(_config: *mut tls_config, _protocols: uint32_t);
-        
+
         pub fn tls_config_insecure_noverifycert(_config: *mut tls_config);
-        
+
         pub fn tls_config_insecure_noverifyname(_config: *mut tls_config);
-        
+
         pub fn tls_config_verify(_config: *mut tls_config);
-        
+
         pub fn tls_config_verify_client(_config: *mut tls_config);
-        
+
         pub fn tls_config_verify_client_optional(_config: *mut tls_config);
-        
+
         pub fn tls_config_parse_protocols(
             _protocols: *mut uint32_t,
             _protostr: *const ::core::ffi::c_char,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn tls_client() -> *mut tls;
-        
+
         pub fn tls_server() -> *mut tls;
-        
+
         pub fn tls_configure(_ctx: *mut tls, _config: *mut tls_config) -> ::core::ffi::c_int;
-        
+
         pub fn usual_tls_free(_ctx: *mut tls);
-        
+
         pub fn tls_accept_fds(
             _ctx: *mut tls,
             _cctx: *mut *mut tls,
             _fd_read: ::core::ffi::c_int,
             _fd_write: ::core::ffi::c_int,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn tls_connect_fds(
             _ctx: *mut tls,
             _fd_read: ::core::ffi::c_int,
             _fd_write: ::core::ffi::c_int,
             _servername: *const ::core::ffi::c_char,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn tls_handshake(_ctx: *mut tls) -> ::core::ffi::c_int;
-        
+
         pub fn tls_read(_ctx: *mut tls, _buf: *mut ::core::ffi::c_void, _buflen: size_t)
             -> ssize_t;
-        
+
         pub fn tls_write(
             _ctx: *mut tls,
             _buf: *const ::core::ffi::c_void,
             _buflen: size_t,
         ) -> ssize_t;
-        
+
         pub fn tls_close(_ctx: *mut tls) -> ::core::ffi::c_int;
-        
+
         pub fn tls_config_equal(
             server_connect_conf_left: *mut tls_config,
             server_connect_conf_right: *mut tls_config,
@@ -185,39 +150,34 @@ pub mod tls_h {
     }
 }
 
-
-
-
-
-
 pub mod _socklen_t_h {
-    
+
     pub type socklen_t = __darwin_socklen_t;
-    use super::_types_h::__darwin_socklen_t;
+    use crate::types::__darwin_socklen_t;
 }
 
 pub mod socket_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr {
         pub sa_len: __uint8_t,
         pub sa_family: sa_family_t,
         pub sa_data: [::core::ffi::c_char; 14],
     }
-    
+
     pub const SOCK_STREAM: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    
+
     pub const SO_ERROR: ::core::ffi::c_int = 0x1007 as ::core::ffi::c_int;
-    
+
     pub const SOL_SOCKET: ::core::ffi::c_int = 0xffff as ::core::ffi::c_int;
-    
+
     pub const AF_UNIX: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    use crate::types::sa_family_t;
     use super::_socklen_t_h::socklen_t;
-    use super::_types_h::__uint8_t;
+    use crate::types::__uint8_t;
+    use crate::types::sa_family_t;
     extern "C" {
-        
+
         pub fn getsockopt(
             _: ::core::ffi::c_int,
             _: ::core::ffi::c_int,
@@ -225,7 +185,7 @@ pub mod socket_h {
             _: *mut ::core::ffi::c_void,
             _: *mut socklen_t,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn socket(
             _: ::core::ffi::c_int,
             _: ::core::ffi::c_int,
@@ -237,13 +197,13 @@ pub mod socket_h {
 pub mod in_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct in_addr {
         pub s_addr: in_addr_t,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr_in {
         pub sin_len: __uint8_t,
         pub sin_family: sa_family_t,
@@ -251,22 +211,22 @@ pub mod in_h {
         pub sin_addr: in_addr,
         pub sin_zero: [::core::ffi::c_char; 8],
     }
+    use crate::types::__uint8_t;
     use crate::types::in_addr_t;
     use crate::types::in_port_t;
     use crate::types::sa_family_t;
-    use super::_types_h::__uint8_t;
 }
 
 pub mod in6_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct in6_addr {
         pub __u6_addr: C2RustUnnamed,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed {
         pub __u6_addr8: [__uint8_t; 16],
         pub __u6_addr16: [__uint16_t; 8],
@@ -274,7 +234,7 @@ pub mod in6_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr_in6 {
         pub sin6_len: __uint8_t,
         pub sin6_family: sa_family_t,
@@ -285,11 +245,11 @@ pub mod in6_h {
     }
     use crate::types::in_port_t;
     use crate::types::sa_family_t;
-    use super::_types_h::{__uint16_t, __uint32_t, __uint8_t};
+    use crate::types::{__uint16_t, __uint32_t, __uint8_t};
 }
 
 pub mod event_h {
-    
+
     pub type event_callback_fn = Option<
         unsafe extern "C" fn(
             ::core::ffi::c_int,
@@ -297,18 +257,18 @@ pub mod event_h {
             *mut ::core::ffi::c_void,
         ) -> (),
     >;
-    
+
     pub const EV_READ: ::core::ffi::c_int = 0x2 as ::core::ffi::c_int;
-    
+
     pub const EV_WRITE: ::core::ffi::c_int = 0x4 as ::core::ffi::c_int;
-    
+
     pub const EV_PERSIST: ::core::ffi::c_int = 0x10 as ::core::ffi::c_int;
-    use crate::types::timeval;
     use super::event_struct_h::event;
+    use crate::types::timeval;
     extern "C" {
-        
+
         pub type event_base;
-        
+
         pub fn event_assign(
             _: *mut event,
             _: *mut event_base,
@@ -317,9 +277,9 @@ pub mod event_h {
             _: event_callback_fn,
             _: *mut ::core::ffi::c_void,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn event_add(ev: *mut event, timeout: *const timeval) -> ::core::ffi::c_int;
-        
+
         pub fn event_del(_: *mut event) -> ::core::ffi::c_int;
     }
 }
@@ -327,7 +287,7 @@ pub mod event_h {
 pub mod event_struct_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct event {
         pub ev_evcallback: event_callback,
         pub ev_timeout_pos: C2RustUnnamed_5,
@@ -340,14 +300,14 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_0 {
         pub ev_io: C2RustUnnamed_3,
         pub ev_signal: C2RustUnnamed_1,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_1 {
         pub ev_signal_next: C2RustUnnamed_2,
         pub ev_ncalls: ::core::ffi::c_short,
@@ -355,42 +315,42 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_2 {
         pub le_next: *mut event,
         pub le_prev: *mut *mut event,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_3 {
         pub ev_io_next: C2RustUnnamed_4,
         pub ev_timeout: timeval,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_4 {
         pub le_next: *mut event,
         pub le_prev: *mut *mut event,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_5 {
         pub ev_next_with_common_timeout: C2RustUnnamed_6,
         pub min_heap_idx: ::core::ffi::c_int,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_6 {
         pub tqe_next: *mut event,
         pub tqe_prev: *mut *mut event,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct event_callback {
         pub evcb_active_next: C2RustUnnamed_8,
         pub evcb_flags: ::core::ffi::c_short,
@@ -401,7 +361,7 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_7 {
         pub evcb_callback: Option<
             unsafe extern "C" fn(
@@ -419,94 +379,92 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_8 {
         pub tqe_next: *mut event_callback,
         pub tqe_prev: *mut *mut event_callback,
     }
+    use super::event_h::event_base;
     use crate::types::timeval;
     use crate::types::uint8_t;
-    use super::event_h::event_base;
 }
 
-
-
 pub mod bouncer_h {
-    
+
     pub type SocketState = ::core::ffi::c_uint;
-    
+
     pub const SV_TESTED: SocketState = 16;
-    
+
     pub const SV_USED: SocketState = 15;
-    
+
     pub const SV_ACTIVE_CANCEL: SocketState = 14;
-    
+
     pub const SV_ACTIVE: SocketState = 13;
-    
+
     pub const SV_IDLE: SocketState = 12;
-    
+
     pub const SV_BEING_CANCELED: SocketState = 11;
-    
+
     pub const SV_LOGIN: SocketState = 10;
-    
+
     pub const SV_JUSTFREE: SocketState = 9;
-    
+
     pub const SV_FREE: SocketState = 8;
-    
+
     pub const CL_ACTIVE_CANCEL: SocketState = 7;
-    
+
     pub const CL_WAITING_CANCEL: SocketState = 6;
-    
+
     pub const CL_ACTIVE: SocketState = 5;
-    
+
     pub const CL_WAITING_LOGIN: SocketState = 4;
-    
+
     pub const CL_WAITING: SocketState = 3;
-    
+
     pub const CL_LOGIN: SocketState = 2;
-    
+
     pub const CL_JUSTFREE: SocketState = 1;
-    
+
     pub const CL_FREE: SocketState = 0;
-    
+
     pub type PauseMode = ::core::ffi::c_uint;
-    
+
     pub const P_SUSPEND: PauseMode = 2;
-    
+
     pub const P_PAUSE: PauseMode = 1;
-    
+
     pub const P_NONE: PauseMode = 0;
-    
+
     pub type SSLMode = ::core::ffi::c_uint;
-    
+
     pub const SSLMODE_VERIFY_FULL: SSLMode = 5;
-    
+
     pub const SSLMODE_VERIFY_CA: SSLMode = 4;
-    
+
     pub const SSLMODE_REQUIRE: SSLMode = 3;
-    
+
     pub const SSLMODE_PREFER: SSLMode = 2;
-    
+
     pub const SSLMODE_ALLOW: SSLMode = 1;
-    
+
     pub const SSLMODE_DISABLED: SSLMode = 0;
-    
+
     pub type PacketCallbackFlag = ::core::ffi::c_uint;
-    
+
     pub const CB_HANDLE_COMPLETE_PACKET: PacketCallbackFlag = 2;
-    
+
     pub const CB_WANT_COMPLETE_PACKET: PacketCallbackFlag = 1;
-    
+
     pub const CB_NONE: PacketCallbackFlag = 0;
-    
+
     pub type LoadBalanceHosts = ::core::ffi::c_uint;
-    
+
     pub const LOAD_BALANCE_HOSTS_ROUND_ROBIN: LoadBalanceHosts = 1;
-    
+
     pub const LOAD_BALANCE_HOSTS_DISABLE: LoadBalanceHosts = 0;
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    
+
     pub struct PgSocket {
         pub head: List,
         pub cancel_head: List,
@@ -563,7 +521,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    
+
     pub struct CallbackState {
         #[bitfield(name = "flag", ty = "PacketCallbackFlag", bits = "0..=7")]
         pub flag: [u8; 1],
@@ -573,7 +531,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct ScramState {
         pub client_nonce: *mut ::core::ffi::c_char,
         pub client_first_message_bare: *mut ::core::ffi::c_char,
@@ -595,14 +553,14 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_9 {
         pub dns_token: *mut DNSToken,
         pub db: *mut PgDatabase,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct PgDatabase {
         pub head: List,
         pub name: [::core::ffi::c_char; 64],
@@ -640,7 +598,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct PgCredentials {
         pub tree_node: AANode,
         pub name: [::core::ffi::c_char; 128],
@@ -658,7 +616,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct PgGlobalUser {
         pub credentials: PgCredentials,
         pub head: List,
@@ -677,7 +635,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    
+
     pub struct PgPool {
         pub head: List,
         pub map_head: List,
@@ -713,7 +671,7 @@ pub mod bouncer_h {
     pub use super::super::common::types::PgStats;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union PgAddr {
         pub sa: sockaddr,
         pub sin: sockaddr_in,
@@ -722,110 +680,110 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr_ucreds {
         pub sin: sockaddr_in,
         pub uid: uid_t,
         pub pid: pid_t,
     }
-    
+
     pub type ReplicationType = ::core::ffi::c_uint;
-    
+
     pub const REPLICATION_PHYSICAL: ReplicationType = 2;
-    
+
     pub const REPLICATION_LOGICAL: ReplicationType = 1;
-    
+
     pub const REPLICATION_NONE: ReplicationType = 0;
-    
+
     pub const AUTH_TYPE_CERT: auth_type = 4;
-    
+
     pub type auth_type = ::core::ffi::c_uint;
-    
+
     pub const AUTH_TYPE_REJECT: auth_type = 10;
-    
+
     pub const AUTH_TYPE_PEER: auth_type = 9;
-    
+
     pub const AUTH_TYPE_SCRAM_SHA_256: auth_type = 8;
-    
+
     pub const AUTH_TYPE_PAM: auth_type = 7;
-    
+
     pub const AUTH_TYPE_LDAP: auth_type = 6;
-    
+
     pub const AUTH_TYPE_HBA: auth_type = 5;
-    
+
     pub const AUTH_TYPE_MD5: auth_type = 3;
-    
+
     pub const AUTH_TYPE_PLAIN: auth_type = 2;
-    
+
     pub const AUTH_TYPE_TRUST: auth_type = 1;
-    
+
     pub const AUTH_TYPE_ANY: auth_type = 0;
+    use super::dnslookup_h::DNSToken;
+    use super::event_h::event_base;
+    use super::in6_h::sockaddr_in6;
+    use super::in_h::sockaddr_in;
+    use super::pktbuf_h::PktBuf;
+    use super::sbuf_h::SBuf;
+    use super::socket_h::sockaddr;
+    use crate::types::pg_cryptohash_type;
     use crate::types::pid_t;
     use crate::types::uid_t;
     use crate::types::uint16_t;
     use crate::types::uint64_t;
     use crate::types::uint8_t;
-    use crate::types::{AANode, AATree};
-    use crate::types::pg_cryptohash_type;
-    use super::dnslookup_h::DNSToken;
-    use super::event_h::event_base;
-    use super::in6_h::sockaddr_in6;
-    use super::in_h::sockaddr_in;
-    use crate::types::List;
-    use super::pktbuf_h::PktBuf;
-    use crate::types::{PgClientPreparedStatement, PgServerPreparedStatement};
-    use crate::types::PktHdr;
-    use super::sbuf_h::SBuf;
-    use super::socket_h::sockaddr;
-    use crate::types::StatList;
     use crate::types::usec_t;
+    use crate::types::List;
+    use crate::types::PktHdr;
+    use crate::types::StatList;
     use crate::types::VarCache;
+    use crate::types::{AANode, AATree};
+    use crate::types::{PgClientPreparedStatement, PgServerPreparedStatement};
     extern "C" {
-        
+
         pub static mut pgb_event_base: *mut event_base;
-        
+
         pub static mut cf_sbuf_len: ::core::ffi::c_int;
-        
+
         pub static mut cf_auth_type: ::core::ffi::c_int;
-        
+
         pub static mut cf_pause_mode: ::core::ffi::c_int;
-        
+
         pub static mut cf_reboot: ::core::ffi::c_int;
-        
+
         pub static mut cf_sbuf_loopcnt: ::core::ffi::c_int;
-        
+
         pub static mut cf_tcp_defer_accept: ::core::ffi::c_int;
-        
+
         pub static mut cf_client_tls_sslmode: ::core::ffi::c_int;
-        
+
         pub static mut cf_client_tls_protocols: *mut ::core::ffi::c_char;
-        
+
         pub static mut cf_client_tls_ca_file: *mut ::core::ffi::c_char;
-        
+
         pub static mut cf_client_tls_cert_file: *mut ::core::ffi::c_char;
-        
+
         pub static mut cf_client_tls_key_file: *mut ::core::ffi::c_char;
-        
+
         pub static mut cf_client_tls_ciphers: *mut ::core::ffi::c_char;
-        
+
         pub static mut cf_client_tls13_ciphers: *mut ::core::ffi::c_char;
-        
+
         pub static mut cf_client_tls_dheparams: *mut ::core::ffi::c_char;
-        
+
         pub static mut cf_client_tls_ecdhecurve: *mut ::core::ffi::c_char;
-        
+
         pub static mut cf_server_tls_sslmode: ::core::ffi::c_int;
-        
+
         pub static mut cf_server_tls_protocols: *mut ::core::ffi::c_char;
-        
+
         pub static mut cf_server_tls_ca_file: *mut ::core::ffi::c_char;
-        
+
         pub static mut cf_server_tls_cert_file: *mut ::core::ffi::c_char;
-        
+
         pub static mut cf_server_tls_key_file: *mut ::core::ffi::c_char;
-        
+
         pub static mut cf_server_tls_ciphers: *mut ::core::ffi::c_char;
-        
+
         pub static mut cf_server_tls13_ciphers: *mut ::core::ffi::c_char;
     }
 }
@@ -833,7 +791,7 @@ pub mod bouncer_h {
 pub mod sbuf_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct SBuf {
         pub ev: event,
         pub wait_type: uint8_t,
@@ -853,7 +811,7 @@ pub mod sbuf_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct SBufIO {
         pub sbufio_peek:
             Option<unsafe extern "C" fn(*mut SBuf, *mut ::core::ffi::c_void, size_t) -> ssize_t>,
@@ -863,36 +821,36 @@ pub mod sbuf_h {
             Option<unsafe extern "C" fn(*mut SBuf, *const ::core::ffi::c_void, size_t) -> ssize_t>,
         pub sbufio_close: Option<unsafe extern "C" fn(*mut SBuf) -> ::core::ffi::c_int>,
     }
-    
+
     pub type sbuf_cb_t = Option<unsafe extern "C" fn(*mut SBuf, SBufEvent, *mut MBuf) -> bool>;
-    
+
     pub type SBufEvent = ::core::ffi::c_uint;
-    
+
     pub const SBUF_EV_TLS_READY: SBufEvent = 7;
-    
+
     pub const SBUF_EV_PKT_CALLBACK: SBufEvent = 6;
-    
+
     pub const SBUF_EV_FLUSH: SBufEvent = 5;
-    
+
     pub const SBUF_EV_CONNECT_OK: SBufEvent = 4;
-    
+
     pub const SBUF_EV_CONNECT_FAILED: SBufEvent = 3;
-    
+
     pub const SBUF_EV_SEND_FAILED: SBufEvent = 2;
-    
+
     pub const SBUF_EV_RECV_FAILED: SBufEvent = 1;
-    
+
     pub const SBUF_EV_READ: SBufEvent = 0;
-    
+
     pub const SBUF_SMALL_PKT: ::core::ffi::c_int = 64 as ::core::ffi::c_int;
     #[inline]
-    
+
     pub unsafe extern "C" fn sbuf_is_empty(mut sbuf: *mut SBuf) -> bool {
         iobuf_empty((*sbuf).io) as ::core::ffi::c_int != 0
             && (*sbuf).pkt_remain == 0 as ::core::ffi::c_uint
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn sbuf_op_peek(
         mut sbuf: *mut SBuf,
         mut buf: *mut ::core::ffi::c_void,
@@ -903,7 +861,7 @@ pub mod sbuf_h {
             .expect("non-null function pointer")(sbuf, buf, len)
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn sbuf_op_recv(
         mut sbuf: *mut SBuf,
         mut buf: *mut ::core::ffi::c_void,
@@ -914,7 +872,7 @@ pub mod sbuf_h {
             .expect("non-null function pointer")(sbuf, buf, len)
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn sbuf_op_send(
         mut sbuf: *mut SBuf,
         mut buf: *const ::core::ffi::c_void,
@@ -925,27 +883,27 @@ pub mod sbuf_h {
             .expect("non-null function pointer")(sbuf, buf, len)
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn sbuf_op_close(mut sbuf: *mut SBuf) -> ::core::ffi::c_int {
         (*(*sbuf).ops)
             .sbufio_close
             .expect("non-null function pointer")(sbuf)
     }
-    use crate::types::size_t;
-    use crate::types::ssize_t;
-    use crate::types::uint8_t;
     use super::event_struct_h::event;
     use super::iobuf_h::{iobuf_empty, IOBuf};
     use super::tls_h::tls;
+    use crate::types::size_t;
+    use crate::types::ssize_t;
+    use crate::types::uint8_t;
     use crate::types::MBuf;
 }
 
 pub mod iobuf_h {
-    
+
     pub type IOBuf = iobuf;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct iobuf {
         pub done_pos: ::core::ffi::c_uint,
         pub parse_pos: ::core::ffi::c_uint,
@@ -953,27 +911,27 @@ pub mod iobuf_h {
         pub buf: [uint8_t; 0],
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn iobuf_empty(mut io: *const IOBuf) -> bool {
         io.is_null() || (*io).done_pos == (*io).recv_pos
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn iobuf_amount_pending(mut buf: *const IOBuf) -> ::core::ffi::c_uint {
         (*buf).parse_pos.wrapping_sub((*buf).done_pos)
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn iobuf_amount_parse(mut buf: *const IOBuf) -> ::core::ffi::c_uint {
         (*buf).recv_pos.wrapping_sub((*buf).parse_pos)
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn iobuf_amount_recv(mut buf: *const IOBuf) -> ::core::ffi::c_uint {
         (cf_sbuf_len as ::core::ffi::c_uint).wrapping_sub((*buf).recv_pos)
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn iobuf_parse_all(
         mut buf: *const IOBuf,
         mut mbuf: *mut MBuf,
@@ -984,7 +942,7 @@ pub mod iobuf_h {
         avail
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn iobuf_parse_limit(
         mut buf: *const IOBuf,
         mut mbuf: *mut MBuf,
@@ -999,18 +957,18 @@ pub mod iobuf_h {
         avail
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn iobuf_tag_send(mut io: *mut IOBuf, mut len: ::core::ffi::c_uint) {
-        (*io).parse_pos = (*io).parse_pos.wrapping_add(len);
+        (*io).parse_pos += len;
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn iobuf_tag_skip(mut io: *mut IOBuf, mut len: ::core::ffi::c_uint) {
-        (*io).parse_pos = (*io).parse_pos.wrapping_add(len);
+        (*io).parse_pos += len;
         (*io).done_pos = (*io).parse_pos;
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn iobuf_try_resync(
         mut io: *mut IOBuf,
         mut small_pkt: ::core::ffi::c_uint,
@@ -1029,32 +987,30 @@ pub mod iobuf_h {
                     as *const ::core::ffi::c_void,
                 avail as size_t,
             );
-            (*io).parse_pos = (*io).parse_pos.wrapping_sub((*io).done_pos);
+            (*io).parse_pos -= (*io).done_pos;
             (*io).recv_pos = avail;
             (*io).done_pos = 0 as ::core::ffi::c_uint;
         }
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn iobuf_reset(mut io: *mut IOBuf) {
         (*io).done_pos = 0 as ::core::ffi::c_uint;
         (*io).parse_pos = (*io).done_pos;
         (*io).recv_pos = (*io).parse_pos;
     }
-    use crate::types::size_t;
     use super::_string_h::memmove;
-    use crate::types::uint8_t;
     use super::bouncer_h::cf_sbuf_len;
     use crate::lib::usual::mbuf::mbuf_init_fixed_reader;
+    use crate::types::size_t;
+    use crate::types::uint8_t;
     use crate::types::MBuf;
 }
-
-
 
 pub mod pktbuf_h {
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    
+
     pub struct PktBuf {
         pub buf: *mut uint8_t,
         pub buf_len: ::core::ffi::c_int,
@@ -1070,50 +1026,50 @@ pub mod pktbuf_h {
         #[bitfield(padding)]
         pub c2rust_padding: [u8; 7],
     }
-    use crate::types::uint8_t;
     use super::bouncer_h::PgSocket;
     use super::event_struct_h::event;
+    use crate::types::uint8_t;
     extern "C" {
-        
+
         pub fn pktbuf_free(buf: *mut PktBuf);
     }
 }
 
 pub mod dnslookup_h {
     extern "C" {
-        
+
         pub type DNSToken;
     }
 }
 
 pub mod logging_h {
-    
+
     pub type LogLevel = ::core::ffi::c_uint;
-    
+
     pub const LG_NOISE: LogLevel = 6;
-    
+
     pub const LG_DEBUG: LogLevel = 5;
-    
+
     pub const LG_INFO: LogLevel = 4;
-    
+
     pub const LG_STATS: LogLevel = 3;
-    
+
     pub const LG_WARNING: LogLevel = 2;
-    
+
     pub const LG_ERROR: LogLevel = 1;
-    
+
     pub const LG_FATAL: LogLevel = 0;
     extern "C" {
-        
+
         pub static mut cf_verbose: ::core::ffi::c_int;
-        
+
         pub fn log_generic(
             level: LogLevel,
             ctx: *mut ::core::ffi::c_void,
             s: *const ::core::ffi::c_char,
             ...
         );
-        
+
         pub fn log_fatal(
             file: *const ::core::ffi::c_char,
             line: ::core::ffi::c_int,
@@ -1131,30 +1087,29 @@ pub mod objects_h {
 
     use crate::types::StatList;
     extern "C" {
-        
+
         pub type Slab;
-        
+
         pub static mut pool_list: StatList;
-        
+
         pub static mut iobuf_cache: *mut Slab;
-        
+
         pub fn disconnect_client(
             client: *mut PgSocket,
             notify: bool,
             reason: *const ::core::ffi::c_char,
             ...
         );
-        
+
         pub fn tag_pool_dirty(pool: *mut PgPool);
     }
 }
 
-
 pub mod usual_socket_h {
-    use crate::types::size_t;
     use super::socket_h::sockaddr;
+    use crate::types::size_t;
     extern "C" {
-        
+
         pub fn sa2str(
             sa: *const sockaddr,
             buf: *mut ::core::ffi::c_char,
@@ -1166,52 +1121,52 @@ pub mod usual_socket_h {
 pub mod _string_h {
     use crate::types::size_t;
     extern "C" {
-        
+
         pub fn memcpy(
             __dst: *mut ::core::ffi::c_void,
             __src: *const ::core::ffi::c_void,
             __n: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn memmove(
             __dst: *mut ::core::ffi::c_void,
             __src: *const ::core::ffi::c_void,
             __len: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn memset(
             __b: *mut ::core::ffi::c_void,
             __c: ::core::ffi::c_int,
             __len: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn strerror(__errnum: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;
     }
 }
 
 pub mod safeio_h {
-    use crate::types::size_t;
     use super::_socklen_t_h::socklen_t;
-    use crate::types::ssize_t;
     use super::socket_h::sockaddr;
+    use crate::types::size_t;
+    use crate::types::ssize_t;
     extern "C" {
-        
+
         pub fn safe_recv(
             fd: ::core::ffi::c_int,
             buf: *mut ::core::ffi::c_void,
             len: size_t,
             flags: ::core::ffi::c_int,
         ) -> ssize_t;
-        
+
         pub fn safe_send(
             fd: ::core::ffi::c_int,
             buf: *const ::core::ffi::c_void,
             len: size_t,
             flags: ::core::ffi::c_int,
         ) -> ssize_t;
-        
+
         pub fn safe_close(fd: ::core::ffi::c_int) -> ::core::ffi::c_int;
-        
+
         pub fn safe_connect(
             fd: ::core::ffi::c_int,
             sa: *const sockaddr,
@@ -1223,72 +1178,53 @@ pub mod safeio_h {
 pub mod slab_h {
     use super::objects_h::Slab;
     extern "C" {
-        
+
         pub fn slab_alloc(slab: *mut Slab) -> *mut ::core::ffi::c_void;
-        
+
         pub fn slab_free(slab: *mut Slab, obj: *mut ::core::ffi::c_void);
     }
 }
 
 pub mod _malloc_h {
     extern "C" {
-        
+
         pub fn free(_: *mut ::core::ffi::c_void);
     }
 }
 
 pub mod _stdlib_h {
     extern "C" {
-        
+
         pub fn exit(_: ::core::ffi::c_int) -> !;
     }
 }
 
 pub mod errno_h {
-    
+
     pub const EIO: ::core::ffi::c_int = 5 as ::core::ffi::c_int;
-    
+
     pub const EAGAIN: ::core::ffi::c_int = 35 as ::core::ffi::c_int;
-    
+
     pub const EINPROGRESS: ::core::ffi::c_int = 36 as ::core::ffi::c_int;
     extern "C" {
-        
+
         pub fn __error() -> *mut ::core::ffi::c_int;
     }
 }
 
-
 pub mod util_h {
     extern "C" {
-        
+
         pub fn tune_socket(sock: ::core::ffi::c_int, is_unix: bool) -> bool;
     }
 }
 pub use crate::types::in_addr_t;
 pub use crate::types::in_port_t;
 
-pub use crate::types::NULL;
-pub use crate::types::pid_t;
-pub use crate::types::ptrdiff_t;
-pub use crate::types::sa_family_t;
-pub use crate::types::size_t;
 pub use self::_socklen_t_h::socklen_t;
-pub use crate::types::ssize_t;
 use self::_stdlib_h::exit;
 use self::_string_h::{memset, strerror};
 pub use self::_time_t_h::time_t;
-pub use crate::types::timeval;
-pub use self::_types_h::{
-    __darwin_ptrdiff_t, __darwin_size_t, __darwin_socklen_t, __darwin_ssize_t, __darwin_time_t,
-    __int32_t, __uint16_t, __uint32_t, __uint8_t,
-};
-pub use crate::types::uid_t;
-pub use crate::types::uint16_t;
-pub use crate::types::uint32_t;
-pub use crate::types::uint64_t;
-pub use crate::types::uint8_t;
-pub use crate::types::uintptr_t;
-pub use crate::types::{aatree_cmp_f, aatree_walker_f, AANode, AATree};
 pub use self::bouncer_h::{
     auth_type, cf_auth_type, cf_client_tls13_ciphers, cf_client_tls_ca_file,
     cf_client_tls_cert_file, cf_client_tls_ciphers, cf_client_tls_dheparams,
@@ -1309,6 +1245,24 @@ pub use self::bouncer_h::{
     SV_ACTIVE_CANCEL, SV_BEING_CANCELED, SV_FREE, SV_IDLE, SV_JUSTFREE, SV_LOGIN, SV_TESTED,
     SV_USED,
 };
+pub use crate::types::pid_t;
+pub use crate::types::ptrdiff_t;
+pub use crate::types::sa_family_t;
+pub use crate::types::size_t;
+pub use crate::types::ssize_t;
+pub use crate::types::timeval;
+pub use crate::types::uid_t;
+pub use crate::types::uint16_t;
+pub use crate::types::uint32_t;
+pub use crate::types::uint64_t;
+pub use crate::types::uint8_t;
+pub use crate::types::uintptr_t;
+pub use crate::types::NULL;
+pub use crate::types::{
+    __darwin_ptrdiff_t, __darwin_size_t, __darwin_socklen_t, __darwin_ssize_t, __darwin_time_t,
+    __int32_t, __uint16_t, __uint32_t, __uint8_t,
+};
+pub use crate::types::{aatree_cmp_f, aatree_walker_f, AANode, AATree};
 pub use crate::types::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
 
 pub use self::errno_h::{__error, EAGAIN, EINPROGRESS, EIO};
@@ -1327,22 +1281,12 @@ pub use self::iobuf_h::{
     iobuf_parse_all, iobuf_parse_limit, iobuf_reset, iobuf_tag_send, iobuf_tag_skip,
     iobuf_try_resync, IOBuf,
 };
-pub use crate::types::List;
 pub use self::logging_h::{
     cf_verbose, log_fatal, log_generic, LogLevel, LG_DEBUG, LG_ERROR, LG_FATAL, LG_INFO, LG_NOISE,
     LG_STATS, LG_WARNING,
 };
-pub use crate::lib::usual::mbuf::{
-    mbuf_avail_for_read, mbuf_free, mbuf_init_fixed_reader, mbuf_make_room, mbuf_rewind_writer,
-    mbuf_write,
-};
-pub use crate::types::MBuf;
 use self::objects_h::{disconnect_client, iobuf_cache, pool_list, tag_pool_dirty};
 pub use self::pktbuf_h::{pktbuf_free, PktBuf};
-pub use crate::types::{
-    PgClientPreparedStatement, PgPreparedStatement, PgServerPreparedStatement,
-};
-pub use crate::types::PktHdr;
 use self::safeio_h::{safe_close, safe_connect, safe_recv, safe_send};
 pub use self::sbuf_h::{
     sbuf_cb_t, sbuf_is_empty, sbuf_op_close, sbuf_op_peek, sbuf_op_recv, sbuf_op_send, SBuf,
@@ -1354,11 +1298,7 @@ use self::slab_h::{slab_alloc, slab_free};
 pub use self::socket_h::{
     getsockopt, sockaddr, socket, AF_UNIX, SOCK_STREAM, SOL_SOCKET, SO_ERROR,
 };
-pub use crate::types::StatList;
-pub use crate::types::{false_0, true_0};
-pub use crate::types::{PStr, StrPool};
 pub use self::sys__types_h::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
-pub use crate::types::usec_t;
 pub use self::tls_h::{
     tls, tls_accept_fds, tls_client, tls_close, tls_config, tls_config_equal, tls_config_free,
     tls_config_insecure_noverifycert, tls_config_insecure_noverifyname, tls_config_new,
@@ -1372,9 +1312,21 @@ pub use self::tls_h::{
     TLS_WANT_POLLOUT,
 };
 use self::usual_socket_h::sa2str;
-pub use crate::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 use self::util_h::tune_socket;
+pub use crate::lib::usual::mbuf::{
+    mbuf_avail_for_read, mbuf_free, mbuf_init_fixed_reader, mbuf_make_room, mbuf_rewind_writer,
+    mbuf_write,
+};
+pub use crate::types::usec_t;
+pub use crate::types::List;
+pub use crate::types::MBuf;
+pub use crate::types::PktHdr;
+pub use crate::types::StatList;
 pub use crate::types::VarCache;
+pub use crate::types::{false_0, true_0};
+pub use crate::types::{PStr, StrPool};
+pub use crate::types::{PgClientPreparedStatement, PgPreparedStatement, PgServerPreparedStatement};
+pub use crate::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 
 pub const SBUF_TLS_OK: TLSState = 3;
 
@@ -1482,7 +1434,7 @@ pub unsafe extern "C" fn sbuf_accept(
                 {
                     sbuf_main_loop(sbuf, DO_RECV != 0);
                     if (*sbuf).sock == 0 {
-                        return false_0 != 0;
+                        return false;
                     }
                 }
                 current_block = 2979737022853876585;
@@ -1492,11 +1444,11 @@ pub unsafe extern "C" fn sbuf_accept(
         }
         match current_block {
             2269420068866141602 => {}
-            _ => return true_0 != 0,
+            _ => return true,
         }
     }
     sbuf_call_proto(sbuf, SBUF_EV_RECV_FAILED as ::core::ffi::c_int);
-    false_0 != 0
+    false
 }
 #[no_mangle]
 
@@ -1530,7 +1482,7 @@ pub unsafe extern "C" fn sbuf_connect(
                 EV_WRITE as ::core::ffi::c_short,
                 sbuf as *mut ::core::ffi::c_void,
             );
-            return true_0 != 0;
+            return true;
         } else if *__error() == EINPROGRESS || *__error() == EAGAIN {
             event_assign(
                 &raw mut (*sbuf).ev,
@@ -1550,7 +1502,7 @@ pub unsafe extern "C" fn sbuf_connect(
             res = event_add(&raw mut (*sbuf).ev, &raw mut timeout);
             if res >= 0 as ::core::ffi::c_int {
                 (*sbuf).wait_type = W_CONNECT as ::core::ffi::c_int as uint8_t;
-                return true_0 != 0;
+                return true;
             }
         }
     }
@@ -1558,7 +1510,7 @@ pub unsafe extern "C" fn sbuf_connect(
     log_generic(
         LG_WARNING,
         _log_ctx,
-        b"sbuf_connect failed to connect to %s: %s\0" as *const u8 as *const ::core::ffi::c_char,
+        c"sbuf_connect failed to connect to %s: %s".as_ptr(),
         sa2str(
             sa,
             &raw mut buf as *mut ::core::ffi::c_char,
@@ -1571,7 +1523,7 @@ pub unsafe extern "C" fn sbuf_connect(
     }
     (*sbuf).sock = 0 as ::core::ffi::c_int;
     sbuf_call_proto(sbuf, SBUF_EV_CONNECT_FAILED as ::core::ffi::c_int);
-    false_0 != 0
+    false
 }
 #[no_mangle]
 
@@ -1581,13 +1533,13 @@ pub unsafe extern "C" fn sbuf_pause(mut sbuf: *mut SBuf) -> bool {
         log_generic(
             LG_WARNING,
             _log_ctx,
-            b"event_del: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"event_del: %s".as_ptr(),
             strerror(*__error()),
         );
-        return false_0 != 0;
+        return false;
     }
     (*sbuf).wait_type = W_NONE as ::core::ffi::c_int as uint8_t;
-    true_0 != 0
+    true
 }
 #[no_mangle]
 
@@ -1622,13 +1574,13 @@ pub unsafe extern "C" fn sbuf_continue_with_callback(
         log_generic(
             LG_WARNING,
             _log_ctx,
-            b"sbuf_continue_with_callback: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"sbuf_continue_with_callback: %s".as_ptr(),
             strerror(*__error()),
         );
-        return false_0 != 0;
+        return false;
     }
     (*sbuf).wait_type = W_RECV as ::core::ffi::c_int as uint8_t;
-    true_0 != 0
+    true
 }
 #[no_mangle]
 
@@ -1646,11 +1598,10 @@ pub unsafe extern "C" fn sbuf_use_callback_once(
             log_generic(
                 LG_WARNING,
                 _log_ctx,
-                b"sbuf_queue_once: event_del failed: %s\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"sbuf_queue_once: event_del failed: %s".as_ptr(),
                 strerror(*__error()),
             );
-            return false_0 != 0;
+            return false;
         }
     }
     event_assign(
@@ -1667,13 +1618,13 @@ pub unsafe extern "C" fn sbuf_use_callback_once(
         log_generic(
             LG_WARNING,
             _log_ctx_0,
-            b"sbuf_queue_once: event_add failed: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"sbuf_queue_once: event_add failed: %s".as_ptr(),
             strerror(*__error()),
         );
-        return false_0 != 0;
+        return false;
     }
     (*sbuf).wait_type = W_ONCE as ::core::ffi::c_int as uint8_t;
-    true_0 != 0
+    true
 }
 #[no_mangle]
 
@@ -1686,7 +1637,7 @@ pub unsafe extern "C" fn sbuf_close(mut sbuf: *mut SBuf) -> bool {
                 log_generic(
                     LG_WARNING,
                     _log_ctx,
-                    b"event_del: %s\0" as *const u8 as *const ::core::ffi::c_char,
+                    c"event_del: %s".as_ptr(),
                     strerror(*__error()),
                 );
             } else {
@@ -1694,7 +1645,7 @@ pub unsafe extern "C" fn sbuf_close(mut sbuf: *mut SBuf) -> bool {
                 log_generic(
                     LG_WARNING,
                     _log_ctx_0,
-                    b"event_del: libevent error\0" as *const u8 as *const ::core::ffi::c_char,
+                    c"event_del: libevent error".as_ptr(),
                 );
             }
         }
@@ -1703,14 +1654,14 @@ pub unsafe extern "C" fn sbuf_close(mut sbuf: *mut SBuf) -> bool {
     (*sbuf).dst = ::core::ptr::null_mut::<SBuf>();
     (*sbuf).sock = 0 as ::core::ffi::c_int;
     (*sbuf).pkt_remain = 0 as ::core::ffi::c_uint;
-    (*sbuf).wait_type = 0 as uint8_t;
+    (*sbuf).wait_type = 0;
     (*sbuf).pkt_action = (*sbuf).wait_type;
     if !(*sbuf).io.is_null() {
         slab_free(iobuf_cache, (*sbuf).io as *mut ::core::ffi::c_void);
         (*sbuf).io = ::core::ptr::null_mut::<IOBuf>();
     }
     mbuf_free(&raw mut (*sbuf).extra_packets);
-    true_0 != 0
+    true
 }
 #[no_mangle]
 
@@ -1760,7 +1711,7 @@ pub unsafe extern "C" fn sbuf_queue_packet(
     let mut res: bool = false;
     if pkt.is_null() || (*pkt).failed() as ::core::ffi::c_int != 0 {
         pktbuf_free(pkt);
-        return false_0 != 0;
+        return false;
     }
     (*src).dst = dst;
     res = mbuf_write(
@@ -1841,14 +1792,13 @@ unsafe extern "C" fn sbuf_wait_for_data(mut sbuf: *mut SBuf) -> bool {
         log_generic(
             LG_WARNING,
             _log_ctx,
-            b"sbuf_wait_for_data: event_add failed: %s\0" as *const u8
-                as *const ::core::ffi::c_char,
+            c"sbuf_wait_for_data: event_add failed: %s".as_ptr(),
             strerror(*__error()),
         );
-        return false_0 != 0;
+        return false;
     }
     (*sbuf).wait_type = W_RECV as ::core::ffi::c_int as uint8_t;
-    true_0 != 0
+    true
 }
 
 unsafe extern "C" fn sbuf_recv_forced_cb(
@@ -1898,14 +1848,13 @@ unsafe extern "C" fn sbuf_wait_for_data_forced(mut sbuf: *mut SBuf) -> bool {
         log_generic(
             LG_WARNING,
             _log_ctx,
-            b"sbuf_wait_for_data: event_add failed: %s\0" as *const u8
-                as *const ::core::ffi::c_char,
+            c"sbuf_wait_for_data: event_add failed: %s".as_ptr(),
             strerror(*__error()),
         );
-        return false_0 != 0;
+        return false;
     }
     (*sbuf).wait_type = W_ONCE as ::core::ffi::c_int as uint8_t;
-    true_0 != 0
+    true
 }
 
 unsafe extern "C" fn sbuf_send_cb(
@@ -1917,11 +1866,7 @@ unsafe extern "C" fn sbuf_send_cb(
     let mut res: bool = false;
     let mut _log_ctx = NULL;
     if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
-        log_generic(
-            LG_NOISE,
-            _log_ctx,
-            b"Socket is writable again\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        log_generic(LG_NOISE, _log_ctx, c"Socket is writable again".as_ptr());
     }
     if (*sbuf).sock == 0 {
         return;
@@ -1944,10 +1889,10 @@ unsafe extern "C" fn sbuf_queue_send(mut sbuf: *mut SBuf) -> bool {
         log_generic(
             LG_WARNING,
             _log_ctx,
-            b"sbuf_queue_send: event_del failed: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"sbuf_queue_send: event_del failed: %s".as_ptr(),
             strerror(*__error()),
         );
-        return false_0 != 0;
+        return false;
     }
     event_assign(
         &raw mut (*sbuf).ev,
@@ -1970,13 +1915,13 @@ unsafe extern "C" fn sbuf_queue_send(mut sbuf: *mut SBuf) -> bool {
         log_generic(
             LG_WARNING,
             _log_ctx_0,
-            b"sbuf_queue_send: event_add failed: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"sbuf_queue_send: event_add failed: %s".as_ptr(),
             strerror(*__error()),
         );
-        return false_0 != 0;
+        return false;
     }
     (*sbuf).wait_type = W_SEND as ::core::ffi::c_int as uint8_t;
-    true_0 != 0
+    true
 }
 #[no_mangle]
 
@@ -1985,15 +1930,11 @@ pub unsafe extern "C" fn sbuf_flush(mut sbuf: *mut SBuf) -> bool {
         let mut _log_ctx = NULL;
         if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
         {
-            log_generic(
-                LG_NOISE,
-                _log_ctx,
-                b"sbuf_flush\0" as *const u8 as *const ::core::ffi::c_char,
-            );
+            log_generic(LG_NOISE, _log_ctx, c"sbuf_flush".as_ptr());
         }
         return sbuf_send_pending_iobuf(sbuf);
     }
-    true_0 != 0
+    true
 }
 
 unsafe extern "C" fn sbuf_send_pending_iobuf(mut sbuf: *mut SBuf) -> bool {
@@ -2002,27 +1943,22 @@ unsafe extern "C" fn sbuf_send_pending_iobuf(mut sbuf: *mut SBuf) -> bool {
     let mut io = (*sbuf).io;
     let mut _log_ctx = NULL;
     if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
-        log_generic(
-            LG_NOISE,
-            _log_ctx,
-            b"sbuf_send_pending_iobuf\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        log_generic(LG_NOISE, _log_ctx, c"sbuf_send_pending_iobuf".as_ptr());
     }
     loop {
         avail = iobuf_amount_pending(io) as ::core::ffi::c_int;
         if avail == 0 as ::core::ffi::c_int {
-            return true_0 != 0;
+            return true;
         }
         if (*(*sbuf).dst).sock == 0 as ::core::ffi::c_int {
             let mut _log_ctx_0 = NULL;
             log_generic(
                 LG_ERROR,
                 _log_ctx_0,
-                b"sbuf_send_pending_iobuf: no dst sock?\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"sbuf_send_pending_iobuf: no dst sock?".as_ptr(),
             );
             sbuf_call_proto(sbuf, SBUF_EV_SEND_FAILED as ::core::ffi::c_int);
-            return false_0 != 0;
+            return false;
         }
         res = sbuf_op_send(
             (*sbuf).dst,
@@ -2040,7 +1976,7 @@ unsafe extern "C" fn sbuf_send_pending_iobuf(mut sbuf: *mut SBuf) -> bool {
             } else {
                 sbuf_call_proto(sbuf, SBUF_EV_SEND_FAILED as ::core::ffi::c_int);
             }
-            return false_0 != 0;
+            return false;
         }
     }
 }
@@ -2054,24 +1990,23 @@ unsafe extern "C" fn sbuf_send_pending_extra_packets(mut sbuf: *mut SBuf) -> boo
         log_generic(
             LG_NOISE,
             _log_ctx,
-            b"sbuf_send_pending_extra_packets \0" as *const u8 as *const ::core::ffi::c_char,
+            c"sbuf_send_pending_extra_packets ".as_ptr(),
         );
     }
     loop {
         avail = mbuf_avail_for_read(mbuf) as ::core::ffi::c_int;
         if avail == 0 as ::core::ffi::c_int {
-            return true_0 != 0;
+            return true;
         }
         if (*(*sbuf).dst).sock == 0 as ::core::ffi::c_int {
             let mut _log_ctx_0 = NULL;
             log_generic(
                 LG_ERROR,
                 _log_ctx_0,
-                b"sbuf_send_pending_extra_packets: no dst sock?\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"sbuf_send_pending_extra_packets: no dst sock?".as_ptr(),
             );
             sbuf_call_proto(sbuf, SBUF_EV_SEND_FAILED as ::core::ffi::c_int);
-            return false_0 != 0;
+            return false;
         }
         res = sbuf_op_send(
             (*sbuf).dst,
@@ -2088,7 +2023,7 @@ unsafe extern "C" fn sbuf_send_pending_extra_packets(mut sbuf: *mut SBuf) -> boo
             } else {
                 sbuf_call_proto(sbuf, SBUF_EV_SEND_FAILED as ::core::ffi::c_int);
             }
-            return false_0 != 0;
+            return false;
         }
     }
 }
@@ -2102,11 +2037,7 @@ unsafe extern "C" fn sbuf_process_pending(mut sbuf: *mut SBuf) -> bool {
     let mut loop_number = 0 as ::core::ffi::c_int;
     let mut _log_ctx = NULL;
     if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
-        log_generic(
-            LG_NOISE,
-            _log_ctx,
-            b"sbuf_process_pending: start\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        log_generic(LG_NOISE, _log_ctx, c"sbuf_process_pending: start".as_ptr());
     }
     loop {
         if mbuf_avail_for_read(extra_packets) != 0 {
@@ -2119,11 +2050,10 @@ unsafe extern "C" fn sbuf_process_pending(mut sbuf: *mut SBuf) -> bool {
                     log_generic(
                         LG_NOISE,
                         _log_ctx_0,
-                        b"sbuf_process_pending failed to send all pending data\0" as *const u8
-                            as *const ::core::ffi::c_char,
+                        c"sbuf_process_pending failed to send all pending data".as_ptr(),
                     );
                 }
-                return false_0 != 0;
+                return false;
             }
             if !sbuf_send_pending_extra_packets(sbuf) {
                 let mut _log_ctx_1 = NULL;
@@ -2134,11 +2064,10 @@ unsafe extern "C" fn sbuf_process_pending(mut sbuf: *mut SBuf) -> bool {
                     log_generic(
                         LG_NOISE,
                         _log_ctx_1,
-                        b"sbuf_process_pending ended early because of not being able to send the queued extra packets\0"
-                            as *const u8 as *const ::core::ffi::c_char,
+                        c"sbuf_process_pending ended early because of not being able to send the queued extra packets".as_ptr(),
                     );
                 }
-                return false_0 != 0;
+                return false;
             }
             if (*extra_packets).alloc_len
                 > (cf_sbuf_len as ::core::ffi::c_uint).wrapping_mul(4 as ::core::ffi::c_uint)
@@ -2155,7 +2084,7 @@ unsafe extern "C" fn sbuf_process_pending(mut sbuf: *mut SBuf) -> bool {
             log_generic(
                 LG_NOISE,
                 _log_ctx_2,
-                b"sbuf_process_pending: loop %d\0" as *const u8 as *const ::core::ffi::c_char,
+                c"sbuf_process_pending: loop %d".as_ptr(),
                 loop_number,
             );
         }
@@ -2177,7 +2106,7 @@ unsafe extern "C" fn sbuf_process_pending(mut sbuf: *mut SBuf) -> bool {
             && iobuf_amount_pending(io) > 0 as ::core::ffi::c_uint
             && !sbuf_send_pending_iobuf(sbuf)
         {
-            return false_0 != 0;
+            return false;
         }
         if avail > (*sbuf).pkt_remain {
             avail = (*sbuf).pkt_remain;
@@ -2204,7 +2133,7 @@ unsafe extern "C" fn sbuf_process_pending(mut sbuf: *mut SBuf) -> bool {
         if current_block == 6522610172562284459 {
             if (*sbuf).skip_remain >= avail {
                 iobuf_tag_skip(io, avail);
-                (*sbuf).skip_remain = (*sbuf).skip_remain.wrapping_sub(avail);
+                (*sbuf).skip_remain -= avail;
             } else {
                 if (*sbuf).skip_remain != 0 as ::core::ffi::c_uint {
                     iobuf_tag_skip(io, (*sbuf).skip_remain);
@@ -2213,7 +2142,7 @@ unsafe extern "C" fn sbuf_process_pending(mut sbuf: *mut SBuf) -> bool {
                 (*sbuf).skip_remain = 0 as ::core::ffi::c_uint;
             }
         }
-        (*sbuf).pkt_remain = (*sbuf).pkt_remain.wrapping_sub(avail);
+        (*sbuf).pkt_remain -= avail;
     }
     match current_block {
         15038619569862261818 => {
@@ -2225,7 +2154,7 @@ unsafe extern "C" fn sbuf_process_pending(mut sbuf: *mut SBuf) -> bool {
                 if iobuf_amount_pending(io) > 0 as ::core::ffi::c_uint
                     && !sbuf_send_pending_iobuf(sbuf)
                 {
-                    return false_0 != 0;
+                    return false;
                 }
                 if !io.is_null() && (*io).recv_pos == cf_sbuf_len as ::core::ffi::c_uint {
                     let mut _log_ctx_6 = NULL;
@@ -2236,8 +2165,7 @@ unsafe extern "C" fn sbuf_process_pending(mut sbuf: *mut SBuf) -> bool {
                         log_generic(
                             LG_NOISE,
                             _log_ctx_6,
-                            b"resync(%d): done=%u, parse=%u, recv=%u, forced\0" as *const u8
-                                as *const ::core::ffi::c_char,
+                            c"resync(%d): done=%u, parse=%u, recv=%u, forced".as_ptr(),
                             (*sbuf).sock,
                             (*io).done_pos,
                             (*io).parse_pos,
@@ -2247,7 +2175,7 @@ unsafe extern "C" fn sbuf_process_pending(mut sbuf: *mut SBuf) -> bool {
                     iobuf_try_resync(io, cf_sbuf_len as ::core::ffi::c_uint);
                 }
             }
-            false_0 != 0
+            false
         }
         _ => {
             let mut _log_ctx_3 = NULL;
@@ -2257,8 +2185,7 @@ unsafe extern "C" fn sbuf_process_pending(mut sbuf: *mut SBuf) -> bool {
                 log_generic(
                     LG_NOISE,
                     _log_ctx_3,
-                    b"sbuf_process_pending: done looping\0" as *const u8
-                        as *const ::core::ffi::c_char,
+                    c"sbuf_process_pending: done looping".as_ptr(),
                 );
             }
             if !sbuf_send_pending_iobuf(sbuf) {
@@ -2270,23 +2197,18 @@ unsafe extern "C" fn sbuf_process_pending(mut sbuf: *mut SBuf) -> bool {
                     log_generic(
                         LG_NOISE,
                         _log_ctx_4,
-                        b"sbuf_process_pending failed to send all pending data\0" as *const u8
-                            as *const ::core::ffi::c_char,
+                        c"sbuf_process_pending failed to send all pending data".as_ptr(),
                     );
                 }
-                return false_0 != 0;
+                return false;
             }
             let mut _log_ctx_5 = NULL;
             if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
                 != 0
             {
-                log_generic(
-                    LG_NOISE,
-                    _log_ctx_5,
-                    b"sbuf_process_pending: end\0" as *const u8 as *const ::core::ffi::c_char,
-                );
+                log_generic(LG_NOISE, _log_ctx_5, c"sbuf_process_pending: end".as_ptr());
             }
-            true_0 != 0
+            true
         }
     }
 }
@@ -2300,8 +2222,7 @@ unsafe extern "C" fn sbuf_try_resync(mut sbuf: *mut SBuf, mut release: bool) {
             log_generic(
                 LG_NOISE,
                 _log_ctx,
-                b"resync(%d): done=%u, parse=%u, recv=%u\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"resync(%d): done=%u, parse=%u, recv=%u".as_ptr(),
                 (*sbuf).sock,
                 (*io).done_pos,
                 (*io).parse_pos,
@@ -2333,12 +2254,12 @@ unsafe extern "C" fn sbuf_actual_recv(mut sbuf: *mut SBuf, mut len: size_t) -> b
         (*io).recv_pos = ((*io).recv_pos as ssize_t + got) as ::core::ffi::c_uint;
     } else if got == 0 as ssize_t {
         sbuf_call_proto(sbuf, SBUF_EV_RECV_FAILED as ::core::ffi::c_int);
-        return false_0 != 0;
+        return false;
     } else if got < 0 as ssize_t && *__error() != EAGAIN {
         sbuf_call_proto(sbuf, SBUF_EV_RECV_FAILED as ::core::ffi::c_int);
-        return false_0 != 0;
+        return false;
     }
-    true_0 != 0
+    true
 }
 
 unsafe extern "C" fn sbuf_recv_cb(
@@ -2355,11 +2276,11 @@ unsafe extern "C" fn allocate_iobuf(mut sbuf: *mut SBuf) -> bool {
         (*sbuf).io = slab_alloc(iobuf_cache) as *mut IOBuf;
         if (*sbuf).io.is_null() {
             sbuf_call_proto(sbuf, SBUF_EV_RECV_FAILED as ::core::ffi::c_int);
-            return false_0 != 0;
+            return false;
         }
         iobuf_reset((*sbuf).io);
     }
-    true_0 != 0
+    true
 }
 
 unsafe extern "C" fn sbuf_main_loop(mut sbuf: *mut SBuf, mut skip_recv: bool) {
@@ -2381,7 +2302,7 @@ unsafe extern "C" fn sbuf_main_loop(mut sbuf: *mut SBuf, mut skip_recv: bool) {
     loop {
         match current_block {
             17573018301231930905 => {
-                sbuf_try_resync(sbuf, false_0 != 0);
+                sbuf_try_resync(sbuf, false);
                 if cf_sbuf_loopcnt > 0 as ::core::ffi::c_int && loopcnt >= cf_sbuf_loopcnt {
                     let mut _ignore: bool = false;
                     let mut _log_ctx = NULL;
@@ -2389,11 +2310,7 @@ unsafe extern "C" fn sbuf_main_loop(mut sbuf: *mut SBuf, mut skip_recv: bool) {
                         as ::core::ffi::c_long
                         != 0
                     {
-                        log_generic(
-                            LG_DEBUG,
-                            _log_ctx,
-                            b"loopcnt full\0" as *const u8 as *const ::core::ffi::c_char,
-                        );
+                        log_generic(LG_DEBUG, _log_ctx, c"loopcnt full".as_ptr());
                     }
                     _ignore = sbuf_process_pending(sbuf);
                     sbuf_wait_for_data_forced(sbuf);
@@ -2428,7 +2345,7 @@ unsafe extern "C" fn sbuf_main_loop(mut sbuf: *mut SBuf, mut skip_recv: bool) {
             }
         }
     }
-    sbuf_try_resync(sbuf, true_0 != 0);
+    sbuf_try_resync(sbuf, true);
     if sbuf_is_empty(sbuf) {
         sbuf_call_proto(sbuf, SBUF_EV_FLUSH as ::core::ffi::c_int);
     }
@@ -2458,12 +2375,11 @@ unsafe extern "C" fn sbuf_after_connect_check(mut sbuf: *mut SBuf) -> bool {
             log_generic(
                 LG_DEBUG,
                 _log_ctx,
-                b"sbuf_after_connect_check: getsockopt: %s\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"sbuf_after_connect_check: getsockopt: %s".as_ptr(),
                 strerror(*__error()),
             );
         }
-        return false_0 != 0;
+        return false;
     }
     if optval != 0 as ::core::ffi::c_int {
         let mut _log_ctx_0 = NULL;
@@ -2472,14 +2388,13 @@ unsafe extern "C" fn sbuf_after_connect_check(mut sbuf: *mut SBuf) -> bool {
             log_generic(
                 LG_DEBUG,
                 _log_ctx_0,
-                b"sbuf_after_connect_check: pending error: %s\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"sbuf_after_connect_check: pending error: %s".as_ptr(),
                 strerror(optval),
             );
         }
-        return false_0 != 0;
+        return false;
     }
-    true_0 != 0
+    true
 }
 
 unsafe extern "C" fn sbuf_connect_cb(
@@ -2508,7 +2423,7 @@ pub unsafe extern "C" fn sbuf_answer(
 ) -> bool {
     let mut res: ssize_t = 0;
     if (*sbuf).sock <= 0 as ::core::ffi::c_int {
-        return false_0 != 0;
+        return false;
     }
     res = sbuf_op_send(sbuf, buf, len);
     if res < 0 as ssize_t {
@@ -2518,7 +2433,7 @@ pub unsafe extern "C" fn sbuf_answer(
             log_generic(
                 LG_DEBUG,
                 _log_ctx,
-                b"sbuf_answer: error sending: %s\0" as *const u8 as *const ::core::ffi::c_char,
+                c"sbuf_answer: error sending: %s".as_ptr(),
                 strerror(*__error()),
             );
         }
@@ -2529,8 +2444,7 @@ pub unsafe extern "C" fn sbuf_answer(
             log_generic(
                 LG_DEBUG,
                 _log_ctx_0,
-                b"sbuf_answer: partial send: len=%zu sent=%zd\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"sbuf_answer: partial send: len=%zu sent=%zd".as_ptr(),
                 len,
                 res,
             );
@@ -2608,11 +2522,11 @@ unsafe extern "C" fn setup_tls(
             log_generic(
                 LG_ERROR,
                 _log_ctx,
-                b"invalid %s_protocols: %s\0" as *const u8 as *const ::core::ffi::c_char,
+                c"invalid %s_protocols: %s".as_ptr(),
                 pfx,
                 protocols,
             );
-            return false_0 != 0;
+            return false;
         }
         tls_config_set_protocols(conf, protos);
     }
@@ -2623,11 +2537,11 @@ unsafe extern "C" fn setup_tls(
             log_generic(
                 LG_ERROR,
                 _log_ctx_0,
-                b"invalid %s_ciphers: %s\0" as *const u8 as *const ::core::ffi::c_char,
+                c"invalid %s_ciphers: %s".as_ptr(),
                 pfx,
                 ciphers,
             );
-            return false_0 != 0;
+            return false;
         }
     }
     if !ciphers13.is_null() {
@@ -2637,11 +2551,11 @@ unsafe extern "C" fn setup_tls(
             log_generic(
                 LG_ERROR,
                 _log_ctx_1,
-                b"invalid %s_ciphers: %s\0" as *const u8 as *const ::core::ffi::c_char,
+                c"invalid %s_ciphers: %s".as_ptr(),
                 pfx,
                 ciphers13,
             );
-            return false_0 != 0;
+            return false;
         }
     }
     if *dheparams != 0 {
@@ -2651,11 +2565,11 @@ unsafe extern "C" fn setup_tls(
             log_generic(
                 LG_ERROR,
                 _log_ctx_2,
-                b"invalid %s_dheparams: %s\0" as *const u8 as *const ::core::ffi::c_char,
+                c"invalid %s_dheparams: %s".as_ptr(),
                 pfx,
                 dheparams,
             );
-            return false_0 != 0;
+            return false;
         }
     }
     if *ecdhecurve != 0 {
@@ -2665,11 +2579,11 @@ unsafe extern "C" fn setup_tls(
             log_generic(
                 LG_ERROR,
                 _log_ctx_3,
-                b"invalid %s_ecdhecurve: %s\0" as *const u8 as *const ::core::ffi::c_char,
+                c"invalid %s_ecdhecurve: %s".as_ptr(),
                 pfx,
                 ecdhecurve,
             );
-            return false_0 != 0;
+            return false;
         }
     }
     if *cafile != 0 {
@@ -2679,11 +2593,11 @@ unsafe extern "C" fn setup_tls(
             log_generic(
                 LG_ERROR,
                 _log_ctx_4,
-                b"invalid %s_ca_file: %s\0" as *const u8 as *const ::core::ffi::c_char,
+                c"invalid %s_ca_file: %s".as_ptr(),
                 pfx,
                 cafile,
             );
-            return false_0 != 0;
+            return false;
         }
     }
     if *keyfile != 0 {
@@ -2693,11 +2607,11 @@ unsafe extern "C" fn setup_tls(
             log_generic(
                 LG_ERROR,
                 _log_ctx_5,
-                b"invalid %s_key_file: %s\0" as *const u8 as *const ::core::ffi::c_char,
+                c"invalid %s_key_file: %s".as_ptr(),
                 pfx,
                 keyfile,
             );
-            return false_0 != 0;
+            return false;
         }
     }
     if *certfile != 0 {
@@ -2707,11 +2621,11 @@ unsafe extern "C" fn setup_tls(
             log_generic(
                 LG_ERROR,
                 _log_ctx_6,
-                b"invalid %s_cert_file: %s\0" as *const u8 as *const ::core::ffi::c_char,
+                c"invalid %s_cert_file: %s".as_ptr(),
                 pfx,
                 certfile,
             );
-            return false_0 != 0;
+            return false;
         }
     }
     if does_connect {
@@ -2731,7 +2645,7 @@ unsafe extern "C" fn setup_tls(
     } else {
         tls_config_verify_client_optional(conf);
     }
-    true_0 != 0
+    true
 }
 
 unsafe extern "C" fn tls_change_requires_reconnect(
@@ -2744,10 +2658,10 @@ unsafe extern "C" fn tls_change_requires_reconnect(
             log_generic(
                 LG_NOISE,
                 _log_ctx,
-                b"new server_tls_sslmode detected\0" as *const u8 as *const ::core::ffi::c_char,
+                c"new server_tls_sslmode detected".as_ptr(),
             );
         }
-        true_0 != 0
+        true
     } else if server_connect_conf.is_null() {
         let mut _log_ctx_0 = NULL;
         if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
@@ -2755,11 +2669,10 @@ unsafe extern "C" fn tls_change_requires_reconnect(
             log_generic(
                 LG_NOISE,
                 _log_ctx_0,
-                b"no existing server tls config detected\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"no existing server tls config detected".as_ptr(),
             );
         }
-        true_0 != 0
+        true
     } else if tls_config_equal(new_server_connect_conf, server_connect_conf) {
         let mut _log_ctx_1 = NULL;
         if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
@@ -2767,11 +2680,10 @@ unsafe extern "C" fn tls_change_requires_reconnect(
             log_generic(
                 LG_NOISE,
                 _log_ctx_1,
-                b"no server tls config change detected\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"no server tls config change detected".as_ptr(),
             );
         }
-        false_0 != 0
+        false
     } else {
         let mut _log_ctx_2 = NULL;
         if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
@@ -2779,10 +2691,10 @@ unsafe extern "C" fn tls_change_requires_reconnect(
             log_generic(
                 LG_NOISE,
                 _log_ctx_2,
-                b"server tls config change detected\0" as *const u8 as *const ::core::ffi::c_char,
+                c"server tls config change detected".as_ptr(),
             );
         }
-        true_0 != 0
+        true
     }
 }
 #[no_mangle]
@@ -2800,10 +2712,9 @@ pub unsafe extern "C" fn sbuf_tls_setup() -> bool {
         log_generic(
                 LG_ERROR,
                 _log_ctx,
-                b"To allow TLS connections from clients, client_tls_key_file and client_tls_cert_file must be set.\0"
-                    as *const u8 as *const ::core::ffi::c_char,
+                c"To allow TLS connections from clients, client_tls_key_file and client_tls_cert_file must be set.".as_ptr(),
             );
-        return false_0 != 0;
+        return false;
     }
     if cf_auth_type == AUTH_TYPE_CERT as ::core::ffi::c_int {
         if cf_client_tls_sslmode != SSLMODE_VERIFY_FULL as ::core::ffi::c_int {
@@ -2811,20 +2722,18 @@ pub unsafe extern "C" fn sbuf_tls_setup() -> bool {
             log_generic(
                 LG_ERROR,
                 _log_ctx_0,
-                b"auth_type=cert requires client_tls_sslmode=SSLMODE_VERIFY_FULL\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"auth_type=cert requires client_tls_sslmode=SSLMODE_VERIFY_FULL".as_ptr(),
             );
-            return false_0 != 0;
+            return false;
         }
         if *cf_client_tls_ca_file as ::core::ffi::c_int == '\0' as i32 {
             let mut _log_ctx_1 = NULL;
             log_generic(
                 LG_ERROR,
                 _log_ctx_1,
-                b"auth_type=cert requires client_tls_ca_file\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"auth_type=cert requires client_tls_ca_file".as_ptr(),
             );
-            return false_0 != 0;
+            return false;
         }
     } else if cf_client_tls_sslmode > SSLMODE_VERIFY_CA as ::core::ffi::c_int
         && *cf_client_tls_ca_file as ::core::ffi::c_int == '\0' as i32
@@ -2833,21 +2742,20 @@ pub unsafe extern "C" fn sbuf_tls_setup() -> bool {
         log_generic(
             LG_ERROR,
             _log_ctx_2,
-            b"client_tls_sslmode requires client_tls_ca_file\0" as *const u8
-                as *const ::core::ffi::c_char,
+            c"client_tls_sslmode requires client_tls_ca_file".as_ptr(),
         );
-        return false_0 != 0;
+        return false;
     }
     err = tls_init();
     if err != 0 {
         let mut _log_ctx_3 = NULL;
         log_fatal(
-            b"src/sbuf.c\0" as *const u8 as *const ::core::ffi::c_char,
+            c"src/sbuf.c".as_ptr(),
             1311 as ::core::ffi::c_int,
-            b"sbuf_tls_setup\0" as *const u8 as *const ::core::ffi::c_char,
-            false_0 != 0,
+            c"sbuf_tls_setup".as_ptr(),
+            false,
             _log_ctx_3,
-            b"tls_init failed\0" as *const u8 as *const ::core::ffi::c_char,
+            c"tls_init failed".as_ptr(),
         );
         exit(1 as ::core::ffi::c_int);
     }
@@ -2855,16 +2763,12 @@ pub unsafe extern "C" fn sbuf_tls_setup() -> bool {
         new_server_connect_conf = tls_config_new();
         if new_server_connect_conf.is_null() {
             let mut _log_ctx_4 = NULL;
-            log_generic(
-                LG_ERROR,
-                _log_ctx_4,
-                b"tls_config_new failed 1\0" as *const u8 as *const ::core::ffi::c_char,
-            );
-            return false_0 != 0;
+            log_generic(LG_ERROR, _log_ctx_4, c"tls_config_new failed 1".as_ptr());
+            return false;
         }
         if !setup_tls(
             new_server_connect_conf,
-            b"server_tls\0" as *const u8 as *const ::core::ffi::c_char,
+            c"server_tls".as_ptr(),
             cf_server_tls_sslmode,
             cf_server_tls_protocols,
             cf_server_tls_ciphers,
@@ -2872,9 +2776,9 @@ pub unsafe extern "C" fn sbuf_tls_setup() -> bool {
             cf_server_tls_key_file,
             cf_server_tls_cert_file,
             cf_server_tls_ca_file,
-            b"\0" as *const u8 as *const ::core::ffi::c_char,
-            b"\0" as *const u8 as *const ::core::ffi::c_char,
-            true_0 != 0,
+            c"".as_ptr(),
+            c"".as_ptr(),
+            true,
         ) {
             current_block = 4939747223443714714;
         } else {
@@ -2888,15 +2792,11 @@ pub unsafe extern "C" fn sbuf_tls_setup() -> bool {
             new_client_accept_conf = tls_config_new();
             if new_client_accept_conf.is_null() {
                 let mut _log_ctx_5 = NULL;
-                log_generic(
-                    LG_ERROR,
-                    _log_ctx_5,
-                    b"tls_config_new failed 2\0" as *const u8 as *const ::core::ffi::c_char,
-                );
+                log_generic(LG_ERROR, _log_ctx_5, c"tls_config_new failed 2".as_ptr());
                 current_block = 4939747223443714714;
             } else if !setup_tls(
                 new_client_accept_conf,
-                b"client_tls\0" as *const u8 as *const ::core::ffi::c_char,
+                c"client_tls".as_ptr(),
                 cf_client_tls_sslmode,
                 cf_client_tls_protocols,
                 cf_client_tls_ciphers,
@@ -2906,18 +2806,14 @@ pub unsafe extern "C" fn sbuf_tls_setup() -> bool {
                 cf_client_tls_ca_file,
                 cf_client_tls_dheparams,
                 cf_client_tls_ecdhecurve,
-                false_0 != 0,
+                false,
             ) {
                 current_block = 4939747223443714714;
             } else {
                 new_client_accept_base = tls_server();
                 if new_client_accept_base.is_null() {
                     let mut _log_ctx_6 = NULL;
-                    log_generic(
-                        LG_ERROR,
-                        _log_ctx_6,
-                        b"server_base failed\0" as *const u8 as *const ::core::ffi::c_char,
-                    );
+                    log_generic(LG_ERROR, _log_ctx_6, c"server_base failed".as_ptr());
                     current_block = 4939747223443714714;
                 } else {
                     err = tls_configure(new_client_accept_base, new_client_accept_conf);
@@ -2926,7 +2822,7 @@ pub unsafe extern "C" fn sbuf_tls_setup() -> bool {
                         log_generic(
                             LG_ERROR,
                             _log_ctx_7,
-                            b"TLS setup failed: %s\0" as *const u8 as *const ::core::ffi::c_char,
+                            c"TLS setup failed: %s".as_ptr(),
                             tls_error(new_client_accept_base),
                         );
                         current_block = 4939747223443714714;
@@ -2964,14 +2860,14 @@ pub unsafe extern "C" fn sbuf_tls_setup() -> bool {
                 client_accept_sslmode = cf_client_tls_sslmode;
                 server_connect_conf = new_server_connect_conf;
                 server_connect_sslmode = cf_server_tls_sslmode;
-                return true_0 != 0;
+                return true;
             }
         }
     }
     usual_tls_free(new_client_accept_base);
     tls_config_free(new_client_accept_conf);
     tls_config_free(new_server_connect_conf);
-    false_0 != 0
+    false
 }
 
 unsafe extern "C" fn handle_tls_handshake(mut sbuf: *mut SBuf) -> bool {
@@ -2979,12 +2875,7 @@ unsafe extern "C" fn handle_tls_handshake(mut sbuf: *mut SBuf) -> bool {
     err = tls_handshake((*sbuf).tls);
     let mut _log_ctx = NULL;
     if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
-        log_generic(
-            LG_NOISE,
-            _log_ctx,
-            b"tls_handshake: err=%d\0" as *const u8 as *const ::core::ffi::c_char,
-            err,
-        );
+        log_generic(LG_NOISE, _log_ctx, c"tls_handshake: err=%d".as_ptr(), err);
     }
     if err == TLS_WANT_POLLIN {
         sbuf_use_callback_once(
@@ -3015,16 +2906,16 @@ unsafe extern "C" fn handle_tls_handshake(mut sbuf: *mut SBuf) -> bool {
     } else if err == 0 as ::core::ffi::c_int {
         (*sbuf).tls_state = SBUF_TLS_OK as ::core::ffi::c_int as uint8_t;
         sbuf_call_proto(sbuf, SBUF_EV_TLS_READY as ::core::ffi::c_int);
-        true_0 != 0
+        true
     } else {
         let mut _log_ctx_0 = NULL;
         log_generic(
             LG_WARNING,
             _log_ctx_0,
-            b"TLS handshake error: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"TLS handshake error: %s".as_ptr(),
             tls_error((*sbuf).tls),
         );
-        false_0 != 0
+        false
     }
 }
 
@@ -3044,7 +2935,7 @@ unsafe extern "C" fn sbuf_tls_handshake_cb(
 pub unsafe extern "C" fn sbuf_tls_accept(mut sbuf: *mut SBuf) -> bool {
     let mut err: ::core::ffi::c_int = 0;
     if !sbuf_pause(sbuf) {
-        return false_0 != 0;
+        return false;
     }
     (*sbuf).ops = &raw const tls_sbufio_ops;
     err = tls_accept_fds(
@@ -3055,25 +2946,20 @@ pub unsafe extern "C" fn sbuf_tls_accept(mut sbuf: *mut SBuf) -> bool {
     );
     let mut _log_ctx = NULL;
     if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
-        log_generic(
-            LG_NOISE,
-            _log_ctx,
-            b"tls_accept_fds: err=%d\0" as *const u8 as *const ::core::ffi::c_char,
-            err,
-        );
+        log_generic(LG_NOISE, _log_ctx, c"tls_accept_fds: err=%d".as_ptr(), err);
     }
     if err < 0 as ::core::ffi::c_int {
         let mut _log_ctx_0 = NULL;
         log_generic(
             LG_WARNING,
             _log_ctx_0,
-            b"TLS accept error: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"TLS accept error: %s".as_ptr(),
             tls_error((*sbuf).tls),
         );
-        return false_0 != 0;
+        return false;
     }
     (*sbuf).tls_state = SBUF_TLS_DO_HANDSHAKE as ::core::ffi::c_int as uint8_t;
-    true_0 != 0
+    true
 }
 #[no_mangle]
 
@@ -3084,14 +2970,14 @@ pub unsafe extern "C" fn sbuf_tls_connect(
     let mut ctls = ::core::ptr::null_mut::<tls>();
     let mut err: ::core::ffi::c_int = 0;
     if !sbuf_pause(sbuf) {
-        return false_0 != 0;
+        return false;
     }
     if cf_server_tls_sslmode != SSLMODE_VERIFY_FULL as ::core::ffi::c_int {
         hostname = ::core::ptr::null::<::core::ffi::c_char>();
     }
     ctls = tls_client();
     if ctls.is_null() {
-        return false_0 != 0;
+        return false;
     }
     err = tls_configure(ctls, server_connect_conf);
     if err < 0 as ::core::ffi::c_int {
@@ -3099,11 +2985,11 @@ pub unsafe extern "C" fn sbuf_tls_connect(
         log_generic(
             LG_ERROR,
             _log_ctx,
-            b"tls client config failed: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"tls client config failed: %s".as_ptr(),
             tls_error(ctls),
         );
         usual_tls_free(ctls);
-        return false_0 != 0;
+        return false;
     }
     (*sbuf).tls = ctls;
     (*sbuf).tls_host = hostname;
@@ -3114,13 +3000,13 @@ pub unsafe extern "C" fn sbuf_tls_connect(
         log_generic(
             LG_WARNING,
             _log_ctx_0,
-            b"TLS connect error: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"TLS connect error: %s".as_ptr(),
             tls_error((*sbuf).tls),
         );
-        return false_0 != 0;
+        return false;
     }
     (*sbuf).tls_state = SBUF_TLS_DO_HANDSHAKE as ::core::ffi::c_int as uint8_t;
-    true_0 != 0
+    true
 }
 
 unsafe extern "C" fn tls_sbufio_peek(
@@ -3147,7 +3033,7 @@ unsafe extern "C" fn tls_sbufio_recv(
         log_generic(
             LG_NOISE,
             _log_ctx,
-            b"tls_read: req=%zu out=%zd\0" as *const u8 as *const ::core::ffi::c_char,
+            c"tls_read: req=%zu out=%zd".as_ptr(),
             len,
             out,
         );
@@ -3161,7 +3047,7 @@ unsafe extern "C" fn tls_sbufio_recv(
         log_generic(
             LG_WARNING,
             _log_ctx_0,
-            b"tls_sbufio_recv: got TLS_WANT_POLLOUT\0" as *const u8 as *const ::core::ffi::c_char,
+            c"tls_sbufio_recv: got TLS_WANT_POLLOUT".as_ptr(),
         );
         *__error() = EIO;
     } else {
@@ -3169,7 +3055,7 @@ unsafe extern "C" fn tls_sbufio_recv(
         log_generic(
             LG_WARNING,
             _log_ctx_1,
-            b"tls_sbufio_recv: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"tls_sbufio_recv: %s".as_ptr(),
             tls_error((*sbuf).tls),
         );
         *__error() = EIO;
@@ -3193,7 +3079,7 @@ unsafe extern "C" fn tls_sbufio_send(
         log_generic(
             LG_NOISE,
             _log_ctx,
-            b"tls_write: req=%zu out=%zd\0" as *const u8 as *const ::core::ffi::c_char,
+            c"tls_write: req=%zu out=%zd".as_ptr(),
             len,
             out,
         );
@@ -3207,7 +3093,7 @@ unsafe extern "C" fn tls_sbufio_send(
         log_generic(
             LG_WARNING,
             _log_ctx_0,
-            b"tls_sbufio_send: got TLS_WANT_POLLIN\0" as *const u8 as *const ::core::ffi::c_char,
+            c"tls_sbufio_send: got TLS_WANT_POLLIN".as_ptr(),
         );
         *__error() = EIO;
     } else {
@@ -3215,7 +3101,7 @@ unsafe extern "C" fn tls_sbufio_send(
         log_generic(
             LG_WARNING,
             _log_ctx_1,
-            b"tls_sbufio_send: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"tls_sbufio_send: %s".as_ptr(),
             tls_error((*sbuf).tls),
         );
         *__error() = EIO;
@@ -3226,11 +3112,7 @@ unsafe extern "C" fn tls_sbufio_send(
 unsafe extern "C" fn tls_sbufio_close(mut sbuf: *mut SBuf) -> ::core::ffi::c_int {
     let mut _log_ctx = NULL;
     if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
-        log_generic(
-            LG_NOISE,
-            _log_ctx,
-            b"tls_close\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        log_generic(LG_NOISE, _log_ctx, c"tls_close".as_ptr());
     }
     if !(*sbuf).tls.is_null() {
         tls_close((*sbuf).tls);
@@ -3261,7 +3143,7 @@ unsafe extern "C" fn handle_possible_direct_tls_startup(
     if client_accept_sslmode == SSLMODE_DISABLED as ::core::ffi::c_int
         || is_unix as ::core::ffi::c_int != 0
     {
-        return true_0 != 0;
+        return true;
     }
     sbuf_use_callback_once(
         sbuf,
@@ -3305,18 +3187,10 @@ unsafe extern "C" fn sbuf_possible_direct_tls_startup_cb(
     }
     let mut _log_ctx = NULL;
     if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
-        log_generic(
-            LG_NOISE,
-            _log_ctx,
-            b"Starting TLS handshake\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        log_generic(LG_NOISE, _log_ctx, c"Starting TLS handshake".as_ptr());
     }
     if !sbuf_tls_accept(sbuf) {
-        disconnect_client(
-            client,
-            false_0 != 0,
-            b"failed to accept SSL\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        disconnect_client(client, false, c"failed to accept SSL".as_ptr());
         return;
     }
     (*sbuf).pkt_action = SBUF_TLS_IN_HANDSHAKE as ::core::ffi::c_int as uint8_t;

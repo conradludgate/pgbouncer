@@ -1,34 +1,33 @@
-
 pub mod _types_h {
-    
+
     pub type __darwin_size_t = usize;
 }
 
 pub mod _size_t_h {
-    
+
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
 
 pub mod _uint8_t_h {
-    
+
     pub type uint8_t = u8;
 }
 
 pub mod _uint32_t_h {
-    
+
     pub type uint32_t = u32;
 }
 
 pub mod _uint64_t_h {
-    
+
     pub type uint64_t = u64;
 }
 
 pub mod keccak_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct KeccakContext {
         pub u: C2RustUnnamed,
         pub pos: uint32_t,
@@ -36,7 +35,7 @@ pub mod keccak_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed {
         pub state64: [uint64_t; 25],
         pub state32: [uint32_t; 50],
@@ -48,13 +47,13 @@ pub mod keccak_h {
 pub mod _string_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn memcpy(
             __dst: *mut ::core::ffi::c_void,
             __src: *const ::core::ffi::c_void,
             __n: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn memset(
             __b: *mut ::core::ffi::c_void,
             __c: ::core::ffi::c_int,
@@ -65,7 +64,7 @@ pub mod _string_h {
 
 pub mod bits_h {
     #[inline]
-    
+
     pub unsafe extern "C" fn rol64(mut v: uint64_t, mut s: ::core::ffi::c_int) -> uint64_t {
         v << s | v >> (64 as ::core::ffi::c_int - s)
     }
@@ -74,7 +73,7 @@ pub mod bits_h {
 
 pub mod endian_h {
     #[inline]
-    
+
     pub unsafe extern "C" fn usual_le64dec(mut p: *const ::core::ffi::c_void) -> uint64_t {
         let mut tmp: uint64_t = 0;
         memcpy(
@@ -85,7 +84,7 @@ pub mod endian_h {
         tmp
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn usual_le64enc(mut p: *mut ::core::ffi::c_void, mut x: uint64_t) {
         let mut tmp: uint64_t = x;
         memcpy(

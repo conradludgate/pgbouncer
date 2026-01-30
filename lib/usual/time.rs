@@ -1,43 +1,42 @@
-
 pub mod _types_h {
-    
+
     pub type __int32_t = i32;
-    
+
     pub type __darwin_size_t = usize;
-    
+
     pub type __darwin_time_t = ::core::ffi::c_long;
 }
 
 pub mod sys__types_h {
-    
+
     pub type __darwin_suseconds_t = __int32_t;
-    
+
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
     use super::_types_h::__int32_t;
 }
 
 pub mod _size_t_h {
-    
+
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
 
 pub mod _time_t_h {
-    
+
     pub type time_t = __darwin_time_t;
     use super::_types_h::__darwin_time_t;
 }
 
 pub mod _uint64_t_h {
-    
+
     pub type uint64_t = u64;
 }
 
 pub mod _timeval_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct timeval {
         pub tv_sec: __darwin_time_t,
         pub tv_usec: __darwin_suseconds_t,
@@ -49,7 +48,7 @@ pub mod _timeval_h {
 pub mod _time_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tm {
         pub tm_sec: ::core::ffi::c_int,
         pub tm_min: ::core::ffi::c_int,
@@ -65,17 +64,17 @@ pub mod _time_h {
     }
     use super::_time_t_h::time_t;
     extern "C" {
-        
+
         pub static mut tzname: [*mut ::core::ffi::c_char; 0];
-        
+
         pub fn localtime_r(_: *const time_t, _: *mut tm) -> *mut tm;
     }
 }
 
 pub mod time_h {
-    
+
     pub type usec_t = uint64_t;
-    
+
     pub const USEC: usec_t = 1000000 as ::core::ffi::c_int as usec_t;
     use super::_uint64_t_h::uint64_t;
 }
@@ -83,7 +82,7 @@ pub mod time_h {
 pub mod _stdio_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn snprintf(
             __str: *mut ::core::ffi::c_char,
             __size: size_t,
@@ -96,13 +95,13 @@ pub mod _stdio_h {
 pub mod sys_time_h {
     use super::_timeval_h::timeval;
     extern "C" {
-        
+
         pub fn gettimeofday(_: *mut timeval, _: *mut ::core::ffi::c_void) -> ::core::ffi::c_int;
     }
 }
 
 pub mod _null_h {
-    
+
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
     use super::sys__types_h::__DARWIN_NULL;
 }

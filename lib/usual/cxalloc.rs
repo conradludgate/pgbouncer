@@ -1,25 +1,24 @@
-
 pub mod internal {
-    
+
     pub type __builtin_va_list = *mut ::core::ffi::c_char;
 }
 
 pub mod _types_h {
-    
+
     pub type __darwin_size_t = usize;
-    
+
     pub type __darwin_va_list = __builtin_va_list;
     use super::internal::__builtin_va_list;
 }
 
 pub mod _size_t_h {
-    
+
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
 
 pub mod _va_list_h {
-    
+
     pub type va_list = __darwin_va_list;
     use super::_types_h::__darwin_va_list;
 }
@@ -27,7 +26,7 @@ pub mod _va_list_h {
 pub mod cxalloc_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct CxOps {
         pub c_alloc: Option<
             unsafe extern "C" fn(*mut ::core::ffi::c_void, size_t) -> *mut ::core::ffi::c_void,
@@ -45,7 +44,7 @@ pub mod cxalloc_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct CxMem {
         pub ops: *const CxOps,
         pub ctx: *mut ::core::ffi::c_void,
@@ -57,7 +56,7 @@ pub mod _stdio_h {
     use super::_size_t_h::size_t;
 
     extern "C" {
-        
+
         pub fn vsnprintf(
             __str: *mut ::core::ffi::c_char,
             __size: size_t,
@@ -70,18 +69,18 @@ pub mod _stdio_h {
 pub mod _malloc_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn malloc(__size: size_t) -> *mut ::core::ffi::c_void;
-        
+
         pub fn free(_: *mut ::core::ffi::c_void);
-        
+
         pub fn realloc(__ptr: *mut ::core::ffi::c_void, __size: size_t)
             -> *mut ::core::ffi::c_void;
     }
 }
 
 pub mod _null_h {
-    
+
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
     use super::sys__types_h::__DARWIN_NULL;
 }
@@ -89,32 +88,32 @@ pub mod _null_h {
 pub mod _string_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn memcpy(
             __dst: *mut ::core::ffi::c_void,
             __src: *const ::core::ffi::c_void,
             __n: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn memset(
             __b: *mut ::core::ffi::c_void,
             __c: ::core::ffi::c_int,
             __len: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn strlen(__s: *const ::core::ffi::c_char) -> size_t;
     }
 }
 
 pub mod sys__types_h {
-    
+
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
 }
 
 pub mod _abort_h {
     extern "C" {
-        
+
         pub fn abort() -> !;
     }
 }

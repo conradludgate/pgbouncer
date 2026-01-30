@@ -19,7 +19,7 @@ pub unsafe extern "C" fn pg_str_endswith(
     let mut slen = strlen(str);
     let mut elen = strlen(end);
     if elen > slen {
-        return false_0 != 0;
+        return false;
     }
     str = str.add(slen.wrapping_sub(elen));
     strcmp(str, end) == 0 as ::core::ffi::c_int
@@ -49,7 +49,7 @@ pub unsafe extern "C" fn pg_clean_ascii(
     let mut dstlen: size_t = 0;
     let mut dst = ::core::ptr::null_mut::<::core::ffi::c_char>();
     let mut p = ::core::ptr::null::<::core::ffi::c_char>();
-    let mut i: size_t = 0 as size_t;
+    let mut i: size_t = 0;
     dstlen = strlen(str)
         .wrapping_mul(4 as size_t)
         .wrapping_add(1 as size_t);
@@ -65,7 +65,7 @@ pub unsafe extern "C" fn pg_clean_ascii(
             snprintf(
                 dst.add(i) as *mut ::core::ffi::c_char,
                 dstlen.wrapping_sub(i),
-                b"\\x%02x\0" as *const u8 as *const ::core::ffi::c_char,
+                c"\\x%02x".as_ptr(),
                 *p as ::core::ffi::c_uchar as ::core::ffi::c_int,
             );
             i = i.wrapping_add(4 as size_t);
@@ -84,11 +84,11 @@ pub unsafe extern "C" fn pg_clean_ascii(
 pub unsafe extern "C" fn pg_is_ascii(mut str: *const ::core::ffi::c_char) -> bool {
     while *str != 0 {
         if *str as ::core::ffi::c_uchar as ::core::ffi::c_int & HIGHBIT != 0 {
-            return false_0 != 0;
+            return false;
         }
         str = str.offset(1);
     }
-    true_0 != 0
+    true
 }
 
 #[no_mangle]

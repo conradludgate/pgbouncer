@@ -1,63 +1,29 @@
-
-pub mod _types_h {
-    
-    pub type __uint8_t = u8;
-    
-    pub type __uint16_t = u16;
-    
-    pub type __int32_t = i32;
-    
-    pub type __uint32_t = u32;
-    
-    pub type __int64_t = i64;
-    
-    pub type __darwin_ct_rune_t = ::core::ffi::c_int;
-    
-    pub type __darwin_size_t = usize;
-    
-    pub type __darwin_wchar_t = ::libc::wchar_t;
-    
-    pub type __darwin_rune_t = __darwin_wchar_t;
-    
-    pub type __darwin_socklen_t = __uint32_t;
-    
-    pub type __darwin_ssize_t = isize;
-}
-
 pub mod sys__types_h {
-    
+
     pub type __darwin_off_t = __int64_t;
-    
+
     pub type __darwin_pid_t = __int32_t;
-    
+
     pub type __darwin_uid_t = __uint32_t;
-    
+
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
-    use super::_types_h::{__int32_t, __int64_t, __uint32_t};
+    use crate::types::{__int32_t, __int64_t, __uint32_t};
 }
 
-
-
-
-
-
-
-
-
 pub mod _stdio_h {
-    
+
     pub type fpos_t = __darwin_off_t;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct __sbuf {
         pub _base: *mut ::core::ffi::c_uchar,
         pub _size: ::core::ffi::c_int,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct __sFILE {
         pub _p: *mut ::core::ffi::c_uchar,
         pub _r: ::core::ffi::c_int,
@@ -94,22 +60,22 @@ pub mod _stdio_h {
         pub _blksize: ::core::ffi::c_int,
         pub _offset: fpos_t,
     }
-    
+
     pub type FILE = __sFILE;
+    use super::sys__types_h::__darwin_off_t;
     use crate::types::size_t;
     use crate::types::ssize_t;
-    use super::sys__types_h::__darwin_off_t;
     extern "C" {
-        
+
         pub type __sFILEX;
-        
+
         pub fn fclose(_: *mut FILE) -> ::core::ffi::c_int;
-        
+
         pub fn fopen(
             __filename: *const ::core::ffi::c_char,
             __mode: *const ::core::ffi::c_char,
         ) -> *mut FILE;
-        
+
         pub fn getline(
             __linep: *mut *mut ::core::ffi::c_char,
             __linecapp: *mut size_t,
@@ -121,7 +87,7 @@ pub mod _stdio_h {
 pub mod runetype_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct _RuneEntry {
         pub __min: __darwin_rune_t,
         pub __max: __darwin_rune_t,
@@ -130,21 +96,21 @@ pub mod runetype_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct _RuneRange {
         pub __nranges: ::core::ffi::c_int,
         pub __ranges: *mut _RuneEntry,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct _RuneCharClass {
         pub __name: [::core::ffi::c_char; 14],
         pub __mask: __uint32_t,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct _RuneLocale {
         pub __magic: [::core::ffi::c_char; 8],
         pub __encoding: [::core::ffi::c_char; 32],
@@ -175,50 +141,48 @@ pub mod runetype_h {
         pub __ncharclasses: ::core::ffi::c_int,
         pub __charclasses: *mut _RuneCharClass,
     }
-    use super::_types_h::{__darwin_rune_t, __darwin_size_t, __uint32_t};
+    use crate::types::{__darwin_rune_t, __darwin_size_t, __uint32_t};
     extern "C" {
-        
+
         pub static mut _DefaultRuneLocale: _RuneLocale;
     }
 }
 
-
-
 pub mod _socklen_t_h {
-    
+
     pub type socklen_t = __darwin_socklen_t;
-    use super::_types_h::__darwin_socklen_t;
+    use crate::types::__darwin_socklen_t;
 }
 
 pub mod socket_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr {
         pub sa_len: __uint8_t,
         pub sa_family: sa_family_t,
         pub sa_data: [::core::ffi::c_char; 14],
     }
-    
+
     pub const AF_UNIX: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    
+
     pub const AF_INET: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
-    
+
     pub const AF_INET6: ::core::ffi::c_int = 30 as ::core::ffi::c_int;
+    use crate::types::__uint8_t;
     use crate::types::sa_family_t;
-    use super::_types_h::__uint8_t;
 }
 
 pub mod in_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct in_addr {
         pub s_addr: in_addr_t,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr_in {
         pub sin_len: __uint8_t,
         pub sin_family: sa_family_t,
@@ -226,22 +190,22 @@ pub mod in_h {
         pub sin_addr: in_addr,
         pub sin_zero: [::core::ffi::c_char; 8],
     }
+    use crate::types::__uint8_t;
     use crate::types::in_addr_t;
     use crate::types::in_port_t;
     use crate::types::sa_family_t;
-    use super::_types_h::__uint8_t;
 }
 
 pub mod in6_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct in6_addr {
         pub __u6_addr: C2RustUnnamed,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed {
         pub __u6_addr8: [__uint8_t; 16],
         pub __u6_addr16: [__uint16_t; 8],
@@ -249,7 +213,7 @@ pub mod in6_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr_in6 {
         pub sin6_len: __uint8_t,
         pub sin6_family: sa_family_t,
@@ -260,13 +224,13 @@ pub mod in6_h {
     }
     use crate::types::in_port_t;
     use crate::types::sa_family_t;
-    use super::_types_h::{__uint16_t, __uint32_t, __uint8_t};
+    use crate::types::{__uint16_t, __uint32_t, __uint8_t};
 }
 
 pub mod bouncer_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union PgAddr {
         pub sa: sockaddr,
         pub sin: sockaddr_in,
@@ -275,82 +239,82 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr_ucreds {
         pub sin: sockaddr_in,
         pub uid: uid_t,
         pub pid: pid_t,
     }
-    
+
     pub type ReplicationType = ::core::ffi::c_uint;
-    
+
     pub const REPLICATION_PHYSICAL: ReplicationType = 2;
-    
+
     pub const REPLICATION_LOGICAL: ReplicationType = 1;
-    
+
     pub const REPLICATION_NONE: ReplicationType = 0;
-    
+
     pub const AUTH_TYPE_LDAP: auth_type = 6;
-    
+
     pub const AUTH_TYPE_SCRAM_SHA_256: auth_type = 8;
-    
+
     pub const AUTH_TYPE_CERT: auth_type = 4;
-    
+
     pub const AUTH_TYPE_PEER: auth_type = 9;
-    
+
     pub const AUTH_TYPE_PLAIN: auth_type = 2;
-    
+
     pub const AUTH_TYPE_MD5: auth_type = 3;
-    
+
     pub const AUTH_TYPE_REJECT: auth_type = 10;
-    
+
     pub const AUTH_TYPE_TRUST: auth_type = 1;
-    
+
     pub type auth_type = ::core::ffi::c_uint;
-    
+
     pub const AUTH_TYPE_PAM: auth_type = 7;
-    
+
     pub const AUTH_TYPE_HBA: auth_type = 5;
-    
+
     pub const AUTH_TYPE_ANY: auth_type = 0;
     #[inline]
-    
+
     pub unsafe extern "C" fn pga_family(mut a: *const PgAddr) -> ::core::ffi::c_uint {
         (*a).sa.sa_family as ::core::ffi::c_uint
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn pga_is_unix(mut a: *const PgAddr) -> bool {
         (*a).sa.sa_family as ::core::ffi::c_int == AF_UNIX
     }
     use crate::types::pid_t;
 
-    use crate::types::uid_t;
     use super::in6_h::sockaddr_in6;
     use super::in_h::sockaddr_in;
     use super::socket_h::{sockaddr, AF_UNIX};
+    use crate::types::uid_t;
     extern "C" {}
 }
 
 pub mod logging_h {
-    
+
     pub type LogLevel = ::core::ffi::c_uint;
-    
+
     pub const LG_NOISE: LogLevel = 6;
-    
+
     pub const LG_DEBUG: LogLevel = 5;
-    
+
     pub const LG_INFO: LogLevel = 4;
-    
+
     pub const LG_STATS: LogLevel = 3;
-    
+
     pub const LG_WARNING: LogLevel = 2;
-    
+
     pub const LG_ERROR: LogLevel = 1;
-    
+
     pub const LG_FATAL: LogLevel = 0;
     extern "C" {
-        
+
         pub fn log_generic(
             level: LogLevel,
             ctx: *mut ::core::ffi::c_void,
@@ -363,7 +327,7 @@ pub mod logging_h {
 pub mod cxalloc_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct CxOps {
         pub c_alloc: Option<
             unsafe extern "C" fn(*mut ::core::ffi::c_void, size_t) -> *mut ::core::ffi::c_void,
@@ -381,36 +345,36 @@ pub mod cxalloc_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct CxMem {
         pub ops: *const CxOps,
         pub ctx: *mut ::core::ffi::c_void,
     }
     use crate::types::size_t;
     extern "C" {
-        
+
         pub fn cx_alloc(cx: *const CxMem, len: size_t) -> *mut ::core::ffi::c_void;
-        
+
         pub fn cx_destroy(cx: *const CxMem);
-        
+
         pub fn cx_alloc0(cx: *const CxMem, len: size_t) -> *mut ::core::ffi::c_void;
     }
 }
 
 pub mod hba_h {
-    
+
     pub type RuleType = ::core::ffi::c_uint;
-    
+
     pub const RULE_HOSTNOSSL: RuleType = 3;
-    
+
     pub const RULE_HOSTSSL: RuleType = 2;
-    
+
     pub const RULE_HOST: RuleType = 1;
-    
+
     pub const RULE_LOCAL: RuleType = 0;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct HBAAddress {
         pub flags: ::core::ffi::c_uint,
         pub family: ::core::ffi::c_int,
@@ -419,14 +383,14 @@ pub mod hba_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct HBAName {
         pub flags: ::core::ffi::c_uint,
         pub name_set: *mut StrSet,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct HBARule {
         pub node: List,
         pub rule_type: RuleType,
@@ -440,7 +404,7 @@ pub mod hba_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct IdentMap {
         pub node: List,
         pub map_name: *mut ::core::ffi::c_char,
@@ -448,13 +412,13 @@ pub mod hba_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct HBA {
         pub rules: List,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct Mapping {
         pub node: List,
         pub system_user_name: *mut ::core::ffi::c_char,
@@ -463,17 +427,17 @@ pub mod hba_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct Ident {
         pub maps: List,
     }
-    
+
     pub const ADDRESS_ALL: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    
+
     pub const NAME_ALL: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    
+
     pub const NAME_SAMEUSER: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
-    
+
     pub const NAME_REPLICATION: ::core::ffi::c_int = 4 as ::core::ffi::c_int;
     use super::StrSet;
     use crate::types::uint8_t;
@@ -481,10 +445,10 @@ pub mod hba_h {
 }
 
 pub mod cbtree_h {
-    
+
     pub type cbtree_walker_func =
         Option<unsafe extern "C" fn(*mut ::core::ffi::c_void, *mut ::core::ffi::c_void) -> bool>;
-    
+
     pub type cbtree_getkey_func = Option<
         unsafe extern "C" fn(
             *mut ::core::ffi::c_void,
@@ -492,21 +456,21 @@ pub mod cbtree_h {
             *mut *const ::core::ffi::c_void,
         ) -> size_t,
     >;
-    use crate::types::size_t;
     use super::cxalloc_h::CxMem;
+    use crate::types::size_t;
     extern "C" {
-        
+
         pub type CBTree;
-        
+
         pub fn cbtree_create(
             obj_key_cb: cbtree_getkey_func,
             obj_free_cb: cbtree_walker_func,
             cb_ctx: *mut ::core::ffi::c_void,
             cx: *const CxMem,
         ) -> *mut CBTree;
-        
+
         pub fn cbtree_insert(tree: *mut CBTree, obj: *mut ::core::ffi::c_void) -> bool;
-        
+
         pub fn cbtree_lookup(
             tree: *mut CBTree,
             key: *const ::core::ffi::c_void,
@@ -518,28 +482,28 @@ pub mod cbtree_h {
 pub mod _malloc_h {
     use crate::types::size_t;
     extern "C" {
-        
+
         pub fn malloc(__size: size_t) -> *mut ::core::ffi::c_void;
-        
+
         pub fn calloc(__count: size_t, __size: size_t) -> *mut ::core::ffi::c_void;
-        
+
         pub fn free(_: *mut ::core::ffi::c_void);
-        
+
         pub fn realloc(__ptr: *mut ::core::ffi::c_void, __size: size_t)
             -> *mut ::core::ffi::c_void;
     }
 }
 
 pub mod _ctype_h {
-    
+
     pub const _CTYPE_S: ::core::ffi::c_long = 0x4000 as ::core::ffi::c_long;
     #[inline]
-    
+
     pub unsafe extern "C" fn isascii(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
         (_c & !(0x7f as ::core::ffi::c_int) == 0 as ::core::ffi::c_int) as ::core::ffi::c_int
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn __istype(
         mut _c: __darwin_ct_rune_t,
         mut _f: ::core::ffi::c_ulong,
@@ -552,39 +516,38 @@ pub mod _ctype_h {
         }
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn isspace(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
         __istype(_c as __darwin_ct_rune_t, _CTYPE_S as ::core::ffi::c_ulong)
     }
-    use super::_types_h::__darwin_ct_rune_t;
     use super::runetype_h::_DefaultRuneLocale;
+    use crate::types::__darwin_ct_rune_t;
     extern "C" {
-        
+
         pub fn __maskrune(_: __darwin_ct_rune_t, _: ::core::ffi::c_ulong) -> ::core::ffi::c_int;
     }
 }
 
 pub mod ctype_h {
     #[inline]
-    
+
     pub unsafe extern "C" fn safe_isspace(mut c: ::core::ffi::c_int) -> ::core::ffi::c_int {
         isspace(c as ::core::ffi::c_uchar as ::core::ffi::c_int)
     }
     use super::_ctype_h::isspace;
 }
 
-
 pub mod inet_h {
     use super::_socklen_t_h::socklen_t;
     extern "C" {
-        
+
         pub fn inet_ntop(
             _: ::core::ffi::c_int,
             _: *const ::core::ffi::c_void,
             _: *mut ::core::ffi::c_char,
             __size: socklen_t,
         ) -> *const ::core::ffi::c_char;
-        
+
         pub fn inet_pton(
             _: ::core::ffi::c_int,
             _: *const ::core::ffi::c_char,
@@ -596,54 +559,54 @@ pub mod inet_h {
 pub mod _string_h {
     use crate::types::size_t;
     extern "C" {
-        
+
         pub fn memcmp(
             __s1: *const ::core::ffi::c_void,
             __s2: *const ::core::ffi::c_void,
             __n: size_t,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn memcpy(
             __dst: *mut ::core::ffi::c_void,
             __src: *const ::core::ffi::c_void,
             __n: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn memset(
             __b: *mut ::core::ffi::c_void,
             __c: ::core::ffi::c_int,
             __len: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn strchr(
             __s: *const ::core::ffi::c_char,
             __c: ::core::ffi::c_int,
         ) -> *mut ::core::ffi::c_char;
-        
+
         pub fn strcmp(
             __s1: *const ::core::ffi::c_char,
             __s2: *const ::core::ffi::c_char,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn strerror(__errnum: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;
-        
+
         pub fn strlen(__s: *const ::core::ffi::c_char) -> size_t;
-        
+
         pub fn strncmp(
             __s1: *const ::core::ffi::c_char,
             __s2: *const ::core::ffi::c_char,
             __n: size_t,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn strdup(__s1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
     }
 }
 
 pub mod cxextra_h {
-    use crate::types::size_t;
     use super::cxalloc_h::CxMem;
+    use crate::types::size_t;
     extern "C" {
-        
+
         pub fn cx_new_pool(
             parent: *const CxMem,
             initial_size: size_t,
@@ -654,7 +617,7 @@ pub mod cxextra_h {
 
 pub mod _stdlib_h {
     extern "C" {
-        
+
         pub fn strtoul(
             __str: *const ::core::ffi::c_char,
             __endptr: *mut *mut ::core::ffi::c_char,
@@ -665,38 +628,23 @@ pub mod _stdlib_h {
 
 pub mod errno_h {
     extern "C" {
-        
+
         pub fn __error() -> *mut ::core::ffi::c_int;
     }
 }
 
-
 pub mod string_h {
     extern "C" {
-        
+
         pub fn usual_dirname(path: *const ::core::ffi::c_char) -> *const ::core::ffi::c_char;
     }
 }
 pub use self::_ctype_h::{__istype, __maskrune, isascii, isspace, _CTYPE_S};
-pub use crate::types::in_addr_t;
-pub use crate::types::in_port_t;
 use self::_malloc_h::{calloc, free, malloc, realloc};
-pub use crate::types::NULL;
-pub use crate::types::pid_t;
-pub use crate::types::sa_family_t;
-pub use crate::types::size_t;
 pub use self::_socklen_t_h::socklen_t;
-pub use crate::types::ssize_t;
 pub use self::_stdio_h::{__sFILE, __sFILEX, __sbuf, fclose, fopen, fpos_t, getline, FILE};
 use self::_stdlib_h::strtoul;
 use self::_string_h::{memcmp, memcpy, memset, strchr, strcmp, strdup, strerror, strlen, strncmp};
-pub use self::_types_h::{
-    __darwin_ct_rune_t, __darwin_rune_t, __darwin_size_t, __darwin_socklen_t, __darwin_ssize_t,
-    __darwin_wchar_t, __int32_t, __int64_t, __uint16_t, __uint32_t, __uint8_t,
-};
-pub use crate::types::uid_t;
-pub use crate::types::uint32_t;
-pub use crate::types::uint8_t;
 pub use self::bouncer_h::{
     auth_type, pga_family, pga_is_unix, sockaddr_ucreds, PgAddr, ReplicationType, AUTH_TYPE_ANY,
     AUTH_TYPE_CERT, AUTH_TYPE_HBA, AUTH_TYPE_LDAP, AUTH_TYPE_MD5, AUTH_TYPE_PAM, AUTH_TYPE_PEER,
@@ -717,7 +665,6 @@ pub use self::hba_h::{
 pub use self::in6_h::{in6_addr, sockaddr_in6, C2RustUnnamed};
 pub use self::in_h::{in_addr, sockaddr_in};
 use self::inet_h::{inet_ntop, inet_pton};
-pub use crate::types::{list_append, list_del, list_init, List};
 pub use self::logging_h::{
     log_generic, LogLevel, LG_DEBUG, LG_ERROR, LG_FATAL, LG_INFO, LG_NOISE, LG_STATS, LG_WARNING,
 };
@@ -725,9 +672,24 @@ pub use self::runetype_h::{
     _DefaultRuneLocale, _RuneCharClass, _RuneEntry, _RuneLocale, _RuneRange,
 };
 pub use self::socket_h::{sockaddr, AF_INET, AF_INET6, AF_UNIX};
-pub use crate::types::{false_0, true_0};
 use self::string_h::usual_dirname;
 pub use self::sys__types_h::{__darwin_off_t, __darwin_pid_t, __darwin_uid_t, __DARWIN_NULL};
+pub use crate::types::in_addr_t;
+pub use crate::types::in_port_t;
+pub use crate::types::pid_t;
+pub use crate::types::sa_family_t;
+pub use crate::types::size_t;
+pub use crate::types::ssize_t;
+pub use crate::types::uid_t;
+pub use crate::types::uint32_t;
+pub use crate::types::uint8_t;
+pub use crate::types::NULL;
+pub use crate::types::{
+    __darwin_ct_rune_t, __darwin_rune_t, __darwin_size_t, __darwin_socklen_t, __darwin_ssize_t,
+    __darwin_wchar_t, __int32_t, __int64_t, __uint16_t, __uint32_t, __uint8_t,
+};
+pub use crate::types::{false_0, true_0};
+pub use crate::types::{list_append, list_del, list_init, List};
 #[derive(Copy, Clone)]
 #[repr(C)]
 
@@ -815,7 +777,7 @@ pub unsafe extern "C" fn strset_add(
     let mut i: ::core::ffi::c_uint = 0;
     let mut ok: bool = false;
     if strset_contains(set, str, len) {
-        return true_0 != 0;
+        return true;
     }
     node = cx_alloc(
         (*set).pool,
@@ -824,7 +786,7 @@ pub unsafe extern "C" fn strset_add(
             .wrapping_add(1 as size_t),
     ) as *mut StrSetNode;
     if node.is_null() {
-        return false_0 != 0;
+        return false;
     }
     (*node).s_len = len;
     memcpy(
@@ -836,10 +798,10 @@ pub unsafe extern "C" fn strset_add(
         0 as ::core::ffi::c_char;
     if (*set).count < (*set).alloc {
         let fresh2 = (*set).count;
-        (*set).count = (*set).count.wrapping_add(1);
+        (*set).count += 1;
         let fresh3 = &mut *(*set).nodes.offset(fresh2 as isize);
         *fresh3 = node;
-        return true_0 != 0;
+        return true;
     }
     if (*set).cbtree.is_null() {
         (*set).cbtree = cbtree_create(
@@ -856,7 +818,7 @@ pub unsafe extern "C" fn strset_add(
             (*set).pool,
         );
         if (*set).cbtree.is_null() {
-            return false_0 != 0;
+            return false;
         }
         i = 0 as ::core::ffi::c_uint;
         while i < (*set).count {
@@ -865,17 +827,17 @@ pub unsafe extern "C" fn strset_add(
                 *(*set).nodes.offset(i as isize) as *mut ::core::ffi::c_void,
             );
             if !ok {
-                return false_0 != 0;
+                return false;
             }
             i = i.wrapping_add(1);
         }
     }
     ok = cbtree_insert((*set).cbtree, node as *mut ::core::ffi::c_void);
     if !ok {
-        return false_0 != 0;
+        return false;
     }
-    (*set).count = (*set).count.wrapping_add(1);
-    true_0 != 0
+    (*set).count += 1;
+    true
 }
 #[no_mangle]
 
@@ -904,11 +866,11 @@ pub unsafe extern "C" fn strset_contains(
                 len as size_t,
             ) == 0 as ::core::ffi::c_int
         {
-            return true_0 != 0;
+            return true;
         }
         i = i.wrapping_add(1);
     }
-    false_0 != 0
+    false
 }
 #[no_mangle]
 
@@ -922,16 +884,16 @@ unsafe extern "C" fn tok_buf_check(mut p: *mut TokParser, mut len: size_t) -> bo
     let mut tmplen: size_t = 0;
     let mut tmp = ::core::ptr::null_mut::<::core::ffi::c_char>();
     if (*p).buflen >= len {
-        return true_0 != 0;
+        return true;
     }
     tmplen = len.wrapping_mul(2 as size_t);
     tmp = realloc((*p).buf as *mut ::core::ffi::c_void, tmplen) as *mut ::core::ffi::c_char;
     if tmp.is_null() {
-        return false_0 != 0;
+        return false;
     }
     (*p).buf = tmp;
     (*p).buflen = tmplen;
-    true_0 != 0
+    true
 }
 
 unsafe extern "C" fn next_token(mut p: *mut TokParser) -> TokType {
@@ -1035,18 +997,18 @@ unsafe extern "C" fn eat_all(mut p: *mut TokParser) {
 unsafe extern "C" fn eat(mut p: *mut TokParser, mut ttype: TokType) -> bool {
     if (*p).cur_tok as ::core::ffi::c_uint == ttype as ::core::ffi::c_uint {
         next_token(p);
-        return true_0 != 0;
+        return true;
     }
-    false_0 != 0
+    false
 }
 
 unsafe extern "C" fn check_kw(mut p: *mut TokParser, mut kw: *const ::core::ffi::c_char) -> bool {
     if (*p).cur_tok as ::core::ffi::c_uint == TOK_IDENT as ::core::ffi::c_int as ::core::ffi::c_uint
         && strcmp(kw, (*p).cur_tok_str) == 0 as ::core::ffi::c_int
     {
-        return true_0 != 0;
+        return true;
     }
-    false_0 != 0
+    false
 }
 
 unsafe extern "C" fn eat_kw(mut p: *mut TokParser, mut kw: *const ::core::ffi::c_char) -> bool {
@@ -1054,9 +1016,9 @@ unsafe extern "C" fn eat_kw(mut p: *mut TokParser, mut kw: *const ::core::ffi::c
         && strcmp(kw, (*p).cur_tok_str) == 0 as ::core::ffi::c_int
     {
         next_token(p);
-        return true_0 != 0;
+        return true;
     }
-    false_0 != 0
+    false
 }
 
 unsafe extern "C" fn expect(
@@ -1066,9 +1028,9 @@ unsafe extern "C" fn expect(
 ) -> bool {
     if (*tp).cur_tok as ::core::ffi::c_uint == ttype as ::core::ffi::c_uint {
         *str_p = (*tp).buf;
-        return true_0 != 0;
+        return true;
     }
-    false_0 != 0
+    false
 }
 
 unsafe extern "C" fn path_join(
@@ -1084,7 +1046,7 @@ unsafe extern "C" fn path_join(
             == 0 as ::core::ffi::c_int
         || memcmp(
             p1 as *const ::core::ffi::c_void,
-            b".\0" as *const u8 as *const ::core::ffi::c_char as *const ::core::ffi::c_void,
+            c".".as_ptr() as *const ::core::ffi::c_void,
             2 as size_t,
         ) == 0
     {
@@ -1166,8 +1128,8 @@ unsafe extern "C" fn parse_namefile(
     let mut f = ::core::ptr::null_mut::<FILE>();
     let mut len: ssize_t = 0;
     let mut ln = ::core::ptr::null_mut::<::core::ffi::c_char>();
-    let mut buflen: size_t = 0 as size_t;
-    let mut ok = false_0 != 0;
+    let mut buflen: size_t = 0;
+    let mut ok = false;
     let mut tp = TokParser {
         pos: ::core::ptr::null::<::core::ffi::c_char>(),
         cur_tok: TOK_STRING,
@@ -1176,14 +1138,14 @@ unsafe extern "C" fn parse_namefile(
         buflen: 0,
     };
     init_parser(&raw mut tp);
-    f = fopen(fn_0, b"r\0" as *const u8 as *const ::core::ffi::c_char) as *mut FILE;
+    f = fopen(fn_0, c"r".as_ptr()) as *mut FILE;
     if f.is_null() {
-        return false_0 != 0;
+        return false;
     }
     loop {
         len = getline(&raw mut ln, &raw mut buflen, f);
         if len < 0 as ssize_t {
-            ok = true_0 != 0;
+            ok = true;
             break;
         } else {
             parse_from_string(&raw mut tp, ln);
@@ -1203,14 +1165,14 @@ unsafe extern "C" fn parse_ident_name(
     mut tp: *mut TokParser,
     mut is_name_all: *mut bool,
 ) -> bool {
-    if eat_kw(tp, b"all\0" as *const u8 as *const ::core::ffi::c_char) {
-        *is_name_all = true_0 != 0;
-        return true_0 != 0;
+    if eat_kw(tp, c"all".as_ptr()) {
+        *is_name_all = true;
+        return true;
     }
     if !expect(tp, TOK_IDENT, ident_name) && !expect(tp, TOK_STRING, ident_name) {
-        return false_0 != 0;
+        return false;
     }
-    true_0 != 0
+    true
 }
 
 unsafe extern "C" fn parse_names(
@@ -1222,41 +1184,29 @@ unsafe extern "C" fn parse_names(
     let mut current_block: u64;
     let mut tok = ::core::ptr::null::<::core::ffi::c_char>();
     loop {
-        if eat_kw(tp, b"all\0" as *const u8 as *const ::core::ffi::c_char) {
+        if eat_kw(tp, c"all".as_ptr()) {
             (*hname).flags |= NAME_ALL as ::core::ffi::c_uint;
         } else {
             if is_db {
-                if eat_kw(tp, b"sameuser\0" as *const u8 as *const ::core::ffi::c_char) {
+                if eat_kw(tp, c"sameuser".as_ptr()) {
                     (*hname).flags |= NAME_SAMEUSER as ::core::ffi::c_uint;
                     current_block = 13429877768294522094;
                 } else {
-                    if eat_kw(tp, b"samerole\0" as *const u8 as *const ::core::ffi::c_char) {
+                    if eat_kw(tp, c"samerole".as_ptr()) {
                         let mut _log_ctx = NULL;
-                        log_generic(
-                            LG_WARNING,
-                            _log_ctx,
-                            b"samerole is not supported\0" as *const u8
-                                as *const ::core::ffi::c_char,
-                        );
-                        return false_0 != 0;
+                        log_generic(LG_WARNING, _log_ctx, c"samerole is not supported".as_ptr());
+                        return false;
                     }
-                    if eat_kw(
-                        tp,
-                        b"samegroup\0" as *const u8 as *const ::core::ffi::c_char,
-                    ) {
+                    if eat_kw(tp, c"samegroup".as_ptr()) {
                         let mut _log_ctx_0 = NULL;
                         log_generic(
                             LG_WARNING,
                             _log_ctx_0,
-                            b"samegroup is not supported\0" as *const u8
-                                as *const ::core::ffi::c_char,
+                            c"samegroup is not supported".as_ptr(),
                         );
-                        return false_0 != 0;
+                        return false;
                     }
-                    if eat_kw(
-                        tp,
-                        b"replication\0" as *const u8 as *const ::core::ffi::c_char,
-                    ) {
+                    if eat_kw(tp, c"replication".as_ptr()) {
                         (*hname).flags |= NAME_REPLICATION as ::core::ffi::c_uint;
                         current_block = 13429877768294522094;
                     } else {
@@ -1273,7 +1223,7 @@ unsafe extern "C" fn parse_names(
                         if *tok.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
                             == '+' as i32
                         {
-                            return false_0 != 0;
+                            return false;
                         }
                         if *tok.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int
                             == '@' as i32
@@ -1285,12 +1235,12 @@ unsafe extern "C" fn parse_names(
                                 tok.offset(1 as ::core::ffi::c_int as isize),
                             );
                             if fn_0.is_null() {
-                                return false_0 != 0;
+                                return false;
                             }
                             ok = parse_namefile(hname, fn_0, is_db);
                             free(fn_0 as *mut ::core::ffi::c_void);
                             if !ok {
-                                return false_0 != 0;
+                                return false;
                             }
                             next_token(tp);
                             current_block = 13429877768294522094;
@@ -1300,7 +1250,7 @@ unsafe extern "C" fn parse_names(
                     } else {
                         if expect(tp, TOK_STRING, &raw mut tok) {
                         } else {
-                            return false_0 != 0;
+                            return false;
                         }
                         current_block = 3275366147856559585;
                     }
@@ -1311,7 +1261,7 @@ unsafe extern "C" fn parse_names(
                                 (*hname).name_set =
                                     strset_new(::core::ptr::null::<CxMem>()) as *mut StrSet;
                                 if (*hname).name_set.is_null() {
-                                    return false_0 != 0;
+                                    return false;
                                 }
                             }
                             if !strset_add(
@@ -1319,7 +1269,7 @@ unsafe extern "C" fn parse_names(
                                 tok,
                                 strlen(tok) as ::core::ffi::c_uint,
                             ) {
-                                return false_0 != 0;
+                                return false;
                             }
                             next_token(tp);
                         }
@@ -1331,7 +1281,7 @@ unsafe extern "C" fn parse_names(
             break;
         }
     }
-    true_0 != 0
+    true
 }
 
 unsafe extern "C" fn rule_free(mut rule: *mut HBARule) {
@@ -1360,9 +1310,9 @@ unsafe extern "C" fn parse_addr(
     {
         (*haddress).family = AF_INET;
     } else {
-        return false_0 != 0;
+        return false;
     }
-    true_0 != 0
+    true
 }
 
 unsafe extern "C" fn parse_nmask(
@@ -1375,13 +1325,13 @@ unsafe extern "C" fn parse_nmask(
     *__error() = 0 as ::core::ffi::c_int;
     bits = strtoul(nmask, &raw mut end, 10 as ::core::ffi::c_int);
     if *__error() != 0 || *end as ::core::ffi::c_int != 0 {
-        return false_0 != 0;
+        return false;
     }
     if (*haddress).family == AF_INET && bits > 32 as ::core::ffi::c_ulong {
-        return false_0 != 0;
+        return false;
     }
     if (*haddress).family == AF_INET6 && bits > 128 as ::core::ffi::c_ulong {
-        return false_0 != 0;
+        return false;
     }
     i = 0 as ::core::ffi::c_uint;
     while (i as ::core::ffi::c_ulong) < bits.wrapping_div(8 as ::core::ffi::c_ulong) {
@@ -1394,7 +1344,7 @@ unsafe extern "C" fn parse_nmask(
                 .wrapping_sub(bits.wrapping_rem(8 as ::core::ffi::c_ulong)))
             as uint8_t;
     }
-    true_0 != 0
+    true
 }
 
 unsafe extern "C" fn bad_mask(mut haddress: *mut HBAAddress) -> bool {
@@ -1404,7 +1354,7 @@ unsafe extern "C" fn bad_mask(mut haddress: *mut HBAAddress) -> bool {
     } else {
         16 as ::core::ffi::c_int
     };
-    let mut res: uint8_t = 0 as uint8_t;
+    let mut res: uint8_t = 0;
     i = 0 as ::core::ffi::c_int;
     while i < bytes {
         res = (res as ::core::ffi::c_int
@@ -1424,7 +1374,7 @@ unsafe extern "C" fn match_map(
     let mut el = ::core::ptr::null_mut::<List>();
     let mut map = ::core::ptr::null_mut::<IdentMap>();
     if ident.is_null() {
-        return false_0 != 0;
+        return false;
     }
     el = (*ident).maps.next;
     while el != &raw mut (*ident).maps {
@@ -1432,11 +1382,11 @@ unsafe extern "C" fn match_map(
             as *mut IdentMap;
         if strcmp((*map).map_name, mapname) == 0 as ::core::ffi::c_int {
             (*rule).identmap = map as *mut IdentMap;
-            return true_0 != 0;
+            return true;
         }
         el = (*el).next;
     }
-    false_0 != 0
+    false
 }
 
 unsafe extern "C" fn parse_map_definition(
@@ -1448,26 +1398,19 @@ unsafe extern "C" fn parse_map_definition(
     let mut str = ::core::ptr::null::<::core::ffi::c_char>();
     let mut val = ::core::ptr::null_mut::<::core::ffi::c_char>();
     if !expect(tp, TOK_IDENT, &raw mut str) {
-        return true_0 != 0;
+        return true;
     }
     val = strchr(str, '=' as i32);
-    if val.is_null()
-        || strncmp(
-            str,
-            b"map=\0" as *const u8 as *const ::core::ffi::c_char,
-            4 as size_t,
-        ) != 0 as ::core::ffi::c_int
-    {
+    if val.is_null() || strncmp(str, c"map=".as_ptr(), 4 as size_t) != 0 as ::core::ffi::c_int {
         let mut _log_ctx = NULL;
         log_generic(
             LG_WARNING,
             _log_ctx,
-            b"hba line %d: Ident map %s is malformed. It is not in map=value format.\0" as *const u8
-                as *const ::core::ffi::c_char,
+            c"hba line %d: Ident map %s is malformed. It is not in map=value format.".as_ptr(),
             linenr,
             str,
         );
-        return false_0 != 0;
+        return false;
     }
     val = val.offset(1);
     next_token(tp);
@@ -1476,14 +1419,13 @@ unsafe extern "C" fn parse_map_definition(
         log_generic(
             LG_WARNING,
             _log_ctx_0,
-            b"hba line %d: Ident map %s is not found in ident config file\0" as *const u8
-                as *const ::core::ffi::c_char,
+            c"hba line %d: Ident map %s is not found in ident config file".as_ptr(),
             linenr,
             val,
         );
-        return false_0 != 0;
+        return false;
     }
-    true_0 != 0
+    true
 }
 
 unsafe extern "C" fn mapping_free(mut mapping: *mut Mapping) {
@@ -1524,11 +1466,11 @@ unsafe extern "C" fn find_ident_map(
         *ident_map = (el as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
             as *mut IdentMap;
         if strcmp((**ident_map).map_name, mapname) == 0 {
-            return true_0 != 0;
+            return true;
         }
         el = (*el).next;
     }
-    false_0 != 0
+    false
 }
 
 unsafe extern "C" fn parse_ident_line(
@@ -1543,9 +1485,9 @@ unsafe extern "C" fn parse_ident_line(
     let mut postgres_user_name = ::core::ptr::null::<::core::ffi::c_char>();
     let mut ident_map = ::core::ptr::null_mut::<IdentMap>();
     let mut mapping = ::core::ptr::null_mut::<Mapping>();
-    let mut is_name_all = false_0 != 0;
+    let mut is_name_all = false;
     if eat(tp, TOK_EOL) {
-        return true_0 != 0;
+        return true;
     }
     mapping = calloc(1 as size_t, ::core::mem::size_of::<Mapping>() as size_t) as *mut Mapping;
     if mapping.is_null() {
@@ -1553,9 +1495,9 @@ unsafe extern "C" fn parse_ident_line(
         log_generic(
             LG_WARNING,
             _log_ctx,
-            b"ident: no mem for parsing mapping\0" as *const u8 as *const ::core::ffi::c_char,
+            c"ident: no mem for parsing mapping".as_ptr(),
         );
-        return false_0 != 0;
+        return false;
     }
     if expect(tp, TOK_IDENT, &raw mut map_name) {
         map_name_copy = strdup(map_name);
@@ -1564,7 +1506,7 @@ unsafe extern "C" fn parse_ident_line(
             log_generic(
                 LG_WARNING,
                 _log_ctx_0,
-                b"ident: no mem for map_name\0" as *const u8 as *const ::core::ffi::c_char,
+                c"ident: no mem for map_name".as_ptr(),
             );
         } else {
             next_token(tp);
@@ -1586,8 +1528,7 @@ unsafe extern "C" fn parse_ident_line(
                         log_generic(
                             LG_WARNING,
                             _log_ctx_1,
-                            b"ident: no mem for system_user_name\0" as *const u8
-                                as *const ::core::ffi::c_char,
+                            c"ident: no mem for system_user_name".as_ptr(),
                         );
                     } else {
                         next_token(tp);
@@ -1602,8 +1543,7 @@ unsafe extern "C" fn parse_ident_line(
                                     log_generic(
                                         LG_WARNING,
                                         _log_ctx_2,
-                                        b"ident: no mem for postgres_user_name\0" as *const u8
-                                            as *const ::core::ffi::c_char,
+                                        c"ident: no mem for postgres_user_name".as_ptr(),
                                     );
                                     current_block = 6603408307643950352;
                                 } else {
@@ -1619,8 +1559,7 @@ unsafe extern "C" fn parse_ident_line(
                                         log_generic(
                                             LG_WARNING,
                                             _log_ctx_3,
-                                            b"ident line %d: unsupported parameters\0" as *const u8
-                                                as *const ::core::ffi::c_char,
+                                            c"ident line %d: unsupported parameters".as_ptr(),
                                             linenr,
                                         );
                                     } else {
@@ -1645,9 +1584,7 @@ unsafe extern "C" fn parse_ident_line(
                                                 log_generic(
                                                     LG_WARNING,
                                                     _log_ctx_4,
-                                                    b"ident: no mem for parsing ident_map\0"
-                                                        as *const u8
-                                                        as *const ::core::ffi::c_char,
+                                                    c"ident: no mem for parsing ident_map".as_ptr(),
                                                 );
                                                 current_block = 6603408307643950352;
                                             } else {
@@ -1668,7 +1605,7 @@ unsafe extern "C" fn parse_ident_line(
                                         }
                                         match current_block {
                                             6603408307643950352 => {}
-                                            _ => return true_0 != 0,
+                                            _ => return true,
                                         }
                                     }
                                 }
@@ -1682,7 +1619,7 @@ unsafe extern "C" fn parse_ident_line(
     mapping_free(mapping);
     ident_map_free(ident_map);
     free(map_name_copy as *mut ::core::ffi::c_void);
-    false_0 != 0
+    false
 }
 
 unsafe extern "C" fn parse_line(
@@ -1698,47 +1635,40 @@ unsafe extern "C" fn parse_line(
     let mut rtype = RULE_LOCAL;
     let mut nmask = ::core::ptr::null_mut::<::core::ffi::c_char>();
     let mut rule = ::core::ptr::null_mut::<HBARule>();
-    if eat_kw(tp, b"local\0" as *const u8 as *const ::core::ffi::c_char) {
+    if eat_kw(tp, c"local".as_ptr()) {
         rtype = RULE_LOCAL;
-    } else if eat_kw(tp, b"host\0" as *const u8 as *const ::core::ffi::c_char) {
+    } else if eat_kw(tp, c"host".as_ptr()) {
         rtype = RULE_HOST;
-    } else if eat_kw(tp, b"hostssl\0" as *const u8 as *const ::core::ffi::c_char) {
+    } else if eat_kw(tp, c"hostssl".as_ptr()) {
         rtype = RULE_HOSTSSL;
-    } else if eat_kw(
-        tp,
-        b"hostnossl\0" as *const u8 as *const ::core::ffi::c_char,
-    ) {
+    } else if eat_kw(tp, c"hostnossl".as_ptr()) {
         rtype = RULE_HOSTNOSSL;
     } else if eat(tp, TOK_EOL) {
-        return true_0 != 0;
+        return true;
     } else {
         let mut _log_ctx = NULL;
         log_generic(
             LG_WARNING,
             _log_ctx,
-            b"hba line %d: unknown type\0" as *const u8 as *const ::core::ffi::c_char,
+            c"hba line %d: unknown type".as_ptr(),
             linenr,
         );
-        return false_0 != 0;
+        return false;
     }
     rule = calloc(1 as size_t, ::core::mem::size_of::<HBARule>() as size_t) as *mut HBARule;
     if rule.is_null() {
         let mut _log_ctx_0 = NULL;
-        log_generic(
-            LG_WARNING,
-            _log_ctx_0,
-            b"hba: no mem for rule\0" as *const u8 as *const ::core::ffi::c_char,
-        );
-        return false_0 != 0;
+        log_generic(LG_WARNING, _log_ctx_0, c"hba: no mem for rule".as_ptr());
+        return false;
     }
     (*rule).rule_type = rtype;
-    if parse_names(&raw mut (*rule).db_name, tp, true_0 != 0, parent_filename)
-        && parse_names(&raw mut (*rule).user_name, tp, true_0 != 0, parent_filename)
+    if parse_names(&raw mut (*rule).db_name, tp, true, parent_filename)
+        && parse_names(&raw mut (*rule).user_name, tp, true, parent_filename)
     {
         if rtype as ::core::ffi::c_uint == RULE_LOCAL as ::core::ffi::c_int as ::core::ffi::c_uint {
             (*rule).address.family = AF_UNIX;
             current_block = 981995395831942902;
-        } else if eat_kw(tp, b"all\0" as *const u8 as *const ::core::ffi::c_char) {
+        } else if eat_kw(tp, c"all".as_ptr()) {
             (*rule).address.flags |= ADDRESS_ALL as ::core::ffi::c_uint;
             current_block = 981995395831942902;
         } else if !expect(tp, TOK_IDENT, &raw mut addr) {
@@ -1746,8 +1676,7 @@ unsafe extern "C" fn parse_line(
             log_generic(
                 LG_WARNING,
                 _log_ctx_1,
-                b"hba line %d: did not find address - %d - '%s'\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"hba line %d: did not find address - %d - '%s'".as_ptr(),
                 linenr,
                 (*tp).cur_tok as ::core::ffi::c_uint,
                 (*tp).buf,
@@ -1765,8 +1694,7 @@ unsafe extern "C" fn parse_line(
                 log_generic(
                     LG_WARNING,
                     _log_ctx_2,
-                    b"hba line %d: failed to parse address - %s\0" as *const u8
-                        as *const ::core::ffi::c_char,
+                    c"hba line %d: failed to parse address - %s".as_ptr(),
                     linenr,
                     addr,
                 );
@@ -1778,8 +1706,7 @@ unsafe extern "C" fn parse_line(
                         log_generic(
                             LG_WARNING,
                             _log_ctx_3,
-                            b"hba line %d: invalid mask\0" as *const u8
-                                as *const ::core::ffi::c_char,
+                            c"hba line %d: invalid mask".as_ptr(),
                             linenr,
                         );
                         current_block = 10970100966140617357;
@@ -1794,8 +1721,7 @@ unsafe extern "C" fn parse_line(
                         log_generic(
                             LG_WARNING,
                             _log_ctx_4,
-                            b"hba line %d: did not find mask\0" as *const u8
-                                as *const ::core::ffi::c_char,
+                            c"hba line %d: did not find mask".as_ptr(),
                             linenr,
                         );
                         current_block = 10970100966140617357;
@@ -1809,8 +1735,7 @@ unsafe extern "C" fn parse_line(
                         log_generic(
                             LG_WARNING,
                             _log_ctx_5,
-                            b"hba line %d: failed to parse mask: %s\0" as *const u8
-                                as *const ::core::ffi::c_char,
+                            c"hba line %d: failed to parse mask: %s".as_ptr(),
                             linenr,
                             mask,
                         );
@@ -1830,9 +1755,7 @@ unsafe extern "C" fn parse_line(
                             log_generic(
                                 LG_WARNING,
                                 _log_ctx_6,
-                                b"address does not match mask in %s line #%d: %s / %s\0"
-                                    as *const u8
-                                    as *const ::core::ffi::c_char,
+                                c"address does not match mask in %s line #%d: %s / %s".as_ptr(),
                                 parent_filename,
                                 linenr,
                                 inet_ntop(
@@ -1861,31 +1784,28 @@ unsafe extern "C" fn parse_line(
         match current_block {
             10970100966140617357 => {}
             _ => {
-                if eat_kw(tp, b"trust\0" as *const u8 as *const ::core::ffi::c_char) {
+                if eat_kw(tp, c"trust".as_ptr()) {
                     (*rule).rule_method = AUTH_TYPE_TRUST as ::core::ffi::c_int;
                     current_block = 200744462051969938;
-                } else if eat_kw(tp, b"reject\0" as *const u8 as *const ::core::ffi::c_char) {
+                } else if eat_kw(tp, c"reject".as_ptr()) {
                     (*rule).rule_method = AUTH_TYPE_REJECT as ::core::ffi::c_int;
                     current_block = 200744462051969938;
-                } else if eat_kw(tp, b"md5\0" as *const u8 as *const ::core::ffi::c_char) {
+                } else if eat_kw(tp, c"md5".as_ptr()) {
                     (*rule).rule_method = AUTH_TYPE_MD5 as ::core::ffi::c_int;
                     current_block = 200744462051969938;
-                } else if eat_kw(tp, b"password\0" as *const u8 as *const ::core::ffi::c_char) {
+                } else if eat_kw(tp, c"password".as_ptr()) {
                     (*rule).rule_method = AUTH_TYPE_PLAIN as ::core::ffi::c_int;
                     current_block = 200744462051969938;
-                } else if eat_kw(tp, b"peer\0" as *const u8 as *const ::core::ffi::c_char) {
+                } else if eat_kw(tp, c"peer".as_ptr()) {
                     (*rule).rule_method = AUTH_TYPE_PEER as ::core::ffi::c_int;
                     current_block = 200744462051969938;
-                } else if eat_kw(tp, b"cert\0" as *const u8 as *const ::core::ffi::c_char) {
+                } else if eat_kw(tp, c"cert".as_ptr()) {
                     (*rule).rule_method = AUTH_TYPE_CERT as ::core::ffi::c_int;
                     current_block = 200744462051969938;
-                } else if eat_kw(
-                    tp,
-                    b"scram-sha-256\0" as *const u8 as *const ::core::ffi::c_char,
-                ) {
+                } else if eat_kw(tp, c"scram-sha-256".as_ptr()) {
                     (*rule).rule_method = AUTH_TYPE_SCRAM_SHA_256 as ::core::ffi::c_int;
                     current_block = 200744462051969938;
-                } else if check_kw(tp, b"ldap\0" as *const u8 as *const ::core::ffi::c_char) {
+                } else if check_kw(tp, c"ldap".as_ptr()) {
                     (*rule).rule_method = AUTH_TYPE_LDAP as ::core::ffi::c_int;
                     current_block = 200744462051969938;
                 } else {
@@ -1893,8 +1813,7 @@ unsafe extern "C" fn parse_line(
                     log_generic(
                         LG_WARNING,
                         _log_ctx_7,
-                        b"hba line %d: unsupported method: buf=%s\0" as *const u8
-                            as *const ::core::ffi::c_char,
+                        c"hba line %d: unsupported method: buf=%s".as_ptr(),
                         linenr,
                         (*tp).buf,
                     );
@@ -1910,8 +1829,7 @@ unsafe extern "C" fn parse_line(
                                 log_generic(
                                     LG_WARNING,
                                     _log_ctx_8,
-                                    b"hba line %d: cannot get auth_options: buf=%s\0" as *const u8
-                                        as *const ::core::ffi::c_char,
+                                    c"hba line %d: cannot get auth_options: buf=%s".as_ptr(),
                                     linenr,
                                     (*tp).pos,
                                 );
@@ -1932,14 +1850,13 @@ unsafe extern "C" fn parse_line(
                                         log_generic(
                                             LG_WARNING,
                                             _log_ctx_9,
-                                            b"hba line %d: unsupported parameters\0" as *const u8
-                                                as *const ::core::ffi::c_char,
+                                            c"hba line %d: unsupported parameters".as_ptr(),
                                             linenr,
                                         );
                                     } else {
                                         (*rule).hba_linenr = linenr;
                                         list_append(&raw mut (*hba).rules, &raw mut (*rule).node);
-                                        return true_0 != 0;
+                                        return true;
                                     }
                                 }
                             }
@@ -1950,7 +1867,7 @@ unsafe extern "C" fn parse_line(
         }
     }
     rule_free(rule);
-    false_0 != 0
+    false
 }
 #[no_mangle]
 
@@ -1958,7 +1875,7 @@ pub unsafe extern "C" fn ident_load_map(mut fn_0: *const ::core::ffi::c_char) ->
     let mut ident = ::core::ptr::null_mut::<Ident>();
     let mut f = ::core::ptr::null_mut::<FILE>();
     let mut ln = ::core::ptr::null_mut::<::core::ffi::c_char>();
-    let mut lnbuf: size_t = 0 as size_t;
+    let mut lnbuf: size_t = 0;
     let mut len: ssize_t = 0;
     let mut linenr: ::core::ffi::c_int = 0;
     let mut tp = TokParser {
@@ -1975,14 +1892,13 @@ pub unsafe extern "C" fn ident_load_map(mut fn_0: *const ::core::ffi::c_char) ->
     ident = malloc(::core::mem::size_of::<Ident>() as size_t) as *mut Ident;
     if !ident.is_null() {
         list_init(&raw mut (*ident).maps);
-        f = fopen(fn_0, b"r\0" as *const u8 as *const ::core::ffi::c_char) as *mut FILE;
+        f = fopen(fn_0, c"r".as_ptr()) as *mut FILE;
         if f.is_null() {
             let mut _log_ctx = NULL;
             log_generic(
                 LG_ERROR,
                 _log_ctx,
-                b"could not open ident config file %s: %s\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"could not open ident config file %s: %s".as_ptr(),
                 fn_0,
                 strerror(*__error()),
             );
@@ -1999,8 +1915,7 @@ pub unsafe extern "C" fn ident_load_map(mut fn_0: *const ::core::ffi::c_char) ->
                     log_generic(
                         LG_WARNING,
                         _log_ctx_0,
-                        b"could not parse ident config line %d\0" as *const u8
-                            as *const ::core::ffi::c_char,
+                        c"could not parse ident config line %d".as_ptr(),
                         linenr,
                     );
                 }
@@ -2024,7 +1939,7 @@ pub unsafe extern "C" fn hba_load_rules(
     let mut hba = ::core::ptr::null_mut::<HBA>();
     let mut f = ::core::ptr::null_mut::<FILE>();
     let mut ln = ::core::ptr::null_mut::<::core::ffi::c_char>();
-    let mut lnbuf: size_t = 0 as size_t;
+    let mut lnbuf: size_t = 0;
     let mut len: ssize_t = 0;
     let mut linenr: ::core::ffi::c_int = 0;
     let mut tp = TokParser {
@@ -2038,14 +1953,13 @@ pub unsafe extern "C" fn hba_load_rules(
     hba = malloc(::core::mem::size_of::<HBA>() as size_t) as *mut HBA;
     if !hba.is_null() {
         list_init(&raw mut (*hba).rules);
-        f = fopen(fn_0, b"r\0" as *const u8 as *const ::core::ffi::c_char) as *mut FILE;
+        f = fopen(fn_0, c"r".as_ptr()) as *mut FILE;
         if f.is_null() {
             let mut _log_ctx = NULL;
             log_generic(
                 LG_ERROR,
                 _log_ctx,
-                b"could not open hba config file %s: %s\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"could not open hba config file %s: %s".as_ptr(),
                 fn_0,
                 strerror(*__error()),
             );
@@ -2062,8 +1976,7 @@ pub unsafe extern "C" fn hba_load_rules(
                     log_generic(
                         LG_WARNING,
                         _log_ctx_0,
-                        b"could not parse hba config line %d\0" as *const u8
-                            as *const ::core::ffi::c_char,
+                        c"could not parse hba config line %d".as_ptr(),
                         linenr,
                     );
                 }
@@ -2128,17 +2041,17 @@ unsafe extern "C" fn name_match(
     mut pair: *const ::core::ffi::c_char,
 ) -> bool {
     if (*hname).flags & NAME_ALL as ::core::ffi::c_uint != 0 {
-        return true_0 != 0;
+        return true;
     }
     if (*hname).flags & NAME_SAMEUSER as ::core::ffi::c_uint != 0
         && strcmp(name, pair) == 0 as ::core::ffi::c_int
     {
-        return true_0 != 0;
+        return true;
     }
     if !(*hname).name_set.is_null() {
         return strset_contains((*hname).name_set as *mut StrSet, name, namelen);
     }
-    false_0 != 0
+    false
 }
 
 unsafe extern "C" fn match_inet4(mut haddress: *const HBAAddress, mut addr: *mut PgAddr) -> bool {
@@ -2146,7 +2059,7 @@ unsafe extern "C" fn match_inet4(mut haddress: *const HBAAddress, mut addr: *mut
     let mut base = ::core::ptr::null::<uint32_t>();
     let mut mask = ::core::ptr::null::<uint32_t>();
     if pga_family(addr) != AF_INET as ::core::ffi::c_uint {
-        return false_0 != 0;
+        return false;
     }
     src = &raw mut (*addr).sin.sin_addr.s_addr as *mut uint32_t;
     base = &raw const (*haddress).addr as *const uint8_t as *mut uint32_t;
@@ -2160,7 +2073,7 @@ unsafe extern "C" fn match_inet6(mut haddress: *const HBAAddress, mut addr: *mut
     let mut base = ::core::ptr::null::<uint32_t>();
     let mut mask = ::core::ptr::null::<uint32_t>();
     if pga_family(addr) != AF_INET6 as ::core::ffi::c_uint {
-        return false_0 != 0;
+        return false;
     }
     src = &raw mut (*addr).sin6.sin6_addr.__u6_addr.__u6_addr8 as *mut __uint8_t as *mut uint32_t;
     base = &raw const (*haddress).addr as *const uint8_t as *mut uint32_t;
@@ -2180,12 +2093,12 @@ unsafe extern "C" fn match_inet6(mut haddress: *const HBAAddress, mut addr: *mut
 
 unsafe extern "C" fn address_match(mut haddress: *const HBAAddress, mut addr: *mut PgAddr) -> bool {
     if (*haddress).flags & ADDRESS_ALL as ::core::ffi::c_uint != 0 {
-        return true_0 != 0;
+        return true;
     }
     match (*haddress).family {
         AF_INET => match_inet4(haddress, addr),
         AF_INET6 => match_inet6(haddress, addr),
-        _ => false_0 != 0,
+        _ => false,
     }
 }
 #[no_mangle]

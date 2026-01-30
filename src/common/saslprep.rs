@@ -1,33 +1,32 @@
-
 pub mod _types_h {
-    
+
     pub type __darwin_size_t = usize;
 }
 
 pub mod _size_t_h {
-    
+
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
 
 pub mod saslprep_h {
-    
+
     pub type pg_saslprep_rc = ::core::ffi::c_int;
-    
+
     pub const SASLPREP_PROHIBITED: pg_saslprep_rc = -3;
-    
+
     pub const SASLPREP_INVALID_UTF8: pg_saslprep_rc = -2;
-    
+
     pub const SASLPREP_OOM: pg_saslprep_rc = -1;
-    
+
     pub const SASLPREP_SUCCESS: pg_saslprep_rc = 0;
 }
 
 pub mod pg_wchar_h {
-    
+
     pub type pg_wchar = ::core::ffi::c_uint;
     #[inline]
-    
+
     pub unsafe extern "C" fn utf8_to_unicode(mut c: *const ::core::ffi::c_uchar) -> pg_wchar {
         if *c as ::core::ffi::c_int & 0x80 as ::core::ffi::c_int == 0 as ::core::ffi::c_int {
             *c.offset(0 as ::core::ffi::c_int as isize) as pg_wchar
@@ -69,7 +68,7 @@ pub mod pg_wchar_h {
         }
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn unicode_to_utf8(
         mut c: pg_wchar,
         mut utf8string: *mut ::core::ffi::c_uchar,
@@ -107,30 +106,30 @@ pub mod pg_wchar_h {
         utf8string
     }
     extern "C" {
-        
+
         pub fn pg_utf8_islegal(
             source: *const ::core::ffi::c_uchar,
             length: ::core::ffi::c_int,
         ) -> bool;
-        
+
         pub fn pg_utf_mblen(s: *const ::core::ffi::c_uchar) -> ::core::ffi::c_int;
     }
 }
 
 pub mod unicode_norm_h {
-    
+
     pub type UnicodeNormalizationForm = ::core::ffi::c_uint;
-    
+
     pub const UNICODE_NFKD: UnicodeNormalizationForm = 3;
-    
+
     pub const UNICODE_NFKC: UnicodeNormalizationForm = 2;
-    
+
     pub const UNICODE_NFD: UnicodeNormalizationForm = 1;
-    
+
     pub const UNICODE_NFC: UnicodeNormalizationForm = 0;
     use super::pg_wchar_h::pg_wchar;
     extern "C" {
-        
+
         pub fn unicode_normalize(
             form: UnicodeNormalizationForm,
             input: *const pg_wchar,
@@ -141,9 +140,9 @@ pub mod unicode_norm_h {
 pub mod _malloc_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn malloc(__size: size_t) -> *mut ::core::ffi::c_void;
-        
+
         pub fn free(_: *mut ::core::ffi::c_void);
     }
 }
@@ -151,7 +150,7 @@ pub mod _malloc_h {
 pub mod _stdlib_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn bsearch(
             __key: *const ::core::ffi::c_void,
             __base: *const ::core::ffi::c_void,
@@ -170,41 +169,41 @@ pub mod _stdlib_h {
 pub mod _string_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn strlen(__s: *const ::core::ffi::c_char) -> size_t;
-        
+
         pub fn strdup(__s1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
     }
 }
 
 pub mod _null_h {
-    
+
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
     use super::sys__types_h::__DARWIN_NULL;
 }
 
 pub mod postgres_compat_h {
-    
+
     pub const MaxAllocSize: size_t = 0x3fffffff as ::core::ffi::c_int as size_t;
     use super::_size_t_h::size_t;
 }
 
 pub mod sys__types_h {
-    
+
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
 }
 
 pub mod stdbool_h {
-    
+
     pub const true_0: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    
+
     pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 }
 
 pub mod string_h {
     extern "C" {
-        
+
         pub fn pg_is_ascii(str: *const ::core::ffi::c_char) -> bool;
     }
 }
@@ -1950,7 +1949,7 @@ unsafe extern "C" fn is_code_in_table(
     if code < *map.offset(0 as ::core::ffi::c_int as isize)
         || code > *map.offset((mapsize - 1 as ::core::ffi::c_int) as isize)
     {
-        return false_0 != 0;
+        return false;
     }
     if !bsearch(
         &raw mut code as *const ::core::ffi::c_void,
@@ -1967,9 +1966,9 @@ unsafe extern "C" fn is_code_in_table(
     )
     .is_null()
     {
-        true_0 != 0
+        true
     } else {
-        false_0 != 0
+        false
     }
 }
 
@@ -2103,7 +2102,7 @@ pub unsafe extern "C" fn pg_saslprep(
                         match current_block {
                             11863746162674211658 => {}
                             _ => {
-                                contains_RandALCat = false_0 != 0;
+                                contains_RandALCat = false;
                                 i = 0 as ::core::ffi::c_int;
                                 while i < input_size {
                                     let mut code_1 = *input_chars.offset(i as isize);
@@ -2114,7 +2113,7 @@ pub unsafe extern "C" fn pg_saslprep(
                                             .wrapping_div(::core::mem::size_of::<pg_wchar>())
                                             as ::core::ffi::c_int,
                                     ) {
-                                        contains_RandALCat = true_0 != 0;
+                                        contains_RandALCat = true;
                                         break;
                                     } else {
                                         i += 1;

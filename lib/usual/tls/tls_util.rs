@@ -1,135 +1,134 @@
-
 pub mod _types_h {
-    
+
     pub type __uint16_t = u16;
-    
+
     pub type __int32_t = i32;
-    
+
     pub type __uint32_t = u32;
-    
+
     pub type __int64_t = i64;
-    
+
     pub type __uint64_t = u64;
-    
+
     pub type __darwin_size_t = usize;
-    
+
     pub type __darwin_ssize_t = isize;
-    
+
     pub type __darwin_time_t = ::core::ffi::c_long;
 }
 
 pub mod sys__types_h {
-    
+
     pub type __darwin_blkcnt_t = __int64_t;
-    
+
     pub type __darwin_blksize_t = __int32_t;
-    
+
     pub type __darwin_dev_t = __int32_t;
-    
+
     pub type __darwin_gid_t = __uint32_t;
-    
+
     pub type __darwin_ino64_t = __uint64_t;
-    
+
     pub type __darwin_mode_t = __uint16_t;
-    
+
     pub type __darwin_off_t = __int64_t;
-    
+
     pub type __darwin_uid_t = __uint32_t;
-    
+
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
     use super::_types_h::{__int32_t, __int64_t, __uint16_t, __uint32_t, __uint64_t};
 }
 
 pub mod _dev_t_h {
-    
+
     pub type dev_t = __darwin_dev_t;
     use super::sys__types_h::__darwin_dev_t;
 }
 
 pub mod _blkcnt_t_h {
-    
+
     pub type blkcnt_t = __darwin_blkcnt_t;
     use super::sys__types_h::__darwin_blkcnt_t;
 }
 
 pub mod _blksize_t_h {
-    
+
     pub type blksize_t = __darwin_blksize_t;
     use super::sys__types_h::__darwin_blksize_t;
 }
 
 pub mod _gid_t_h {
-    
+
     pub type gid_t = __darwin_gid_t;
     use super::sys__types_h::__darwin_gid_t;
 }
 
 pub mod _mode_t_h {
-    
+
     pub type mode_t = __darwin_mode_t;
     use super::sys__types_h::__darwin_mode_t;
 }
 
 pub mod _nlink_t_h {
-    
+
     pub type nlink_t = __uint16_t;
     use super::_types_h::__uint16_t;
 }
 
 pub mod _off_t_h {
-    
+
     pub type off_t = __darwin_off_t;
     use super::sys__types_h::__darwin_off_t;
 }
 
 pub mod _uid_t_h {
-    
+
     pub type uid_t = __darwin_uid_t;
     use super::sys__types_h::__darwin_uid_t;
 }
 
 pub mod _size_t_h {
-    
+
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
 
 pub mod _ssize_t_h {
-    
+
     pub type ssize_t = __darwin_ssize_t;
     use super::_types_h::__darwin_ssize_t;
 }
 
 pub mod _time_t_h {
-    
+
     pub type time_t = __darwin_time_t;
     use super::_types_h::__darwin_time_t;
 }
 
 pub mod _uint8_t_h {
-    
+
     pub type uint8_t = u8;
 }
 
 pub mod _uint32_t_h {
-    
+
     pub type uint32_t = u32;
 }
 
 pub mod _stdio_h {
-    
+
     pub type fpos_t = __darwin_off_t;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct __sbuf {
         pub _base: *mut ::core::ffi::c_uchar,
         pub _size: ::core::ffi::c_int,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct __sFILE {
         pub _p: *mut ::core::ffi::c_uchar,
         pub _r: ::core::ffi::c_int,
@@ -166,25 +165,25 @@ pub mod _stdio_h {
         pub _blksize: ::core::ffi::c_int,
         pub _offset: fpos_t,
     }
-    
+
     pub type FILE = __sFILE;
     use super::_size_t_h::size_t;
     use super::sys__types_h::__darwin_off_t;
     extern "C" {
-        
+
         pub type __sFILEX;
-        
+
         pub fn fclose(_: *mut FILE) -> ::core::ffi::c_int;
-        
+
         pub fn fdopen(_: ::core::ffi::c_int, _: *const ::core::ffi::c_char) -> *mut FILE;
-        
+
         pub fn snprintf(
             __str: *mut ::core::ffi::c_char,
             __size: size_t,
             __format: *const ::core::ffi::c_char,
             ...
         ) -> ::core::ffi::c_int;
-        
+
         pub fn asprintf(
             _: *mut *mut ::core::ffi::c_char,
             _: *const ::core::ffi::c_char,
@@ -196,7 +195,7 @@ pub mod _stdio_h {
 pub mod _timespec_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct timespec {
         pub tv_sec: __darwin_time_t,
         pub tv_nsec: ::core::ffi::c_long,
@@ -207,7 +206,7 @@ pub mod _timespec_h {
 pub mod tls_internal_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls {
         pub config: *mut tls_config,
         pub error: tls_error,
@@ -227,7 +226,7 @@ pub mod tls_internal_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls_ocsp_info {
         pub response_status: ::core::ffi::c_int,
         pub cert_status: ::core::ffi::c_int,
@@ -238,7 +237,7 @@ pub mod tls_internal_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls_conninfo {
         pub issuer: *mut ::core::ffi::c_char,
         pub subject: *mut ::core::ffi::c_char,
@@ -252,14 +251,14 @@ pub mod tls_internal_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls_error {
         pub msg: *mut ::core::ffi::c_char,
         pub num: ::core::ffi::c_int,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls_config {
         pub error: tls_error,
         pub ca_file: *const ::core::ffi::c_char,
@@ -284,7 +283,7 @@ pub mod tls_internal_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls_keypair {
         pub next: *mut tls_keypair,
         pub cert_file: *const ::core::ffi::c_char,
@@ -294,79 +293,79 @@ pub mod tls_internal_h {
         pub key_mem: *mut ::core::ffi::c_char,
         pub key_len: size_t,
     }
-    
+
     pub const TLS_CLIENT: ::core::ffi::c_int = (1 as ::core::ffi::c_int) << 0 as ::core::ffi::c_int;
     use super::_size_t_h::size_t;
     use super::_time_t_h::time_t;
     use super::_uint32_t_h::uint32_t;
     use super::types_h::{SSL, SSL_CTX, X509};
     extern "C" {
-        
+
         pub type tls_ocsp_query;
     }
 }
 
 pub mod types_h {
-    
+
     pub type X509 = x509_st;
-    
+
     pub type SSL_CTX = ssl_ctx_st;
-    
+
     pub type SSL = ssl_st;
-    
+
     pub type EVP_PKEY = evp_pkey_st;
-    
+
     pub type BIO = bio_st;
-    
+
     pub type pem_password_cb = unsafe extern "C" fn(
         *mut ::core::ffi::c_char,
         ::core::ffi::c_int,
         ::core::ffi::c_int,
         *mut ::core::ffi::c_void,
     ) -> ::core::ffi::c_int;
-    
+
     pub type EVP_CIPHER = evp_cipher_st;
-    
+
     pub type DH = dh_st;
     extern "C" {
-        
+
         pub type x509_st;
-        
+
         pub type ssl_ctx_st;
-        
+
         pub type ssl_st;
-        
+
         pub type evp_pkey_st;
-        
+
         pub type bio_st;
-        
+
         pub type evp_cipher_st;
-        
+
         pub type dh_st;
     }
 }
 
 pub mod bio_h {
-    
+
     pub type BIO_METHOD = bio_method_st;
-    
+
     pub const BIO_CTRL_INFO: ::core::ffi::c_int = 3 as ::core::ffi::c_int;
     use super::types_h::BIO;
     extern "C" {
-        
+
         pub type bio_method_st;
-        
+
         pub fn BIO_new(type_0: *const BIO_METHOD) -> *mut BIO;
-        
+
         pub fn BIO_ctrl(
             bp: *mut BIO,
             cmd: ::core::ffi::c_int,
             larg: ::core::ffi::c_long,
             parg: *mut ::core::ffi::c_void,
         ) -> ::core::ffi::c_long;
-        
+
         pub fn BIO_free_all(a: *mut BIO);
-        
+
         pub fn BIO_s_mem() -> *const BIO_METHOD;
     }
 }
@@ -374,7 +373,7 @@ pub mod bio_h {
 pub mod stat_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct stat {
         pub st_dev: dev_t,
         pub st_mode: mode_t,
@@ -407,41 +406,41 @@ pub mod stat_h {
     use super::_uid_t_h::uid_t;
     use super::sys__types_h::__darwin_ino64_t;
     extern "C" {
-        
+
         pub fn fstat(_: ::core::ffi::c_int, _: *mut stat) -> ::core::ffi::c_int;
     }
 }
 
 pub mod ssl_h {
-    
+
     pub type SSL_CIPHER = ssl_cipher_st;
-    
+
     pub const SSL_CTRL_GET_SHARED_GROUP: ::core::ffi::c_int = 93 as ::core::ffi::c_int;
-    
+
     pub const SSL_CTRL_GET_PEER_TMP_KEY: ::core::ffi::c_int = 109 as ::core::ffi::c_int;
     use super::types_h::SSL;
     extern "C" {
-        
+
         pub type ssl_cipher_st;
-        
+
         pub fn SSL_get_current_cipher(s: *const SSL) -> *const SSL_CIPHER;
-        
+
         pub fn SSL_CIPHER_get_name(c: *const SSL_CIPHER) -> *const ::core::ffi::c_char;
-        
+
         pub fn SSL_CIPHER_get_kx_nid(c: *const SSL_CIPHER) -> ::core::ffi::c_int;
-        
+
         pub fn SSL_get_cipher_list(
             s: *const SSL,
             n: ::core::ffi::c_int,
         ) -> *const ::core::ffi::c_char;
-        
+
         pub fn SSL_ctrl(
             ssl: *mut SSL,
             cmd: ::core::ffi::c_int,
             larg: ::core::ffi::c_long,
             parg: *mut ::core::ffi::c_void,
         ) -> ::core::ffi::c_long;
-        
+
         pub fn SSL_get_version(s: *const SSL) -> *const ::core::ffi::c_char;
     }
 }
@@ -449,9 +448,9 @@ pub mod ssl_h {
 pub mod _malloc_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn calloc(__count: size_t, __size: size_t) -> *mut ::core::ffi::c_void;
-        
+
         pub fn free(_: *mut ::core::ffi::c_void);
     }
 }
@@ -460,33 +459,33 @@ pub mod unistd_h {
     use super::_size_t_h::size_t;
     use super::_ssize_t_h::ssize_t;
     extern "C" {
-        
+
         pub fn close(_: ::core::ffi::c_int) -> ::core::ffi::c_int;
-        
+
         pub fn read(_: ::core::ffi::c_int, _: *mut ::core::ffi::c_void, __nbyte: size_t)
             -> ssize_t;
     }
 }
 
 pub mod _null_h {
-    
+
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
     use super::sys__types_h::__DARWIN_NULL;
 }
 
 pub mod evp_h {
-    
+
     pub const EVP_PKEY_DH: ::core::ffi::c_int = NID_dhKeyAgreement;
-    
+
     pub const EVP_PKEY_EC: ::core::ffi::c_int = NID_X9_62_id_ecPublicKey;
     use super::obj_mac_h::{NID_X9_62_id_ecPublicKey, NID_dhKeyAgreement};
     use super::types_h::{dh_st, EVP_PKEY};
     extern "C" {
-        
+
         pub fn EVP_PKEY_get_id(pkey: *const EVP_PKEY) -> ::core::ffi::c_int;
-        
+
         pub fn EVP_PKEY_get0_DH(pkey: *const EVP_PKEY) -> *const dh_st;
-        
+
         pub fn EVP_PKEY_free(pkey: *mut EVP_PKEY);
     }
 }
@@ -494,31 +493,31 @@ pub mod evp_h {
 pub mod _string_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn memcpy(
             __dst: *mut ::core::ffi::c_void,
             __src: *const ::core::ffi::c_void,
             __n: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn memset(
             __b: *mut ::core::ffi::c_void,
             __c: ::core::ffi::c_int,
             __len: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn strchr(
             __s: *const ::core::ffi::c_char,
             __c: ::core::ffi::c_int,
         ) -> *mut ::core::ffi::c_char;
-        
+
         pub fn strcmp(
             __s1: *const ::core::ffi::c_char,
             __s2: *const ::core::ffi::c_char,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn strdup(__s1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
-        
+
         pub fn strlcpy(
             __dst: *mut ::core::ffi::c_char,
             __source: *const ::core::ffi::c_char,
@@ -531,14 +530,14 @@ pub mod pem_h {
     use super::_stdio_h::FILE;
     use super::types_h::{pem_password_cb, BIO, EVP_CIPHER, EVP_PKEY};
     extern "C" {
-        
+
         pub fn PEM_read_PrivateKey(
             out: *mut FILE,
             x: *mut *mut EVP_PKEY,
             cb: Option<pem_password_cb>,
             u: *mut ::core::ffi::c_void,
         ) -> *mut EVP_PKEY;
-        
+
         pub fn PEM_write_bio_PrivateKey(
             out: *mut BIO,
             x: *const EVP_PKEY,
@@ -554,7 +553,7 @@ pub mod pem_h {
 pub mod tls_compat_h {
     use super::types_h::EVP_PKEY;
     extern "C" {
-        
+
         pub fn get_ecdh_curve_nid(pk: *mut EVP_PKEY, nid: *mut ::core::ffi::c_int) -> bool;
     }
 }
@@ -562,16 +561,16 @@ pub mod tls_compat_h {
 pub mod dh_h {
     use super::types_h::DH;
     extern "C" {
-        
+
         pub fn DH_size(dh: *const DH) -> ::core::ffi::c_int;
     }
 }
 
 pub mod fcntl_h {
-    
+
     pub const O_RDONLY: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
     extern "C" {
-        
+
         pub fn open(
             _: *const ::core::ffi::c_char,
             _: ::core::ffi::c_int,
@@ -581,28 +580,28 @@ pub mod fcntl_h {
 }
 
 pub mod crypto_h {
-    
+
     pub const OPENSSL_VERSION: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
     extern "C" {
-        
+
         pub fn OpenSSL_version(type_0: ::core::ffi::c_int) -> *const ::core::ffi::c_char;
     }
 }
 
 pub mod obj_mac_h {
-    
+
     pub const NID_X9_62_id_ecPublicKey: ::core::ffi::c_int = 408 as ::core::ffi::c_int;
-    
+
     pub const NID_dhKeyAgreement: ::core::ffi::c_int = 28 as ::core::ffi::c_int;
-    
+
     pub const NID_kx_ecdhe: ::core::ffi::c_int = 1038 as ::core::ffi::c_int;
-    
+
     pub const NID_kx_dhe: ::core::ffi::c_int = 1039 as ::core::ffi::c_int;
 }
 
 pub mod objects_h {
     extern "C" {
-        
+
         pub fn OBJ_nid2sn(n: ::core::ffi::c_int) -> *const ::core::ffi::c_char;
     }
 }

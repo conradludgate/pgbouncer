@@ -1,117 +1,116 @@
-
 pub mod _types_h {
-    
+
     pub type __darwin_size_t = usize;
 }
 
 pub mod _size_t_h {
-    
+
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
 
 pub mod _uint8_t_h {
-    
+
     pub type uint8_t = u8;
 }
 
 pub mod _uint32_t_h {
-    
+
     pub type uint32_t = u32;
 }
 
 pub mod pg_wchar_h {
-    
+
     pub type pg_wchar = ::core::ffi::c_uint;
-    
+
     pub type pg_enc = ::core::ffi::c_uint;
-    
+
     pub const _PG_LAST_ENCODING_: pg_enc = 42;
-    
+
     pub const PG_SHIFT_JIS_2004: pg_enc = 41;
-    
+
     pub const PG_JOHAB: pg_enc = 40;
-    
+
     pub const PG_GB18030: pg_enc = 39;
-    
+
     pub const PG_UHC: pg_enc = 38;
-    
+
     pub const PG_GBK: pg_enc = 37;
-    
+
     pub const PG_BIG5: pg_enc = 36;
-    
+
     pub const PG_SJIS: pg_enc = 35;
-    
+
     pub const PG_KOI8U: pg_enc = 34;
-    
+
     pub const PG_WIN1257: pg_enc = 33;
-    
+
     pub const PG_WIN1255: pg_enc = 32;
-    
+
     pub const PG_WIN1254: pg_enc = 31;
-    
+
     pub const PG_WIN1253: pg_enc = 30;
-    
+
     pub const PG_WIN1250: pg_enc = 29;
-    
+
     pub const PG_ISO_8859_8: pg_enc = 28;
-    
+
     pub const PG_ISO_8859_7: pg_enc = 27;
-    
+
     pub const PG_ISO_8859_6: pg_enc = 26;
-    
+
     pub const PG_ISO_8859_5: pg_enc = 25;
-    
+
     pub const PG_WIN1252: pg_enc = 24;
-    
+
     pub const PG_WIN1251: pg_enc = 23;
-    
+
     pub const PG_KOI8R: pg_enc = 22;
-    
+
     pub const PG_WIN874: pg_enc = 21;
-    
+
     pub const PG_WIN866: pg_enc = 20;
-    
+
     pub const PG_WIN1258: pg_enc = 19;
-    
+
     pub const PG_WIN1256: pg_enc = 18;
-    
+
     pub const PG_LATIN10: pg_enc = 17;
-    
+
     pub const PG_LATIN9: pg_enc = 16;
-    
+
     pub const PG_LATIN8: pg_enc = 15;
-    
+
     pub const PG_LATIN7: pg_enc = 14;
-    
+
     pub const PG_LATIN6: pg_enc = 13;
-    
+
     pub const PG_LATIN5: pg_enc = 12;
-    
+
     pub const PG_LATIN4: pg_enc = 11;
-    
+
     pub const PG_LATIN3: pg_enc = 10;
-    
+
     pub const PG_LATIN2: pg_enc = 9;
-    
+
     pub const PG_LATIN1: pg_enc = 8;
-    
+
     pub const PG_MULE_INTERNAL: pg_enc = 7;
-    
+
     pub const PG_UTF8: pg_enc = 6;
-    
+
     pub const PG_EUC_JIS_2004: pg_enc = 5;
-    
+
     pub const PG_EUC_TW: pg_enc = 4;
-    
+
     pub const PG_EUC_KR: pg_enc = 3;
-    
+
     pub const PG_EUC_CN: pg_enc = 2;
-    
+
     pub const PG_EUC_JP: pg_enc = 1;
-    
+
     pub const PG_SQL_ASCII: pg_enc = 0;
-    
+
     pub type mb2wchar_with_len_converter = Option<
         unsafe extern "C" fn(
             *const ::core::ffi::c_uchar,
@@ -119,7 +118,7 @@ pub mod pg_wchar_h {
             ::core::ffi::c_int,
         ) -> ::core::ffi::c_int,
     >;
-    
+
     pub type wchar2mb_with_len_converter = Option<
         unsafe extern "C" fn(
             *const pg_wchar,
@@ -127,23 +126,23 @@ pub mod pg_wchar_h {
             ::core::ffi::c_int,
         ) -> ::core::ffi::c_int,
     >;
-    
+
     pub type mblen_converter =
         Option<unsafe extern "C" fn(*const ::core::ffi::c_uchar) -> ::core::ffi::c_int>;
-    
+
     pub type mbdisplaylen_converter =
         Option<unsafe extern "C" fn(*const ::core::ffi::c_uchar) -> ::core::ffi::c_int>;
-    
+
     pub type mbchar_verifier = Option<
         unsafe extern "C" fn(*const ::core::ffi::c_uchar, ::core::ffi::c_int) -> ::core::ffi::c_int,
     >;
-    
+
     pub type mbstr_verifier = Option<
         unsafe extern "C" fn(*const ::core::ffi::c_uchar, ::core::ffi::c_int) -> ::core::ffi::c_int,
     >;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct pg_wchar_tbl {
         pub mb2wchar_with_len: mb2wchar_with_len_converter,
         pub wchar2mb_with_len: wchar2mb_with_len_converter,
@@ -153,20 +152,20 @@ pub mod pg_wchar_h {
         pub mbverifystr: mbstr_verifier,
         pub maxmblen: ::core::ffi::c_int,
     }
-    
+
     pub const SS2: ::core::ffi::c_int = 0x8e as ::core::ffi::c_int;
-    
+
     pub const SS3: ::core::ffi::c_int = 0x8f as ::core::ffi::c_int;
-    
+
     pub const LCPRV1_A: ::core::ffi::c_int = 0x9a as ::core::ffi::c_int;
-    
+
     pub const LCPRV1_B: ::core::ffi::c_int = 0x9b as ::core::ffi::c_int;
-    
+
     pub const LCPRV2_A: ::core::ffi::c_int = 0x9c as ::core::ffi::c_int;
-    
+
     pub const LCPRV2_B: ::core::ffi::c_int = 0x9d as ::core::ffi::c_int;
     #[inline]
-    
+
     pub unsafe extern "C" fn utf8_to_unicode(mut c: *const ::core::ffi::c_uchar) -> pg_wchar {
         if *c as ::core::ffi::c_int & 0x80 as ::core::ffi::c_int == 0 as ::core::ffi::c_int {
             *c.offset(0 as ::core::ffi::c_int as isize) as pg_wchar
@@ -208,7 +207,7 @@ pub mod pg_wchar_h {
         }
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn unicode_to_utf8(
         mut c: pg_wchar,
         mut utf8string: *mut ::core::ffi::c_uchar,
@@ -248,25 +247,25 @@ pub mod pg_wchar_h {
 }
 
 pub mod simd_h {
-    
+
     pub type Vector8 = uint8x16_t;
     #[inline]
-    
+
     pub unsafe extern "C" fn vector8_broadcast(c: uint8_t) -> Vector8 {
         vdupq_n_u8(c) as Vector8
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn vector8_is_highbit_set(v: Vector8) -> bool {
         vmaxvq_u8(v as uint8x16_t) as ::core::ffi::c_int > 0x7f as ::core::ffi::c_int
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn vector8_or(v1: Vector8, v2: Vector8) -> Vector8 {
         vorrq_u8(v1 as uint8x16_t, v2 as uint8x16_t) as Vector8
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn vector8_eq(v1: Vector8, v2: Vector8) -> Vector8 {
         vceqq_u8(v1 as uint8x16_t, v2 as uint8x16_t) as Vector8
     }
@@ -278,19 +277,19 @@ pub mod simd_h {
 pub mod _string_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn memchr(
             __s: *const ::core::ffi::c_void,
             __c: ::core::ffi::c_int,
             __n: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn strnlen(__s1: *const ::core::ffi::c_char, __n: size_t) -> size_t;
     }
 }
 
 pub mod _null_h {
-    
+
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
     use super::sys__types_h::__DARWIN_NULL;
 }
@@ -304,25 +303,25 @@ pub mod arm_neon_h {
 }
 
 pub mod sys__types_h {
-    
+
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
 }
 
 pub mod limits_h {
-    
+
     pub const INT_MAX: ::core::ffi::c_int = 2147483647 as ::core::ffi::c_int;
 }
 
 pub mod stdbool_h {
-    
+
     pub const true_0: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    
+
     pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 }
 
 pub mod postgres_compat_h {
-    
+
     pub const HIGHBIT: ::core::ffi::c_int = 0x80 as ::core::ffi::c_int;
 }
 use crate::src::common::ascii::is_valid_ascii;
@@ -4229,7 +4228,7 @@ pub unsafe extern "C" fn pg_utf8_islegal(
             if (a as ::core::ffi::c_int) < 0x80 as ::core::ffi::c_int
                 || a as ::core::ffi::c_int > 0xbf as ::core::ffi::c_int
             {
-                return false_0 != 0;
+                return false;
             }
             current_block_23 = 7462850060054968072;
         }
@@ -4242,14 +4241,14 @@ pub unsafe extern "C" fn pg_utf8_islegal(
         1 => {
             current_block_23 = 534499147496501303;
         }
-        _ => return false_0 != 0,
+        _ => return false,
     }
     if current_block_23 == 7462850060054968072 {
         a = *source.offset(2 as ::core::ffi::c_int as isize);
         if (a as ::core::ffi::c_int) < 0x80 as ::core::ffi::c_int
             || a as ::core::ffi::c_int > 0xbf as ::core::ffi::c_int
         {
-            return false_0 != 0;
+            return false;
         }
         current_block_23 = 11154739455121230990;
     }
@@ -4260,35 +4259,35 @@ pub unsafe extern "C" fn pg_utf8_islegal(
                 if (a as ::core::ffi::c_int) < 0xa0 as ::core::ffi::c_int
                     || a as ::core::ffi::c_int > 0xbf as ::core::ffi::c_int
                 {
-                    return false_0 != 0;
+                    return false;
                 }
             }
             237 => {
                 if (a as ::core::ffi::c_int) < 0x80 as ::core::ffi::c_int
                     || a as ::core::ffi::c_int > 0x9f as ::core::ffi::c_int
                 {
-                    return false_0 != 0;
+                    return false;
                 }
             }
             240 => {
                 if (a as ::core::ffi::c_int) < 0x90 as ::core::ffi::c_int
                     || a as ::core::ffi::c_int > 0xbf as ::core::ffi::c_int
                 {
-                    return false_0 != 0;
+                    return false;
                 }
             }
             244 => {
                 if (a as ::core::ffi::c_int) < 0x80 as ::core::ffi::c_int
                     || a as ::core::ffi::c_int > 0x8f as ::core::ffi::c_int
                 {
-                    return false_0 != 0;
+                    return false;
                 }
             }
             _ => {
                 if (a as ::core::ffi::c_int) < 0x80 as ::core::ffi::c_int
                     || a as ::core::ffi::c_int > 0xbf as ::core::ffi::c_int
                 {
-                    return false_0 != 0;
+                    return false;
                 }
             }
         }
@@ -4297,12 +4296,12 @@ pub unsafe extern "C" fn pg_utf8_islegal(
     if a as ::core::ffi::c_int >= 0x80 as ::core::ffi::c_int
         && (a as ::core::ffi::c_int) < 0xc2 as ::core::ffi::c_int
     {
-        return false_0 != 0;
+        return false;
     }
     if a as ::core::ffi::c_int > 0xf4 as ::core::ffi::c_int {
-        return false_0 != 0;
+        return false;
     }
-    true_0 != 0
+    true
 }
 #[no_mangle]
 

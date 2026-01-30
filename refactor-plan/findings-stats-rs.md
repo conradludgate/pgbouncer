@@ -276,7 +276,35 @@ c"no mem".as_ptr()
 
 ## Next Steps
 
-1. Clean up the function code in stats.rs (wrapping_add → +=, etc.)
-2. Apply same cleanup to other files
-3. Create comprehensive types.rs in common/
-4. Plan coordinated migration of all files to shared types
+1. ~~Clean up the function code in stats.rs~~ ✅ Done
+2. Apply same cleanup to other files (recommended next action)
+3. ~~Create comprehensive types.rs in common/~~ ✅ Done (basic types consolidated)
+4. ~~Plan coordinated migration of all files to shared types~~ ⚠️ See below
+
+## Consolidation Script Findings (2026-01-30)
+
+**The `consolidate_module.py` script has limitations:**
+
+1. **Works well for**: Simple type modules with no function dependencies
+   - PgStats, List, StatList, AATree, MBuf, PktHdr ✅
+
+2. **Doesn't work for**: Modules with inline functions that depend on extern statics
+   - `bouncer_h`: Functions like `first_socket()` depend on types from multiple modules
+   - `iobuf_h`: `iobuf_amount_recv()` depends on `cf_sbuf_len` (extern static)
+   - `sbuf_h`: Similar issue
+
+**Root cause**: The script tries to move ALL symbols to types.rs, including:
+- Type definitions (structs, enums) → should go to types.rs ✅
+- Inline functions with extern dependencies → can't go to types.rs ❌
+- Extern static declarations (`cf_*`) → should stay in files ❌
+
+**Alternative approach for complex modules:**
+1. Add ONLY type definitions (structs, enums, type aliases, simple constants) to types.rs
+2. Keep inline functions with dependencies in their original locations OR in dedicated modules
+3. Keep extern declarations in each file (they reference symbols defined elsewhere)
+4. Manually update imports file-by-file
+
+**Recommended focus:**
+- Apply function cleanup patterns (safe, no import changes)
+- Remove simple primitive type modules (`_types_h`, etc.)
+- Convert `static mut` to thread-local RefCell

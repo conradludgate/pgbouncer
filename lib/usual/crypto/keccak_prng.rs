@@ -1,34 +1,33 @@
-
 pub mod _types_h {
-    
+
     pub type __darwin_size_t = usize;
 }
 
 pub mod _size_t_h {
-    
+
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
 
 pub mod _uint8_t_h {
-    
+
     pub type uint8_t = u8;
 }
 
 pub mod _uint32_t_h {
-    
+
     pub type uint32_t = u32;
 }
 
 pub mod _uint64_t_h {
-    
+
     pub type uint64_t = u64;
 }
 
 pub mod keccak_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct KeccakContext {
         pub u: C2RustUnnamed,
         pub pos: uint32_t,
@@ -36,7 +35,7 @@ pub mod keccak_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed {
         pub state64: [uint64_t; 25],
         pub state32: [uint32_t; 50],
@@ -46,22 +45,22 @@ pub mod keccak_h {
     use super::_uint64_t_h::uint64_t;
     use super::_uint8_t_h::uint8_t;
     extern "C" {
-        
+
         pub fn keccak_init(
             ctx: *mut KeccakContext,
             capacity: ::core::ffi::c_uint,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn keccak_absorb(
             ctx: *mut KeccakContext,
             data: *const ::core::ffi::c_void,
             len: size_t,
         );
-        
+
         pub fn keccak_squeeze(ctx: *mut KeccakContext, dst: *mut uint8_t, len: size_t);
-        
+
         pub fn keccak_pad(ctx: *mut KeccakContext, data: *const ::core::ffi::c_void, len: size_t);
-        
+
         pub fn keccak_rewind(ctx: *mut KeccakContext);
     }
 }
@@ -69,7 +68,7 @@ pub mod keccak_h {
 pub mod keccak_prng_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct KeccakPRNG {
         pub ctx: KeccakContext,
         pub extracting: bool,
@@ -79,9 +78,9 @@ pub mod keccak_prng_h {
 }
 
 pub mod stdbool_h {
-    
+
     pub const true_0: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    
+
     pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 }
 pub use self::_size_t_h::size_t;

@@ -1,32 +1,31 @@
-
 pub mod _types_h {
-    
+
     pub type __darwin_size_t = usize;
-    
+
     pub type __darwin_time_t = ::core::ffi::c_long;
 }
 
 pub mod _size_t_h {
-    
+
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
 
 pub mod _time_t_h {
-    
+
     pub type time_t = __darwin_time_t;
     use super::_types_h::__darwin_time_t;
 }
 
 pub mod _uint32_t_h {
-    
+
     pub type uint32_t = u32;
 }
 
 pub mod tls_internal_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls {
         pub config: *mut tls_config,
         pub error: tls_error,
@@ -46,7 +45,7 @@ pub mod tls_internal_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls_ocsp_info {
         pub response_status: ::core::ffi::c_int,
         pub cert_status: ::core::ffi::c_int,
@@ -57,7 +56,7 @@ pub mod tls_internal_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls_conninfo {
         pub issuer: *mut ::core::ffi::c_char,
         pub subject: *mut ::core::ffi::c_char,
@@ -71,14 +70,14 @@ pub mod tls_internal_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls_error {
         pub msg: *mut ::core::ffi::c_char,
         pub num: ::core::ffi::c_int,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls_config {
         pub error: tls_error,
         pub ca_file: *const ::core::ffi::c_char,
@@ -103,7 +102,7 @@ pub mod tls_internal_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls_keypair {
         pub next: *mut tls_keypair,
         pub cert_file: *const ::core::ffi::c_char,
@@ -118,27 +117,27 @@ pub mod tls_internal_h {
     use super::_uint32_t_h::uint32_t;
     use super::types_h::{ASN1_TIME, SSL, SSL_CTX, X509};
     extern "C" {
-        
+
         pub type tls_ocsp_query;
-        
+
         pub fn tls_set_error(
             ctx: *mut tls,
             fmt: *const ::core::ffi::c_char,
             ...
         ) -> ::core::ffi::c_int;
-        
+
         pub fn tls_set_errorx(
             ctx: *mut tls,
             fmt: *const ::core::ffi::c_char,
             ...
         ) -> ::core::ffi::c_int;
-        
+
         pub fn tls_set_error_libssl(
             ctx: *mut tls,
             fmt: *const ::core::ffi::c_char,
             ...
         ) -> ::core::ffi::c_int;
-        
+
         pub fn tls_asn1_parse_time(
             ctx: *mut tls,
             asn1time: *const ASN1_TIME,
@@ -148,91 +147,91 @@ pub mod tls_internal_h {
 }
 
 pub mod types_h {
-    
+
     pub type X509 = x509_st;
-    
+
     pub type SSL_CTX = ssl_ctx_st;
-    
+
     pub type SSL = ssl_st;
-    
+
     pub type ASN1_INTEGER = asn1_string_st;
-    
+
     pub type ASN1_ENUMERATED = asn1_string_st;
-    
+
     pub type ASN1_BIT_STRING = asn1_string_st;
-    
+
     pub type ASN1_OCTET_STRING = asn1_string_st;
-    
+
     pub type ASN1_PRINTABLESTRING = asn1_string_st;
-    
+
     pub type ASN1_T61STRING = asn1_string_st;
-    
+
     pub type ASN1_IA5STRING = asn1_string_st;
-    
+
     pub type ASN1_GENERALSTRING = asn1_string_st;
-    
+
     pub type ASN1_UNIVERSALSTRING = asn1_string_st;
-    
+
     pub type ASN1_BMPSTRING = asn1_string_st;
-    
+
     pub type ASN1_UTCTIME = asn1_string_st;
-    
+
     pub type ASN1_TIME = asn1_string_st;
-    
+
     pub type ASN1_GENERALIZEDTIME = asn1_string_st;
-    
+
     pub type ASN1_VISIBLESTRING = asn1_string_st;
-    
+
     pub type ASN1_UTF8STRING = asn1_string_st;
-    
+
     pub type ASN1_STRING = asn1_string_st;
-    
+
     pub type ASN1_BOOLEAN = ::core::ffi::c_int;
-    
+
     pub type ASN1_OBJECT = asn1_object_st;
-    
+
     pub type ASN1_TYPE = asn1_type_st;
-    
+
     pub type BIGNUM = bignum_st;
-    
+
     pub type EVP_MD = evp_md_st;
-    
+
     pub type X509_NAME = X509_name_st;
     use super::asn1_h::{asn1_string_st, asn1_type_st};
     extern "C" {
-        
+
         pub type x509_st;
-        
+
         pub type ssl_ctx_st;
-        
+
         pub type ssl_st;
-        
+
         pub type asn1_object_st;
-        
+
         pub type bignum_st;
-        
+
         pub type evp_md_st;
-        
+
         pub type X509_name_st;
     }
 }
 
 pub mod stack_h {
-    
+
     pub type OPENSSL_STACK = stack_st;
-    
+
     pub type OPENSSL_sk_freefunc = Option<unsafe extern "C" fn(*mut ::core::ffi::c_void) -> ()>;
     extern "C" {
-        
+
         pub type stack_st;
-        
+
         pub fn OPENSSL_sk_num(_: *const OPENSSL_STACK) -> ::core::ffi::c_int;
-        
+
         pub fn OPENSSL_sk_value(
             _: *const OPENSSL_STACK,
             _: ::core::ffi::c_int,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn OPENSSL_sk_pop_free(st: *mut OPENSSL_STACK, func: OPENSSL_sk_freefunc);
     }
 }
@@ -240,7 +239,7 @@ pub mod stack_h {
 pub mod asn1_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct asn1_string_st {
         pub length: ::core::ffi::c_int,
         pub type_0: ::core::ffi::c_int,
@@ -249,14 +248,14 @@ pub mod asn1_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct asn1_type_st {
         pub type_0: ::core::ffi::c_int,
         pub value: C2RustUnnamed,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed {
         pub ptr: *mut ::core::ffi::c_char,
         pub boolean: ASN1_BOOLEAN,
@@ -280,47 +279,47 @@ pub mod asn1_h {
         pub sequence: *mut ASN1_STRING,
         pub asn1_value: *mut ASN1_VALUE,
     }
-    
+
     pub type ASN1_VALUE = ASN1_VALUE_st;
-    
+
     pub type sk_ASN1_OBJECT_freefunc = Option<unsafe extern "C" fn(*mut ASN1_OBJECT) -> ()>;
-    
+
     pub const V_ASN1_UTF8STRING: ::core::ffi::c_int = 12 as ::core::ffi::c_int;
-    
+
     pub const V_ASN1_NUMERICSTRING: ::core::ffi::c_int = 18;
-    
+
     pub const V_ASN1_PRINTABLESTRING: ::core::ffi::c_int = 19;
-    
+
     pub const V_ASN1_T61STRING: ::core::ffi::c_int = 20;
-    
+
     pub const V_ASN1_IA5STRING: ::core::ffi::c_int = 22;
-    
+
     pub const V_ASN1_VISIBLESTRING: ::core::ffi::c_int = 26;
-    
+
     pub const V_ASN1_UNIVERSALSTRING: ::core::ffi::c_int = 28;
-    
+
     pub const V_ASN1_BMPSTRING: ::core::ffi::c_int = 30;
-    
+
     pub const B_ASN1_UTF8STRING: ::core::ffi::c_int = 0x2000 as ::core::ffi::c_int;
-    
+
     pub const MBSTRING_FLAG: ::core::ffi::c_int = 0x1000 as ::core::ffi::c_int;
-    
+
     pub const MBSTRING_UTF8: ::core::ffi::c_int = 0x1000 as ::core::ffi::c_int;
-    
+
     pub const MBSTRING_ASC: ::core::ffi::c_int = MBSTRING_FLAG | 1 as ::core::ffi::c_int;
-    
+
     pub const MBSTRING_BMP: ::core::ffi::c_int = MBSTRING_FLAG | 2 as ::core::ffi::c_int;
-    
+
     pub const MBSTRING_UNIV: ::core::ffi::c_int = MBSTRING_FLAG | 4 as ::core::ffi::c_int;
     #[inline]
-    
+
     pub unsafe extern "C" fn ossl_check_ASN1_OBJECT_sk_type(
         mut sk: *mut stack_st_ASN1_OBJECT,
     ) -> *mut OPENSSL_STACK {
         sk as *mut OPENSSL_STACK
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn ossl_check_ASN1_OBJECT_freefunc_type(
         mut fr: sk_ASN1_OBJECT_freefunc,
     ) -> OPENSSL_sk_freefunc {
@@ -334,27 +333,27 @@ pub mod asn1_h {
         ASN1_UTF8STRING, ASN1_VISIBLESTRING, BIGNUM,
     };
     extern "C" {
-        
+
         pub type ASN1_VALUE_st;
-        
+
         pub type stack_st_ASN1_OBJECT;
-        
+
         pub fn ASN1_OBJECT_free(a: *mut ASN1_OBJECT);
-        
+
         pub fn ASN1_STRING_free(a: *mut ASN1_STRING);
-        
+
         pub fn ASN1_STRING_length(x: *const ASN1_STRING) -> ::core::ffi::c_int;
-        
+
         pub fn ASN1_STRING_type(x: *const ASN1_STRING) -> ::core::ffi::c_int;
-        
+
         pub fn ASN1_STRING_get0_data(x: *const ASN1_STRING) -> *const ::core::ffi::c_uchar;
-        
+
         pub fn ASN1_BIT_STRING_free(a: *mut ASN1_BIT_STRING);
-        
+
         pub fn ASN1_INTEGER_get(a: *const ASN1_INTEGER) -> ::core::ffi::c_long;
-        
+
         pub fn ASN1_INTEGER_to_BN(ai: *const ASN1_INTEGER, bn: *mut BIGNUM) -> *mut BIGNUM;
-        
+
         pub fn ASN1_mbstring_ncopy(
             out: *mut *mut ASN1_STRING,
             in_0: *const ::core::ffi::c_uchar,
@@ -370,41 +369,41 @@ pub mod asn1_h {
 pub mod x509v3_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct BASIC_CONSTRAINTS_st {
         pub ca: ::core::ffi::c_int,
         pub pathlen: *mut ASN1_INTEGER,
     }
-    
+
     pub type BASIC_CONSTRAINTS = BASIC_CONSTRAINTS_st;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct otherName_st {
         pub type_id: *mut ASN1_OBJECT,
         pub value: *mut ASN1_TYPE,
     }
-    
+
     pub type OTHERNAME = otherName_st;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct EDIPartyName_st {
         pub nameAssigner: *mut ASN1_STRING,
         pub partyName: *mut ASN1_STRING,
     }
-    
+
     pub type EDIPARTYNAME = EDIPartyName_st;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct GENERAL_NAME_st {
         pub type_0: ::core::ffi::c_int,
         pub d: C2RustUnnamed_0,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_0 {
         pub ptr: *mut ::core::ffi::c_char,
         pub otherName: *mut OTHERNAME,
@@ -422,74 +421,74 @@ pub mod x509v3_h {
         pub rid: *mut ASN1_OBJECT,
         pub other: *mut ASN1_TYPE,
     }
-    
+
     pub type GENERAL_NAME = GENERAL_NAME_st;
-    
+
     pub type sk_GENERAL_NAME_freefunc = Option<unsafe extern "C" fn(*mut GENERAL_NAME) -> ()>;
-    
+
     pub type EXTENDED_KEY_USAGE = stack_st_ASN1_OBJECT;
-    
+
     pub const GEN_EMAIL: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    
+
     pub const GEN_DNS: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
-    
+
     pub const GEN_URI: ::core::ffi::c_int = 6 as ::core::ffi::c_int;
-    
+
     pub const GEN_IPADD: ::core::ffi::c_int = 7 as ::core::ffi::c_int;
     #[inline]
-    
+
     pub unsafe extern "C" fn ossl_check_const_GENERAL_NAME_sk_type(
         mut sk: *const stack_st_GENERAL_NAME,
     ) -> *const OPENSSL_STACK {
         sk as *const OPENSSL_STACK
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn ossl_check_GENERAL_NAME_freefunc_type(
         mut fr: sk_GENERAL_NAME_freefunc,
     ) -> OPENSSL_sk_freefunc {
         ::core::mem::transmute::<sk_GENERAL_NAME_freefunc, OPENSSL_sk_freefunc>(fr)
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn ossl_check_GENERAL_NAME_sk_type(
         mut sk: *mut stack_st_GENERAL_NAME,
     ) -> *mut OPENSSL_STACK {
         sk as *mut OPENSSL_STACK
     }
-    
+
     pub const KU_DIGITAL_SIGNATURE: ::core::ffi::c_int = X509v3_KU_DIGITAL_SIGNATURE;
-    
+
     pub const KU_NON_REPUDIATION: ::core::ffi::c_int = X509v3_KU_NON_REPUDIATION;
-    
+
     pub const KU_KEY_ENCIPHERMENT: ::core::ffi::c_int = X509v3_KU_KEY_ENCIPHERMENT;
-    
+
     pub const KU_DATA_ENCIPHERMENT: ::core::ffi::c_int = X509v3_KU_DATA_ENCIPHERMENT;
-    
+
     pub const KU_KEY_AGREEMENT: ::core::ffi::c_int = X509v3_KU_KEY_AGREEMENT;
-    
+
     pub const KU_KEY_CERT_SIGN: ::core::ffi::c_int = X509v3_KU_KEY_CERT_SIGN;
-    
+
     pub const KU_CRL_SIGN: ::core::ffi::c_int = X509v3_KU_CRL_SIGN;
-    
+
     pub const KU_ENCIPHER_ONLY: ::core::ffi::c_int = X509v3_KU_ENCIPHER_ONLY;
-    
+
     pub const KU_DECIPHER_ONLY: ::core::ffi::c_int = X509v3_KU_DECIPHER_ONLY;
-    
+
     pub const XKU_SSL_SERVER: ::core::ffi::c_int = 0x1 as ::core::ffi::c_int;
-    
+
     pub const XKU_SSL_CLIENT: ::core::ffi::c_int = 0x2 as ::core::ffi::c_int;
-    
+
     pub const XKU_SMIME: ::core::ffi::c_int = 0x4 as ::core::ffi::c_int;
-    
+
     pub const XKU_CODE_SIGN: ::core::ffi::c_int = 0x8 as ::core::ffi::c_int;
-    
+
     pub const XKU_SGC: ::core::ffi::c_int = 0x10 as ::core::ffi::c_int;
-    
+
     pub const XKU_OCSP_SIGN: ::core::ffi::c_int = 0x20 as ::core::ffi::c_int;
-    
+
     pub const XKU_TIMESTAMP: ::core::ffi::c_int = 0x40 as ::core::ffi::c_int;
-    
+
     pub const XKU_DVCS: ::core::ffi::c_int = 0x80 as ::core::ffi::c_int;
     use super::_uint32_t_h::uint32_t;
     use super::asn1_h::stack_st_ASN1_OBJECT;
@@ -504,79 +503,79 @@ pub mod x509v3_h {
         X509v3_KU_KEY_CERT_SIGN, X509v3_KU_KEY_ENCIPHERMENT, X509v3_KU_NON_REPUDIATION,
     };
     extern "C" {
-        
+
         pub type stack_st_GENERAL_NAME;
-        
+
         pub fn BASIC_CONSTRAINTS_free(a: *mut BASIC_CONSTRAINTS);
-        
+
         pub fn GENERAL_NAME_free(a: *mut GENERAL_NAME);
-        
+
         pub fn X509_check_ca(x: *mut X509) -> ::core::ffi::c_int;
-        
+
         pub fn X509_get_key_usage(x: *mut X509) -> uint32_t;
-        
+
         pub fn X509_get_extended_key_usage(x: *mut X509) -> uint32_t;
     }
 }
 
 pub mod x509_h {
-    
+
     pub type X509_NAME_ENTRY = X509_name_entry_st;
-    
+
     pub const X509v3_KU_DIGITAL_SIGNATURE: ::core::ffi::c_int = 0x80 as ::core::ffi::c_int;
-    
+
     pub const X509v3_KU_NON_REPUDIATION: ::core::ffi::c_int = 0x40 as ::core::ffi::c_int;
-    
+
     pub const X509v3_KU_KEY_ENCIPHERMENT: ::core::ffi::c_int = 0x20 as ::core::ffi::c_int;
-    
+
     pub const X509v3_KU_DATA_ENCIPHERMENT: ::core::ffi::c_int = 0x10 as ::core::ffi::c_int;
-    
+
     pub const X509v3_KU_KEY_AGREEMENT: ::core::ffi::c_int = 0x8 as ::core::ffi::c_int;
-    
+
     pub const X509v3_KU_KEY_CERT_SIGN: ::core::ffi::c_int = 0x4 as ::core::ffi::c_int;
-    
+
     pub const X509v3_KU_CRL_SIGN: ::core::ffi::c_int = 0x2 as ::core::ffi::c_int;
-    
+
     pub const X509v3_KU_ENCIPHER_ONLY: ::core::ffi::c_int = 0x1 as ::core::ffi::c_int;
-    
+
     pub const X509v3_KU_DECIPHER_ONLY: ::core::ffi::c_int = 0x8000 as ::core::ffi::c_int;
     use super::types_h::{ASN1_INTEGER, ASN1_STRING, ASN1_TIME, EVP_MD, X509, X509_NAME};
     extern "C" {
-        
+
         pub type X509_name_entry_st;
-        
+
         pub fn X509_digest(
             data: *const X509,
             type_0: *const EVP_MD,
             md: *mut ::core::ffi::c_uchar,
             len: *mut ::core::ffi::c_uint,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn X509_get_version(x: *const X509) -> ::core::ffi::c_long;
-        
+
         pub fn X509_get_serialNumber(x: *mut X509) -> *mut ASN1_INTEGER;
-        
+
         pub fn X509_get_issuer_name(a: *const X509) -> *mut X509_NAME;
-        
+
         pub fn X509_get_subject_name(a: *const X509) -> *mut X509_NAME;
-        
+
         pub fn X509_getm_notBefore(x: *const X509) -> *mut ASN1_TIME;
-        
+
         pub fn X509_getm_notAfter(x: *const X509) -> *mut ASN1_TIME;
-        
+
         pub fn X509_NAME_get_index_by_NID(
             name: *const X509_NAME,
             nid: ::core::ffi::c_int,
             lastpos: ::core::ffi::c_int,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn X509_NAME_get_entry(
             name: *const X509_NAME,
             loc: ::core::ffi::c_int,
         ) -> *mut X509_NAME_ENTRY;
-        
+
         pub fn X509_NAME_ENTRY_get_data(ne: *const X509_NAME_ENTRY) -> *mut ASN1_STRING;
-        
+
         pub fn X509_get_ext_d2i(
             x: *const X509,
             nid: ::core::ffi::c_int,
@@ -589,14 +588,14 @@ pub mod x509_h {
 pub mod tls_cert_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls_cert_general_name {
         pub name_value: *const ::core::ffi::c_void,
         pub name_type: ::core::ffi::c_int,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls_cert_dname {
         pub common_name: *const ::core::ffi::c_char,
         pub country_name: *const ::core::ffi::c_char,
@@ -608,7 +607,7 @@ pub mod tls_cert_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls_cert {
         pub version: ::core::ffi::c_int,
         pub successful_verify: ::core::ffi::c_int,
@@ -628,47 +627,47 @@ pub mod tls_cert_h {
         pub fingerprint: *const ::core::ffi::c_uchar,
         pub fingerprint_size: size_t,
     }
-    
+
     pub const TLS_CERT_GNAME_DNS: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    
+
     pub const TLS_CERT_GNAME_IPv4: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
-    
+
     pub const TLS_CERT_GNAME_IPv6: ::core::ffi::c_int = 3 as ::core::ffi::c_int;
-    
+
     pub const TLS_CERT_GNAME_EMAIL: ::core::ffi::c_int = 4 as ::core::ffi::c_int;
-    
+
     pub const TLS_CERT_GNAME_URI: ::core::ffi::c_int = 5 as ::core::ffi::c_int;
-    
+
     pub const TLS_XKU_SSL_SERVER: ::core::ffi::c_int =
         (1 as ::core::ffi::c_int) << 0 as ::core::ffi::c_int;
-    
+
     pub const TLS_XKU_SSL_CLIENT: ::core::ffi::c_int =
         (1 as ::core::ffi::c_int) << 1 as ::core::ffi::c_int;
-    
+
     pub const TLS_XKU_SMIME: ::core::ffi::c_int =
         (1 as ::core::ffi::c_int) << 2 as ::core::ffi::c_int;
-    
+
     pub const TLS_XKU_CODE_SIGN: ::core::ffi::c_int =
         (1 as ::core::ffi::c_int) << 3 as ::core::ffi::c_int;
-    
+
     pub const TLS_XKU_OCSP_SIGN: ::core::ffi::c_int =
         (1 as ::core::ffi::c_int) << 4 as ::core::ffi::c_int;
-    
+
     pub const TLS_XKU_SGC: ::core::ffi::c_int =
         (1 as ::core::ffi::c_int) << 5 as ::core::ffi::c_int;
-    
+
     pub const TLS_XKU_TIMESTAMP: ::core::ffi::c_int =
         (1 as ::core::ffi::c_int) << 6 as ::core::ffi::c_int;
-    
+
     pub const TLS_XKU_DVCS: ::core::ffi::c_int =
         (1 as ::core::ffi::c_int) << 7 as ::core::ffi::c_int;
-    
+
     pub const TLS_EXT_BASIC: ::core::ffi::c_int =
         (1 as ::core::ffi::c_int) << 0 as ::core::ffi::c_int;
-    
+
     pub const TLS_EXT_KEY_USAGE: ::core::ffi::c_int =
         (1 as ::core::ffi::c_int) << 1 as ::core::ffi::c_int;
-    
+
     pub const TLS_EXT_EXTENDED_KEY_USAGE: ::core::ffi::c_int =
         (1 as ::core::ffi::c_int) << 2 as ::core::ffi::c_int;
     use super::_size_t_h::size_t;
@@ -679,7 +678,7 @@ pub mod tls_cert_h {
 pub mod _stdio_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn snprintf(
             __str: *mut ::core::ffi::c_char,
             __size: size_t,
@@ -692,11 +691,11 @@ pub mod _stdio_h {
 pub mod _malloc_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn malloc(__size: size_t) -> *mut ::core::ffi::c_void;
-        
+
         pub fn calloc(__count: size_t, __size: size_t) -> *mut ::core::ffi::c_void;
-        
+
         pub fn free(_: *mut ::core::ffi::c_void);
     }
 }
@@ -704,19 +703,19 @@ pub mod _malloc_h {
 pub mod _string_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn memchr(
             __s: *const ::core::ffi::c_void,
             __c: ::core::ffi::c_int,
             __n: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn memcpy(
             __dst: *mut ::core::ffi::c_void,
             __src: *const ::core::ffi::c_void,
             __n: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn strdup(__s1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
     }
 }
@@ -724,9 +723,9 @@ pub mod _string_h {
 pub mod bn_h {
     use super::types_h::BIGNUM;
     extern "C" {
-        
+
         pub fn BN_free(a: *mut BIGNUM);
-        
+
         pub fn BN_bn2dec(a: *const BIGNUM) -> *mut ::core::ffi::c_char;
     }
 }
@@ -734,11 +733,11 @@ pub mod bn_h {
 pub mod evp_h {
     use super::types_h::EVP_MD;
     extern "C" {
-        
+
         pub fn EVP_MD_get_size(md: *const EVP_MD) -> ::core::ffi::c_int;
-        
+
         pub fn EVP_sha1() -> *const EVP_MD;
-        
+
         pub fn EVP_sha256() -> *const EVP_MD;
     }
 }
@@ -746,31 +745,31 @@ pub mod evp_h {
 pub mod ssl_h {
     use super::types_h::SSL;
     extern "C" {
-        
+
         pub fn SSL_get_verify_result(ssl: *const SSL) -> ::core::ffi::c_long;
     }
 }
 
 pub mod _null_h {
-    
+
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
     use super::sys__types_h::__DARWIN_NULL;
 }
 
 pub mod sys__types_h {
-    
+
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
 }
 
 pub mod tls_h {
-    
+
     pub const TLS_NO_CERT: ::core::ffi::c_int = -(5 as ::core::ffi::c_int);
 }
 
 pub mod _strings_h {
     extern "C" {
-        
+
         pub fn strcasecmp(
             _: *const ::core::ffi::c_char,
             _: *const ::core::ffi::c_char,
@@ -780,7 +779,7 @@ pub mod _strings_h {
 
 pub mod crypto_h {
     extern "C" {
-        
+
         pub fn CRYPTO_free(
             ptr: *mut ::core::ffi::c_void,
             file: *const ::core::ffi::c_char,
@@ -790,38 +789,38 @@ pub mod crypto_h {
 }
 
 pub mod obj_mac_h {
-    
+
     pub const NID_commonName: ::core::ffi::c_int = 13 as ::core::ffi::c_int;
-    
+
     pub const NID_countryName: ::core::ffi::c_int = 14 as ::core::ffi::c_int;
-    
+
     pub const NID_localityName: ::core::ffi::c_int = 15 as ::core::ffi::c_int;
-    
+
     pub const NID_stateOrProvinceName: ::core::ffi::c_int = 16 as ::core::ffi::c_int;
-    
+
     pub const NID_streetAddress: ::core::ffi::c_int = 660 as ::core::ffi::c_int;
-    
+
     pub const NID_organizationName: ::core::ffi::c_int = 17 as ::core::ffi::c_int;
-    
+
     pub const NID_organizationalUnitName: ::core::ffi::c_int = 18 as ::core::ffi::c_int;
-    
+
     pub const NID_key_usage: ::core::ffi::c_int = 83 as ::core::ffi::c_int;
-    
+
     pub const NID_subject_alt_name: ::core::ffi::c_int = 85 as ::core::ffi::c_int;
-    
+
     pub const NID_basic_constraints: ::core::ffi::c_int = 87 as ::core::ffi::c_int;
-    
+
     pub const NID_ext_key_usage: ::core::ffi::c_int = 126 as ::core::ffi::c_int;
 }
 
 pub mod x509_vfy_h {
-    
+
     pub const X509_V_OK: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 }
 
 pub mod err_h {
     extern "C" {
-        
+
         pub fn ERR_clear_error();
     }
 }

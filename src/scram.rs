@@ -1,84 +1,46 @@
-
-pub mod _types_h {
-    
-    pub type __uint8_t = u8;
-    
-    pub type __uint16_t = u16;
-    
-    pub type __int32_t = i32;
-    
-    pub type __uint32_t = u32;
-    
-    pub type __darwin_ptrdiff_t = isize;
-    
-    pub type __darwin_size_t = usize;
-    
-    pub type __darwin_ssize_t = isize;
-    
-    pub type __darwin_time_t = ::core::ffi::c_long;
-}
-
-
 pub mod sys__types_h {
-    
+
     pub type __darwin_pid_t = __int32_t;
-    
+
     pub type __darwin_suseconds_t = __int32_t;
-    
+
     pub type __darwin_uid_t = __uint32_t;
-    
+
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
-    use super::_types_h::{__int32_t, __uint32_t};
+    use crate::types::{__int32_t, __uint32_t};
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 pub mod tls_h {
     extern "C" {
-        
+
         pub type tls;
     }
 }
 
-
-
-
-
-
 pub mod socket_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr {
         pub sa_len: __uint8_t,
         pub sa_family: sa_family_t,
         pub sa_data: [::core::ffi::c_char; 14],
     }
+    use crate::types::__uint8_t;
     use crate::types::sa_family_t;
-    use super::_types_h::__uint8_t;
 }
 
 pub mod in_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct in_addr {
         pub s_addr: in_addr_t,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr_in {
         pub sin_len: __uint8_t,
         pub sin_family: sa_family_t,
@@ -86,22 +48,22 @@ pub mod in_h {
         pub sin_addr: in_addr,
         pub sin_zero: [::core::ffi::c_char; 8],
     }
+    use crate::types::__uint8_t;
     use crate::types::in_addr_t;
     use crate::types::in_port_t;
     use crate::types::sa_family_t;
-    use super::_types_h::__uint8_t;
 }
 
 pub mod in6_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct in6_addr {
         pub __u6_addr: C2RustUnnamed,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed {
         pub __u6_addr8: [__uint8_t; 16],
         pub __u6_addr16: [__uint16_t; 8],
@@ -109,7 +71,7 @@ pub mod in6_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr_in6 {
         pub sin6_len: __uint8_t,
         pub sin6_family: sa_family_t,
@@ -120,12 +82,12 @@ pub mod in6_h {
     }
     use crate::types::in_port_t;
     use crate::types::sa_family_t;
-    use super::_types_h::{__uint16_t, __uint32_t, __uint8_t};
+    use crate::types::{__uint16_t, __uint32_t, __uint8_t};
 }
 
 pub mod event_h {
     extern "C" {
-        
+
         pub type event_base;
     }
 }
@@ -133,7 +95,7 @@ pub mod event_h {
 pub mod event_struct_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct event {
         pub ev_evcallback: event_callback,
         pub ev_timeout_pos: C2RustUnnamed_5,
@@ -146,14 +108,14 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_0 {
         pub ev_io: C2RustUnnamed_3,
         pub ev_signal: C2RustUnnamed_1,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_1 {
         pub ev_signal_next: C2RustUnnamed_2,
         pub ev_ncalls: ::core::ffi::c_short,
@@ -161,42 +123,42 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_2 {
         pub le_next: *mut event,
         pub le_prev: *mut *mut event,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_3 {
         pub ev_io_next: C2RustUnnamed_4,
         pub ev_timeout: timeval,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_4 {
         pub le_next: *mut event,
         pub le_prev: *mut *mut event,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_5 {
         pub ev_next_with_common_timeout: C2RustUnnamed_6,
         pub min_heap_idx: ::core::ffi::c_int,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_6 {
         pub tqe_next: *mut event,
         pub tqe_prev: *mut *mut event,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct event_callback {
         pub evcb_active_next: C2RustUnnamed_8,
         pub evcb_flags: ::core::ffi::c_short,
@@ -207,7 +169,7 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_7 {
         pub evcb_callback: Option<
             unsafe extern "C" fn(
@@ -225,72 +187,70 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_8 {
         pub tqe_next: *mut event_callback,
         pub tqe_prev: *mut *mut event_callback,
     }
+    use super::event_h::event_base;
     use crate::types::timeval;
     use crate::types::uint8_t;
-    use super::event_h::event_base;
 }
 
-
-
 pub mod bouncer_h {
-    
+
     pub type SocketState = ::core::ffi::c_uint;
-    
+
     pub const SV_TESTED: SocketState = 16;
-    
+
     pub const SV_USED: SocketState = 15;
-    
+
     pub const SV_ACTIVE_CANCEL: SocketState = 14;
-    
+
     pub const SV_ACTIVE: SocketState = 13;
-    
+
     pub const SV_IDLE: SocketState = 12;
-    
+
     pub const SV_BEING_CANCELED: SocketState = 11;
-    
+
     pub const SV_LOGIN: SocketState = 10;
-    
+
     pub const SV_JUSTFREE: SocketState = 9;
-    
+
     pub const SV_FREE: SocketState = 8;
-    
+
     pub const CL_ACTIVE_CANCEL: SocketState = 7;
-    
+
     pub const CL_WAITING_CANCEL: SocketState = 6;
-    
+
     pub const CL_ACTIVE: SocketState = 5;
-    
+
     pub const CL_WAITING_LOGIN: SocketState = 4;
-    
+
     pub const CL_WAITING: SocketState = 3;
-    
+
     pub const CL_LOGIN: SocketState = 2;
-    
+
     pub const CL_JUSTFREE: SocketState = 1;
-    
+
     pub const CL_FREE: SocketState = 0;
-    
+
     pub type PacketCallbackFlag = ::core::ffi::c_uint;
-    
+
     pub const CB_HANDLE_COMPLETE_PACKET: PacketCallbackFlag = 2;
-    
+
     pub const CB_WANT_COMPLETE_PACKET: PacketCallbackFlag = 1;
-    
+
     pub const CB_NONE: PacketCallbackFlag = 0;
-    
+
     pub type LoadBalanceHosts = ::core::ffi::c_uint;
-    
+
     pub const LOAD_BALANCE_HOSTS_ROUND_ROBIN: LoadBalanceHosts = 1;
-    
+
     pub const LOAD_BALANCE_HOSTS_DISABLE: LoadBalanceHosts = 0;
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    
+
     pub struct PgSocket {
         pub head: List,
         pub cancel_head: List,
@@ -347,7 +307,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    
+
     pub struct CallbackState {
         #[bitfield(name = "flag", ty = "PacketCallbackFlag", bits = "0..=7")]
         pub flag: [u8; 1],
@@ -357,7 +317,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct ScramState {
         pub client_nonce: *mut ::core::ffi::c_char,
         pub client_first_message_bare: *mut ::core::ffi::c_char,
@@ -379,14 +339,14 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_9 {
         pub dns_token: *mut DNSToken,
         pub db: *mut PgDatabase,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct PgDatabase {
         pub head: List,
         pub name: [::core::ffi::c_char; 64],
@@ -424,7 +384,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct PgCredentials {
         pub tree_node: AANode,
         pub name: [::core::ffi::c_char; 128],
@@ -442,7 +402,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct PgGlobalUser {
         pub credentials: PgCredentials,
         pub head: List,
@@ -461,7 +421,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    
+
     pub struct PgPool {
         pub head: List,
         pub map_head: List,
@@ -497,7 +457,7 @@ pub mod bouncer_h {
     pub use super::super::common::types::PgStats;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union PgAddr {
         pub sa: sockaddr,
         pub sin: sockaddr_in,
@@ -506,46 +466,46 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr_ucreds {
         pub sin: sockaddr_in,
         pub uid: uid_t,
         pub pid: pid_t,
     }
-    
+
     pub type ReplicationType = ::core::ffi::c_uint;
-    
+
     pub const REPLICATION_PHYSICAL: ReplicationType = 2;
-    
+
     pub const REPLICATION_LOGICAL: ReplicationType = 1;
-    
+
     pub const REPLICATION_NONE: ReplicationType = 0;
+    use super::dnslookup_h::DNSToken;
+    use super::in6_h::sockaddr_in6;
+    use super::in_h::sockaddr_in;
+    use super::pktbuf_h::PktBuf;
+    use super::sbuf_h::SBuf;
+    use super::socket_h::sockaddr;
+    use crate::types::pg_cryptohash_type;
     use crate::types::pid_t;
     use crate::types::uid_t;
     use crate::types::uint16_t;
     use crate::types::uint64_t;
     use crate::types::uint8_t;
-    use crate::types::{AANode, AATree};
-    use crate::types::pg_cryptohash_type;
-    use super::dnslookup_h::DNSToken;
-    use super::in6_h::sockaddr_in6;
-    use super::in_h::sockaddr_in;
-    use crate::types::List;
-    use super::pktbuf_h::PktBuf;
-    use crate::types::{PgClientPreparedStatement, PgServerPreparedStatement};
-    use crate::types::PktHdr;
-    use super::sbuf_h::SBuf;
-    use super::socket_h::sockaddr;
-    use crate::types::StatList;
     use crate::types::usec_t;
+    use crate::types::List;
+    use crate::types::PktHdr;
+    use crate::types::StatList;
     use crate::types::VarCache;
+    use crate::types::{AANode, AATree};
+    use crate::types::{PgClientPreparedStatement, PgServerPreparedStatement};
     extern "C" {}
 }
 
 pub mod sbuf_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct SBuf {
         pub ev: event,
         pub wait_type: uint8_t,
@@ -565,7 +525,7 @@ pub mod sbuf_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct SBufIO {
         pub sbufio_peek:
             Option<unsafe extern "C" fn(*mut SBuf, *mut ::core::ffi::c_void, size_t) -> ssize_t>,
@@ -575,41 +535,41 @@ pub mod sbuf_h {
             Option<unsafe extern "C" fn(*mut SBuf, *const ::core::ffi::c_void, size_t) -> ssize_t>,
         pub sbufio_close: Option<unsafe extern "C" fn(*mut SBuf) -> ::core::ffi::c_int>,
     }
-    
+
     pub type sbuf_cb_t = Option<unsafe extern "C" fn(*mut SBuf, SBufEvent, *mut MBuf) -> bool>;
-    
+
     pub type SBufEvent = ::core::ffi::c_uint;
-    
+
     pub const SBUF_EV_TLS_READY: SBufEvent = 7;
-    
+
     pub const SBUF_EV_PKT_CALLBACK: SBufEvent = 6;
-    
+
     pub const SBUF_EV_FLUSH: SBufEvent = 5;
-    
+
     pub const SBUF_EV_CONNECT_OK: SBufEvent = 4;
-    
+
     pub const SBUF_EV_CONNECT_FAILED: SBufEvent = 3;
-    
+
     pub const SBUF_EV_SEND_FAILED: SBufEvent = 2;
-    
+
     pub const SBUF_EV_RECV_FAILED: SBufEvent = 1;
-    
+
     pub const SBUF_EV_READ: SBufEvent = 0;
+    use super::event_struct_h::event;
+    use super::iobuf_h::IOBuf;
+    use super::tls_h::tls;
     use crate::types::size_t;
     use crate::types::ssize_t;
     use crate::types::uint8_t;
-    use super::event_struct_h::event;
-    use super::iobuf_h::IOBuf;
     use crate::types::MBuf;
-    use super::tls_h::tls;
 }
 
 pub mod iobuf_h {
-    
+
     pub type IOBuf = iobuf;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct iobuf {
         pub done_pos: ::core::ffi::c_uint,
         pub parse_pos: ::core::ffi::c_uint,
@@ -619,12 +579,10 @@ pub mod iobuf_h {
     use crate::types::uint8_t;
 }
 
-
-
 pub mod pktbuf_h {
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    
+
     pub struct PktBuf {
         pub buf: *mut uint8_t,
         pub buf_len: ::core::ffi::c_int,
@@ -640,37 +598,37 @@ pub mod pktbuf_h {
         #[bitfield(padding)]
         pub c2rust_padding: [u8; 7],
     }
-    use crate::types::uint8_t;
     use super::bouncer_h::PgSocket;
     use super::event_struct_h::event;
+    use crate::types::uint8_t;
 }
 
 pub mod dnslookup_h {
     extern "C" {
-        
+
         pub type DNSToken;
     }
 }
 
 pub mod logging_h {
-    
+
     pub type LogLevel = ::core::ffi::c_uint;
-    
+
     pub const LG_NOISE: LogLevel = 6;
-    
+
     pub const LG_DEBUG: LogLevel = 5;
-    
+
     pub const LG_INFO: LogLevel = 4;
-    
+
     pub const LG_STATS: LogLevel = 3;
-    
+
     pub const LG_WARNING: LogLevel = 2;
-    
+
     pub const LG_ERROR: LogLevel = 1;
-    
+
     pub const LG_FATAL: LogLevel = 0;
     extern "C" {
-        
+
         pub fn log_generic(
             level: LogLevel,
             ctx: *mut ::core::ffi::c_void,
@@ -681,67 +639,67 @@ pub mod logging_h {
 }
 
 pub mod scram_h {
-    
+
     pub type PasswordType = ::core::ffi::c_uint;
-    
+
     pub const PASSWORD_TYPE_SCRAM_SHA_256: PasswordType = 2;
-    
+
     pub const PASSWORD_TYPE_MD5: PasswordType = 1;
-    
+
     pub const PASSWORD_TYPE_PLAINTEXT: PasswordType = 0;
     extern "C" {
-        
+
         pub static mut cf_scram_iterations: ::core::ffi::c_int;
     }
 }
 
 pub mod hmac_h {
+    use crate::types::pg_cryptohash_type;
     use crate::types::size_t;
     use crate::types::uint8_t;
-    use crate::types::pg_cryptohash_type;
     extern "C" {
-        
+
         pub type pg_hmac_ctx;
-        
+
         pub fn pg_hmac_create(type_0: pg_cryptohash_type) -> *mut pg_hmac_ctx;
-        
+
         pub fn pg_hmac_init(
             ctx: *mut pg_hmac_ctx,
             key: *const uint8_t,
             len: size_t,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn pg_hmac_update(
             ctx: *mut pg_hmac_ctx,
             data: *const uint8_t,
             len: size_t,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn pg_hmac_final(
             ctx: *mut pg_hmac_ctx,
             dest: *mut uint8_t,
             len: size_t,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn pg_hmac_free(ctx: *mut pg_hmac_ctx);
-        
+
         pub fn pg_hmac_error(ctx: *mut pg_hmac_ctx) -> *const ::core::ffi::c_char;
     }
 }
 
 pub mod saslprep_h {
-    
+
     pub const SASLPREP_SUCCESS: pg_saslprep_rc = 0;
-    
+
     pub type pg_saslprep_rc = ::core::ffi::c_int;
-    
+
     pub const SASLPREP_PROHIBITED: pg_saslprep_rc = -3;
-    
+
     pub const SASLPREP_INVALID_UTF8: pg_saslprep_rc = -2;
-    
+
     pub const SASLPREP_OOM: pg_saslprep_rc = -1;
     extern "C" {
-        
+
         pub fn pg_saslprep(
             input: *const ::core::ffi::c_char,
             output: *mut *mut ::core::ffi::c_char,
@@ -752,7 +710,7 @@ pub mod saslprep_h {
 pub mod _stdio_h {
     use crate::types::size_t;
     extern "C" {
-        
+
         pub fn snprintf(
             __str: *mut ::core::ffi::c_char,
             __size: size_t,
@@ -765,61 +723,60 @@ pub mod _stdio_h {
 pub mod _malloc_h {
     use crate::types::size_t;
     extern "C" {
-        
+
         pub fn malloc(__size: size_t) -> *mut ::core::ffi::c_void;
-        
+
         pub fn free(_: *mut ::core::ffi::c_void);
     }
 }
 
-
 pub mod _string_h {
     use crate::types::size_t;
     extern "C" {
-        
+
         pub fn memcmp(
             __s1: *const ::core::ffi::c_void,
             __s2: *const ::core::ffi::c_void,
             __n: size_t,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn memcpy(
             __dst: *mut ::core::ffi::c_void,
             __src: *const ::core::ffi::c_void,
             __n: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn memset(
             __b: *mut ::core::ffi::c_void,
             __c: ::core::ffi::c_int,
             __len: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn strcmp(
             __s1: *const ::core::ffi::c_char,
             __s2: *const ::core::ffi::c_char,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn strlen(__s: *const ::core::ffi::c_char) -> size_t;
-        
+
         pub fn strncmp(
             __s1: *const ::core::ffi::c_char,
             __s2: *const ::core::ffi::c_char,
             __n: size_t,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn strspn(
             __s: *const ::core::ffi::c_char,
             __charset: *const ::core::ffi::c_char,
         ) -> ::core::ffi::c_ulong;
-        
+
         pub fn strtok(
             __str: *mut ::core::ffi::c_char,
             __sep: *const ::core::ffi::c_char,
         ) -> *mut ::core::ffi::c_char;
-        
+
         pub fn strdup(__s1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
-        
+
         pub fn strlcat(
             __dst: *mut ::core::ffi::c_char,
             __source: *const ::core::ffi::c_char,
@@ -829,27 +786,27 @@ pub mod _string_h {
 }
 
 pub mod util_h {
-    
+
     pub const MD5_PASSWD_LEN: ::core::ffi::c_int = 35 as ::core::ffi::c_int;
     use crate::types::uint8_t;
     extern "C" {
-        
+
         pub fn get_random_bytes(dest: *mut uint8_t, len: ::core::ffi::c_int);
     }
 }
 
 pub mod scram_common_h {
-    
+
     pub const SCRAM_SHA_256_KEY_LEN: ::core::ffi::c_int = PG_SHA256_DIGEST_LENGTH;
-    
+
     pub const SCRAM_RAW_NONCE_LEN: ::core::ffi::c_int = 18 as ::core::ffi::c_int;
-    
+
     pub const SCRAM_DEFAULT_SALT_LEN: ::core::ffi::c_int = 16 as ::core::ffi::c_int;
-    use crate::types::uint8_t;
-    use crate::types::pg_cryptohash_type;
     use super::sha2_h::PG_SHA256_DIGEST_LENGTH;
+    use crate::types::pg_cryptohash_type;
+    use crate::types::uint8_t;
     extern "C" {
-        
+
         pub fn scram_SaltedPassword(
             password: *const ::core::ffi::c_char,
             hash_type: pg_cryptohash_type,
@@ -860,7 +817,7 @@ pub mod scram_common_h {
             result: *mut uint8_t,
             errstr: *mut *const ::core::ffi::c_char,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn scram_H(
             input: *const uint8_t,
             hash_type: pg_cryptohash_type,
@@ -868,7 +825,7 @@ pub mod scram_common_h {
             result: *mut uint8_t,
             errstr: *mut *const ::core::ffi::c_char,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn scram_ClientKey(
             salted_password: *const uint8_t,
             hash_type: pg_cryptohash_type,
@@ -876,7 +833,7 @@ pub mod scram_common_h {
             result: *mut uint8_t,
             errstr: *mut *const ::core::ffi::c_char,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn scram_ServerKey(
             salted_password: *const uint8_t,
             hash_type: pg_cryptohash_type,
@@ -890,36 +847,35 @@ pub mod scram_common_h {
 pub mod base64_h {
     use crate::types::uint8_t;
     extern "C" {
-        
+
         pub fn pg_b64_encode(
             src: *const uint8_t,
             len: ::core::ffi::c_int,
             dst: *mut ::core::ffi::c_char,
             dstlen: ::core::ffi::c_int,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn pg_b64_decode(
             src: *const ::core::ffi::c_char,
             len: ::core::ffi::c_int,
             dst: *mut uint8_t,
             dstlen: ::core::ffi::c_int,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn pg_b64_enc_len(srclen: ::core::ffi::c_int) -> ::core::ffi::c_int;
-        
+
         pub fn pg_b64_dec_len(srclen: ::core::ffi::c_int) -> ::core::ffi::c_int;
     }
 }
 
 pub mod limits_h {
-    
+
     pub const INT_MAX: ::core::ffi::c_int = 2147483647 as ::core::ffi::c_int;
 }
 
-
 pub mod _stdlib_h {
     extern "C" {
-        
+
         pub fn strtol(
             __str: *const ::core::ffi::c_char,
             __endptr: *mut *mut ::core::ffi::c_char,
@@ -930,41 +886,21 @@ pub mod _stdlib_h {
 
 pub mod errno_h {
     extern "C" {
-        
+
         pub fn __error() -> *mut ::core::ffi::c_int;
     }
 }
 
 pub mod sha2_h {
-    
+
     pub const PG_SHA256_DIGEST_LENGTH: ::core::ffi::c_int = 32 as ::core::ffi::c_int;
 }
-pub use crate::types::in_addr_t;
-pub use crate::types::in_port_t;
 use self::_malloc_h::{free, malloc};
-pub use crate::types::NULL;
-pub use crate::types::pid_t;
-pub use crate::types::ptrdiff_t;
-pub use crate::types::sa_family_t;
-pub use crate::types::size_t;
-pub use crate::types::ssize_t;
 use self::_stdio_h::snprintf;
 use self::_stdlib_h::strtol;
 use self::_string_h::{
     memcmp, memcpy, memset, strcmp, strdup, strlcat, strlen, strncmp, strspn, strtok,
 };
-pub use crate::types::timeval;
-pub use self::_types_h::{
-    __darwin_ptrdiff_t, __darwin_size_t, __darwin_ssize_t, __darwin_time_t, __int32_t, __uint16_t,
-    __uint32_t, __uint8_t,
-};
-pub use crate::types::uid_t;
-pub use crate::types::uint16_t;
-pub use crate::types::uint32_t;
-pub use crate::types::uint64_t;
-pub use crate::types::uint8_t;
-pub use crate::types::uintptr_t;
-pub use crate::types::{aatree_cmp_f, aatree_walker_f, AANode, AATree};
 use self::base64_h::{pg_b64_dec_len, pg_b64_decode, pg_b64_enc_len, pg_b64_encode};
 pub use self::bouncer_h::{
     sockaddr_ucreds, C2RustUnnamed_9, CallbackState, LoadBalanceHosts, PacketCallbackFlag, PgAddr,
@@ -975,6 +911,26 @@ pub use self::bouncer_h::{
     REPLICATION_LOGICAL, REPLICATION_NONE, REPLICATION_PHYSICAL, SV_ACTIVE, SV_ACTIVE_CANCEL,
     SV_BEING_CANCELED, SV_FREE, SV_IDLE, SV_JUSTFREE, SV_LOGIN, SV_TESTED, SV_USED,
 };
+pub use crate::types::in_addr_t;
+pub use crate::types::in_port_t;
+pub use crate::types::pid_t;
+pub use crate::types::ptrdiff_t;
+pub use crate::types::sa_family_t;
+pub use crate::types::size_t;
+pub use crate::types::ssize_t;
+pub use crate::types::timeval;
+pub use crate::types::uid_t;
+pub use crate::types::uint16_t;
+pub use crate::types::uint32_t;
+pub use crate::types::uint64_t;
+pub use crate::types::uint8_t;
+pub use crate::types::uintptr_t;
+pub use crate::types::NULL;
+pub use crate::types::{
+    __darwin_ptrdiff_t, __darwin_size_t, __darwin_ssize_t, __darwin_time_t, __int32_t, __uint16_t,
+    __uint32_t, __uint8_t,
+};
+pub use crate::types::{aatree_cmp_f, aatree_walker_f, AANode, AATree};
 pub use crate::types::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
 
 use self::errno_h::__error;
@@ -991,16 +947,10 @@ pub use self::in6_h::{in6_addr, sockaddr_in6, C2RustUnnamed};
 pub use self::in_h::{in_addr, sockaddr_in};
 pub use self::iobuf_h::{iobuf, IOBuf};
 pub use self::limits_h::INT_MAX;
-pub use crate::types::List;
 pub use self::logging_h::{
     log_generic, LogLevel, LG_DEBUG, LG_ERROR, LG_FATAL, LG_INFO, LG_NOISE, LG_STATS, LG_WARNING,
 };
-pub use crate::types::MBuf;
 pub use self::pktbuf_h::PktBuf;
-pub use crate::types::{
-    PgClientPreparedStatement, PgPreparedStatement, PgServerPreparedStatement,
-};
-pub use crate::types::PktHdr;
 pub use self::saslprep_h::{
     pg_saslprep, pg_saslprep_rc, SASLPREP_INVALID_UTF8, SASLPREP_OOM, SASLPREP_PROHIBITED,
     SASLPREP_SUCCESS,
@@ -1020,15 +970,19 @@ pub use self::scram_h::{
 };
 pub use self::sha2_h::PG_SHA256_DIGEST_LENGTH;
 pub use self::socket_h::sockaddr;
+pub use self::sys__types_h::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
+pub use crate::types::usec_t;
+pub use crate::types::List;
+pub use crate::types::MBuf;
+pub use crate::types::PktHdr;
 pub use crate::types::StatList;
 pub use crate::types::{false_0, true_0};
 pub use crate::types::{PStr, StrPool};
-pub use self::sys__types_h::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
-pub use crate::types::usec_t;
+pub use crate::types::{PgClientPreparedStatement, PgPreparedStatement, PgServerPreparedStatement};
 
-pub use crate::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 pub use self::util_h::{get_random_bytes, MD5_PASSWD_LEN};
 pub use crate::types::VarCache;
+pub use crate::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 #[no_mangle]
 
 pub unsafe extern "C" fn free_scram_state(mut state: *mut ScramState) {
@@ -1053,11 +1007,11 @@ unsafe extern "C" fn is_scram_printable(mut p: *mut ::core::ffi::c_char) -> bool
             || *p as ::core::ffi::c_int > 0x7e as ::core::ffi::c_int
             || *p as ::core::ffi::c_int == 0x2c as ::core::ffi::c_int
         {
-            return false_0 != 0;
+            return false;
         }
         p = p.offset(1);
     }
-    true_0 != 0
+    true
 }
 
 unsafe extern "C" fn sanitize_char(mut c: ::core::ffi::c_char) -> *mut ::core::ffi::c_char {
@@ -1068,14 +1022,14 @@ unsafe extern "C" fn sanitize_char(mut c: ::core::ffi::c_char) -> *mut ::core::f
         snprintf(
             &raw mut buf as *mut ::core::ffi::c_char,
             ::core::mem::size_of::<[::core::ffi::c_char; 5]>() as size_t,
-            b"'%c'\0" as *const u8 as *const ::core::ffi::c_char,
+            c"'%c'".as_ptr(),
             c as ::core::ffi::c_int,
         );
     } else {
         snprintf(
             &raw mut buf as *mut ::core::ffi::c_char,
             ::core::mem::size_of::<[::core::ffi::c_char; 5]>() as size_t,
-            b"0x%02x\0" as *const u8 as *const ::core::ffi::c_char,
+            c"0x%02x".as_ptr(),
             c as ::core::ffi::c_uchar as ::core::ffi::c_int,
         );
     }
@@ -1192,32 +1146,28 @@ unsafe extern "C" fn parse_scram_secret(
     let mut decoded_server_buf = ::core::ptr::null_mut::<uint8_t>();
     s = strdup(secret);
     if !s.is_null() {
-        scheme_str = strtok(s, b"$\0" as *const u8 as *const ::core::ffi::c_char);
+        scheme_str = strtok(s, c"$".as_ptr());
         if !scheme_str.is_null() {
             iterations_str = strtok(
                 ::core::ptr::null_mut::<::core::ffi::c_char>(),
-                b":\0" as *const u8 as *const ::core::ffi::c_char,
+                c":".as_ptr(),
             );
             if !iterations_str.is_null() {
                 salt_str = strtok(
                     ::core::ptr::null_mut::<::core::ffi::c_char>(),
-                    b"$\0" as *const u8 as *const ::core::ffi::c_char,
+                    c"$".as_ptr(),
                 );
                 if !salt_str.is_null() {
                     storedkey_str = strtok(
                         ::core::ptr::null_mut::<::core::ffi::c_char>(),
-                        b":\0" as *const u8 as *const ::core::ffi::c_char,
+                        c":".as_ptr(),
                     );
                     if !storedkey_str.is_null() {
-                        serverkey_str = strtok(
-                            ::core::ptr::null_mut::<::core::ffi::c_char>(),
-                            b"\0" as *const u8 as *const ::core::ffi::c_char,
-                        );
+                        serverkey_str =
+                            strtok(::core::ptr::null_mut::<::core::ffi::c_char>(), c"".as_ptr());
                         if !serverkey_str.is_null()
-                            && (strcmp(
-                                scheme_str,
-                                b"SCRAM-SHA-256\0" as *const u8 as *const ::core::ffi::c_char,
-                            ) == 0 as ::core::ffi::c_int)
+                            && (strcmp(scheme_str, c"SCRAM-SHA-256".as_ptr())
+                                == 0 as ::core::ffi::c_int)
                         {
                             *__error() = 0 as ::core::ffi::c_int;
                             *iterations =
@@ -1290,7 +1240,7 @@ unsafe extern "C" fn parse_scram_secret(
                                                                     as *mut ::core::ffi::c_void,
                                                             );
                                                             free(s as *mut ::core::ffi::c_void);
-                                                            return true_0 != 0;
+                                                            return true;
                                                         }
                                                     }
                                                 }
@@ -1310,7 +1260,7 @@ unsafe extern "C" fn parse_scram_secret(
     free(s as *mut ::core::ffi::c_void);
     free(*salt as *mut ::core::ffi::c_void);
     *salt = ::core::ptr::null_mut::<::core::ffi::c_char>();
-    false_0 != 0
+    false
 }
 
 pub const MD5_PASSWD_CHARSET: [::core::ffi::c_char; 17] = unsafe {
@@ -1325,11 +1275,7 @@ pub unsafe extern "C" fn get_password_type(
     let mut iterations: ::core::ffi::c_int = 0;
     let mut stored_key: [uint8_t; 32] = [0; 32];
     let mut server_key: [uint8_t; 32] = [0; 32];
-    if strncmp(
-        shadow_pass,
-        b"md5\0" as *const u8 as *const ::core::ffi::c_char,
-        3 as size_t,
-    ) == 0 as ::core::ffi::c_int
+    if strncmp(shadow_pass, c"md5".as_ptr(), 3 as size_t) == 0 as ::core::ffi::c_int
         && strlen(shadow_pass) == MD5_PASSWD_LEN as size_t
         && strspn(
             shadow_pass.offset(3 as ::core::ffi::c_int as isize),
@@ -1381,12 +1327,7 @@ pub unsafe extern "C" fn build_client_first_message(
                 .wrapping_add(1 as size_t);
             result = malloc(len) as *mut ::core::ffi::c_char;
             if !result.is_null() {
-                snprintf(
-                    result,
-                    len,
-                    b"n,,n=,r=%s\0" as *const u8 as *const ::core::ffi::c_char,
-                    (*state).client_nonce,
-                );
+                snprintf(result, len, c"n,,n=,r=%s".as_ptr(), (*state).client_nonce);
                 (*state).client_first_message_bare =
                     strdup(result.offset(3 as ::core::ffi::c_int as isize));
                 if !(*state).client_first_message_bare.is_null() {
@@ -1414,7 +1355,7 @@ pub unsafe extern "C" fn build_client_final_message(
     snprintf(
         &raw mut buf as *mut ::core::ffi::c_char,
         ::core::mem::size_of::<[::core::ffi::c_char; 512]>() as size_t,
-        b"c=biws,r=%s\0" as *const u8 as *const ::core::ffi::c_char,
+        c"c=biws,r=%s".as_ptr(),
         (*state).server_nonce,
     );
     (*state).client_final_message_without_proof = strdup(&raw mut buf as *mut ::core::ffi::c_char);
@@ -1428,7 +1369,7 @@ pub unsafe extern "C" fn build_client_final_message(
     {
         len = strlcat(
             &raw mut buf as *mut ::core::ffi::c_char,
-            b",p=\0" as *const u8 as *const ::core::ffi::c_char,
+            c",p=".as_ptr(),
             ::core::mem::size_of::<[::core::ffi::c_char; 512]>() as size_t,
         ) as size_t;
         enclen = pg_b64_enc_len(::core::mem::size_of::<[uint8_t; 32]>() as ::core::ffi::c_int);
@@ -1461,11 +1402,11 @@ pub unsafe extern "C" fn read_server_first_message(
     let mut iterations: ::core::ffi::c_int = 0;
     (*state).server_first_message = strdup(input);
     if (*state).server_first_message.is_null() {
-        return false_0 != 0;
+        return false;
     }
     server_nonce = read_attr_value(server, &raw mut input, 'r' as i32 as ::core::ffi::c_char);
     if server_nonce.is_null() {
-        return false_0 != 0;
+        return false;
     }
     if strlen(server_nonce) < strlen((*state).client_nonce)
         || memcmp(
@@ -1477,22 +1418,22 @@ pub unsafe extern "C" fn read_server_first_message(
         log_generic(
             LG_ERROR,
             server as *mut ::core::ffi::c_void,
-            b"invalid SCRAM response (nonce mismatch)\0" as *const u8 as *const ::core::ffi::c_char,
+            c"invalid SCRAM response (nonce mismatch)".as_ptr(),
         );
-        return false_0 != 0;
+        return false;
     }
     (*state).server_nonce = strdup(server_nonce);
     if (*state).server_nonce.is_null() {
-        return false_0 != 0;
+        return false;
     }
     encoded_salt = read_attr_value(server, &raw mut input, 's' as i32 as ::core::ffi::c_char);
     if encoded_salt.is_null() {
-        return false_0 != 0;
+        return false;
     }
     decoded_salt_len = pg_b64_dec_len(strlen(encoded_salt) as ::core::ffi::c_int);
     (*state).salt = malloc(decoded_salt_len as size_t) as *mut uint8_t;
     if (*state).salt.is_null() {
-        return false_0 != 0;
+        return false;
     }
     (*state).saltlen = pg_b64_decode(
         encoded_salt,
@@ -1504,13 +1445,13 @@ pub unsafe extern "C" fn read_server_first_message(
         log_generic(
             LG_ERROR,
             server as *mut ::core::ffi::c_void,
-            b"malformed SCRAM message (invalid salt)\0" as *const u8 as *const ::core::ffi::c_char,
+            c"malformed SCRAM message (invalid salt)".as_ptr(),
         );
-        return false_0 != 0;
+        return false;
     }
     iterations_str = read_attr_value(server, &raw mut input, 'i' as i32 as ::core::ffi::c_char);
     if iterations_str.is_null() {
-        return false_0 != 0;
+        return false;
     }
     iterations =
         strtol(iterations_str, &raw mut endptr, 10 as ::core::ffi::c_int) as ::core::ffi::c_int;
@@ -1518,22 +1459,20 @@ pub unsafe extern "C" fn read_server_first_message(
         log_generic(
             LG_ERROR,
             server as *mut ::core::ffi::c_void,
-            b"malformed SCRAM message (invalid iteration count)\0" as *const u8
-                as *const ::core::ffi::c_char,
+            c"malformed SCRAM message (invalid iteration count)".as_ptr(),
         );
-        return false_0 != 0;
+        return false;
     }
     (*state).iterations = iterations;
     if *input as ::core::ffi::c_int != '\0' as i32 {
         log_generic(
             LG_ERROR,
             server as *mut ::core::ffi::c_void,
-            b"malformed SCRAM message (garbage at end of server-first-message)\0" as *const u8
-                as *const ::core::ffi::c_char,
+            c"malformed SCRAM message (garbage at end of server-first-message)".as_ptr(),
         );
-        return false_0 != 0;
+        return false;
     }
-    true_0 != 0
+    true
 }
 #[no_mangle]
 
@@ -1550,8 +1489,7 @@ pub unsafe extern "C" fn read_server_final_message(
         log_generic(
             LG_ERROR,
             server as *mut ::core::ffi::c_void,
-            b"error received from server in SCRAM exchange: %s\0" as *const u8
-                as *const ::core::ffi::c_char,
+            c"error received from server in SCRAM exchange: %s".as_ptr(),
             errmsg,
         );
     } else {
@@ -1562,8 +1500,7 @@ pub unsafe extern "C" fn read_server_final_message(
                 log_generic(
                     LG_ERROR,
                     server as *mut ::core::ffi::c_void,
-                    b"malformed SCRAM message (garbage at end of server-final-message)\0"
-                        as *const u8 as *const ::core::ffi::c_char,
+                    c"malformed SCRAM message (garbage at end of server-final-message)".as_ptr(),
                 );
             }
             server_signature_len =
@@ -1580,8 +1517,7 @@ pub unsafe extern "C" fn read_server_final_message(
                     log_generic(
                         LG_ERROR,
                         server as *mut ::core::ffi::c_void,
-                        b"malformed SCRAM message (malformed server signature)\0" as *const u8
-                            as *const ::core::ffi::c_char,
+                        c"malformed SCRAM message (malformed server signature)".as_ptr(),
                     );
                 } else {
                     memcpy(
@@ -1590,13 +1526,13 @@ pub unsafe extern "C" fn read_server_final_message(
                         SCRAM_SHA_256_KEY_LEN as size_t,
                     );
                     free(decoded_server_signature as *mut ::core::ffi::c_void);
-                    return true_0 != 0;
+                    return true;
                 }
             }
         }
     }
     free(decoded_server_signature as *mut ::core::ffi::c_void);
-    false_0 != 0
+    false
 }
 
 unsafe extern "C" fn calculate_client_proof(
@@ -1620,7 +1556,7 @@ unsafe extern "C" fn calculate_client_proof(
         log_generic(
             LG_ERROR,
             server as *mut ::core::ffi::c_void,
-            b"HMAC context creation failed: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"HMAC context creation failed: %s".as_ptr(),
             pg_hmac_error(::core::ptr::null_mut::<pg_hmac_ctx>()),
         );
     } else {
@@ -1679,8 +1615,7 @@ unsafe extern "C" fn calculate_client_proof(
                             log_generic(
                                 LG_ERROR,
                                 server as *mut ::core::ffi::c_void,
-                                b"SCRAM key derivation failed: %s\0" as *const u8
-                                    as *const ::core::ffi::c_char,
+                                c"SCRAM key derivation failed: %s".as_ptr(),
                                 errstr,
                             );
                             current_block = 13714201677023511950;
@@ -1705,8 +1640,7 @@ unsafe extern "C" fn calculate_client_proof(
                     log_generic(
                         LG_ERROR,
                         server as *mut ::core::ffi::c_void,
-                        b"SCRAM hash computation failed: %s\0" as *const u8
-                            as *const ::core::ffi::c_char,
+                        c"SCRAM hash computation failed: %s".as_ptr(),
                         errstr,
                     );
                 } else if pg_hmac_init(
@@ -1719,21 +1653,15 @@ unsafe extern "C" fn calculate_client_proof(
                         (*state).client_first_message_bare as *mut uint8_t,
                         strlen((*state).client_first_message_bare),
                     ) < 0 as ::core::ffi::c_int
-                    || pg_hmac_update(
-                        ctx,
-                        b",\0" as *const u8 as *const ::core::ffi::c_char as *mut uint8_t,
-                        1 as size_t,
-                    ) < 0 as ::core::ffi::c_int
+                    || pg_hmac_update(ctx, c",".as_ptr() as *mut uint8_t, 1 as size_t)
+                        < 0 as ::core::ffi::c_int
                     || pg_hmac_update(
                         ctx,
                         (*state).server_first_message as *mut uint8_t,
                         strlen((*state).server_first_message),
                     ) < 0 as ::core::ffi::c_int
-                    || pg_hmac_update(
-                        ctx,
-                        b",\0" as *const u8 as *const ::core::ffi::c_char as *mut uint8_t,
-                        1 as size_t,
-                    ) < 0 as ::core::ffi::c_int
+                    || pg_hmac_update(ctx, c",".as_ptr() as *mut uint8_t, 1 as size_t)
+                        < 0 as ::core::ffi::c_int
                     || pg_hmac_update(
                         ctx,
                         client_final_message_without_proof as *mut uint8_t,
@@ -1748,7 +1676,7 @@ unsafe extern "C" fn calculate_client_proof(
                     log_generic(
                         LG_ERROR,
                         server as *mut ::core::ffi::c_void,
-                        b"HMAC computation failed: %s\0" as *const u8 as *const ::core::ffi::c_char,
+                        c"HMAC computation failed: %s".as_ptr(),
                         pg_hmac_error(ctx),
                     );
                 } else {
@@ -1761,14 +1689,14 @@ unsafe extern "C" fn calculate_client_proof(
                     }
                     free(prep_password as *mut ::core::ffi::c_void);
                     pg_hmac_free(ctx);
-                    return true_0 != 0;
+                    return true;
                 }
             }
         }
     }
     free(prep_password as *mut ::core::ffi::c_void);
     pg_hmac_free(ctx);
-    false_0 != 0
+    false
 }
 #[no_mangle]
 
@@ -1788,10 +1716,10 @@ pub unsafe extern "C" fn verify_server_signature(
         log_generic(
             LG_ERROR,
             server as *mut ::core::ffi::c_void,
-            b"HMAC context creation failed: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"HMAC context creation failed: %s".as_ptr(),
             pg_hmac_error(::core::ptr::null_mut::<pg_hmac_ctx>()),
         );
-        return false_0 != 0;
+        return false;
     }
     if (*credentials).use_scram_keys {
         memcpy(
@@ -1811,11 +1739,11 @@ pub unsafe extern "C" fn verify_server_signature(
         log_generic(
             LG_ERROR,
             server as *mut ::core::ffi::c_void,
-            b"SCRAM server key derivation failed: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"SCRAM server key derivation failed: %s".as_ptr(),
             errstr,
         );
         pg_hmac_free(ctx);
-        return false_0 != 0;
+        return false;
     }
     if pg_hmac_init(
         ctx,
@@ -1827,21 +1755,13 @@ pub unsafe extern "C" fn verify_server_signature(
             (*state).client_first_message_bare as *mut uint8_t,
             strlen((*state).client_first_message_bare),
         ) < 0 as ::core::ffi::c_int
-        || pg_hmac_update(
-            ctx,
-            b",\0" as *const u8 as *const ::core::ffi::c_char as *mut uint8_t,
-            1 as size_t,
-        ) < 0 as ::core::ffi::c_int
+        || pg_hmac_update(ctx, c",".as_ptr() as *mut uint8_t, 1 as size_t) < 0 as ::core::ffi::c_int
         || pg_hmac_update(
             ctx,
             (*state).server_first_message as *mut uint8_t,
             strlen((*state).server_first_message),
         ) < 0 as ::core::ffi::c_int
-        || pg_hmac_update(
-            ctx,
-            b",\0" as *const u8 as *const ::core::ffi::c_char as *mut uint8_t,
-            1 as size_t,
-        ) < 0 as ::core::ffi::c_int
+        || pg_hmac_update(ctx, c",".as_ptr() as *mut uint8_t, 1 as size_t) < 0 as ::core::ffi::c_int
         || pg_hmac_update(
             ctx,
             (*state).client_final_message_without_proof as *mut uint8_t,
@@ -1856,12 +1776,11 @@ pub unsafe extern "C" fn verify_server_signature(
         log_generic(
             LG_ERROR,
             server as *mut ::core::ffi::c_void,
-            b"HMAC server signature computation failed: %s\0" as *const u8
-                as *const ::core::ffi::c_char,
+            c"HMAC server signature computation failed: %s".as_ptr(),
             pg_hmac_error(ctx),
         );
         pg_hmac_free(ctx);
-        return false_0 != 0;
+        return false;
     }
     pg_hmac_free(ctx);
     if memcmp(
@@ -1870,11 +1789,11 @@ pub unsafe extern "C" fn verify_server_signature(
         (*state).key_length as size_t,
     ) != 0 as ::core::ffi::c_int
     {
-        *match_0 = false_0 != 0;
+        *match_0 = false;
     } else {
-        *match_0 = true_0 != 0;
+        *match_0 = true;
     }
-    true_0 != 0
+    true
 }
 #[no_mangle]
 
@@ -1901,8 +1820,7 @@ pub unsafe extern "C" fn read_client_first_message(
             log_generic(
                 LG_ERROR,
                 client as *mut ::core::ffi::c_void,
-                b"client requires SCRAM channel binding, but it is not supported\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"client requires SCRAM channel binding, but it is not supported".as_ptr(),
             );
             current_block = 5151340100945259836;
         }
@@ -1932,8 +1850,7 @@ pub unsafe extern "C" fn read_client_first_message(
                 log_generic(
                     LG_ERROR,
                     client as *mut ::core::ffi::c_void,
-                    b"client uses authorization identity, but it is not supported\0" as *const u8
-                        as *const ::core::ffi::c_char,
+                    c"client uses authorization identity, but it is not supported".as_ptr(),
                 );
             } else if *input as ::core::ffi::c_int != ',' as i32 {
                 log_generic(
@@ -1951,8 +1868,7 @@ pub unsafe extern "C" fn read_client_first_message(
                         log_generic(
                             LG_ERROR,
                             client as *mut ::core::ffi::c_void,
-                            b"client requires an unsupported SCRAM extension\0" as *const u8
-                                as *const ::core::ffi::c_char,
+                            c"client requires an unsupported SCRAM extension".as_ptr(),
                         );
                     } else {
                         read_attr_value(client, &raw mut input, 'n' as i32 as ::core::ffi::c_char);
@@ -1966,8 +1882,7 @@ pub unsafe extern "C" fn read_client_first_message(
                                 log_generic(
                                     LG_ERROR,
                                     client as *mut ::core::ffi::c_void,
-                                    b"non-printable characters in SCRAM nonce\0" as *const u8
-                                        as *const ::core::ffi::c_char,
+                                    c"non-printable characters in SCRAM nonce".as_ptr(),
                                 );
                             } else {
                                 client_nonce_copy = strdup(client_nonce);
@@ -1994,7 +1909,7 @@ pub unsafe extern "C" fn read_client_first_message(
                                             (*state).client_first_message_bare =
                                                 client_first_message_bare;
                                             (*state).client_nonce = client_nonce_copy;
-                                            return true_0 != 0;
+                                            return true;
                                         }
                                     }
                                 }
@@ -2007,7 +1922,7 @@ pub unsafe extern "C" fn read_client_first_message(
     }
     free(client_first_message_bare as *mut ::core::ffi::c_void);
     free(client_nonce_copy as *mut ::core::ffi::c_void);
-    false_0 != 0
+    false
 }
 #[no_mangle]
 
@@ -2030,22 +1945,15 @@ pub unsafe extern "C" fn read_client_final_message(
     let mut prooflen: ::core::ffi::c_int = 0;
     channel_binding = read_attr_value(client, &raw mut input, 'c' as i32 as ::core::ffi::c_char);
     if !channel_binding.is_null() {
-        if !(strcmp(
-            channel_binding,
-            b"biws\0" as *const u8 as *const ::core::ffi::c_char,
-        ) == 0 as ::core::ffi::c_int
+        if !(strcmp(channel_binding, c"biws".as_ptr()) == 0 as ::core::ffi::c_int
             && (*state).cbind_flag as ::core::ffi::c_int == 'n' as i32)
-            && !(strcmp(
-                channel_binding,
-                b"eSws\0" as *const u8 as *const ::core::ffi::c_char,
-            ) == 0 as ::core::ffi::c_int
+            && !(strcmp(channel_binding, c"eSws".as_ptr()) == 0 as ::core::ffi::c_int
                 && (*state).cbind_flag as ::core::ffi::c_int == 'y' as i32)
         {
             log_generic(
                 LG_ERROR,
                 client as *mut ::core::ffi::c_void,
-                b"unexpected SCRAM channel-binding attribute in client-final-message\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"unexpected SCRAM channel-binding attribute in client-final-message".as_ptr(),
             );
         } else {
             client_final_nonce =
@@ -2061,7 +1969,7 @@ pub unsafe extern "C" fn read_client_final_message(
                 log_generic(
                     LG_ERROR,
                     client as *mut ::core::ffi::c_void,
-                    b"could not read proof\0" as *const u8 as *const ::core::ffi::c_char,
+                    c"could not read proof".as_ptr(),
                 );
             } else {
                 encoded_proof = value;
@@ -2071,7 +1979,7 @@ pub unsafe extern "C" fn read_client_final_message(
                     log_generic(
                         LG_ERROR,
                         client as *mut ::core::ffi::c_void,
-                        b"could not decode proof\0" as *const u8 as *const ::core::ffi::c_char,
+                        c"could not decode proof".as_ptr(),
                     );
                 } else {
                     prooflen = pg_b64_decode(
@@ -2084,16 +1992,15 @@ pub unsafe extern "C" fn read_client_final_message(
                         log_generic(
                             LG_ERROR,
                             client as *mut ::core::ffi::c_void,
-                            b"malformed SCRAM message (malformed proof in client-final-message)\0"
-                                as *const u8
-                                as *const ::core::ffi::c_char,
+                            c"malformed SCRAM message (malformed proof in client-final-message)"
+                                .as_ptr(),
                         );
                     } else if *input as ::core::ffi::c_int != '\0' as i32 {
                         log_generic(
                             LG_ERROR,
                             client as *mut ::core::ffi::c_void,
-                            b"malformed SCRAM message (garbage at the end of client-final-message)\0"
-                                as *const u8 as *const ::core::ffi::c_char,
+                            c"malformed SCRAM message (garbage at the end of client-final-message)"
+                                .as_ptr(),
                         );
                     } else {
                         (*state).client_final_message_without_proof = malloc(
@@ -2115,7 +2022,7 @@ pub unsafe extern "C" fn read_client_final_message(
                             ) = '\0' as i32 as ::core::ffi::c_char;
                             *client_final_nonce_p = client_final_nonce;
                             *proof_p = proof as *mut ::core::ffi::c_char;
-                            return true_0 != 0;
+                            return true;
                         }
                     }
                 }
@@ -2123,7 +2030,7 @@ pub unsafe extern "C" fn read_client_final_message(
         }
     }
     free(proof as *mut ::core::ffi::c_void);
-    false_0 != 0
+    false
 }
 
 unsafe extern "C" fn build_adhoc_scram_secret(
@@ -2148,7 +2055,7 @@ unsafe extern "C" fn build_adhoc_scram_secret(
             &raw mut saltbuf as *mut uint8_t,
             ::core::mem::size_of::<[uint8_t; 16]>() as ::core::ffi::c_int,
         );
-        (*state).adhoc = true_0 != 0;
+        (*state).adhoc = true;
         (*state).iterations = cf_scram_iterations;
         encoded_len = pg_b64_enc_len(::core::mem::size_of::<[uint8_t; 16]>() as ::core::ffi::c_int);
         (*state).encoded_salt =
@@ -2195,12 +2102,12 @@ unsafe extern "C" fn build_adhoc_scram_secret(
                     &raw mut errstr,
                 );
                 free(prep_password as *mut ::core::ffi::c_void);
-                return true_0 != 0;
+                return true;
             }
         }
     }
     free(prep_password as *mut ::core::ffi::c_void);
-    false_0 != 0
+    false
 }
 
 unsafe extern "C" fn scram_mock_salt(
@@ -2208,7 +2115,7 @@ unsafe extern "C" fn scram_mock_salt(
     mut saltbuf: *mut uint8_t,
 ) -> bool {
     static mut mock_auth_nonce: [uint8_t; 32] = [0; 32];
-    static mut mock_auth_nonce_initialized: bool = false_0 != 0;
+    static mut mock_auth_nonce_initialized: bool = false;
     let mut ctx = ::core::ptr::null_mut::<pg_cryptohash_ctx>();
     let mut sha_digest: [uint8_t; 32] = [0; 32];
     if !mock_auth_nonce_initialized {
@@ -2216,7 +2123,7 @@ unsafe extern "C" fn scram_mock_salt(
             &raw mut mock_auth_nonce as *mut uint8_t,
             ::core::mem::size_of::<[uint8_t; 32]>() as ::core::ffi::c_int,
         );
-        mock_auth_nonce_initialized = true_0 != 0;
+        mock_auth_nonce_initialized = true;
     }
     ctx = pg_cryptohash_create(PG_SHA256);
     if ctx.is_null() {
@@ -2224,9 +2131,9 @@ unsafe extern "C" fn scram_mock_salt(
         log_generic(
             LG_ERROR,
             _log_ctx,
-            b"could not create cryptohash context\0" as *const u8 as *const ::core::ffi::c_char,
+            c"could not create cryptohash context".as_ptr(),
         );
-        return false_0 != 0;
+        return false;
     }
     if pg_cryptohash_init(ctx) < 0 as ::core::ffi::c_int
         || pg_cryptohash_update(ctx, username as *mut uint8_t, strlen(username))
@@ -2246,11 +2153,11 @@ unsafe extern "C" fn scram_mock_salt(
         log_generic(
             LG_ERROR,
             _log_ctx_0,
-            b"could not generate mock salt: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"could not generate mock salt: %s".as_ptr(),
             pg_cryptohash_error(ctx),
         );
         pg_cryptohash_free(ctx);
-        return false_0 != 0;
+        return false;
     }
     pg_cryptohash_free(ctx);
     memcpy(
@@ -2258,7 +2165,7 @@ unsafe extern "C" fn scram_mock_salt(
         &raw mut sha_digest as *mut uint8_t as *const ::core::ffi::c_void,
         SCRAM_DEFAULT_SALT_LEN as size_t,
     );
-    true_0 != 0
+    true
 }
 
 unsafe extern "C" fn build_mock_scram_secret(
@@ -2282,11 +2189,11 @@ unsafe extern "C" fn build_mock_scram_secret(
             if encoded_len >= 0 as ::core::ffi::c_int {
                 *(*state).encoded_salt.offset(encoded_len as isize) =
                     '\0' as i32 as ::core::ffi::c_char;
-                return true_0 != 0;
+                return true;
             }
         }
     }
-    false_0 != 0
+    false
 }
 #[no_mangle]
 
@@ -2309,7 +2216,7 @@ pub unsafe extern "C" fn build_server_first_message(
             current_block = 5601891728916014340;
         }
     } else if (*user).adhoc_scram_secrets_cached {
-        (*state).adhoc = true_0 != 0;
+        (*state).adhoc = true;
         (*state).iterations = (*user).scram_Iiterations;
         (*state).encoded_salt = strdup((*user).scram_SaltKey);
         memcpy(
@@ -2369,7 +2276,7 @@ pub unsafe extern "C" fn build_server_first_message(
                                     as *const ::core::ffi::c_void,
                                 ::core::mem::size_of::<[uint8_t; 32]>() as size_t,
                             );
-                            (*user).adhoc_scram_secrets_cached = true_0 != 0;
+                            (*user).adhoc_scram_secrets_cached = true;
                         }
                         current_block = 5601891728916014340;
                     }
@@ -2419,7 +2326,7 @@ pub unsafe extern "C" fn build_server_first_message(
                                     as *const ::core::ffi::c_void,
                                 ::core::mem::size_of::<[uint8_t; 32]>() as size_t,
                             );
-                            (*user).adhoc_scram_secrets_cached = true_0 != 0;
+                            (*user).adhoc_scram_secrets_cached = true;
                         }
                         current_block = 5601891728916014340;
                     }
@@ -2458,7 +2365,7 @@ pub unsafe extern "C" fn build_server_first_message(
                     snprintf(
                         result,
                         len,
-                        b"r=%s%s,s=%s,i=%u\0" as *const u8 as *const ::core::ffi::c_char,
+                        c"r=%s%s,s=%s,i=%u".as_ptr(),
                         (*state).client_nonce,
                         (*state).server_nonce,
                         (*state).encoded_salt,
@@ -2488,7 +2395,7 @@ unsafe extern "C" fn compute_server_signature(
         log_generic(
             LG_ERROR,
             client as *mut ::core::ffi::c_void,
-            b"HMAC context creation failed: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"HMAC context creation failed: %s".as_ptr(),
             pg_hmac_error(::core::ptr::null_mut::<pg_hmac_ctx>()),
         );
         return ::core::ptr::null_mut::<::core::ffi::c_char>();
@@ -2503,21 +2410,13 @@ unsafe extern "C" fn compute_server_signature(
             (*state).client_first_message_bare as *mut uint8_t,
             strlen((*state).client_first_message_bare),
         ) < 0 as ::core::ffi::c_int
-        || pg_hmac_update(
-            ctx,
-            b",\0" as *const u8 as *const ::core::ffi::c_char as *mut uint8_t,
-            1 as size_t,
-        ) < 0 as ::core::ffi::c_int
+        || pg_hmac_update(ctx, c",".as_ptr() as *mut uint8_t, 1 as size_t) < 0 as ::core::ffi::c_int
         || pg_hmac_update(
             ctx,
             (*state).server_first_message as *mut uint8_t,
             strlen((*state).server_first_message),
         ) < 0 as ::core::ffi::c_int
-        || pg_hmac_update(
-            ctx,
-            b",\0" as *const u8 as *const ::core::ffi::c_char as *mut uint8_t,
-            1 as size_t,
-        ) < 0 as ::core::ffi::c_int
+        || pg_hmac_update(ctx, c",".as_ptr() as *mut uint8_t, 1 as size_t) < 0 as ::core::ffi::c_int
         || pg_hmac_update(
             ctx,
             (*state).client_final_message_without_proof as *mut uint8_t,
@@ -2532,7 +2431,7 @@ unsafe extern "C" fn compute_server_signature(
         log_generic(
             LG_ERROR,
             client as *mut ::core::ffi::c_void,
-            b"HMAC operation failed: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"HMAC operation failed: %s".as_ptr(),
             pg_hmac_error(ctx),
         );
         pg_hmac_free(ctx);
@@ -2577,12 +2476,7 @@ pub unsafe extern "C" fn build_server_final_message(
         if len < INT_MAX as size_t {
             result = malloc(len) as *mut ::core::ffi::c_char;
             if !result.is_null() {
-                snprintf(
-                    result,
-                    len,
-                    b"v=%s\0" as *const u8 as *const ::core::ffi::c_char,
-                    server_signature,
-                );
+                snprintf(result, len, c"v=%s".as_ptr(), server_signature);
                 free(server_signature as *mut ::core::ffi::c_void);
                 return result;
             }
@@ -2601,7 +2495,7 @@ pub unsafe extern "C" fn verify_final_nonce(
     let mut server_nonce_len = strlen((*state).server_nonce);
     let mut final_nonce_len = strlen(client_final_nonce);
     if final_nonce_len != client_nonce_len.wrapping_add(server_nonce_len) {
-        return false_0 != 0;
+        return false;
     }
     if memcmp(
         client_final_nonce as *const ::core::ffi::c_void,
@@ -2609,7 +2503,7 @@ pub unsafe extern "C" fn verify_final_nonce(
         client_nonce_len,
     ) != 0 as ::core::ffi::c_int
     {
-        return false_0 != 0;
+        return false;
     }
     if memcmp(
         client_final_nonce.add(client_nonce_len) as *const ::core::ffi::c_void,
@@ -2617,9 +2511,9 @@ pub unsafe extern "C" fn verify_final_nonce(
         server_nonce_len,
     ) != 0 as ::core::ffi::c_int
     {
-        return false_0 != 0;
+        return false;
     }
-    true_0 != 0
+    true
 }
 #[no_mangle]
 
@@ -2638,10 +2532,10 @@ pub unsafe extern "C" fn verify_client_proof(
         log_generic(
             LG_ERROR,
             client as *mut ::core::ffi::c_void,
-            b"HMAC context creation failed: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"HMAC context creation failed: %s".as_ptr(),
             pg_hmac_error(::core::ptr::null_mut::<pg_hmac_ctx>()),
         );
-        return false_0 != 0;
+        return false;
     }
     if pg_hmac_init(
         ctx,
@@ -2653,21 +2547,13 @@ pub unsafe extern "C" fn verify_client_proof(
             (*state).client_first_message_bare as *mut uint8_t,
             strlen((*state).client_first_message_bare),
         ) < 0 as ::core::ffi::c_int
-        || pg_hmac_update(
-            ctx,
-            b",\0" as *const u8 as *const ::core::ffi::c_char as *mut uint8_t,
-            1 as size_t,
-        ) < 0 as ::core::ffi::c_int
+        || pg_hmac_update(ctx, c",".as_ptr() as *mut uint8_t, 1 as size_t) < 0 as ::core::ffi::c_int
         || pg_hmac_update(
             ctx,
             (*state).server_first_message as *mut uint8_t,
             strlen((*state).server_first_message),
         ) < 0 as ::core::ffi::c_int
-        || pg_hmac_update(
-            ctx,
-            b",\0" as *const u8 as *const ::core::ffi::c_char as *mut uint8_t,
-            1 as size_t,
-        ) < 0 as ::core::ffi::c_int
+        || pg_hmac_update(ctx, c",".as_ptr() as *mut uint8_t, 1 as size_t) < 0 as ::core::ffi::c_int
         || pg_hmac_update(
             ctx,
             (*state).client_final_message_without_proof as *mut uint8_t,
@@ -2682,11 +2568,11 @@ pub unsafe extern "C" fn verify_client_proof(
         log_generic(
             LG_ERROR,
             client as *mut ::core::ffi::c_void,
-            b"HMAC operation failed: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"HMAC operation failed: %s".as_ptr(),
             pg_hmac_error(ctx),
         );
         pg_hmac_free(ctx);
-        return false_0 != 0;
+        return false;
     }
     i = 0 as ::core::ffi::c_int;
     while i < (*state).key_length {
@@ -2704,7 +2590,7 @@ pub unsafe extern "C" fn verify_client_proof(
     ) < 0 as ::core::ffi::c_int
     {
         pg_hmac_free(ctx);
-        return false_0 != 0;
+        return false;
     }
     if memcmp(
         &raw mut client_StoredKey as *mut uint8_t as *const ::core::ffi::c_void,
@@ -2713,10 +2599,10 @@ pub unsafe extern "C" fn verify_client_proof(
     ) != 0 as ::core::ffi::c_int
     {
         pg_hmac_free(ctx);
-        return false_0 != 0;
+        return false;
     }
     pg_hmac_free(ctx);
-    true_0 != 0
+    true
 }
 #[no_mangle]
 
@@ -2736,7 +2622,7 @@ pub unsafe extern "C" fn scram_verify_plain_password(
     let mut computed_key: [uint8_t; 32] = [0; 32];
     let mut prep_password = ::core::ptr::null_mut::<::core::ffi::c_char>();
     let mut rc = SASLPREP_SUCCESS;
-    let mut result = false_0 != 0;
+    let mut result = false;
     let mut errstr = ::core::ptr::null::<::core::ffi::c_char>();
     if !parse_scram_secret(
         secret,
@@ -2805,20 +2691,19 @@ pub unsafe extern "C" fn scram_verify_plain_password(
     result
 }
 
-
 extern "C" {
     pub type pg_cryptohash_ctx;
     pub fn pg_cryptohash_create(type_0: pg_cryptohash_type) -> *mut pg_cryptohash_ctx;
     pub fn pg_cryptohash_init(ctx: *mut pg_cryptohash_ctx) -> ::core::ffi::c_int;
     pub fn pg_cryptohash_update(
-    ctx: *mut pg_cryptohash_ctx,
-    data: *const uint8_t,
-    len: size_t,
+        ctx: *mut pg_cryptohash_ctx,
+        data: *const uint8_t,
+        len: size_t,
     ) -> ::core::ffi::c_int;
     pub fn pg_cryptohash_final(
-    ctx: *mut pg_cryptohash_ctx,
-    dest: *mut uint8_t,
-    len: size_t,
+        ctx: *mut pg_cryptohash_ctx,
+        dest: *mut uint8_t,
+        len: size_t,
     ) -> ::core::ffi::c_int;
     pub fn pg_cryptohash_free(ctx: *mut pg_cryptohash_ctx);
     pub fn pg_cryptohash_error(ctx: *mut pg_cryptohash_ctx) -> *const ::core::ffi::c_char;

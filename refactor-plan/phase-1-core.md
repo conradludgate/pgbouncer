@@ -2,13 +2,13 @@
 
 Entry point and core connection handling.
 
-## Modules
+## Current Metrics (2026-01-30)
 
-| Module | Unsafe Fns | #[no_mangle] | Static Mut | Lines |
-|--------|------------|--------------|------------|-------|
-| main.rs | 261 | 109 | 134 | ~6,200 |
-| client.rs | 64 | 7 | 17 | ~4,500 |
-| server.rs | 46 | 14 | 14 | ~3,200 |
+| Module | Lines | Unsafe Fns | #[no_mangle] | Static Mut | Duplicate Modules |
+|--------|-------|------------|--------------|------------|-------------------|
+| main.rs | 5,950 | 258 | 109 | 134 | 48 |
+| client.rs | 4,500 | 41 | 7 | 17 | 33 |
+| server.rs | 3,200 | 29 | 14 | 14 | 22 |
 
 ## main.rs
 
@@ -20,12 +20,12 @@ Entry point for pgbouncer. Contains:
 - Main event loop startup
 - Many global config variables (`cf_*`)
 
-### Key Globals to Convert
+### Key Globals to Convert (134 total)
 ```
 cf_verbose, cf_daemon, cf_pause_mode, cf_shutdown
 cf_listen_addr, cf_listen_port, cf_unix_socket_dir
 cf_pool_mode, cf_max_client_conn, cf_default_pool_size
-... (134 total static mut variables)
+... and 124 more
 ```
 
 ### Priority Functions
@@ -34,8 +34,8 @@ cf_pool_mode, cf_max_client_conn, cf_default_pool_size
 3. Signal handlers
 
 ### Strategy
-1. Remove c2rust type modules (hundreds of lines of noise)
-2. Import types from `common/types.rs`
+1. ~~Remove c2rust type modules~~ → Consolidate type modules first
+2. Import types from `crate::types::*` (after bouncer_h consolidation)
 3. Group related `static mut` into config structs
 4. Convert config struct to thread-local RefCell
 5. Identify internal vs FFI functions
@@ -62,7 +62,7 @@ CL_WAITING_LOGIN, CL_ACTIVE, CL_WAITING_CANCEL, CL_ACTIVE_CANCEL
 4. `disconnect_client()` — cleanup
 
 ### Strategy
-1. Clean up c2rust artifacts
+1. Consolidate type modules (depends on bouncer_h)
 2. Convert state constants to proper enum
 3. Replace raw PgSocket pointers with references where possible
 4. Convert callback-based flow to more idiomatic patterns
@@ -89,7 +89,7 @@ SV_IDLE, SV_ACTIVE, SV_ACTIVE_CANCEL, SV_USED, SV_TESTED
 4. `release_server()` — return to pool
 
 ### Strategy
-1. Clean up c2rust artifacts
+1. Consolidate type modules (depends on bouncer_h)
 2. Mirror client.rs refactoring patterns
 3. Ensure client/server state machines are consistent
 
@@ -109,41 +109,55 @@ SV_IDLE, SV_ACTIVE, SV_ACTIVE_CANCEL, SV_USED, SV_TESTED
 - [x] All: Consolidate prepare_h types to types.rs
 - [x] All: Remove prepare_h modules from all 20 files
 
-### In Progress 🔄
-- [ ] Remove remaining c2rust type modules (iobuf_h, bouncer_h, uthash_h, etc.)
-- [ ] Continue consolidating common type modules
+### Blocked 🚧 (Complex Consolidation Required)
+- [ ] **Consolidate bouncer_h** (22 files) — PgSocket, PgPool, PgDatabase
+  - ⚠️ The consolidation script doesn't work directly because bouncer_h mixes type definitions with extern static declarations
+  - **Manual approach required:** Add types to types.rs, keep externs in each file
+  - See README.md for detailed approach
+- [ ] Consolidate iobuf_h (20 files) — IOBuf (simpler, script may work)
+- [ ] Consolidate sbuf_h (20 files) — SBuf (depends on bouncer_h types)
+- [ ] Remove primitive type modules (_types_h, sys__types_h, etc.)
 
-### Pending 📋
-- [ ] main.rs: Import all types from common/types.rs
+### Pending 📋 (After Type Consolidation)
+- [ ] main.rs: Import all types from crate::types::*
 - [ ] main.rs: Convert cf_* globals to config struct
 - [ ] main.rs: Wrap config in thread-local RefCell
-- [ ] main.rs: Remove extern "C" from internal functions (careful: some are C callbacks)
-- [ ] client.rs: Import all types from common/types.rs
+- [ ] main.rs: Remove extern "C" from internal functions
+- [ ] main.rs: Apply function cleanup patterns (see stats.rs findings)
+- [ ] client.rs: Import all types from crate::types::*
 - [ ] client.rs: Convert SocketState to proper enum
 - [ ] client.rs: Convert static mut to thread-local
-- [ ] server.rs: Import all types from common/types.rs
+- [ ] server.rs: Import all types from crate::types::*
 - [ ] server.rs: Mirror client.rs patterns
-- [ ] All: Run full test suite before completing phase
+- [ ] All: Run full test suite
 
 ### Notes
 
 **Type Consolidation Progress:**
 - PgStats, List, StatList, AATree: consolidated to `src/common/types.rs`
-- MBuf + inline functions: consolidated to `lib/usual/mbuf.rs` (saved ~849 lines)
-- Total lines saved: ~2,231
+- MBuf + inline functions: consolidated to `lib/usual/mbuf.rs`
+- PktHdr: consolidated to `src/common/types.rs`
+- **bouncer_h NOT YET DONE** — this is the biggest remaining blocker
 
-**Remaining Duplicate Modules to Consolidate:**
-Priority order (most duplicated first):
-1. `bouncer_h` — PgSocket, PgPool, PgDatabase (~23 files) - complex, many dependencies
+**Remaining Duplicate Modules to Consolidate (Priority Order):**
+
+1. `bouncer_h` — PgSocket, PgPool, PgDatabase, PgCredentials (~22 files)
+   - Complex, many dependencies, has bitfields
+   - This is the critical path blocker
+   
 2. `iobuf_h` — IOBuf struct (~20 files)
-3. `sbuf_h` — SBuf, SBufEvent (~15 files)
-4. `prepare_h` — prepared statement types (~20 files)
+
+3. `sbuf_h` — SBuf, SBufEvent, SBufIO (~20 files)
+
+4. Primitive modules — `_types_h`, `socket_h`, `in_h`, etc.
+   - These are just re-exports of libc types
+   - Can be deleted once imports are updated
 
 **Key Patterns:**
-- Inner modules like `proto_h` that contain types using `MBuf` need their imports updated
+- Inner modules like `sbuf_h` depend on `bouncer_h` types
 - `src/main.rs` is the binary, uses `pgbouncer::` instead of `crate::`
-- Some inline functions call extern functions (e.g., `mbuf_make_room`) - keep these declarations
+- Some inline functions call extern functions — keep those declarations
 
 **Testing:**
 - Tests require PostgreSQL `initdb` + `postgres` in same directory
-- If tests fail with "postgres not found", ensure full PostgreSQL is installed (not just libpq)
+- If tests fail with "postgres not found", ensure full PostgreSQL is installed

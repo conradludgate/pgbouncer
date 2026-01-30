@@ -173,14 +173,14 @@ pub unsafe extern "C" fn pg_cryptohash_error(
     mut ctx: *mut pg_cryptohash_ctx,
 ) -> *const ::core::ffi::c_char {
     if ctx.is_null() {
-        return b"out of memory\0" as *const u8 as *const ::core::ffi::c_char;
+        return c"out of memory".as_ptr();
     }
     match (*ctx).error as ::core::ffi::c_uint {
-        0 => return b"success\0" as *const u8 as *const ::core::ffi::c_char,
+        0 => return c"success".as_ptr(),
         1 => {
-            return b"destination buffer too small\0" as *const u8 as *const ::core::ffi::c_char;
+            return c"destination buffer too small".as_ptr();
         }
         _ => {}
     }
-    b"success\0" as *const u8 as *const ::core::ffi::c_char
+    c"success".as_ptr()
 }

@@ -1,130 +1,87 @@
-
-pub mod _types_h {
-    
-    pub type __uint8_t = u8;
-    
-    pub type __uint16_t = u16;
-    
-    pub type __int32_t = i32;
-    
-    pub type __uint32_t = u32;
-    
-    pub type __int64_t = i64;
-    
-    pub type __uint64_t = u64;
-    
-    pub type __darwin_ct_rune_t = ::core::ffi::c_int;
-    
-    pub type __darwin_ptrdiff_t = isize;
-    
-    pub type __darwin_size_t = usize;
-    
-    pub type __darwin_wchar_t = ::libc::wchar_t;
-    
-    pub type __darwin_rune_t = __darwin_wchar_t;
-    
-    pub type __darwin_ssize_t = isize;
-    
-    pub type __darwin_time_t = ::core::ffi::c_long;
-}
-
-
 pub mod sys__types_h {
-    
+
     pub type __darwin_blkcnt_t = __int64_t;
-    
+
     pub type __darwin_blksize_t = __int32_t;
-    
+
     pub type __darwin_dev_t = __int32_t;
-    
+
     pub type __darwin_gid_t = __uint32_t;
-    
+
     pub type __darwin_ino64_t = __uint64_t;
-    
+
     pub type __darwin_mode_t = __uint16_t;
-    
+
     pub type __darwin_off_t = __int64_t;
-    
+
     pub type __darwin_pid_t = __int32_t;
-    
+
     pub type __darwin_suseconds_t = __int32_t;
-    
+
     pub type __darwin_uid_t = __uint32_t;
-    
+
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
-    use super::_types_h::{__int32_t, __int64_t, __uint16_t, __uint32_t, __uint64_t};
+    use crate::types::{__int32_t, __int64_t, __uint16_t, __uint32_t, __uint64_t};
 }
 
 pub mod _dev_t_h {
-    
+
     pub type dev_t = __darwin_dev_t;
     use super::sys__types_h::__darwin_dev_t;
 }
 
 pub mod _blkcnt_t_h {
-    
+
     pub type blkcnt_t = __darwin_blkcnt_t;
     use super::sys__types_h::__darwin_blkcnt_t;
 }
 
 pub mod _blksize_t_h {
-    
+
     pub type blksize_t = __darwin_blksize_t;
     use super::sys__types_h::__darwin_blksize_t;
 }
 
 pub mod _gid_t_h {
-    
+
     pub type gid_t = __darwin_gid_t;
     use super::sys__types_h::__darwin_gid_t;
 }
 
-
-
 pub mod _mode_t_h {
-    
+
     pub type mode_t = __darwin_mode_t;
     use super::sys__types_h::__darwin_mode_t;
 }
 
 pub mod _nlink_t_h {
-    
+
     pub type nlink_t = __uint16_t;
-    use super::_types_h::__uint16_t;
+    use crate::types::__uint16_t;
 }
 
-
 pub mod _off_t_h {
-    
+
     pub type off_t = __darwin_off_t;
     use super::sys__types_h::__darwin_off_t;
 }
 
-
-
-
-
-
-
-
-
-
 pub mod _timespec_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct timespec {
         pub tv_sec: __darwin_time_t,
         pub tv_nsec: ::core::ffi::c_long,
     }
-    use super::_types_h::__darwin_time_t;
+    use crate::types::__darwin_time_t;
 }
 
 pub mod runetype_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct _RuneEntry {
         pub __min: __darwin_rune_t,
         pub __max: __darwin_rune_t,
@@ -133,21 +90,21 @@ pub mod runetype_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct _RuneRange {
         pub __nranges: ::core::ffi::c_int,
         pub __ranges: *mut _RuneEntry,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct _RuneCharClass {
         pub __name: [::core::ffi::c_char; 14],
         pub __mask: __uint32_t,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct _RuneLocale {
         pub __magic: [::core::ffi::c_char; 8],
         pub __encoding: [::core::ffi::c_char; 32],
@@ -178,9 +135,9 @@ pub mod runetype_h {
         pub __ncharclasses: ::core::ffi::c_int,
         pub __charclasses: *mut _RuneCharClass,
     }
-    use super::_types_h::{__darwin_rune_t, __darwin_size_t, __uint32_t};
+    use crate::types::{__darwin_rune_t, __darwin_size_t, __uint32_t};
     extern "C" {
-        
+
         pub static mut _DefaultRuneLocale: _RuneLocale;
     }
 }
@@ -188,7 +145,7 @@ pub mod runetype_h {
 pub mod stat_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct stat {
         pub st_dev: dev_t,
         pub st_mode: mode_t,
@@ -217,18 +174,18 @@ pub mod stat_h {
     use super::_nlink_t_h::nlink_t;
     use super::_off_t_h::off_t;
     use super::_timespec_h::timespec;
-    use super::_types_h::{__int32_t, __int64_t, __uint32_t};
-    use crate::types::uid_t;
     use super::sys__types_h::__darwin_ino64_t;
+    use crate::types::uid_t;
+    use crate::types::{__int32_t, __int64_t, __uint32_t};
     extern "C" {
-        
+
         pub fn stat(_: *const ::core::ffi::c_char, _: *mut stat) -> ::core::ffi::c_int;
     }
 }
 
 pub mod tls_h {
     extern "C" {
-        
+
         pub type tls;
     }
 }
@@ -236,7 +193,7 @@ pub mod tls_h {
 pub mod cfparser_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct CfValue {
         pub value_p: *mut ::core::ffi::c_void,
         pub extra: *const ::core::ffi::c_void,
@@ -246,45 +203,40 @@ pub mod cfparser_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct CfLookup {
         pub name: *const ::core::ffi::c_char,
         pub value: ::core::ffi::c_int,
     }
     extern "C" {
-        
+
         pub fn cf_set_lookup(cv: *mut CfValue, value: *const ::core::ffi::c_char) -> bool;
     }
 }
 
-
-
-
-
-
 pub mod socket_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr {
         pub sa_len: __uint8_t,
         pub sa_family: sa_family_t,
         pub sa_data: [::core::ffi::c_char; 14],
     }
+    use crate::types::__uint8_t;
     use crate::types::sa_family_t;
-    use super::_types_h::__uint8_t;
 }
 
 pub mod in_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct in_addr {
         pub s_addr: in_addr_t,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr_in {
         pub sin_len: __uint8_t,
         pub sin_family: sa_family_t,
@@ -292,22 +244,22 @@ pub mod in_h {
         pub sin_addr: in_addr,
         pub sin_zero: [::core::ffi::c_char; 8],
     }
+    use crate::types::__uint8_t;
     use crate::types::in_addr_t;
     use crate::types::in_port_t;
     use crate::types::sa_family_t;
-    use super::_types_h::__uint8_t;
 }
 
 pub mod in6_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct in6_addr {
         pub __u6_addr: C2RustUnnamed,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed {
         pub __u6_addr8: [__uint8_t; 16],
         pub __u6_addr16: [__uint16_t; 8],
@@ -315,7 +267,7 @@ pub mod in6_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr_in6 {
         pub sin6_len: __uint8_t,
         pub sin6_family: sa_family_t,
@@ -326,12 +278,12 @@ pub mod in6_h {
     }
     use crate::types::in_port_t;
     use crate::types::sa_family_t;
-    use super::_types_h::{__uint16_t, __uint32_t, __uint8_t};
+    use crate::types::{__uint16_t, __uint32_t, __uint8_t};
 }
 
 pub mod event_h {
     extern "C" {
-        
+
         pub type event_base;
     }
 }
@@ -339,7 +291,7 @@ pub mod event_h {
 pub mod event_struct_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct event {
         pub ev_evcallback: event_callback,
         pub ev_timeout_pos: C2RustUnnamed_5,
@@ -352,14 +304,14 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_0 {
         pub ev_io: C2RustUnnamed_3,
         pub ev_signal: C2RustUnnamed_1,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_1 {
         pub ev_signal_next: C2RustUnnamed_2,
         pub ev_ncalls: ::core::ffi::c_short,
@@ -367,42 +319,42 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_2 {
         pub le_next: *mut event,
         pub le_prev: *mut *mut event,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_3 {
         pub ev_io_next: C2RustUnnamed_4,
         pub ev_timeout: timeval,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_4 {
         pub le_next: *mut event,
         pub le_prev: *mut *mut event,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_5 {
         pub ev_next_with_common_timeout: C2RustUnnamed_6,
         pub min_heap_idx: ::core::ffi::c_int,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_6 {
         pub tqe_next: *mut event,
         pub tqe_prev: *mut *mut event,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct event_callback {
         pub evcb_active_next: C2RustUnnamed_8,
         pub evcb_flags: ::core::ffi::c_short,
@@ -413,7 +365,7 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_7 {
         pub evcb_callback: Option<
             unsafe extern "C" fn(
@@ -431,72 +383,70 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_8 {
         pub tqe_next: *mut event_callback,
         pub tqe_prev: *mut *mut event_callback,
     }
+    use super::event_h::event_base;
     use crate::types::timeval;
     use crate::types::uint8_t;
-    use super::event_h::event_base;
 }
 
-
-
 pub mod bouncer_h {
-    
+
     pub type SocketState = ::core::ffi::c_uint;
-    
+
     pub const SV_TESTED: SocketState = 16;
-    
+
     pub const SV_USED: SocketState = 15;
-    
+
     pub const SV_ACTIVE_CANCEL: SocketState = 14;
-    
+
     pub const SV_ACTIVE: SocketState = 13;
-    
+
     pub const SV_IDLE: SocketState = 12;
-    
+
     pub const SV_BEING_CANCELED: SocketState = 11;
-    
+
     pub const SV_LOGIN: SocketState = 10;
-    
+
     pub const SV_JUSTFREE: SocketState = 9;
-    
+
     pub const SV_FREE: SocketState = 8;
-    
+
     pub const CL_ACTIVE_CANCEL: SocketState = 7;
-    
+
     pub const CL_WAITING_CANCEL: SocketState = 6;
-    
+
     pub const CL_ACTIVE: SocketState = 5;
-    
+
     pub const CL_WAITING_LOGIN: SocketState = 4;
-    
+
     pub const CL_WAITING: SocketState = 3;
-    
+
     pub const CL_LOGIN: SocketState = 2;
-    
+
     pub const CL_JUSTFREE: SocketState = 1;
-    
+
     pub const CL_FREE: SocketState = 0;
-    
+
     pub type PacketCallbackFlag = ::core::ffi::c_uint;
-    
+
     pub const CB_HANDLE_COMPLETE_PACKET: PacketCallbackFlag = 2;
-    
+
     pub const CB_WANT_COMPLETE_PACKET: PacketCallbackFlag = 1;
-    
+
     pub const CB_NONE: PacketCallbackFlag = 0;
-    
+
     pub type LoadBalanceHosts = ::core::ffi::c_uint;
-    
+
     pub const LOAD_BALANCE_HOSTS_ROUND_ROBIN: LoadBalanceHosts = 1;
-    
+
     pub const LOAD_BALANCE_HOSTS_DISABLE: LoadBalanceHosts = 0;
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    
+
     pub struct PgSocket {
         pub head: List,
         pub cancel_head: List,
@@ -553,7 +503,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    
+
     pub struct CallbackState {
         #[bitfield(name = "flag", ty = "PacketCallbackFlag", bits = "0..=7")]
         pub flag: [u8; 1],
@@ -563,7 +513,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct ScramState {
         pub client_nonce: *mut ::core::ffi::c_char,
         pub client_first_message_bare: *mut ::core::ffi::c_char,
@@ -585,14 +535,14 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_9 {
         pub dns_token: *mut DNSToken,
         pub db: *mut PgDatabase,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct PgDatabase {
         pub head: List,
         pub name: [::core::ffi::c_char; 64],
@@ -630,7 +580,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct PgCredentials {
         pub tree_node: AANode,
         pub name: [::core::ffi::c_char; 128],
@@ -648,7 +598,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct PgGlobalUser {
         pub credentials: PgCredentials,
         pub head: List,
@@ -667,7 +617,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    
+
     pub struct PgPool {
         pub head: List,
         pub map_head: List,
@@ -703,7 +653,7 @@ pub mod bouncer_h {
     pub use super::super::common::types::PgStats;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union PgAddr {
         pub sa: sockaddr,
         pub sin: sockaddr_in,
@@ -712,28 +662,28 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr_ucreds {
         pub sin: sockaddr_in,
         pub uid: uid_t,
         pub pid: pid_t,
     }
-    
+
     pub type ReplicationType = ::core::ffi::c_uint;
-    
+
     pub const REPLICATION_PHYSICAL: ReplicationType = 2;
-    
+
     pub const REPLICATION_LOGICAL: ReplicationType = 1;
-    
+
     pub const REPLICATION_NONE: ReplicationType = 0;
-    
+
     pub const MAX_USERNAME: ::core::ffi::c_int = 128 as ::core::ffi::c_int;
-    
+
     pub const MAX_PASSWORD: ::core::ffi::c_int = 2048 as ::core::ffi::c_int;
-    
+
     pub const POOL_INHERIT: ::core::ffi::c_int = 3 as ::core::ffi::c_int;
     #[inline]
-    
+
     pub unsafe extern "C" fn cstr_skip_ws(
         mut p: *mut ::core::ffi::c_char,
     ) -> *mut ::core::ffi::c_char {
@@ -742,34 +692,34 @@ pub mod bouncer_h {
         }
         p
     }
+    use super::cfparser_h::CfLookup;
+    use super::dnslookup_h::DNSToken;
+    use super::in6_h::sockaddr_in6;
+    use super::in_h::sockaddr_in;
+    use super::pktbuf_h::PktBuf;
+    use super::sbuf_h::SBuf;
+    use super::socket_h::sockaddr;
+    use crate::types::pg_cryptohash_type;
     use crate::types::pid_t;
     use crate::types::uid_t;
     use crate::types::uint16_t;
     use crate::types::uint64_t;
     use crate::types::uint8_t;
-    use crate::types::{AANode, AATree};
-    use super::cfparser_h::CfLookup;
-    use crate::types::pg_cryptohash_type;
-    use super::dnslookup_h::DNSToken;
-    use super::in6_h::sockaddr_in6;
-    use super::in_h::sockaddr_in;
-    use crate::types::List;
-    use super::pktbuf_h::PktBuf;
-    use crate::types::{PgClientPreparedStatement, PgServerPreparedStatement};
-    use crate::types::PktHdr;
-    use super::sbuf_h::SBuf;
-    use super::socket_h::sockaddr;
-    use crate::types::StatList;
     use crate::types::usec_t;
+    use crate::types::List;
+    use crate::types::PktHdr;
+    use crate::types::StatList;
     use crate::types::VarCache;
+    use crate::types::{AANode, AATree};
+    use crate::types::{PgClientPreparedStatement, PgServerPreparedStatement};
     extern "C" {
-        
+
         pub static mut cf_autodb_connstr: *mut ::core::ffi::c_char;
-        
+
         pub static mut cf_auth_file: *mut ::core::ffi::c_char;
-        
+
         pub static pool_mode_map: [CfLookup; 0];
-        
+
         pub static load_balance_hosts_map: [CfLookup; 0];
     }
 }
@@ -777,7 +727,7 @@ pub mod bouncer_h {
 pub mod sbuf_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct SBuf {
         pub ev: event,
         pub wait_type: uint8_t,
@@ -797,7 +747,7 @@ pub mod sbuf_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct SBufIO {
         pub sbufio_peek:
             Option<unsafe extern "C" fn(*mut SBuf, *mut ::core::ffi::c_void, size_t) -> ssize_t>,
@@ -807,41 +757,41 @@ pub mod sbuf_h {
             Option<unsafe extern "C" fn(*mut SBuf, *const ::core::ffi::c_void, size_t) -> ssize_t>,
         pub sbufio_close: Option<unsafe extern "C" fn(*mut SBuf) -> ::core::ffi::c_int>,
     }
-    
+
     pub type sbuf_cb_t = Option<unsafe extern "C" fn(*mut SBuf, SBufEvent, *mut MBuf) -> bool>;
-    
+
     pub type SBufEvent = ::core::ffi::c_uint;
-    
+
     pub const SBUF_EV_TLS_READY: SBufEvent = 7;
-    
+
     pub const SBUF_EV_PKT_CALLBACK: SBufEvent = 6;
-    
+
     pub const SBUF_EV_FLUSH: SBufEvent = 5;
-    
+
     pub const SBUF_EV_CONNECT_OK: SBufEvent = 4;
-    
+
     pub const SBUF_EV_CONNECT_FAILED: SBufEvent = 3;
-    
+
     pub const SBUF_EV_SEND_FAILED: SBufEvent = 2;
-    
+
     pub const SBUF_EV_RECV_FAILED: SBufEvent = 1;
-    
+
     pub const SBUF_EV_READ: SBufEvent = 0;
-    use crate::types::size_t;
-    use crate::types::ssize_t;
-    use crate::types::uint8_t;
     use super::event_struct_h::event;
     use super::iobuf_h::IOBuf;
     use super::tls_h::tls;
+    use crate::types::size_t;
+    use crate::types::ssize_t;
+    use crate::types::uint8_t;
     use crate::types::MBuf;
 }
 
 pub mod iobuf_h {
-    
+
     pub type IOBuf = iobuf;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct iobuf {
         pub done_pos: ::core::ffi::c_uint,
         pub parse_pos: ::core::ffi::c_uint,
@@ -851,12 +801,10 @@ pub mod iobuf_h {
     use crate::types::uint8_t;
 }
 
-
-
 pub mod pktbuf_h {
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    
+
     pub struct PktBuf {
         pub buf: *mut uint8_t,
         pub buf_len: ::core::ffi::c_int,
@@ -872,47 +820,47 @@ pub mod pktbuf_h {
         #[bitfield(padding)]
         pub c2rust_padding: [u8; 7],
     }
-    use crate::types::uint8_t;
     use super::bouncer_h::PgSocket;
     use super::event_struct_h::event;
+    use crate::types::uint8_t;
     extern "C" {
-        
+
         pub fn pktbuf_dynamic(start_len: ::core::ffi::c_int) -> *mut PktBuf;
-        
+
         pub fn pktbuf_reset(pkt: *mut PktBuf);
-        
+
         pub fn pktbuf_put_string(buf: *mut PktBuf, str: *const ::core::ffi::c_char);
     }
 }
 
 pub mod dnslookup_h {
     extern "C" {
-        
+
         pub type DNSToken;
     }
 }
 
 pub mod logging_h {
-    
+
     pub type LogLevel = ::core::ffi::c_uint;
-    
+
     pub const LG_NOISE: LogLevel = 6;
-    
+
     pub const LG_DEBUG: LogLevel = 5;
-    
+
     pub const LG_INFO: LogLevel = 4;
-    
+
     pub const LG_STATS: LogLevel = 3;
-    
+
     pub const LG_WARNING: LogLevel = 2;
-    
+
     pub const LG_ERROR: LogLevel = 1;
-    
+
     pub const LG_FATAL: LogLevel = 0;
     extern "C" {
-        
+
         pub static mut cf_verbose: ::core::ffi::c_int;
-        
+
         pub fn log_generic(
             level: LogLevel,
             ctx: *mut ::core::ffi::c_void,
@@ -923,15 +871,15 @@ pub mod logging_h {
 }
 
 pub mod _ctype_h {
-    
+
     pub const _CTYPE_S: ::core::ffi::c_long = 0x4000 as ::core::ffi::c_long;
     #[inline]
-    
+
     pub unsafe extern "C" fn isascii(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
         (_c & !(0x7f as ::core::ffi::c_int) == 0 as ::core::ffi::c_int) as ::core::ffi::c_int
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn __istype(
         mut _c: __darwin_ct_rune_t,
         mut _f: ::core::ffi::c_ulong,
@@ -944,45 +892,44 @@ pub mod _ctype_h {
         }
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn isspace(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
         __istype(_c as __darwin_ct_rune_t, _CTYPE_S as ::core::ffi::c_ulong)
     }
-    use super::_types_h::__darwin_ct_rune_t;
     use super::runetype_h::_DefaultRuneLocale;
+    use crate::types::__darwin_ct_rune_t;
     extern "C" {
-        
+
         pub fn __maskrune(_: __darwin_ct_rune_t, _: ::core::ffi::c_ulong) -> ::core::ffi::c_int;
     }
 }
 
 pub mod ctype_h {
     #[inline]
-    
+
     pub unsafe extern "C" fn safe_isspace(mut c: ::core::ffi::c_int) -> ::core::ffi::c_int {
         isspace(c as ::core::ffi::c_uchar as ::core::ffi::c_int)
     }
     use super::_ctype_h::isspace;
 }
 
-
 pub mod _string_h {
     use crate::types::size_t;
     extern "C" {
-        
+
         pub fn memset(
             __b: *mut ::core::ffi::c_void,
             __c: ::core::ffi::c_int,
             __len: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn strcmp(
             __s1: *const ::core::ffi::c_char,
             __s2: *const ::core::ffi::c_char,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn strerror(__errnum: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;
-        
+
         pub fn strdup(__s1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
     }
 }
@@ -992,39 +939,39 @@ pub mod objects_h {
 
     use crate::types::StatList;
     extern "C" {
-        
+
         pub static mut user_list: StatList;
-        
+
         pub fn add_peer(
             name: *const ::core::ffi::c_char,
             peer_id: ::core::ffi::c_int,
         ) -> *mut PgDatabase;
-        
+
         pub fn add_database(name: *const ::core::ffi::c_char) -> *mut PgDatabase;
-        
+
         pub fn force_user_credentials(
             db: *mut PgDatabase,
             username: *const ::core::ffi::c_char,
             passwd: *const ::core::ffi::c_char,
         ) -> *mut PgCredentials;
-        
+
         pub fn update_global_user_passwd(
             user: *mut PgGlobalUser,
             passwd: *const ::core::ffi::c_char,
         ) -> *mut PgGlobalUser;
-        
+
         pub fn find_or_add_new_global_user(
             name: *const ::core::ffi::c_char,
             passwd: *const ::core::ffi::c_char,
         ) -> *mut PgGlobalUser;
-        
+
         pub fn find_or_add_new_global_credentials(
             name: *const ::core::ffi::c_char,
             passwd: *const ::core::ffi::c_char,
         ) -> *mut PgCredentials;
-        
+
         pub fn tag_database_dirty(db: *mut PgDatabase);
-        
+
         pub fn tag_autodb_dirty();
     }
 }
@@ -1032,7 +979,7 @@ pub mod objects_h {
 pub mod fileutil_h {
     use crate::types::size_t;
     extern "C" {
-        
+
         pub fn load_file(
             fn_0: *const ::core::ffi::c_char,
             len_p: *mut size_t,
@@ -1042,18 +989,18 @@ pub mod fileutil_h {
 
 pub mod _malloc_h {
     extern "C" {
-        
+
         pub fn free(_: *mut ::core::ffi::c_void);
     }
 }
 
 pub mod _stdlib_h {
     extern "C" {
-        
+
         pub fn atoi(_: *const ::core::ffi::c_char) -> ::core::ffi::c_int;
-        
+
         pub fn exit(_: ::core::ffi::c_int) -> !;
-        
+
         pub fn strtonum(
             __numstr: *const ::core::ffi::c_char,
             __minval: ::core::ffi::c_longlong,
@@ -1065,15 +1012,14 @@ pub mod _stdlib_h {
 
 pub mod errno_h {
     extern "C" {
-        
+
         pub fn __error() -> *mut ::core::ffi::c_int;
     }
 }
 
-
 pub mod string_h {
     extern "C" {
-        
+
         pub fn strcmpeq(
             str_left: *const ::core::ffi::c_char,
             str_right: *const ::core::ffi::c_char,
@@ -1083,7 +1029,7 @@ pub mod string_h {
 
 pub mod util_h {
     extern "C" {
-        
+
         pub fn check_reserved_database(value: *const ::core::ffi::c_char) -> bool;
     }
 }
@@ -1092,34 +1038,13 @@ pub use self::_blksize_t_h::blksize_t;
 pub use self::_ctype_h::{__istype, __maskrune, isascii, isspace, _CTYPE_S};
 pub use self::_dev_t_h::dev_t;
 pub use self::_gid_t_h::gid_t;
-pub use crate::types::in_addr_t;
-pub use crate::types::in_port_t;
 use self::_malloc_h::free;
 pub use self::_mode_t_h::mode_t;
 pub use self::_nlink_t_h::nlink_t;
-pub use crate::types::NULL;
 pub use self::_off_t_h::off_t;
-pub use crate::types::pid_t;
-pub use crate::types::ptrdiff_t;
-pub use crate::types::sa_family_t;
-pub use crate::types::size_t;
-pub use crate::types::ssize_t;
 use self::_stdlib_h::{atoi, exit, strtonum};
 use self::_string_h::{memset, strcmp, strdup, strerror};
 pub use self::_timespec_h::timespec;
-pub use crate::types::timeval;
-pub use self::_types_h::{
-    __darwin_ct_rune_t, __darwin_ptrdiff_t, __darwin_rune_t, __darwin_size_t, __darwin_ssize_t,
-    __darwin_time_t, __darwin_wchar_t, __int32_t, __int64_t, __uint16_t, __uint32_t, __uint64_t,
-    __uint8_t,
-};
-pub use crate::types::uid_t;
-pub use crate::types::uint16_t;
-pub use crate::types::uint32_t;
-pub use crate::types::uint64_t;
-pub use crate::types::uint8_t;
-pub use crate::types::uintptr_t;
-pub use crate::types::{aatree_cmp_f, aatree_walker_f, AANode, AATree};
 pub use self::bouncer_h::{
     cf_auth_file, cf_autodb_connstr, cstr_skip_ws, load_balance_hosts_map, pool_mode_map,
     sockaddr_ucreds, C2RustUnnamed_9, CallbackState, LoadBalanceHosts, PacketCallbackFlag, PgAddr,
@@ -1132,8 +1057,29 @@ pub use self::bouncer_h::{
     SV_TESTED, SV_USED,
 };
 pub use self::cfparser_h::{cf_set_lookup, CfLookup, CfValue};
-pub use crate::types::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
 pub use self::ctype_h::safe_isspace;
+pub use crate::types::in_addr_t;
+pub use crate::types::in_port_t;
+pub use crate::types::pid_t;
+pub use crate::types::ptrdiff_t;
+pub use crate::types::sa_family_t;
+pub use crate::types::size_t;
+pub use crate::types::ssize_t;
+pub use crate::types::timeval;
+pub use crate::types::uid_t;
+pub use crate::types::uint16_t;
+pub use crate::types::uint32_t;
+pub use crate::types::uint64_t;
+pub use crate::types::uint8_t;
+pub use crate::types::uintptr_t;
+pub use crate::types::NULL;
+pub use crate::types::{
+    __darwin_ct_rune_t, __darwin_ptrdiff_t, __darwin_rune_t, __darwin_size_t, __darwin_ssize_t,
+    __darwin_time_t, __darwin_wchar_t, __int32_t, __int64_t, __uint16_t, __uint32_t, __uint64_t,
+    __uint8_t,
+};
+pub use crate::types::{aatree_cmp_f, aatree_walker_f, AANode, AATree};
+pub use crate::types::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
 
 use self::errno_h::__error;
 
@@ -1145,22 +1091,16 @@ use self::fileutil_h::load_file;
 pub use self::in6_h::{in6_addr, sockaddr_in6, C2RustUnnamed};
 pub use self::in_h::{in_addr, sockaddr_in};
 pub use self::iobuf_h::{iobuf, IOBuf};
-pub use crate::types::List;
 pub use self::logging_h::{
     cf_verbose, log_generic, LogLevel, LG_DEBUG, LG_ERROR, LG_FATAL, LG_INFO, LG_NOISE, LG_STATS,
     LG_WARNING,
 };
-pub use crate::types::MBuf;
 use self::objects_h::{
     add_database, add_peer, find_or_add_new_global_credentials, find_or_add_new_global_user,
     force_user_credentials, tag_autodb_dirty, tag_database_dirty, update_global_user_passwd,
     user_list,
 };
 pub use self::pktbuf_h::{pktbuf_dynamic, pktbuf_put_string, pktbuf_reset, PktBuf};
-pub use crate::types::{
-    PgClientPreparedStatement, PgPreparedStatement, PgServerPreparedStatement,
-};
-pub use crate::types::PktHdr;
 pub use self::runetype_h::{
     _DefaultRuneLocale, _RuneCharClass, _RuneEntry, _RuneLocale, _RuneRange,
 };
@@ -1171,20 +1111,24 @@ pub use self::sbuf_h::{
 };
 pub use self::socket_h::sockaddr;
 pub use self::stat_h::stat;
-pub use crate::types::StatList;
-pub use crate::types::{false_0, true_0};
 use self::string_h::strcmpeq;
-pub use crate::types::{PStr, StrPool};
 pub use self::sys__types_h::{
     __darwin_blkcnt_t, __darwin_blksize_t, __darwin_dev_t, __darwin_gid_t, __darwin_ino64_t,
     __darwin_mode_t, __darwin_off_t, __darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t,
     __DARWIN_NULL,
 };
+pub use crate::types::List;
+pub use crate::types::MBuf;
+pub use crate::types::PktHdr;
+pub use crate::types::StatList;
+pub use crate::types::{false_0, true_0};
 pub use crate::types::{usec_t, USEC};
+pub use crate::types::{PStr, StrPool};
+pub use crate::types::{PgClientPreparedStatement, PgPreparedStatement, PgServerPreparedStatement};
 
-pub use crate::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 use self::util_h::check_reserved_database;
 pub use crate::types::VarCache;
+pub use crate::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 #[no_mangle]
 
 pub static mut any_user_level_timeout_set: bool = false;
@@ -1305,7 +1249,7 @@ unsafe extern "C" fn set_param_value(
     mut new_value: *const ::core::ffi::c_char,
 ) -> bool {
     if strcmpeq(*old_value, new_value) {
-        return true_0 != 0;
+        return true;
     }
     if !(*old_value).is_null() {
         free(*old_value as *mut ::core::ffi::c_void);
@@ -1314,17 +1258,13 @@ unsafe extern "C" fn set_param_value(
         *old_value = strdup(new_value);
         if (*old_value).is_null() {
             let mut _log_ctx = NULL;
-            log_generic(
-                LG_ERROR,
-                _log_ctx,
-                b"out of memory\0" as *const u8 as *const ::core::ffi::c_char,
-            );
-            return false_0 != 0;
+            log_generic(LG_ERROR, _log_ctx, c"out of memory".as_ptr());
+            return false;
         }
     } else {
         *old_value = ::core::ptr::null_mut::<::core::ffi::c_char>();
     }
-    true_0 != 0
+    true
 }
 
 unsafe extern "C" fn set_autodb(mut connstr: *const ::core::ffi::c_char) -> bool {
@@ -1335,9 +1275,9 @@ unsafe extern "C" fn set_autodb(mut connstr: *const ::core::ffi::c_char) -> bool
         log_generic(
             LG_ERROR,
             _log_ctx,
-            b"no mem to change autodb_connstr\0" as *const u8 as *const ::core::ffi::c_char,
+            c"no mem to change autodb_connstr".as_ptr(),
         );
-        return false_0 != 0;
+        return false;
     }
     cf_autodb_connstr = tmp;
     if !old.is_null() {
@@ -1346,7 +1286,7 @@ unsafe extern "C" fn set_autodb(mut connstr: *const ::core::ffi::c_char) -> bool
         }
         free(old as *mut ::core::ffi::c_void);
     }
-    true_0 != 0
+    true
 }
 #[no_mangle]
 
@@ -1375,20 +1315,15 @@ pub unsafe extern "C" fn parse_peer(
         log_generic(
             LG_ERROR,
             _log_ctx,
-            b"ids of peers must be a number larger than 0 and at most 65536\0" as *const u8
-                as *const ::core::ffi::c_char,
+            c"ids of peers must be a number larger than 0 and at most 65536".as_ptr(),
         );
-        return false_0 != 0;
+        return false;
     }
     tmp_connstr = strdup(connstr);
     if tmp_connstr.is_null() {
         let mut _log_ctx_0 = NULL;
-        log_generic(
-            LG_ERROR,
-            _log_ctx_0,
-            b"out of memory\0" as *const u8 as *const ::core::ffi::c_char,
-        );
-        return false_0 != 0;
+        log_generic(LG_ERROR, _log_ctx_0, c"out of memory".as_ptr());
+        return false;
     }
     p = tmp_connstr;
     loop {
@@ -1402,7 +1337,7 @@ pub unsafe extern "C" fn parse_peer(
             log_generic(
                 LG_ERROR,
                 _log_ctx_1,
-                b"syntax error in connection string\0" as *const u8 as *const ::core::ffi::c_char,
+                c"syntax error in connection string".as_ptr(),
             );
             current_block = 1844502831972581562;
             break;
@@ -1411,42 +1346,28 @@ pub unsafe extern "C" fn parse_peer(
                 current_block = 6417057564578538666;
                 break;
             }
-            if strcmp(b"host\0" as *const u8 as *const ::core::ffi::c_char, key)
-                == 0 as ::core::ffi::c_int
-            {
+            if strcmp(c"host".as_ptr(), key) == 0 as ::core::ffi::c_int {
                 if !set_param_value(&raw mut host, val) {
                     current_block = 1844502831972581562;
                     break;
                 }
-            } else if strcmp(b"port\0" as *const u8 as *const ::core::ffi::c_char, key)
-                == 0 as ::core::ffi::c_int
-            {
+            } else if strcmp(c"port".as_ptr(), key) == 0 as ::core::ffi::c_int {
                 port = atoi(val);
                 if port != 0 as ::core::ffi::c_int {
                     continue;
                 }
                 let mut _log_ctx_2 = NULL;
-                log_generic(
-                    LG_ERROR,
-                    _log_ctx_2,
-                    b"invalid port: %s\0" as *const u8 as *const ::core::ffi::c_char,
-                    val,
-                );
+                log_generic(LG_ERROR, _log_ctx_2, c"invalid port: %s".as_ptr(), val);
                 current_block = 1844502831972581562;
                 break;
-            } else if strcmp(
-                b"pool_size\0" as *const u8 as *const ::core::ffi::c_char,
-                key,
-            ) == 0 as ::core::ffi::c_int
-            {
+            } else if strcmp(c"pool_size".as_ptr(), key) == 0 as ::core::ffi::c_int {
                 pool_size = atoi(val);
             } else {
                 let mut _log_ctx_3 = NULL;
                 log_generic(
                     LG_ERROR,
                     _log_ctx_3,
-                    b"unrecognized connection parameter: %s\0" as *const u8
-                        as *const ::core::ffi::c_char,
+                    c"unrecognized connection parameter: %s".as_ptr(),
                     key,
                 );
                 current_block = 1844502831972581562;
@@ -1460,7 +1381,7 @@ pub unsafe extern "C" fn parse_peer(
             log_generic(
                 LG_ERROR,
                 _log_ctx_4,
-                b"host was not provided for peer %d\0" as *const u8 as *const ::core::ffi::c_char,
+                c"host was not provided for peer %d".as_ptr(),
                 peer_id,
             );
         } else {
@@ -1470,22 +1391,22 @@ pub unsafe extern "C" fn parse_peer(
                 log_generic(
                     LG_ERROR,
                     _log_ctx_5,
-                    b"cannot create peer, no memory?\0" as *const u8 as *const ::core::ffi::c_char,
+                    c"cannot create peer, no memory?".as_ptr(),
                 );
             } else {
-                (*peer).db_dead = false_0 != 0;
+                (*peer).db_dead = false;
                 free((*peer).host as *mut ::core::ffi::c_void);
                 (*peer).host = host;
                 (*peer).port = port;
                 (*peer).pool_size = pool_size;
                 free(tmp_connstr as *mut ::core::ffi::c_void);
-                return true_0 != 0;
+                return true;
             }
         }
     }
     free(tmp_connstr as *mut ::core::ffi::c_void);
     free(host as *mut ::core::ffi::c_void);
-    false_0 != 0
+    false
 }
 #[no_mangle]
 
@@ -1519,7 +1440,7 @@ pub unsafe extern "C" fn parse_database(
     let mut res_pool_size = -(1 as ::core::ffi::c_int);
     let mut max_db_client_connections = -(1 as ::core::ffi::c_int);
     let mut max_db_connections = -(1 as ::core::ffi::c_int);
-    let mut server_lifetime: usec_t = 0 as usec_t;
+    let mut server_lifetime: usec_t = 0;
     let mut dbname_ofs: ::core::ffi::c_int = 0;
     let mut pool_mode = POOL_INHERIT;
     let mut load_balance_hosts = LOAD_BALANCE_HOSTS_ROUND_ROBIN;
@@ -1528,7 +1449,7 @@ pub unsafe extern "C" fn parse_database(
     let mut host = ::core::ptr::null_mut::<::core::ffi::c_char>();
     let mut port = 5432 as ::core::ffi::c_int;
     let mut username = ::core::ptr::null_mut::<::core::ffi::c_char>();
-    let mut password = b"\0" as *const u8 as *const ::core::ffi::c_char as *mut ::core::ffi::c_char;
+    let mut password = c"".as_ptr() as *mut ::core::ffi::c_char;
     let mut auth_username = ::core::ptr::null_mut::<::core::ffi::c_char>();
     let mut auth_dbname = ::core::ptr::null_mut::<::core::ffi::c_char>();
     let mut client_encoding = ::core::ptr::null_mut::<::core::ffi::c_char>();
@@ -1550,20 +1471,16 @@ pub unsafe extern "C" fn parse_database(
             b"database name \"%s\" is reserved\0" as *const u8 as *const ::core::ffi::c_char,
             name,
         );
-        return false_0 != 0;
+        return false;
     }
-    if strcmp(name, b"*\0" as *const u8 as *const ::core::ffi::c_char) == 0 as ::core::ffi::c_int {
+    if strcmp(name, c"*".as_ptr()) == 0 as ::core::ffi::c_int {
         return set_autodb(connstr);
     }
     tmp_connstr = strdup(connstr);
     if tmp_connstr.is_null() {
         let mut _log_ctx_0 = NULL;
-        log_generic(
-            LG_ERROR,
-            _log_ctx_0,
-            b"out of memory\0" as *const u8 as *const ::core::ffi::c_char,
-        );
-        return false_0 != 0;
+        log_generic(LG_ERROR, _log_ctx_0, c"out of memory".as_ptr());
+        return false;
     }
     p = tmp_connstr;
     loop {
@@ -1577,7 +1494,7 @@ pub unsafe extern "C" fn parse_database(
             log_generic(
                 LG_ERROR,
                 _log_ctx_1,
-                b"syntax error in connection string\0" as *const u8 as *const ::core::ffi::c_char,
+                c"syntax error in connection string".as_ptr(),
             );
             current_block = 17902695515181753043;
             break;
@@ -1586,120 +1503,52 @@ pub unsafe extern "C" fn parse_database(
                 current_block = 2705889988320590074;
                 break;
             }
-            if strcmp(b"dbname\0" as *const u8 as *const ::core::ffi::c_char, key)
-                == 0 as ::core::ffi::c_int
-            {
+            if strcmp(c"dbname".as_ptr(), key) == 0 as ::core::ffi::c_int {
                 dbname = val;
-            } else if strcmp(b"host\0" as *const u8 as *const ::core::ffi::c_char, key)
-                == 0 as ::core::ffi::c_int
-            {
+            } else if strcmp(c"host".as_ptr(), key) == 0 as ::core::ffi::c_int {
                 if !set_param_value(&raw mut host, val) {
                     current_block = 17902695515181753043;
                     break;
                 }
-            } else if strcmp(b"port\0" as *const u8 as *const ::core::ffi::c_char, key)
-                == 0 as ::core::ffi::c_int
-            {
+            } else if strcmp(c"port".as_ptr(), key) == 0 as ::core::ffi::c_int {
                 port = atoi(val);
                 if port != 0 as ::core::ffi::c_int {
                     continue;
                 }
                 let mut _log_ctx_2 = NULL;
-                log_generic(
-                    LG_ERROR,
-                    _log_ctx_2,
-                    b"invalid port: %s\0" as *const u8 as *const ::core::ffi::c_char,
-                    val,
-                );
+                log_generic(LG_ERROR, _log_ctx_2, c"invalid port: %s".as_ptr(), val);
                 current_block = 17902695515181753043;
                 break;
-            } else if strcmp(b"user\0" as *const u8 as *const ::core::ffi::c_char, key)
-                == 0 as ::core::ffi::c_int
-            {
+            } else if strcmp(c"user".as_ptr(), key) == 0 as ::core::ffi::c_int {
                 username = val;
-            } else if strcmp(
-                b"password\0" as *const u8 as *const ::core::ffi::c_char,
-                key,
-            ) == 0 as ::core::ffi::c_int
-            {
+            } else if strcmp(c"password".as_ptr(), key) == 0 as ::core::ffi::c_int {
                 password = val;
-            } else if strcmp(
-                b"auth_user\0" as *const u8 as *const ::core::ffi::c_char,
-                key,
-            ) == 0 as ::core::ffi::c_int
-            {
+            } else if strcmp(c"auth_user".as_ptr(), key) == 0 as ::core::ffi::c_int {
                 auth_username = val;
-            } else if strcmp(
-                b"auth_dbname\0" as *const u8 as *const ::core::ffi::c_char,
-                key,
-            ) == 0 as ::core::ffi::c_int
-            {
+            } else if strcmp(c"auth_dbname".as_ptr(), key) == 0 as ::core::ffi::c_int {
                 auth_dbname = val;
-            } else if strcmp(
-                b"client_encoding\0" as *const u8 as *const ::core::ffi::c_char,
-                key,
-            ) == 0 as ::core::ffi::c_int
-            {
+            } else if strcmp(c"client_encoding".as_ptr(), key) == 0 as ::core::ffi::c_int {
                 client_encoding = val;
-            } else if strcmp(
-                b"datestyle\0" as *const u8 as *const ::core::ffi::c_char,
-                key,
-            ) == 0 as ::core::ffi::c_int
-            {
+            } else if strcmp(c"datestyle".as_ptr(), key) == 0 as ::core::ffi::c_int {
                 datestyle = val;
-            } else if strcmp(
-                b"timezone\0" as *const u8 as *const ::core::ffi::c_char,
-                key,
-            ) == 0 as ::core::ffi::c_int
-            {
+            } else if strcmp(c"timezone".as_ptr(), key) == 0 as ::core::ffi::c_int {
                 timezone = val;
-            } else if strcmp(
-                b"pool_size\0" as *const u8 as *const ::core::ffi::c_char,
-                key,
-            ) == 0 as ::core::ffi::c_int
-            {
+            } else if strcmp(c"pool_size".as_ptr(), key) == 0 as ::core::ffi::c_int {
                 pool_size = atoi(val);
-            } else if strcmp(
-                b"min_pool_size\0" as *const u8 as *const ::core::ffi::c_char,
-                key,
-            ) == 0 as ::core::ffi::c_int
-            {
+            } else if strcmp(c"min_pool_size".as_ptr(), key) == 0 as ::core::ffi::c_int {
                 min_pool_size = atoi(val);
-            } else if strcmp(
-                b"reserve_pool\0" as *const u8 as *const ::core::ffi::c_char,
-                key,
-            ) == 0 as ::core::ffi::c_int
-            {
+            } else if strcmp(c"reserve_pool".as_ptr(), key) == 0 as ::core::ffi::c_int {
                 res_pool_size = atoi(val);
-            } else if strcmp(
-                b"reserve_pool_size\0" as *const u8 as *const ::core::ffi::c_char,
-                key,
-            ) == 0 as ::core::ffi::c_int
-            {
+            } else if strcmp(c"reserve_pool_size".as_ptr(), key) == 0 as ::core::ffi::c_int {
                 res_pool_size = atoi(val);
-            } else if strcmp(
-                b"max_db_connections\0" as *const u8 as *const ::core::ffi::c_char,
-                key,
-            ) == 0 as ::core::ffi::c_int
-            {
+            } else if strcmp(c"max_db_connections".as_ptr(), key) == 0 as ::core::ffi::c_int {
                 max_db_connections = atoi(val);
-            } else if strcmp(
-                b"max_db_client_connections\0" as *const u8 as *const ::core::ffi::c_char,
-                key,
-            ) == 0 as ::core::ffi::c_int
+            } else if strcmp(c"max_db_client_connections".as_ptr(), key) == 0 as ::core::ffi::c_int
             {
                 max_db_client_connections = atoi(val);
-            } else if strcmp(
-                b"server_lifetime\0" as *const u8 as *const ::core::ffi::c_char,
-                key,
-            ) == 0 as ::core::ffi::c_int
-            {
+            } else if strcmp(c"server_lifetime".as_ptr(), key) == 0 as ::core::ffi::c_int {
                 server_lifetime = (atoi(val) as usec_t).wrapping_mul(USEC);
-            } else if strcmp(
-                b"load_balance_hosts\0" as *const u8 as *const ::core::ffi::c_char,
-                key,
-            ) == 0 as ::core::ffi::c_int
-            {
+            } else if strcmp(c"load_balance_hosts".as_ptr(), key) == 0 as ::core::ffi::c_int {
                 if cf_set_lookup(&raw mut load_balance_hosts_lookup, val) {
                     continue;
                 }
@@ -1707,56 +1556,34 @@ pub unsafe extern "C" fn parse_database(
                 log_generic(
                     LG_ERROR,
                     _log_ctx_3,
-                    b"invalid load_balance_hosts: %s\0" as *const u8 as *const ::core::ffi::c_char,
+                    c"invalid load_balance_hosts: %s".as_ptr(),
                     val,
                 );
                 current_block = 17902695515181753043;
                 break;
-            } else if strcmp(
-                b"pool_mode\0" as *const u8 as *const ::core::ffi::c_char,
-                key,
-            ) == 0 as ::core::ffi::c_int
-            {
+            } else if strcmp(c"pool_mode".as_ptr(), key) == 0 as ::core::ffi::c_int {
                 if cf_set_lookup(&raw mut cv, val) {
                     continue;
                 }
                 let mut _log_ctx_4 = NULL;
-                log_generic(
-                    LG_ERROR,
-                    _log_ctx_4,
-                    b"invalid pool mode: %s\0" as *const u8 as *const ::core::ffi::c_char,
-                    val,
-                );
+                log_generic(LG_ERROR, _log_ctx_4, c"invalid pool mode: %s".as_ptr(), val);
                 current_block = 17902695515181753043;
                 break;
-            } else if strcmp(
-                b"connect_query\0" as *const u8 as *const ::core::ffi::c_char,
-                key,
-            ) == 0 as ::core::ffi::c_int
-            {
+            } else if strcmp(c"connect_query".as_ptr(), key) == 0 as ::core::ffi::c_int {
                 if !set_param_value(&raw mut connect_query, val) {
                     current_block = 17902695515181753043;
                     break;
                 }
-            } else if strcmp(
-                b"application_name\0" as *const u8 as *const ::core::ffi::c_char,
-                key,
-            ) == 0 as ::core::ffi::c_int
-            {
+            } else if strcmp(c"application_name".as_ptr(), key) == 0 as ::core::ffi::c_int {
                 appname = val;
-            } else if strcmp(
-                b"auth_query\0" as *const u8 as *const ::core::ffi::c_char,
-                key,
-            ) == 0 as ::core::ffi::c_int
-            {
+            } else if strcmp(c"auth_query".as_ptr(), key) == 0 as ::core::ffi::c_int {
                 auth_query = val;
             } else {
                 let mut _log_ctx_5 = NULL;
                 log_generic(
                     LG_ERROR,
                     _log_ctx_5,
-                    b"unrecognized connection parameter: %s\0" as *const u8
-                        as *const ::core::ffi::c_char,
+                    c"unrecognized connection parameter: %s".as_ptr(),
                     key,
                 );
                 current_block = 17902695515181753043;
@@ -1771,41 +1598,41 @@ pub unsafe extern "C" fn parse_database(
             log_generic(
                 LG_ERROR,
                 _log_ctx_6,
-                b"cannot create database, no memory?\0" as *const u8 as *const ::core::ffi::c_char,
+                c"cannot create database, no memory?".as_ptr(),
             );
         } else {
-            (*db).db_dead = false_0 != 0;
-            (*db).db_auto = false_0 != 0;
-            (*db).inactive_time = 0 as usec_t;
+            (*db).db_dead = false;
+            (*db).db_auto = false;
+            (*db).inactive_time = 0;
             if !(*db).dbname.is_null() {
-                let mut changed = false_0 != 0;
+                let mut changed = false;
                 if strcmp((*db).dbname, dbname) != 0 as ::core::ffi::c_int {
-                    changed = true_0 != 0;
+                    changed = true;
                 } else if !strcmpeq(host, (*db).host) {
-                    changed = true_0 != 0;
+                    changed = true;
                 } else if port != (*db).port {
-                    changed = true_0 != 0;
+                    changed = true;
                 } else if !username.is_null() && (*db).forced_user_credentials.is_null() {
-                    changed = true_0 != 0;
+                    changed = true;
                 } else if !username.is_null()
                     && strcmp(
                         username,
                         &raw mut (*(*db).forced_user_credentials).name as *mut ::core::ffi::c_char,
                     ) != 0 as ::core::ffi::c_int
                 {
-                    changed = true_0 != 0;
+                    changed = true;
                 } else if username.is_null() && !(*db).forced_user_credentials.is_null() {
-                    changed = true_0 != 0;
+                    changed = true;
                 } else if !strcmpeq(connect_query, (*db).connect_query) {
-                    changed = true_0 != 0;
+                    changed = true;
                 } else if !strcmpeq((*db).auth_dbname, auth_dbname) {
-                    changed = true_0 != 0;
+                    changed = true;
                 } else if !strcmpeq((*db).auth_query, auth_query) {
-                    changed = true_0 != 0;
+                    changed = true;
                 } else if load_balance_hosts as ::core::ffi::c_uint
                     != (*db).load_balance_hosts as ::core::ffi::c_uint
                 {
-                    changed = true_0 != 0;
+                    changed = true;
                 }
                 if changed {
                     tag_database_dirty(db);
@@ -1836,54 +1663,33 @@ pub unsafe extern "C" fn parse_database(
                     msg = pktbuf_dynamic(128 as ::core::ffi::c_int);
                     if msg.is_null() {
                         let mut _log_ctx_7 = NULL;
-                        log_generic(
-                            LG_FATAL,
-                            _log_ctx_7,
-                            b"out of memory\0" as *const u8 as *const ::core::ffi::c_char,
-                        );
+                        log_generic(LG_FATAL, _log_ctx_7, c"out of memory".as_ptr());
                         exit(1 as ::core::ffi::c_int);
                     }
                     (*db).startup_params = msg as *mut PktBuf;
                 }
-                pktbuf_put_string(
-                    msg,
-                    b"database\0" as *const u8 as *const ::core::ffi::c_char,
-                );
+                pktbuf_put_string(msg, c"database".as_ptr());
                 dbname_ofs = (*msg).write_pos;
                 pktbuf_put_string(msg, dbname);
                 if !client_encoding.is_null() {
-                    pktbuf_put_string(
-                        msg,
-                        b"client_encoding\0" as *const u8 as *const ::core::ffi::c_char,
-                    );
+                    pktbuf_put_string(msg, c"client_encoding".as_ptr());
                     pktbuf_put_string(msg, client_encoding);
                 }
                 if !datestyle.is_null() {
-                    pktbuf_put_string(
-                        msg,
-                        b"datestyle\0" as *const u8 as *const ::core::ffi::c_char,
-                    );
+                    pktbuf_put_string(msg, c"datestyle".as_ptr());
                     pktbuf_put_string(msg, datestyle);
                 }
                 if !timezone.is_null() {
-                    pktbuf_put_string(
-                        msg,
-                        b"timezone\0" as *const u8 as *const ::core::ffi::c_char,
-                    );
+                    pktbuf_put_string(msg, c"timezone".as_ptr());
                     pktbuf_put_string(msg, timezone);
                 }
                 if !appname.is_null() {
-                    pktbuf_put_string(
-                        msg,
-                        b"application_name\0" as *const u8 as *const ::core::ffi::c_char,
-                    );
+                    pktbuf_put_string(msg, c"application_name".as_ptr());
                     pktbuf_put_string(msg, appname);
                 }
                 if !auth_username.is_null() {
-                    (*db).auth_user_credentials = find_or_add_new_global_credentials(
-                        auth_username,
-                        b"\0" as *const u8 as *const ::core::ffi::c_char,
-                    );
+                    (*db).auth_user_credentials =
+                        find_or_add_new_global_credentials(auth_username, c"".as_ptr());
                     if (*db).auth_user_credentials.is_null() {
                         current_block = 17902695515181753043;
                     } else {
@@ -1904,8 +1710,7 @@ pub unsafe extern "C" fn parse_database(
                                 log_generic(
                                     LG_WARNING,
                                     _log_ctx_8,
-                                    b"db setup failed, trying to continue\0" as *const u8
-                                        as *const ::core::ffi::c_char,
+                                    c"db setup failed, trying to continue".as_ptr(),
                                 );
                             }
                         } else if !(*db).forced_user_credentials.is_null() {
@@ -1913,15 +1718,13 @@ pub unsafe extern "C" fn parse_database(
                             log_generic(
                                 LG_WARNING,
                                 _log_ctx_9,
-                                b"losing forced user not supported, keeping old setting\0"
-                                    as *const u8
-                                    as *const ::core::ffi::c_char,
+                                c"losing forced user not supported, keeping old setting".as_ptr(),
                             );
                         }
                         (*db).dbname =
                             ((*msg).buf as *mut ::core::ffi::c_char).offset(dbname_ofs as isize);
                         free(tmp_connstr as *mut ::core::ffi::c_void);
-                        return true_0 != 0;
+                        return true;
                     }
                 }
             }
@@ -1930,7 +1733,7 @@ pub unsafe extern "C" fn parse_database(
     free(tmp_connstr as *mut ::core::ffi::c_void);
     free(host as *mut ::core::ffi::c_void);
     free(connect_query as *mut ::core::ffi::c_void);
-    false_0 != 0
+    false
 }
 #[no_mangle]
 
@@ -1956,22 +1759,18 @@ pub unsafe extern "C" fn parse_user(
     let mut pool_size = -(1 as ::core::ffi::c_int);
     let mut res_pool_size = -(1 as ::core::ffi::c_int);
     let mut max_user_connections = -(1 as ::core::ffi::c_int);
-    let mut idle_transaction_timeout: usec_t = 0 as usec_t;
-    let mut transaction_timeout: usec_t = 0 as usec_t;
-    let mut query_timeout: usec_t = 0 as usec_t;
-    let mut client_idle_timeout: usec_t = 0 as usec_t;
+    let mut idle_transaction_timeout: usec_t = 0;
+    let mut transaction_timeout: usec_t = 0;
+    let mut query_timeout: usec_t = 0;
+    let mut client_idle_timeout: usec_t = 0;
     let mut max_user_client_connections = -(1 as ::core::ffi::c_int);
     cv.value_p = &raw mut pool_mode as *mut ::core::ffi::c_void;
     cv.extra = &raw const pool_mode_map as *const CfLookup as *const ::core::ffi::c_void;
     tmp_connstr = strdup(connstr);
     if tmp_connstr.is_null() {
         let mut _log_ctx = NULL;
-        log_generic(
-            LG_ERROR,
-            _log_ctx,
-            b"out of memory\0" as *const u8 as *const ::core::ffi::c_char,
-        );
-        return false_0 != 0;
+        log_generic(LG_ERROR, _log_ctx, c"out of memory".as_ptr());
+        return false;
     }
     p = tmp_connstr;
     loop {
@@ -1985,7 +1784,7 @@ pub unsafe extern "C" fn parse_user(
             log_generic(
                 LG_ERROR,
                 _log_ctx_0,
-                b"syntax error in user settings\0" as *const u8 as *const ::core::ffi::c_char,
+                c"syntax error in user settings".as_ptr(),
             );
             current_block = 15018837909795791711;
             break;
@@ -1994,73 +1793,34 @@ pub unsafe extern "C" fn parse_user(
                 current_block = 7990025728955927862;
                 break;
             }
-            if strcmp(
-                b"pool_mode\0" as *const u8 as *const ::core::ffi::c_char,
-                key,
-            ) == 0 as ::core::ffi::c_int
-            {
+            if strcmp(c"pool_mode".as_ptr(), key) == 0 as ::core::ffi::c_int {
                 if cf_set_lookup(&raw mut cv, val) {
                     continue;
                 }
                 let mut _log_ctx_1 = NULL;
-                log_generic(
-                    LG_ERROR,
-                    _log_ctx_1,
-                    b"invalid pool mode: %s\0" as *const u8 as *const ::core::ffi::c_char,
-                    val,
-                );
+                log_generic(LG_ERROR, _log_ctx_1, c"invalid pool mode: %s".as_ptr(), val);
                 current_block = 15018837909795791711;
                 break;
-            } else if strcmp(
-                b"pool_size\0" as *const u8 as *const ::core::ffi::c_char,
-                key,
-            ) == 0 as ::core::ffi::c_int
-            {
+            } else if strcmp(c"pool_size".as_ptr(), key) == 0 as ::core::ffi::c_int {
                 pool_size = atoi(val);
-            } else if strcmp(
-                b"reserve_pool_size\0" as *const u8 as *const ::core::ffi::c_char,
-                key,
-            ) == 0 as ::core::ffi::c_int
-            {
+            } else if strcmp(c"reserve_pool_size".as_ptr(), key) == 0 as ::core::ffi::c_int {
                 res_pool_size = atoi(val);
-            } else if strcmp(
-                b"max_user_connections\0" as *const u8 as *const ::core::ffi::c_char,
-                key,
-            ) == 0 as ::core::ffi::c_int
-            {
+            } else if strcmp(c"max_user_connections".as_ptr(), key) == 0 as ::core::ffi::c_int {
                 max_user_connections = atoi(val);
-            } else if strcmp(
-                b"transaction_timeout\0" as *const u8 as *const ::core::ffi::c_char,
-                key,
-            ) == 0 as ::core::ffi::c_int
-            {
-                any_user_level_timeout_set = true_0 != 0;
+            } else if strcmp(c"transaction_timeout".as_ptr(), key) == 0 as ::core::ffi::c_int {
+                any_user_level_timeout_set = true;
                 transaction_timeout = (atoi(val) as usec_t).wrapping_mul(USEC);
-            } else if strcmp(
-                b"idle_transaction_timeout\0" as *const u8 as *const ::core::ffi::c_char,
-                key,
-            ) == 0 as ::core::ffi::c_int
-            {
-                any_user_level_timeout_set = true_0 != 0;
+            } else if strcmp(c"idle_transaction_timeout".as_ptr(), key) == 0 as ::core::ffi::c_int {
+                any_user_level_timeout_set = true;
                 idle_transaction_timeout = (atoi(val) as usec_t).wrapping_mul(USEC);
-            } else if strcmp(
-                b"query_timeout\0" as *const u8 as *const ::core::ffi::c_char,
-                key,
-            ) == 0 as ::core::ffi::c_int
-            {
-                any_user_level_timeout_set = true_0 != 0;
+            } else if strcmp(c"query_timeout".as_ptr(), key) == 0 as ::core::ffi::c_int {
+                any_user_level_timeout_set = true;
                 query_timeout = (atoi(val) as usec_t).wrapping_mul(USEC);
-            } else if strcmp(
-                b"client_idle_timeout\0" as *const u8 as *const ::core::ffi::c_char,
-                key,
-            ) == 0 as ::core::ffi::c_int
-            {
-                any_user_level_client_timeout_set = true_0 != 0;
+            } else if strcmp(c"client_idle_timeout".as_ptr(), key) == 0 as ::core::ffi::c_int {
+                any_user_level_client_timeout_set = true;
                 client_idle_timeout = (atoi(val) as usec_t).wrapping_mul(USEC);
-            } else if strcmp(
-                b"max_user_client_connections\0" as *const u8 as *const ::core::ffi::c_char,
-                key,
-            ) == 0 as ::core::ffi::c_int
+            } else if strcmp(c"max_user_client_connections".as_ptr(), key)
+                == 0 as ::core::ffi::c_int
             {
                 max_user_client_connections = atoi(val);
             } else {
@@ -2068,7 +1828,7 @@ pub unsafe extern "C" fn parse_user(
                 log_generic(
                     LG_ERROR,
                     _log_ctx_2,
-                    b"unrecognized user parameter: %s\0" as *const u8 as *const ::core::ffi::c_char,
+                    c"unrecognized user parameter: %s".as_ptr(),
                     key,
                 );
                 current_block = 15018837909795791711;
@@ -2077,13 +1837,13 @@ pub unsafe extern "C" fn parse_user(
         }
     }
     if current_block == 7990025728955927862 {
-        user = find_or_add_new_global_user(name, b"\0" as *const u8 as *const ::core::ffi::c_char);
+        user = find_or_add_new_global_user(name, c"".as_ptr());
         if user.is_null() {
             let mut _log_ctx_3 = NULL;
             log_generic(
                 LG_ERROR,
                 _log_ctx_3,
-                b"cannot create user, no memory?\0" as *const u8 as *const ::core::ffi::c_char,
+                c"cannot create user, no memory?".as_ptr(),
             );
         } else {
             (*user).pool_mode = pool_mode;
@@ -2096,11 +1856,11 @@ pub unsafe extern "C" fn parse_user(
             (*user).client_idle_timeout = client_idle_timeout;
             (*user).max_user_client_connections = max_user_client_connections;
             free(tmp_connstr as *mut ::core::ffi::c_void);
-            return true_0 != 0;
+            return true;
         }
     }
     free(tmp_connstr as *mut ::core::ffi::c_void);
-    false_0 != 0
+    false
 }
 
 unsafe extern "C" fn find_quote(
@@ -2169,7 +1929,7 @@ unsafe extern "C" fn unquote_add_authfile_user(
         log_generic(
             LG_WARNING,
             _log_ctx,
-            b"cannot create user, no memory\0" as *const u8 as *const ::core::ffi::c_char,
+            c"cannot create user, no memory".as_ptr(),
         );
         return;
     }
@@ -2180,16 +1940,16 @@ unsafe extern "C" fn unquote_add_authfile_user(
     {
         user = update_global_user_passwd(user, &raw mut real_passwd as *mut ::core::ffi::c_char);
     }
-    (*user).credentials.dynamic_passwd = false_0 != 0;
+    (*user).credentials.dynamic_passwd = false;
     if !(*user).credentials.scram_SaltKey.is_null() {
         free((*user).credentials.scram_SaltKey as *mut ::core::ffi::c_void);
         (*user).credentials.scram_SaltKey = ::core::ptr::null_mut::<::core::ffi::c_char>();
-        (*user).credentials.adhoc_scram_secrets_cached = false_0 != 0;
+        (*user).credentials.adhoc_scram_secrets_cached = false;
     }
 }
 
 unsafe extern "C" fn auth_loaded(mut fn_0: *const ::core::ffi::c_char) -> bool {
-    static mut cache_set: bool = false_0 != 0;
+    static mut cache_set: bool = false;
     static mut cache: stat = stat {
         st_dev: 0,
         st_mode: 0,
@@ -2260,8 +2020,8 @@ unsafe extern "C" fn auth_loaded(mut fn_0: *const ::core::ffi::c_char) -> bool {
             0 as ::core::ffi::c_int,
             ::core::mem::size_of::<stat>() as size_t,
         );
-        cache_set = true_0 != 0;
-        return false_0 != 0;
+        cache_set = true;
+        return false;
     }
     if stat(fn_0, &raw mut cur) < 0 as ::core::ffi::c_int {
         memset(
@@ -2279,17 +2039,17 @@ unsafe extern "C" fn auth_loaded(mut fn_0: *const ::core::ffi::c_char) -> bool {
         && cache.st_mtimespec.tv_sec == cur.st_mtimespec.tv_sec
         && cache.st_size == cur.st_size
     {
-        return true_0 != 0;
+        return true;
     }
     cache = cur;
-    cache_set = true_0 != 0;
-    false_0 != 0
+    cache_set = true;
+    false
 }
 #[no_mangle]
 
 pub unsafe extern "C" fn loader_users_check() -> bool {
     if auth_loaded(cf_auth_file) {
-        return true_0 != 0;
+        return true;
     }
     load_auth_file(cf_auth_file)
 }
@@ -2313,7 +2073,7 @@ pub unsafe extern "C" fn load_auth_file(mut fn_0: *const ::core::ffi::c_char) ->
     let mut buf = ::core::ptr::null_mut::<::core::ffi::c_char>();
     let mut p = ::core::ptr::null_mut::<::core::ffi::c_char>();
     if fn_0.is_null() {
-        return false_0 != 0;
+        return false;
     }
     buf = load_file(fn_0, ::core::ptr::null_mut::<size_t>()) as *mut ::core::ffi::c_char;
     if buf.is_null() {
@@ -2321,11 +2081,11 @@ pub unsafe extern "C" fn load_auth_file(mut fn_0: *const ::core::ffi::c_char) ->
         log_generic(
             LG_ERROR,
             _log_ctx,
-            b"could not open auth_file %s: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"could not open auth_file %s: %s".as_ptr(),
             fn_0,
             strerror(*__error()),
         );
-        return false_0 != 0;
+        return false;
     }
     let mut _log_ctx_0 = NULL;
     if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
@@ -2351,23 +2111,15 @@ pub unsafe extern "C" fn load_auth_file(mut fn_0: *const ::core::ffi::c_char) ->
             }
         } else if *p as ::core::ffi::c_int != '"' as i32 {
             let mut _log_ctx_1 = NULL;
-            log_generic(
-                LG_ERROR,
-                _log_ctx_1,
-                b"broken auth file\0" as *const u8 as *const ::core::ffi::c_char,
-            );
+            log_generic(LG_ERROR, _log_ctx_1, c"broken auth file".as_ptr());
             break;
         } else {
             p = p.offset(1);
             user = p;
-            p = find_quote(p, false_0 != 0);
+            p = find_quote(p, false);
             if *p as ::core::ffi::c_int != '"' as i32 {
                 let mut _log_ctx_2 = NULL;
-                log_generic(
-                    LG_ERROR,
-                    _log_ctx_2,
-                    b"broken auth file\0" as *const u8 as *const ::core::ffi::c_char,
-                );
+                log_generic(LG_ERROR, _log_ctx_2, c"broken auth file".as_ptr());
                 break;
             } else if p.offset_from(user) as ::core::ffi::c_long
                 >= MAX_USERNAME as ::core::ffi::c_long
@@ -2376,33 +2128,25 @@ pub unsafe extern "C" fn load_auth_file(mut fn_0: *const ::core::ffi::c_char) ->
                 log_generic(
                     LG_ERROR,
                     _log_ctx_3,
-                    b"username too long in auth file\0" as *const u8 as *const ::core::ffi::c_char,
+                    c"username too long in auth file".as_ptr(),
                 );
                 break;
             } else {
                 let fresh2 = p;
                 p = p.offset(1);
                 *fresh2 = 0 as ::core::ffi::c_char;
-                p = find_quote(p, true_0 != 0);
+                p = find_quote(p, true);
                 if *p as ::core::ffi::c_int != '"' as i32 {
                     let mut _log_ctx_4 = NULL;
-                    log_generic(
-                        LG_ERROR,
-                        _log_ctx_4,
-                        b"broken auth file\0" as *const u8 as *const ::core::ffi::c_char,
-                    );
+                    log_generic(LG_ERROR, _log_ctx_4, c"broken auth file".as_ptr());
                     break;
                 } else {
                     p = p.offset(1);
                     password = p;
-                    p = find_quote(p, false_0 != 0);
+                    p = find_quote(p, false);
                     if *p as ::core::ffi::c_int != '"' as i32 {
                         let mut _log_ctx_5 = NULL;
-                        log_generic(
-                            LG_ERROR,
-                            _log_ctx_5,
-                            b"broken auth file\0" as *const u8 as *const ::core::ffi::c_char,
-                        );
+                        log_generic(LG_ERROR, _log_ctx_5, c"broken auth file".as_ptr());
                         break;
                     } else if p.offset_from(password) as ::core::ffi::c_long
                         >= MAX_PASSWORD as ::core::ffi::c_long
@@ -2411,8 +2155,7 @@ pub unsafe extern "C" fn load_auth_file(mut fn_0: *const ::core::ffi::c_char) ->
                         log_generic(
                             LG_ERROR,
                             _log_ctx_6,
-                            b"password too long in auth file\0" as *const u8
-                                as *const ::core::ffi::c_char,
+                            c"password too long in auth file".as_ptr(),
                         );
                         break;
                     } else {
@@ -2431,5 +2174,5 @@ pub unsafe extern "C" fn load_auth_file(mut fn_0: *const ::core::ffi::c_char) ->
         }
     }
     free(buf as *mut ::core::ffi::c_void);
-    true_0 != 0
+    true
 }

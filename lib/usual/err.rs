@@ -1,11 +1,10 @@
-
 pub mod _types_h {
-    
+
     pub type __darwin_size_t = usize;
 }
 
 pub mod _size_t_h {
-    
+
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
@@ -13,9 +12,9 @@ pub mod _size_t_h {
 pub mod _malloc_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn malloc(__size: size_t) -> *mut ::core::ffi::c_void;
-        
+
         pub fn realloc(__ptr: *mut ::core::ffi::c_void, __size: size_t)
             -> *mut ::core::ffi::c_void;
     }
@@ -23,14 +22,14 @@ pub mod _malloc_h {
 
 pub mod err_h {
     extern "C" {
-        
+
         pub fn err(_: ::core::ffi::c_int, _: *const ::core::ffi::c_char, ...) -> !;
     }
 }
 
 pub mod _string_h {
     extern "C" {
-        
+
         pub fn strdup(__s1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
     }
 }

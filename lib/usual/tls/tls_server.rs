@@ -1,37 +1,36 @@
-
 pub mod _types_h {
-    
+
     pub type __darwin_size_t = usize;
-    
+
     pub type __darwin_time_t = ::core::ffi::c_long;
 }
 
 pub mod _size_t_h {
-    
+
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
 
 pub mod _time_t_h {
-    
+
     pub type time_t = __darwin_time_t;
     use super::_types_h::__darwin_time_t;
 }
 
 pub mod _uint32_t_h {
-    
+
     pub type uint32_t = u32;
 }
 
 pub mod _uint64_t_h {
-    
+
     pub type uint64_t = u64;
 }
 
 pub mod tls_internal_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls {
         pub config: *mut tls_config,
         pub error: tls_error,
@@ -51,7 +50,7 @@ pub mod tls_internal_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls_ocsp_info {
         pub response_status: ::core::ffi::c_int,
         pub cert_status: ::core::ffi::c_int,
@@ -62,7 +61,7 @@ pub mod tls_internal_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls_conninfo {
         pub issuer: *mut ::core::ffi::c_char,
         pub subject: *mut ::core::ffi::c_char,
@@ -76,14 +75,14 @@ pub mod tls_internal_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls_error {
         pub msg: *mut ::core::ffi::c_char,
         pub num: ::core::ffi::c_int,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls_config {
         pub error: tls_error,
         pub ca_file: *const ::core::ffi::c_char,
@@ -108,7 +107,7 @@ pub mod tls_internal_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct tls_keypair {
         pub next: *mut tls_keypair,
         pub cert_file: *const ::core::ffi::c_char,
@@ -118,12 +117,12 @@ pub mod tls_internal_h {
         pub key_mem: *mut ::core::ffi::c_char,
         pub key_len: size_t,
     }
-    
+
     pub const TLS_SERVER: ::core::ffi::c_int = (1 as ::core::ffi::c_int) << 1 as ::core::ffi::c_int;
-    
+
     pub const TLS_SERVER_CONN: ::core::ffi::c_int =
         (1 as ::core::ffi::c_int) << 2 as ::core::ffi::c_int;
-    
+
     pub const TLS_HANDSHAKE_COMPLETE: ::core::ffi::c_int =
         (1 as ::core::ffi::c_int) << 1 as ::core::ffi::c_int;
     use super::_size_t_h::size_t;
@@ -131,38 +130,38 @@ pub mod tls_internal_h {
     use super::_uint32_t_h::uint32_t;
     use super::types_h::{SSL, SSL_CTX, X509};
     extern "C" {
-        
+
         pub type tls_ocsp_query;
-        
+
         pub fn tls_new() -> *mut tls;
-        
+
         pub fn tls_configure_keypair(
             ctx: *mut tls,
             ssl_ctx: *mut SSL_CTX,
             keypair: *mut tls_keypair,
             required: ::core::ffi::c_int,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn tls_configure_ssl(ctx: *mut tls) -> ::core::ffi::c_int;
-        
+
         pub fn tls_configure_ssl_verify(
             ctx: *mut tls,
             verify: ::core::ffi::c_int,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn tls_set_errorx(
             ctx: *mut tls,
             fmt: *const ::core::ffi::c_char,
             ...
         ) -> ::core::ffi::c_int;
-        
+
         pub fn tls_ssl_error(
             ctx: *mut tls,
             ssl_conn: *mut SSL,
             ssl_ret: ::core::ffi::c_int,
             prefix: *const ::core::ffi::c_char,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn tls_ocsp_stapling_callback(
             ssl: *mut SSL,
             arg: *mut ::core::ffi::c_void,
@@ -171,37 +170,37 @@ pub mod tls_internal_h {
 }
 
 pub mod types_h {
-    
+
     pub type X509 = x509_st;
-    
+
     pub type SSL_CTX = ssl_ctx_st;
-    
+
     pub type SSL = ssl_st;
-    
+
     pub type EC_KEY = ec_key_st;
     extern "C" {
-        
+
         pub type x509_st;
-        
+
         pub type ssl_ctx_st;
-        
+
         pub type ssl_st;
-        
+
         pub type ec_key_st;
     }
 }
 
 pub mod x509_h {
     extern "C" {
-        
+
         pub type stack_st_X509_NAME;
     }
 }
 
 pub mod ssl_h {
-    
+
     pub type SSL_METHOD = ssl_method_st;
-    
+
     pub type SSL_CTX_alpn_select_cb_func = Option<
         unsafe extern "C" fn(
             *mut SSL,
@@ -212,32 +211,32 @@ pub mod ssl_h {
             *mut ::core::ffi::c_void,
         ) -> ::core::ffi::c_int,
     >;
-    
+
     pub const SSL_OP_SERVER_PREFERENCE: uint64_t =
         (1 as ::core::ffi::c_int as uint64_t) << 22 as ::core::ffi::c_int as uint64_t;
-    
+
     pub const SSL_OP_CIPHER_SERVER_PREFERENCE: uint64_t = SSL_OP_SERVER_PREFERENCE;
-    
+
     pub const SSL_OP_SINGLE_ECDH_USE: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
-    
+
     pub const OPENSSL_NPN_NEGOTIATED: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    
+
     pub const SSL_VERIFY_PEER: ::core::ffi::c_int = 0x1 as ::core::ffi::c_int;
-    
+
     pub const SSL_VERIFY_FAIL_IF_NO_PEER_CERT: ::core::ffi::c_int = 0x2 as ::core::ffi::c_int;
-    
+
     pub const SSL_CTRL_SET_TMP_ECDH: ::core::ffi::c_int = 4 as ::core::ffi::c_int;
-    
+
     pub const SSL_CTRL_SET_TLSEXT_STATUS_REQ_CB: ::core::ffi::c_int = 63 as ::core::ffi::c_int;
     use super::_uint64_t_h::uint64_t;
     use super::types_h::{SSL, SSL_CTX};
     use super::x509_h::stack_st_X509_NAME;
     extern "C" {
-        
+
         pub type ssl_method_st;
-        
+
         pub fn SSL_CTX_set_options(ctx: *mut SSL_CTX, op: uint64_t) -> uint64_t;
-        
+
         pub fn SSL_select_next_proto(
             out: *mut *mut ::core::ffi::c_uchar,
             outlen: *mut ::core::ffi::c_uchar,
@@ -246,49 +245,49 @@ pub mod ssl_h {
             client: *const ::core::ffi::c_uchar,
             client_len: ::core::ffi::c_uint,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn SSL_CTX_set_alpn_select_cb(
             ctx: *mut SSL_CTX,
             cb: SSL_CTX_alpn_select_cb_func,
             arg: *mut ::core::ffi::c_void,
         );
-        
+
         pub fn SSL_CTX_new(meth: *const SSL_METHOD) -> *mut SSL_CTX;
-        
+
         pub fn SSL_set_rfd(s: *mut SSL, fd: ::core::ffi::c_int) -> ::core::ffi::c_int;
-        
+
         pub fn SSL_set_wfd(s: *mut SSL, fd: ::core::ffi::c_int) -> ::core::ffi::c_int;
-        
+
         pub fn SSL_load_client_CA_file(file: *const ::core::ffi::c_char)
             -> *mut stack_st_X509_NAME;
-        
+
         pub fn SSL_CTX_set_session_id_context(
             ctx: *mut SSL_CTX,
             sid_ctx: *const ::core::ffi::c_uchar,
             sid_ctx_len: ::core::ffi::c_uint,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn SSL_new(ctx: *mut SSL_CTX) -> *mut SSL;
-        
+
         pub fn SSL_accept(ssl: *mut SSL) -> ::core::ffi::c_int;
-        
+
         pub fn SSL_CTX_ctrl(
             ctx: *mut SSL_CTX,
             cmd: ::core::ffi::c_int,
             larg: ::core::ffi::c_long,
             parg: *mut ::core::ffi::c_void,
         ) -> ::core::ffi::c_long;
-        
+
         pub fn SSL_CTX_callback_ctrl(
             _: *mut SSL_CTX,
             _: ::core::ffi::c_int,
             _: Option<unsafe extern "C" fn() -> ()>,
         ) -> ::core::ffi::c_long;
-        
+
         pub fn TLS_server_method() -> *const SSL_METHOD;
-        
+
         pub fn SSL_CTX_set_client_CA_list(ctx: *mut SSL_CTX, name_list: *mut stack_st_X509_NAME);
-        
+
         pub fn SSL_set_ex_data(
             ssl: *mut SSL,
             idx: ::core::ffi::c_int,
@@ -298,7 +297,7 @@ pub mod ssl_h {
 }
 
 pub mod _null_h {
-    
+
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
     use super::sys__types_h::__DARWIN_NULL;
 }
@@ -306,7 +305,7 @@ pub mod _null_h {
 pub mod tls_h {
     use super::tls_internal_h::tls;
     extern "C" {
-        
+
         pub fn usual_tls_free(_ctx: *mut tls);
     }
 }
@@ -314,9 +313,9 @@ pub mod tls_h {
 pub mod ec_h {
     use super::types_h::EC_KEY;
     extern "C" {
-        
+
         pub fn EC_KEY_new_by_curve_name(nid: ::core::ffi::c_int) -> *mut EC_KEY;
-        
+
         pub fn EC_KEY_free(key: *mut EC_KEY);
     }
 }
@@ -324,12 +323,12 @@ pub mod ec_h {
 pub mod tls_compat_h {
     use super::types_h::SSL_CTX;
     extern "C" {
-        
+
         pub fn SSL_CTX_set_dh_auto(
             ctx: *mut SSL_CTX,
             onoff: ::core::ffi::c_int,
         ) -> ::core::ffi::c_long;
-        
+
         pub fn SSL_CTX_set_ecdh_auto(
             ctx: *mut SSL_CTX,
             onoff: ::core::ffi::c_int,
@@ -338,35 +337,35 @@ pub mod tls_compat_h {
 }
 
 pub mod sys__types_h {
-    
+
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
 }
 
 pub mod obj_mac_h {
-    
+
     pub const NID_undef: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 }
 
 pub mod tls1_h {
-    
+
     pub const SSL_TLSEXT_ERR_OK: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
-    
+
     pub const SSL_TLSEXT_ERR_ALERT_FATAL: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
-    
+
     pub const SSL_TLSEXT_ERR_NOACK: ::core::ffi::c_int = 3 as ::core::ffi::c_int;
 }
 
 pub mod err_h {
     extern "C" {
-        
+
         pub fn ERR_clear_error();
     }
 }
 
 pub mod rand_h {
     extern "C" {
-        
+
         pub fn RAND_bytes(
             buf: *mut ::core::ffi::c_uchar,
             num: ::core::ffi::c_int,

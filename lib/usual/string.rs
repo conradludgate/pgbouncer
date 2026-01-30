@@ -1,61 +1,60 @@
-
 pub mod _types_h {
-    
+
     pub type __uint32_t = u32;
-    
+
     pub type __darwin_ct_rune_t = ::core::ffi::c_int;
-    
+
     pub type __darwin_size_t = usize;
-    
+
     pub type __darwin_wchar_t = ::libc::wchar_t;
-    
+
     pub type __darwin_rune_t = __darwin_wchar_t;
-    
+
     pub type __darwin_ssize_t = isize;
 }
 
 pub mod _size_t_h {
-    
+
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
 
 pub mod _ssize_t_h {
-    
+
     pub type ssize_t = __darwin_ssize_t;
     use super::_types_h::__darwin_ssize_t;
 }
 
 pub mod _rsize_t_h {
-    
+
     pub type rsize_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
 
 pub mod _errno_t_h {
-    
+
     pub type errno_t = ::core::ffi::c_int;
 }
 
 pub mod include__types_h {
-    
+
     pub type __darwin_nl_item = ::core::ffi::c_int;
 }
 
 pub mod _uint8_t_h {
-    
+
     pub type uint8_t = u8;
 }
 
 pub mod _uint32_t_h {
-    
+
     pub type uint32_t = u32;
 }
 
 pub mod cxalloc_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct CxOps {
         pub c_alloc: Option<
             unsafe extern "C" fn(*mut ::core::ffi::c_void, size_t) -> *mut ::core::ffi::c_void,
@@ -73,20 +72,20 @@ pub mod cxalloc_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct CxMem {
         pub ops: *const CxOps,
         pub ctx: *mut ::core::ffi::c_void,
     }
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn cx_alloc(cx: *const CxMem, len: size_t) -> *mut ::core::ffi::c_void;
-        
+
         pub fn cx_free(cx: *const CxMem, ptr: *mut ::core::ffi::c_void);
-        
+
         pub fn cx_alloc0(cx: *const CxMem, len: size_t) -> *mut ::core::ffi::c_void;
-        
+
         pub fn cx_strdup(
             cx: *const CxMem,
             str: *const ::core::ffi::c_char,
@@ -95,7 +94,7 @@ pub mod cxalloc_h {
 }
 
 pub mod string_h {
-    
+
     pub type str_cb =
         Option<unsafe extern "C" fn(*mut ::core::ffi::c_void, *const ::core::ffi::c_char) -> bool>;
 }
@@ -103,19 +102,19 @@ pub mod string_h {
 pub mod statlist_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct StatList {
         pub head: List,
         pub cur_count: ::core::ffi::c_int,
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn statlist_append(mut list: *mut StatList, mut item: *mut List) {
         list_append(&raw mut (*list).head, item);
         (*list).cur_count += 1;
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn statlist_init(
         mut list: *mut StatList,
         mut _name: *const ::core::ffi::c_char,
@@ -124,7 +123,7 @@ pub mod statlist_h {
         (*list).cur_count = 0 as ::core::ffi::c_int;
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn statlist_pop(mut list: *mut StatList) -> *mut List {
         let mut item = list_pop(&raw mut (*list).head);
         if !item.is_null() {
@@ -133,7 +132,7 @@ pub mod statlist_h {
         item
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn statlist_empty(mut list: *const StatList) -> bool {
         list_empty(&raw const (*list).head) != 0
     }
@@ -143,24 +142,24 @@ pub mod statlist_h {
 pub mod list_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct List {
         pub next: *mut List,
         pub prev: *mut List,
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn list_init(mut list: *mut List) {
         (*list).prev = list;
         (*list).next = (*list).prev;
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn list_empty(mut list: *const List) -> ::core::ffi::c_int {
         std::ptr::eq((*list).next, list) as ::core::ffi::c_int
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn list_append(mut list: *mut List, mut item: *mut List) -> *mut List {
         (*item).next = list;
         (*item).prev = (*list).prev;
@@ -169,7 +168,7 @@ pub mod list_h {
         item
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn list_del(mut item: *mut List) -> *mut List {
         (*(*item).prev).next = (*item).next;
         (*(*item).next).prev = (*item).prev;
@@ -178,7 +177,7 @@ pub mod list_h {
         item
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn list_pop(mut list: *mut List) -> *mut List {
         if list_empty(list) != 0 {
             return ::core::ptr::null_mut::<List>();
@@ -190,7 +189,7 @@ pub mod list_h {
 pub mod runetype_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct _RuneLocale {
         pub __magic: [::core::ffi::c_char; 8],
         pub __encoding: [::core::ffi::c_char; 32],
@@ -223,21 +222,21 @@ pub mod runetype_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct _RuneCharClass {
         pub __name: [::core::ffi::c_char; 14],
         pub __mask: __uint32_t,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct _RuneRange {
         pub __nranges: ::core::ffi::c_int,
         pub __ranges: *mut _RuneEntry,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct _RuneEntry {
         pub __min: __darwin_rune_t,
         pub __max: __darwin_rune_t,
@@ -246,7 +245,7 @@ pub mod runetype_h {
     }
     use super::_types_h::{__darwin_rune_t, __darwin_size_t, __uint32_t};
     extern "C" {
-        
+
         pub static mut _DefaultRuneLocale: _RuneLocale;
     }
 }
@@ -254,17 +253,17 @@ pub mod runetype_h {
 pub mod bytemap_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct Bitmap256 {
         pub bmap: [uint32_t; 8],
     }
-    
+
     pub const BITMAP256_SHIFT: ::core::ffi::c_int = 5 as ::core::ffi::c_int;
-    
+
     pub const BITMAP256_MASK: ::core::ffi::c_int =
         ((1 as ::core::ffi::c_int) << BITMAP256_SHIFT) - 1 as ::core::ffi::c_int;
     #[inline]
-    
+
     pub unsafe extern "C" fn bitmap256_init(mut bmap: *mut Bitmap256) {
         memset(
             bmap as *mut ::core::ffi::c_void,
@@ -273,14 +272,14 @@ pub mod bytemap_h {
         );
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn bitmap256_set(mut bmap: *mut Bitmap256, mut byte: uint8_t) {
         (*bmap).bmap[(byte as ::core::ffi::c_int >> BITMAP256_SHIFT) as usize] |=
             ((1 as ::core::ffi::c_int) << (byte as ::core::ffi::c_int & BITMAP256_MASK))
                 as uint32_t;
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn bitmap256_is_set(
         mut bmap: *const Bitmap256,
         mut byte: uint8_t,
@@ -297,16 +296,16 @@ pub mod bytemap_h {
 }
 
 pub mod _locale_t_h {
-    
+
     pub type locale_t = *mut _xlocale;
     extern "C" {
-        
+
         pub type _xlocale;
     }
 }
 
 pub mod _nl_item_h {
-    
+
     pub type nl_item = __darwin_nl_item;
     use super::include__types_h::__darwin_nl_item;
 }
@@ -314,7 +313,7 @@ pub mod _nl_item_h {
 pub mod _stdio_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn snprintf(
             __str: *mut ::core::ffi::c_char,
             __size: size_t,
@@ -329,64 +328,64 @@ pub mod _string_h {
     use super::_rsize_t_h::rsize_t;
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn memchr(
             __s: *const ::core::ffi::c_void,
             __c: ::core::ffi::c_int,
             __n: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn memcmp(
             __s1: *const ::core::ffi::c_void,
             __s2: *const ::core::ffi::c_void,
             __n: size_t,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn memcpy(
             __dst: *mut ::core::ffi::c_void,
             __src: *const ::core::ffi::c_void,
             __n: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn memmove(
             __dst: *mut ::core::ffi::c_void,
             __src: *const ::core::ffi::c_void,
             __len: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn memset(
             __b: *mut ::core::ffi::c_void,
             __c: ::core::ffi::c_int,
             __len: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn strcmp(
             __s1: *const ::core::ffi::c_char,
             __s2: *const ::core::ffi::c_char,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn strlen(__s: *const ::core::ffi::c_char) -> size_t;
-        
+
         pub fn strrchr(
             __s: *const ::core::ffi::c_char,
             __c: ::core::ffi::c_int,
         ) -> *mut ::core::ffi::c_char;
-        
+
         pub fn strerror_r(
             __errnum: ::core::ffi::c_int,
             __strerrbuf: *mut ::core::ffi::c_char,
             __buflen: size_t,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn strnlen(__s1: *const ::core::ffi::c_char, __n: size_t) -> size_t;
-        
+
         pub fn memset_s(
             __s: *mut ::core::ffi::c_void,
             __smax: rsize_t,
             __c: ::core::ffi::c_int,
             __n: rsize_t,
         ) -> errno_t;
-        
+
         pub fn strlcpy(
             __dst: *mut ::core::ffi::c_char,
             __source: *const ::core::ffi::c_char,
@@ -396,14 +395,14 @@ pub mod _string_h {
 }
 
 pub mod _null_h {
-    
+
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
     use super::sys__types_h::__DARWIN_NULL;
 }
 
 pub mod ctype_h {
     #[inline]
-    
+
     pub unsafe extern "C" fn safe_isspace(mut c: ::core::ffi::c_int) -> ::core::ffi::c_int {
         isspace(c as ::core::ffi::c_uchar as ::core::ffi::c_int)
     }
@@ -411,15 +410,15 @@ pub mod ctype_h {
 }
 
 pub mod _ctype_h {
-    
+
     pub const _CTYPE_S: ::core::ffi::c_long = 0x4000 as ::core::ffi::c_long;
     #[inline]
-    
+
     pub unsafe extern "C" fn isascii(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
         (_c & !(0x7f as ::core::ffi::c_int) == 0 as ::core::ffi::c_int) as ::core::ffi::c_int
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn __istype(
         mut _c: __darwin_ct_rune_t,
         mut _f: ::core::ffi::c_ulong,
@@ -432,14 +431,14 @@ pub mod _ctype_h {
         }
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn isspace(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
         __istype(_c as __darwin_ct_rune_t, _CTYPE_S as ::core::ffi::c_ulong)
     }
     use super::_types_h::__darwin_ct_rune_t;
     use super::runetype_h::_DefaultRuneLocale;
     extern "C" {
-        
+
         pub fn __maskrune(_: __darwin_ct_rune_t, _: ::core::ffi::c_ulong) -> ::core::ffi::c_int;
     }
 }
@@ -447,7 +446,7 @@ pub mod _ctype_h {
 pub mod _stdlib_h {
     use super::_locale_t_h::locale_t;
     extern "C" {
-        
+
         pub fn strtod_l(
             _: *const ::core::ffi::c_char,
             _: *mut *mut ::core::ffi::c_char,
@@ -457,34 +456,34 @@ pub mod _stdlib_h {
 }
 
 pub mod _locale_h {
-    
+
     pub const LC_ALL_MASK: ::core::ffi::c_int = LC_COLLATE_MASK
         | LC_CTYPE_MASK
         | LC_MESSAGES_MASK
         | LC_MONETARY_MASK
         | LC_NUMERIC_MASK
         | LC_TIME_MASK;
-    
+
     pub const LC_COLLATE_MASK: ::core::ffi::c_int =
         (1 as ::core::ffi::c_int) << 0 as ::core::ffi::c_int;
-    
+
     pub const LC_CTYPE_MASK: ::core::ffi::c_int =
         (1 as ::core::ffi::c_int) << 1 as ::core::ffi::c_int;
-    
+
     pub const LC_MESSAGES_MASK: ::core::ffi::c_int =
         (1 as ::core::ffi::c_int) << 2 as ::core::ffi::c_int;
-    
+
     pub const LC_MONETARY_MASK: ::core::ffi::c_int =
         (1 as ::core::ffi::c_int) << 3 as ::core::ffi::c_int;
-    
+
     pub const LC_NUMERIC_MASK: ::core::ffi::c_int =
         (1 as ::core::ffi::c_int) << 4 as ::core::ffi::c_int;
-    
+
     pub const LC_TIME_MASK: ::core::ffi::c_int =
         (1 as ::core::ffi::c_int) << 5 as ::core::ffi::c_int;
     use super::_locale_t_h::locale_t;
     extern "C" {
-        
+
         pub fn newlocale(
             _: ::core::ffi::c_int,
             _: *const ::core::ffi::c_char,
@@ -494,31 +493,31 @@ pub mod _locale_h {
 }
 
 pub mod _langinfo_h {
-    
+
     pub const RADIXCHAR: ::core::ffi::c_int = 50 as ::core::ffi::c_int;
     use super::_nl_item_h::nl_item;
     extern "C" {
-        
+
         pub fn nl_langinfo(_: nl_item) -> *mut ::core::ffi::c_char;
     }
 }
 
 pub mod sys__types_h {
-    
+
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
 }
 
 pub mod _malloc_h {
     extern "C" {
-        
+
         pub fn free(_: *mut ::core::ffi::c_void);
     }
 }
 
 pub mod include__stdlib_h {
     extern "C" {
-        
+
         pub fn strtod(
             _: *const ::core::ffi::c_char,
             _: *mut *mut ::core::ffi::c_char,
@@ -527,22 +526,22 @@ pub mod include__stdlib_h {
 }
 
 pub mod errno_h {
-    
+
     pub const EINVAL: ::core::ffi::c_int = 22 as ::core::ffi::c_int;
-    
+
     pub const ERANGE: ::core::ffi::c_int = 34 as ::core::ffi::c_int;
-    
+
     pub const ENAMETOOLONG: ::core::ffi::c_int = 63 as ::core::ffi::c_int;
     extern "C" {
-        
+
         pub fn __error() -> *mut ::core::ffi::c_int;
     }
 }
 
 pub mod stdbool_h {
-    
+
     pub const true_0: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    
+
     pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 }
 pub use self::_ctype_h::{__istype, __maskrune, isascii, isspace, _CTYPE_S};
@@ -580,10 +579,6 @@ pub use self::errno_h::{__error, EINVAL, ENAMETOOLONG, ERANGE};
 use self::include__stdlib_h::strtod;
 pub use self::include__types_h::__darwin_nl_item;
 pub use self::list_h::{list_append, list_del, list_empty, list_init, list_pop, List};
-pub use crate::lib::usual::mbuf::{
-    mbuf_free, mbuf_init_dynamic, mbuf_make_room, mbuf_rewind_writer, mbuf_write, mbuf_write_byte,
-};
-pub use crate::types::MBuf;
 pub use self::runetype_h::{
     _DefaultRuneLocale, _RuneCharClass, _RuneEntry, _RuneLocale, _RuneRange,
 };
@@ -593,6 +588,10 @@ pub use self::statlist_h::{
 pub use self::stdbool_h::{false_0, true_0};
 pub use self::string_h::str_cb;
 pub use self::sys__types_h::__DARWIN_NULL;
+pub use crate::lib::usual::mbuf::{
+    mbuf_free, mbuf_init_dynamic, mbuf_make_room, mbuf_rewind_writer, mbuf_write, mbuf_write_byte,
+};
+pub use crate::types::MBuf;
 #[derive(Copy, Clone)]
 #[repr(C)]
 

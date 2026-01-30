@@ -1,19 +1,18 @@
-
 pub mod _types_h {
-    
+
     pub type __uint32_t = u32;
-    
+
     pub type __darwin_ct_rune_t = ::core::ffi::c_int;
-    
+
     pub type __darwin_size_t = usize;
-    
+
     pub type __darwin_wchar_t = ::libc::wchar_t;
-    
+
     pub type __darwin_rune_t = __darwin_wchar_t;
 }
 
 pub mod _size_t_h {
-    
+
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
@@ -21,7 +20,7 @@ pub mod _size_t_h {
 pub mod runetype_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct _RuneEntry {
         pub __min: __darwin_rune_t,
         pub __max: __darwin_rune_t,
@@ -30,21 +29,21 @@ pub mod runetype_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct _RuneRange {
         pub __nranges: ::core::ffi::c_int,
         pub __ranges: *mut _RuneEntry,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct _RuneCharClass {
         pub __name: [::core::ffi::c_char; 14],
         pub __mask: __uint32_t,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct _RuneLocale {
         pub __magic: [::core::ffi::c_char; 8],
         pub __encoding: [::core::ffi::c_char; 32],
@@ -77,21 +76,21 @@ pub mod runetype_h {
     }
     use super::_types_h::{__darwin_rune_t, __darwin_size_t, __uint32_t};
     extern "C" {
-        
+
         pub static mut _DefaultRuneLocale: _RuneLocale;
     }
 }
 
 pub mod _ctype_h {
-    
+
     pub const _CTYPE_U: ::core::ffi::c_long = 0x8000 as ::core::ffi::c_long;
     #[inline]
-    
+
     pub unsafe extern "C" fn isascii(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
         (_c & !(0x7f as ::core::ffi::c_int) == 0 as ::core::ffi::c_int) as ::core::ffi::c_int
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn __istype(
         mut _c: __darwin_ct_rune_t,
         mut _f: ::core::ffi::c_ulong,
@@ -106,33 +105,33 @@ pub mod _ctype_h {
     #[no_mangle]
     #[inline]
     #[linkage = "external"]
-    
+
     pub unsafe extern "C" fn isupper(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
         __istype(_c as __darwin_ct_rune_t, _CTYPE_U as ::core::ffi::c_ulong)
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn tolower(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
         __tolower(_c as __darwin_ct_rune_t) as ::core::ffi::c_int
     }
     use super::_types_h::__darwin_ct_rune_t;
     use super::runetype_h::_DefaultRuneLocale;
     extern "C" {
-        
+
         pub fn __maskrune(_: __darwin_ct_rune_t, _: ::core::ffi::c_ulong) -> ::core::ffi::c_int;
-        
+
         pub fn __tolower(_: __darwin_ct_rune_t) -> __darwin_ct_rune_t;
     }
 }
 
 pub mod ctype_h {
     #[inline]
-    
+
     pub unsafe extern "C" fn safe_isupper(mut c: ::core::ffi::c_int) -> ::core::ffi::c_int {
         isupper(c as ::core::ffi::c_uchar as ::core::ffi::c_int)
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn safe_tolower(mut c: ::core::ffi::c_int) -> ::core::ffi::c_int {
         tolower(c as ::core::ffi::c_uchar as ::core::ffi::c_int)
     }
@@ -140,7 +139,7 @@ pub mod ctype_h {
 }
 
 pub mod postgres_compat_h {
-    
+
     pub const HIGHBIT: ::core::ffi::c_int = 0x80 as ::core::ffi::c_int;
 }
 pub use self::_ctype_h::{__istype, __maskrune, __tolower, isascii, isupper, tolower, _CTYPE_U};
@@ -163,7 +162,7 @@ pub unsafe extern "C" fn pg_strncasecmp(
     loop {
         let fresh0 = n;
         n = n.wrapping_sub(1);
-        if fresh0 <= 0 as size_t {
+        if fresh0 <= 0 {
             break;
         }
         let fresh1 = s1;

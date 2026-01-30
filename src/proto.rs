@@ -1,103 +1,62 @@
-
 pub mod internal {
-    
+
     pub type __builtin_va_list = *mut ::core::ffi::c_char;
 }
 
-pub mod _types_h {
-    
-    pub type __uint8_t = u8;
-    
-    pub type __uint16_t = u16;
-    
-    pub type __int32_t = i32;
-    
-    pub type __uint32_t = u32;
-    
-    pub type __darwin_ptrdiff_t = isize;
-    
-    pub type __darwin_size_t = usize;
-    
-    pub type __darwin_va_list = __builtin_va_list;
-    
-    pub type __darwin_ssize_t = isize;
-    
-    pub type __darwin_time_t = ::core::ffi::c_long;
-    use super::internal::__builtin_va_list;
-}
-
 pub mod _int32_t_h {
-    
+
     pub type int32_t = i32;
 }
 
-
 pub mod sys__types_h {
-    
+
     pub type __darwin_pid_t = __int32_t;
-    
+
     pub type __darwin_suseconds_t = __int32_t;
-    
+
     pub type __darwin_uid_t = __uint32_t;
-    
+
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
-    use super::_types_h::{__int32_t, __uint32_t};
+    use crate::types::{__int32_t, __uint32_t};
 }
-
-
-
-
-
-
-
-
-
-
-
 
 pub mod _va_list_h {
-    
-    pub type va_list = __darwin_va_list;
-    use super::_types_h::__darwin_va_list;
-}
 
+    pub type va_list = __darwin_va_list;
+    use crate::types::__darwin_va_list;
+}
 
 pub mod tls_h {
     extern "C" {
-        
+
         pub type tls;
     }
 }
 
-
-
-
-
-
 pub mod socket_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr {
         pub sa_len: __uint8_t,
         pub sa_family: sa_family_t,
         pub sa_data: [::core::ffi::c_char; 14],
     }
+    use crate::types::__uint8_t;
     use crate::types::sa_family_t;
-    use super::_types_h::__uint8_t;
 }
 
 pub mod in_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct in_addr {
         pub s_addr: in_addr_t,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr_in {
         pub sin_len: __uint8_t,
         pub sin_family: sa_family_t,
@@ -105,22 +64,22 @@ pub mod in_h {
         pub sin_addr: in_addr,
         pub sin_zero: [::core::ffi::c_char; 8],
     }
+    use crate::types::__uint8_t;
     use crate::types::in_addr_t;
     use crate::types::in_port_t;
     use crate::types::sa_family_t;
-    use super::_types_h::__uint8_t;
 }
 
 pub mod in6_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct in6_addr {
         pub __u6_addr: C2RustUnnamed,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed {
         pub __u6_addr8: [__uint8_t; 16],
         pub __u6_addr16: [__uint16_t; 8],
@@ -128,7 +87,7 @@ pub mod in6_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr_in6 {
         pub sin6_len: __uint8_t,
         pub sin6_family: sa_family_t,
@@ -139,12 +98,12 @@ pub mod in6_h {
     }
     use crate::types::in_port_t;
     use crate::types::sa_family_t;
-    use super::_types_h::{__uint16_t, __uint32_t, __uint8_t};
+    use crate::types::{__uint16_t, __uint32_t, __uint8_t};
 }
 
 pub mod event_h {
     extern "C" {
-        
+
         pub type event_base;
     }
 }
@@ -152,7 +111,7 @@ pub mod event_h {
 pub mod event_struct_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct event {
         pub ev_evcallback: event_callback,
         pub ev_timeout_pos: C2RustUnnamed_5,
@@ -165,14 +124,14 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_0 {
         pub ev_io: C2RustUnnamed_3,
         pub ev_signal: C2RustUnnamed_1,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_1 {
         pub ev_signal_next: C2RustUnnamed_2,
         pub ev_ncalls: ::core::ffi::c_short,
@@ -180,42 +139,42 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_2 {
         pub le_next: *mut event,
         pub le_prev: *mut *mut event,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_3 {
         pub ev_io_next: C2RustUnnamed_4,
         pub ev_timeout: timeval,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_4 {
         pub le_next: *mut event,
         pub le_prev: *mut *mut event,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_5 {
         pub ev_next_with_common_timeout: C2RustUnnamed_6,
         pub min_heap_idx: ::core::ffi::c_int,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_6 {
         pub tqe_next: *mut event,
         pub tqe_prev: *mut *mut event,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct event_callback {
         pub evcb_active_next: C2RustUnnamed_8,
         pub evcb_flags: ::core::ffi::c_short,
@@ -226,7 +185,7 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_7 {
         pub evcb_callback: Option<
             unsafe extern "C" fn(
@@ -244,72 +203,70 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_8 {
         pub tqe_next: *mut event_callback,
         pub tqe_prev: *mut *mut event_callback,
     }
+    use super::event_h::event_base;
     use crate::types::timeval;
     use crate::types::uint8_t;
-    use super::event_h::event_base;
 }
 
-
-
 pub mod bouncer_h {
-    
+
     pub type SocketState = ::core::ffi::c_uint;
-    
+
     pub const SV_TESTED: SocketState = 16;
-    
+
     pub const SV_USED: SocketState = 15;
-    
+
     pub const SV_ACTIVE_CANCEL: SocketState = 14;
-    
+
     pub const SV_ACTIVE: SocketState = 13;
-    
+
     pub const SV_IDLE: SocketState = 12;
-    
+
     pub const SV_BEING_CANCELED: SocketState = 11;
-    
+
     pub const SV_LOGIN: SocketState = 10;
-    
+
     pub const SV_JUSTFREE: SocketState = 9;
-    
+
     pub const SV_FREE: SocketState = 8;
-    
+
     pub const CL_ACTIVE_CANCEL: SocketState = 7;
-    
+
     pub const CL_WAITING_CANCEL: SocketState = 6;
-    
+
     pub const CL_ACTIVE: SocketState = 5;
-    
+
     pub const CL_WAITING_LOGIN: SocketState = 4;
-    
+
     pub const CL_WAITING: SocketState = 3;
-    
+
     pub const CL_LOGIN: SocketState = 2;
-    
+
     pub const CL_JUSTFREE: SocketState = 1;
-    
+
     pub const CL_FREE: SocketState = 0;
-    
+
     pub type PacketCallbackFlag = ::core::ffi::c_uint;
-    
+
     pub const CB_HANDLE_COMPLETE_PACKET: PacketCallbackFlag = 2;
-    
+
     pub const CB_WANT_COMPLETE_PACKET: PacketCallbackFlag = 1;
-    
+
     pub const CB_NONE: PacketCallbackFlag = 0;
-    
+
     pub type LoadBalanceHosts = ::core::ffi::c_uint;
-    
+
     pub const LOAD_BALANCE_HOSTS_ROUND_ROBIN: LoadBalanceHosts = 1;
-    
+
     pub const LOAD_BALANCE_HOSTS_DISABLE: LoadBalanceHosts = 0;
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    
+
     pub struct PgSocket {
         pub head: List,
         pub cancel_head: List,
@@ -366,7 +323,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    
+
     pub struct CallbackState {
         #[bitfield(name = "flag", ty = "PacketCallbackFlag", bits = "0..=7")]
         pub flag: [u8; 1],
@@ -376,7 +333,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct ScramState {
         pub client_nonce: *mut ::core::ffi::c_char,
         pub client_first_message_bare: *mut ::core::ffi::c_char,
@@ -398,14 +355,14 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_9 {
         pub dns_token: *mut DNSToken,
         pub db: *mut PgDatabase,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct PgDatabase {
         pub head: List,
         pub name: [::core::ffi::c_char; 64],
@@ -443,7 +400,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct PgCredentials {
         pub tree_node: AANode,
         pub name: [::core::ffi::c_char; 128],
@@ -461,7 +418,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct PgGlobalUser {
         pub credentials: PgCredentials,
         pub head: List,
@@ -480,7 +437,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    
+
     pub struct PgPool {
         pub head: List,
         pub map_head: List,
@@ -516,7 +473,7 @@ pub mod bouncer_h {
     pub use super::super::common::types::PgStats;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union PgAddr {
         pub sa: sockaddr,
         pub sin: sockaddr_in,
@@ -525,38 +482,38 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr_ucreds {
         pub sin: sockaddr_in,
         pub uid: uid_t,
         pub pid: pid_t,
     }
-    
+
     pub type ReplicationType = ::core::ffi::c_uint;
-    
+
     pub const REPLICATION_PHYSICAL: ReplicationType = 2;
-    
+
     pub const REPLICATION_LOGICAL: ReplicationType = 1;
-    
+
     pub const REPLICATION_NONE: ReplicationType = 0;
-    
+
     pub const PKT_STARTUP_V2: ::core::ffi::c_int = 0x20000 as ::core::ffi::c_int;
-    
+
     pub const PKT_STARTUP_V3: ::core::ffi::c_int = 0x30000 as ::core::ffi::c_int;
-    
+
     pub const PKT_STARTUP_V3_UNSUPPORTED: ::core::ffi::c_int = 0x30001 as ::core::ffi::c_int;
-    
+
     pub const PKT_STARTUP_V4: ::core::ffi::c_int = 0x40000 as ::core::ffi::c_int;
-    
+
     pub const PKT_CANCEL: ::core::ffi::c_int = 80877102 as ::core::ffi::c_int;
-    
+
     pub const PKT_SSLREQ: ::core::ffi::c_int = 80877103 as ::core::ffi::c_int;
-    
+
     pub const PKT_GSSENCREQ: ::core::ffi::c_int = 80877104 as ::core::ffi::c_int;
-    
+
     pub const CANCELLATION_TTL_MASK: ::core::ffi::c_int = 0x3 as ::core::ffi::c_int;
     #[inline]
-    
+
     pub unsafe extern "C" fn first_socket(mut slist: *mut StatList) -> *mut PgSocket {
         if statlist_empty(slist) {
             return ::core::ptr::null_mut::<PgSocket>();
@@ -565,33 +522,33 @@ pub mod bouncer_h {
             .offset(-(0 as ::core::ffi::c_ulong as isize)) as *mut PgSocket
     }
 
+    use super::dnslookup_h::DNSToken;
+    use super::in6_h::sockaddr_in6;
+    use super::in_h::sockaddr_in;
+    use super::pktbuf_h::PktBuf;
+    use super::sbuf_h::SBuf;
+    use super::socket_h::sockaddr;
+    use crate::types::pg_cryptohash_type;
     use crate::types::pid_t;
     use crate::types::uid_t;
     use crate::types::uint16_t;
     use crate::types::uint64_t;
     use crate::types::uint8_t;
-    use crate::types::{AANode, AATree};
-    use crate::types::pg_cryptohash_type;
-    use super::dnslookup_h::DNSToken;
-    use super::in6_h::sockaddr_in6;
-    use super::in_h::sockaddr_in;
-    use crate::types::List;
-    use super::pktbuf_h::PktBuf;
-    use crate::types::{PgClientPreparedStatement, PgServerPreparedStatement};
-    use crate::types::PktHdr;
-    use super::sbuf_h::SBuf;
-    use super::socket_h::sockaddr;
-    use crate::types::{statlist_empty, StatList};
     use crate::types::usec_t;
+    use crate::types::List;
+    use crate::types::PktHdr;
     use crate::types::VarCache;
+    use crate::types::{statlist_empty, StatList};
+    use crate::types::{AANode, AATree};
+    use crate::types::{PgClientPreparedStatement, PgServerPreparedStatement};
     extern "C" {
-        
+
         pub static mut replication_type_parameters: [*const ::core::ffi::c_char; 3];
-        
+
         pub static mut cf_peer_id: ::core::ffi::c_int;
-        
+
         pub static mut cf_max_packet_size: ::core::ffi::c_uint;
-        
+
         pub static mut cf_log_pooler_errors: ::core::ffi::c_int;
     }
 }
@@ -599,7 +556,7 @@ pub mod bouncer_h {
 pub mod sbuf_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct SBuf {
         pub ev: event,
         pub wait_type: uint8_t,
@@ -619,7 +576,7 @@ pub mod sbuf_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct SBufIO {
         pub sbufio_peek:
             Option<unsafe extern "C" fn(*mut SBuf, *mut ::core::ffi::c_void, size_t) -> ssize_t>,
@@ -629,41 +586,41 @@ pub mod sbuf_h {
             Option<unsafe extern "C" fn(*mut SBuf, *const ::core::ffi::c_void, size_t) -> ssize_t>,
         pub sbufio_close: Option<unsafe extern "C" fn(*mut SBuf) -> ::core::ffi::c_int>,
     }
-    
+
     pub type sbuf_cb_t = Option<unsafe extern "C" fn(*mut SBuf, SBufEvent, *mut MBuf) -> bool>;
-    
+
     pub type SBufEvent = ::core::ffi::c_uint;
-    
+
     pub const SBUF_EV_TLS_READY: SBufEvent = 7;
-    
+
     pub const SBUF_EV_PKT_CALLBACK: SBufEvent = 6;
-    
+
     pub const SBUF_EV_FLUSH: SBufEvent = 5;
-    
+
     pub const SBUF_EV_CONNECT_OK: SBufEvent = 4;
-    
+
     pub const SBUF_EV_CONNECT_FAILED: SBufEvent = 3;
-    
+
     pub const SBUF_EV_SEND_FAILED: SBufEvent = 2;
-    
+
     pub const SBUF_EV_RECV_FAILED: SBufEvent = 1;
-    
+
     pub const SBUF_EV_READ: SBufEvent = 0;
-    use crate::types::size_t;
-    use crate::types::ssize_t;
-    use crate::types::uint8_t;
     use super::event_struct_h::event;
     use super::iobuf_h::IOBuf;
     use super::tls_h::tls;
+    use crate::types::size_t;
+    use crate::types::ssize_t;
+    use crate::types::uint8_t;
     use crate::types::MBuf;
 }
 
 pub mod iobuf_h {
-    
+
     pub type IOBuf = iobuf;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct iobuf {
         pub done_pos: ::core::ffi::c_uint,
         pub parse_pos: ::core::ffi::c_uint,
@@ -673,12 +630,10 @@ pub mod iobuf_h {
     use crate::types::uint8_t;
 }
 
-
-
 pub mod pktbuf_h {
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    
+
     pub struct PktBuf {
         pub buf: *mut uint8_t,
         pub buf_len: ::core::ffi::c_int,
@@ -694,31 +649,31 @@ pub mod pktbuf_h {
         #[bitfield(padding)]
         pub c2rust_padding: [u8; 7],
     }
-    use crate::types::uint8_t;
     use super::bouncer_h::PgSocket;
     use super::event_struct_h::event;
+    use crate::types::uint8_t;
     extern "C" {
-        
+
         pub fn pktbuf_dynamic(start_len: ::core::ffi::c_int) -> *mut PktBuf;
-        
+
         pub fn pktbuf_static(buf: *mut PktBuf, data: *mut uint8_t, len: ::core::ffi::c_int);
-        
+
         pub fn pktbuf_temp() -> *mut PktBuf;
-        
+
         pub fn pktbuf_send_immediate(buf: *mut PktBuf, sk: *mut PgSocket) -> bool;
-        
+
         pub fn pktbuf_start_packet(buf: *mut PktBuf, type_0: ::core::ffi::c_int);
-        
+
         pub fn pktbuf_put_string(buf: *mut PktBuf, str: *const ::core::ffi::c_char);
-        
+
         pub fn pktbuf_put_bytes(
             buf: *mut PktBuf,
             data: *const ::core::ffi::c_void,
             len: ::core::ffi::c_int,
         );
-        
+
         pub fn pktbuf_finish_packet(buf: *mut PktBuf);
-        
+
         pub fn pktbuf_write_generic(
             buf: *mut PktBuf,
             type_0: ::core::ffi::c_int,
@@ -730,39 +685,39 @@ pub mod pktbuf_h {
 
 pub mod dnslookup_h {
     extern "C" {
-        
+
         pub type DNSToken;
     }
 }
 
 pub mod logging_h {
-    
+
     pub type LogLevel = ::core::ffi::c_uint;
-    
+
     pub const LG_NOISE: LogLevel = 6;
-    
+
     pub const LG_DEBUG: LogLevel = 5;
-    
+
     pub const LG_INFO: LogLevel = 4;
-    
+
     pub const LG_STATS: LogLevel = 3;
-    
+
     pub const LG_WARNING: LogLevel = 2;
-    
+
     pub const LG_ERROR: LogLevel = 1;
-    
+
     pub const LG_FATAL: LogLevel = 0;
     extern "C" {
-        
+
         pub static mut cf_verbose: ::core::ffi::c_int;
-        
+
         pub fn log_generic(
             level: LogLevel,
             ctx: *mut ::core::ffi::c_void,
             s: *const ::core::ffi::c_char,
             ...
         );
-        
+
         pub fn log_fatal(
             file: *const ::core::ffi::c_char,
             line: ::core::ffi::c_int,
@@ -776,39 +731,39 @@ pub mod logging_h {
 }
 
 pub mod scram_h {
-    
+
     pub const PASSWORD_TYPE_SCRAM_SHA_256: PasswordType = 2;
-    
+
     pub const PASSWORD_TYPE_PLAINTEXT: PasswordType = 0;
-    
+
     pub type PasswordType = ::core::ffi::c_uint;
-    
+
     pub const PASSWORD_TYPE_MD5: PasswordType = 1;
     use super::bouncer_h::{PgCredentials, PgSocket, ScramState};
     extern "C" {
-        
+
         pub fn free_scram_state(state: *mut ScramState);
-        
+
         pub fn get_password_type(shadow_pass: *const ::core::ffi::c_char) -> PasswordType;
-        
+
         pub fn build_client_first_message(state: *mut ScramState) -> *mut ::core::ffi::c_char;
-        
+
         pub fn build_client_final_message(
             server: *mut PgSocket,
             credentials: *const PgCredentials,
         ) -> *mut ::core::ffi::c_char;
-        
+
         pub fn read_server_first_message(
             server: *mut PgSocket,
             input: *mut ::core::ffi::c_char,
         ) -> bool;
-        
+
         pub fn read_server_final_message(
             server: *mut PgSocket,
             input: *mut ::core::ffi::c_char,
             ServerSignature: *mut ::core::ffi::c_char,
         ) -> bool;
-        
+
         pub fn verify_server_signature(
             server: *mut PgSocket,
             credentials: *const PgCredentials,
@@ -821,43 +776,42 @@ pub mod scram_h {
 pub mod _malloc_h {
     use crate::types::size_t;
     extern "C" {
-        
+
         pub fn malloc(__size: size_t) -> *mut ::core::ffi::c_void;
-        
+
         pub fn free(_: *mut ::core::ffi::c_void);
     }
 }
 
-
 pub mod _string_h {
     use crate::types::size_t;
     extern "C" {
-        
+
         pub fn memchr(
             __s: *const ::core::ffi::c_void,
             __c: ::core::ffi::c_int,
             __n: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn memcpy(
             __dst: *mut ::core::ffi::c_void,
             __src: *const ::core::ffi::c_void,
             __n: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn memmove(
             __dst: *mut ::core::ffi::c_void,
             __src: *const ::core::ffi::c_void,
             __len: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn strcmp(
             __s1: *const ::core::ffi::c_char,
             __s2: *const ::core::ffi::c_char,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn strlen(__s: *const ::core::ffi::c_char) -> size_t;
-        
+
         pub fn strncmp(
             __s1: *const ::core::ffi::c_char,
             __s2: *const ::core::ffi::c_char,
@@ -870,14 +824,14 @@ pub mod util_h {
     use crate::types::size_t;
     use crate::types::uint8_t;
     extern "C" {
-        
+
         pub fn pg_md5_encrypt(
             part1: *const ::core::ffi::c_char,
             part2: *const ::core::ffi::c_char,
             p2len: size_t,
             dest: *mut ::core::ffi::c_char,
         ) -> bool;
-        
+
         pub fn get_random_bytes(dest: *mut uint8_t, len: ::core::ffi::c_int);
     }
 }
@@ -885,7 +839,7 @@ pub mod util_h {
 pub mod client_h {
     use super::bouncer_h::PgSocket;
     extern "C" {
-        
+
         pub fn sending_auth_query(client: *mut PgSocket) -> bool;
     }
 }
@@ -893,7 +847,7 @@ pub mod client_h {
 pub mod server_h {
     use super::bouncer_h::PgPool;
     extern "C" {
-        
+
         pub fn kill_pool_logins(
             pool: *mut PgPool,
             sqlstate: *const ::core::ffi::c_char,
@@ -905,9 +859,9 @@ pub mod server_h {
 pub mod objects_h {
     use super::bouncer_h::{PgCredentials, PgSocket};
     extern "C" {
-        
+
         pub fn find_global_credentials(name: *const ::core::ffi::c_char) -> *mut PgCredentials;
-        
+
         pub fn disconnect_client(
             client: *mut PgSocket,
             notify: bool,
@@ -918,40 +872,40 @@ pub mod objects_h {
 }
 
 pub mod protocol_h {
-    
+
     pub const PqMsg_PasswordMessage: ::core::ffi::c_int = 'p' as i32;
-    
+
     pub const PqMsg_SASLInitialResponse: ::core::ffi::c_int = 'p' as i32;
-    
+
     pub const PqMsg_SASLResponse: ::core::ffi::c_int = 'p' as i32;
-    
+
     pub const PqMsg_ErrorResponse: ::core::ffi::c_int = 'E' as i32;
-    
+
     pub const PqMsg_BackendKeyData: ::core::ffi::c_int = 'K' as i32;
-    
+
     pub const PqMsg_AuthenticationRequest: ::core::ffi::c_int = 'R' as i32;
-    
+
     pub const PqMsg_ParameterStatus: ::core::ffi::c_int = 'S' as i32;
-    
+
     pub const PqMsg_ReadyForQuery: ::core::ffi::c_int = 'Z' as i32;
-    
-    pub const AUTH_REQ_OK: uint32_t = 0 as uint32_t;
-    
+
+    pub const AUTH_REQ_OK: uint32_t = 0;
+
     pub const AUTH_REQ_PASSWORD: uint32_t = 3 as uint32_t;
-    
+
     pub const AUTH_REQ_MD5: uint32_t = 5 as uint32_t;
-    
+
     pub const AUTH_REQ_SASL: uint32_t = 10 as uint32_t;
-    
+
     pub const AUTH_REQ_SASL_CONT: uint32_t = 11 as uint32_t;
-    
+
     pub const AUTH_REQ_SASL_FIN: uint32_t = 12 as uint32_t;
     use crate::types::uint32_t;
 }
 
 pub mod _stdio_h {
     extern "C" {
-        
+
         pub fn sscanf(
             _: *const ::core::ffi::c_char,
             _: *const ::core::ffi::c_char,
@@ -962,41 +916,21 @@ pub mod _stdio_h {
 
 pub mod _stdlib_h {
     extern "C" {
-        
+
         pub fn atoi(_: *const ::core::ffi::c_char) -> ::core::ffi::c_int;
-        
+
         pub fn atoll(_: *const ::core::ffi::c_char) -> ::core::ffi::c_longlong;
-        
+
         pub fn exit(_: ::core::ffi::c_int) -> !;
     }
 }
 
-pub use crate::types::in_addr_t;
-pub use crate::types::in_port_t;
 pub use self::_int32_t_h::int32_t;
 use self::_malloc_h::{free, malloc};
-pub use crate::types::NULL;
-pub use crate::types::pid_t;
-pub use crate::types::ptrdiff_t;
-pub use crate::types::sa_family_t;
-pub use crate::types::size_t;
-pub use crate::types::ssize_t;
 use self::_stdio_h::sscanf;
 use self::_stdlib_h::{atoi, atoll, exit};
 use self::_string_h::{memcpy, memmove, strcmp, strlen, strncmp};
-pub use crate::types::timeval;
-pub use self::_types_h::{
-    __darwin_ptrdiff_t, __darwin_size_t, __darwin_ssize_t, __darwin_time_t, __darwin_va_list,
-    __int32_t, __uint16_t, __uint32_t, __uint8_t,
-};
-pub use crate::types::uid_t;
-pub use crate::types::uint16_t;
-pub use crate::types::uint32_t;
-pub use crate::types::uint64_t;
-pub use crate::types::uint8_t;
-pub use crate::types::uintptr_t;
 pub use self::_va_list_h::va_list;
-pub use crate::types::{aatree_cmp_f, aatree_walker_f, AANode, AATree};
 pub use self::bouncer_h::{
     cf_log_pooler_errors, cf_max_packet_size, cf_peer_id, first_socket,
     replication_type_parameters, sockaddr_ucreds, C2RustUnnamed_9, CallbackState, LoadBalanceHosts,
@@ -1010,6 +944,26 @@ pub use self::bouncer_h::{
     SV_FREE, SV_IDLE, SV_JUSTFREE, SV_LOGIN, SV_TESTED, SV_USED,
 };
 use self::client_h::sending_auth_query;
+pub use crate::types::in_addr_t;
+pub use crate::types::in_port_t;
+pub use crate::types::pid_t;
+pub use crate::types::ptrdiff_t;
+pub use crate::types::sa_family_t;
+pub use crate::types::size_t;
+pub use crate::types::ssize_t;
+pub use crate::types::timeval;
+pub use crate::types::uid_t;
+pub use crate::types::uint16_t;
+pub use crate::types::uint32_t;
+pub use crate::types::uint64_t;
+pub use crate::types::uint8_t;
+pub use crate::types::uintptr_t;
+pub use crate::types::NULL;
+pub use crate::types::{
+    __darwin_ptrdiff_t, __darwin_size_t, __darwin_ssize_t, __darwin_time_t, __darwin_va_list,
+    __int32_t, __uint16_t, __uint32_t, __uint8_t,
+};
+pub use crate::types::{aatree_cmp_f, aatree_walker_f, AANode, AATree};
 pub use crate::types::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
 
 pub use self::event_struct_h::{
@@ -1020,26 +974,16 @@ pub use self::in6_h::{in6_addr, sockaddr_in6, C2RustUnnamed};
 pub use self::in_h::{in_addr, sockaddr_in};
 pub use self::internal::__builtin_va_list;
 pub use self::iobuf_h::{iobuf, IOBuf};
-pub use crate::types::{list_empty, List};
 pub use self::logging_h::{
     cf_verbose, log_fatal, log_generic, LogLevel, LG_DEBUG, LG_ERROR, LG_FATAL, LG_INFO, LG_NOISE,
     LG_STATS, LG_WARNING,
 };
-pub use crate::lib::usual::mbuf::{
-    mbuf_avail_for_read, mbuf_copy, mbuf_get_byte, mbuf_get_bytes, mbuf_get_chars, mbuf_get_string,
-    mbuf_get_uint16be, mbuf_get_uint32be, mbuf_init_fixed_reader, mbuf_slice,
-};
-pub use crate::types::MBuf;
 use self::objects_h::{disconnect_client, find_global_credentials};
 pub use self::pktbuf_h::{
     pktbuf_dynamic, pktbuf_finish_packet, pktbuf_put_bytes, pktbuf_put_string,
     pktbuf_send_immediate, pktbuf_start_packet, pktbuf_static, pktbuf_temp, pktbuf_write_generic,
     PktBuf,
 };
-pub use crate::types::{
-    PgClientPreparedStatement, PgPreparedStatement, PgServerPreparedStatement,
-};
-pub use crate::types::{PktHdr, NEW_HEADER_LEN, OLD_HEADER_LEN};
 pub use self::protocol_h::{
     PqMsg_AuthenticationRequest, PqMsg_BackendKeyData, PqMsg_ErrorResponse, PqMsg_ParameterStatus,
     PqMsg_PasswordMessage, PqMsg_ReadyForQuery, PqMsg_SASLInitialResponse, PqMsg_SASLResponse,
@@ -1058,15 +1002,23 @@ pub use self::scram_h::{
 };
 use self::server_h::kill_pool_logins;
 pub use self::socket_h::sockaddr;
-pub use crate::types::{statlist_empty, StatList};
-pub use crate::types::{false_0, true_0};
-pub use crate::types::{PStr, StrPool};
 pub use self::sys__types_h::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
+pub use crate::lib::usual::mbuf::{
+    mbuf_avail_for_read, mbuf_copy, mbuf_get_byte, mbuf_get_bytes, mbuf_get_chars, mbuf_get_string,
+    mbuf_get_uint16be, mbuf_get_uint32be, mbuf_init_fixed_reader, mbuf_slice,
+};
 pub use crate::types::usec_t;
+pub use crate::types::MBuf;
+pub use crate::types::{false_0, true_0};
+pub use crate::types::{list_empty, List};
+pub use crate::types::{statlist_empty, StatList};
+pub use crate::types::{PStr, StrPool};
+pub use crate::types::{PgClientPreparedStatement, PgPreparedStatement, PgServerPreparedStatement};
+pub use crate::types::{PktHdr, NEW_HEADER_LEN, OLD_HEADER_LEN};
 
-pub use crate::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 use self::util_h::{get_random_bytes, pg_md5_encrypt};
 pub use crate::types::VarCache;
+pub use crate::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 #[no_mangle]
 
 pub unsafe extern "C" fn get_header(mut data: *mut MBuf, mut pkt: *mut PktHdr) -> bool {
@@ -1094,26 +1046,25 @@ pub unsafe extern "C" fn get_header(mut data: *mut MBuf, mut pkt: *mut PktHdr) -
             log_generic(
                 LG_NOISE,
                 _log_ctx,
-                b"get_header: less than %d bytes available\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"get_header: less than %d bytes available".as_ptr(),
                 5 as ::core::ffi::c_int,
             );
         }
-        return false_0 != 0;
+        return false;
     }
     if !mbuf_get_byte(&raw mut hdr, &raw mut type8) {
-        return false_0 != 0;
+        return false;
     }
     type_0 = type8 as ::core::ffi::c_uint;
     if type_0 != 0 as ::core::ffi::c_uint {
         if !mbuf_get_uint32be(&raw mut hdr, &raw mut len) {
-            return false_0 != 0;
+            return false;
         }
         len = len.wrapping_add(1);
         got = NEW_HEADER_LEN as ::core::ffi::c_uint;
     } else {
         if !mbuf_get_byte(&raw mut hdr, &raw mut type8) {
-            return false_0 != 0;
+            return false;
         }
         if type8 as ::core::ffi::c_int != 0 as ::core::ffi::c_int {
             let mut _log_ctx_0 = NULL;
@@ -1123,10 +1074,10 @@ pub unsafe extern "C" fn get_header(mut data: *mut MBuf, mut pkt: *mut PktHdr) -
                 log_generic(
                     LG_NOISE,
                     _log_ctx_0,
-                    b"get_header: unknown special pkt\0" as *const u8 as *const ::core::ffi::c_char,
+                    c"get_header: unknown special pkt".as_ptr(),
                 );
             }
-            return false_0 != 0;
+            return false;
         }
         if mbuf_avail_for_read(&raw mut hdr)
             < (OLD_HEADER_LEN - 2 as ::core::ffi::c_int) as ::core::ffi::c_uint
@@ -1138,19 +1089,18 @@ pub unsafe extern "C" fn get_header(mut data: *mut MBuf, mut pkt: *mut PktHdr) -
                 log_generic(
                     LG_NOISE,
                     _log_ctx_1,
-                    b"get_header: less than %d bytes for special pkt\0" as *const u8
-                        as *const ::core::ffi::c_char,
+                    c"get_header: less than %d bytes for special pkt".as_ptr(),
                     8 as ::core::ffi::c_int,
                 );
             }
-            return false_0 != 0;
+            return false;
         }
         if !mbuf_get_uint16be(&raw mut hdr, &raw mut len16) {
-            return false_0 != 0;
+            return false;
         }
         len = len16 as uint32_t;
         if !mbuf_get_uint32be(&raw mut hdr, &raw mut code) {
-            return false_0 != 0;
+            return false;
         }
         if code == PKT_CANCEL as uint32_t {
             type_0 = PKT_CANCEL as ::core::ffi::c_uint;
@@ -1176,18 +1126,17 @@ pub unsafe extern "C" fn get_header(mut data: *mut MBuf, mut pkt: *mut PktHdr) -
                 log_generic(
                     LG_NOISE,
                     _log_ctx_2,
-                    b"get_header: unknown special pkt: len=%u code=%u\0" as *const u8
-                        as *const ::core::ffi::c_char,
+                    c"get_header: unknown special pkt: len=%u code=%u".as_ptr(),
                     len,
                     code,
                 );
             }
-            return false_0 != 0;
+            return false;
         }
         got = OLD_HEADER_LEN as ::core::ffi::c_uint;
     }
     if len < got as uint32_t || len > cf_max_packet_size as uint32_t {
-        return false_0 != 0;
+        return false;
     }
     (*pkt).type_0 = type_0;
     (*pkt).len = len as ::core::ffi::c_uint;
@@ -1197,7 +1146,7 @@ pub unsafe extern "C" fn get_header(mut data: *mut MBuf, mut pkt: *mut PktHdr) -
         avail = len as ::core::ffi::c_uint;
     }
     if !mbuf_slice(data, avail, &raw mut (*pkt).data) {
-        return false_0 != 0;
+        return false;
     }
     mbuf_get_bytes(&raw mut (*pkt).data, got, &raw mut ptr)
 }
@@ -1226,7 +1175,7 @@ pub unsafe extern "C" fn send_pooler_error(
         log_generic(
             LG_WARNING,
             client as *mut ::core::ffi::c_void,
-            b"pooler error: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"pooler error: %s".as_ptr(),
             msg,
         );
     }
@@ -1238,30 +1187,25 @@ pub unsafe extern "C" fn send_pooler_error(
     pktbuf_write_generic(
         &raw mut buf,
         PqMsg_ErrorResponse,
-        b"cscscsc\0" as *const u8 as *const ::core::ffi::c_char,
+        c"cscscsc".as_ptr(),
         'S' as i32,
         if level_fatal as ::core::ffi::c_int != 0 {
-            b"FATAL\0" as *const u8 as *const ::core::ffi::c_char
+            c"FATAL".as_ptr()
         } else {
-            b"ERROR\0" as *const u8 as *const ::core::ffi::c_char
+            c"ERROR".as_ptr()
         },
         'C' as i32,
         if !sqlstate.is_null() {
             sqlstate
         } else {
-            b"08P01\0" as *const u8 as *const ::core::ffi::c_char
+            c"08P01".as_ptr()
         },
         'M' as i32,
         msg,
         0 as ::core::ffi::c_int,
     );
     if send_ready {
-        pktbuf_write_generic(
-            &raw mut buf,
-            PqMsg_ReadyForQuery,
-            b"c\0" as *const u8 as *const ::core::ffi::c_char,
-            'I' as i32,
-        );
+        pktbuf_write_generic(&raw mut buf, PqMsg_ReadyForQuery, c"c".as_ptr(), 'I' as i32);
     }
     pktbuf_send_immediate(&raw mut buf, client)
 }
@@ -1315,7 +1259,7 @@ pub unsafe extern "C" fn log_server_error(
         log_generic(
             LG_ERROR,
             _log_ctx,
-            b"%s: partial error message, cannot log\0" as *const u8 as *const ::core::ffi::c_char,
+            c"%s: partial error message, cannot log".as_ptr(),
             note,
         );
     } else {
@@ -1323,7 +1267,7 @@ pub unsafe extern "C" fn log_server_error(
         log_generic(
             LG_ERROR,
             _log_ctx_0,
-            b"%s: %s: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"%s: %s: %s".as_ptr(),
             note,
             level,
             msg,
@@ -1339,12 +1283,12 @@ pub unsafe extern "C" fn add_welcome_parameter(
 ) -> bool {
     let mut msg = (*pool).welcome_msg as *mut PktBuf;
     if (*pool).welcome_msg_ready() {
-        return true_0 != 0;
+        return true;
     }
     if msg.is_null() {
         msg = pktbuf_dynamic(128 as ::core::ffi::c_int);
         if msg.is_null() {
-            return false_0 != 0;
+            return false;
         }
         (*pool).welcome_msg = msg as *mut PktBuf;
     }
@@ -1352,18 +1296,12 @@ pub unsafe extern "C" fn add_welcome_parameter(
         pktbuf_write_generic(
             msg,
             PqMsg_AuthenticationRequest,
-            b"i\0" as *const u8 as *const ::core::ffi::c_char,
+            c"i".as_ptr(),
             0 as ::core::ffi::c_int,
         );
     }
     if !varcache_set(&raw mut (*pool).orig_vars, key, val) {
-        pktbuf_write_generic(
-            msg,
-            PqMsg_ParameterStatus,
-            b"ss\0" as *const u8 as *const ::core::ffi::c_char,
-            key,
-            val,
-        );
+        pktbuf_write_generic(msg, PqMsg_ParameterStatus, c"ss".as_ptr(), key, val);
     }
     !(*msg).failed()
 }
@@ -1374,7 +1312,7 @@ pub unsafe extern "C" fn finish_welcome_msg(mut server: *mut PgSocket) {
     if (*pool).welcome_msg_ready() {
         return;
     }
-    (*pool).set_welcome_msg_ready(true_0 != 0);
+    (*pool).set_welcome_msg_ready(true);
 }
 #[no_mangle]
 
@@ -1387,7 +1325,7 @@ pub unsafe extern "C" fn welcome_client(mut client: *mut PgSocket) -> bool {
         log_generic(
             LG_NOISE,
             client as *mut ::core::ffi::c_void,
-            b"P: welcome_client\0" as *const u8 as *const ::core::ffi::c_char,
+            c"P: welcome_client".as_ptr(),
         );
     }
     msg = pktbuf_temp() as *mut PktBuf;
@@ -1417,34 +1355,21 @@ pub unsafe extern "C" fn welcome_client(mut client: *mut PgSocket) -> bool {
     pktbuf_write_generic(
         msg,
         PqMsg_BackendKeyData,
-        b"b\0" as *const u8 as *const ::core::ffi::c_char,
+        c"b".as_ptr(),
         &raw mut (*client).cancel_key as *mut uint8_t,
         8 as ::core::ffi::c_int,
     );
-    pktbuf_write_generic(
-        msg,
-        PqMsg_ReadyForQuery,
-        b"c\0" as *const u8 as *const ::core::ffi::c_char,
-        'I' as i32,
-    );
+    pktbuf_write_generic(msg, PqMsg_ReadyForQuery, c"c".as_ptr(), 'I' as i32);
     if (*msg).failed() {
-        disconnect_client(
-            client,
-            true_0 != 0,
-            b"failed to prepare welcome message\0" as *const u8 as *const ::core::ffi::c_char,
-        );
-        return false_0 != 0;
+        disconnect_client(client, true, c"failed to prepare welcome message".as_ptr());
+        return false;
     }
     res = pktbuf_send_immediate(msg, client) as ::core::ffi::c_int;
     if res == 0 {
-        disconnect_client(
-            client,
-            true_0 != 0,
-            b"failed to send welcome message\0" as *const u8 as *const ::core::ffi::c_char,
-        );
-        return false_0 != 0;
+        disconnect_client(client, true, c"failed to send welcome message".as_ptr());
+        return false;
     }
-    true_0 != 0
+    true
 }
 
 unsafe extern "C" fn get_srv_psw(mut server: *mut PgSocket) -> *mut PgCredentials {
@@ -1484,12 +1409,7 @@ unsafe extern "C" fn send_password(
         &raw mut _data as *mut uint8_t,
         ::core::mem::size_of::<[uint8_t; 2056]>() as ::core::ffi::c_int,
     );
-    pktbuf_write_generic(
-        &raw mut _buf,
-        PqMsg_PasswordMessage,
-        b"s\0" as *const u8 as *const ::core::ffi::c_char,
-        enc_psw,
-    );
+    pktbuf_write_generic(&raw mut _buf, PqMsg_PasswordMessage, c"s".as_ptr(), enc_psw);
     res = pktbuf_send_immediate(&raw mut _buf, server);
     res
 }
@@ -1500,7 +1420,7 @@ unsafe extern "C" fn login_clear_psw(mut server: *mut PgSocket) -> bool {
         log_generic(
             LG_DEBUG,
             server as *mut ::core::ffi::c_void,
-            b"P: send clear password\0" as *const u8 as *const ::core::ffi::c_char,
+            c"P: send clear password".as_ptr(),
         );
     }
     send_password(
@@ -1517,7 +1437,7 @@ unsafe extern "C" fn login_md5_psw(mut server: *mut PgSocket, mut salt: *const u
         log_generic(
             LG_DEBUG,
             server as *mut ::core::ffi::c_void,
-            b"P: send md5 password\0" as *const u8 as *const ::core::ffi::c_char,
+            c"P: send md5 password".as_ptr(),
         );
     }
     match get_password_type(&raw mut (*credentials).passwd as *mut ::core::ffi::c_char)
@@ -1530,7 +1450,7 @@ unsafe extern "C" fn login_md5_psw(mut server: *mut PgSocket, mut salt: *const u
                 strlen(&raw mut (*credentials).name as *mut ::core::ffi::c_char),
                 &raw mut txt as *mut ::core::ffi::c_char,
             ) {
-                return false_0 != 0;
+                return false;
             }
             src =
                 (&raw mut txt as *mut ::core::ffi::c_char).offset(3 as ::core::ffi::c_int as isize);
@@ -1543,16 +1463,14 @@ unsafe extern "C" fn login_md5_psw(mut server: *mut PgSocket, mut salt: *const u
             log_generic(
                 LG_ERROR,
                 server as *mut ::core::ffi::c_void,
-                b"cannot do MD5 authentication: wrong password type\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"cannot do MD5 authentication: wrong password type".as_ptr(),
             );
             kill_pool_logins(
                 (*server).pool,
                 ::core::ptr::null::<::core::ffi::c_char>(),
-                b"server login failed: wrong password type\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"server login failed: wrong password type".as_ptr(),
             );
-            return false_0 != 0;
+            return false;
         }
     }
     if !pg_md5_encrypt(
@@ -1561,7 +1479,7 @@ unsafe extern "C" fn login_md5_psw(mut server: *mut PgSocket, mut salt: *const u
         4 as size_t,
         &raw mut txt as *mut ::core::ffi::c_char,
     ) {
-        return false_0 != 0;
+        return false;
     }
     send_password(server, &raw mut txt as *mut ::core::ffi::c_char)
 }
@@ -1579,46 +1497,41 @@ unsafe extern "C" fn login_scram_sha_256(mut server: *mut PgSocket) -> bool {
                 log_generic(
                     LG_ERROR,
                     server as *mut ::core::ffi::c_void,
-                    b"cannot do SCRAM authentication: password is SCRAM secret but client authentication did not provide SCRAM keys\0"
-                        as *const u8 as *const ::core::ffi::c_char,
+                    c"cannot do SCRAM authentication: password is SCRAM secret but client authentication did not provide SCRAM keys".as_ptr(),
                 );
                 kill_pool_logins(
                     (*server).pool,
                     ::core::ptr::null::<::core::ffi::c_char>(),
-                    b"server login failed: wrong password type\0" as *const u8
-                        as *const ::core::ffi::c_char,
+                    c"server login failed: wrong password type".as_ptr(),
                 );
-                return false_0 != 0;
+                return false;
             }
         }
         _ => {
             log_generic(
                 LG_ERROR,
                 server as *mut ::core::ffi::c_void,
-                b"cannot do SCRAM authentication: wrong password type\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"cannot do SCRAM authentication: wrong password type".as_ptr(),
             );
             kill_pool_logins(
                 (*server).pool,
                 ::core::ptr::null::<::core::ffi::c_char>(),
-                b"server login failed: wrong password type\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"server login failed: wrong password type".as_ptr(),
             );
-            return false_0 != 0;
+            return false;
         }
     }
     if !(*server).scram_state.client_nonce.is_null() {
         log_generic(
             LG_ERROR,
             server as *mut ::core::ffi::c_void,
-            b"protocol error: duplicate AuthenticationSASL message from server\0" as *const u8
-                as *const ::core::ffi::c_char,
+            c"protocol error: duplicate AuthenticationSASL message from server".as_ptr(),
         );
-        return false_0 != 0;
+        return false;
     }
     client_first_message = build_client_first_message(&raw mut (*server).scram_state);
     if client_first_message.is_null() {
-        return false_0 != 0;
+        return false;
     }
     if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0 {
         log_generic(
@@ -1632,7 +1545,7 @@ unsafe extern "C" fn login_scram_sha_256(mut server: *mut PgSocket) -> bool {
         log_generic(
             LG_DEBUG,
             server as *mut ::core::ffi::c_void,
-            b"P: send SASLInitialResponse\0" as *const u8 as *const ::core::ffi::c_char,
+            c"P: send SASLInitialResponse".as_ptr(),
         );
     }
     let mut _data: [uint8_t; 512] = [0; 512];
@@ -1655,8 +1568,8 @@ unsafe extern "C" fn login_scram_sha_256(mut server: *mut PgSocket) -> bool {
     pktbuf_write_generic(
         &raw mut _buf,
         PqMsg_SASLInitialResponse,
-        b"sib\0" as *const u8 as *const ::core::ffi::c_char,
-        b"SCRAM-SHA-256\0" as *const u8 as *const ::core::ffi::c_char,
+        c"sib".as_ptr(),
+        c"SCRAM-SHA-256".as_ptr(),
         strlen(client_first_message),
         client_first_message,
         strlen(client_first_message),
@@ -1680,24 +1593,22 @@ unsafe extern "C" fn login_scram_sha_256_cont(
         log_generic(
             LG_ERROR,
             server as *mut ::core::ffi::c_void,
-            b"protocol error: AuthenticationSASLContinue without prior AuthenticationSASL\0"
-                as *const u8 as *const ::core::ffi::c_char,
+            c"protocol error: AuthenticationSASLContinue without prior AuthenticationSASL".as_ptr(),
         );
-        return false_0 != 0;
+        return false;
     }
     if !(*server).scram_state.server_first_message.is_null() {
         log_generic(
             LG_ERROR,
             server as *mut ::core::ffi::c_void,
-            b"SCRAM exchange protocol error: received second AuthenticationSASLContinue\0"
-                as *const u8 as *const ::core::ffi::c_char,
+            c"SCRAM exchange protocol error: received second AuthenticationSASLContinue".as_ptr(),
         );
-        return false_0 != 0;
+        return false;
     }
     ibuf = malloc(datalen.wrapping_add(1 as ::core::ffi::c_uint) as size_t)
         as *mut ::core::ffi::c_char;
     if ibuf.is_null() {
-        return false_0 != 0;
+        return false;
     }
     memcpy(
         ibuf as *mut ::core::ffi::c_void,
@@ -1717,7 +1628,7 @@ unsafe extern "C" fn login_scram_sha_256_cont(
     if !read_server_first_message(server, input) {
         free(ibuf as *mut ::core::ffi::c_void);
         free(client_final_message as *mut ::core::ffi::c_void);
-        false_0 != 0
+        false
     } else {
         client_final_message = build_client_final_message(server, credentials);
         free(ibuf as *mut ::core::ffi::c_void);
@@ -1735,7 +1646,7 @@ unsafe extern "C" fn login_scram_sha_256_cont(
             log_generic(
                 LG_DEBUG,
                 server as *mut ::core::ffi::c_void,
-                b"P: send SASLResponse\0" as *const u8 as *const ::core::ffi::c_char,
+                c"P: send SASLResponse".as_ptr(),
             );
         }
         let mut _data: [uint8_t; 512] = [0; 512];
@@ -1758,7 +1669,7 @@ unsafe extern "C" fn login_scram_sha_256_cont(
         pktbuf_write_generic(
             &raw mut _buf,
             PqMsg_SASLResponse,
-            b"b\0" as *const u8 as *const ::core::ffi::c_char,
+            c"b".as_ptr(),
             client_final_message,
             strlen(client_final_message),
         );
@@ -1777,20 +1688,20 @@ unsafe extern "C" fn login_scram_sha_256_final(
     let mut ibuf = ::core::ptr::null_mut::<::core::ffi::c_char>();
     let mut input = ::core::ptr::null_mut::<::core::ffi::c_char>();
     let mut ServerSignature: [::core::ffi::c_char; 32] = [0; 32];
-    let mut match_0 = false_0 != 0;
+    let mut match_0 = false;
     if (*server).scram_state.server_first_message.is_null() {
         log_generic(
             LG_ERROR,
             server as *mut ::core::ffi::c_void,
-            b"protocol error: AuthenticationSASLFinal without prior AuthenticationSASLContinue\0"
-                as *const u8 as *const ::core::ffi::c_char,
+            c"protocol error: AuthenticationSASLFinal without prior AuthenticationSASLContinue"
+                .as_ptr(),
         );
-        return false_0 != 0;
+        return false;
     }
     ibuf = malloc(datalen.wrapping_add(1 as ::core::ffi::c_uint) as size_t)
         as *mut ::core::ffi::c_char;
     if ibuf.is_null() {
-        return false_0 != 0;
+        return false;
     }
     memcpy(
         ibuf as *mut ::core::ffi::c_void,
@@ -1821,40 +1732,38 @@ unsafe extern "C" fn login_scram_sha_256_final(
             kill_pool_logins(
                 (*server).pool,
                 ::core::ptr::null::<::core::ffi::c_char>(),
-                b"server login failed: failed to verify server signature\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"server login failed: failed to verify server signature".as_ptr(),
             );
         } else if !match_0 {
             log_generic(
                 LG_ERROR,
                 server as *mut ::core::ffi::c_void,
-                b"invalid server signature\0" as *const u8 as *const ::core::ffi::c_char,
+                c"invalid server signature".as_ptr(),
             );
             kill_pool_logins(
                 (*server).pool,
                 ::core::ptr::null::<::core::ffi::c_char>(),
-                b"server login failed: invalid server signature\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"server login failed: invalid server signature".as_ptr(),
             );
         } else {
             free(ibuf as *mut ::core::ffi::c_void);
-            return true_0 != 0;
+            return true;
         }
     }
     free(ibuf as *mut ::core::ffi::c_void);
-    false_0 != 0
+    false
 }
 #[no_mangle]
 
 pub unsafe extern "C" fn answer_authreq(mut server: *mut PgSocket, mut pkt: *mut PktHdr) -> bool {
     let mut cmd: uint32_t = 0;
     let mut salt = ::core::ptr::null::<uint8_t>();
-    let mut res = false_0 != 0;
+    let mut res = false;
     if mbuf_avail_for_read(&raw mut (*pkt).data) < 4 as ::core::ffi::c_uint {
-        return false_0 != 0;
+        return false;
     }
     if !mbuf_get_uint32be(&raw mut (*pkt).data, &raw mut cmd) {
-        return false_0 != 0;
+        return false;
     }
     match cmd {
         0 => {
@@ -1864,10 +1773,10 @@ pub unsafe extern "C" fn answer_authreq(mut server: *mut PgSocket, mut pkt: *mut
                 log_generic(
                     LG_DEBUG,
                     server as *mut ::core::ffi::c_void,
-                    b"S: auth ok\0" as *const u8 as *const ::core::ffi::c_char,
+                    c"S: auth ok".as_ptr(),
                 );
             }
-            res = true_0 != 0;
+            res = true;
         }
         3 => {
             if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
@@ -1876,7 +1785,7 @@ pub unsafe extern "C" fn answer_authreq(mut server: *mut PgSocket, mut pkt: *mut
                 log_generic(
                     LG_DEBUG,
                     server as *mut ::core::ffi::c_void,
-                    b"S: req cleartext password\0" as *const u8 as *const ::core::ffi::c_char,
+                    c"S: req cleartext password".as_ptr(),
                 );
             }
             res = login_clear_psw(server);
@@ -1888,7 +1797,7 @@ pub unsafe extern "C" fn answer_authreq(mut server: *mut PgSocket, mut pkt: *mut
                 log_generic(
                     LG_DEBUG,
                     server as *mut ::core::ffi::c_void,
-                    b"S: req md5-crypted psw\0" as *const u8 as *const ::core::ffi::c_char,
+                    c"S: req md5-crypted psw".as_ptr(),
                 );
             }
             if !mbuf_get_bytes(
@@ -1896,25 +1805,25 @@ pub unsafe extern "C" fn answer_authreq(mut server: *mut PgSocket, mut pkt: *mut
                 4 as ::core::ffi::c_uint,
                 &raw mut salt,
             ) {
-                return false_0 != 0;
+                return false;
             }
             res = login_md5_psw(server, salt);
         }
         10 => {
-            let mut selected_mechanism = false_0 != 0;
+            let mut selected_mechanism = false;
             if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
                 != 0
             {
                 log_generic(
                     LG_DEBUG,
                     server as *mut ::core::ffi::c_void,
-                    b"S: req SASL\0" as *const u8 as *const ::core::ffi::c_char,
+                    c"S: req SASL".as_ptr(),
                 );
             }
             loop {
                 let mut mech = ::core::ptr::null::<::core::ffi::c_char>();
                 if !mbuf_get_string(&raw mut (*pkt).data, &raw mut mech) {
-                    return false_0 != 0;
+                    return false;
                 }
                 if *mech.offset(0 as ::core::ffi::c_int as isize) == 0 {
                     break;
@@ -1926,17 +1835,12 @@ pub unsafe extern "C" fn answer_authreq(mut server: *mut PgSocket, mut pkt: *mut
                     log_generic(
                         LG_DEBUG,
                         server as *mut ::core::ffi::c_void,
-                        b"S: SASL advertised mechanism: %s\0" as *const u8
-                            as *const ::core::ffi::c_char,
+                        c"S: SASL advertised mechanism: %s".as_ptr(),
                         mech,
                     );
                 }
-                if strcmp(
-                    mech,
-                    b"SCRAM-SHA-256\0" as *const u8 as *const ::core::ffi::c_char,
-                ) == 0 as ::core::ffi::c_int
-                {
-                    selected_mechanism = true_0 != 0;
+                if strcmp(mech, c"SCRAM-SHA-256".as_ptr()) == 0 as ::core::ffi::c_int {
+                    selected_mechanism = true;
                 }
                 if selected_mechanism {
                     break;
@@ -1946,14 +1850,12 @@ pub unsafe extern "C" fn answer_authreq(mut server: *mut PgSocket, mut pkt: *mut
                 log_generic(
                     LG_ERROR,
                     server as *mut ::core::ffi::c_void,
-                    b"none of the server's SASL authentication mechanisms are supported\0"
-                        as *const u8 as *const ::core::ffi::c_char,
+                    c"none of the server's SASL authentication mechanisms are supported".as_ptr(),
                 );
                 kill_pool_logins(
                     (*server).pool,
                     ::core::ptr::null::<::core::ffi::c_char>(),
-                    b"server login failed: none of the server's SASL authentication mechanisms are supported\0"
-                        as *const u8 as *const ::core::ffi::c_char,
+                    c"server login failed: none of the server's SASL authentication mechanisms are supported".as_ptr(),
                 );
             } else {
                 res = login_scram_sha_256(server);
@@ -1968,12 +1870,12 @@ pub unsafe extern "C" fn answer_authreq(mut server: *mut PgSocket, mut pkt: *mut
                 log_generic(
                     LG_DEBUG,
                     server as *mut ::core::ffi::c_void,
-                    b"S: SASL cont\0" as *const u8 as *const ::core::ffi::c_char,
+                    c"S: SASL cont".as_ptr(),
                 );
             }
             len = mbuf_avail_for_read(&raw mut (*pkt).data);
             if !mbuf_get_bytes(&raw mut (*pkt).data, len, &raw mut data) {
-                return false_0 != 0;
+                return false;
             }
             res = login_scram_sha_256_cont(server, len, data);
         }
@@ -1986,12 +1888,12 @@ pub unsafe extern "C" fn answer_authreq(mut server: *mut PgSocket, mut pkt: *mut
                 log_generic(
                     LG_DEBUG,
                     server as *mut ::core::ffi::c_void,
-                    b"S: SASL final\0" as *const u8 as *const ::core::ffi::c_char,
+                    c"S: SASL final".as_ptr(),
                 );
             }
             len_0 = mbuf_avail_for_read(&raw mut (*pkt).data);
             if !mbuf_get_bytes(&raw mut (*pkt).data, len_0, &raw mut data_0) {
-                return false_0 != 0;
+                return false;
             }
             res = login_scram_sha_256_final(server, len_0, data_0);
             free_scram_state(&raw mut (*server).scram_state);
@@ -2000,10 +1902,10 @@ pub unsafe extern "C" fn answer_authreq(mut server: *mut PgSocket, mut pkt: *mut
             log_generic(
                 LG_ERROR,
                 server as *mut ::core::ffi::c_void,
-                b"unknown/unsupported auth method: %u\0" as *const u8 as *const ::core::ffi::c_char,
+                c"unknown/unsupported auth method: %u".as_ptr(),
                 cmd,
             );
-            res = false_0 != 0;
+            res = false;
         }
     }
     res
@@ -2029,17 +1931,13 @@ pub unsafe extern "C" fn send_startup_packet(mut server: *mut PgSocket) -> bool 
         && !sending_auth_query(client)
     {
         (*server).replication = (*client).replication;
-        pktbuf_put_string(
-            pkt,
-            b"replication\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        pktbuf_put_string(pkt, c"replication".as_ptr());
         if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
         {
             log_generic(
                 LG_DEBUG,
                 server as *mut ::core::ffi::c_void,
-                b"send_startup_packet: creating replication connection\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"send_startup_packet: creating replication connection".as_ptr(),
             );
         }
         pktbuf_put_string(
@@ -2048,22 +1946,22 @@ pub unsafe extern "C" fn send_startup_packet(mut server: *mut PgSocket) -> bool 
         );
         varcache_apply_startup(pkt, client);
         if !(*client).startup_options.is_null() {
-            pktbuf_put_string(pkt, b"options\0" as *const u8 as *const ::core::ffi::c_char);
+            pktbuf_put_string(pkt, c"options".as_ptr());
             pktbuf_put_string(pkt, (*client).startup_options);
         }
     }
-    pktbuf_put_string(pkt, b"user\0" as *const u8 as *const ::core::ffi::c_char);
+    pktbuf_put_string(pkt, c"user".as_ptr());
     pktbuf_put_string(pkt, username);
-    pktbuf_put_string(pkt, b"\0" as *const u8 as *const ::core::ffi::c_char);
+    pktbuf_put_string(pkt, c"".as_ptr());
     pktbuf_finish_packet(pkt);
     if !pktbuf_send_immediate(pkt, server) {
-        return false_0 != 0;
+        return false;
     }
     if (*server).replication as u64 != 0 {
         (*client).link = server;
         (*server).link = client;
     }
-    true_0 != 0
+    true
 }
 #[no_mangle]
 
@@ -2086,11 +1984,7 @@ pub unsafe extern "C" fn send_sslreq_packet(mut server: *mut PgSocket) -> bool {
         &raw mut _data as *mut uint8_t,
         ::core::mem::size_of::<[uint8_t; 16]>() as ::core::ffi::c_int,
     );
-    pktbuf_write_generic(
-        &raw mut _buf,
-        PKT_SSLREQ,
-        b"\0" as *const u8 as *const ::core::ffi::c_char,
-    );
+    pktbuf_write_generic(&raw mut _buf, PKT_SSLREQ, c"".as_ptr());
     res = pktbuf_send_immediate(&raw mut _buf, server) as ::core::ffi::c_int;
     res != 0
 }
@@ -2123,7 +2017,7 @@ pub unsafe extern "C" fn scan_text_result(
                 current_block = 2516253395664191498;
                 break;
             }
-            if (len as int32_t) < 0 as int32_t {
+            if (len as int32_t) < 0 {
                 val = ::core::ptr::null::<::core::ffi::c_char>();
             } else if !mbuf_get_chars(pkt, len as ::core::ffi::c_uint, &raw mut val) {
                 current_block = 2516253395664191498;
@@ -2173,18 +2067,9 @@ pub unsafe extern "C" fn scan_text_result(
                 let mut bytes_p = ap.arg::<*mut *mut uint8_t>();
                 if !val.is_null() {
                     let mut newlen: ::core::ffi::c_int = 0;
-                    if strncmp(
-                        val,
-                        b"\\x\0" as *const u8 as *const ::core::ffi::c_char,
-                        2 as size_t,
-                    ) != 0 as ::core::ffi::c_int
-                    {
+                    if strncmp(val, c"\\x".as_ptr(), 2 as size_t) != 0 as ::core::ffi::c_int {
                         let mut _log_ctx = NULL;
-                        log_generic(
-                            LG_WARNING,
-                            _log_ctx,
-                            b"invalid bytea value\0" as *const u8 as *const ::core::ffi::c_char,
-                        );
+                        log_generic(LG_WARNING, _log_ctx, c"invalid bytea value".as_ptr());
                         current_block = 2516253395664191498;
                         break;
                     } else {
@@ -2202,7 +2087,7 @@ pub unsafe extern "C" fn scan_text_result(
                             sscanf(
                                 val.offset(2 as ::core::ffi::c_int as isize)
                                     .offset((2 as ::core::ffi::c_int * j) as isize),
-                                b"%2x\0" as *const u8 as *const ::core::ffi::c_char,
+                                c"%2x".as_ptr(),
                                 &raw mut b,
                             );
                             *(*bytes_p).offset(j as isize) = b as uint8_t;
@@ -2217,12 +2102,12 @@ pub unsafe extern "C" fn scan_text_result(
             _ => {
                 let mut _log_ctx_0 = NULL;
                 log_fatal(
-                    b"src/proto.c\0" as *const u8 as *const ::core::ffi::c_char,
+                    c"src/proto.c".as_ptr(),
                     772 as ::core::ffi::c_int,
-                    b"scan_text_result\0" as *const u8 as *const ::core::ffi::c_char,
-                    false_0 != 0,
+                    c"scan_text_result".as_ptr(),
+                    false,
                     _log_ctx_0,
-                    b"bad tupdesc: %s\0" as *const u8 as *const ::core::ffi::c_char,
+                    c"bad tupdesc: %s".as_ptr(),
                     tupdesc,
                 );
                 exit(1 as ::core::ffi::c_int);
@@ -2236,12 +2121,11 @@ pub unsafe extern "C" fn scan_text_result(
     }
 }
 
-
 extern "C" {
     pub fn varcache_set(
-    cache: *mut VarCache,
-    key: *const ::core::ffi::c_char,
-    value: *const ::core::ffi::c_char,
+        cache: *mut VarCache,
+        key: *const ::core::ffi::c_char,
+        value: *const ::core::ffi::c_char,
     ) -> bool;
     pub fn varcache_apply_startup(pkt: *mut PktBuf, client: *mut PgSocket);
     pub fn varcache_fill_unset(src: *mut VarCache, dst: *mut PgSocket);

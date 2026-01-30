@@ -13,85 +13,48 @@ extern crate c2rust_bitfields;
 #[allow(unused_imports)]
 use ::pgbouncer;
 
-pub mod _types_h {
-    
-    pub type __uint8_t = u8;
-    
-    pub type __uint16_t = u16;
-    
-    pub type __int32_t = i32;
-    
-    pub type __uint32_t = u32;
-    
-    pub type __int64_t = i64;
-    
-    pub type __uint64_t = u64;
-    
-    pub type __darwin_ptrdiff_t = isize;
-    
-    pub type __darwin_size_t = usize;
-    
-    pub type __darwin_socklen_t = __uint32_t;
-    
-    pub type __darwin_ssize_t = isize;
-    
-    pub type __darwin_time_t = ::core::ffi::c_long;
-}
-
-
 pub mod sys__types_h {
-    
+
     pub type __darwin_off_t = __int64_t;
-    
+
     pub type __darwin_pid_t = __int32_t;
-    
+
     pub type __darwin_sigset_t = __uint32_t;
-    
+
     pub type __darwin_suseconds_t = __int32_t;
-    
+
     pub type __darwin_uid_t = __uint32_t;
-    
+
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
-    use super::_types_h::{__int32_t, __int64_t, __uint32_t};
+    use pgbouncer::types::{__int32_t, __int64_t, __uint32_t};
 }
 
-
-
-
-
-
-
 pub mod _time_t_h {
-    
+
     pub type time_t = __darwin_time_t;
-    use super::_types_h::__darwin_time_t;
+    use pgbouncer::types::__darwin_time_t;
 }
 
 pub mod _sigset_t_h {
-    
+
     pub type sigset_t = __darwin_sigset_t;
     use super::sys__types_h::__darwin_sigset_t;
 }
 
-
-
-
-
-
 pub mod _stdio_h {
-    
+
     pub type fpos_t = __darwin_off_t;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct __sbuf {
         pub _base: *mut ::core::ffi::c_uchar,
         pub _size: ::core::ffi::c_int,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct __sFILE {
         pub _p: *mut ::core::ffi::c_uchar,
         pub _r: ::core::ffi::c_int,
@@ -128,18 +91,18 @@ pub mod _stdio_h {
         pub _blksize: ::core::ffi::c_int,
         pub _offset: fpos_t,
     }
-    
+
     pub type FILE = __sFILE;
-    use pgbouncer::types::size_t;
     use super::sys__types_h::__darwin_off_t;
+    use pgbouncer::types::size_t;
     extern "C" {
-        
+
         pub type __sFILEX;
-        
+
         pub static mut __stderrp: *mut FILE;
-        
+
         pub fn fprintf(_: *mut FILE, _: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;
-        
+
         pub fn snprintf(
             __str: *mut ::core::ffi::c_char,
             __size: size_t,
@@ -149,31 +112,30 @@ pub mod _stdio_h {
     }
 }
 
-
 pub mod resource_h {
-    
+
     pub type rlim_t = __uint64_t;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct rlimit {
         pub rlim_cur: rlim_t,
         pub rlim_max: rlim_t,
     }
-    
+
     pub const RLIMIT_NOFILE: ::core::ffi::c_int = 8 as ::core::ffi::c_int;
-    use super::_types_h::__uint64_t;
+    use pgbouncer::types::__uint64_t;
     extern "C" {
-        
+
         pub fn getrlimit(_: ::core::ffi::c_int, _: *mut rlimit) -> ::core::ffi::c_int;
     }
 }
 
 pub mod tls_h {
     extern "C" {
-        
+
         pub type tls;
-        
+
         pub fn tls_backend_version() -> *const ::core::ffi::c_char;
     }
 }
@@ -181,7 +143,7 @@ pub mod tls_h {
 pub mod cfparser_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct CfValue {
         pub value_p: *mut ::core::ffi::c_void,
         pub extra: *const ::core::ffi::c_void,
@@ -191,7 +153,7 @@ pub mod cfparser_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct CfOps {
         pub setter: Option<unsafe extern "C" fn(*mut CfValue, *const ::core::ffi::c_char) -> bool>,
         pub getter: Option<unsafe extern "C" fn(*mut CfValue) -> *const ::core::ffi::c_char>,
@@ -199,7 +161,7 @@ pub mod cfparser_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct CfKey {
         pub key_name: *const ::core::ffi::c_char,
         pub op: CfOps,
@@ -209,7 +171,7 @@ pub mod cfparser_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct CfSect {
         pub sect_name: *const ::core::ffi::c_char,
         pub key_list: *const CfKey,
@@ -240,7 +202,7 @@ pub mod cfparser_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct CfContext {
         pub sect_list: *const CfSect,
         pub base: *mut ::core::ffi::c_void,
@@ -248,44 +210,44 @@ pub mod cfparser_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct CfLookup {
         pub name: *const ::core::ffi::c_char,
         pub value: ::core::ffi::c_int,
     }
-    
+
     pub const CF_VAL_ABS: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
-    
+
     pub const CF_NO_RELOAD: ::core::ffi::c_int =
         (1 as ::core::ffi::c_int) << 2 as ::core::ffi::c_int;
-    
+
     pub const CF_READONLY: ::core::ffi::c_int =
         (1 as ::core::ffi::c_int) << 3 as ::core::ffi::c_int;
     use pgbouncer::types::uintptr_t;
     extern "C" {
-        
+
         pub fn cf_set_str(cv: *mut CfValue, value: *const ::core::ffi::c_char) -> bool;
-        
+
         pub fn cf_set_int(cv: *mut CfValue, value: *const ::core::ffi::c_char) -> bool;
-        
+
         pub fn cf_set_uint(cv: *mut CfValue, value: *const ::core::ffi::c_char) -> bool;
-        
+
         pub fn cf_set_time_usec(cv: *mut CfValue, value: *const ::core::ffi::c_char) -> bool;
-        
+
         pub fn cf_set_lookup(cv: *mut CfValue, value: *const ::core::ffi::c_char) -> bool;
-        
+
         pub fn cf_get_str(cv: *mut CfValue) -> *const ::core::ffi::c_char;
-        
+
         pub fn cf_get_int(cv: *mut CfValue) -> *const ::core::ffi::c_char;
-        
+
         pub fn cf_get_uint(cv: *mut CfValue) -> *const ::core::ffi::c_char;
-        
+
         pub fn cf_get_time_usec(cv: *mut CfValue) -> *const ::core::ffi::c_char;
-        
+
         pub fn cf_get_lookup(cv: *mut CfValue) -> *const ::core::ffi::c_char;
-        
+
         pub fn cf_load_file(cf: *const CfContext, fn_0: *const ::core::ffi::c_char) -> bool;
-        
+
         pub fn cf_get(
             cf: *const CfContext,
             sect: *const ::core::ffi::c_char,
@@ -293,7 +255,7 @@ pub mod cfparser_h {
             buf: *mut ::core::ffi::c_char,
             buflen: ::core::ffi::c_int,
         ) -> *const ::core::ffi::c_char;
-        
+
         pub fn cf_set(
             cf: *const CfContext,
             sect: *const ::core::ffi::c_char,
@@ -303,34 +265,29 @@ pub mod cfparser_h {
     }
 }
 
-
-
-
-
-
 pub mod _socklen_t_h {
-    
+
     pub type socklen_t = __darwin_socklen_t;
-    use super::_types_h::__darwin_socklen_t;
+    use pgbouncer::types::__darwin_socklen_t;
 }
 
 pub mod socket_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr {
         pub sa_len: __uint8_t,
         pub sa_family: sa_family_t,
         pub sa_data: [::core::ffi::c_char; 14],
     }
-    
+
     pub const SOCK_STREAM: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    
+
     pub const AF_UNIX: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
+    use pgbouncer::types::__uint8_t;
     use pgbouncer::types::sa_family_t;
-    use super::_types_h::__uint8_t;
     extern "C" {
-        
+
         pub fn socket(
             _: ::core::ffi::c_int,
             _: ::core::ffi::c_int,
@@ -342,7 +299,7 @@ pub mod socket_h {
 pub mod un_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr_un {
         pub sun_len: ::core::ffi::c_uchar,
         pub sun_family: sa_family_t,
@@ -354,13 +311,13 @@ pub mod un_h {
 pub mod in_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct in_addr {
         pub s_addr: in_addr_t,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr_in {
         pub sin_len: __uint8_t,
         pub sin_family: sa_family_t,
@@ -368,22 +325,22 @@ pub mod in_h {
         pub sin_addr: in_addr,
         pub sin_zero: [::core::ffi::c_char; 8],
     }
+    use pgbouncer::types::__uint8_t;
     use pgbouncer::types::in_addr_t;
     use pgbouncer::types::in_port_t;
     use pgbouncer::types::sa_family_t;
-    use super::_types_h::__uint8_t;
 }
 
 pub mod in6_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct in6_addr {
         pub __u6_addr: C2RustUnnamed,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed {
         pub __u6_addr8: [__uint8_t; 16],
         pub __u6_addr16: [__uint16_t; 8],
@@ -391,7 +348,7 @@ pub mod in6_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr_in6 {
         pub sin6_len: __uint8_t,
         pub sin6_family: sa_family_t,
@@ -402,11 +359,11 @@ pub mod in6_h {
     }
     use pgbouncer::types::in_port_t;
     use pgbouncer::types::sa_family_t;
-    use super::_types_h::{__uint16_t, __uint32_t, __uint8_t};
+    use pgbouncer::types::{__uint16_t, __uint32_t, __uint8_t};
 }
 
 pub mod event_h {
-    
+
     pub type event_callback_fn = Option<
         unsafe extern "C" fn(
             ::core::ffi::c_int,
@@ -414,26 +371,26 @@ pub mod event_h {
             *mut ::core::ffi::c_void,
         ) -> (),
     >;
-    
+
     pub const EVLOOP_ONCE: ::core::ffi::c_int = 0x1 as ::core::ffi::c_int;
-    
+
     pub const EV_SIGNAL: ::core::ffi::c_int = 0x8 as ::core::ffi::c_int;
-    
+
     pub const EV_PERSIST: ::core::ffi::c_int = 0x10 as ::core::ffi::c_int;
-    use pgbouncer::types::timeval;
     use super::event_struct_h::event;
+    use pgbouncer::types::timeval;
     extern "C" {
-        
+
         pub type event_base;
-        
+
         pub fn event_base_new() -> *mut event_base;
-        
+
         pub fn event_base_get_method(_: *const event_base) -> *const ::core::ffi::c_char;
-        
+
         pub fn event_base_free(_: *mut event_base);
-        
+
         pub fn event_base_loop(_: *mut event_base, _: ::core::ffi::c_int) -> ::core::ffi::c_int;
-        
+
         pub fn event_assign(
             _: *mut event,
             _: *mut event_base,
@@ -442,9 +399,9 @@ pub mod event_h {
             _: event_callback_fn,
             _: *mut ::core::ffi::c_void,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn event_add(ev: *mut event, timeout: *const timeval) -> ::core::ffi::c_int;
-        
+
         pub fn event_get_version() -> *const ::core::ffi::c_char;
     }
 }
@@ -452,7 +409,7 @@ pub mod event_h {
 pub mod event_struct_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct event {
         pub ev_evcallback: event_callback,
         pub ev_timeout_pos: C2RustUnnamed_5,
@@ -465,14 +422,14 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_0 {
         pub ev_io: C2RustUnnamed_3,
         pub ev_signal: C2RustUnnamed_1,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_1 {
         pub ev_signal_next: C2RustUnnamed_2,
         pub ev_ncalls: ::core::ffi::c_short,
@@ -480,42 +437,42 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_2 {
         pub le_next: *mut event,
         pub le_prev: *mut *mut event,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_3 {
         pub ev_io_next: C2RustUnnamed_4,
         pub ev_timeout: timeval,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_4 {
         pub le_next: *mut event,
         pub le_prev: *mut *mut event,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_5 {
         pub ev_next_with_common_timeout: C2RustUnnamed_6,
         pub min_heap_idx: ::core::ffi::c_int,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_6 {
         pub tqe_next: *mut event,
         pub tqe_prev: *mut *mut event,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct event_callback {
         pub evcb_active_next: C2RustUnnamed_8,
         pub evcb_flags: ::core::ffi::c_short,
@@ -526,7 +483,7 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_7 {
         pub evcb_callback: Option<
             unsafe extern "C" fn(
@@ -544,104 +501,102 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_8 {
         pub tqe_next: *mut event_callback,
         pub tqe_prev: *mut *mut event_callback,
     }
+    use super::event_h::event_base;
     use pgbouncer::types::timeval;
     use pgbouncer::types::uint8_t;
-    use super::event_h::event_base;
 }
 
-
-
 pub mod bouncer_h {
-    
+
     pub type SocketState = ::core::ffi::c_uint;
-    
+
     pub const SV_TESTED: SocketState = 16;
-    
+
     pub const SV_USED: SocketState = 15;
-    
+
     pub const SV_ACTIVE_CANCEL: SocketState = 14;
-    
+
     pub const SV_ACTIVE: SocketState = 13;
-    
+
     pub const SV_IDLE: SocketState = 12;
-    
+
     pub const SV_BEING_CANCELED: SocketState = 11;
-    
+
     pub const SV_LOGIN: SocketState = 10;
-    
+
     pub const SV_JUSTFREE: SocketState = 9;
-    
+
     pub const SV_FREE: SocketState = 8;
-    
+
     pub const CL_ACTIVE_CANCEL: SocketState = 7;
-    
+
     pub const CL_WAITING_CANCEL: SocketState = 6;
-    
+
     pub const CL_ACTIVE: SocketState = 5;
-    
+
     pub const CL_WAITING_LOGIN: SocketState = 4;
-    
+
     pub const CL_WAITING: SocketState = 3;
-    
+
     pub const CL_LOGIN: SocketState = 2;
-    
+
     pub const CL_JUSTFREE: SocketState = 1;
-    
+
     pub const CL_FREE: SocketState = 0;
-    
+
     pub type PauseMode = ::core::ffi::c_uint;
-    
+
     pub const P_SUSPEND: PauseMode = 2;
-    
+
     pub const P_PAUSE: PauseMode = 1;
-    
+
     pub const P_NONE: PauseMode = 0;
-    
+
     pub type ShutDownMode = ::core::ffi::c_uint;
-    
+
     pub const SHUTDOWN_IMMEDIATE: ShutDownMode = 3;
-    
+
     pub const SHUTDOWN_WAIT_FOR_CLIENTS: ShutDownMode = 2;
-    
+
     pub const SHUTDOWN_WAIT_FOR_SERVERS: ShutDownMode = 1;
-    
+
     pub const SHUTDOWN_NONE: ShutDownMode = 0;
-    
+
     pub type SSLMode = ::core::ffi::c_uint;
-    
+
     pub const SSLMODE_VERIFY_FULL: SSLMode = 5;
-    
+
     pub const SSLMODE_VERIFY_CA: SSLMode = 4;
-    
+
     pub const SSLMODE_REQUIRE: SSLMode = 3;
-    
+
     pub const SSLMODE_PREFER: SSLMode = 2;
-    
+
     pub const SSLMODE_ALLOW: SSLMode = 1;
-    
+
     pub const SSLMODE_DISABLED: SSLMode = 0;
-    
+
     pub type PacketCallbackFlag = ::core::ffi::c_uint;
-    
+
     pub const CB_HANDLE_COMPLETE_PACKET: PacketCallbackFlag = 2;
-    
+
     pub const CB_WANT_COMPLETE_PACKET: PacketCallbackFlag = 1;
-    
+
     pub const CB_NONE: PacketCallbackFlag = 0;
-    
+
     pub type LoadBalanceHosts = ::core::ffi::c_uint;
-    
+
     pub const LOAD_BALANCE_HOSTS_ROUND_ROBIN: LoadBalanceHosts = 1;
-    
+
     pub const LOAD_BALANCE_HOSTS_DISABLE: LoadBalanceHosts = 0;
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    
+
     pub struct PgSocket {
         pub head: List,
         pub cancel_head: List,
@@ -698,7 +653,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    
+
     pub struct CallbackState {
         #[bitfield(name = "flag", ty = "PacketCallbackFlag", bits = "0..=7")]
         pub flag: [u8; 1],
@@ -708,7 +663,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct ScramState {
         pub client_nonce: *mut ::core::ffi::c_char,
         pub client_first_message_bare: *mut ::core::ffi::c_char,
@@ -730,14 +685,14 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_9 {
         pub dns_token: *mut DNSToken,
         pub db: *mut PgDatabase,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct PgDatabase {
         pub head: List,
         pub name: [::core::ffi::c_char; 64],
@@ -775,7 +730,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct PgCredentials {
         pub tree_node: AANode,
         pub name: [::core::ffi::c_char; 128],
@@ -793,7 +748,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct PgGlobalUser {
         pub credentials: PgCredentials,
         pub head: List,
@@ -812,7 +767,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    
+
     pub struct PgPool {
         pub head: List,
         pub map_head: List,
@@ -848,7 +803,7 @@ pub mod bouncer_h {
     pub use ::pgbouncer::src::common::types::PgStats;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union PgAddr {
         pub sa: sockaddr,
         pub sin: sockaddr_in,
@@ -857,73 +812,73 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr_ucreds {
         pub sin: sockaddr_in,
         pub uid: uid_t,
         pub pid: pid_t,
     }
-    
+
     pub type ReplicationType = ::core::ffi::c_uint;
-    
+
     pub const REPLICATION_PHYSICAL: ReplicationType = 2;
-    
+
     pub const REPLICATION_LOGICAL: ReplicationType = 1;
-    
+
     pub const REPLICATION_NONE: ReplicationType = 0;
-    
+
     pub type auth_type = ::core::ffi::c_uint;
-    
+
     pub const AUTH_TYPE_REJECT: auth_type = 10;
-    
+
     pub const AUTH_TYPE_PEER: auth_type = 9;
-    
+
     pub const AUTH_TYPE_SCRAM_SHA_256: auth_type = 8;
-    
+
     pub const AUTH_TYPE_PAM: auth_type = 7;
-    
+
     pub const AUTH_TYPE_LDAP: auth_type = 6;
-    
+
     pub const AUTH_TYPE_HBA: auth_type = 5;
-    
+
     pub const AUTH_TYPE_CERT: auth_type = 4;
-    
+
     pub const AUTH_TYPE_MD5: auth_type = 3;
-    
+
     pub const AUTH_TYPE_PLAIN: auth_type = 2;
-    
+
     pub const AUTH_TYPE_TRUST: auth_type = 1;
-    
+
     pub const AUTH_TYPE_ANY: auth_type = 0;
-    
+
     pub const POOL_SESSION: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
-    
+
     pub const POOL_TX: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    
+
     pub const POOL_STMT: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
+    use super::dnslookup_h::DNSToken;
+    use super::in6_h::sockaddr_in6;
+    use super::in_h::sockaddr_in;
+    use super::pktbuf_h::PktBuf;
+    use super::sbuf_h::SBuf;
+    use super::socket_h::sockaddr;
+    use pgbouncer::types::pg_cryptohash_type;
     use pgbouncer::types::pid_t;
     use pgbouncer::types::uid_t;
     use pgbouncer::types::uint16_t;
     use pgbouncer::types::uint64_t;
     use pgbouncer::types::uint8_t;
-    use pgbouncer::types::{AANode, AATree};
-    use pgbouncer::types::pg_cryptohash_type;
-    use super::dnslookup_h::DNSToken;
-    use super::in6_h::sockaddr_in6;
-    use super::in_h::sockaddr_in;
-    use pgbouncer::types::List;
-    use super::pktbuf_h::PktBuf;
-    use pgbouncer::types::{PgClientPreparedStatement, PgServerPreparedStatement};
-    use pgbouncer::types::PktHdr;
-    use super::sbuf_h::SBuf;
-    use super::socket_h::sockaddr;
-    use pgbouncer::types::StatList;
     use pgbouncer::types::usec_t;
+    use pgbouncer::types::List;
+    use pgbouncer::types::PktHdr;
+    use pgbouncer::types::StatList;
     use pgbouncer::types::VarCache;
+    use pgbouncer::types::{AANode, AATree};
+    use pgbouncer::types::{PgClientPreparedStatement, PgServerPreparedStatement};
     extern "C" {
-        
+
         pub static mut any_user_level_timeout_set: bool;
-        
+
         pub static mut any_user_level_client_timeout_set: bool;
     }
 }
@@ -931,7 +886,7 @@ pub mod bouncer_h {
 pub mod sbuf_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct SBuf {
         pub ev: event,
         pub wait_type: uint8_t,
@@ -951,7 +906,7 @@ pub mod sbuf_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct SBufIO {
         pub sbufio_peek:
             Option<unsafe extern "C" fn(*mut SBuf, *mut ::core::ffi::c_void, size_t) -> ssize_t>,
@@ -961,45 +916,45 @@ pub mod sbuf_h {
             Option<unsafe extern "C" fn(*mut SBuf, *const ::core::ffi::c_void, size_t) -> ssize_t>,
         pub sbufio_close: Option<unsafe extern "C" fn(*mut SBuf) -> ::core::ffi::c_int>,
     }
-    
+
     pub type sbuf_cb_t = Option<unsafe extern "C" fn(*mut SBuf, SBufEvent, *mut MBuf) -> bool>;
-    
+
     pub type SBufEvent = ::core::ffi::c_uint;
-    
+
     pub const SBUF_EV_TLS_READY: SBufEvent = 7;
-    
+
     pub const SBUF_EV_PKT_CALLBACK: SBufEvent = 6;
-    
+
     pub const SBUF_EV_FLUSH: SBufEvent = 5;
-    
+
     pub const SBUF_EV_CONNECT_OK: SBufEvent = 4;
-    
+
     pub const SBUF_EV_CONNECT_FAILED: SBufEvent = 3;
-    
+
     pub const SBUF_EV_SEND_FAILED: SBufEvent = 2;
-    
+
     pub const SBUF_EV_RECV_FAILED: SBufEvent = 1;
-    
+
     pub const SBUF_EV_READ: SBufEvent = 0;
-    use pgbouncer::types::size_t;
-    use pgbouncer::types::ssize_t;
-    use pgbouncer::types::uint8_t;
     use super::event_struct_h::event;
     use super::iobuf_h::IOBuf;
     use super::tls_h::tls;
+    use pgbouncer::types::size_t;
+    use pgbouncer::types::ssize_t;
+    use pgbouncer::types::uint8_t;
     use pgbouncer::types::MBuf;
     extern "C" {
-        
+
         pub fn sbuf_tls_setup() -> bool;
     }
 }
 
 pub mod iobuf_h {
-    
+
     pub type IOBuf = iobuf;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct iobuf {
         pub done_pos: ::core::ffi::c_uint,
         pub parse_pos: ::core::ffi::c_uint,
@@ -1009,12 +964,10 @@ pub mod iobuf_h {
     use pgbouncer::types::uint8_t;
 }
 
-
-
 pub mod pktbuf_h {
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    
+
     pub struct PktBuf {
         pub buf: *mut uint8_t,
         pub buf_len: ::core::ffi::c_int,
@@ -1030,44 +983,44 @@ pub mod pktbuf_h {
         #[bitfield(padding)]
         pub c2rust_padding: [u8; 7],
     }
-    use pgbouncer::types::uint8_t;
     use super::bouncer_h::PgSocket;
     use super::event_struct_h::event;
+    use pgbouncer::types::uint8_t;
 }
 
 pub mod dnslookup_h {
     extern "C" {
-        
+
         pub type DNSToken;
-        
+
         pub type DNSContext;
-        
+
         pub fn adns_create_context() -> *mut DNSContext;
-        
+
         pub fn adns_get_backend() -> *const ::core::ffi::c_char;
-        
+
         pub fn adns_per_loop(ctx: *mut DNSContext);
     }
 }
 
 pub mod logging_h {
-    
+
     pub type LogLevel = ::core::ffi::c_uint;
-    
+
     pub const LG_NOISE: LogLevel = 6;
-    
+
     pub const LG_DEBUG: LogLevel = 5;
-    
+
     pub const LG_INFO: LogLevel = 4;
-    
+
     pub const LG_STATS: LogLevel = 3;
-    
+
     pub const LG_WARNING: LogLevel = 2;
-    
+
     pub const LG_ERROR: LogLevel = 1;
-    
+
     pub const LG_FATAL: LogLevel = 0;
-    
+
     pub type logging_prefix_fn_t = Option<
         unsafe extern "C" fn(
             LogLevel,
@@ -1077,28 +1030,28 @@ pub mod logging_h {
         ) -> ::core::ffi::c_int,
     >;
     extern "C" {
-        
+
         pub static mut logging_prefix_cb: logging_prefix_fn_t;
-        
+
         pub static mut cf_verbose: ::core::ffi::c_int;
-        
+
         pub static mut cf_quiet: ::core::ffi::c_int;
-        
+
         pub static mut cf_logfile: *const ::core::ffi::c_char;
-        
+
         pub static mut cf_syslog: ::core::ffi::c_int;
-        
+
         pub static mut cf_syslog_ident: *const ::core::ffi::c_char;
-        
+
         pub static mut cf_syslog_facility: *const ::core::ffi::c_char;
-        
+
         pub fn log_generic(
             level: LogLevel,
             ctx: *mut ::core::ffi::c_void,
             s: *const ::core::ffi::c_char,
             ...
         );
-        
+
         pub fn log_fatal(
             file: *const ::core::ffi::c_char,
             line: ::core::ffi::c_int,
@@ -1108,7 +1061,7 @@ pub mod logging_h {
             s: *const ::core::ffi::c_char,
             ...
         );
-        
+
         pub fn reset_logging();
     }
 }
@@ -1116,25 +1069,25 @@ pub mod logging_h {
 pub mod hba_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct HBA {
         pub rules: List,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct Ident {
         pub maps: List,
     }
     use pgbouncer::types::List;
     extern "C" {
-        
+
         pub fn ident_load_map(fn_0: *const ::core::ffi::c_char) -> *mut Ident;
-        
+
         pub fn ident_free(ident: *mut Ident);
-        
+
         pub fn hba_load_rules(fn_0: *const ::core::ffi::c_char, ident: *mut Ident) -> *mut HBA;
-        
+
         pub fn hba_free(hba: *mut HBA);
     }
 }
@@ -1142,19 +1095,19 @@ pub mod hba_h {
 pub mod getopt_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct option {
         pub name: *const ::core::ffi::c_char,
         pub has_arg: ::core::ffi::c_int,
         pub flag: *mut ::core::ffi::c_int,
         pub val: ::core::ffi::c_int,
     }
-    
+
     pub const no_argument: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
-    
+
     pub const required_argument: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
     extern "C" {
-        
+
         pub fn getopt_long(
             __argc: ::core::ffi::c_int,
             _: *const *mut ::core::ffi::c_char,
@@ -1171,28 +1124,28 @@ pub mod unistd_h {
     use pgbouncer::types::ssize_t;
     use pgbouncer::types::uid_t;
     extern "C" {
-        
+
         pub fn _exit(_: ::core::ffi::c_int) -> !;
-        
+
         pub fn close(_: ::core::ffi::c_int) -> ::core::ffi::c_int;
-        
+
         pub fn dup2(_: ::core::ffi::c_int, _: ::core::ffi::c_int) -> ::core::ffi::c_int;
-        
+
         pub fn fork() -> pid_t;
-        
+
         pub fn getpid() -> pid_t;
-        
+
         pub fn getuid() -> uid_t;
-        
+
         pub fn read(_: ::core::ffi::c_int, _: *mut ::core::ffi::c_void, __nbyte: size_t)
             -> ssize_t;
-        
+
         pub fn setsid() -> pid_t;
-        
+
         pub fn unlink(_: *const ::core::ffi::c_char) -> ::core::ffi::c_int;
-        
+
         pub static mut optarg: *mut ::core::ffi::c_char;
-        
+
         pub static mut optind: ::core::ffi::c_int;
     }
 }
@@ -1200,24 +1153,23 @@ pub mod unistd_h {
 pub mod _time_h {
     use super::_time_t_h::time_t;
     extern "C" {
-        
+
         pub fn time(_: *mut time_t) -> time_t;
     }
 }
 
-
 pub mod _string_h {
     use pgbouncer::types::size_t;
     extern "C" {
-        
+
         pub fn memset(
             __b: *mut ::core::ffi::c_void,
             __c: ::core::ffi::c_int,
             __len: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn strerror(__errnum: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;
-        
+
         pub fn strlen(__s: *const ::core::ffi::c_char) -> size_t;
     }
 }
@@ -1226,16 +1178,16 @@ pub mod util_h {
     use super::cfparser_h::CfValue;
     use super::logging_h::LogLevel;
     extern "C" {
-        
+
         pub fn log_socket_prefix(
             lev: LogLevel,
             ctx: *mut ::core::ffi::c_void,
             dst: *mut ::core::ffi::c_char,
             dstlen: ::core::ffi::c_uint,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn rescue_timers();
-        
+
         pub fn cf_set_authdb(cv: *mut CfValue, value: *const ::core::ffi::c_char) -> bool;
     }
 }
@@ -1244,24 +1196,24 @@ pub mod objects_h {
 
     use pgbouncer::types::StatList;
     extern "C" {
-        
+
         pub static mut user_list: StatList;
-        
+
         pub static mut database_list: StatList;
-        
+
         pub static mut peer_list: StatList;
-        
+
         pub fn reuse_just_freed_objects();
-        
+
         pub fn init_objects();
-        
+
         pub fn init_caches();
     }
 }
 
 pub mod include_signal_h {
     #[inline(always)]
-    
+
     pub unsafe extern "C" fn __sigbits(mut __signo: ::core::ffi::c_int) -> ::core::ffi::c_int {
         if __signo > __DARWIN_NSIG {
             0 as ::core::ffi::c_int
@@ -1269,13 +1221,13 @@ pub mod include_signal_h {
             (1 as ::core::ffi::c_int) << (__signo - 1 as ::core::ffi::c_int)
         }
     }
-    use pgbouncer::types::pid_t;
     use super::_sigset_t_h::sigset_t;
     use super::signal_h::__DARWIN_NSIG;
+    use pgbouncer::types::pid_t;
     extern "C" {
-        
+
         pub fn kill(_: pid_t, _: ::core::ffi::c_int) -> ::core::ffi::c_int;
-        
+
         pub fn sigprocmask(
             _: ::core::ffi::c_int,
             _: *const sigset_t,
@@ -1285,20 +1237,20 @@ pub mod include_signal_h {
 }
 
 pub mod safeio_h {
-    use pgbouncer::types::size_t;
     use super::_socklen_t_h::socklen_t;
-    use pgbouncer::types::ssize_t;
     use super::socket_h::sockaddr;
+    use pgbouncer::types::size_t;
+    use pgbouncer::types::ssize_t;
     extern "C" {
-        
+
         pub fn safe_write(
             fd: ::core::ffi::c_int,
             buf: *const ::core::ffi::c_void,
             len: size_t,
         ) -> ssize_t;
-        
+
         pub fn safe_close(fd: ::core::ffi::c_int) -> ::core::ffi::c_int;
-        
+
         pub fn safe_connect(
             fd: ::core::ffi::c_int,
             sa: *const sockaddr,
@@ -1308,20 +1260,20 @@ pub mod safeio_h {
 }
 
 pub mod config_h {
-    
+
     pub const PACKAGE_BUGREPORT: [::core::ffi::c_char; 46] = unsafe {
         ::core::mem::transmute::<[u8; 46], [::core::ffi::c_char; 46]>(
             *b"https://github.com/pgbouncer/pgbouncer/issues\0",
         )
     };
-    
+
     pub const PACKAGE_NAME: [::core::ffi::c_char; 10] =
         unsafe { ::core::mem::transmute::<[u8; 10], [::core::ffi::c_char; 10]>(*b"PgBouncer\0") };
-    
+
     pub const PACKAGE_STRING: [::core::ffi::c_char; 17] = unsafe {
         ::core::mem::transmute::<[u8; 17], [::core::ffi::c_char; 17]>(*b"PgBouncer 1.25.1\0")
     };
-    
+
     pub const PACKAGE_URL: [::core::ffi::c_char; 27] = unsafe {
         ::core::mem::transmute::<[u8; 27], [::core::ffi::c_char; 27]>(
             *b"https://www.pgbouncer.org/\0",
@@ -1330,77 +1282,76 @@ pub mod config_h {
 }
 
 pub mod signal_h {
-    
+
     pub const __DARWIN_NSIG: ::core::ffi::c_int = 32 as ::core::ffi::c_int;
-    
+
     pub const SIG_BLOCK: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
 }
 
 pub mod _printf_h {
     extern "C" {
-        
+
         pub fn printf(_: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;
     }
 }
 
 pub mod _malloc_h {
     extern "C" {
-        
+
         pub fn free(_: *mut ::core::ffi::c_void);
     }
 }
 
 pub mod _stdlib_h {
     extern "C" {
-        
+
         pub fn atexit(_: Option<unsafe extern "C" fn() -> ()>) -> ::core::ffi::c_int;
-        
+
         pub fn atol(_: *const ::core::ffi::c_char) -> ::core::ffi::c_long;
-        
+
         pub fn exit(_: ::core::ffi::c_int) -> !;
-        
+
         pub fn getenv(_: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
-        
+
         pub fn srandom(_: ::core::ffi::c_uint);
-        
+
         pub fn setprogname(_: *const ::core::ffi::c_char);
     }
 }
 
 pub mod errno_h {
-    
+
     pub const ENOENT: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
-    
+
     pub const ESRCH: ::core::ffi::c_int = 3 as ::core::ffi::c_int;
-    
+
     pub const EINTR: ::core::ffi::c_int = 4 as ::core::ffi::c_int;
     extern "C" {
-        
+
         pub fn __error() -> *mut ::core::ffi::c_int;
     }
 }
 
-
 pub mod system_h {
     extern "C" {
-        
+
         pub fn change_user(user: *const ::core::ffi::c_char);
     }
 }
 
 pub mod fcntl_h {
-    
+
     pub const O_RDONLY: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
-    
+
     pub const O_WRONLY: ::core::ffi::c_int = 0x1 as ::core::ffi::c_int;
-    
+
     pub const O_RDWR: ::core::ffi::c_int = 0x2 as ::core::ffi::c_int;
-    
+
     pub const O_CREAT: ::core::ffi::c_int = 0x200 as ::core::ffi::c_int;
-    
+
     pub const O_EXCL: ::core::ffi::c_int = 0x800 as ::core::ffi::c_int;
     extern "C" {
-        
+
         pub fn open(
             _: *const ::core::ffi::c_char,
             _: ::core::ffi::c_int,
@@ -1411,9 +1362,9 @@ pub mod fcntl_h {
 
 pub mod string_h {
     extern "C" {
-        
+
         pub fn usual_basename(path: *const ::core::ffi::c_char) -> *const ::core::ffi::c_char;
-        
+
         pub fn strcmpeq(
             str_left: *const ::core::ffi::c_char,
             str_right: *const ::core::ffi::c_char,
@@ -1423,131 +1374,111 @@ pub mod string_h {
 
 pub mod admin_h {
     extern "C" {
-        
+
         pub fn admin_setup();
     }
 }
 
 pub mod loader_h {
     extern "C" {
-        
+
         pub fn parse_database(
             base: *mut ::core::ffi::c_void,
             name: *const ::core::ffi::c_char,
             connstr: *const ::core::ffi::c_char,
         ) -> bool;
-        
+
         pub fn parse_peer(
             base: *mut ::core::ffi::c_void,
             name: *const ::core::ffi::c_char,
             connstr: *const ::core::ffi::c_char,
         ) -> bool;
-        
+
         pub fn parse_user(
             base: *mut ::core::ffi::c_void,
             name: *const ::core::ffi::c_char,
             params: *const ::core::ffi::c_char,
         ) -> bool;
-        
+
         pub fn loader_users_check() -> bool;
     }
 }
 
 pub mod pooler_h {
     extern "C" {
-        
+
         pub fn pooler_setup();
-        
+
         pub fn per_loop_pooler_maint();
-        
+
         pub fn pooler_tune_accept(on: bool);
-        
+
         pub fn cleanup_tcp_sockets();
     }
 }
 
 pub mod stats_h {
     extern "C" {
-        
+
         pub fn stats_setup();
     }
 }
 
 pub mod takeover_h {
     extern "C" {
-        
+
         pub fn takeover_init();
-        
+
         pub fn takeover_finish();
     }
 }
 
 pub mod janitor_h {
     extern "C" {
-        
+
         pub fn janitor_setup();
-        
+
         pub fn config_postprocess();
-        
+
         pub fn resume_all();
-        
+
         pub fn per_loop_maint();
     }
 }
 
 pub mod ldapauth_h {
     extern "C" {
-        
+
         pub fn auth_ldap_init();
-        
+
         pub fn ldap_poll() -> ::core::ffi::c_int;
     }
 }
 
 pub mod pam_h {
     extern "C" {
-        
+
         pub fn pam_init();
-        
+
         pub fn pam_poll() -> ::core::ffi::c_int;
     }
 }
 
 pub mod err_h {
     extern "C" {
-        
+
         pub fn xstrdup(s: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
     }
 }
-pub use pgbouncer::types::in_addr_t;
-pub use pgbouncer::types::in_port_t;
 use self::_malloc_h::free;
-pub use pgbouncer::types::NULL;
-pub use pgbouncer::types::pid_t;
 use self::_printf_h::printf;
-pub use pgbouncer::types::ptrdiff_t;
-pub use pgbouncer::types::sa_family_t;
 pub use self::_sigset_t_h::sigset_t;
-pub use pgbouncer::types::size_t;
 pub use self::_socklen_t_h::socklen_t;
-pub use pgbouncer::types::ssize_t;
 pub use self::_stdio_h::{__sFILE, __sFILEX, __sbuf, __stderrp, fpos_t, fprintf, snprintf, FILE};
 use self::_stdlib_h::{atexit, atol, exit, getenv, setprogname, srandom};
 use self::_string_h::{memset, strerror, strlen};
 use self::_time_h::time;
 pub use self::_time_t_h::time_t;
-pub use pgbouncer::types::timeval;
-pub use self::_types_h::{
-    __darwin_ptrdiff_t, __darwin_size_t, __darwin_socklen_t, __darwin_ssize_t, __darwin_time_t,
-    __int32_t, __int64_t, __uint16_t, __uint32_t, __uint64_t, __uint8_t,
-};
-pub use pgbouncer::types::uid_t;
-pub use pgbouncer::types::uint16_t;
-pub use pgbouncer::types::uint32_t;
-pub use pgbouncer::types::uint64_t;
-pub use pgbouncer::types::uint8_t;
-pub use pgbouncer::types::uintptr_t;
-pub use pgbouncer::types::{aatree_cmp_f, aatree_walker_f, AANode, AATree};
 use self::admin_h::admin_setup;
 pub use self::bouncer_h::{
     any_user_level_client_timeout_set, any_user_level_timeout_set, auth_type, sockaddr_ucreds,
@@ -1571,7 +1502,6 @@ pub use self::cfparser_h::{
     CfLookup, CfOps, CfSect, CfValue, CF_NO_RELOAD, CF_READONLY, CF_VAL_ABS,
 };
 pub use self::config_h::{PACKAGE_BUGREPORT, PACKAGE_NAME, PACKAGE_STRING, PACKAGE_URL};
-pub use pgbouncer::types::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
 use self::dnslookup_h::{adns_create_context, adns_get_backend, adns_per_loop, DNSContext};
 use self::err_h::xstrdup;
 pub use self::errno_h::{__error, EINTR, ENOENT, ESRCH};
@@ -1592,14 +1522,12 @@ pub use self::include_signal_h::{__sigbits, kill, sigprocmask};
 pub use self::iobuf_h::{iobuf, IOBuf};
 use self::janitor_h::{config_postprocess, janitor_setup, per_loop_maint, resume_all};
 use self::ldapauth_h::{auth_ldap_init, ldap_poll};
-pub use pgbouncer::types::List;
 use self::loader_h::{loader_users_check, parse_database, parse_peer, parse_user};
 pub use self::logging_h::{
     cf_logfile, cf_quiet, cf_syslog, cf_syslog_facility, cf_syslog_ident, cf_verbose, log_fatal,
     log_generic, logging_prefix_cb, logging_prefix_fn_t, reset_logging, LogLevel, LG_DEBUG,
     LG_ERROR, LG_FATAL, LG_INFO, LG_NOISE, LG_STATS, LG_WARNING,
 };
-pub use pgbouncer::types::MBuf;
 use self::objects_h::{
     database_list, init_caches, init_objects, peer_list, reuse_just_freed_objects, user_list,
 };
@@ -1608,10 +1536,6 @@ pub use self::pktbuf_h::PktBuf;
 use self::pooler_h::{
     cleanup_tcp_sockets, per_loop_pooler_maint, pooler_setup, pooler_tune_accept,
 };
-pub use pgbouncer::types::{
-    PgClientPreparedStatement, PgPreparedStatement, PgServerPreparedStatement,
-};
-pub use pgbouncer::types::PktHdr;
 pub use self::resource_h::{getrlimit, rlim_t, rlimit, RLIMIT_NOFILE};
 use self::safeio_h::{safe_close, safe_connect, safe_write};
 pub use self::sbuf_h::{
@@ -1621,70 +1545,76 @@ pub use self::sbuf_h::{
 };
 pub use self::signal_h::{SIG_BLOCK, __DARWIN_NSIG};
 pub use self::socket_h::{sockaddr, socket, AF_UNIX, SOCK_STREAM};
-pub use pgbouncer::types::{statlist_count, StatList};
 use self::stats_h::stats_setup;
-pub use pgbouncer::types::{false_0, true_0};
 use self::string_h::{strcmpeq, usual_basename};
-pub use pgbouncer::types::{PStr, StrPool};
 pub use self::sys__types_h::{
     __darwin_off_t, __darwin_pid_t, __darwin_sigset_t, __darwin_suseconds_t, __darwin_uid_t,
     __DARWIN_NULL,
 };
 use self::system_h::change_user;
 use self::takeover_h::{takeover_finish, takeover_init};
-pub use pgbouncer::types::usec_t;
 use self::tls_h::tls_backend_version;
 pub use self::un_h::sockaddr_un;
 use self::unistd_h::{
     _exit, close, dup2, fork, getpid, getuid, optarg, optind, read, setsid, unlink,
 };
-pub use pgbouncer::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 use self::util_h::{cf_set_authdb, log_socket_prefix, rescue_timers};
+pub use pgbouncer::types::in_addr_t;
+pub use pgbouncer::types::in_port_t;
+pub use pgbouncer::types::pid_t;
+pub use pgbouncer::types::ptrdiff_t;
+pub use pgbouncer::types::sa_family_t;
+pub use pgbouncer::types::size_t;
+pub use pgbouncer::types::ssize_t;
+pub use pgbouncer::types::timeval;
+pub use pgbouncer::types::uid_t;
+pub use pgbouncer::types::uint16_t;
+pub use pgbouncer::types::uint32_t;
+pub use pgbouncer::types::uint64_t;
+pub use pgbouncer::types::uint8_t;
+pub use pgbouncer::types::uintptr_t;
+pub use pgbouncer::types::usec_t;
+pub use pgbouncer::types::List;
+pub use pgbouncer::types::MBuf;
+pub use pgbouncer::types::PktHdr;
 pub use pgbouncer::types::VarCache;
+pub use pgbouncer::types::NULL;
+pub use pgbouncer::types::{aatree_cmp_f, aatree_walker_f, AANode, AATree};
+pub use pgbouncer::types::{false_0, true_0};
+pub use pgbouncer::types::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
+pub use pgbouncer::types::{statlist_count, StatList};
+pub use pgbouncer::types::{PStr, StrPool};
+pub use pgbouncer::types::{
+    PgClientPreparedStatement, PgPreparedStatement, PgServerPreparedStatement,
+};
+pub use pgbouncer::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
+pub use pgbouncer::types::{
+    __darwin_ptrdiff_t, __darwin_size_t, __darwin_socklen_t, __darwin_ssize_t, __darwin_time_t,
+    __int32_t, __int64_t, __uint16_t, __uint32_t, __uint64_t, __uint8_t,
+};
 
 unsafe extern "C" fn usage(mut exe: *const ::core::ffi::c_char) {
     printf(
-        b"%s is a connection pooler for PostgreSQL.\n\n\0" as *const u8
-            as *const ::core::ffi::c_char,
+        c"%s is a connection pooler for PostgreSQL.\n\n".as_ptr(),
         exe,
     );
-    printf(b"Usage:\n\0" as *const u8 as *const ::core::ffi::c_char);
+    printf(c"Usage:\n".as_ptr());
+    printf(c"  %s [OPTION]... CONFIG_FILE\n".as_ptr(), exe);
+    printf(c"\nOptions:\n".as_ptr());
+    printf(c"  -d, --daemon         run in background (as a daemon)\n".as_ptr());
+    printf(c"  -q, --quiet          run quietly\n".as_ptr());
+    printf(c"  -R, --reboot         do an online reboot\n".as_ptr());
+    printf(c"  -u, --user=USERNAME  assume identity of USERNAME\n".as_ptr());
+    printf(c"  -v, --verbose        increase verbosity\n".as_ptr());
+    printf(c"  -V, --version        show version, then exit\n".as_ptr());
+    printf(c"  -h, --help           show this help, then exit\n".as_ptr());
+    printf(c"\n".as_ptr());
     printf(
-        b"  %s [OPTION]... CONFIG_FILE\n\0" as *const u8 as *const ::core::ffi::c_char,
-        exe,
-    );
-    printf(b"\nOptions:\n\0" as *const u8 as *const ::core::ffi::c_char);
-    printf(
-        b"  -d, --daemon         run in background (as a daemon)\n\0" as *const u8
-            as *const ::core::ffi::c_char,
-    );
-    printf(b"  -q, --quiet          run quietly\n\0" as *const u8 as *const ::core::ffi::c_char);
-    printf(
-        b"  -R, --reboot         do an online reboot\n\0" as *const u8
-            as *const ::core::ffi::c_char,
-    );
-    printf(
-        b"  -u, --user=USERNAME  assume identity of USERNAME\n\0" as *const u8
-            as *const ::core::ffi::c_char,
-    );
-    printf(
-        b"  -v, --verbose        increase verbosity\n\0" as *const u8 as *const ::core::ffi::c_char,
-    );
-    printf(
-        b"  -V, --version        show version, then exit\n\0" as *const u8
-            as *const ::core::ffi::c_char,
-    );
-    printf(
-        b"  -h, --help           show this help, then exit\n\0" as *const u8
-            as *const ::core::ffi::c_char,
-    );
-    printf(b"\n\0" as *const u8 as *const ::core::ffi::c_char);
-    printf(
-        b"Report bugs to <%s>.\n\0" as *const u8 as *const ::core::ffi::c_char,
+        c"Report bugs to <%s>.\n".as_ptr(),
         PACKAGE_BUGREPORT.as_ptr(),
     );
     printf(
-        b"%s home page: <%s>\n\0" as *const u8 as *const ::core::ffi::c_char,
+        c"%s home page: <%s>\n".as_ptr(),
         PACKAGE_NAME.as_ptr(),
         PACKAGE_URL.as_ptr(),
     );
@@ -2041,31 +1971,31 @@ pub static mut cf_scram_iterations: ::core::ffi::c_int = 0;
 
 static mut auth_type_map: [CfLookup; 8] = [
     CfLookup {
-        name: b"any\0" as *const u8 as *const ::core::ffi::c_char,
+        name: c"any".as_ptr(),
         value: AUTH_TYPE_ANY as ::core::ffi::c_int,
     },
     CfLookup {
-        name: b"trust\0" as *const u8 as *const ::core::ffi::c_char,
+        name: c"trust".as_ptr(),
         value: AUTH_TYPE_TRUST as ::core::ffi::c_int,
     },
     CfLookup {
-        name: b"plain\0" as *const u8 as *const ::core::ffi::c_char,
+        name: c"plain".as_ptr(),
         value: AUTH_TYPE_PLAIN as ::core::ffi::c_int,
     },
     CfLookup {
-        name: b"md5\0" as *const u8 as *const ::core::ffi::c_char,
+        name: c"md5".as_ptr(),
         value: AUTH_TYPE_MD5 as ::core::ffi::c_int,
     },
     CfLookup {
-        name: b"cert\0" as *const u8 as *const ::core::ffi::c_char,
+        name: c"cert".as_ptr(),
         value: AUTH_TYPE_CERT as ::core::ffi::c_int,
     },
     CfLookup {
-        name: b"hba\0" as *const u8 as *const ::core::ffi::c_char,
+        name: c"hba".as_ptr(),
         value: AUTH_TYPE_HBA as ::core::ffi::c_int,
     },
     CfLookup {
-        name: b"scram-sha-256\0" as *const u8 as *const ::core::ffi::c_char,
+        name: c"scram-sha-256".as_ptr(),
         value: AUTH_TYPE_SCRAM_SHA_256 as ::core::ffi::c_int,
     },
     CfLookup {
@@ -2077,15 +2007,15 @@ static mut auth_type_map: [CfLookup; 8] = [
 
 pub static mut pool_mode_map: [CfLookup; 4] = [
     CfLookup {
-        name: b"session\0" as *const u8 as *const ::core::ffi::c_char,
+        name: c"session".as_ptr(),
         value: POOL_SESSION,
     },
     CfLookup {
-        name: b"transaction\0" as *const u8 as *const ::core::ffi::c_char,
+        name: c"transaction".as_ptr(),
         value: POOL_TX,
     },
     CfLookup {
-        name: b"statement\0" as *const u8 as *const ::core::ffi::c_char,
+        name: c"statement".as_ptr(),
         value: POOL_STMT,
     },
     CfLookup {
@@ -2097,27 +2027,27 @@ pub static mut pool_mode_map: [CfLookup; 4] = [
 
 pub static mut sslmode_map: [CfLookup; 7] = [
     CfLookup {
-        name: b"disable\0" as *const u8 as *const ::core::ffi::c_char,
+        name: c"disable".as_ptr(),
         value: SSLMODE_DISABLED as ::core::ffi::c_int,
     },
     CfLookup {
-        name: b"allow\0" as *const u8 as *const ::core::ffi::c_char,
+        name: c"allow".as_ptr(),
         value: SSLMODE_ALLOW as ::core::ffi::c_int,
     },
     CfLookup {
-        name: b"prefer\0" as *const u8 as *const ::core::ffi::c_char,
+        name: c"prefer".as_ptr(),
         value: SSLMODE_PREFER as ::core::ffi::c_int,
     },
     CfLookup {
-        name: b"require\0" as *const u8 as *const ::core::ffi::c_char,
+        name: c"require".as_ptr(),
         value: SSLMODE_REQUIRE as ::core::ffi::c_int,
     },
     CfLookup {
-        name: b"verify-ca\0" as *const u8 as *const ::core::ffi::c_char,
+        name: c"verify-ca".as_ptr(),
         value: SSLMODE_VERIFY_CA as ::core::ffi::c_int,
     },
     CfLookup {
-        name: b"verify-full\0" as *const u8 as *const ::core::ffi::c_char,
+        name: c"verify-full".as_ptr(),
         value: SSLMODE_VERIFY_FULL as ::core::ffi::c_int,
     },
     CfLookup {
@@ -2129,11 +2059,11 @@ pub static mut sslmode_map: [CfLookup; 7] = [
 
 pub static mut load_balance_hosts_map: [CfLookup; 3] = [
     CfLookup {
-        name: b"disable\0" as *const u8 as *const ::core::ffi::c_char,
+        name: c"disable".as_ptr(),
         value: LOAD_BALANCE_HOSTS_DISABLE as ::core::ffi::c_int,
     },
     CfLookup {
-        name: b"round-robin\0" as *const u8 as *const ::core::ffi::c_char,
+        name: c"round-robin".as_ptr(),
         value: LOAD_BALANCE_HOSTS_ROUND_ROBIN as ::core::ffi::c_int,
     },
     CfLookup {
@@ -2157,7 +2087,7 @@ static mut bouncer_params: [CfKey; 99] = [CfKey {
 static mut config_sects: [CfSect; 5] = unsafe {
     [
         CfSect {
-            sect_name: b"pgbouncer\0" as *const u8 as *const ::core::ffi::c_char,
+            sect_name: c"pgbouncer".as_ptr(),
             key_list: &raw const bouncer_params as *const CfKey,
             base_lookup: None,
             set_key: None,
@@ -2165,7 +2095,7 @@ static mut config_sects: [CfSect; 5] = unsafe {
             section_start: None,
         },
         CfSect {
-            sect_name: b"databases\0" as *const u8 as *const ::core::ffi::c_char,
+            sect_name: c"databases".as_ptr(),
             key_list: ::core::ptr::null::<CfKey>(),
             base_lookup: None,
             set_key: Some(
@@ -2180,7 +2110,7 @@ static mut config_sects: [CfSect; 5] = unsafe {
             section_start: None,
         },
         CfSect {
-            sect_name: b"users\0" as *const u8 as *const ::core::ffi::c_char,
+            sect_name: c"users".as_ptr(),
             key_list: ::core::ptr::null::<CfKey>(),
             base_lookup: None,
             set_key: Some(
@@ -2195,7 +2125,7 @@ static mut config_sects: [CfSect; 5] = unsafe {
             section_start: None,
         },
         CfSect {
-            sect_name: b"peers\0" as *const u8 as *const ::core::ffi::c_char,
+            sect_name: c"peers".as_ptr(),
             key_list: ::core::ptr::null::<CfKey>(),
             base_lookup: None,
             set_key: Some(
@@ -2233,12 +2163,7 @@ pub unsafe extern "C" fn set_config_param(
     mut key: *const ::core::ffi::c_char,
     mut val: *const ::core::ffi::c_char,
 ) -> bool {
-    cf_set(
-        &raw mut main_config,
-        b"pgbouncer\0" as *const u8 as *const ::core::ffi::c_char,
-        key,
-        val,
-    )
+    cf_set(&raw mut main_config, c"pgbouncer".as_ptr(), key, val)
 }
 #[no_mangle]
 
@@ -2262,7 +2187,7 @@ pub unsafe extern "C" fn config_for_each(
     while !(*k).key_name.is_null() {
         val = cf_get(
             &raw mut main_config,
-            b"pgbouncer\0" as *const u8 as *const ::core::ffi::c_char,
+            c"pgbouncer".as_ptr(),
             (*k).key_name,
             &raw mut buf as *mut ::core::ffi::c_char,
             ::core::mem::size_of::<[::core::ffi::c_char; 256]>() as ::core::ffi::c_int,
@@ -2323,50 +2248,46 @@ unsafe extern "C" fn set_peers_dead(mut flag: bool) {
 
 unsafe extern "C" fn requires_auth_file(mut auth_type: ::core::ffi::c_int) -> bool {
     if auth_type == AUTH_TYPE_PAM as ::core::ffi::c_int {
-        return false_0 != 0;
+        return false;
     }
     auth_type >= AUTH_TYPE_TRUST as ::core::ffi::c_int
 }
 #[no_mangle]
 
 pub unsafe extern "C" fn load_config() -> bool {
-    static mut loaded: bool = false_0 != 0;
+    static mut loaded: bool = false;
     let mut load_file_ok: bool = false;
     let mut ok: bool = false;
     let mut q = ::core::ptr::null::<::core::ffi::c_char>();
-    any_user_level_timeout_set = false_0 != 0;
-    empty_server_check_query = false_0 != 0;
-    any_user_level_client_timeout_set = false_0 != 0;
-    set_dbs_dead(true_0 != 0);
-    set_peers_dead(true_0 != 0);
+    any_user_level_timeout_set = false;
+    empty_server_check_query = false;
+    any_user_level_client_timeout_set = false;
+    set_dbs_dead(true);
+    set_peers_dead(true);
     load_file_ok = cf_load_file(&raw mut main_config, cf_config_file);
     if load_file_ok {
         if requires_auth_file(cf_auth_type) {
             loader_users_check();
         }
-        loaded = true_0 != 0;
-        ok = true_0 != 0;
+        loaded = true;
+        ok = true;
     } else if !loaded {
         let mut _log_ctx = NULL;
-        log_generic(
-            LG_FATAL,
-            _log_ctx,
-            b"cannot load config file\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        log_generic(LG_FATAL, _log_ctx, c"cannot load config file".as_ptr());
         exit(1 as ::core::ffi::c_int);
     } else {
         let mut _log_ctx_0 = NULL;
         log_generic(
             LG_WARNING,
             _log_ctx_0,
-            b"config file loading failed\0" as *const u8 as *const ::core::ffi::c_char,
+            c"config file loading failed".as_ptr(),
         );
-        set_dbs_dead(false_0 != 0);
-        ok = false_0 != 0;
+        set_dbs_dead(false);
+        ok = false;
     }
     q = cf_server_check_query;
-    if strcmpeq(q, b"<empty>\0" as *const u8 as *const ::core::ffi::c_char) {
-        empty_server_check_query = true_0 != 0;
+    if strcmpeq(q, c"<empty>".as_ptr()) {
+        empty_server_check_query = true;
     }
     if cf_auth_type == AUTH_TYPE_HBA as ::core::ffi::c_int {
         let mut ident = ::core::ptr::null_mut::<Ident>();
@@ -2486,8 +2407,7 @@ unsafe extern "C" fn handle_sigterm(
         log_generic(
             LG_INFO,
             _log_ctx,
-            b"got SIGTERM while shutting down, fast exit\0" as *const u8
-                as *const ::core::ffi::c_char,
+            c"got SIGTERM while shutting down, fast exit".as_ptr(),
         );
         exit(0 as ::core::ffi::c_int);
     }
@@ -2495,16 +2415,14 @@ unsafe extern "C" fn handle_sigterm(
     log_generic(
         LG_INFO,
         _log_ctx_0,
-        b"got SIGTERM, shutting down, waiting for all clients disconnect\0" as *const u8
-            as *const ::core::ffi::c_char,
+        c"got SIGTERM, shutting down, waiting for all clients disconnect".as_ptr(),
     );
     if cf_reboot != 0 {
         let mut _log_ctx_1 = NULL;
         log_generic(
             LG_FATAL,
             _log_ctx_1,
-            b"takeover was in progress, going down immediately\0" as *const u8
-                as *const ::core::ffi::c_char,
+            c"takeover was in progress, going down immediately".as_ptr(),
         );
         exit(1 as ::core::ffi::c_int);
     }
@@ -2513,8 +2431,7 @@ unsafe extern "C" fn handle_sigterm(
         log_generic(
             LG_FATAL,
             _log_ctx_2,
-            b"suspend was in progress, going down immediately\0" as *const u8
-                as *const ::core::ffi::c_char,
+            c"suspend was in progress, going down immediately".as_ptr(),
         );
         exit(1 as ::core::ffi::c_int);
     }
@@ -2532,8 +2449,7 @@ unsafe extern "C" fn handle_sigint(
         log_generic(
             LG_INFO,
             _log_ctx,
-            b"got SIGINT while shutting down, fast exit\0" as *const u8
-                as *const ::core::ffi::c_char,
+            c"got SIGINT while shutting down, fast exit".as_ptr(),
         );
         exit(0 as ::core::ffi::c_int);
     }
@@ -2541,16 +2457,14 @@ unsafe extern "C" fn handle_sigint(
     log_generic(
         LG_INFO,
         _log_ctx_0,
-        b"got SIGINT, shutting down, waiting for all servers connections to be released\0"
-            as *const u8 as *const ::core::ffi::c_char,
+        c"got SIGINT, shutting down, waiting for all servers connections to be released".as_ptr(),
     );
     if cf_reboot != 0 {
         let mut _log_ctx_1 = NULL;
         log_generic(
             LG_FATAL,
             _log_ctx_1,
-            b"takeover was in progress, going down immediately\0" as *const u8
-                as *const ::core::ffi::c_char,
+            c"takeover was in progress, going down immediately".as_ptr(),
         );
         exit(1 as ::core::ffi::c_int);
     }
@@ -2559,8 +2473,7 @@ unsafe extern "C" fn handle_sigint(
         log_generic(
             LG_FATAL,
             _log_ctx_2,
-            b"suspend was in progress, going down immediately\0" as *const u8
-                as *const ::core::ffi::c_char,
+            c"suspend was in progress, going down immediately".as_ptr(),
         );
         exit(1 as ::core::ffi::c_int);
     }
@@ -2743,11 +2656,7 @@ unsafe extern "C" fn handle_sigquit(
     mut _arg: *mut ::core::ffi::c_void,
 ) {
     let mut _log_ctx = NULL;
-    log_generic(
-        LG_INFO,
-        _log_ctx,
-        b"got SIGQUIT, fast exit\0" as *const u8 as *const ::core::ffi::c_char,
-    );
+    log_generic(LG_INFO, _log_ctx, c"got SIGQUIT, fast exit".as_ptr());
     exit(0 as ::core::ffi::c_int);
 }
 
@@ -2761,7 +2670,7 @@ unsafe extern "C" fn handle_sigusr1(
         log_generic(
             LG_INFO,
             _log_ctx,
-            b"got SIGUSR1, pausing all activity\0" as *const u8 as *const ::core::ffi::c_char,
+            c"got SIGUSR1, pausing all activity".as_ptr(),
         );
         cf_pause_mode = P_PAUSE as ::core::ffi::c_int;
     } else {
@@ -2769,8 +2678,7 @@ unsafe extern "C" fn handle_sigusr1(
         log_generic(
             LG_INFO,
             _log_ctx_0,
-            b"got SIGUSR1, but already paused/suspended\0" as *const u8
-                as *const ::core::ffi::c_char,
+            c"got SIGUSR1, but already paused/suspended".as_ptr(),
         );
     };
 }
@@ -2785,8 +2693,7 @@ unsafe extern "C" fn handle_sigusr2(
         log_generic(
             LG_INFO,
             _log_ctx,
-            b"got SIGUSR2 while shutting down, ignoring\0" as *const u8
-                as *const ::core::ffi::c_char,
+            c"got SIGUSR2 while shutting down, ignoring".as_ptr(),
         );
         return;
     }
@@ -2796,8 +2703,7 @@ unsafe extern "C" fn handle_sigusr2(
             log_generic(
                 LG_INFO,
                 _log_ctx_0,
-                b"got SIGUSR2, continuing from SUSPEND\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"got SIGUSR2, continuing from SUSPEND".as_ptr(),
             );
             resume_all();
             cf_pause_mode = P_NONE as ::core::ffi::c_int;
@@ -2807,7 +2713,7 @@ unsafe extern "C" fn handle_sigusr2(
             log_generic(
                 LG_INFO,
                 _log_ctx_1,
-                b"got SIGUSR2, continuing from PAUSE\0" as *const u8 as *const ::core::ffi::c_char,
+                c"got SIGUSR2, continuing from PAUSE".as_ptr(),
             );
             cf_pause_mode = P_NONE as ::core::ffi::c_int;
         }
@@ -2816,8 +2722,7 @@ unsafe extern "C" fn handle_sigusr2(
             log_generic(
                 LG_INFO,
                 _log_ctx_2,
-                b"got SIGUSR2, but not paused/suspended\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"got SIGUSR2, but not paused/suspended".as_ptr(),
             );
         }
         _ => {}
@@ -2832,11 +2737,7 @@ unsafe extern "C" fn handle_sighup(
     mut _arg: *mut ::core::ffi::c_void,
 ) {
     let mut _log_ctx = NULL;
-    log_generic(
-        LG_INFO,
-        _log_ctx,
-        b"got SIGHUP, re-reading config\0" as *const u8 as *const ::core::ffi::c_char,
-    );
+    log_generic(LG_INFO, _log_ctx, c"got SIGHUP, re-reading config".as_ptr());
     notify_reloading();
     load_config();
     if !sbuf_tls_setup() {
@@ -2844,8 +2745,7 @@ unsafe extern "C" fn handle_sighup(
         log_generic(
             LG_ERROR,
             _log_ctx_0,
-            b"TLS configuration could not be reloaded, keeping old configuration\0" as *const u8
-                as *const ::core::ffi::c_char,
+            c"TLS configuration could not be reloaded, keeping old configuration".as_ptr(),
         );
     }
 }
@@ -2859,12 +2759,12 @@ unsafe extern "C" fn signal_setup() {
     if err < 0 as ::core::ffi::c_int {
         let mut _log_ctx = NULL;
         log_fatal(
-            b"src/main.c\0" as *const u8 as *const ::core::ffi::c_char,
+            c"src/main.c".as_ptr(),
             655 as ::core::ffi::c_int,
-            b"signal_setup\0" as *const u8 as *const ::core::ffi::c_char,
-            true_0 != 0,
+            c"signal_setup".as_ptr(),
+            true,
             _log_ctx,
-            b"sigprocmask\0" as *const u8 as *const ::core::ffi::c_char,
+            c"sigprocmask".as_ptr(),
         );
         exit(1 as ::core::ffi::c_int);
     }
@@ -2887,12 +2787,12 @@ unsafe extern "C" fn signal_setup() {
     if err < 0 as ::core::ffi::c_int {
         let mut _log_ctx_0 = NULL;
         log_fatal(
-            b"src/main.c\0" as *const u8 as *const ::core::ffi::c_char,
+            c"src/main.c".as_ptr(),
             662 as ::core::ffi::c_int,
-            b"signal_setup\0" as *const u8 as *const ::core::ffi::c_char,
-            true_0 != 0,
+            c"signal_setup".as_ptr(),
+            true,
             _log_ctx_0,
-            b"evsignal_add\0" as *const u8 as *const ::core::ffi::c_char,
+            c"evsignal_add".as_ptr(),
         );
         exit(1 as ::core::ffi::c_int);
     }
@@ -2915,12 +2815,12 @@ unsafe extern "C" fn signal_setup() {
     if err < 0 as ::core::ffi::c_int {
         let mut _log_ctx_1 = NULL;
         log_fatal(
-            b"src/main.c\0" as *const u8 as *const ::core::ffi::c_char,
+            c"src/main.c".as_ptr(),
             667 as ::core::ffi::c_int,
-            b"signal_setup\0" as *const u8 as *const ::core::ffi::c_char,
-            true_0 != 0,
+            c"signal_setup".as_ptr(),
+            true,
             _log_ctx_1,
-            b"evsignal_add\0" as *const u8 as *const ::core::ffi::c_char,
+            c"evsignal_add".as_ptr(),
         );
         exit(1 as ::core::ffi::c_int);
     }
@@ -2943,12 +2843,12 @@ unsafe extern "C" fn signal_setup() {
     if err < 0 as ::core::ffi::c_int {
         let mut _log_ctx_2 = NULL;
         log_fatal(
-            b"src/main.c\0" as *const u8 as *const ::core::ffi::c_char,
+            c"src/main.c".as_ptr(),
             672 as ::core::ffi::c_int,
-            b"signal_setup\0" as *const u8 as *const ::core::ffi::c_char,
-            true_0 != 0,
+            c"signal_setup".as_ptr(),
+            true,
             _log_ctx_2,
-            b"evsignal_add\0" as *const u8 as *const ::core::ffi::c_char,
+            c"evsignal_add".as_ptr(),
         );
         exit(1 as ::core::ffi::c_int);
     }
@@ -2971,12 +2871,12 @@ unsafe extern "C" fn signal_setup() {
     if err < 0 as ::core::ffi::c_int {
         let mut _log_ctx_3 = NULL;
         log_fatal(
-            b"src/main.c\0" as *const u8 as *const ::core::ffi::c_char,
+            c"src/main.c".as_ptr(),
             677 as ::core::ffi::c_int,
-            b"signal_setup\0" as *const u8 as *const ::core::ffi::c_char,
-            true_0 != 0,
+            c"signal_setup".as_ptr(),
+            true,
             _log_ctx_3,
-            b"evsignal_add\0" as *const u8 as *const ::core::ffi::c_char,
+            c"evsignal_add".as_ptr(),
         );
         exit(1 as ::core::ffi::c_int);
     }
@@ -2999,12 +2899,12 @@ unsafe extern "C" fn signal_setup() {
     if err < 0 as ::core::ffi::c_int {
         let mut _log_ctx_4 = NULL;
         log_fatal(
-            b"src/main.c\0" as *const u8 as *const ::core::ffi::c_char,
+            c"src/main.c".as_ptr(),
             682 as ::core::ffi::c_int,
-            b"signal_setup\0" as *const u8 as *const ::core::ffi::c_char,
-            true_0 != 0,
+            c"signal_setup".as_ptr(),
+            true,
             _log_ctx_4,
-            b"evsignal_add\0" as *const u8 as *const ::core::ffi::c_char,
+            c"evsignal_add".as_ptr(),
         );
         exit(1 as ::core::ffi::c_int);
     }
@@ -3027,12 +2927,12 @@ unsafe extern "C" fn signal_setup() {
     if err < 0 as ::core::ffi::c_int {
         let mut _log_ctx_5 = NULL;
         log_fatal(
-            b"src/main.c\0" as *const u8 as *const ::core::ffi::c_char,
+            c"src/main.c".as_ptr(),
             687 as ::core::ffi::c_int,
-            b"signal_setup\0" as *const u8 as *const ::core::ffi::c_char,
-            true_0 != 0,
+            c"signal_setup".as_ptr(),
+            true,
             _log_ctx_5,
-            b"evsignal_add\0" as *const u8 as *const ::core::ffi::c_char,
+            c"evsignal_add".as_ptr(),
         );
         exit(1 as ::core::ffi::c_int);
     }
@@ -3046,21 +2946,18 @@ unsafe extern "C" fn go_daemon() {
         log_generic(
             LG_FATAL,
             _log_ctx,
-            b"daemon needs pidfile configured\0" as *const u8 as *const ::core::ffi::c_char,
+            c"daemon needs pidfile configured".as_ptr(),
         );
         exit(1 as ::core::ffi::c_int);
     }
     cf_quiet = 1 as ::core::ffi::c_int;
-    fd = open(
-        b"/dev/null\0" as *const u8 as *const ::core::ffi::c_char,
-        O_RDWR,
-    );
+    fd = open(c"/dev/null".as_ptr(), O_RDWR);
     if fd < 0 as ::core::ffi::c_int {
         let mut _log_ctx_0 = NULL;
         log_generic(
             LG_FATAL,
             _log_ctx_0,
-            b"could not open /dev/null: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"could not open /dev/null: %s".as_ptr(),
             strerror(*__error()),
         );
         exit(1 as ::core::ffi::c_int);
@@ -3077,7 +2974,7 @@ unsafe extern "C" fn go_daemon() {
         log_generic(
             LG_FATAL,
             _log_ctx_1,
-            b"fork failed: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"fork failed: %s".as_ptr(),
             strerror(*__error()),
         );
         exit(1 as ::core::ffi::c_int);
@@ -3091,7 +2988,7 @@ unsafe extern "C" fn go_daemon() {
         log_generic(
             LG_FATAL,
             _log_ctx_2,
-            b"setsid failed: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"setsid failed: %s".as_ptr(),
             strerror(*__error()),
         );
         exit(1 as ::core::ffi::c_int);
@@ -3102,7 +2999,7 @@ unsafe extern "C" fn go_daemon() {
         log_generic(
             LG_FATAL,
             _log_ctx_3,
-            b"fork failed: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"fork failed: %s".as_ptr(),
             strerror(*__error()),
         );
         exit(1 as ::core::ffi::c_int);
@@ -3140,7 +3037,7 @@ unsafe extern "C" fn check_pidfile() {
         log_generic(
             LG_FATAL,
             _log_ctx,
-            b"could not open pidfile '%s': %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"could not open pidfile '%s': %s".as_ptr(),
             cf_pidfile,
             strerror(*__error()),
         );
@@ -3157,7 +3054,7 @@ unsafe extern "C" fn check_pidfile() {
         log_generic(
             LG_FATAL,
             _log_ctx_0,
-            b"could not read pidfile '%s': %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"could not read pidfile '%s': %s".as_ptr(),
             cf_pidfile,
             strerror(*__error()),
         );
@@ -3171,19 +3068,14 @@ unsafe extern "C" fn check_pidfile() {
             && (*__error() == ESRCH)
         {
             let mut _log_ctx_1 = NULL;
-            log_generic(
-                LG_INFO,
-                _log_ctx_1,
-                b"stale pidfile, removing\0" as *const u8 as *const ::core::ffi::c_char,
-            );
+            log_generic(LG_INFO, _log_ctx_1, c"stale pidfile, removing".as_ptr());
             err = unlink(cf_pidfile);
             if err != 0 as ::core::ffi::c_int {
                 let mut _log_ctx_2 = NULL;
                 log_generic(
                     LG_FATAL,
                     _log_ctx_2,
-                    b"could not remove stale pidfile: %s\0" as *const u8
-                        as *const ::core::ffi::c_char,
+                    c"could not remove stale pidfile: %s".as_ptr(),
                     strerror(*__error()),
                 );
                 exit(1 as ::core::ffi::c_int);
@@ -3195,8 +3087,7 @@ unsafe extern "C" fn check_pidfile() {
     log_generic(
         LG_FATAL,
         _log_ctx_3,
-        b"pidfile '%s' exists, another instance running?\0" as *const u8
-            as *const ::core::ffi::c_char,
+        c"pidfile '%s' exists, another instance running?".as_ptr(),
         cf_pidfile,
     );
     exit(1 as ::core::ffi::c_int);
@@ -3214,7 +3105,7 @@ unsafe extern "C" fn write_pidfile() {
     snprintf(
         &raw mut buf as *mut ::core::ffi::c_char,
         ::core::mem::size_of::<[::core::ffi::c_char; 64]>() as size_t,
-        b"%u\n\0" as *const u8 as *const ::core::ffi::c_char,
+        c"%u\n".as_ptr(),
         pid as ::core::ffi::c_uint,
     );
     fd = open(
@@ -3227,7 +3118,7 @@ unsafe extern "C" fn write_pidfile() {
         log_generic(
             LG_FATAL,
             _log_ctx,
-            b"could not open pidfile '%s': %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"could not open pidfile '%s': %s".as_ptr(),
             cf_pidfile,
             strerror(*__error()),
         );
@@ -3243,7 +3134,7 @@ unsafe extern "C" fn write_pidfile() {
         log_generic(
             LG_FATAL,
             _log_ctx_0,
-            b"could not write pidfile '%s': %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"could not write pidfile '%s': %s".as_ptr(),
             cf_pidfile,
             strerror(*__error()),
         );
@@ -3268,8 +3159,7 @@ unsafe extern "C" fn check_limits() {
         log_generic(
             LG_NOISE,
             _log_ctx,
-            b"event: %d, SBuf: %d, PgSocket: %d, IOBuf: %d\0" as *const u8
-                as *const ::core::ffi::c_char,
+            c"event: %d, SBuf: %d, PgSocket: %d, IOBuf: %d".as_ptr(),
             ::core::mem::size_of::<event>() as ::core::ffi::c_int,
             ::core::mem::size_of::<SBuf>() as ::core::ffi::c_int,
             ::core::mem::size_of::<PgSocket>() as ::core::ffi::c_int,
@@ -3283,7 +3173,7 @@ unsafe extern "C" fn check_limits() {
         log_generic(
             LG_ERROR,
             _log_ctx_0,
-            b"could not get RLIMIT_NOFILE: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"could not get RLIMIT_NOFILE: %s".as_ptr(),
             strerror(*__error()),
         );
         return;
@@ -3312,8 +3202,7 @@ unsafe extern "C" fn check_limits() {
     log_generic(
         LG_INFO,
         _log_ctx_1,
-        b"kernel file descriptor limit: %d (hard: %d); max_client_conn: %d, max expected fd use: %d\0"
-            as *const u8 as *const ::core::ffi::c_char,
+        c"kernel file descriptor limit: %d (hard: %d); max_client_conn: %d, max expected fd use: %d".as_ptr(),
         lim.rlim_cur as ::core::ffi::c_int,
         lim.rlim_max as ::core::ffi::c_int,
         cf_max_client_conn,
@@ -3335,7 +3224,7 @@ unsafe extern "C" fn check_old_process_unix() -> bool {
         || *cf_unix_socket_dir == 0
         || 0 as ::core::ffi::c_int > 0 as ::core::ffi::c_int
     {
-        return false_0 != 0;
+        return false;
     }
     memset(
         &raw mut sa_un as *mut ::core::ffi::c_void,
@@ -3346,7 +3235,7 @@ unsafe extern "C" fn check_old_process_unix() -> bool {
     snprintf(
         &raw mut sa_un.sun_path as *mut ::core::ffi::c_char,
         ::core::mem::size_of::<[::core::ffi::c_char; 104]>() as size_t,
-        b"%s/.s.PGSQL.%d\0" as *const u8 as *const ::core::ffi::c_char,
+        c"%s/.s.PGSQL.%d".as_ptr(),
         cf_unix_socket_dir,
         cf_listen_port,
     );
@@ -3356,7 +3245,7 @@ unsafe extern "C" fn check_old_process_unix() -> bool {
         log_generic(
             LG_FATAL,
             _log_ctx,
-            b"could not create socket: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"could not create socket: %s".as_ptr(),
             strerror(*__error()),
         );
         exit(1 as ::core::ffi::c_int);
@@ -3364,9 +3253,9 @@ unsafe extern "C" fn check_old_process_unix() -> bool {
     res = safe_connect(fd, &raw mut sa_un as *mut sockaddr, len);
     safe_close(fd);
     if res < 0 as ::core::ffi::c_int {
-        return false_0 != 0;
+        return false;
     }
-    true_0 != 0
+    true
 }
 
 unsafe extern "C" fn main_loop_once() {
@@ -3378,7 +3267,7 @@ unsafe extern "C" fn main_loop_once() {
         log_generic(
             LG_WARNING,
             _log_ctx,
-            b"event_loop failed: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"event_loop failed: %s".as_ptr(),
             strerror(*__error()),
         );
     }
@@ -3402,8 +3291,7 @@ unsafe extern "C" fn takeover_part1() {
         log_generic(
             LG_FATAL,
             _log_ctx,
-            b"cannot reboot if unix dir not configured\0" as *const u8
-                as *const ::core::ffi::c_char,
+            c"cannot reboot if unix dir not configured".as_ptr(),
         );
         exit(1 as ::core::ffi::c_int);
     }
@@ -3414,7 +3302,7 @@ unsafe extern "C" fn takeover_part1() {
         log_generic(
             LG_FATAL,
             _log_ctx_0,
-            b"cannot reboot with abstract Unix socket\0" as *const u8 as *const ::core::ffi::c_char,
+            c"cannot reboot with abstract Unix socket".as_ptr(),
         );
         exit(1 as ::core::ffi::c_int);
     }
@@ -3423,7 +3311,7 @@ unsafe extern "C" fn takeover_part1() {
         log_generic(
             LG_FATAL,
             _log_ctx_1,
-            b"cannot reboot under service manager\0" as *const u8 as *const ::core::ffi::c_char,
+            c"cannot reboot under service manager".as_ptr(),
         );
         exit(1 as ::core::ffi::c_int);
     }
@@ -3442,11 +3330,7 @@ unsafe extern "C" fn dns_setup() {
     adns = adns_create_context();
     if adns.is_null() {
         let mut _log_ctx = NULL;
-        log_generic(
-            LG_FATAL,
-            _log_ctx,
-            b"dns setup failed\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        log_generic(LG_FATAL, _log_ctx, c"dns setup failed".as_ptr());
         exit(1 as ::core::ffi::c_int);
     }
 }
@@ -3456,48 +3340,48 @@ unsafe fn main_0(
     mut argv: *mut *mut ::core::ffi::c_char,
 ) -> ::core::ffi::c_int {
     let mut c: ::core::ffi::c_int = 0;
-    let mut did_takeover = false_0 != 0;
+    let mut did_takeover = false;
     let mut arg_username = ::core::ptr::null_mut::<::core::ffi::c_char>();
     let mut long_idx: ::core::ffi::c_int = 0;
     static mut long_options: [option; 8] = [
         option {
-            name: b"quiet\0" as *const u8 as *const ::core::ffi::c_char,
+            name: c"quiet".as_ptr(),
             has_arg: no_argument,
             flag: ::core::ptr::null::<::core::ffi::c_int>() as *mut ::core::ffi::c_int,
             val: 'q' as i32,
         },
         option {
-            name: b"verbose\0" as *const u8 as *const ::core::ffi::c_char,
+            name: c"verbose".as_ptr(),
             has_arg: no_argument,
             flag: ::core::ptr::null::<::core::ffi::c_int>() as *mut ::core::ffi::c_int,
             val: 'v' as i32,
         },
         option {
-            name: b"help\0" as *const u8 as *const ::core::ffi::c_char,
+            name: c"help".as_ptr(),
             has_arg: no_argument,
             flag: ::core::ptr::null::<::core::ffi::c_int>() as *mut ::core::ffi::c_int,
             val: 'h' as i32,
         },
         option {
-            name: b"daemon\0" as *const u8 as *const ::core::ffi::c_char,
+            name: c"daemon".as_ptr(),
             has_arg: no_argument,
             flag: ::core::ptr::null::<::core::ffi::c_int>() as *mut ::core::ffi::c_int,
             val: 'd' as i32,
         },
         option {
-            name: b"version\0" as *const u8 as *const ::core::ffi::c_char,
+            name: c"version".as_ptr(),
             has_arg: no_argument,
             flag: ::core::ptr::null::<::core::ffi::c_int>() as *mut ::core::ffi::c_int,
             val: 'V' as i32,
         },
         option {
-            name: b"reboot\0" as *const u8 as *const ::core::ffi::c_char,
+            name: c"reboot".as_ptr(),
             has_arg: no_argument,
             flag: ::core::ptr::null::<::core::ffi::c_int>() as *mut ::core::ffi::c_int,
             val: 'R' as i32,
         },
         option {
-            name: b"user\0" as *const u8 as *const ::core::ffi::c_char,
+            name: c"user".as_ptr(),
             has_arg: required_argument,
             flag: ::core::ptr::null::<::core::ffi::c_int>() as *mut ::core::ffi::c_int,
             val: 'u' as i32,
@@ -3516,7 +3400,7 @@ unsafe fn main_0(
         c = getopt_long(
             argc,
             argv as *const *mut ::core::ffi::c_char,
-            b"qvhdVRu:\0" as *const u8 as *const ::core::ffi::c_char,
+            c"qvhdVRu:".as_ptr(),
             &raw const long_options as *const option,
             &raw mut long_idx,
         );
@@ -3531,13 +3415,9 @@ unsafe fn main_0(
                 cf_verbose += 1;
             }
             86 => {
+                printf(c"%s\n".as_ptr(), PACKAGE_STRING.as_ptr());
                 printf(
-                    b"%s\n\0" as *const u8 as *const ::core::ffi::c_char,
-                    PACKAGE_STRING.as_ptr(),
-                );
-                printf(
-                    b"libevent %s\nadns: %s\ntls: %s\n\0" as *const u8
-                        as *const ::core::ffi::c_char,
+                    c"libevent %s\nadns: %s\ntls: %s\n".as_ptr(),
                     event_get_version(),
                     adns_get_backend(),
                     tls_backend_version(),
@@ -3570,7 +3450,7 @@ unsafe fn main_0(
     if optind + 1 as ::core::ffi::c_int != argc {
         fprintf(
             __stderrp,
-            b"%s: no configuration file specified\n\0" as *const u8 as *const ::core::ffi::c_char,
+            c"%s: no configuration file specified\n".as_ptr(),
             *argv.offset(0 as ::core::ffi::c_int as isize),
         );
         fprintf(
@@ -3584,7 +3464,7 @@ unsafe fn main_0(
     cf_config_file = xstrdup(*argv.offset(optind as isize));
     init_objects();
     load_config();
-    main_config.loaded = true_0 != 0;
+    main_config.loaded = true;
     init_var_lookup(cf_track_extra_parameters);
     init_caches();
     logging_prefix_cb = Some(
@@ -3598,11 +3478,7 @@ unsafe fn main_0(
     ) as logging_prefix_fn_t;
     if !sbuf_tls_setup() {
         let mut _log_ctx = NULL;
-        log_generic(
-            LG_FATAL,
-            _log_ctx,
-            b"TLS setup failed\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        log_generic(LG_FATAL, _log_ctx, c"TLS setup failed".as_ptr());
         exit(1 as ::core::ffi::c_int);
     }
     if !arg_username.is_null() {
@@ -3617,7 +3493,7 @@ unsafe fn main_0(
         log_generic(
             LG_FATAL,
             _log_ctx_0,
-            b"PgBouncer should not run as root\0" as *const u8 as *const ::core::ffi::c_char,
+            c"PgBouncer should not run as root".as_ptr(),
         );
         exit(1 as ::core::ffi::c_int);
     }
@@ -3627,19 +3503,17 @@ unsafe fn main_0(
         log_generic(
             LG_WARNING,
             _log_ctx_1,
-            b"Online restart is deprecated, use so_reuseport instead\0" as *const u8
-                as *const ::core::ffi::c_char,
+            c"Online restart is deprecated, use so_reuseport instead".as_ptr(),
         );
         if check_old_process_unix() {
             takeover_part1();
-            did_takeover = true_0 != 0;
+            did_takeover = true;
         } else {
             let mut _log_ctx_2 = NULL;
             log_generic(
                 LG_INFO,
                 _log_ctx_2,
-                b"old process not found, try to continue normally\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"old process not found, try to continue normally".as_ptr(),
             );
             cf_reboot = 0 as ::core::ffi::c_int;
             check_pidfile();
@@ -3650,8 +3524,7 @@ unsafe fn main_0(
             log_generic(
                 LG_FATAL,
                 _log_ctx_3,
-                b"unix socket is in use, cannot continue\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"unix socket is in use, cannot continue".as_ptr(),
             );
             exit(1 as ::core::ffi::c_int);
         }
@@ -3660,13 +3533,12 @@ unsafe fn main_0(
     if cf_daemon != 0 {
         go_daemon();
     }
-    if !getenv(b"NOTIFY_SOCKET\0" as *const u8 as *const ::core::ffi::c_char).is_null() {
+    if !getenv(c"NOTIFY_SOCKET".as_ptr()).is_null() {
         let mut _log_ctx_4 = NULL;
         log_generic(
             LG_WARNING,
             _log_ctx_4,
-            b"apparently running under systemd with notify socket, but systemd support was not built\0"
-                as *const u8 as *const ::core::ffi::c_char,
+            c"apparently running under systemd with notify socket, but systemd support was not built".as_ptr(),
         );
     }
     check_limits();
@@ -3674,11 +3546,7 @@ unsafe fn main_0(
     pgb_event_base = event_base_new();
     if pgb_event_base.is_null() {
         let mut _log_ctx_5 = NULL;
-        log_generic(
-            LG_FATAL,
-            _log_ctx_5,
-            b"event_base_new() failed\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        log_generic(LG_FATAL, _log_ctx_5, c"event_base_new() failed".as_ptr());
         exit(1 as ::core::ffi::c_int);
     }
     dns_setup();
@@ -3697,9 +3565,8 @@ unsafe fn main_0(
     log_generic(
         LG_INFO,
         _log_ctx_6,
-        b"process up: %s, libevent %s (%s), adns: %s, tls: %s\0" as *const u8
-            as *const ::core::ffi::c_char,
-        b"PgBouncer 1.25.1\0" as *const u8 as *const ::core::ffi::c_char,
+        c"process up: %s, libevent %s (%s), adns: %s, tls: %s".as_ptr(),
+        c"PgBouncer 1.25.1".as_ptr(),
         event_get_version(),
         event_base_get_method(pgb_event_base),
         adns_get_backend(),
@@ -3733,7 +3600,7 @@ pub fn main() {
 unsafe extern "C" fn run_static_initializers() {
     bouncer_params = [
         CfKey {
-            key_name: b"admin_users\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"admin_users".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_str
@@ -3752,11 +3619,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_admin_users as uintptr_t,
-            def_value: b"\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"".as_ptr(),
         },
         CfKey {
-            key_name: b"application_name_add_host\0" as *const u8
-                as *const ::core::ffi::c_char,
+            key_name: c"application_name_add_host".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_int
@@ -3775,10 +3641,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_application_name_add_host as uintptr_t,
-            def_value: b"0\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"0".as_ptr(),
         },
         CfKey {
-            key_name: b"auth_dbname\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"auth_dbname".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_authdb
@@ -3800,7 +3666,7 @@ unsafe extern "C" fn run_static_initializers() {
             def_value: ::core::ptr::null::<::core::ffi::c_char>(),
         },
         CfKey {
-            key_name: b"auth_file\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"auth_file".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_str
@@ -3822,7 +3688,7 @@ unsafe extern "C" fn run_static_initializers() {
             def_value: ::core::ptr::null::<::core::ffi::c_char>(),
         },
         CfKey {
-            key_name: b"auth_hba_file\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"auth_hba_file".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_str
@@ -3841,10 +3707,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_auth_hba_file as uintptr_t,
-            def_value: b"\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"".as_ptr(),
         },
         CfKey {
-            key_name: b"auth_ident_file\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"auth_ident_file".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_str
@@ -3866,7 +3732,7 @@ unsafe extern "C" fn run_static_initializers() {
             def_value: ::core::ptr::null::<::core::ffi::c_char>(),
         },
         CfKey {
-            key_name: b"auth_ldap_options\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"auth_ldap_options".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_str
@@ -3888,7 +3754,7 @@ unsafe extern "C" fn run_static_initializers() {
             def_value: ::core::ptr::null::<::core::ffi::c_char>(),
         },
         CfKey {
-            key_name: b"auth_query\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"auth_query".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_str
@@ -3907,11 +3773,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_auth_query as uintptr_t,
-            def_value: b"SELECT rolname, CASE WHEN rolvaliduntil < now() THEN NULL ELSE rolpassword END FROM pg_authid WHERE rolname=$1 AND rolcanlogin\0"
-                as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"SELECT rolname, CASE WHEN rolvaliduntil < now() THEN NULL ELSE rolpassword END FROM pg_authid WHERE rolname=$1 AND rolcanlogin".as_ptr(),
         },
         CfKey {
-            key_name: b"auth_type\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"auth_type".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_lookup
@@ -3931,10 +3796,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_auth_type as uintptr_t,
-            def_value: b"md5\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"md5".as_ptr(),
         },
         CfKey {
-            key_name: b"auth_user\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"auth_user".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_str
@@ -3956,8 +3821,7 @@ unsafe extern "C" fn run_static_initializers() {
             def_value: ::core::ptr::null::<::core::ffi::c_char>(),
         },
         CfKey {
-            key_name: b"autodb_idle_timeout\0" as *const u8
-                as *const ::core::ffi::c_char,
+            key_name: c"autodb_idle_timeout".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_time_usec
@@ -3976,11 +3840,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_autodb_idle_timeout as uintptr_t,
-            def_value: b"3600\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"3600".as_ptr(),
         },
         CfKey {
-            key_name: b"cancel_wait_timeout\0" as *const u8
-                as *const ::core::ffi::c_char,
+            key_name: c"cancel_wait_timeout".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_time_usec
@@ -3999,11 +3862,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_cancel_wait_timeout as uintptr_t,
-            def_value: b"10\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"10".as_ptr(),
         },
         CfKey {
-            key_name: b"client_idle_timeout\0" as *const u8
-                as *const ::core::ffi::c_char,
+            key_name: c"client_idle_timeout".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_time_usec
@@ -4022,11 +3884,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_client_idle_timeout as uintptr_t,
-            def_value: b"0\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"0".as_ptr(),
         },
         CfKey {
-            key_name: b"client_login_timeout\0" as *const u8
-                as *const ::core::ffi::c_char,
+            key_name: c"client_login_timeout".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_time_usec
@@ -4045,11 +3906,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_client_login_timeout as uintptr_t,
-            def_value: b"60\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"60".as_ptr(),
         },
         CfKey {
-            key_name: b"client_tls13_ciphers\0" as *const u8
-                as *const ::core::ffi::c_char,
+            key_name: c"client_tls13_ciphers".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_str
@@ -4071,7 +3931,7 @@ unsafe extern "C" fn run_static_initializers() {
             def_value: ::core::ptr::null::<::core::ffi::c_char>(),
         },
         CfKey {
-            key_name: b"client_tls_ca_file\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"client_tls_ca_file".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_str
@@ -4090,11 +3950,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_client_tls_ca_file as uintptr_t,
-            def_value: b"\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"".as_ptr(),
         },
         CfKey {
-            key_name: b"client_tls_cert_file\0" as *const u8
-                as *const ::core::ffi::c_char,
+            key_name: c"client_tls_cert_file".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_str
@@ -4113,10 +3972,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_client_tls_cert_file as uintptr_t,
-            def_value: b"\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"".as_ptr(),
         },
         CfKey {
-            key_name: b"client_tls_ciphers\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"client_tls_ciphers".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_str
@@ -4135,11 +3994,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_client_tls_ciphers as uintptr_t,
-            def_value: b"default\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"default".as_ptr(),
         },
         CfKey {
-            key_name: b"client_tls_dheparams\0" as *const u8
-                as *const ::core::ffi::c_char,
+            key_name: c"client_tls_dheparams".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_str
@@ -4158,11 +4016,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_client_tls_dheparams as uintptr_t,
-            def_value: b"auto\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"auto".as_ptr(),
         },
         CfKey {
-            key_name: b"client_tls_ecdhcurve\0" as *const u8
-                as *const ::core::ffi::c_char,
+            key_name: c"client_tls_ecdhcurve".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_str
@@ -4181,11 +4038,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_client_tls_ecdhecurve as uintptr_t,
-            def_value: b"auto\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"auto".as_ptr(),
         },
         CfKey {
-            key_name: b"client_tls_key_file\0" as *const u8
-                as *const ::core::ffi::c_char,
+            key_name: c"client_tls_key_file".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_str
@@ -4204,11 +4060,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_client_tls_key_file as uintptr_t,
-            def_value: b"\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"".as_ptr(),
         },
         CfKey {
-            key_name: b"client_tls_protocols\0" as *const u8
-                as *const ::core::ffi::c_char,
+            key_name: c"client_tls_protocols".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_str
@@ -4227,10 +4082,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_client_tls_protocols as uintptr_t,
-            def_value: b"secure\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"secure".as_ptr(),
         },
         CfKey {
-            key_name: b"client_tls_sslmode\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"client_tls_sslmode".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_lookup
@@ -4250,10 +4105,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_client_tls_sslmode as uintptr_t,
-            def_value: b"disable\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"disable".as_ptr(),
         },
         CfKey {
-            key_name: b"conffile\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"conffile".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_str
@@ -4275,7 +4130,7 @@ unsafe extern "C" fn run_static_initializers() {
             def_value: ::core::ptr::null::<::core::ffi::c_char>(),
         },
         CfKey {
-            key_name: b"default_pool_size\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"default_pool_size".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_int
@@ -4294,10 +4149,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_default_pool_size as uintptr_t,
-            def_value: b"20\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"20".as_ptr(),
         },
         CfKey {
-            key_name: b"disable_pqexec\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"disable_pqexec".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_int
@@ -4316,10 +4171,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: (1 as ::core::ffi::c_int) << 2 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_disable_pqexec as uintptr_t,
-            def_value: b"0\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"0".as_ptr(),
         },
         CfKey {
-            key_name: b"dns_max_ttl\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"dns_max_ttl".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_time_usec
@@ -4338,10 +4193,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_dns_max_ttl as uintptr_t,
-            def_value: b"15\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"15".as_ptr(),
         },
         CfKey {
-            key_name: b"dns_nxdomain_ttl\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"dns_nxdomain_ttl".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_time_usec
@@ -4360,11 +4215,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_dns_nxdomain_ttl as uintptr_t,
-            def_value: b"15\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"15".as_ptr(),
         },
         CfKey {
-            key_name: b"dns_zone_check_period\0" as *const u8
-                as *const ::core::ffi::c_char,
+            key_name: c"dns_zone_check_period".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_time_usec
@@ -4383,11 +4237,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_dns_zone_check_period as uintptr_t,
-            def_value: b"0\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"0".as_ptr(),
         },
         CfKey {
-            key_name: b"idle_transaction_timeout\0" as *const u8
-                as *const ::core::ffi::c_char,
+            key_name: c"idle_transaction_timeout".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_time_usec
@@ -4406,11 +4259,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_idle_transaction_timeout as uintptr_t,
-            def_value: b"0\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"0".as_ptr(),
         },
         CfKey {
-            key_name: b"ignore_startup_parameters\0" as *const u8
-                as *const ::core::ffi::c_char,
+            key_name: c"ignore_startup_parameters".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_str
@@ -4429,10 +4281,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_ignore_startup_params as uintptr_t,
-            def_value: b"\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"".as_ptr(),
         },
         CfKey {
-            key_name: b"job_name\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"job_name".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_str
@@ -4451,10 +4303,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: (1 as ::core::ffi::c_int) << 2 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_jobname as uintptr_t,
-            def_value: b"pgbouncer\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"pgbouncer".as_ptr(),
         },
         CfKey {
-            key_name: b"listen_addr\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"listen_addr".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_str
@@ -4473,10 +4325,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: (1 as ::core::ffi::c_int) << 2 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_listen_addr as uintptr_t,
-            def_value: b"\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"".as_ptr(),
         },
         CfKey {
-            key_name: b"listen_backlog\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"listen_backlog".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_int
@@ -4495,10 +4347,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: (1 as ::core::ffi::c_int) << 2 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_listen_backlog as uintptr_t,
-            def_value: b"128\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"128".as_ptr(),
         },
         CfKey {
-            key_name: b"listen_port\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"listen_port".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_int
@@ -4517,10 +4369,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: (1 as ::core::ffi::c_int) << 2 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_listen_port as uintptr_t,
-            def_value: b"6432\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"6432".as_ptr(),
         },
         CfKey {
-            key_name: b"log_connections\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"log_connections".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_int
@@ -4539,10 +4391,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_log_connections as uintptr_t,
-            def_value: b"1\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"1".as_ptr(),
         },
         CfKey {
-            key_name: b"log_disconnections\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"log_disconnections".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_int
@@ -4561,10 +4413,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_log_disconnections as uintptr_t,
-            def_value: b"1\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"1".as_ptr(),
         },
         CfKey {
-            key_name: b"log_pooler_errors\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"log_pooler_errors".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_int
@@ -4583,10 +4435,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_log_pooler_errors as uintptr_t,
-            def_value: b"1\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"1".as_ptr(),
         },
         CfKey {
-            key_name: b"log_stats\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"log_stats".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_int
@@ -4605,10 +4457,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_log_stats as uintptr_t,
-            def_value: b"1\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"1".as_ptr(),
         },
         CfKey {
-            key_name: b"logfile\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"logfile".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_str
@@ -4627,10 +4479,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_logfile as uintptr_t,
-            def_value: b"\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"".as_ptr(),
         },
         CfKey {
-            key_name: b"max_client_conn\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"max_client_conn".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_int
@@ -4649,11 +4501,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_max_client_conn as uintptr_t,
-            def_value: b"100\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"100".as_ptr(),
         },
         CfKey {
-            key_name: b"max_db_client_connections\0" as *const u8
-                as *const ::core::ffi::c_char,
+            key_name: c"max_db_client_connections".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_int
@@ -4672,10 +4523,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_max_db_client_connections as uintptr_t,
-            def_value: b"0\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"0".as_ptr(),
         },
         CfKey {
-            key_name: b"max_db_connections\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"max_db_connections".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_int
@@ -4694,10 +4545,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_max_db_connections as uintptr_t,
-            def_value: b"0\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"0".as_ptr(),
         },
         CfKey {
-            key_name: b"max_packet_size\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"max_packet_size".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_uint
@@ -4716,11 +4567,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_max_packet_size as uintptr_t,
-            def_value: b"2147483647\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"2147483647".as_ptr(),
         },
         CfKey {
-            key_name: b"max_prepared_statements\0" as *const u8
-                as *const ::core::ffi::c_char,
+            key_name: c"max_prepared_statements".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_int
@@ -4739,11 +4589,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_max_prepared_statements as uintptr_t,
-            def_value: b"200\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"200".as_ptr(),
         },
         CfKey {
-            key_name: b"max_user_client_connections\0" as *const u8
-                as *const ::core::ffi::c_char,
+            key_name: c"max_user_client_connections".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_int
@@ -4762,11 +4611,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_max_user_client_connections as uintptr_t,
-            def_value: b"0\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"0".as_ptr(),
         },
         CfKey {
-            key_name: b"max_user_connections\0" as *const u8
-                as *const ::core::ffi::c_char,
+            key_name: c"max_user_connections".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_int
@@ -4785,10 +4633,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_max_user_connections as uintptr_t,
-            def_value: b"0\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"0".as_ptr(),
         },
         CfKey {
-            key_name: b"min_pool_size\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"min_pool_size".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_int
@@ -4807,10 +4655,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_min_pool_size as uintptr_t,
-            def_value: b"0\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"0".as_ptr(),
         },
         CfKey {
-            key_name: b"peer_id\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"peer_id".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_int
@@ -4829,10 +4677,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_peer_id as uintptr_t,
-            def_value: b"0\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"0".as_ptr(),
         },
         CfKey {
-            key_name: b"pidfile\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"pidfile".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_str
@@ -4851,10 +4699,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: (1 as ::core::ffi::c_int) << 2 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_pidfile as uintptr_t,
-            def_value: b"\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"".as_ptr(),
         },
         CfKey {
-            key_name: b"pkt_buf\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"pkt_buf".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_int
@@ -4873,10 +4721,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: (1 as ::core::ffi::c_int) << 2 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_sbuf_len as uintptr_t,
-            def_value: b"4096\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"4096".as_ptr(),
         },
         CfKey {
-            key_name: b"pool_mode\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"pool_mode".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_lookup
@@ -4896,10 +4744,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_pool_mode as uintptr_t,
-            def_value: b"session\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"session".as_ptr(),
         },
         CfKey {
-            key_name: b"query_timeout\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"query_timeout".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_time_usec
@@ -4918,10 +4766,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_query_timeout as uintptr_t,
-            def_value: b"0\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"0".as_ptr(),
         },
         CfKey {
-            key_name: b"query_wait_notify\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"query_wait_notify".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_int
@@ -4940,10 +4788,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_query_wait_notify as uintptr_t,
-            def_value: b"5\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"5".as_ptr(),
         },
         CfKey {
-            key_name: b"query_wait_timeout\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"query_wait_timeout".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_time_usec
@@ -4962,10 +4810,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_query_wait_timeout as uintptr_t,
-            def_value: b"120\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"120".as_ptr(),
         },
         CfKey {
-            key_name: b"reserve_pool_size\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"reserve_pool_size".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_int
@@ -4984,11 +4832,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_res_pool_size as uintptr_t,
-            def_value: b"0\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"0".as_ptr(),
         },
         CfKey {
-            key_name: b"reserve_pool_timeout\0" as *const u8
-                as *const ::core::ffi::c_char,
+            key_name: c"reserve_pool_timeout".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_time_usec
@@ -5007,10 +4854,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_res_pool_timeout as uintptr_t,
-            def_value: b"5\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"5".as_ptr(),
         },
         CfKey {
-            key_name: b"resolv_conf\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"resolv_conf".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_str
@@ -5029,10 +4876,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: (1 as ::core::ffi::c_int) << 2 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_resolv_conf as uintptr_t,
-            def_value: b"\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"".as_ptr(),
         },
         CfKey {
-            key_name: b"sbuf_loopcnt\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"sbuf_loopcnt".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_int
@@ -5051,10 +4898,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_sbuf_loopcnt as uintptr_t,
-            def_value: b"5\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"5".as_ptr(),
         },
         CfKey {
-            key_name: b"scram_iterations\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"scram_iterations".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_int
@@ -5073,10 +4920,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_scram_iterations as uintptr_t,
-            def_value: b"4096\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"4096".as_ptr(),
         },
         CfKey {
-            key_name: b"server_check_delay\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"server_check_delay".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_time_usec
@@ -5095,10 +4942,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_server_check_delay as uintptr_t,
-            def_value: b"30\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"30".as_ptr(),
         },
         CfKey {
-            key_name: b"server_check_query\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"server_check_query".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_str
@@ -5117,11 +4964,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_server_check_query as uintptr_t,
-            def_value: b"<empty>\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"<empty>".as_ptr(),
         },
         CfKey {
-            key_name: b"server_connect_timeout\0" as *const u8
-                as *const ::core::ffi::c_char,
+            key_name: c"server_connect_timeout".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_time_usec
@@ -5140,10 +4986,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_server_connect_timeout as uintptr_t,
-            def_value: b"15\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"15".as_ptr(),
         },
         CfKey {
-            key_name: b"server_fast_close\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"server_fast_close".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_int
@@ -5162,11 +5008,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_server_fast_close as uintptr_t,
-            def_value: b"0\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"0".as_ptr(),
         },
         CfKey {
-            key_name: b"server_idle_timeout\0" as *const u8
-                as *const ::core::ffi::c_char,
+            key_name: c"server_idle_timeout".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_time_usec
@@ -5185,10 +5030,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_server_idle_timeout as uintptr_t,
-            def_value: b"600\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"600".as_ptr(),
         },
         CfKey {
-            key_name: b"server_lifetime\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"server_lifetime".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_time_usec
@@ -5207,10 +5052,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_server_lifetime as uintptr_t,
-            def_value: b"3600\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"3600".as_ptr(),
         },
         CfKey {
-            key_name: b"server_login_retry\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"server_login_retry".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_time_usec
@@ -5229,10 +5074,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_server_login_retry as uintptr_t,
-            def_value: b"15\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"15".as_ptr(),
         },
         CfKey {
-            key_name: b"server_reset_query\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"server_reset_query".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_str
@@ -5251,11 +5096,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_server_reset_query as uintptr_t,
-            def_value: b"DISCARD ALL\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"DISCARD ALL".as_ptr(),
         },
         CfKey {
-            key_name: b"server_reset_query_always\0" as *const u8
-                as *const ::core::ffi::c_char,
+            key_name: c"server_reset_query_always".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_int
@@ -5274,10 +5118,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_server_reset_query_always as uintptr_t,
-            def_value: b"0\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"0".as_ptr(),
         },
         CfKey {
-            key_name: b"server_round_robin\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"server_round_robin".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_int
@@ -5296,11 +5140,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_server_round_robin as uintptr_t,
-            def_value: b"0\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"0".as_ptr(),
         },
         CfKey {
-            key_name: b"server_tls13_ciphers\0" as *const u8
-                as *const ::core::ffi::c_char,
+            key_name: c"server_tls13_ciphers".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_str
@@ -5322,7 +5165,7 @@ unsafe extern "C" fn run_static_initializers() {
             def_value: ::core::ptr::null::<::core::ffi::c_char>(),
         },
         CfKey {
-            key_name: b"server_tls_ca_file\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"server_tls_ca_file".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_str
@@ -5341,11 +5184,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_server_tls_ca_file as uintptr_t,
-            def_value: b"\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"".as_ptr(),
         },
         CfKey {
-            key_name: b"server_tls_cert_file\0" as *const u8
-                as *const ::core::ffi::c_char,
+            key_name: c"server_tls_cert_file".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_str
@@ -5364,10 +5206,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_server_tls_cert_file as uintptr_t,
-            def_value: b"\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"".as_ptr(),
         },
         CfKey {
-            key_name: b"server_tls_ciphers\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"server_tls_ciphers".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_str
@@ -5386,11 +5228,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_server_tls_ciphers as uintptr_t,
-            def_value: b"default\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"default".as_ptr(),
         },
         CfKey {
-            key_name: b"server_tls_key_file\0" as *const u8
-                as *const ::core::ffi::c_char,
+            key_name: c"server_tls_key_file".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_str
@@ -5409,11 +5250,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_server_tls_key_file as uintptr_t,
-            def_value: b"\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"".as_ptr(),
         },
         CfKey {
-            key_name: b"server_tls_protocols\0" as *const u8
-                as *const ::core::ffi::c_char,
+            key_name: c"server_tls_protocols".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_str
@@ -5432,10 +5272,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_server_tls_protocols as uintptr_t,
-            def_value: b"secure\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"secure".as_ptr(),
         },
         CfKey {
-            key_name: b"server_tls_sslmode\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"server_tls_sslmode".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_lookup
@@ -5455,10 +5295,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_server_tls_sslmode as uintptr_t,
-            def_value: b"prefer\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"prefer".as_ptr(),
         },
         CfKey {
-            key_name: b"so_reuseport\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"so_reuseport".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_int
@@ -5477,10 +5317,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: (1 as ::core::ffi::c_int) << 2 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_so_reuseport as uintptr_t,
-            def_value: b"0\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"0".as_ptr(),
         },
         CfKey {
-            key_name: b"stats_period\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"stats_period".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_int
@@ -5499,10 +5339,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_stats_period as uintptr_t,
-            def_value: b"60\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"60".as_ptr(),
         },
         CfKey {
-            key_name: b"stats_users\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"stats_users".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_str
@@ -5521,10 +5361,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_stats_users as uintptr_t,
-            def_value: b"\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"".as_ptr(),
         },
         CfKey {
-            key_name: b"suspend_timeout\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"suspend_timeout".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_time_usec
@@ -5543,10 +5383,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_suspend_timeout as uintptr_t,
-            def_value: b"10\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"10".as_ptr(),
         },
         CfKey {
-            key_name: b"syslog\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"syslog".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_int
@@ -5565,10 +5405,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_syslog as uintptr_t,
-            def_value: b"0\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"0".as_ptr(),
         },
         CfKey {
-            key_name: b"syslog_facility\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"syslog_facility".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_str
@@ -5587,10 +5427,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_syslog_facility as uintptr_t,
-            def_value: b"daemon\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"daemon".as_ptr(),
         },
         CfKey {
-            key_name: b"syslog_ident\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"syslog_ident".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_str
@@ -5609,10 +5449,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_syslog_ident as uintptr_t,
-            def_value: b"pgbouncer\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"pgbouncer".as_ptr(),
         },
         CfKey {
-            key_name: b"tcp_defer_accept\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"tcp_defer_accept".as_ptr(),
             op: CfOps {
                 setter: Some(
                     set_defer_accept
@@ -5631,10 +5471,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_tcp_defer_accept as uintptr_t,
-            def_value: b"0\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"0".as_ptr(),
         },
         CfKey {
-            key_name: b"tcp_keepalive\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"tcp_keepalive".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_int
@@ -5653,10 +5493,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_tcp_keepalive as uintptr_t,
-            def_value: b"1\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"1".as_ptr(),
         },
         CfKey {
-            key_name: b"tcp_keepcnt\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"tcp_keepcnt".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_int
@@ -5675,10 +5515,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_tcp_keepcnt as uintptr_t,
-            def_value: b"0\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"0".as_ptr(),
         },
         CfKey {
-            key_name: b"tcp_keepidle\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"tcp_keepidle".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_int
@@ -5697,10 +5537,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_tcp_keepidle as uintptr_t,
-            def_value: b"0\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"0".as_ptr(),
         },
         CfKey {
-            key_name: b"tcp_keepintvl\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"tcp_keepintvl".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_int
@@ -5719,10 +5559,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_tcp_keepintvl as uintptr_t,
-            def_value: b"0\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"0".as_ptr(),
         },
         CfKey {
-            key_name: b"tcp_socket_buffer\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"tcp_socket_buffer".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_int
@@ -5741,10 +5581,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_tcp_socket_buffer as uintptr_t,
-            def_value: b"0\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"0".as_ptr(),
         },
         CfKey {
-            key_name: b"tcp_user_timeout\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"tcp_user_timeout".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_int
@@ -5763,11 +5603,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_tcp_user_timeout as uintptr_t,
-            def_value: b"0\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"0".as_ptr(),
         },
         CfKey {
-            key_name: b"track_extra_parameters\0" as *const u8
-                as *const ::core::ffi::c_char,
+            key_name: c"track_extra_parameters".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_str
@@ -5786,11 +5625,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: (1 as ::core::ffi::c_int) << 2 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_track_extra_parameters as uintptr_t,
-            def_value: b"IntervalStyle\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"IntervalStyle".as_ptr(),
         },
         CfKey {
-            key_name: b"transaction_timeout\0" as *const u8
-                as *const ::core::ffi::c_char,
+            key_name: c"transaction_timeout".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_time_usec
@@ -5809,10 +5647,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: 0 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_transaction_timeout as uintptr_t,
-            def_value: b"0\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"0".as_ptr(),
         },
         CfKey {
-            key_name: b"unix_socket_dir\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"unix_socket_dir".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_str
@@ -5831,10 +5669,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: (1 as ::core::ffi::c_int) << 2 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_unix_socket_dir as uintptr_t,
-            def_value: b"/tmp\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"/tmp".as_ptr(),
         },
         CfKey {
-            key_name: b"unix_socket_group\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"unix_socket_group".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_str
@@ -5853,10 +5691,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: (1 as ::core::ffi::c_int) << 2 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_unix_socket_group as uintptr_t,
-            def_value: b"\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"".as_ptr(),
         },
         CfKey {
-            key_name: b"unix_socket_mode\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"unix_socket_mode".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_int
@@ -5875,10 +5713,10 @@ unsafe extern "C" fn run_static_initializers() {
             },
             flags: (1 as ::core::ffi::c_int) << 2 as ::core::ffi::c_int | CF_VAL_ABS,
             key_ofs: &raw mut cf_unix_socket_mode as uintptr_t,
-            def_value: b"0777\0" as *const u8 as *const ::core::ffi::c_char,
+            def_value: c"0777".as_ptr(),
         },
         CfKey {
-            key_name: b"user\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"user".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_str
@@ -5900,7 +5738,7 @@ unsafe extern "C" fn run_static_initializers() {
             def_value: ::core::ptr::null::<::core::ffi::c_char>(),
         },
         CfKey {
-            key_name: b"verbose\0" as *const u8 as *const ::core::ffi::c_char,
+            key_name: c"verbose".as_ptr(),
             op: CfOps {
                 setter: Some(
                     cf_set_int
@@ -5939,7 +5777,6 @@ unsafe extern "C" fn run_static_initializers() {
 #[cfg_attr(target_os = "windows", link_section = ".CRT$XIB")]
 #[cfg_attr(target_os = "macos", link_section = "__DATA,__mod_init_func")]
 static INIT_ARRAY: [unsafe extern "C" fn(); 1] = [run_static_initializers];
-
 
 extern "C" {
     pub fn reset_time_cache();

@@ -4,13 +4,11 @@
 
 use super::types::{int8_t, memset, size_t, uint32_t, uint8_t};
 
-
 static mut _base64: [::core::ffi::c_char; 65] = unsafe {
     ::core::mem::transmute::<[u8; 65], [::core::ffi::c_char; 65]>(
         *b"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/\0",
     )
 };
-
 
 static mut b64lookup: [int8_t; 128] = [
     -(1 as ::core::ffi::c_int) as int8_t,
@@ -156,7 +154,7 @@ pub unsafe extern "C" fn pg_b64_encode(
     let mut s = ::core::ptr::null::<uint8_t>();
     let mut end = src.offset(len as isize);
     let mut pos = 2 as ::core::ffi::c_int;
-    let mut buf: uint32_t = 0 as uint32_t;
+    let mut buf: uint32_t = 0;
     s = src;
     p = dst;
     loop {
@@ -189,7 +187,7 @@ pub unsafe extern "C" fn pg_b64_encode(
         p = p.offset(1);
         *fresh3 = _base64[(buf & 0x3f as uint32_t) as usize];
         pos = 2 as ::core::ffi::c_int;
-        buf = 0 as uint32_t;
+        buf = 0;
     }
     if current_block == 7651349459974463963 {
         if pos != 2 as ::core::ffi::c_int {
@@ -249,7 +247,7 @@ pub unsafe extern "C" fn pg_b64_decode(
     let mut p = dst;
     let mut c: ::core::ffi::c_char = 0;
     let mut b = 0 as ::core::ffi::c_int;
-    let mut buf: uint32_t = 0 as uint32_t;
+    let mut buf: uint32_t = 0;
     let mut pos = 0 as ::core::ffi::c_int;
     let mut end = 0 as ::core::ffi::c_int;
     loop {
@@ -328,7 +326,7 @@ pub unsafe extern "C" fn pg_b64_decode(
             p = p.offset(1);
             *fresh11 = (buf & 255 as uint32_t) as uint8_t;
         }
-        buf = 0 as uint32_t;
+        buf = 0;
         pos = 0 as ::core::ffi::c_int;
     }
     if current_block == 3437258052017859086 && (pos == 0 as ::core::ffi::c_int) {

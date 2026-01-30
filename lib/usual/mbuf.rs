@@ -116,11 +116,7 @@ pub unsafe fn mbuf_copy(src: *const MBuf, dst: *mut MBuf) {
 
 /// Slice an existing buffer (creates a read-only view).
 #[inline]
-pub unsafe fn mbuf_slice(
-    src: *mut MBuf,
-    len: ::core::ffi::c_uint,
-    dst: *mut MBuf,
-) -> bool {
+pub unsafe fn mbuf_slice(src: *mut MBuf, len: ::core::ffi::c_uint, dst: *mut MBuf) -> bool {
     if (*src).read_pos.wrapping_add(len) > (*src).write_pos {
         return false_0 != 0;
     }
@@ -267,9 +263,9 @@ pub unsafe fn mbuf_get_string(buf: *mut MBuf, dst_p: *mut *const ::core::ffi::c_
         return false_0 != 0;
     }
     *dst_p = res;
-    (*buf).read_pos = nul
-        .offset(1 as ::core::ffi::c_int as isize)
-        .offset_from((*buf).data) as ::core::ffi::c_long as ::core::ffi::c_uint;
+    (*buf).read_pos =
+        nul.offset(1 as ::core::ffi::c_int as isize)
+            .offset_from((*buf).data) as ::core::ffi::c_long as ::core::ffi::c_uint;
     true_0 != 0
 }
 

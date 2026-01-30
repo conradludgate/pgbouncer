@@ -1,84 +1,44 @@
-
 pub mod internal {
-    
+
     pub type __builtin_va_list = *mut ::core::ffi::c_char;
 }
 
-pub mod _types_h {
-    
-    pub type __uint8_t = u8;
-    
-    pub type __uint16_t = u16;
-    
-    pub type __int32_t = i32;
-    
-    pub type __uint32_t = u32;
-    
-    pub type __int64_t = i64;
-    
-    pub type __darwin_ptrdiff_t = isize;
-    
-    pub type __darwin_size_t = usize;
-    
-    pub type __darwin_va_list = __builtin_va_list;
-    
-    pub type __darwin_socklen_t = __uint32_t;
-    
-    pub type __darwin_ssize_t = isize;
-    
-    pub type __darwin_time_t = ::core::ffi::c_long;
-    use super::internal::__builtin_va_list;
-}
-
-
 pub mod sys__types_h {
-    
+
     pub type __darwin_gid_t = __uint32_t;
-    
+
     pub type __darwin_off_t = __int64_t;
-    
+
     pub type __darwin_pid_t = __int32_t;
-    
+
     pub type __darwin_suseconds_t = __int32_t;
-    
+
     pub type __darwin_uid_t = __uint32_t;
-    
+
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
-    use super::_types_h::{__int32_t, __int64_t, __uint32_t};
+    use crate::types::{__int32_t, __int64_t, __uint32_t};
 }
 
 pub mod _gid_t_h {
-    
+
     pub type gid_t = __darwin_gid_t;
     use super::sys__types_h::__darwin_gid_t;
 }
 
-
-
-
-
-
-
-
-
-
-
-
 pub mod _va_list_h {
-    
-    pub type va_list = __darwin_va_list;
-    use super::_types_h::__darwin_va_list;
-}
 
+    pub type va_list = __darwin_va_list;
+    use crate::types::__darwin_va_list;
+}
 
 pub mod tls_h {
     use crate::types::size_t;
     use crate::types::ssize_t;
     extern "C" {
-        
+
         pub type tls;
-        
+
         pub fn tls_get_connection_info(
             ctx: *mut tls,
             buf: *mut ::core::ffi::c_char,
@@ -90,7 +50,7 @@ pub mod tls_h {
 pub mod _iovec_t_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct iovec {
         pub iov_base: *mut ::core::ffi::c_void,
         pub iov_len: size_t,
@@ -101,7 +61,7 @@ pub mod _iovec_t_h {
 pub mod cfparser_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct CfValue {
         pub value_p: *mut ::core::ffi::c_void,
         pub extra: *const ::core::ffi::c_void,
@@ -111,32 +71,27 @@ pub mod cfparser_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct CfLookup {
         pub name: *const ::core::ffi::c_char,
         pub value: ::core::ffi::c_int,
     }
     extern "C" {
-        
+
         pub fn cf_get_lookup(cv: *mut CfValue) -> *const ::core::ffi::c_char;
     }
 }
 
-
-
-
-
-
 pub mod _socklen_t_h {
-    
+
     pub type socklen_t = __darwin_socklen_t;
-    use super::_types_h::__darwin_socklen_t;
+    use crate::types::__darwin_socklen_t;
 }
 
 pub mod socket_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr {
         pub sa_len: __uint8_t,
         pub sa_family: sa_family_t,
@@ -144,7 +99,7 @@ pub mod socket_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct msghdr {
         pub msg_name: *mut ::core::ffi::c_void,
         pub msg_namelen: socklen_t,
@@ -156,34 +111,34 @@ pub mod socket_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct cmsghdr {
         pub cmsg_len: socklen_t,
         pub cmsg_level: ::core::ffi::c_int,
         pub cmsg_type: ::core::ffi::c_int,
     }
-    
+
     pub const SOL_SOCKET: ::core::ffi::c_int = 0xffff as ::core::ffi::c_int;
-    
+
     pub const AF_UNIX: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    
+
     pub const SCM_RIGHTS: ::core::ffi::c_int = 0x1 as ::core::ffi::c_int;
     use super::_iovec_t_h::iovec;
-    use crate::types::sa_family_t;
     use super::_socklen_t_h::socklen_t;
-    use super::_types_h::__uint8_t;
+    use crate::types::__uint8_t;
+    use crate::types::sa_family_t;
 }
 
 pub mod in_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct in_addr {
         pub s_addr: in_addr_t,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr_in {
         pub sin_len: __uint8_t,
         pub sin_family: sa_family_t,
@@ -191,22 +146,22 @@ pub mod in_h {
         pub sin_addr: in_addr,
         pub sin_zero: [::core::ffi::c_char; 8],
     }
+    use crate::types::__uint8_t;
     use crate::types::in_addr_t;
     use crate::types::in_port_t;
     use crate::types::sa_family_t;
-    use super::_types_h::__uint8_t;
 }
 
 pub mod in6_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct in6_addr {
         pub __u6_addr: C2RustUnnamed,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed {
         pub __u6_addr8: [__uint8_t; 16],
         pub __u6_addr16: [__uint16_t; 8],
@@ -214,7 +169,7 @@ pub mod in6_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr_in6 {
         pub sin6_len: __uint8_t,
         pub sin6_family: sa_family_t,
@@ -225,13 +180,13 @@ pub mod in6_h {
     }
     use crate::types::in_port_t;
     use crate::types::sa_family_t;
-    use super::_types_h::{__uint16_t, __uint32_t, __uint8_t};
+    use crate::types::{__uint16_t, __uint32_t, __uint8_t};
 }
 
 pub mod netdb_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct addrinfo {
         pub ai_flags: ::core::ffi::c_int,
         pub ai_family: ::core::ffi::c_int,
@@ -248,9 +203,9 @@ pub mod netdb_h {
 
 pub mod event_h {
     extern "C" {
-        
+
         pub type event_base;
-        
+
         pub fn event_base_loopbreak(_: *mut event_base) -> ::core::ffi::c_int;
     }
 }
@@ -258,7 +213,7 @@ pub mod event_h {
 pub mod event_struct_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct event {
         pub ev_evcallback: event_callback,
         pub ev_timeout_pos: C2RustUnnamed_5,
@@ -271,14 +226,14 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_0 {
         pub ev_io: C2RustUnnamed_3,
         pub ev_signal: C2RustUnnamed_1,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_1 {
         pub ev_signal_next: C2RustUnnamed_2,
         pub ev_ncalls: ::core::ffi::c_short,
@@ -286,42 +241,42 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_2 {
         pub le_next: *mut event,
         pub le_prev: *mut *mut event,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_3 {
         pub ev_io_next: C2RustUnnamed_4,
         pub ev_timeout: timeval,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_4 {
         pub le_next: *mut event,
         pub le_prev: *mut *mut event,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_5 {
         pub ev_next_with_common_timeout: C2RustUnnamed_6,
         pub min_heap_idx: ::core::ffi::c_int,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_6 {
         pub tqe_next: *mut event,
         pub tqe_prev: *mut *mut event,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct event_callback {
         pub evcb_active_next: C2RustUnnamed_8,
         pub evcb_flags: ::core::ffi::c_short,
@@ -332,7 +287,7 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_7 {
         pub evcb_callback: Option<
             unsafe extern "C" fn(
@@ -350,90 +305,88 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_8 {
         pub tqe_next: *mut event_callback,
         pub tqe_prev: *mut *mut event_callback,
     }
+    use super::event_h::event_base;
     use crate::types::timeval;
     use crate::types::uint8_t;
-    use super::event_h::event_base;
 }
 
-
-
 pub mod bouncer_h {
-    
+
     pub type SocketState = ::core::ffi::c_uint;
-    
+
     pub const SV_TESTED: SocketState = 16;
-    
+
     pub const SV_USED: SocketState = 15;
-    
+
     pub const SV_ACTIVE_CANCEL: SocketState = 14;
-    
+
     pub const SV_ACTIVE: SocketState = 13;
-    
+
     pub const SV_IDLE: SocketState = 12;
-    
+
     pub const SV_BEING_CANCELED: SocketState = 11;
-    
+
     pub const SV_LOGIN: SocketState = 10;
-    
+
     pub const SV_JUSTFREE: SocketState = 9;
-    
+
     pub const SV_FREE: SocketState = 8;
-    
+
     pub const CL_ACTIVE_CANCEL: SocketState = 7;
-    
+
     pub const CL_WAITING_CANCEL: SocketState = 6;
-    
+
     pub const CL_ACTIVE: SocketState = 5;
-    
+
     pub const CL_WAITING_LOGIN: SocketState = 4;
-    
+
     pub const CL_WAITING: SocketState = 3;
-    
+
     pub const CL_LOGIN: SocketState = 2;
-    
+
     pub const CL_JUSTFREE: SocketState = 1;
-    
+
     pub const CL_FREE: SocketState = 0;
-    
+
     pub type PauseMode = ::core::ffi::c_uint;
-    
+
     pub const P_SUSPEND: PauseMode = 2;
-    
+
     pub const P_PAUSE: PauseMode = 1;
-    
+
     pub const P_NONE: PauseMode = 0;
-    
+
     pub type ShutDownMode = ::core::ffi::c_uint;
-    
+
     pub const SHUTDOWN_IMMEDIATE: ShutDownMode = 3;
-    
+
     pub const SHUTDOWN_WAIT_FOR_CLIENTS: ShutDownMode = 2;
-    
+
     pub const SHUTDOWN_WAIT_FOR_SERVERS: ShutDownMode = 1;
-    
+
     pub const SHUTDOWN_NONE: ShutDownMode = 0;
-    
+
     pub type PacketCallbackFlag = ::core::ffi::c_uint;
-    
+
     pub const CB_HANDLE_COMPLETE_PACKET: PacketCallbackFlag = 2;
-    
+
     pub const CB_WANT_COMPLETE_PACKET: PacketCallbackFlag = 1;
-    
+
     pub const CB_NONE: PacketCallbackFlag = 0;
-    
+
     pub type LoadBalanceHosts = ::core::ffi::c_uint;
-    
+
     pub const LOAD_BALANCE_HOSTS_ROUND_ROBIN: LoadBalanceHosts = 1;
-    
+
     pub const LOAD_BALANCE_HOSTS_DISABLE: LoadBalanceHosts = 0;
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    
+
     pub struct PgSocket {
         pub head: List,
         pub cancel_head: List,
@@ -490,7 +443,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    
+
     pub struct CallbackState {
         #[bitfield(name = "flag", ty = "PacketCallbackFlag", bits = "0..=7")]
         pub flag: [u8; 1],
@@ -500,7 +453,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct ScramState {
         pub client_nonce: *mut ::core::ffi::c_char,
         pub client_first_message_bare: *mut ::core::ffi::c_char,
@@ -522,14 +475,14 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_9 {
         pub dns_token: *mut DNSToken,
         pub db: *mut PgDatabase,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct PgDatabase {
         pub head: List,
         pub name: [::core::ffi::c_char; 64],
@@ -567,7 +520,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct PgCredentials {
         pub tree_node: AANode,
         pub name: [::core::ffi::c_char; 128],
@@ -585,7 +538,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct PgGlobalUser {
         pub credentials: PgCredentials,
         pub head: List,
@@ -604,7 +557,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    
+
     pub struct PgPool {
         pub head: List,
         pub map_head: List,
@@ -640,7 +593,7 @@ pub mod bouncer_h {
     pub use super::super::common::types::PgStats;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union PgAddr {
         pub sa: sockaddr,
         pub sin: sockaddr_in,
@@ -649,55 +602,55 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr_ucreds {
         pub sin: sockaddr_in,
         pub uid: uid_t,
         pub pid: pid_t,
     }
-    
+
     pub type ReplicationType = ::core::ffi::c_uint;
-    
+
     pub const REPLICATION_PHYSICAL: ReplicationType = 2;
-    
+
     pub const REPLICATION_LOGICAL: ReplicationType = 1;
-    
+
     pub const REPLICATION_NONE: ReplicationType = 0;
-    
+
     pub const AUTH_TYPE_PAM: auth_type = 7;
-    
+
     pub const AUTH_TYPE_ANY: auth_type = 0;
-    
+
     pub type auth_type = ::core::ffi::c_uint;
-    
+
     pub const AUTH_TYPE_REJECT: auth_type = 10;
-    
+
     pub const AUTH_TYPE_PEER: auth_type = 9;
-    
+
     pub const AUTH_TYPE_SCRAM_SHA_256: auth_type = 8;
-    
+
     pub const AUTH_TYPE_LDAP: auth_type = 6;
-    
+
     pub const AUTH_TYPE_HBA: auth_type = 5;
-    
+
     pub const AUTH_TYPE_CERT: auth_type = 4;
-    
+
     pub const AUTH_TYPE_MD5: auth_type = 3;
-    
+
     pub const AUTH_TYPE_PLAIN: auth_type = 2;
-    
+
     pub const AUTH_TYPE_TRUST: auth_type = 1;
-    
+
     pub const POOL_STMT: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
-    
+
     pub const POOL_INHERIT: ::core::ffi::c_int = 3 as ::core::ffi::c_int;
     #[inline]
-    
+
     pub unsafe extern "C" fn pga_is_unix(mut a: *const PgAddr) -> bool {
         (*a).sa.sa_family as ::core::ffi::c_int == AF_UNIX
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn first_socket(mut slist: *mut StatList) -> *mut PgSocket {
         if statlist_empty(slist) {
             return ::core::ptr::null_mut::<PgSocket>();
@@ -708,75 +661,75 @@ pub mod bouncer_h {
 
     use crate::types::pid_t;
 
-    use crate::types::uid_t;
-    use crate::types::uint16_t;
-    use crate::types::uint64_t;
-    use crate::types::uint8_t;
-    use crate::types::{AANode, AATree};
     use super::cfparser_h::CfLookup;
-    use crate::types::pg_cryptohash_type;
     use super::dnslookup_h::{DNSContext, DNSToken};
     use super::event_h::event_base;
     use super::in6_h::sockaddr_in6;
     use super::in_h::sockaddr_in;
-    use crate::types::List;
     use super::pktbuf_h::PktBuf;
-    use crate::types::{PgClientPreparedStatement, PgServerPreparedStatement};
-    use crate::types::PktHdr;
     use super::sbuf_h::SBuf;
     use super::socket_h::{sockaddr, AF_UNIX};
-    use crate::types::{statlist_empty, StatList};
+    use crate::types::pg_cryptohash_type;
+    use crate::types::uid_t;
+    use crate::types::uint16_t;
+    use crate::types::uint64_t;
+    use crate::types::uint8_t;
     use crate::types::usec_t;
+    use crate::types::List;
+    use crate::types::PktHdr;
     use crate::types::VarCache;
+    use crate::types::{statlist_empty, StatList};
+    use crate::types::{AANode, AATree};
+    use crate::types::{PgClientPreparedStatement, PgServerPreparedStatement};
     extern "C" {
-        
+
         pub static mut pgb_event_base: *mut event_base;
-        
+
         pub fn pga_port(a: *const PgAddr) -> ::core::ffi::c_int;
-        
+
         pub fn pga_ntop(
             a: *const PgAddr,
             dst: *mut ::core::ffi::c_char,
             dstlen: ::core::ffi::c_int,
         ) -> *const ::core::ffi::c_char;
-        
+
         pub static mut cf_listen_port: ::core::ffi::c_int;
-        
+
         pub static mut cf_default_pool_size: ::core::ffi::c_int;
-        
+
         pub static mut cf_min_pool_size: ::core::ffi::c_int;
-        
+
         pub static mut cf_res_pool_size: ::core::ffi::c_int;
-        
+
         pub static mut cf_server_lifetime: usec_t;
-        
+
         pub static mut cf_auth_type: ::core::ffi::c_int;
-        
+
         pub static mut cf_admin_users: *mut ::core::ffi::c_char;
-        
+
         pub static mut cf_stats_users: *mut ::core::ffi::c_char;
-        
+
         pub static mut cf_pause_mode: ::core::ffi::c_int;
-        
+
         pub static mut cf_shutdown: ::core::ffi::c_int;
-        
+
         pub static mut cf_log_connections: ::core::ffi::c_int;
-        
+
         pub static pool_mode_map: [CfLookup; 0];
-        
+
         pub static load_balance_hosts_map: [CfLookup; 0];
-        
+
         pub static mut g_suspend_start: usec_t;
-        
+
         pub static mut adns: *mut DNSContext;
-        
+
         pub fn load_config() -> bool;
-        
+
         pub fn set_config_param(
             key: *const ::core::ffi::c_char,
             val: *const ::core::ffi::c_char,
         ) -> bool;
-        
+
         pub fn config_for_each(
             param_cb: Option<
                 unsafe extern "C" fn(
@@ -795,7 +748,7 @@ pub mod bouncer_h {
 pub mod sbuf_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct SBuf {
         pub ev: event,
         pub wait_type: uint8_t,
@@ -815,7 +768,7 @@ pub mod sbuf_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct SBufIO {
         pub sbufio_peek:
             Option<unsafe extern "C" fn(*mut SBuf, *mut ::core::ffi::c_void, size_t) -> ssize_t>,
@@ -825,34 +778,34 @@ pub mod sbuf_h {
             Option<unsafe extern "C" fn(*mut SBuf, *const ::core::ffi::c_void, size_t) -> ssize_t>,
         pub sbufio_close: Option<unsafe extern "C" fn(*mut SBuf) -> ::core::ffi::c_int>,
     }
-    
+
     pub type sbuf_cb_t = Option<unsafe extern "C" fn(*mut SBuf, SBufEvent, *mut MBuf) -> bool>;
-    
+
     pub type SBufEvent = ::core::ffi::c_uint;
-    
+
     pub const SBUF_EV_TLS_READY: SBufEvent = 7;
-    
+
     pub const SBUF_EV_PKT_CALLBACK: SBufEvent = 6;
-    
+
     pub const SBUF_EV_FLUSH: SBufEvent = 5;
-    
+
     pub const SBUF_EV_CONNECT_OK: SBufEvent = 4;
-    
+
     pub const SBUF_EV_CONNECT_FAILED: SBufEvent = 3;
-    
+
     pub const SBUF_EV_SEND_FAILED: SBufEvent = 2;
-    
+
     pub const SBUF_EV_RECV_FAILED: SBufEvent = 1;
-    
+
     pub const SBUF_EV_READ: SBufEvent = 0;
     #[inline]
-    
+
     pub unsafe extern "C" fn sbuf_is_empty(mut sbuf: *mut SBuf) -> bool {
         iobuf_empty((*sbuf).io) as ::core::ffi::c_int != 0
             && (*sbuf).pkt_remain == 0 as ::core::ffi::c_uint
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn sbuf_op_send(
         mut sbuf: *mut SBuf,
         mut buf: *const ::core::ffi::c_void,
@@ -862,27 +815,27 @@ pub mod sbuf_h {
             .sbufio_send
             .expect("non-null function pointer")(sbuf, buf, len)
     }
-    use crate::types::size_t;
-    use crate::types::ssize_t;
-    use crate::types::uint8_t;
     use super::event_struct_h::event;
     use super::iobuf_h::{iobuf_empty, IOBuf};
     use super::tls_h::tls;
+    use crate::types::size_t;
+    use crate::types::ssize_t;
+    use crate::types::uint8_t;
     use crate::types::MBuf;
     extern "C" {
-        
+
         pub fn sbuf_tls_setup() -> bool;
-        
+
         pub fn sbuf_prepare_skip(sbuf: *mut SBuf, amount: ::core::ffi::c_uint);
     }
 }
 
 pub mod iobuf_h {
-    
+
     pub type IOBuf = iobuf;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct iobuf {
         pub done_pos: ::core::ffi::c_uint,
         pub parse_pos: ::core::ffi::c_uint,
@@ -890,29 +843,27 @@ pub mod iobuf_h {
         pub buf: [uint8_t; 0],
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn iobuf_empty(mut io: *const IOBuf) -> bool {
         io.is_null() || (*io).done_pos == (*io).recv_pos
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn iobuf_amount_pending(mut buf: *const IOBuf) -> ::core::ffi::c_uint {
         (*buf).parse_pos.wrapping_sub((*buf).done_pos)
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn iobuf_amount_parse(mut buf: *const IOBuf) -> ::core::ffi::c_uint {
         (*buf).recv_pos.wrapping_sub((*buf).parse_pos)
     }
     use crate::types::uint8_t;
 }
 
-
-
 pub mod pktbuf_h {
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    
+
     pub struct PktBuf {
         pub buf: *mut uint8_t,
         pub buf_len: ::core::ffi::c_int,
@@ -928,42 +879,42 @@ pub mod pktbuf_h {
         #[bitfield(padding)]
         pub c2rust_padding: [u8; 7],
     }
-    use crate::types::uint8_t;
     use super::bouncer_h::PgSocket;
     use super::event_struct_h::event;
+    use crate::types::uint8_t;
     extern "C" {
-        
+
         pub fn pktbuf_dynamic(start_len: ::core::ffi::c_int) -> *mut PktBuf;
-        
+
         pub fn pktbuf_static(buf: *mut PktBuf, data: *mut uint8_t, len: ::core::ffi::c_int);
-        
+
         pub fn pktbuf_temp() -> *mut PktBuf;
-        
+
         pub fn pktbuf_send_immediate(buf: *mut PktBuf, sk: *mut PgSocket) -> bool;
-        
+
         pub fn pktbuf_send_queued(buf: *mut PktBuf, sk: *mut PgSocket) -> bool;
-        
+
         pub fn pktbuf_put_string(buf: *mut PktBuf, str: *const ::core::ffi::c_char);
-        
+
         pub fn pktbuf_write_generic(
             buf: *mut PktBuf,
             type_0: ::core::ffi::c_int,
             fmt: *const ::core::ffi::c_char,
             ...
         );
-        
+
         pub fn pktbuf_write_RowDescription(
             buf: *mut PktBuf,
             tupdesc: *const ::core::ffi::c_char,
             ...
         );
-        
+
         pub fn pktbuf_write_DataRow(buf: *mut PktBuf, tupdesc: *const ::core::ffi::c_char, ...);
     }
 }
 
 pub mod dnslookup_h {
-    
+
     pub type adns_walk_name_f = Option<
         unsafe extern "C" fn(
             *mut ::core::ffi::c_void,
@@ -972,7 +923,7 @@ pub mod dnslookup_h {
             usec_t,
         ) -> (),
     >;
-    
+
     pub type adns_walk_zone_f = Option<
         unsafe extern "C" fn(
             *mut ::core::ffi::c_void,
@@ -981,15 +932,15 @@ pub mod dnslookup_h {
             ::core::ffi::c_int,
         ) -> (),
     >;
-    use crate::types::uint32_t;
     use super::netdb_h::addrinfo;
+    use crate::types::uint32_t;
     use crate::types::usec_t;
     extern "C" {
-        
+
         pub type DNSToken;
-        
+
         pub type DNSContext;
-        
+
         pub fn adns_info(
             ctx: *mut DNSContext,
             names: *mut ::core::ffi::c_int,
@@ -997,13 +948,13 @@ pub mod dnslookup_h {
             queries: *mut ::core::ffi::c_int,
             pending: *mut ::core::ffi::c_int,
         );
-        
+
         pub fn adns_walk_names(
             ctx: *mut DNSContext,
             cb: adns_walk_name_f,
             arg: *mut ::core::ffi::c_void,
         );
-        
+
         pub fn adns_walk_zones(
             ctx: *mut DNSContext,
             cb: adns_walk_zone_f,
@@ -1013,33 +964,33 @@ pub mod dnslookup_h {
 }
 
 pub mod logging_h {
-    
+
     pub type LogLevel = ::core::ffi::c_uint;
-    
+
     pub const LG_NOISE: LogLevel = 6;
-    
+
     pub const LG_DEBUG: LogLevel = 5;
-    
+
     pub const LG_INFO: LogLevel = 4;
-    
+
     pub const LG_STATS: LogLevel = 3;
-    
+
     pub const LG_WARNING: LogLevel = 2;
-    
+
     pub const LG_ERROR: LogLevel = 1;
-    
+
     pub const LG_FATAL: LogLevel = 0;
     extern "C" {
-        
+
         pub static mut cf_verbose: ::core::ffi::c_int;
-        
+
         pub fn log_generic(
             level: LogLevel,
             ctx: *mut ::core::ffi::c_void,
             s: *const ::core::ffi::c_char,
             ...
         );
-        
+
         pub fn log_fatal(
             file: *const ::core::ffi::c_char,
             line: ::core::ffi::c_int,
@@ -1055,38 +1006,38 @@ pub mod logging_h {
 pub mod _regex_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct regmatch_t {
         pub rm_so: regoff_t,
         pub rm_eo: regoff_t,
     }
-    
+
     pub type regoff_t = __darwin_off_t;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct regex_t {
         pub re_magic: ::core::ffi::c_int,
         pub re_nsub: size_t,
         pub re_endp: *const ::core::ffi::c_char,
         pub re_g: *mut re_guts,
     }
-    
+
     pub const REG_EXTENDED: ::core::ffi::c_int = 0o1 as ::core::ffi::c_int;
-    
+
     pub const REG_ICASE: ::core::ffi::c_int = 0o2 as ::core::ffi::c_int;
-    use crate::types::size_t;
     use super::sys__types_h::__darwin_off_t;
+    use crate::types::size_t;
     extern "C" {
-        
+
         pub type re_guts;
-        
+
         pub fn regcomp(
             _: *mut regex_t,
             _: *const ::core::ffi::c_char,
             _: ::core::ffi::c_int,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn regexec(
             _: *const regex_t,
             _: *const ::core::ffi::c_char,
@@ -1094,13 +1045,13 @@ pub mod _regex_h {
             __pmatch: *mut regmatch_t,
             _: ::core::ffi::c_int,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn regfree(_: *mut regex_t);
     }
 }
 
 pub mod slab_h {
-    
+
     pub type slab_stat_fn = Option<
         unsafe extern "C" fn(
             *mut ::core::ffi::c_void,
@@ -1112,11 +1063,11 @@ pub mod slab_h {
     >;
     use super::objects_h::Slab;
     extern "C" {
-        
+
         pub fn slab_free_count(slab: *const Slab) -> ::core::ffi::c_int;
-        
+
         pub fn slab_active_count(slab: *const Slab) -> ::core::ffi::c_int;
-        
+
         pub fn slab_stats(cb_func: slab_stat_fn, cb_arg: *mut ::core::ffi::c_void);
     }
 }
@@ -1126,72 +1077,72 @@ pub mod objects_h {
 
     use crate::types::StatList;
     extern "C" {
-        
+
         pub type Slab;
-        
+
         pub static mut user_list: StatList;
-        
+
         pub static mut pool_list: StatList;
-        
+
         pub static mut peer_pool_list: StatList;
-        
+
         pub static mut database_list: StatList;
-        
+
         pub static mut peer_list: StatList;
-        
+
         pub static mut login_client_list: StatList;
-        
+
         pub static mut client_cache: *mut Slab;
-        
+
         pub static mut server_cache: *mut Slab;
-        
+
         pub fn find_database(name: *const ::core::ffi::c_char) -> *mut PgDatabase;
-        
+
         pub fn find_or_register_database(
             connection: *mut PgSocket,
             name: *const ::core::ffi::c_char,
         ) -> *mut PgDatabase;
-        
+
         pub fn find_global_user(name: *const ::core::ffi::c_char) -> *mut PgGlobalUser;
-        
+
         pub fn get_pool(db: *mut PgDatabase, user_credentials: *mut PgCredentials) -> *mut PgPool;
-        
+
         pub fn disconnect_client(
             client: *mut PgSocket,
             notify: bool,
             reason: *const ::core::ffi::c_char,
             ...
         );
-        
+
         pub fn add_database(name: *const ::core::ffi::c_char) -> *mut PgDatabase;
-        
+
         pub fn force_user_credentials(
             db: *mut PgDatabase,
             username: *const ::core::ffi::c_char,
             passwd: *const ::core::ffi::c_char,
         ) -> *mut PgCredentials;
-        
+
         pub fn find_or_add_new_global_user(
             name: *const ::core::ffi::c_char,
             passwd: *const ::core::ffi::c_char,
         ) -> *mut PgGlobalUser;
-        
+
         pub fn tag_database_dirty(db: *mut PgDatabase);
     }
 }
 
 pub mod pooler_h {
-    
+
     pub type pooler_cb = Option<
         unsafe extern "C" fn(*mut ::core::ffi::c_void, ::core::ffi::c_int, *const PgAddr) -> bool,
     >;
     use super::bouncer_h::PgAddr;
     extern "C" {
-        
+
         pub fn suspend_pooler();
-        
+
         pub fn cleanup_tcp_sockets();
-        
+
         pub fn for_each_pooler_fd(cb: pooler_cb, arg: *mut ::core::ffi::c_void) -> bool;
     }
 }
@@ -1200,20 +1151,20 @@ pub mod _stdio_h {
     use crate::types::size_t;
 
     extern "C" {
-        
+
         pub fn sscanf(
             _: *const ::core::ffi::c_char,
             _: *const ::core::ffi::c_char,
             ...
         ) -> ::core::ffi::c_int;
-        
+
         pub fn snprintf(
             __str: *mut ::core::ffi::c_char,
             __size: size_t,
             __format: *const ::core::ffi::c_char,
             ...
         ) -> ::core::ffi::c_int;
-        
+
         pub fn vsnprintf(
             __str: *mut ::core::ffi::c_char,
             __size: size_t,
@@ -1227,9 +1178,9 @@ pub mod unistd_h {
     use super::_gid_t_h::gid_t;
     use crate::types::uid_t;
     extern "C" {
-        
+
         pub fn getuid() -> uid_t;
-        
+
         pub fn getpeereid(
             _: ::core::ffi::c_int,
             _: *mut uid_t,
@@ -1238,14 +1189,13 @@ pub mod unistd_h {
     }
 }
 
-
 pub mod usual_socket_h {
-    use crate::types::size_t;
     use super::socket_h::sockaddr;
+    use crate::types::size_t;
     extern "C" {
-        
+
         pub fn socket_set_nonblocking(sock: ::core::ffi::c_int, non_block: bool) -> bool;
-        
+
         pub fn sa2str(
             sa: *const sockaddr,
             buf: *mut ::core::ffi::c_char,
@@ -1257,39 +1207,39 @@ pub mod usual_socket_h {
 pub mod _string_h {
     use crate::types::size_t;
     extern "C" {
-        
+
         pub fn memchr(
             __s: *const ::core::ffi::c_void,
             __c: ::core::ffi::c_int,
             __n: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn memcpy(
             __dst: *mut ::core::ffi::c_void,
             __src: *const ::core::ffi::c_void,
             __n: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn memset(
             __b: *mut ::core::ffi::c_void,
             __c: ::core::ffi::c_int,
             __len: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn strchr(
             __s: *const ::core::ffi::c_char,
             __c: ::core::ffi::c_int,
         ) -> *mut ::core::ffi::c_char;
-        
+
         pub fn strcmp(
             __s1: *const ::core::ffi::c_char,
             __s2: *const ::core::ffi::c_char,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn strerror(__errnum: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;
-        
+
         pub fn strlen(__s: *const ::core::ffi::c_char) -> size_t;
-        
+
         pub fn strstr(
             __big: *const ::core::ffi::c_char,
             __little: *const ::core::ffi::c_char,
@@ -1301,19 +1251,19 @@ pub mod stats_h {
     use super::bouncer_h::PgSocket;
     use crate::types::StatList;
     extern "C" {
-        
+
         pub fn admin_database_stats(client: *mut PgSocket, pool_list_0: *mut StatList) -> bool;
-        
+
         pub fn admin_database_stats_totals(
             client: *mut PgSocket,
             pool_list_0: *mut StatList,
         ) -> bool;
-        
+
         pub fn admin_database_stats_averages(
             client: *mut PgSocket,
             pool_list_0: *mut StatList,
         ) -> bool;
-        
+
         pub fn show_stat_totals(client: *mut PgSocket, pool_list_0: *mut StatList) -> bool;
     }
 }
@@ -1321,27 +1271,27 @@ pub mod stats_h {
 pub mod server_h {
     use super::bouncer_h::{PgDatabase, PgGlobalUser, PgPool};
     extern "C" {
-        
+
         pub fn probably_wrong_pool_pool_mode(pool: *mut PgPool) -> ::core::ffi::c_int;
-        
+
         pub fn database_max_connections(db: *mut PgDatabase) -> ::core::ffi::c_int;
-        
+
         pub fn database_max_client_connections(db: *mut PgDatabase) -> ::core::ffi::c_int;
-        
+
         pub fn user_max_connections(user: *mut PgGlobalUser) -> ::core::ffi::c_int;
-        
+
         pub fn user_client_max_connections(user: *mut PgGlobalUser) -> ::core::ffi::c_int;
     }
 }
 
 pub mod endian_h {
     #[inline]
-    
+
     pub unsafe extern "C" fn usual_bswap32(mut x: uint32_t) -> uint32_t {
         x.swap_bytes()
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn usual_be32dec(mut p: *const ::core::ffi::c_void) -> uint32_t {
         let mut tmp: uint32_t = 0;
         memcpy(
@@ -1351,16 +1301,16 @@ pub mod endian_h {
         );
         usual_bswap32(tmp)
     }
-    use crate::types::size_t;
     use super::_string_h::memcpy;
+    use crate::types::size_t;
     use crate::types::uint32_t;
 }
 
 pub mod safeio_h {
-    use crate::types::ssize_t;
     use super::socket_h::msghdr;
+    use crate::types::ssize_t;
     extern "C" {
-        
+
         pub fn safe_sendmsg(
             fd: ::core::ffi::c_int,
             msg: *const msghdr,
@@ -1370,18 +1320,18 @@ pub mod safeio_h {
 }
 
 pub mod _param_h {
-    
+
     pub const __DARWIN_ALIGNBYTES32: usize =
         ::core::mem::size_of::<__uint32_t>().wrapping_sub(1_usize);
-    use super::_types_h::__uint32_t;
+    use crate::types::__uint32_t;
 }
 
 pub mod janitor_h {
     use super::bouncer_h::PgPool;
     extern "C" {
-        
+
         pub fn resume_all();
-        
+
         pub fn kill_pool(pool: *mut PgPool);
     }
 }
@@ -1389,15 +1339,15 @@ pub mod janitor_h {
 pub mod client_h {
     use super::bouncer_h::PgSocket;
     extern "C" {
-        
+
         pub fn check_db_connection_count(client: *mut PgSocket) -> bool;
-        
+
         pub fn check_user_connection_count(client: *mut PgSocket) -> bool;
     }
 }
 
 pub mod config_h {
-    
+
     pub const PACKAGE_STRING: [::core::ffi::c_char; 17] = unsafe {
         ::core::mem::transmute::<[u8; 17], [::core::ffi::c_char; 17]>(*b"PgBouncer 1.25.1\0")
     };
@@ -1405,22 +1355,21 @@ pub mod config_h {
 
 pub mod _stdlib_h {
     extern "C" {
-        
+
         pub fn exit(_: ::core::ffi::c_int) -> !;
     }
 }
 
 pub mod errno_h {
     extern "C" {
-        
+
         pub fn __error() -> *mut ::core::ffi::c_int;
     }
 }
 
-
 pub mod _strings_h {
     extern "C" {
-        
+
         pub fn strcasecmp(
             _: *const ::core::ffi::c_char,
             _: *const ::core::ffi::c_char,
@@ -1430,7 +1379,7 @@ pub mod _strings_h {
 
 pub mod util_h {
     extern "C" {
-        
+
         pub fn strlist_contains(
             liststr: *const ::core::ffi::c_char,
             str: *const ::core::ffi::c_char,
@@ -1439,59 +1388,39 @@ pub mod util_h {
 }
 
 pub mod protocol_h {
-    
+
     pub const PqMsg_Bind: ::core::ffi::c_uint = 66 as ::core::ffi::c_uint;
-    
+
     pub const PqMsg_Execute: ::core::ffi::c_uint = 69 as ::core::ffi::c_uint;
-    
+
     pub const PqMsg_Parse: ::core::ffi::c_uint = 80 as ::core::ffi::c_uint;
-    
+
     pub const PqMsg_Query: ::core::ffi::c_uint = 81 as ::core::ffi::c_uint;
-    
+
     pub const PqMsg_Terminate: ::core::ffi::c_uint = 88 as ::core::ffi::c_uint;
-    
+
     pub const PqMsg_CommandComplete: ::core::ffi::c_int = 'C' as i32;
-    
+
     pub const PqMsg_NoticeResponse: ::core::ffi::c_int = 'N' as i32;
-    
+
     pub const PqMsg_AuthenticationRequest: ::core::ffi::c_int = 'R' as i32;
-    
+
     pub const PqMsg_ParameterStatus: ::core::ffi::c_int = 'S' as i32;
-    
+
     pub const PqMsg_ReadyForQuery: ::core::ffi::c_int = 'Z' as i32;
 }
 pub use self::_gid_t_h::gid_t;
-pub use crate::types::in_addr_t;
-pub use crate::types::in_port_t;
 pub use self::_iovec_t_h::iovec;
-pub use crate::types::NULL;
 pub use self::_param_h::__DARWIN_ALIGNBYTES32;
-pub use crate::types::pid_t;
-pub use crate::types::ptrdiff_t;
 pub use self::_regex_h::{
     re_guts, regcomp, regex_t, regexec, regfree, regmatch_t, regoff_t, REG_EXTENDED, REG_ICASE,
 };
-pub use crate::types::sa_family_t;
-pub use crate::types::size_t;
 pub use self::_socklen_t_h::socklen_t;
-pub use crate::types::ssize_t;
 use self::_stdio_h::{snprintf, sscanf, vsnprintf};
 use self::_stdlib_h::exit;
 use self::_string_h::{memcpy, memset, strchr, strcmp, strerror, strlen, strstr};
 use self::_strings_h::strcasecmp;
-pub use crate::types::timeval;
-pub use self::_types_h::{
-    __darwin_ptrdiff_t, __darwin_size_t, __darwin_socklen_t, __darwin_ssize_t, __darwin_time_t,
-    __darwin_va_list, __int32_t, __int64_t, __uint16_t, __uint32_t, __uint8_t,
-};
-pub use crate::types::uid_t;
-pub use crate::types::uint16_t;
-pub use crate::types::uint32_t;
-pub use crate::types::uint64_t;
-pub use crate::types::uint8_t;
-pub use crate::types::uintptr_t;
 pub use self::_va_list_h::va_list;
-pub use crate::types::{aatree_cmp_f, aatree_walker_f, AANode, AATree};
 pub use self::bouncer_h::{
     adns, auth_type, cf_admin_users, cf_auth_type, cf_default_pool_size, cf_listen_port,
     cf_log_connections, cf_min_pool_size, cf_pause_mode, cf_res_pool_size, cf_server_lifetime,
@@ -1513,7 +1442,6 @@ pub use self::bouncer_h::{
 pub use self::cfparser_h::{cf_get_lookup, CfLookup, CfValue};
 use self::client_h::{check_db_connection_count, check_user_connection_count};
 pub use self::config_h::PACKAGE_STRING;
-pub use crate::types::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
 pub use self::dnslookup_h::{
     adns_info, adns_walk_name_f, adns_walk_names, adns_walk_zone_f, adns_walk_zones, DNSContext,
     DNSToken,
@@ -1530,16 +1458,10 @@ pub use self::in_h::{in_addr, sockaddr_in};
 pub use self::internal::__builtin_va_list;
 pub use self::iobuf_h::{iobuf, iobuf_amount_parse, iobuf_amount_pending, iobuf_empty, IOBuf};
 use self::janitor_h::{kill_pool, resume_all};
-pub use crate::types::{list_empty, List};
 pub use self::logging_h::{
     cf_verbose, log_fatal, log_generic, LogLevel, LG_DEBUG, LG_ERROR, LG_FATAL, LG_INFO, LG_NOISE,
     LG_STATS, LG_WARNING,
 };
-pub use crate::lib::usual::mbuf::{
-    mbuf_avail_for_read, mbuf_get_string, mbuf_get_uint32be, mbuf_get_uint64be,
-    mbuf_init_fixed_reader, mbuf_written,
-};
-pub use crate::types::MBuf;
 pub use self::netdb_h::addrinfo;
 use self::objects_h::{
     add_database, client_cache, database_list, disconnect_client, find_database, find_global_user,
@@ -1552,10 +1474,35 @@ pub use self::pktbuf_h::{
     pktbuf_temp, pktbuf_write_DataRow, pktbuf_write_RowDescription, pktbuf_write_generic, PktBuf,
 };
 pub use self::pooler_h::{cleanup_tcp_sockets, for_each_pooler_fd, pooler_cb, suspend_pooler};
-pub use crate::types::{
-    PgClientPreparedStatement, PgPreparedStatement, PgServerPreparedStatement,
+pub use crate::lib::usual::mbuf::{
+    mbuf_avail_for_read, mbuf_get_string, mbuf_get_uint32be, mbuf_get_uint64be,
+    mbuf_init_fixed_reader, mbuf_written,
 };
+pub use crate::types::in_addr_t;
+pub use crate::types::in_port_t;
+pub use crate::types::pid_t;
+pub use crate::types::ptrdiff_t;
+pub use crate::types::sa_family_t;
+pub use crate::types::size_t;
+pub use crate::types::ssize_t;
+pub use crate::types::timeval;
+pub use crate::types::uid_t;
+pub use crate::types::uint16_t;
+pub use crate::types::uint32_t;
+pub use crate::types::uint64_t;
+pub use crate::types::uint8_t;
+pub use crate::types::uintptr_t;
+pub use crate::types::MBuf;
+pub use crate::types::NULL;
+pub use crate::types::{
+    __darwin_ptrdiff_t, __darwin_size_t, __darwin_socklen_t, __darwin_ssize_t, __darwin_time_t,
+    __darwin_va_list, __int32_t, __int64_t, __uint16_t, __uint32_t, __uint8_t,
+};
+pub use crate::types::{aatree_cmp_f, aatree_walker_f, AANode, AATree};
 pub use crate::types::{incomplete_pkt, pkt_desc, PktHdr};
+pub use crate::types::{list_empty, List};
+pub use crate::types::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
+pub use crate::types::{PgClientPreparedStatement, PgPreparedStatement, PgServerPreparedStatement};
 
 // External function declaration (defined in proto.rs)
 extern "C" {
@@ -1584,24 +1531,26 @@ use self::server_h::{
 };
 pub use self::slab_h::{slab_active_count, slab_free_count, slab_stat_fn, slab_stats};
 pub use self::socket_h::{cmsghdr, msghdr, sockaddr, AF_UNIX, SCM_RIGHTS, SOL_SOCKET};
-pub use crate::types::{statlist_count, statlist_empty, StatList};
 use self::stats_h::{
     admin_database_stats, admin_database_stats_averages, admin_database_stats_totals,
     show_stat_totals,
 };
-pub use crate::types::{false_0, true_0};
-pub use crate::types::{PStr, StrPool};
 pub use self::sys__types_h::{
     __darwin_gid_t, __darwin_off_t, __darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t,
     __DARWIN_NULL,
 };
-pub use crate::types::{usec_t, USEC};
 use self::tls_h::tls_get_connection_info;
 use self::unistd_h::{getpeereid, getuid};
 use self::usual_socket_h::{sa2str, socket_set_nonblocking};
-pub use crate::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 use self::util_h::strlist_contains;
-pub use crate::types::{VarCache, VarCacheIdx, VDateStyle, VClientEncoding, VTimeZone, VStdStr, VAppName, NumVars};
+pub use crate::types::{false_0, true_0};
+pub use crate::types::{statlist_count, statlist_empty, StatList};
+pub use crate::types::{usec_t, USEC};
+pub use crate::types::{
+    NumVars, VAppName, VClientEncoding, VDateStyle, VStdStr, VTimeZone, VarCache, VarCacheIdx,
+};
+pub use crate::types::{PStr, StrPool};
+pub use crate::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 #[derive(Copy, Clone)]
 #[repr(C)]
 
@@ -1693,11 +1642,11 @@ pub unsafe extern "C" fn admin_cleanup() {
 unsafe extern "C" fn syntax_error(mut admin: *mut PgSocket) -> bool {
     admin_error(
         admin,
-        b"invalid command '%s', use SHOW HELP;\0" as *const u8 as *const ::core::ffi::c_char,
+        c"invalid command '%s', use SHOW HELP;".as_ptr(),
         if !current_query.is_null() {
             current_query
         } else {
-            b"<no query>\0" as *const u8 as *const ::core::ffi::c_char
+            c"<no query>".as_ptr()
         },
     )
 }
@@ -1725,7 +1674,7 @@ pub unsafe extern "C" fn admin_error(
 ) -> bool {
     let mut str: [::core::ffi::c_char; 1024] = [0; 1024];
     let mut ap: ::core::ffi::VaListImpl;
-    let mut res = true_0 != 0;
+    let mut res = true;
     ap = args.clone();
     vsnprintf(
         &raw mut str as *mut ::core::ffi::c_char,
@@ -1737,15 +1686,15 @@ pub unsafe extern "C" fn admin_error(
     log_generic(
         LG_ERROR,
         _log_ctx,
-        b"%s\0" as *const u8 as *const ::core::ffi::c_char,
+        c"%s".as_ptr(),
         &raw mut str as *mut ::core::ffi::c_char,
     );
     if !admin.is_null() {
         res = send_pooler_error(
             admin,
-            true_0 != 0,
+            true,
             ::core::ptr::null::<::core::ffi::c_char>(),
-            false_0 != 0,
+            false,
             &raw mut str as *mut ::core::ffi::c_char,
         );
     }
@@ -1794,18 +1743,8 @@ pub unsafe extern "C" fn admin_flush(
     mut buf: *mut PktBuf,
     mut desc: *const ::core::ffi::c_char,
 ) -> bool {
-    pktbuf_write_generic(
-        buf,
-        PqMsg_CommandComplete,
-        b"s\0" as *const u8 as *const ::core::ffi::c_char,
-        desc,
-    );
-    pktbuf_write_generic(
-        buf,
-        PqMsg_ReadyForQuery,
-        b"c\0" as *const u8 as *const ::core::ffi::c_char,
-        'I' as i32,
-    );
+    pktbuf_write_generic(buf, PqMsg_CommandComplete, c"s".as_ptr(), desc);
+    pktbuf_write_generic(buf, PqMsg_ReadyForQuery, c"c".as_ptr(), 'I' as i32);
     pktbuf_send_queued(buf, admin)
 }
 #[no_mangle]
@@ -1831,41 +1770,31 @@ pub unsafe extern "C" fn admin_ready(
         &raw mut tmp as *mut uint8_t,
         ::core::mem::size_of::<[uint8_t; 512]>() as ::core::ffi::c_int,
     );
-    pktbuf_write_generic(
-        &raw mut buf,
-        PqMsg_CommandComplete,
-        b"s\0" as *const u8 as *const ::core::ffi::c_char,
-        desc,
-    );
-    pktbuf_write_generic(
-        &raw mut buf,
-        PqMsg_ReadyForQuery,
-        b"c\0" as *const u8 as *const ::core::ffi::c_char,
-        'I' as i32,
-    );
+    pktbuf_write_generic(&raw mut buf, PqMsg_CommandComplete, c"s".as_ptr(), desc);
+    pktbuf_write_generic(&raw mut buf, PqMsg_ReadyForQuery, c"c".as_ptr(), 'I' as i32);
     pktbuf_send_immediate(&raw mut buf, admin)
 }
 
 static mut fake_param_list: [FakeParam; 6] = [
     FakeParam {
-        name: b"client_encoding\0" as *const u8 as *const ::core::ffi::c_char,
-        value: b"UTF-8\0" as *const u8 as *const ::core::ffi::c_char,
+        name: c"client_encoding".as_ptr(),
+        value: c"UTF-8".as_ptr(),
     },
     FakeParam {
-        name: b"default_transaction_isolation\0" as *const u8 as *const ::core::ffi::c_char,
-        value: b"read committed\0" as *const u8 as *const ::core::ffi::c_char,
+        name: c"default_transaction_isolation".as_ptr(),
+        value: c"read committed".as_ptr(),
     },
     FakeParam {
-        name: b"standard_conforming_strings\0" as *const u8 as *const ::core::ffi::c_char,
-        value: b"on\0" as *const u8 as *const ::core::ffi::c_char,
+        name: c"standard_conforming_strings".as_ptr(),
+        value: c"on".as_ptr(),
     },
     FakeParam {
-        name: b"datestyle\0" as *const u8 as *const ::core::ffi::c_char,
-        value: b"ISO\0" as *const u8 as *const ::core::ffi::c_char,
+        name: c"datestyle".as_ptr(),
+        value: c"ISO".as_ptr(),
     },
     FakeParam {
-        name: b"timezone\0" as *const u8 as *const ::core::ffi::c_char,
-        value: b"GMT\0" as *const u8 as *const ::core::ffi::c_char,
+        name: c"timezone".as_ptr(),
+        value: c"GMT".as_ptr(),
     },
     FakeParam {
         name: ::core::ptr::null::<::core::ffi::c_char>(),
@@ -1879,11 +1808,11 @@ unsafe extern "C" fn fake_show(
 ) -> bool {
     let mut buf = ::core::ptr::null_mut::<PktBuf>();
     let mut p = ::core::ptr::null::<FakeParam>();
-    let mut got = false_0 != 0;
+    let mut got = false;
     p = &raw const fake_param_list as *const FakeParam;
     while !(*p).name.is_null() {
         if strcasecmp(name, (*p).name) == 0 as ::core::ffi::c_int {
-            got = true_0 != 0;
+            got = true;
             break;
         } else {
             p = p.offset(1);
@@ -1892,26 +1821,11 @@ unsafe extern "C" fn fake_show(
     if got {
         buf = pktbuf_dynamic(256 as ::core::ffi::c_int);
         if !buf.is_null() {
-            pktbuf_write_RowDescription(
-                buf,
-                b"s\0" as *const u8 as *const ::core::ffi::c_char,
-                (*p).name,
-            );
-            pktbuf_write_DataRow(
-                buf,
-                b"s\0" as *const u8 as *const ::core::ffi::c_char,
-                (*p).value,
-            );
-            admin_flush(
-                admin,
-                buf,
-                b"SHOW\0" as *const u8 as *const ::core::ffi::c_char,
-            );
+            pktbuf_write_RowDescription(buf, c"s".as_ptr(), (*p).name);
+            pktbuf_write_DataRow(buf, c"s".as_ptr(), (*p).value);
+            admin_flush(admin, buf, c"SHOW".as_ptr());
         } else {
-            admin_error(
-                admin,
-                b"no mem\0" as *const u8 as *const ::core::ffi::c_char,
-            );
+            admin_error(admin, c"no mem".as_ptr());
         }
     }
     got
@@ -1924,11 +1838,11 @@ unsafe extern "C" fn fake_set(
 ) -> bool {
     let mut buf = ::core::ptr::null_mut::<PktBuf>();
     let mut p = ::core::ptr::null::<FakeParam>();
-    let mut got = false_0 != 0;
+    let mut got = false;
     p = &raw const fake_param_list as *const FakeParam;
     while !(*p).name.is_null() {
         if strcasecmp(key, (*p).name) == 0 as ::core::ffi::c_int {
-            got = true_0 != 0;
+            got = true;
             break;
         } else {
             p = p.offset(1);
@@ -1940,23 +1854,16 @@ unsafe extern "C" fn fake_set(
             pktbuf_write_generic(
                 buf,
                 PqMsg_NoticeResponse,
-                b"sscss\0" as *const u8 as *const ::core::ffi::c_char,
-                b"SNOTICE\0" as *const u8 as *const ::core::ffi::c_char,
-                b"C00000\0" as *const u8 as *const ::core::ffi::c_char,
+                c"sscss".as_ptr(),
+                c"SNOTICE".as_ptr(),
+                c"C00000".as_ptr(),
                 'M' as i32,
-                b"SET ignored\0" as *const u8 as *const ::core::ffi::c_char,
-                b"\0" as *const u8 as *const ::core::ffi::c_char,
+                c"SET ignored".as_ptr(),
+                c"".as_ptr(),
             );
-            admin_flush(
-                admin,
-                buf,
-                b"SET\0" as *const u8 as *const ::core::ffi::c_char,
-            );
+            admin_flush(admin, buf, c"SET".as_ptr());
         } else {
-            admin_error(
-                admin,
-                b"no mem\0" as *const u8 as *const ::core::ffi::c_char,
-            );
+            admin_error(admin, c"no mem".as_ptr());
         }
     }
     got
@@ -1970,53 +1877,43 @@ unsafe extern "C" fn admin_set(
     let mut tmp: [::core::ffi::c_char; 512] = [0; 512];
     let mut ok: bool = false;
     if fake_set(admin, key, val) {
-        return true_0 != 0;
+        return true;
     }
     if (*admin).admin_user() {
         ok = set_config_param(key, val);
         if ok {
             let mut buf = pktbuf_dynamic(256 as ::core::ffi::c_int);
             if buf.is_null() {
-                return admin_error(
-                    admin,
-                    b"no mem\0" as *const u8 as *const ::core::ffi::c_char,
-                );
+                return admin_error(admin, c"no mem".as_ptr());
             }
-            if (!strstr(key, b"_tls_\0" as *const u8 as *const ::core::ffi::c_char).is_null()
-                || !strstr(key, b"_tls13_\0" as *const u8 as *const ::core::ffi::c_char).is_null())
+            if (!strstr(key, c"_tls_".as_ptr()).is_null()
+                || !strstr(key, c"_tls13_".as_ptr()).is_null())
                 && !sbuf_tls_setup()
             {
                 pktbuf_write_generic(
                     buf,
                     PqMsg_NoticeResponse,
-                    b"sscss\0" as *const u8 as *const ::core::ffi::c_char,
-                    b"SNOTICE\0" as *const u8 as *const ::core::ffi::c_char,
-                    b"C00000\0" as *const u8 as *const ::core::ffi::c_char,
+                    c"sscss".as_ptr(),
+                    c"SNOTICE".as_ptr(),
+                    c"C00000".as_ptr(),
                     'M' as i32,
-                    b"TLS settings could not be applied, still using old configuration\0"
-                        as *const u8 as *const ::core::ffi::c_char,
-                    b"\0" as *const u8 as *const ::core::ffi::c_char,
+                    c"TLS settings could not be applied, still using old configuration".as_ptr(),
+                    c"".as_ptr(),
                 );
             }
             snprintf(
                 &raw mut tmp as *mut ::core::ffi::c_char,
                 ::core::mem::size_of::<[::core::ffi::c_char; 512]>() as size_t,
-                b"SET %s=%s\0" as *const u8 as *const ::core::ffi::c_char,
+                c"SET %s=%s".as_ptr(),
                 key,
                 val,
             );
             admin_flush(admin, buf, &raw mut tmp as *mut ::core::ffi::c_char)
         } else {
-            admin_error(
-                admin,
-                b"SET failed\0" as *const u8 as *const ::core::ffi::c_char,
-            )
+            admin_error(admin, c"SET failed".as_ptr())
         }
     } else {
-        admin_error(
-            admin,
-            b"admin access needed\0" as *const u8 as *const ::core::ffi::c_char,
-        )
+        admin_error(admin, c"admin access needed".as_ptr())
     }
 }
 
@@ -2059,7 +1956,7 @@ unsafe extern "C" fn send_one_fd(
     let mut pkt = pktbuf_temp();
     pktbuf_write_DataRow(
         pkt as *mut PktBuf,
-        b"issssiqisssssbb\0" as *const u8 as *const ::core::ffi::c_char,
+        c"issssiqisssssbb".as_ptr(),
         fd,
         task,
         user,
@@ -2079,7 +1976,7 @@ unsafe extern "C" fn send_one_fd(
         scram_server_key,
     );
     if (*pkt).failed() {
-        return false_0 != 0;
+        return false;
     }
     iovec.iov_base = (*pkt).buf as *mut ::core::ffi::c_void;
     iovec.iov_len = (*pkt).write_pos as size_t;
@@ -2121,7 +2018,7 @@ unsafe extern "C" fn send_one_fd(
         log_generic(
             LG_DEBUG,
             admin as *mut ::core::ffi::c_void,
-            b"sending socket list: fd=%d, len=%d\0" as *const u8 as *const ::core::ffi::c_char,
+            c"sending socket list: fd=%d, len=%d".as_ptr(),
             fd,
             msg.msg_controllen as ::core::ffi::c_int,
         );
@@ -2140,20 +2037,20 @@ unsafe extern "C" fn send_one_fd(
         log_generic(
             LG_ERROR,
             _log_ctx,
-            b"send_one_fd: sendmsg error: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"send_one_fd: sendmsg error: %s".as_ptr(),
             strerror(*__error()),
         );
-        return false_0 != 0;
+        return false;
     } else if res as size_t != iovec.iov_len {
         let mut _log_ctx_0 = NULL;
         log_generic(
             LG_ERROR,
             _log_ctx_0,
-            b"send_one_fd: partial sendmsg\0" as *const u8 as *const ::core::ffi::c_char,
+            c"send_one_fd: partial sendmsg".as_ptr(),
         );
-        return false_0 != 0;
+        return false;
     }
-    true_0 != 0
+    true
 }
 
 unsafe extern "C" fn show_one_fd(mut admin: *mut PgSocket, mut sk: *mut PgSocket) -> bool {
@@ -2181,9 +2078,9 @@ unsafe extern "C" fn show_one_fd(mut admin: *mut PgSocket, mut sk: *mut PgSocket
         .offset(VTimeZone as ::core::ffi::c_int as isize);
     let mut addrbuf: [::core::ffi::c_char; 56] = [0; 56];
     let mut password = ::core::ptr::null::<::core::ffi::c_char>();
-    let mut send_scram_keys = false_0 != 0;
+    let mut send_scram_keys = false;
     if !(*sk).sbuf.tls.is_null() || !(*sk).link.is_null() && !(*(*sk).link).sbuf.tls.is_null() {
-        return true_0 != 0;
+        return true;
     }
     mbuf_init_fixed_reader(
         &raw mut tmp,
@@ -2191,7 +2088,7 @@ unsafe extern "C" fn show_one_fd(mut admin: *mut PgSocket, mut sk: *mut PgSocket
         8 as ::core::ffi::c_uint,
     );
     if !mbuf_get_uint64be(&raw mut tmp, &raw mut ckey) {
-        return false_0 != 0;
+        return false;
     }
     if !(*sk).pool.is_null()
         && !(*(*(*sk).pool).db).auth_user_credentials.is_null()
@@ -2215,15 +2112,15 @@ unsafe extern "C" fn show_one_fd(mut admin: *mut PgSocket, mut sk: *mut PgSocket
         && !(*(*sk).pool).user_credentials.is_null()
         && (*(*(*sk).pool).user_credentials).use_scram_keys as ::core::ffi::c_int != 0
     {
-        send_scram_keys = true_0 != 0;
+        send_scram_keys = true;
     }
     send_one_fd(
         admin,
         (*sk).sbuf.sock,
         if (*sk).state() as ::core::ffi::c_int >= SV_FREE as ::core::ffi::c_int {
-            b"server\0" as *const u8 as *const ::core::ffi::c_char
+            c"server".as_ptr()
         } else {
-            b"client\0" as *const u8 as *const ::core::ffi::c_char
+            c"client".as_ptr()
         },
         if !(*sk).login_user_credentials.is_null() {
             &raw mut (*(*sk).login_user_credentials).name as *mut ::core::ffi::c_char
@@ -2300,7 +2197,7 @@ unsafe extern "C" fn show_pooler_cb(
     send_one_fd(
         arg as *mut PgSocket,
         fd,
-        b"pooler\0" as *const u8 as *const ::core::ffi::c_char,
+        c"pooler".as_ptr(),
         ::core::ptr::null::<::core::ffi::c_char>(),
         ::core::ptr::null::<::core::ffi::c_char>(),
         pga_ntop(
@@ -2309,7 +2206,7 @@ unsafe extern "C" fn show_pooler_cb(
             ::core::mem::size_of::<[::core::ffi::c_char; 56]>() as ::core::ffi::c_int,
         ),
         pga_port(a),
-        0 as uint64_t,
+        0,
         0 as ::core::ffi::c_int,
         ::core::ptr::null::<::core::ffi::c_char>(),
         ::core::ptr::null::<::core::ffi::c_char>(),
@@ -2340,7 +2237,7 @@ unsafe extern "C" fn show_pooler_fds(mut admin: *mut PgSocket) -> bool {
 unsafe extern "C" fn show_fds_from_list(mut admin: *mut PgSocket, mut list: *mut StatList) -> bool {
     let mut item = ::core::ptr::null_mut::<List>();
     let mut sk = ::core::ptr::null_mut::<PgSocket>();
-    let mut res = true_0 != 0;
+    let mut res = true;
     item = (*list).head.next;
     while item != &raw mut (*list).head {
         sk = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
@@ -2362,10 +2259,7 @@ unsafe extern "C" fn admin_show_fds(
     let mut pool = ::core::ptr::null_mut::<PgPool>();
     let mut res: bool = false;
     if !(*admin).admin_user() {
-        return admin_error(
-            admin,
-            b"admin access needed\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        return admin_error(admin, c"admin access needed".as_ptr());
     }
     socket_set_nonblocking((*admin).sbuf.sock, 0 as ::core::ffi::c_int != 0);
     let mut _data: [uint8_t; 512] = [0; 512];
@@ -2387,22 +2281,22 @@ unsafe extern "C" fn admin_show_fds(
     );
     pktbuf_write_RowDescription(
         &raw mut _buf,
-        b"issssiqisssssbb\0" as *const u8 as *const ::core::ffi::c_char,
-        b"fd\0" as *const u8 as *const ::core::ffi::c_char,
-        b"task\0" as *const u8 as *const ::core::ffi::c_char,
-        b"user\0" as *const u8 as *const ::core::ffi::c_char,
-        b"database\0" as *const u8 as *const ::core::ffi::c_char,
-        b"addr\0" as *const u8 as *const ::core::ffi::c_char,
-        b"port\0" as *const u8 as *const ::core::ffi::c_char,
-        b"cancel\0" as *const u8 as *const ::core::ffi::c_char,
-        b"link\0" as *const u8 as *const ::core::ffi::c_char,
-        b"client_encoding\0" as *const u8 as *const ::core::ffi::c_char,
-        b"std_strings\0" as *const u8 as *const ::core::ffi::c_char,
-        b"datestyle\0" as *const u8 as *const ::core::ffi::c_char,
-        b"timezone\0" as *const u8 as *const ::core::ffi::c_char,
-        b"password\0" as *const u8 as *const ::core::ffi::c_char,
-        b"scram_client_key\0" as *const u8 as *const ::core::ffi::c_char,
-        b"scram_server_key\0" as *const u8 as *const ::core::ffi::c_char,
+        c"issssiqisssssbb".as_ptr(),
+        c"fd".as_ptr(),
+        c"task".as_ptr(),
+        c"user".as_ptr(),
+        c"database".as_ptr(),
+        c"addr".as_ptr(),
+        c"port".as_ptr(),
+        c"cancel".as_ptr(),
+        c"link".as_ptr(),
+        c"client_encoding".as_ptr(),
+        c"std_strings".as_ptr(),
+        c"datestyle".as_ptr(),
+        c"timezone".as_ptr(),
+        c"password".as_ptr(),
+        c"scram_client_key".as_ptr(),
+        c"scram_server_key".as_ptr(),
     );
     res = pktbuf_send_immediate(&raw mut _buf, admin);
     if res {
@@ -2451,7 +2345,7 @@ unsafe extern "C" fn admin_show_fds(
         item = (*item).next;
     }
     if res {
-        res = admin_ready(admin, b"SHOW\0" as *const u8 as *const ::core::ffi::c_char);
+        res = admin_ready(admin, c"SHOW".as_ptr());
     }
     socket_set_nonblocking((*admin).sbuf.sock, 1 as ::core::ffi::c_int != 0);
     res
@@ -2487,38 +2381,35 @@ unsafe extern "C" fn admin_show_databases(
         &raw const load_balance_hosts_map as *const CfLookup as *const ::core::ffi::c_void;
     buf = pktbuf_dynamic(256 as ::core::ffi::c_int);
     if buf.is_null() {
-        admin_error(
-            admin,
-            b"no mem\0" as *const u8 as *const ::core::ffi::c_char,
-        );
-        return true_0 != 0;
+        admin_error(admin, c"no mem".as_ptr());
+        return true;
     }
     pktbuf_write_RowDescription(
         buf,
-        b"ssissiiiissiiiiii\0" as *const u8 as *const ::core::ffi::c_char,
-        b"name\0" as *const u8 as *const ::core::ffi::c_char,
-        b"host\0" as *const u8 as *const ::core::ffi::c_char,
-        b"port\0" as *const u8 as *const ::core::ffi::c_char,
-        b"database\0" as *const u8 as *const ::core::ffi::c_char,
-        b"force_user\0" as *const u8 as *const ::core::ffi::c_char,
-        b"pool_size\0" as *const u8 as *const ::core::ffi::c_char,
-        b"min_pool_size\0" as *const u8 as *const ::core::ffi::c_char,
-        b"reserve_pool_size\0" as *const u8 as *const ::core::ffi::c_char,
-        b"server_lifetime\0" as *const u8 as *const ::core::ffi::c_char,
-        b"pool_mode\0" as *const u8 as *const ::core::ffi::c_char,
-        b"load_balance_hosts\0" as *const u8 as *const ::core::ffi::c_char,
-        b"max_connections\0" as *const u8 as *const ::core::ffi::c_char,
-        b"current_connections\0" as *const u8 as *const ::core::ffi::c_char,
-        b"max_client_connections\0" as *const u8 as *const ::core::ffi::c_char,
-        b"current_client_connections\0" as *const u8 as *const ::core::ffi::c_char,
-        b"paused\0" as *const u8 as *const ::core::ffi::c_char,
-        b"disabled\0" as *const u8 as *const ::core::ffi::c_char,
+        c"ssissiiiissiiiiii".as_ptr(),
+        c"name".as_ptr(),
+        c"host".as_ptr(),
+        c"port".as_ptr(),
+        c"database".as_ptr(),
+        c"force_user".as_ptr(),
+        c"pool_size".as_ptr(),
+        c"min_pool_size".as_ptr(),
+        c"reserve_pool_size".as_ptr(),
+        c"server_lifetime".as_ptr(),
+        c"pool_mode".as_ptr(),
+        c"load_balance_hosts".as_ptr(),
+        c"max_connections".as_ptr(),
+        c"current_connections".as_ptr(),
+        c"max_client_connections".as_ptr(),
+        c"current_client_connections".as_ptr(),
+        c"paused".as_ptr(),
+        c"disabled".as_ptr(),
     );
     item = database_list.head.next;
     while item != &raw mut database_list.head {
         db = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
             as *mut PgDatabase;
-        server_lifetime_secs = (if (*db).server_lifetime > 0 as usec_t {
+        server_lifetime_secs = (if (*db).server_lifetime > 0 {
             (*db).server_lifetime
         } else {
             cf_server_lifetime
@@ -2542,7 +2433,7 @@ unsafe extern "C" fn admin_show_databases(
         }
         pktbuf_write_DataRow(
             buf,
-            b"ssissiiiissiiiiii\0" as *const u8 as *const ::core::ffi::c_char,
+            c"ssissiiiissiiiiii".as_ptr(),
             &raw mut (*db).name as *mut ::core::ffi::c_char,
             (*db).host,
             (*db).port,
@@ -2575,12 +2466,8 @@ unsafe extern "C" fn admin_show_databases(
         );
         item = (*item).next;
     }
-    admin_flush(
-        admin,
-        buf,
-        b"SHOW\0" as *const u8 as *const ::core::ffi::c_char,
-    );
-    true_0 != 0
+    admin_flush(admin, buf, c"SHOW".as_ptr());
+    true
 }
 
 unsafe extern "C" fn admin_show_peers(
@@ -2592,19 +2479,16 @@ unsafe extern "C" fn admin_show_peers(
     let mut buf = ::core::ptr::null_mut::<PktBuf>();
     buf = pktbuf_dynamic(256 as ::core::ffi::c_int);
     if buf.is_null() {
-        admin_error(
-            admin,
-            b"no mem\0" as *const u8 as *const ::core::ffi::c_char,
-        );
-        return true_0 != 0;
+        admin_error(admin, c"no mem".as_ptr());
+        return true;
     }
     pktbuf_write_RowDescription(
         buf,
-        b"isii\0" as *const u8 as *const ::core::ffi::c_char,
-        b"peer_id\0" as *const u8 as *const ::core::ffi::c_char,
-        b"host\0" as *const u8 as *const ::core::ffi::c_char,
-        b"port\0" as *const u8 as *const ::core::ffi::c_char,
-        b"pool_size\0" as *const u8 as *const ::core::ffi::c_char,
+        c"isii".as_ptr(),
+        c"peer_id".as_ptr(),
+        c"host".as_ptr(),
+        c"port".as_ptr(),
+        c"pool_size".as_ptr(),
     );
     item = peer_list.head.next;
     while item != &raw mut peer_list.head {
@@ -2612,7 +2496,7 @@ unsafe extern "C" fn admin_show_peers(
             as *mut PgDatabase;
         pktbuf_write_DataRow(
             buf,
-            b"isii\0" as *const u8 as *const ::core::ffi::c_char,
+            c"isii".as_ptr(),
             (*peer).peer_id,
             (*peer).host,
             (*peer).port,
@@ -2624,12 +2508,8 @@ unsafe extern "C" fn admin_show_peers(
         );
         item = (*item).next;
     }
-    admin_flush(
-        admin,
-        buf,
-        b"SHOW\0" as *const u8 as *const ::core::ffi::c_char,
-    );
-    true_0 != 0
+    admin_flush(admin, buf, c"SHOW".as_ptr());
+    true
 }
 
 unsafe extern "C" fn admin_show_lists(
@@ -2638,76 +2518,68 @@ unsafe extern "C" fn admin_show_lists(
 ) -> bool {
     let mut buf = pktbuf_dynamic(256 as ::core::ffi::c_int);
     if buf.is_null() {
-        admin_error(
-            admin,
-            b"no mem\0" as *const u8 as *const ::core::ffi::c_char,
-        );
-        return true_0 != 0;
+        admin_error(admin, c"no mem".as_ptr());
+        return true;
     }
-    pktbuf_write_RowDescription(
-        buf,
-        b"si\0" as *const u8 as *const ::core::ffi::c_char,
-        b"list\0" as *const u8 as *const ::core::ffi::c_char,
-        b"items\0" as *const u8 as *const ::core::ffi::c_char,
-    );
+    pktbuf_write_RowDescription(buf, c"si".as_ptr(), c"list".as_ptr(), c"items".as_ptr());
     pktbuf_write_DataRow(
         buf,
-        b"si\0" as *const u8 as *const ::core::ffi::c_char,
-        b"databases\0" as *const u8 as *const ::core::ffi::c_char,
+        c"si".as_ptr(),
+        c"databases".as_ptr(),
         statlist_count(&raw mut database_list),
     );
     pktbuf_write_DataRow(
         buf,
-        b"si\0" as *const u8 as *const ::core::ffi::c_char,
-        b"users\0" as *const u8 as *const ::core::ffi::c_char,
+        c"si".as_ptr(),
+        c"users".as_ptr(),
         statlist_count(&raw mut user_list),
     );
     pktbuf_write_DataRow(
         buf,
-        b"si\0" as *const u8 as *const ::core::ffi::c_char,
-        b"peers\0" as *const u8 as *const ::core::ffi::c_char,
+        c"si".as_ptr(),
+        c"peers".as_ptr(),
         statlist_count(&raw mut peer_list),
     );
     pktbuf_write_DataRow(
         buf,
-        b"si\0" as *const u8 as *const ::core::ffi::c_char,
-        b"pools\0" as *const u8 as *const ::core::ffi::c_char,
+        c"si".as_ptr(),
+        c"pools".as_ptr(),
         statlist_count(&raw mut pool_list),
     );
     pktbuf_write_DataRow(
         buf,
-        b"si\0" as *const u8 as *const ::core::ffi::c_char,
-        b"peer_pools\0" as *const u8 as *const ::core::ffi::c_char,
+        c"si".as_ptr(),
+        c"peer_pools".as_ptr(),
         statlist_count(&raw mut peer_pool_list),
     );
     pktbuf_write_DataRow(
         buf,
-        b"si\0" as *const u8 as *const ::core::ffi::c_char,
-        b"free_clients\0" as *const u8 as *const ::core::ffi::c_char,
+        c"si".as_ptr(),
+        c"free_clients".as_ptr(),
         slab_free_count(client_cache),
     );
     pktbuf_write_DataRow(
         buf,
-        b"si\0" as *const u8 as *const ::core::ffi::c_char,
-        b"used_clients\0" as *const u8 as *const ::core::ffi::c_char,
+        c"si".as_ptr(),
+        c"used_clients".as_ptr(),
         slab_active_count(client_cache),
     );
     pktbuf_write_DataRow(
         buf,
-        b"si\0" as *const u8 as *const ::core::ffi::c_char,
-        b"login_clients\0" as *const u8 as *const ::core::ffi::c_char,
+        c"si".as_ptr(),
+        c"login_clients".as_ptr(),
         statlist_count(&raw mut login_client_list),
     );
     pktbuf_write_DataRow(
         buf,
-        b"si\0" as *const u8 as *const ::core::ffi::c_char,
-        b"free_servers\0" as *const u8 as *const ::core::ffi::c_char,
+        c"si".as_ptr(),
+        c"free_servers".as_ptr(),
         slab_free_count(server_cache),
     );
     pktbuf_write_DataRow(
         buf,
-        b"si\0" as *const u8 as *const ::core::ffi::c_char,
-        b"used_servers\0" as *const u8 as *const ::core::ffi::c_char,
+        c"si".as_ptr(),
+        c"used_servers".as_ptr(),
         slab_active_count(server_cache),
     );
     let mut names: ::core::ffi::c_int = 0;
@@ -2721,36 +2593,12 @@ unsafe extern "C" fn admin_show_lists(
         &raw mut qry,
         &raw mut pend,
     );
-    pktbuf_write_DataRow(
-        buf,
-        b"si\0" as *const u8 as *const ::core::ffi::c_char,
-        b"dns_names\0" as *const u8 as *const ::core::ffi::c_char,
-        names,
-    );
-    pktbuf_write_DataRow(
-        buf,
-        b"si\0" as *const u8 as *const ::core::ffi::c_char,
-        b"dns_zones\0" as *const u8 as *const ::core::ffi::c_char,
-        zones,
-    );
-    pktbuf_write_DataRow(
-        buf,
-        b"si\0" as *const u8 as *const ::core::ffi::c_char,
-        b"dns_queries\0" as *const u8 as *const ::core::ffi::c_char,
-        qry,
-    );
-    pktbuf_write_DataRow(
-        buf,
-        b"si\0" as *const u8 as *const ::core::ffi::c_char,
-        b"dns_pending\0" as *const u8 as *const ::core::ffi::c_char,
-        pend,
-    );
-    admin_flush(
-        admin,
-        buf,
-        b"SHOW\0" as *const u8 as *const ::core::ffi::c_char,
-    );
-    true_0 != 0
+    pktbuf_write_DataRow(buf, c"si".as_ptr(), c"dns_names".as_ptr(), names);
+    pktbuf_write_DataRow(buf, c"si".as_ptr(), c"dns_zones".as_ptr(), zones);
+    pktbuf_write_DataRow(buf, c"si".as_ptr(), c"dns_queries".as_ptr(), qry);
+    pktbuf_write_DataRow(buf, c"si".as_ptr(), c"dns_pending".as_ptr(), pend);
+    admin_flush(admin, buf, c"SHOW".as_ptr());
+    true
 }
 
 unsafe extern "C" fn admin_show_users(
@@ -2772,24 +2620,21 @@ unsafe extern "C" fn admin_show_users(
         ::core::mem::transmute::<[u8; 12], [::core::ffi::c_char; 12]>(*b"\0\0\0\0\0\0\0\0\0\0\0\0");
     let mut pool_mode_str = ::core::ptr::null::<::core::ffi::c_char>();
     if buf.is_null() {
-        admin_error(
-            admin,
-            b"no mem\0" as *const u8 as *const ::core::ffi::c_char,
-        );
-        return true_0 != 0;
+        admin_error(admin, c"no mem".as_ptr());
+        return true;
     }
     cv.extra = &raw const pool_mode_map as *const CfLookup as *const ::core::ffi::c_void;
     pktbuf_write_RowDescription(
         buf,
-        b"ssssiiii\0" as *const u8 as *const ::core::ffi::c_char,
-        b"name\0" as *const u8 as *const ::core::ffi::c_char,
-        b"pool_size\0" as *const u8 as *const ::core::ffi::c_char,
-        b"reserve_pool_size\0" as *const u8 as *const ::core::ffi::c_char,
-        b"pool_mode\0" as *const u8 as *const ::core::ffi::c_char,
-        b"max_user_connections\0" as *const u8 as *const ::core::ffi::c_char,
-        b"current_connections\0" as *const u8 as *const ::core::ffi::c_char,
-        b"max_user_client_connections\0" as *const u8 as *const ::core::ffi::c_char,
-        b"current_client_connections\0" as *const u8 as *const ::core::ffi::c_char,
+        c"ssssiiii".as_ptr(),
+        c"name".as_ptr(),
+        c"pool_size".as_ptr(),
+        c"reserve_pool_size".as_ptr(),
+        c"pool_mode".as_ptr(),
+        c"max_user_connections".as_ptr(),
+        c"current_connections".as_ptr(),
+        c"max_user_client_connections".as_ptr(),
+        c"current_client_connections".as_ptr(),
     );
     item = user_list.head.next;
     while item != &raw mut user_list.head {
@@ -2800,7 +2645,7 @@ unsafe extern "C" fn admin_show_users(
             snprintf(
                 &raw mut pool_size_str as *mut ::core::ffi::c_char,
                 ::core::mem::size_of::<[::core::ffi::c_char; 12]>() as size_t,
-                b"%9d\0" as *const u8 as *const ::core::ffi::c_char,
+                c"%9d".as_ptr(),
                 (*user).pool_size,
             );
         }
@@ -2808,7 +2653,7 @@ unsafe extern "C" fn admin_show_users(
             snprintf(
                 &raw mut res_pool_size_str as *mut ::core::ffi::c_char,
                 ::core::mem::size_of::<[::core::ffi::c_char; 12]>() as size_t,
-                b"%9d\0" as *const u8 as *const ::core::ffi::c_char,
+                c"%9d".as_ptr(),
                 (*user).res_pool_size,
             );
         }
@@ -2819,7 +2664,7 @@ unsafe extern "C" fn admin_show_users(
         }
         pktbuf_write_DataRow(
             buf,
-            b"ssssiiii\0" as *const u8 as *const ::core::ffi::c_char,
+            c"ssssiiii".as_ptr(),
             &raw mut (*user).credentials.name as *mut ::core::ffi::c_char,
             &raw mut pool_size_str as *mut ::core::ffi::c_char,
             &raw mut res_pool_size_str as *mut ::core::ffi::c_char,
@@ -2831,12 +2676,8 @@ unsafe extern "C" fn admin_show_users(
         );
         item = (*item).next;
     }
-    admin_flush(
-        admin,
-        buf,
-        b"SHOW\0" as *const u8 as *const ::core::ffi::c_char,
-    );
-    true_0 != 0
+    admin_flush(admin, buf, c"SHOW".as_ptr());
+    true
 }
 
 pub const SKF_STD: [::core::ffi::c_char; 22] = unsafe {
@@ -2857,34 +2698,34 @@ unsafe extern "C" fn socket_header(mut buf: *mut PktBuf, mut debug: bool) {
         } else {
             SKF_STD.as_ptr()
         },
-        b"type\0" as *const u8 as *const ::core::ffi::c_char,
-        b"user\0" as *const u8 as *const ::core::ffi::c_char,
-        b"database\0" as *const u8 as *const ::core::ffi::c_char,
-        b"replication\0" as *const u8 as *const ::core::ffi::c_char,
-        b"state\0" as *const u8 as *const ::core::ffi::c_char,
-        b"addr\0" as *const u8 as *const ::core::ffi::c_char,
-        b"port\0" as *const u8 as *const ::core::ffi::c_char,
-        b"local_addr\0" as *const u8 as *const ::core::ffi::c_char,
-        b"local_port\0" as *const u8 as *const ::core::ffi::c_char,
-        b"connect_time\0" as *const u8 as *const ::core::ffi::c_char,
-        b"request_time\0" as *const u8 as *const ::core::ffi::c_char,
-        b"wait\0" as *const u8 as *const ::core::ffi::c_char,
-        b"wait_us\0" as *const u8 as *const ::core::ffi::c_char,
-        b"close_needed\0" as *const u8 as *const ::core::ffi::c_char,
-        b"ptr\0" as *const u8 as *const ::core::ffi::c_char,
-        b"link\0" as *const u8 as *const ::core::ffi::c_char,
-        b"remote_pid\0" as *const u8 as *const ::core::ffi::c_char,
-        b"tls\0" as *const u8 as *const ::core::ffi::c_char,
-        b"application_name\0" as *const u8 as *const ::core::ffi::c_char,
-        b"prepared_statements\0" as *const u8 as *const ::core::ffi::c_char,
-        b"id\0" as *const u8 as *const ::core::ffi::c_char,
-        b"recv_pos\0" as *const u8 as *const ::core::ffi::c_char,
-        b"pkt_pos\0" as *const u8 as *const ::core::ffi::c_char,
-        b"pkt_remain\0" as *const u8 as *const ::core::ffi::c_char,
-        b"send_pos\0" as *const u8 as *const ::core::ffi::c_char,
-        b"send_remain\0" as *const u8 as *const ::core::ffi::c_char,
-        b"pkt_avail\0" as *const u8 as *const ::core::ffi::c_char,
-        b"send_avail\0" as *const u8 as *const ::core::ffi::c_char,
+        c"type".as_ptr(),
+        c"user".as_ptr(),
+        c"database".as_ptr(),
+        c"replication".as_ptr(),
+        c"state".as_ptr(),
+        c"addr".as_ptr(),
+        c"port".as_ptr(),
+        c"local_addr".as_ptr(),
+        c"local_port".as_ptr(),
+        c"connect_time".as_ptr(),
+        c"request_time".as_ptr(),
+        c"wait".as_ptr(),
+        c"wait_us".as_ptr(),
+        c"close_needed".as_ptr(),
+        c"ptr".as_ptr(),
+        c"link".as_ptr(),
+        c"remote_pid".as_ptr(),
+        c"tls".as_ptr(),
+        c"application_name".as_ptr(),
+        c"prepared_statements".as_ptr(),
+        c"id".as_ptr(),
+        c"recv_pos".as_ptr(),
+        c"pkt_pos".as_ptr(),
+        c"pkt_remain".as_ptr(),
+        c"send_pos".as_ptr(),
+        c"send_remain".as_ptr(),
+        c"pkt_avail".as_ptr(),
+        c"send_avail".as_ptr(),
     );
 }
 
@@ -2925,7 +2766,7 @@ unsafe extern "C" fn socket_row(
     let mut wait_time: usec_t = if (*sk).query_start != 0 {
         now.wrapping_sub((*sk).query_start)
     } else {
-        0 as usec_t
+        0
     };
     let mut replication = ::core::ptr::null_mut::<::core::ffi::c_char>();
     if !io.is_null() {
@@ -2945,14 +2786,14 @@ unsafe extern "C" fn socket_row(
     snprintf(
         &raw mut ptrbuf as *mut ::core::ffi::c_char,
         ::core::mem::size_of::<[::core::ffi::c_char; 128]>() as size_t,
-        b"%p\0" as *const u8 as *const ::core::ffi::c_char,
+        c"%p".as_ptr(),
         sk,
     );
     if !(*sk).link.is_null() {
         snprintf(
             &raw mut linkbuf as *mut ::core::ffi::c_char,
             ::core::mem::size_of::<[::core::ffi::c_char; 128]>() as size_t,
-            b"%p\0" as *const u8 as *const ::core::ffi::c_char,
+            c"%p".as_ptr(),
             (*sk).link,
         );
     } else {
@@ -2993,16 +2834,13 @@ unsafe extern "C" fn socket_row(
     if (*sk).replication as ::core::ffi::c_uint
         == REPLICATION_NONE as ::core::ffi::c_int as ::core::ffi::c_uint
     {
-        replication =
-            b"none\0" as *const u8 as *const ::core::ffi::c_char as *mut ::core::ffi::c_char;
+        replication = c"none".as_ptr() as *mut ::core::ffi::c_char;
     } else if (*sk).replication as ::core::ffi::c_uint
         == REPLICATION_LOGICAL as ::core::ffi::c_int as ::core::ffi::c_uint
     {
-        replication =
-            b"logical\0" as *const u8 as *const ::core::ffi::c_char as *mut ::core::ffi::c_char;
+        replication = c"logical".as_ptr() as *mut ::core::ffi::c_char;
     } else {
-        replication =
-            b"physical\0" as *const u8 as *const ::core::ffi::c_char as *mut ::core::ffi::c_char;
+        replication = c"physical".as_ptr() as *mut ::core::ffi::c_char;
     }
     pktbuf_write_DataRow(
         buf,
@@ -3012,30 +2850,25 @@ unsafe extern "C" fn socket_row(
             SKF_STD.as_ptr()
         },
         if (*sk).state() as ::core::ffi::c_int >= SV_FREE as ::core::ffi::c_int {
-            b"S\0" as *const u8 as *const ::core::ffi::c_char
+            c"S".as_ptr()
         } else {
-            b"C\0" as *const u8 as *const ::core::ffi::c_char
+            c"C".as_ptr()
         },
         if !(*sk).login_user_credentials.is_null() {
             &raw mut (*(*sk).login_user_credentials).name as *mut ::core::ffi::c_char
                 as *const ::core::ffi::c_char
         } else {
-            b"(nouser)\0" as *const u8 as *const ::core::ffi::c_char
+            c"(nouser)".as_ptr()
         },
         if !(*sk).pool.is_null() && (*(*(*sk).pool).db).peer_id == 0 {
             &raw mut (*(*(*sk).pool).db).name as *mut ::core::ffi::c_char
                 as *const ::core::ffi::c_char
         } else {
-            b"(nodb)\0" as *const u8 as *const ::core::ffi::c_char
+            c"(nodb)".as_ptr()
         },
         replication,
-        if (*sk).link.is_null()
-            && strcmp(
-                state,
-                b"active\0" as *const u8 as *const ::core::ffi::c_char,
-            ) == 0 as ::core::ffi::c_int
-        {
-            b"idle\0" as *const u8 as *const ::core::ffi::c_char
+        if (*sk).link.is_null() && strcmp(state, c"active".as_ptr()) == 0 as ::core::ffi::c_int {
+            c"idle".as_ptr()
         } else {
             state
         },
@@ -3055,7 +2888,7 @@ unsafe extern "C" fn socket_row(
         if !application_name.is_null() {
             &raw const (*application_name).str_0 as *const ::core::ffi::c_char
         } else {
-            b"\0" as *const u8 as *const ::core::ffi::c_char
+            c"".as_ptr()
         },
         prepared_statement_count,
         (*sk).id,
@@ -3106,13 +2939,10 @@ unsafe extern "C" fn admin_show_clients(
     let mut pool = ::core::ptr::null_mut::<PgPool>();
     let mut buf = pktbuf_dynamic(256 as ::core::ffi::c_int);
     if buf.is_null() {
-        admin_error(
-            admin,
-            b"no mem\0" as *const u8 as *const ::core::ffi::c_char,
-        );
-        return true_0 != 0;
+        admin_error(admin, c"no mem".as_ptr());
+        return true;
     }
-    socket_header(buf, false_0 != 0);
+    socket_header(buf, false);
     item = pool_list.head.next;
     while item != &raw mut pool_list.head {
         pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
@@ -3120,26 +2950,26 @@ unsafe extern "C" fn admin_show_clients(
         show_socket_list(
             buf,
             &raw mut (*pool).active_client_list,
-            b"active\0" as *const u8 as *const ::core::ffi::c_char,
-            false_0 != 0,
+            c"active".as_ptr(),
+            false,
         );
         show_socket_list(
             buf,
             &raw mut (*pool).waiting_client_list,
-            b"waiting\0" as *const u8 as *const ::core::ffi::c_char,
-            false_0 != 0,
+            c"waiting".as_ptr(),
+            false,
         );
         show_socket_list(
             buf,
             &raw mut (*pool).active_cancel_req_list,
-            b"active_cancel_req\0" as *const u8 as *const ::core::ffi::c_char,
-            false_0 != 0,
+            c"active_cancel_req".as_ptr(),
+            false,
         );
         show_socket_list(
             buf,
             &raw mut (*pool).waiting_cancel_req_list,
-            b"waiting_cancel_req\0" as *const u8 as *const ::core::ffi::c_char,
-            false_0 != 0,
+            c"waiting_cancel_req".as_ptr(),
+            false,
         );
         item = (*item).next;
     }
@@ -3150,23 +2980,19 @@ unsafe extern "C" fn admin_show_clients(
         show_socket_list(
             buf,
             &raw mut (*pool).active_cancel_req_list,
-            b"active_cancel_req\0" as *const u8 as *const ::core::ffi::c_char,
-            false_0 != 0,
+            c"active_cancel_req".as_ptr(),
+            false,
         );
         show_socket_list(
             buf,
             &raw mut (*pool).waiting_cancel_req_list,
-            b"waiting_cancel_req\0" as *const u8 as *const ::core::ffi::c_char,
-            false_0 != 0,
+            c"waiting_cancel_req".as_ptr(),
+            false,
         );
         item = (*item).next;
     }
-    admin_flush(
-        admin,
-        buf,
-        b"SHOW\0" as *const u8 as *const ::core::ffi::c_char,
-    );
-    true_0 != 0
+    admin_flush(admin, buf, c"SHOW".as_ptr());
+    true
 }
 
 unsafe extern "C" fn admin_show_servers(
@@ -3178,13 +3004,10 @@ unsafe extern "C" fn admin_show_servers(
     let mut buf = ::core::ptr::null_mut::<PktBuf>();
     buf = pktbuf_dynamic(256 as ::core::ffi::c_int);
     if buf.is_null() {
-        admin_error(
-            admin,
-            b"no mem\0" as *const u8 as *const ::core::ffi::c_char,
-        );
-        return true_0 != 0;
+        admin_error(admin, c"no mem".as_ptr());
+        return true;
     }
-    socket_header(buf, false_0 != 0);
+    socket_header(buf, false);
     item = pool_list.head.next;
     while item != &raw mut pool_list.head {
         pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
@@ -3192,44 +3015,44 @@ unsafe extern "C" fn admin_show_servers(
         show_socket_list(
             buf,
             &raw mut (*pool).active_server_list,
-            b"active\0" as *const u8 as *const ::core::ffi::c_char,
-            false_0 != 0,
+            c"active".as_ptr(),
+            false,
         );
         show_socket_list(
             buf,
             &raw mut (*pool).idle_server_list,
-            b"idle\0" as *const u8 as *const ::core::ffi::c_char,
-            false_0 != 0,
+            c"idle".as_ptr(),
+            false,
         );
         show_socket_list(
             buf,
             &raw mut (*pool).used_server_list,
-            b"used\0" as *const u8 as *const ::core::ffi::c_char,
-            false_0 != 0,
+            c"used".as_ptr(),
+            false,
         );
         show_socket_list(
             buf,
             &raw mut (*pool).tested_server_list,
-            b"tested\0" as *const u8 as *const ::core::ffi::c_char,
-            false_0 != 0,
+            c"tested".as_ptr(),
+            false,
         );
         show_socket_list(
             buf,
             &raw mut (*pool).new_server_list,
-            b"new\0" as *const u8 as *const ::core::ffi::c_char,
-            false_0 != 0,
+            c"new".as_ptr(),
+            false,
         );
         show_socket_list(
             buf,
             &raw mut (*pool).active_cancel_server_list,
-            b"active_cancel\0" as *const u8 as *const ::core::ffi::c_char,
-            false_0 != 0,
+            c"active_cancel".as_ptr(),
+            false,
         );
         show_socket_list(
             buf,
             &raw mut (*pool).being_canceled_server_list,
-            b"being_canceled\0" as *const u8 as *const ::core::ffi::c_char,
-            false_0 != 0,
+            c"being_canceled".as_ptr(),
+            false,
         );
         item = (*item).next;
     }
@@ -3240,23 +3063,19 @@ unsafe extern "C" fn admin_show_servers(
         show_socket_list(
             buf,
             &raw mut (*pool).new_server_list,
-            b"new\0" as *const u8 as *const ::core::ffi::c_char,
-            false_0 != 0,
+            c"new".as_ptr(),
+            false,
         );
         show_socket_list(
             buf,
             &raw mut (*pool).active_cancel_server_list,
-            b"active_cancel\0" as *const u8 as *const ::core::ffi::c_char,
-            false_0 != 0,
+            c"active_cancel".as_ptr(),
+            false,
         );
         item = (*item).next;
     }
-    admin_flush(
-        admin,
-        buf,
-        b"SHOW\0" as *const u8 as *const ::core::ffi::c_char,
-    );
-    true_0 != 0
+    admin_flush(admin, buf, c"SHOW".as_ptr());
+    true
 }
 
 unsafe extern "C" fn admin_show_sockets(
@@ -3268,13 +3087,10 @@ unsafe extern "C" fn admin_show_sockets(
     let mut buf = ::core::ptr::null_mut::<PktBuf>();
     buf = pktbuf_dynamic(256 as ::core::ffi::c_int);
     if buf.is_null() {
-        admin_error(
-            admin,
-            b"no mem\0" as *const u8 as *const ::core::ffi::c_char,
-        );
-        return true_0 != 0;
+        admin_error(admin, c"no mem".as_ptr());
+        return true;
     }
-    socket_header(buf, true_0 != 0);
+    socket_header(buf, true);
     item = pool_list.head.next;
     while item != &raw mut pool_list.head {
         pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
@@ -3282,59 +3098,50 @@ unsafe extern "C" fn admin_show_sockets(
         show_socket_list(
             buf,
             &raw mut (*pool).active_client_list,
-            b"cl_active\0" as *const u8 as *const ::core::ffi::c_char,
-            true_0 != 0,
+            c"cl_active".as_ptr(),
+            true,
         );
         show_socket_list(
             buf,
             &raw mut (*pool).waiting_client_list,
-            b"cl_waiting\0" as *const u8 as *const ::core::ffi::c_char,
-            true_0 != 0,
+            c"cl_waiting".as_ptr(),
+            true,
         );
         show_socket_list(
             buf,
             &raw mut (*pool).active_server_list,
-            b"sv_active\0" as *const u8 as *const ::core::ffi::c_char,
-            true_0 != 0,
+            c"sv_active".as_ptr(),
+            true,
         );
         show_socket_list(
             buf,
             &raw mut (*pool).idle_server_list,
-            b"sv_idle\0" as *const u8 as *const ::core::ffi::c_char,
-            true_0 != 0,
+            c"sv_idle".as_ptr(),
+            true,
         );
         show_socket_list(
             buf,
             &raw mut (*pool).used_server_list,
-            b"sv_used\0" as *const u8 as *const ::core::ffi::c_char,
-            true_0 != 0,
+            c"sv_used".as_ptr(),
+            true,
         );
         show_socket_list(
             buf,
             &raw mut (*pool).tested_server_list,
-            b"sv_tested\0" as *const u8 as *const ::core::ffi::c_char,
-            true_0 != 0,
+            c"sv_tested".as_ptr(),
+            true,
         );
         show_socket_list(
             buf,
             &raw mut (*pool).new_server_list,
-            b"sv_login\0" as *const u8 as *const ::core::ffi::c_char,
-            true_0 != 0,
+            c"sv_login".as_ptr(),
+            true,
         );
         item = (*item).next;
     }
-    show_socket_list(
-        buf,
-        &raw mut login_client_list,
-        b"cl_login\0" as *const u8 as *const ::core::ffi::c_char,
-        true_0 != 0,
-    );
-    admin_flush(
-        admin,
-        buf,
-        b"SHOW\0" as *const u8 as *const ::core::ffi::c_char,
-    );
-    true_0 != 0
+    show_socket_list(buf, &raw mut login_client_list, c"cl_login".as_ptr(), true);
+    admin_flush(admin, buf, c"SHOW".as_ptr());
+    true
 }
 
 unsafe extern "C" fn show_active_socket_list(
@@ -3348,7 +3155,7 @@ unsafe extern "C" fn show_active_socket_list(
         let mut sk = (item as *mut ::core::ffi::c_char)
             .offset(-(0 as ::core::ffi::c_ulong as isize)) as *mut PgSocket;
         if !sbuf_is_empty(&raw mut (*sk).sbuf) {
-            socket_row(buf, sk, state, true_0 != 0);
+            socket_row(buf, sk, state, true);
         }
         item = (*item).next;
     }
@@ -3363,13 +3170,10 @@ unsafe extern "C" fn admin_show_active_sockets(
     let mut buf = ::core::ptr::null_mut::<PktBuf>();
     buf = pktbuf_dynamic(256 as ::core::ffi::c_int);
     if buf.is_null() {
-        admin_error(
-            admin,
-            b"no mem\0" as *const u8 as *const ::core::ffi::c_char,
-        );
-        return true_0 != 0;
+        admin_error(admin, c"no mem".as_ptr());
+        return true;
     }
-    socket_header(buf, true_0 != 0);
+    socket_header(buf, true);
     item = pool_list.head.next;
     while item != &raw mut pool_list.head {
         pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
@@ -3377,51 +3181,31 @@ unsafe extern "C" fn admin_show_active_sockets(
         show_active_socket_list(
             buf,
             &raw mut (*pool).active_client_list,
-            b"cl_active\0" as *const u8 as *const ::core::ffi::c_char,
+            c"cl_active".as_ptr(),
         );
         show_active_socket_list(
             buf,
             &raw mut (*pool).waiting_client_list,
-            b"cl_waiting\0" as *const u8 as *const ::core::ffi::c_char,
+            c"cl_waiting".as_ptr(),
         );
         show_active_socket_list(
             buf,
             &raw mut (*pool).active_server_list,
-            b"sv_active\0" as *const u8 as *const ::core::ffi::c_char,
+            c"sv_active".as_ptr(),
         );
-        show_active_socket_list(
-            buf,
-            &raw mut (*pool).idle_server_list,
-            b"sv_idle\0" as *const u8 as *const ::core::ffi::c_char,
-        );
-        show_active_socket_list(
-            buf,
-            &raw mut (*pool).used_server_list,
-            b"sv_used\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        show_active_socket_list(buf, &raw mut (*pool).idle_server_list, c"sv_idle".as_ptr());
+        show_active_socket_list(buf, &raw mut (*pool).used_server_list, c"sv_used".as_ptr());
         show_active_socket_list(
             buf,
             &raw mut (*pool).tested_server_list,
-            b"sv_tested\0" as *const u8 as *const ::core::ffi::c_char,
+            c"sv_tested".as_ptr(),
         );
-        show_active_socket_list(
-            buf,
-            &raw mut (*pool).new_server_list,
-            b"sv_login\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        show_active_socket_list(buf, &raw mut (*pool).new_server_list, c"sv_login".as_ptr());
         item = (*item).next;
     }
-    show_active_socket_list(
-        buf,
-        &raw mut login_client_list,
-        b"cl_login\0" as *const u8 as *const ::core::ffi::c_char,
-    );
-    admin_flush(
-        admin,
-        buf,
-        b"SHOW\0" as *const u8 as *const ::core::ffi::c_char,
-    );
-    true_0 != 0
+    show_active_socket_list(buf, &raw mut login_client_list, c"cl_login".as_ptr());
+    admin_flush(admin, buf, c"SHOW".as_ptr());
+    true
 }
 
 unsafe extern "C" fn admin_show_pools(
@@ -3456,32 +3240,29 @@ unsafe extern "C" fn admin_show_pools(
         &raw const load_balance_hosts_map as *const CfLookup as *const ::core::ffi::c_void;
     buf = pktbuf_dynamic(256 as ::core::ffi::c_int);
     if buf.is_null() {
-        admin_error(
-            admin,
-            b"no mem\0" as *const u8 as *const ::core::ffi::c_char,
-        );
-        return true_0 != 0;
+        admin_error(admin, c"no mem".as_ptr());
+        return true;
     }
     pktbuf_write_RowDescription(
         buf,
-        b"ssiiiiiiiiiiiiiss\0" as *const u8 as *const ::core::ffi::c_char,
-        b"database\0" as *const u8 as *const ::core::ffi::c_char,
-        b"user\0" as *const u8 as *const ::core::ffi::c_char,
-        b"cl_active\0" as *const u8 as *const ::core::ffi::c_char,
-        b"cl_waiting\0" as *const u8 as *const ::core::ffi::c_char,
-        b"cl_active_cancel_req\0" as *const u8 as *const ::core::ffi::c_char,
-        b"cl_waiting_cancel_req\0" as *const u8 as *const ::core::ffi::c_char,
-        b"sv_active\0" as *const u8 as *const ::core::ffi::c_char,
-        b"sv_active_cancel\0" as *const u8 as *const ::core::ffi::c_char,
-        b"sv_being_canceled\0" as *const u8 as *const ::core::ffi::c_char,
-        b"sv_idle\0" as *const u8 as *const ::core::ffi::c_char,
-        b"sv_used\0" as *const u8 as *const ::core::ffi::c_char,
-        b"sv_tested\0" as *const u8 as *const ::core::ffi::c_char,
-        b"sv_login\0" as *const u8 as *const ::core::ffi::c_char,
-        b"maxwait\0" as *const u8 as *const ::core::ffi::c_char,
-        b"maxwait_us\0" as *const u8 as *const ::core::ffi::c_char,
-        b"pool_mode\0" as *const u8 as *const ::core::ffi::c_char,
-        b"load_balance_hosts\0" as *const u8 as *const ::core::ffi::c_char,
+        c"ssiiiiiiiiiiiiiss".as_ptr(),
+        c"database".as_ptr(),
+        c"user".as_ptr(),
+        c"cl_active".as_ptr(),
+        c"cl_waiting".as_ptr(),
+        c"cl_active_cancel_req".as_ptr(),
+        c"cl_waiting_cancel_req".as_ptr(),
+        c"sv_active".as_ptr(),
+        c"sv_active_cancel".as_ptr(),
+        c"sv_being_canceled".as_ptr(),
+        c"sv_idle".as_ptr(),
+        c"sv_used".as_ptr(),
+        c"sv_tested".as_ptr(),
+        c"sv_login".as_ptr(),
+        c"maxwait".as_ptr(),
+        c"maxwait_us".as_ptr(),
+        c"pool_mode".as_ptr(),
+        c"load_balance_hosts".as_ptr(),
     );
     item = pool_list.head.next;
     while item != &raw mut pool_list.head {
@@ -3491,7 +3272,7 @@ unsafe extern "C" fn admin_show_pools(
         max_wait = if !waiter.is_null() && (*waiter).query_start != 0 {
             now.wrapping_sub((*waiter).query_start)
         } else {
-            0 as usec_t
+            0
         };
         pool_mode = probably_wrong_pool_pool_mode(pool);
         load_balance_hosts_str = ::core::ptr::null::<::core::ffi::c_char>();
@@ -3502,7 +3283,7 @@ unsafe extern "C" fn admin_show_pools(
         }
         pktbuf_write_DataRow(
             buf,
-            b"ssiiiiiiiiiiiiiss\0" as *const u8 as *const ::core::ffi::c_char,
+            c"ssiiiiiiiiiiiiiss".as_ptr(),
             &raw mut (*(*pool).db).name as *mut ::core::ffi::c_char,
             &raw mut (*(*pool).user_credentials).name as *mut ::core::ffi::c_char,
             statlist_count(&raw mut (*pool).active_client_list),
@@ -3523,12 +3304,8 @@ unsafe extern "C" fn admin_show_pools(
         );
         item = (*item).next;
     }
-    admin_flush(
-        admin,
-        buf,
-        b"SHOW\0" as *const u8 as *const ::core::ffi::c_char,
-    );
-    true_0 != 0
+    admin_flush(admin, buf, c"SHOW".as_ptr());
+    true
 }
 
 unsafe extern "C" fn admin_show_peer_pools(
@@ -3540,20 +3317,17 @@ unsafe extern "C" fn admin_show_peer_pools(
     let mut buf = ::core::ptr::null_mut::<PktBuf>();
     buf = pktbuf_dynamic(256 as ::core::ffi::c_int);
     if buf.is_null() {
-        admin_error(
-            admin,
-            b"no mem\0" as *const u8 as *const ::core::ffi::c_char,
-        );
-        return true_0 != 0;
+        admin_error(admin, c"no mem".as_ptr());
+        return true;
     }
     pktbuf_write_RowDescription(
         buf,
-        b"iiiii\0" as *const u8 as *const ::core::ffi::c_char,
-        b"peer_id\0" as *const u8 as *const ::core::ffi::c_char,
-        b"cl_active_cancel_req\0" as *const u8 as *const ::core::ffi::c_char,
-        b"cl_waiting_cancel_req\0" as *const u8 as *const ::core::ffi::c_char,
-        b"sv_active_cancel\0" as *const u8 as *const ::core::ffi::c_char,
-        b"sv_login\0" as *const u8 as *const ::core::ffi::c_char,
+        c"iiiii".as_ptr(),
+        c"peer_id".as_ptr(),
+        c"cl_active_cancel_req".as_ptr(),
+        c"cl_waiting_cancel_req".as_ptr(),
+        c"sv_active_cancel".as_ptr(),
+        c"sv_login".as_ptr(),
     );
     item = peer_pool_list.head.next;
     while item != &raw mut peer_pool_list.head {
@@ -3561,7 +3335,7 @@ unsafe extern "C" fn admin_show_peer_pools(
             as *mut PgPool;
         pktbuf_write_DataRow(
             buf,
-            b"iiiii\0" as *const u8 as *const ::core::ffi::c_char,
+            c"iiiii".as_ptr(),
             (*(*pool).db).peer_id,
             statlist_count(&raw mut (*pool).active_cancel_req_list),
             statlist_count(&raw mut (*pool).waiting_cancel_req_list),
@@ -3570,12 +3344,8 @@ unsafe extern "C" fn admin_show_peer_pools(
         );
         item = (*item).next;
     }
-    admin_flush(
-        admin,
-        buf,
-        b"SHOW\0" as *const u8 as *const ::core::ffi::c_char,
-    );
-    true_0 != 0
+    admin_flush(admin, buf, c"SHOW".as_ptr());
+    true
 }
 
 unsafe extern "C" fn slab_stat_cb(
@@ -3589,7 +3359,7 @@ unsafe extern "C" fn slab_stat_cb(
     let mut alloc = total.wrapping_mul(size);
     pktbuf_write_DataRow(
         buf,
-        b"siiii\0" as *const u8 as *const ::core::ffi::c_char,
+        c"siiii".as_ptr(),
         slab_name,
         size,
         total.wrapping_sub(free),
@@ -3605,20 +3375,17 @@ unsafe extern "C" fn admin_show_mem(
     let mut buf = ::core::ptr::null_mut::<PktBuf>();
     buf = pktbuf_dynamic(256 as ::core::ffi::c_int);
     if buf.is_null() {
-        admin_error(
-            admin,
-            b"no mem\0" as *const u8 as *const ::core::ffi::c_char,
-        );
-        return true_0 != 0;
+        admin_error(admin, c"no mem".as_ptr());
+        return true;
     }
     pktbuf_write_RowDescription(
         buf,
-        b"siiii\0" as *const u8 as *const ::core::ffi::c_char,
-        b"name\0" as *const u8 as *const ::core::ffi::c_char,
-        b"size\0" as *const u8 as *const ::core::ffi::c_char,
-        b"used\0" as *const u8 as *const ::core::ffi::c_char,
-        b"free\0" as *const u8 as *const ::core::ffi::c_char,
-        b"memtotal\0" as *const u8 as *const ::core::ffi::c_char,
+        c"siiii".as_ptr(),
+        c"name".as_ptr(),
+        c"size".as_ptr(),
+        c"used".as_ptr(),
+        c"free".as_ptr(),
+        c"memtotal".as_ptr(),
     );
     slab_stats(
         Some(
@@ -3633,12 +3400,8 @@ unsafe extern "C" fn admin_show_mem(
         ),
         buf as *mut ::core::ffi::c_void,
     );
-    admin_flush(
-        admin,
-        buf,
-        b"SHOW\0" as *const u8 as *const ::core::ffi::c_char,
-    );
-    true_0 != 0
+    admin_flush(admin, buf, c"SHOW".as_ptr());
+    true
 }
 
 unsafe extern "C" fn admin_show_state(
@@ -3648,54 +3411,42 @@ unsafe extern "C" fn admin_show_state(
     let mut buf = ::core::ptr::null_mut::<PktBuf>();
     buf = pktbuf_dynamic(64 as ::core::ffi::c_int);
     if buf.is_null() {
-        admin_error(
-            admin,
-            b"no mem\0" as *const u8 as *const ::core::ffi::c_char,
-        );
-        return true_0 != 0;
+        admin_error(admin, c"no mem".as_ptr());
+        return true;
     }
-    pktbuf_write_RowDescription(
-        buf,
-        b"ss\0" as *const u8 as *const ::core::ffi::c_char,
-        b"key\0" as *const u8 as *const ::core::ffi::c_char,
-        b"value\0" as *const u8 as *const ::core::ffi::c_char,
-    );
+    pktbuf_write_RowDescription(buf, c"ss".as_ptr(), c"key".as_ptr(), c"value".as_ptr());
     pktbuf_write_DataRow(
         buf,
-        b"ss\0" as *const u8 as *const ::core::ffi::c_char,
-        b"active\0" as *const u8 as *const ::core::ffi::c_char,
+        c"ss".as_ptr(),
+        c"active".as_ptr(),
         if cf_pause_mode == P_NONE as ::core::ffi::c_int {
-            b"yes\0" as *const u8 as *const ::core::ffi::c_char
+            c"yes".as_ptr()
         } else {
-            b"no\0" as *const u8 as *const ::core::ffi::c_char
+            c"no".as_ptr()
         },
     );
     pktbuf_write_DataRow(
         buf,
-        b"ss\0" as *const u8 as *const ::core::ffi::c_char,
-        b"paused\0" as *const u8 as *const ::core::ffi::c_char,
+        c"ss".as_ptr(),
+        c"paused".as_ptr(),
         if cf_pause_mode == P_PAUSE as ::core::ffi::c_int {
-            b"yes\0" as *const u8 as *const ::core::ffi::c_char
+            c"yes".as_ptr()
         } else {
-            b"no\0" as *const u8 as *const ::core::ffi::c_char
+            c"no".as_ptr()
         },
     );
     pktbuf_write_DataRow(
         buf,
-        b"ss\0" as *const u8 as *const ::core::ffi::c_char,
-        b"suspended\0" as *const u8 as *const ::core::ffi::c_char,
+        c"ss".as_ptr(),
+        c"suspended".as_ptr(),
         if cf_pause_mode == P_SUSPEND as ::core::ffi::c_int {
-            b"yes\0" as *const u8 as *const ::core::ffi::c_char
+            c"yes".as_ptr()
         } else {
-            b"no\0" as *const u8 as *const ::core::ffi::c_char
+            c"no".as_ptr()
         },
     );
-    admin_flush(
-        admin,
-        buf,
-        b"SHOW\0" as *const u8 as *const ::core::ffi::c_char,
-    );
-    true_0 != 0
+    admin_flush(admin, buf, c"SHOW".as_ptr());
+    true
 }
 
 unsafe extern "C" fn dns_name_cb(
@@ -3730,10 +3481,10 @@ unsafe extern "C" fn dns_name_cb(
     *s = 0 as ::core::ffi::c_char;
     pktbuf_write_DataRow(
         buf,
-        b"sqs\0" as *const u8 as *const ::core::ffi::c_char,
+        c"sqs".as_ptr(),
         name,
         if ttl < now {
-            0 as usec_t
+            0
         } else {
             ttl.wrapping_sub(now).wrapping_div(USEC)
         },
@@ -3748,18 +3499,15 @@ unsafe extern "C" fn admin_show_dns_hosts(
     let mut buf = ::core::ptr::null_mut::<PktBuf>();
     buf = pktbuf_dynamic(256 as ::core::ffi::c_int);
     if buf.is_null() {
-        admin_error(
-            admin,
-            b"no mem\0" as *const u8 as *const ::core::ffi::c_char,
-        );
-        return true_0 != 0;
+        admin_error(admin, c"no mem".as_ptr());
+        return true;
     }
     pktbuf_write_RowDescription(
         buf,
-        b"sqs\0" as *const u8 as *const ::core::ffi::c_char,
-        b"hostname\0" as *const u8 as *const ::core::ffi::c_char,
-        b"ttl\0" as *const u8 as *const ::core::ffi::c_char,
-        b"addrs\0" as *const u8 as *const ::core::ffi::c_char,
+        c"sqs".as_ptr(),
+        c"hostname".as_ptr(),
+        c"ttl".as_ptr(),
+        c"addrs".as_ptr(),
     );
     adns_walk_names(
         adns,
@@ -3774,12 +3522,8 @@ unsafe extern "C" fn admin_show_dns_hosts(
         ),
         buf as *mut ::core::ffi::c_void,
     );
-    admin_flush(
-        admin,
-        buf,
-        b"SHOW\0" as *const u8 as *const ::core::ffi::c_char,
-    );
-    true_0 != 0
+    admin_flush(admin, buf, c"SHOW".as_ptr());
+    true
 }
 
 unsafe extern "C" fn dns_zone_cb(
@@ -3789,13 +3533,7 @@ unsafe extern "C" fn dns_zone_cb(
     mut nhosts: ::core::ffi::c_int,
 ) {
     let mut buf = arg as *mut PktBuf;
-    pktbuf_write_DataRow(
-        buf,
-        b"sqi\0" as *const u8 as *const ::core::ffi::c_char,
-        name,
-        serial as uint64_t,
-        nhosts,
-    );
+    pktbuf_write_DataRow(buf, c"sqi".as_ptr(), name, serial as uint64_t, nhosts);
 }
 
 unsafe extern "C" fn admin_show_dns_zones(
@@ -3805,18 +3543,15 @@ unsafe extern "C" fn admin_show_dns_zones(
     let mut buf = ::core::ptr::null_mut::<PktBuf>();
     buf = pktbuf_dynamic(256 as ::core::ffi::c_int);
     if buf.is_null() {
-        admin_error(
-            admin,
-            b"no mem\0" as *const u8 as *const ::core::ffi::c_char,
-        );
-        return true_0 != 0;
+        admin_error(admin, c"no mem".as_ptr());
+        return true;
     }
     pktbuf_write_RowDescription(
         buf,
-        b"sqi\0" as *const u8 as *const ::core::ffi::c_char,
-        b"zonename\0" as *const u8 as *const ::core::ffi::c_char,
-        b"serial\0" as *const u8 as *const ::core::ffi::c_char,
-        b"count\0" as *const u8 as *const ::core::ffi::c_char,
+        c"sqi".as_ptr(),
+        c"zonename".as_ptr(),
+        c"serial".as_ptr(),
+        c"count".as_ptr(),
     );
     adns_walk_zones(
         adns,
@@ -3831,12 +3566,8 @@ unsafe extern "C" fn admin_show_dns_zones(
         ),
         buf as *mut ::core::ffi::c_void,
     );
-    admin_flush(
-        admin,
-        buf,
-        b"SHOW\0" as *const u8 as *const ::core::ffi::c_char,
-    );
-    true_0 != 0
+    admin_flush(admin, buf, c"SHOW".as_ptr());
+    true
 }
 
 unsafe extern "C" fn show_one_param(
@@ -3849,14 +3580,14 @@ unsafe extern "C" fn show_one_param(
     let mut buf = arg as *mut PktBuf;
     pktbuf_write_DataRow(
         buf,
-        b"ssss\0" as *const u8 as *const ::core::ffi::c_char,
+        c"ssss".as_ptr(),
         name,
         val,
         defval,
         if reloadable as ::core::ffi::c_int != 0 {
-            b"yes\0" as *const u8 as *const ::core::ffi::c_char
+            c"yes".as_ptr()
         } else {
-            b"no\0" as *const u8 as *const ::core::ffi::c_char
+            c"no".as_ptr()
         },
     );
 }
@@ -3868,19 +3599,16 @@ unsafe extern "C" fn admin_show_config(
     let mut buf = ::core::ptr::null_mut::<PktBuf>();
     buf = pktbuf_dynamic(256 as ::core::ffi::c_int);
     if buf.is_null() {
-        admin_error(
-            admin,
-            b"no mem\0" as *const u8 as *const ::core::ffi::c_char,
-        );
-        return true_0 != 0;
+        admin_error(admin, c"no mem".as_ptr());
+        return true;
     }
     pktbuf_write_RowDescription(
         buf,
-        b"ssss\0" as *const u8 as *const ::core::ffi::c_char,
-        b"key\0" as *const u8 as *const ::core::ffi::c_char,
-        b"value\0" as *const u8 as *const ::core::ffi::c_char,
-        b"default\0" as *const u8 as *const ::core::ffi::c_char,
-        b"changeable\0" as *const u8 as *const ::core::ffi::c_char,
+        c"ssss".as_ptr(),
+        c"key".as_ptr(),
+        c"value".as_ptr(),
+        c"default".as_ptr(),
+        c"changeable".as_ptr(),
     );
     config_for_each(
         Some(
@@ -3895,67 +3623,50 @@ unsafe extern "C" fn admin_show_config(
         ),
         buf as *mut ::core::ffi::c_void,
     );
-    admin_flush(
-        admin,
-        buf,
-        b"SHOW\0" as *const u8 as *const ::core::ffi::c_char,
-    );
-    true_0 != 0
+    admin_flush(admin, buf, c"SHOW".as_ptr());
+    true
 }
 
 unsafe extern "C" fn admin_cmd_reload(
     mut admin: *mut PgSocket,
     mut arg: *const ::core::ffi::c_char,
 ) -> bool {
-    let mut ok = true_0 != 0;
+    let mut ok = true;
     if !arg.is_null() && *arg as ::core::ffi::c_int != 0 {
         return syntax_error(admin);
     }
     if !(*admin).admin_user() {
-        return admin_error(
-            admin,
-            b"admin access needed\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        return admin_error(admin, c"admin access needed".as_ptr());
     }
     let mut _log_ctx = NULL;
-    log_generic(
-        LG_INFO,
-        _log_ctx,
-        b"RELOAD command issued\0" as *const u8 as *const ::core::ffi::c_char,
-    );
+    log_generic(LG_INFO, _log_ctx, c"RELOAD command issued".as_ptr());
     if !load_config() {
-        ok = false_0 != 0;
+        ok = false;
         let mut _log_ctx_0 = NULL;
         log_generic(
             LG_ERROR,
             _log_ctx_0,
-            b"RELOAD Failed, see logs for more details\0" as *const u8
-                as *const ::core::ffi::c_char,
+            c"RELOAD Failed, see logs for more details".as_ptr(),
         );
     }
     if !sbuf_tls_setup() {
-        ok = false_0 != 0;
+        ok = false;
         let mut _log_ctx_1 = NULL;
         log_generic(
             LG_ERROR,
             _log_ctx_1,
-            b"TLS configuration could not be reloaded, keeping old configuration\0" as *const u8
-                as *const ::core::ffi::c_char,
+            c"TLS configuration could not be reloaded, keeping old configuration".as_ptr(),
         );
     }
     if ok {
-        admin_ready(
-            admin,
-            b"RELOAD\0" as *const u8 as *const ::core::ffi::c_char,
-        )
+        admin_ready(admin, c"RELOAD".as_ptr())
     } else {
         send_pooler_error(
             admin,
-            true_0 != 0,
-            b"F0000\0" as *const u8 as *const ::core::ffi::c_char,
-            false_0 != 0,
-            b"RELOAD failed, see logs for additional details\0" as *const u8
-                as *const ::core::ffi::c_char,
+            true,
+            c"F0000".as_ptr(),
+            false,
+            c"RELOAD failed, see logs for additional details".as_ptr(),
         )
     }
 }
@@ -3966,40 +3677,25 @@ unsafe extern "C" fn admin_cmd_shutdown(
 ) -> bool {
     let mut mode = SHUTDOWN_IMMEDIATE;
     if !arg.is_null() && *arg as ::core::ffi::c_int != 0 {
-        if strcasecmp(
-            arg,
-            b"WAIT_FOR_CLIENTS\0" as *const u8 as *const ::core::ffi::c_char,
-        ) == 0 as ::core::ffi::c_int
-        {
+        if strcasecmp(arg, c"WAIT_FOR_CLIENTS".as_ptr()) == 0 as ::core::ffi::c_int {
             mode = SHUTDOWN_WAIT_FOR_CLIENTS;
-        } else if strcasecmp(
-            arg,
-            b"WAIT_FOR_SERVERS\0" as *const u8 as *const ::core::ffi::c_char,
-        ) == 0 as ::core::ffi::c_int
-        {
+        } else if strcasecmp(arg, c"WAIT_FOR_SERVERS".as_ptr()) == 0 as ::core::ffi::c_int {
             mode = SHUTDOWN_WAIT_FOR_SERVERS;
         } else {
             return syntax_error(admin);
         }
     }
     if !(*admin).admin_user() {
-        return admin_error(
-            admin,
-            b"admin access needed\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        return admin_error(admin, c"admin access needed".as_ptr());
     }
     cf_shutdown = mode as ::core::ffi::c_int;
     if mode as ::core::ffi::c_uint
         == SHUTDOWN_IMMEDIATE as ::core::ffi::c_int as ::core::ffi::c_uint
     {
         let mut _log_ctx = NULL;
-        log_generic(
-            LG_INFO,
-            _log_ctx,
-            b"SHUTDOWN command issued\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        log_generic(LG_INFO, _log_ctx, c"SHUTDOWN command issued".as_ptr());
         event_base_loopbreak(pgb_event_base);
-        true_0 != 0
+        true
     } else {
         if mode as ::core::ffi::c_uint
             == SHUTDOWN_WAIT_FOR_SERVERS as ::core::ffi::c_int as ::core::ffi::c_uint
@@ -4009,23 +3705,18 @@ unsafe extern "C" fn admin_cmd_shutdown(
             log_generic(
                 LG_INFO,
                 _log_ctx_0,
-                b"SHUTDOWN WAIT_FOR_SERVERS command issued\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"SHUTDOWN WAIT_FOR_SERVERS command issued".as_ptr(),
             );
         } else {
             let mut _log_ctx_1 = NULL;
             log_generic(
                 LG_INFO,
                 _log_ctx_1,
-                b"SHUTDOWN WAIT_FOR_CLIENTS command issued\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"SHUTDOWN WAIT_FOR_CLIENTS command issued".as_ptr(),
             );
         }
         cleanup_tcp_sockets();
-        admin_ready(
-            admin,
-            b"SHUTDOWN\0" as *const u8 as *const ::core::ffi::c_char,
-        )
+        admin_ready(admin, c"SHUTDOWN".as_ptr())
     }
 }
 
@@ -4042,30 +3733,17 @@ unsafe extern "C" fn admin_cmd_resume(
     mut arg: *const ::core::ffi::c_char,
 ) -> bool {
     if !(*admin).admin_user() {
-        return admin_error(
-            admin,
-            b"admin access needed\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        return admin_error(admin, c"admin access needed".as_ptr());
     }
     if *arg.offset(0 as ::core::ffi::c_int as isize) == 0 {
         let mut _log_ctx = NULL;
-        log_generic(
-            LG_INFO,
-            _log_ctx,
-            b"RESUME command issued\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        log_generic(LG_INFO, _log_ctx, c"RESUME command issued".as_ptr());
         if cf_shutdown != 0 {
-            return admin_error(
-                admin,
-                b"pooler is shutting down\0" as *const u8 as *const ::core::ffi::c_char,
-            );
+            return admin_error(admin, c"pooler is shutting down".as_ptr());
         } else if cf_pause_mode != P_NONE as ::core::ffi::c_int {
             full_resume();
         } else {
-            return admin_error(
-                admin,
-                b"pooler is not paused/suspended\0" as *const u8 as *const ::core::ffi::c_char,
-            );
+            return admin_error(admin, c"pooler is not paused/suspended".as_ptr());
         }
     } else {
         let mut db = find_database(arg);
@@ -4073,29 +3751,18 @@ unsafe extern "C" fn admin_cmd_resume(
         log_generic(
             LG_INFO,
             _log_ctx_0,
-            b"RESUME '%s' command issued\0" as *const u8 as *const ::core::ffi::c_char,
+            c"RESUME '%s' command issued".as_ptr(),
             arg,
         );
         if db.is_null() {
-            return admin_error(
-                admin,
-                b"no such database: %s\0" as *const u8 as *const ::core::ffi::c_char,
-                arg,
-            );
+            return admin_error(admin, c"no such database: %s".as_ptr(), arg);
         }
         if !(*db).db_paused {
-            return admin_error(
-                admin,
-                b"database %s is not paused\0" as *const u8 as *const ::core::ffi::c_char,
-                arg,
-            );
+            return admin_error(admin, c"database %s is not paused".as_ptr(), arg);
         }
-        (*db).db_paused = false_0 != 0;
+        (*db).db_paused = false;
     }
-    admin_ready(
-        admin,
-        b"RESUME\0" as *const u8 as *const ::core::ffi::c_char,
-    )
+    admin_ready(admin, c"RESUME".as_ptr())
 }
 
 unsafe extern "C" fn admin_cmd_suspend(
@@ -4106,34 +3773,21 @@ unsafe extern "C" fn admin_cmd_suspend(
         return syntax_error(admin);
     }
     if !(*admin).admin_user() {
-        return admin_error(
-            admin,
-            b"admin access needed\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        return admin_error(admin, c"admin access needed".as_ptr());
     }
     if cf_pause_mode != 0 {
-        return admin_error(
-            admin,
-            b"already suspended/paused\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        return admin_error(admin, c"already suspended/paused".as_ptr());
     }
     if count_paused_databases() > 0 as ::core::ffi::c_int {
-        return admin_error(
-            admin,
-            b"cannot suspend with paused databases\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        return admin_error(admin, c"cannot suspend with paused databases".as_ptr());
     }
     let mut _log_ctx = NULL;
-    log_generic(
-        LG_INFO,
-        _log_ctx,
-        b"SUSPEND command issued\0" as *const u8 as *const ::core::ffi::c_char,
-    );
+    log_generic(LG_INFO, _log_ctx, c"SUSPEND command issued".as_ptr());
     cf_pause_mode = P_SUSPEND as ::core::ffi::c_int;
-    (*admin).set_wait_for_response(true_0 != 0);
+    (*admin).set_wait_for_response(true);
     suspend_pooler();
     g_suspend_start = get_cached_time();
-    true_0 != 0
+    true
 }
 
 unsafe extern "C" fn admin_cmd_pause(
@@ -4141,58 +3795,40 @@ unsafe extern "C" fn admin_cmd_pause(
     mut arg: *const ::core::ffi::c_char,
 ) -> bool {
     if !(*admin).admin_user() {
-        return admin_error(
-            admin,
-            b"admin access needed\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        return admin_error(admin, c"admin access needed".as_ptr());
     }
     if cf_pause_mode != 0 {
-        return admin_error(
-            admin,
-            b"already suspended/paused\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        return admin_error(admin, c"already suspended/paused".as_ptr());
     }
     if *arg.offset(0 as ::core::ffi::c_int as isize) == 0 {
         let mut _log_ctx = NULL;
-        log_generic(
-            LG_INFO,
-            _log_ctx,
-            b"PAUSE command issued\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        log_generic(LG_INFO, _log_ctx, c"PAUSE command issued".as_ptr());
         cf_pause_mode = P_PAUSE as ::core::ffi::c_int;
-        (*admin).set_wait_for_response(true_0 != 0);
+        (*admin).set_wait_for_response(true);
     } else {
         let mut db = ::core::ptr::null_mut::<PgDatabase>();
         let mut _log_ctx_0 = NULL;
         log_generic(
             LG_INFO,
             _log_ctx_0,
-            b"PAUSE '%s' command issued\0" as *const u8 as *const ::core::ffi::c_char,
+            c"PAUSE '%s' command issued".as_ptr(),
             arg,
         );
         db = find_or_register_database(admin, arg);
         if db.is_null() {
-            return admin_error(
-                admin,
-                b"no such database: %s\0" as *const u8 as *const ::core::ffi::c_char,
-                arg,
-            );
+            return admin_error(admin, c"no such database: %s".as_ptr(), arg);
         }
         if db == (*(*admin).pool).db {
-            return admin_error(
-                admin,
-                b"cannot pause admin db: %s\0" as *const u8 as *const ::core::ffi::c_char,
-                arg,
-            );
+            return admin_error(admin, c"cannot pause admin db: %s".as_ptr(), arg);
         }
-        (*db).db_paused = true_0 != 0;
+        (*db).db_paused = true;
         if count_db_active(db) > 0 as ::core::ffi::c_int {
-            (*admin).set_wait_for_response(true_0 != 0);
+            (*admin).set_wait_for_response(true);
         } else {
-            return admin_ready(admin, b"PAUSE\0" as *const u8 as *const ::core::ffi::c_char);
+            return admin_ready(admin, c"PAUSE".as_ptr());
         }
     }
-    true_0 != 0
+    true
 }
 
 unsafe extern "C" fn admin_cmd_reconnect(
@@ -4200,20 +3836,13 @@ unsafe extern "C" fn admin_cmd_reconnect(
     mut arg: *const ::core::ffi::c_char,
 ) -> bool {
     if !(*admin).admin_user() {
-        return admin_error(
-            admin,
-            b"admin access needed\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        return admin_error(admin, c"admin access needed".as_ptr());
     }
     if *arg.offset(0 as ::core::ffi::c_int as isize) == 0 {
         let mut item = ::core::ptr::null_mut::<List>();
         let mut pool = ::core::ptr::null_mut::<PgPool>();
         let mut _log_ctx = NULL;
-        log_generic(
-            LG_INFO,
-            _log_ctx,
-            b"RECONNECT command issued\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        log_generic(LG_INFO, _log_ctx, c"RECONNECT command issued".as_ptr());
         item = pool_list.head.next;
         while item != &raw mut pool_list.head {
             pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
@@ -4229,30 +3858,19 @@ unsafe extern "C" fn admin_cmd_reconnect(
         log_generic(
             LG_INFO,
             _log_ctx_0,
-            b"RECONNECT '%s' command issued\0" as *const u8 as *const ::core::ffi::c_char,
+            c"RECONNECT '%s' command issued".as_ptr(),
             arg,
         );
         db = find_or_register_database(admin, arg);
         if db.is_null() {
-            return admin_error(
-                admin,
-                b"no such database: %s\0" as *const u8 as *const ::core::ffi::c_char,
-                arg,
-            );
+            return admin_error(admin, c"no such database: %s".as_ptr(), arg);
         }
         if db == (*(*admin).pool).db {
-            return admin_error(
-                admin,
-                b"cannot reconnect admin db: %s\0" as *const u8 as *const ::core::ffi::c_char,
-                arg,
-            );
+            return admin_error(admin, c"cannot reconnect admin db: %s".as_ptr(), arg);
         }
         tag_database_dirty(db);
     }
-    admin_ready(
-        admin,
-        b"RECONNECT\0" as *const u8 as *const ::core::ffi::c_char,
-    )
+    admin_ready(admin, c"RECONNECT".as_ptr())
 }
 
 unsafe extern "C" fn admin_cmd_disable(
@@ -4261,44 +3879,27 @@ unsafe extern "C" fn admin_cmd_disable(
 ) -> bool {
     let mut db = ::core::ptr::null_mut::<PgDatabase>();
     if !(*admin).admin_user() {
-        return admin_error(
-            admin,
-            b"admin access needed\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        return admin_error(admin, c"admin access needed".as_ptr());
     }
     if *arg.offset(0 as ::core::ffi::c_int as isize) == 0 {
-        return admin_error(
-            admin,
-            b"a database is required\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        return admin_error(admin, c"a database is required".as_ptr());
     }
     let mut _log_ctx = NULL;
     log_generic(
         LG_INFO,
         _log_ctx,
-        b"DISABLE '%s' command issued\0" as *const u8 as *const ::core::ffi::c_char,
+        c"DISABLE '%s' command issued".as_ptr(),
         arg,
     );
     db = find_or_register_database(admin, arg);
     if db.is_null() {
-        return admin_error(
-            admin,
-            b"no such database: %s\0" as *const u8 as *const ::core::ffi::c_char,
-            arg,
-        );
+        return admin_error(admin, c"no such database: %s".as_ptr(), arg);
     }
     if (*db).admin {
-        return admin_error(
-            admin,
-            b"cannot disable admin db: %s\0" as *const u8 as *const ::core::ffi::c_char,
-            arg,
-        );
+        return admin_error(admin, c"cannot disable admin db: %s".as_ptr(), arg);
     }
-    (*db).db_disabled = true_0 != 0;
-    admin_ready(
-        admin,
-        b"DISABLE\0" as *const u8 as *const ::core::ffi::c_char,
-    )
+    (*db).db_disabled = true;
+    admin_ready(admin, c"DISABLE".as_ptr())
 }
 
 unsafe extern "C" fn admin_cmd_enable(
@@ -4307,44 +3908,27 @@ unsafe extern "C" fn admin_cmd_enable(
 ) -> bool {
     let mut db = ::core::ptr::null_mut::<PgDatabase>();
     if !(*admin).admin_user() {
-        return admin_error(
-            admin,
-            b"admin access needed\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        return admin_error(admin, c"admin access needed".as_ptr());
     }
     if *arg.offset(0 as ::core::ffi::c_int as isize) == 0 {
-        return admin_error(
-            admin,
-            b"a database is required\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        return admin_error(admin, c"a database is required".as_ptr());
     }
     let mut _log_ctx = NULL;
     log_generic(
         LG_INFO,
         _log_ctx,
-        b"ENABLE '%s' command issued\0" as *const u8 as *const ::core::ffi::c_char,
+        c"ENABLE '%s' command issued".as_ptr(),
         arg,
     );
     db = find_database(arg);
     if db.is_null() {
-        return admin_error(
-            admin,
-            b"no such database: %s\0" as *const u8 as *const ::core::ffi::c_char,
-            arg,
-        );
+        return admin_error(admin, c"no such database: %s".as_ptr(), arg);
     }
     if (*db).admin {
-        return admin_error(
-            admin,
-            b"cannot disable admin db: %s\0" as *const u8 as *const ::core::ffi::c_char,
-            arg,
-        );
+        return admin_error(admin, c"cannot disable admin db: %s".as_ptr(), arg);
     }
-    (*db).db_disabled = false_0 != 0;
-    admin_ready(
-        admin,
-        b"ENABLE\0" as *const u8 as *const ::core::ffi::c_char,
-    )
+    (*db).db_disabled = false;
+    admin_ready(admin, c"ENABLE".as_ptr())
 }
 
 unsafe extern "C" fn find_socket_in_list(
@@ -4414,33 +3998,15 @@ unsafe extern "C" fn admin_cmd_kill_client(
 ) -> bool {
     let mut kill_client = ::core::ptr::null_mut::<PgSocket>();
     let mut target_id = 0 as ::core::ffi::c_ulonglong;
-    if sscanf(
-        arg,
-        b"%llu\0" as *const u8 as *const ::core::ffi::c_char,
-        &raw mut target_id,
-    ) != 1 as ::core::ffi::c_int
-    {
-        return admin_error(
-            admin,
-            b"invalid client pointer supplied\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+    if sscanf(arg, c"%llu".as_ptr(), &raw mut target_id) != 1 as ::core::ffi::c_int {
+        return admin_error(admin, c"invalid client pointer supplied".as_ptr());
     }
     kill_client = find_client_global(target_id);
     if kill_client.is_null() {
-        return admin_error(
-            admin,
-            b"client not found\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        return admin_error(admin, c"client not found".as_ptr());
     }
-    disconnect_client(
-        kill_client,
-        true_0 != 0,
-        b"admin forced disconnect\0" as *const u8 as *const ::core::ffi::c_char,
-    );
-    admin_ready(
-        admin,
-        b"KILL_CLIENT\0" as *const u8 as *const ::core::ffi::c_char,
-    )
+    disconnect_client(kill_client, true, c"admin forced disconnect".as_ptr());
+    admin_ready(admin, c"KILL_CLIENT".as_ptr())
 }
 
 unsafe extern "C" fn admin_cmd_kill(
@@ -4451,31 +4017,21 @@ unsafe extern "C" fn admin_cmd_kill(
     let mut tmp = ::core::ptr::null_mut::<List>();
     let mut pool = ::core::ptr::null_mut::<PgPool>();
     if !(*admin).admin_user() {
-        return admin_error(
-            admin,
-            b"admin access needed\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        return admin_error(admin, c"admin access needed".as_ptr());
     }
     if cf_pause_mode != 0 {
-        return admin_error(
-            admin,
-            b"already suspended/paused\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        return admin_error(admin, c"already suspended/paused".as_ptr());
     }
     if *arg.offset(0 as ::core::ffi::c_int as isize) == 0 {
         let mut _log_ctx = NULL;
-        log_generic(
-            LG_INFO,
-            _log_ctx,
-            b"KILL command issued\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        log_generic(LG_INFO, _log_ctx, c"KILL command issued".as_ptr());
         item = pool_list.head.next;
         tmp = (*pool_list.head.next).next;
         while item != &raw mut pool_list.head {
             pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
                 as *mut PgPool;
             if !(*(*pool).db).admin {
-                (*(*pool).db).db_paused = true_0 != 0;
+                (*(*pool).db).db_paused = true;
                 kill_pool(pool);
             }
             item = tmp;
@@ -4487,25 +4043,17 @@ unsafe extern "C" fn admin_cmd_kill(
         log_generic(
             LG_INFO,
             _log_ctx_0,
-            b"KILL '%s' command issued\0" as *const u8 as *const ::core::ffi::c_char,
+            c"KILL '%s' command issued".as_ptr(),
             arg,
         );
         db = find_or_register_database(admin, arg);
         if db.is_null() {
-            return admin_error(
-                admin,
-                b"no such database: %s\0" as *const u8 as *const ::core::ffi::c_char,
-                arg,
-            );
+            return admin_error(admin, c"no such database: %s".as_ptr(), arg);
         }
         if db == (*(*admin).pool).db {
-            return admin_error(
-                admin,
-                b"cannot kill admin db: %s\0" as *const u8 as *const ::core::ffi::c_char,
-                arg,
-            );
+            return admin_error(admin, c"cannot kill admin db: %s".as_ptr(), arg);
         }
-        (*db).db_paused = true_0 != 0;
+        (*db).db_paused = true;
         item = pool_list.head.next;
         tmp = (*pool_list.head.next).next;
         while item != &raw mut pool_list.head {
@@ -4518,7 +4066,7 @@ unsafe extern "C" fn admin_cmd_kill(
             tmp = (*tmp).next;
         }
     }
-    admin_ready(admin, b"KILL\0" as *const u8 as *const ::core::ffi::c_char)
+    admin_ready(admin, c"KILL".as_ptr())
 }
 
 unsafe extern "C" fn admin_cmd_wait_close(
@@ -4526,38 +4074,28 @@ unsafe extern "C" fn admin_cmd_wait_close(
     mut arg: *const ::core::ffi::c_char,
 ) -> bool {
     if !(*admin).admin_user() {
-        return admin_error(
-            admin,
-            b"admin access needed\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        return admin_error(admin, c"admin access needed".as_ptr());
     }
     if *arg.offset(0 as ::core::ffi::c_int as isize) == 0 {
         let mut item = ::core::ptr::null_mut::<List>();
         let mut pool = ::core::ptr::null_mut::<PgPool>();
         let mut active = 0 as ::core::ffi::c_int;
         let mut _log_ctx = NULL;
-        log_generic(
-            LG_INFO,
-            _log_ctx,
-            b"WAIT_CLOSE command issued\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        log_generic(LG_INFO, _log_ctx, c"WAIT_CLOSE command issued".as_ptr());
         item = pool_list.head.next;
         while item != &raw mut pool_list.head {
             let mut db = ::core::ptr::null_mut::<PgDatabase>();
             pool = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
                 as *mut PgPool;
             db = (*pool).db;
-            (*db).db_wait_close = true_0 != 0;
+            (*db).db_wait_close = true;
             active += count_db_active(db);
             item = (*item).next;
         }
         if active > 0 as ::core::ffi::c_int {
-            (*admin).set_wait_for_response(true_0 != 0);
+            (*admin).set_wait_for_response(true);
         } else {
-            return admin_ready(
-                admin,
-                b"WAIT_CLOSE\0" as *const u8 as *const ::core::ffi::c_char,
-            );
+            return admin_ready(admin, c"WAIT_CLOSE".as_ptr());
         }
     } else {
         let mut db_0 = ::core::ptr::null_mut::<PgDatabase>();
@@ -4565,35 +4103,24 @@ unsafe extern "C" fn admin_cmd_wait_close(
         log_generic(
             LG_INFO,
             _log_ctx_0,
-            b"WAIT_CLOSE '%s' command issued\0" as *const u8 as *const ::core::ffi::c_char,
+            c"WAIT_CLOSE '%s' command issued".as_ptr(),
             arg,
         );
         db_0 = find_or_register_database(admin, arg);
         if db_0.is_null() {
-            return admin_error(
-                admin,
-                b"no such database: %s\0" as *const u8 as *const ::core::ffi::c_char,
-                arg,
-            );
+            return admin_error(admin, c"no such database: %s".as_ptr(), arg);
         }
         if db_0 == (*(*admin).pool).db {
-            return admin_error(
-                admin,
-                b"cannot wait in admin db: %s\0" as *const u8 as *const ::core::ffi::c_char,
-                arg,
-            );
+            return admin_error(admin, c"cannot wait in admin db: %s".as_ptr(), arg);
         }
-        (*db_0).db_wait_close = true_0 != 0;
+        (*db_0).db_wait_close = true;
         if count_db_active(db_0) > 0 as ::core::ffi::c_int {
-            (*admin).set_wait_for_response(true_0 != 0);
+            (*admin).set_wait_for_response(true);
         } else {
-            return admin_ready(
-                admin,
-                b"WAIT_CLOSE\0" as *const u8 as *const ::core::ffi::c_char,
-            );
+            return admin_ready(admin, c"WAIT_CLOSE".as_ptr());
         }
     }
-    true_0 != 0
+    true
 }
 
 unsafe extern "C" fn copy_arg(
@@ -4611,13 +4138,13 @@ unsafe extern "C" fn copy_arg(
     let mut i: ::core::ffi::c_uint = 0;
     if (*g).rm_so < 0 as regoff_t || (*g).rm_eo < 0 as regoff_t {
         *dst.offset(0 as ::core::ffi::c_int as isize) = 0 as ::core::ffi::c_char;
-        return true_0 != 0;
+        return true;
     }
     len = ((*g).rm_eo - (*g).rm_so) as ::core::ffi::c_uint;
     s = src.offset((*g).rm_so as isize);
     if len >= dstmax {
         *dst.offset(0 as ::core::ffi::c_int as isize) = 0 as ::core::ffi::c_char;
-        return false_0 != 0;
+        return false;
     }
     if *s as ::core::ffi::c_int == qchar as ::core::ffi::c_int {
         i = 1 as ::core::ffi::c_uint;
@@ -4643,7 +4170,7 @@ unsafe extern "C" fn copy_arg(
         );
     }
     *dst.offset(len as isize) = 0 as ::core::ffi::c_char;
-    true_0 != 0
+    true
 }
 
 unsafe extern "C" fn admin_show_help(
@@ -4671,17 +4198,16 @@ unsafe extern "C" fn admin_show_help(
     pktbuf_write_generic(
         &raw mut _buf,
         PqMsg_NoticeResponse,
-        b"sssss\0" as *const u8 as *const ::core::ffi::c_char,
-        b"SNOTICE\0" as *const u8 as *const ::core::ffi::c_char,
-        b"C00000\0" as *const u8 as *const ::core::ffi::c_char,
-        b"MConsole usage\0" as *const u8 as *const ::core::ffi::c_char,
-        b"D\n\tSHOW HELP|CONFIG|DATABASES|POOLS|CLIENTS|SERVERS|USERS|VERSION\n\tSHOW PEERS|PEER_POOLS\n\tSHOW FDS|SOCKETS|ACTIVE_SOCKETS|LISTS|MEM|STATE\n\tSHOW DNS_HOSTS|DNS_ZONES\n\tSHOW STATS|STATS_TOTALS|STATS_AVERAGES|TOTALS\n\tSET key = arg\n\tRELOAD\n\tPAUSE [<db>]\n\tRESUME [<db>]\n\tDISABLE <db>\n\tENABLE <db>\n\tRECONNECT [<db>]\n\tKILL [<db>]\n\tKILL_CLIENT <client_id>\n\tSUSPEND\n\tSHUTDOWN\n\tSHUTDOWN WAIT_FOR_SERVERS|WAIT_FOR_CLIENTS\n\tWAIT_CLOSE [<db>]\0"
-            as *const u8 as *const ::core::ffi::c_char,
-        b"\0" as *const u8 as *const ::core::ffi::c_char,
+        c"sssss".as_ptr(),
+        c"SNOTICE".as_ptr(),
+        c"C00000".as_ptr(),
+        c"MConsole usage".as_ptr(),
+        c"D\n\tSHOW HELP|CONFIG|DATABASES|POOLS|CLIENTS|SERVERS|USERS|VERSION\n\tSHOW PEERS|PEER_POOLS\n\tSHOW FDS|SOCKETS|ACTIVE_SOCKETS|LISTS|MEM|STATE\n\tSHOW DNS_HOSTS|DNS_ZONES\n\tSHOW STATS|STATS_TOTALS|STATS_AVERAGES|TOTALS\n\tSET key = arg\n\tRELOAD\n\tPAUSE [<db>]\n\tRESUME [<db>]\n\tDISABLE <db>\n\tENABLE <db>\n\tRECONNECT [<db>]\n\tKILL [<db>]\n\tKILL_CLIENT <client_id>\n\tSUSPEND\n\tSHUTDOWN\n\tSHUTDOWN WAIT_FOR_SERVERS|WAIT_FOR_CLIENTS\n\tWAIT_CLOSE [<db>]".as_ptr(),
+        c"".as_ptr(),
     );
     res = pktbuf_send_immediate(&raw mut _buf, admin);
     if res {
-        res = admin_ready(admin, b"SHOW\0" as *const u8 as *const ::core::ffi::c_char);
+        res = admin_ready(admin, c"SHOW".as_ptr());
     }
     res
 }
@@ -4693,28 +4219,13 @@ unsafe extern "C" fn admin_show_version(
     let mut buf = ::core::ptr::null_mut::<PktBuf>();
     buf = pktbuf_dynamic(128 as ::core::ffi::c_int);
     if buf.is_null() {
-        admin_error(
-            admin,
-            b"no mem\0" as *const u8 as *const ::core::ffi::c_char,
-        );
-        return true_0 != 0;
+        admin_error(admin, c"no mem".as_ptr());
+        return true;
     }
-    pktbuf_write_RowDescription(
-        buf,
-        b"s\0" as *const u8 as *const ::core::ffi::c_char,
-        b"version\0" as *const u8 as *const ::core::ffi::c_char,
-    );
-    pktbuf_write_DataRow(
-        buf,
-        b"s\0" as *const u8 as *const ::core::ffi::c_char,
-        PACKAGE_STRING.as_ptr(),
-    );
-    admin_flush(
-        admin,
-        buf,
-        b"SHOW\0" as *const u8 as *const ::core::ffi::c_char,
-    );
-    true_0 != 0
+    pktbuf_write_RowDescription(buf, c"s".as_ptr(), c"version".as_ptr());
+    pktbuf_write_DataRow(buf, c"s".as_ptr(), PACKAGE_STRING.as_ptr());
+    admin_flush(admin, buf, c"SHOW".as_ptr());
+    true
 }
 
 unsafe extern "C" fn admin_show_stats(
@@ -4748,154 +4259,154 @@ unsafe extern "C" fn admin_show_totals(
 static mut show_map: [cmd_lookup; 23] = unsafe {
     [
         cmd_lookup {
-            word: b"clients\0" as *const u8 as *const ::core::ffi::c_char,
+            word: c"clients".as_ptr(),
             func: Some(
                 admin_show_clients
                     as unsafe extern "C" fn(*mut PgSocket, *const ::core::ffi::c_char) -> bool,
             ),
         },
         cmd_lookup {
-            word: b"config\0" as *const u8 as *const ::core::ffi::c_char,
+            word: c"config".as_ptr(),
             func: Some(
                 admin_show_config
                     as unsafe extern "C" fn(*mut PgSocket, *const ::core::ffi::c_char) -> bool,
             ),
         },
         cmd_lookup {
-            word: b"databases\0" as *const u8 as *const ::core::ffi::c_char,
+            word: c"databases".as_ptr(),
             func: Some(
                 admin_show_databases
                     as unsafe extern "C" fn(*mut PgSocket, *const ::core::ffi::c_char) -> bool,
             ),
         },
         cmd_lookup {
-            word: b"fds\0" as *const u8 as *const ::core::ffi::c_char,
+            word: c"fds".as_ptr(),
             func: Some(
                 admin_show_fds
                     as unsafe extern "C" fn(*mut PgSocket, *const ::core::ffi::c_char) -> bool,
             ),
         },
         cmd_lookup {
-            word: b"help\0" as *const u8 as *const ::core::ffi::c_char,
+            word: c"help".as_ptr(),
             func: Some(
                 admin_show_help
                     as unsafe extern "C" fn(*mut PgSocket, *const ::core::ffi::c_char) -> bool,
             ),
         },
         cmd_lookup {
-            word: b"lists\0" as *const u8 as *const ::core::ffi::c_char,
+            word: c"lists".as_ptr(),
             func: Some(
                 admin_show_lists
                     as unsafe extern "C" fn(*mut PgSocket, *const ::core::ffi::c_char) -> bool,
             ),
         },
         cmd_lookup {
-            word: b"peers\0" as *const u8 as *const ::core::ffi::c_char,
+            word: c"peers".as_ptr(),
             func: Some(
                 admin_show_peers
                     as unsafe extern "C" fn(*mut PgSocket, *const ::core::ffi::c_char) -> bool,
             ),
         },
         cmd_lookup {
-            word: b"peer_pools\0" as *const u8 as *const ::core::ffi::c_char,
+            word: c"peer_pools".as_ptr(),
             func: Some(
                 admin_show_peer_pools
                     as unsafe extern "C" fn(*mut PgSocket, *const ::core::ffi::c_char) -> bool,
             ),
         },
         cmd_lookup {
-            word: b"pools\0" as *const u8 as *const ::core::ffi::c_char,
+            word: c"pools".as_ptr(),
             func: Some(
                 admin_show_pools
                     as unsafe extern "C" fn(*mut PgSocket, *const ::core::ffi::c_char) -> bool,
             ),
         },
         cmd_lookup {
-            word: b"servers\0" as *const u8 as *const ::core::ffi::c_char,
+            word: c"servers".as_ptr(),
             func: Some(
                 admin_show_servers
                     as unsafe extern "C" fn(*mut PgSocket, *const ::core::ffi::c_char) -> bool,
             ),
         },
         cmd_lookup {
-            word: b"sockets\0" as *const u8 as *const ::core::ffi::c_char,
+            word: c"sockets".as_ptr(),
             func: Some(
                 admin_show_sockets
                     as unsafe extern "C" fn(*mut PgSocket, *const ::core::ffi::c_char) -> bool,
             ),
         },
         cmd_lookup {
-            word: b"active_sockets\0" as *const u8 as *const ::core::ffi::c_char,
+            word: c"active_sockets".as_ptr(),
             func: Some(
                 admin_show_active_sockets
                     as unsafe extern "C" fn(*mut PgSocket, *const ::core::ffi::c_char) -> bool,
             ),
         },
         cmd_lookup {
-            word: b"stats\0" as *const u8 as *const ::core::ffi::c_char,
+            word: c"stats".as_ptr(),
             func: Some(
                 admin_show_stats
                     as unsafe extern "C" fn(*mut PgSocket, *const ::core::ffi::c_char) -> bool,
             ),
         },
         cmd_lookup {
-            word: b"stats_totals\0" as *const u8 as *const ::core::ffi::c_char,
+            word: c"stats_totals".as_ptr(),
             func: Some(
                 admin_show_stats_totals
                     as unsafe extern "C" fn(*mut PgSocket, *const ::core::ffi::c_char) -> bool,
             ),
         },
         cmd_lookup {
-            word: b"stats_averages\0" as *const u8 as *const ::core::ffi::c_char,
+            word: c"stats_averages".as_ptr(),
             func: Some(
                 admin_show_stats_averages
                     as unsafe extern "C" fn(*mut PgSocket, *const ::core::ffi::c_char) -> bool,
             ),
         },
         cmd_lookup {
-            word: b"users\0" as *const u8 as *const ::core::ffi::c_char,
+            word: c"users".as_ptr(),
             func: Some(
                 admin_show_users
                     as unsafe extern "C" fn(*mut PgSocket, *const ::core::ffi::c_char) -> bool,
             ),
         },
         cmd_lookup {
-            word: b"version\0" as *const u8 as *const ::core::ffi::c_char,
+            word: c"version".as_ptr(),
             func: Some(
                 admin_show_version
                     as unsafe extern "C" fn(*mut PgSocket, *const ::core::ffi::c_char) -> bool,
             ),
         },
         cmd_lookup {
-            word: b"totals\0" as *const u8 as *const ::core::ffi::c_char,
+            word: c"totals".as_ptr(),
             func: Some(
                 admin_show_totals
                     as unsafe extern "C" fn(*mut PgSocket, *const ::core::ffi::c_char) -> bool,
             ),
         },
         cmd_lookup {
-            word: b"mem\0" as *const u8 as *const ::core::ffi::c_char,
+            word: c"mem".as_ptr(),
             func: Some(
                 admin_show_mem
                     as unsafe extern "C" fn(*mut PgSocket, *const ::core::ffi::c_char) -> bool,
             ),
         },
         cmd_lookup {
-            word: b"dns_hosts\0" as *const u8 as *const ::core::ffi::c_char,
+            word: c"dns_hosts".as_ptr(),
             func: Some(
                 admin_show_dns_hosts
                     as unsafe extern "C" fn(*mut PgSocket, *const ::core::ffi::c_char) -> bool,
             ),
         },
         cmd_lookup {
-            word: b"dns_zones\0" as *const u8 as *const ::core::ffi::c_char,
+            word: c"dns_zones".as_ptr(),
             func: Some(
                 admin_show_dns_zones
                     as unsafe extern "C" fn(*mut PgSocket, *const ::core::ffi::c_char) -> bool,
             ),
         },
         cmd_lookup {
-            word: b"state\0" as *const u8 as *const ::core::ffi::c_char,
+            word: c"state".as_ptr(),
             func: Some(
                 admin_show_state
                     as unsafe extern "C" fn(*mut PgSocket, *const ::core::ffi::c_char) -> bool,
@@ -4913,7 +4424,7 @@ unsafe extern "C" fn admin_cmd_show(
     mut arg: *const ::core::ffi::c_char,
 ) -> bool {
     if fake_show(admin, arg) {
-        return true_0 != 0;
+        return true;
     }
     exec_cmd(
         &raw mut show_map as *mut cmd_lookup,
@@ -4926,91 +4437,91 @@ unsafe extern "C" fn admin_cmd_show(
 static mut cmd_list: [cmd_lookup; 14] = unsafe {
     [
         cmd_lookup {
-            word: b"disable\0" as *const u8 as *const ::core::ffi::c_char,
+            word: c"disable".as_ptr(),
             func: Some(
                 admin_cmd_disable
                     as unsafe extern "C" fn(*mut PgSocket, *const ::core::ffi::c_char) -> bool,
             ),
         },
         cmd_lookup {
-            word: b"enable\0" as *const u8 as *const ::core::ffi::c_char,
+            word: c"enable".as_ptr(),
             func: Some(
                 admin_cmd_enable
                     as unsafe extern "C" fn(*mut PgSocket, *const ::core::ffi::c_char) -> bool,
             ),
         },
         cmd_lookup {
-            word: b"kill\0" as *const u8 as *const ::core::ffi::c_char,
+            word: c"kill".as_ptr(),
             func: Some(
                 admin_cmd_kill
                     as unsafe extern "C" fn(*mut PgSocket, *const ::core::ffi::c_char) -> bool,
             ),
         },
         cmd_lookup {
-            word: b"kill_client\0" as *const u8 as *const ::core::ffi::c_char,
+            word: c"kill_client".as_ptr(),
             func: Some(
                 admin_cmd_kill_client
                     as unsafe extern "C" fn(*mut PgSocket, *const ::core::ffi::c_char) -> bool,
             ),
         },
         cmd_lookup {
-            word: b"pause\0" as *const u8 as *const ::core::ffi::c_char,
+            word: c"pause".as_ptr(),
             func: Some(
                 admin_cmd_pause
                     as unsafe extern "C" fn(*mut PgSocket, *const ::core::ffi::c_char) -> bool,
             ),
         },
         cmd_lookup {
-            word: b"reconnect\0" as *const u8 as *const ::core::ffi::c_char,
+            word: c"reconnect".as_ptr(),
             func: Some(
                 admin_cmd_reconnect
                     as unsafe extern "C" fn(*mut PgSocket, *const ::core::ffi::c_char) -> bool,
             ),
         },
         cmd_lookup {
-            word: b"reload\0" as *const u8 as *const ::core::ffi::c_char,
+            word: c"reload".as_ptr(),
             func: Some(
                 admin_cmd_reload
                     as unsafe extern "C" fn(*mut PgSocket, *const ::core::ffi::c_char) -> bool,
             ),
         },
         cmd_lookup {
-            word: b"resume\0" as *const u8 as *const ::core::ffi::c_char,
+            word: c"resume".as_ptr(),
             func: Some(
                 admin_cmd_resume
                     as unsafe extern "C" fn(*mut PgSocket, *const ::core::ffi::c_char) -> bool,
             ),
         },
         cmd_lookup {
-            word: b"select\0" as *const u8 as *const ::core::ffi::c_char,
+            word: c"select".as_ptr(),
             func: Some(
                 admin_cmd_show
                     as unsafe extern "C" fn(*mut PgSocket, *const ::core::ffi::c_char) -> bool,
             ),
         },
         cmd_lookup {
-            word: b"show\0" as *const u8 as *const ::core::ffi::c_char,
+            word: c"show".as_ptr(),
             func: Some(
                 admin_cmd_show
                     as unsafe extern "C" fn(*mut PgSocket, *const ::core::ffi::c_char) -> bool,
             ),
         },
         cmd_lookup {
-            word: b"shutdown\0" as *const u8 as *const ::core::ffi::c_char,
+            word: c"shutdown".as_ptr(),
             func: Some(
                 admin_cmd_shutdown
                     as unsafe extern "C" fn(*mut PgSocket, *const ::core::ffi::c_char) -> bool,
             ),
         },
         cmd_lookup {
-            word: b"suspend\0" as *const u8 as *const ::core::ffi::c_char,
+            word: c"suspend".as_ptr(),
             func: Some(
                 admin_cmd_suspend
                     as unsafe extern "C" fn(*mut PgSocket, *const ::core::ffi::c_char) -> bool,
             ),
         },
         cmd_lookup {
-            word: b"wait_close\0" as *const u8 as *const ::core::ffi::c_char,
+            word: c"wait_close".as_ptr(),
             func: Some(
                 admin_cmd_wait_close
                     as unsafe extern "C" fn(*mut PgSocket, *const ::core::ffi::c_char) -> bool,
@@ -5155,18 +4666,11 @@ unsafe extern "C" fn admin_parse_query(
         current_block = 15345379368963487090;
     }
     if current_block == 7776497614696034663 {
-        res = admin_error(
-            admin,
-            b"bad arguments\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        res = admin_error(admin, c"bad arguments".as_ptr());
     }
     current_query = ::core::ptr::null::<::core::ffi::c_char>();
     if !res {
-        disconnect_client(
-            admin,
-            true_0 != 0,
-            b"failure\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        disconnect_client(admin, true, c"failure".as_ptr());
     }
     res
 }
@@ -5179,33 +4683,20 @@ pub unsafe extern "C" fn admin_handle_client(
     let mut q = ::core::ptr::null::<::core::ffi::c_char>();
     let mut res: bool = false;
     if incomplete_pkt(pkt) {
-        disconnect_client(
-            admin,
-            true_0 != 0,
-            b"incomplete pkt\0" as *const u8 as *const ::core::ffi::c_char,
-        );
-        return false_0 != 0;
+        disconnect_client(admin, true, c"incomplete pkt".as_ptr());
+        return false;
     }
     match (*pkt).type_0 {
         81 => {
             if !mbuf_get_string(&raw mut (*pkt).data, &raw mut q) {
-                disconnect_client(
-                    admin,
-                    true_0 != 0,
-                    b"incomplete query\0" as *const u8 as *const ::core::ffi::c_char,
-                );
-                return false_0 != 0;
+                disconnect_client(admin, true, c"incomplete query".as_ptr());
+                return false;
             }
             let mut _log_ctx = NULL;
             if (cf_verbose > 0 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long
                 != 0
             {
-                log_generic(
-                    LG_DEBUG,
-                    _log_ctx,
-                    b"got admin query: %s\0" as *const u8 as *const ::core::ffi::c_char,
-                    q,
-                );
+                log_generic(LG_DEBUG, _log_ctx, c"got admin query: %s".as_ptr(), q);
             }
             res = admin_parse_query(admin, q);
             if res {
@@ -5214,39 +4705,25 @@ pub unsafe extern "C" fn admin_handle_client(
             return res;
         }
         88 => {
-            disconnect_client(
-                admin,
-                false_0 != 0,
-                b"close req\0" as *const u8 as *const ::core::ffi::c_char,
-            );
+            disconnect_client(admin, false, c"close req".as_ptr());
         }
         80 | 66 | 69 => {
             admin_error(
                 admin,
-                b"extended query protocol not supported by admin console\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"extended query protocol not supported by admin console".as_ptr(),
             );
-            disconnect_client(
-                admin,
-                true_0 != 0,
-                b"bad packet\0" as *const u8 as *const ::core::ffi::c_char,
-            );
+            disconnect_client(admin, true, c"bad packet".as_ptr());
         }
         _ => {
             admin_error(
                 admin,
-                b"unsupported packet type for admin console: %d\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"unsupported packet type for admin console: %d".as_ptr(),
                 pkt_desc(pkt) as ::core::ffi::c_int,
             );
-            disconnect_client(
-                admin,
-                true_0 != 0,
-                b"bad packet\0" as *const u8 as *const ::core::ffi::c_char,
-            );
+            disconnect_client(admin, true, c"bad packet".as_ptr());
         }
     }
-    false_0 != 0
+    false
 }
 #[no_mangle]
 
@@ -5254,8 +4731,8 @@ pub unsafe extern "C" fn admin_pre_login(
     mut client: *mut PgSocket,
     mut username: *const ::core::ffi::c_char,
 ) -> bool {
-    (*client).set_admin_user(false_0 != 0);
-    (*client).set_own_user(false_0 != 0);
+    (*client).set_admin_user(false);
+    (*client).set_own_user(false);
     if pga_is_unix(&raw mut (*client).remote_addr) {
         let mut peer_uid: uid_t = 0;
         let mut peer_gid: gid_t = 0;
@@ -5263,48 +4740,44 @@ pub unsafe extern "C" fn admin_pre_login(
         res = getpeereid((*client).sbuf.sock, &raw mut peer_uid, &raw mut peer_gid);
         if res >= 0 as ::core::ffi::c_int
             && peer_uid == getuid()
-            && strcmp(
-                b"pgbouncer\0" as *const u8 as *const ::core::ffi::c_char,
-                username,
-            ) == 0 as ::core::ffi::c_int
+            && strcmp(c"pgbouncer".as_ptr(), username) == 0 as ::core::ffi::c_int
         {
             (*client).login_user_credentials = (*(*admin_pool).db).forced_user_credentials;
-            (*client).set_own_user(true_0 != 0);
-            (*client).set_admin_user(true_0 != 0);
+            (*client).set_own_user(true);
+            (*client).set_admin_user(true);
             if !check_db_connection_count(client) {
-                return false_0 != 0;
+                return false;
             }
             if cf_log_connections != 0 {
                 log_generic(
                     LG_INFO,
                     client as *mut ::core::ffi::c_void,
-                    b"pgbouncer access from unix socket\0" as *const u8
-                        as *const ::core::ffi::c_char,
+                    c"pgbouncer access from unix socket".as_ptr(),
                 );
             }
-            return true_0 != 0;
+            return true;
         }
     }
     if cf_auth_type == AUTH_TYPE_ANY as ::core::ffi::c_int {
         if strlist_contains(cf_admin_users, username) {
             (*client).login_user_credentials = (*(*admin_pool).db).forced_user_credentials;
-            (*client).set_admin_user(true_0 != 0);
+            (*client).set_admin_user(true);
             if !check_db_connection_count(client) {
-                return false_0 != 0;
+                return false;
             }
-            return true_0 != 0;
+            return true;
         } else if strlist_contains(cf_stats_users, username) {
             (*client).login_user_credentials = (*(*admin_pool).db).forced_user_credentials;
             if !check_db_connection_count(client) {
-                return false_0 != 0;
+                return false;
             }
             if !check_user_connection_count(client) {
-                return false_0 != 0;
+                return false;
             }
-            return true_0 != 0;
+            return true;
         }
     }
-    false_0 != 0
+    false
 }
 #[no_mangle]
 
@@ -5312,22 +4785,18 @@ pub unsafe extern "C" fn admin_post_login(mut client: *mut PgSocket) -> bool {
     let mut username: *const ::core::ffi::c_char =
         &raw mut (*(*client).login_user_credentials).name as *mut ::core::ffi::c_char;
     if cf_auth_type == AUTH_TYPE_ANY as ::core::ffi::c_int {
-        return true_0 != 0;
+        return true;
     }
     if (*client).admin_user() as ::core::ffi::c_int != 0
         || strlist_contains(cf_admin_users, username) as ::core::ffi::c_int != 0
     {
-        (*client).set_admin_user(true_0 != 0);
-        return true_0 != 0;
+        (*client).set_admin_user(true);
+        return true;
     } else if strlist_contains(cf_stats_users, username) {
-        return true_0 != 0;
+        return true;
     }
-    disconnect_client(
-        client,
-        true_0 != 0,
-        b"not allowed\0" as *const u8 as *const ::core::ffi::c_char,
-    );
-    false_0 != 0
+    disconnect_client(client, true, c"not allowed".as_ptr());
+    false
 }
 #[no_mangle]
 
@@ -5337,152 +4806,119 @@ pub unsafe extern "C" fn admin_setup() {
     let mut user = ::core::ptr::null_mut::<PgGlobalUser>();
     let mut msg = ::core::ptr::null_mut::<PktBuf>();
     let mut res: ::core::ffi::c_int = 0;
-    db = add_database(b"pgbouncer\0" as *const u8 as *const ::core::ffi::c_char);
+    db = add_database(c"pgbouncer".as_ptr());
     if db.is_null() {
         let mut _log_ctx = NULL;
-        log_generic(
-            LG_FATAL,
-            _log_ctx,
-            b"no memory for admin database\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        log_generic(LG_FATAL, _log_ctx, c"no memory for admin database".as_ptr());
         exit(1 as ::core::ffi::c_int);
     }
     (*db).port = cf_listen_port;
     (*db).pool_size = 2 as ::core::ffi::c_int;
-    (*db).admin = true_0 != 0;
+    (*db).admin = true;
     (*db).pool_mode = POOL_STMT;
-    if force_user_credentials(
-        db,
-        b"pgbouncer\0" as *const u8 as *const ::core::ffi::c_char,
-        b"\0" as *const u8 as *const ::core::ffi::c_char,
-    )
-    .is_null()
-    {
+    if force_user_credentials(db, c"pgbouncer".as_ptr(), c"".as_ptr()).is_null() {
         let mut _log_ctx_0 = NULL;
         log_generic(
             LG_FATAL,
             _log_ctx_0,
-            b"no mem on startup - cannot alloc pgbouncer user\0" as *const u8
-                as *const ::core::ffi::c_char,
+            c"no mem on startup - cannot alloc pgbouncer user".as_ptr(),
         );
         exit(1 as ::core::ffi::c_int);
     }
     pool = get_pool(db, (*db).forced_user_credentials);
     if pool.is_null() {
         let mut _log_ctx_1 = NULL;
-        log_generic(
-            LG_FATAL,
-            _log_ctx_1,
-            b"cannot create admin pool?\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        log_generic(LG_FATAL, _log_ctx_1, c"cannot create admin pool?".as_ptr());
         exit(1 as ::core::ffi::c_int);
     }
     admin_pool = pool;
-    user = find_or_add_new_global_user(
-        b"pgbouncer\0" as *const u8 as *const ::core::ffi::c_char,
-        b"\0" as *const u8 as *const ::core::ffi::c_char,
-    );
+    user = find_or_add_new_global_user(c"pgbouncer".as_ptr(), c"".as_ptr());
     if user.is_null() {
         let mut _log_ctx_2 = NULL;
-        log_generic(
-            LG_FATAL,
-            _log_ctx_2,
-            b"cannot create admin user?\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        log_generic(LG_FATAL, _log_ctx_2, c"cannot create admin user?".as_ptr());
         exit(1 as ::core::ffi::c_int);
     }
     msg = pktbuf_dynamic(128 as ::core::ffi::c_int);
     if msg.is_null() {
         let mut _log_ctx_3 = NULL;
-        log_generic(
-            LG_FATAL,
-            _log_ctx_3,
-            b"out of memory\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        log_generic(LG_FATAL, _log_ctx_3, c"out of memory".as_ptr());
         exit(1 as ::core::ffi::c_int);
     }
     pktbuf_write_generic(
         msg,
         PqMsg_AuthenticationRequest,
-        b"i\0" as *const u8 as *const ::core::ffi::c_char,
+        c"i".as_ptr(),
         0 as ::core::ffi::c_int,
     );
     pktbuf_write_generic(
         msg,
         PqMsg_ParameterStatus,
-        b"ss\0" as *const u8 as *const ::core::ffi::c_char,
-        b"server_version\0" as *const u8 as *const ::core::ffi::c_char,
-        b"1.25.1/bouncer\0" as *const u8 as *const ::core::ffi::c_char,
+        c"ss".as_ptr(),
+        c"server_version".as_ptr(),
+        c"1.25.1/bouncer".as_ptr(),
     );
     pktbuf_write_generic(
         msg,
         PqMsg_ParameterStatus,
-        b"ss\0" as *const u8 as *const ::core::ffi::c_char,
-        b"client_encoding\0" as *const u8 as *const ::core::ffi::c_char,
-        b"UTF8\0" as *const u8 as *const ::core::ffi::c_char,
+        c"ss".as_ptr(),
+        c"client_encoding".as_ptr(),
+        c"UTF8".as_ptr(),
     );
     pktbuf_write_generic(
         msg,
         PqMsg_ParameterStatus,
-        b"ss\0" as *const u8 as *const ::core::ffi::c_char,
-        b"server_encoding\0" as *const u8 as *const ::core::ffi::c_char,
-        b"UTF8\0" as *const u8 as *const ::core::ffi::c_char,
+        c"ss".as_ptr(),
+        c"server_encoding".as_ptr(),
+        c"UTF8".as_ptr(),
     );
     pktbuf_write_generic(
         msg,
         PqMsg_ParameterStatus,
-        b"ss\0" as *const u8 as *const ::core::ffi::c_char,
-        b"DateStyle\0" as *const u8 as *const ::core::ffi::c_char,
-        b"ISO\0" as *const u8 as *const ::core::ffi::c_char,
+        c"ss".as_ptr(),
+        c"DateStyle".as_ptr(),
+        c"ISO".as_ptr(),
     );
     pktbuf_write_generic(
         msg,
         PqMsg_ParameterStatus,
-        b"ss\0" as *const u8 as *const ::core::ffi::c_char,
-        b"TimeZone\0" as *const u8 as *const ::core::ffi::c_char,
-        b"GMT\0" as *const u8 as *const ::core::ffi::c_char,
+        c"ss".as_ptr(),
+        c"TimeZone".as_ptr(),
+        c"GMT".as_ptr(),
     );
     pktbuf_write_generic(
         msg,
         PqMsg_ParameterStatus,
-        b"ss\0" as *const u8 as *const ::core::ffi::c_char,
-        b"standard_conforming_strings\0" as *const u8 as *const ::core::ffi::c_char,
-        b"on\0" as *const u8 as *const ::core::ffi::c_char,
+        c"ss".as_ptr(),
+        c"standard_conforming_strings".as_ptr(),
+        c"on".as_ptr(),
     );
     pktbuf_write_generic(
         msg,
         PqMsg_ParameterStatus,
-        b"ss\0" as *const u8 as *const ::core::ffi::c_char,
-        b"is_superuser\0" as *const u8 as *const ::core::ffi::c_char,
-        b"on\0" as *const u8 as *const ::core::ffi::c_char,
+        c"ss".as_ptr(),
+        c"is_superuser".as_ptr(),
+        c"on".as_ptr(),
     );
     if (*msg).failed() {
         let mut _log_ctx_4 = NULL;
-        log_generic(
-            LG_FATAL,
-            _log_ctx_4,
-            b"admin welcome failed\0" as *const u8 as *const ::core::ffi::c_char,
-        );
+        log_generic(LG_FATAL, _log_ctx_4, c"admin welcome failed".as_ptr());
         exit(1 as ::core::ffi::c_int);
     }
     (*pool).welcome_msg = msg as *mut PktBuf;
-    (*pool).set_welcome_msg_ready(true_0 != 0);
+    (*pool).set_welcome_msg_ready(true);
     msg = pktbuf_dynamic(128 as ::core::ffi::c_int);
     if msg.is_null() {
         let mut _log_ctx_5 = NULL;
         log_generic(
             LG_FATAL,
             _log_ctx_5,
-            b"cannot create admin startup pkt\0" as *const u8 as *const ::core::ffi::c_char,
+            c"cannot create admin startup pkt".as_ptr(),
         );
         exit(1 as ::core::ffi::c_int);
     }
     (*db).startup_params = msg as *mut PktBuf;
-    pktbuf_put_string(
-        msg,
-        b"database\0" as *const u8 as *const ::core::ffi::c_char,
-    );
-    (*db).dbname = b"pgbouncer\0" as *const u8 as *const ::core::ffi::c_char;
+    pktbuf_put_string(msg, c"database".as_ptr());
+    (*db).dbname = c"pgbouncer".as_ptr();
     pktbuf_put_string(msg, (*db).dbname);
     res = regcomp(
         &raw mut rc_cmd,
@@ -5492,12 +4928,12 @@ pub unsafe extern "C" fn admin_setup() {
     if res != 0 as ::core::ffi::c_int {
         let mut _log_ctx_6 = NULL;
         log_fatal(
-            b"src/admin.c\0" as *const u8 as *const ::core::ffi::c_char,
+            c"src/admin.c".as_ptr(),
             1927 as ::core::ffi::c_int,
-            b"admin_setup\0" as *const u8 as *const ::core::ffi::c_char,
-            false_0 != 0,
+            c"admin_setup".as_ptr(),
+            false,
             _log_ctx_6,
-            b"cmd regex compilation error\0" as *const u8 as *const ::core::ffi::c_char,
+            c"cmd regex compilation error".as_ptr(),
         );
         exit(1 as ::core::ffi::c_int);
     }
@@ -5509,12 +4945,12 @@ pub unsafe extern "C" fn admin_setup() {
     if res != 0 as ::core::ffi::c_int {
         let mut _log_ctx_7 = NULL;
         log_fatal(
-            b"src/admin.c\0" as *const u8 as *const ::core::ffi::c_char,
+            c"src/admin.c".as_ptr(),
             1930 as ::core::ffi::c_int,
-            b"admin_setup\0" as *const u8 as *const ::core::ffi::c_char,
-            false_0 != 0,
+            c"admin_setup".as_ptr(),
+            false,
             _log_ctx_7,
-            b"set/word regex compilation error\0" as *const u8 as *const ::core::ffi::c_char,
+            c"set/word regex compilation error".as_ptr(),
         );
         exit(1 as ::core::ffi::c_int);
     }
@@ -5526,12 +4962,12 @@ pub unsafe extern "C" fn admin_setup() {
     if res != 0 as ::core::ffi::c_int {
         let mut _log_ctx_8 = NULL;
         log_fatal(
-            b"src/admin.c\0" as *const u8 as *const ::core::ffi::c_char,
+            c"src/admin.c".as_ptr(),
             1933 as ::core::ffi::c_int,
-            b"admin_setup\0" as *const u8 as *const ::core::ffi::c_char,
-            false_0 != 0,
+            c"admin_setup".as_ptr(),
+            false,
             _log_ctx_8,
-            b"set/str regex compilation error\0" as *const u8 as *const ::core::ffi::c_char,
+            c"set/str regex compilation error".as_ptr(),
         );
         exit(1 as ::core::ffi::c_int);
     }
@@ -5551,43 +4987,32 @@ pub unsafe extern "C" fn admin_pause_done() {
         if (*admin).wait_for_response() {
             match cf_pause_mode {
                 1 => {
-                    res = admin_ready(admin, b"PAUSE\0" as *const u8 as *const ::core::ffi::c_char);
+                    res = admin_ready(admin, c"PAUSE".as_ptr());
                 }
                 2 => {
-                    res = admin_ready(
-                        admin,
-                        b"SUSPEND\0" as *const u8 as *const ::core::ffi::c_char,
-                    );
+                    res = admin_ready(admin, c"SUSPEND".as_ptr());
                 }
                 _ => {
                     if count_paused_databases() > 0 as ::core::ffi::c_int {
-                        res = admin_ready(
-                            admin,
-                            b"PAUSE\0" as *const u8 as *const ::core::ffi::c_char,
-                        );
+                        res = admin_ready(admin, c"PAUSE".as_ptr());
                     } else {
                         let mut _log_ctx = NULL;
                         log_fatal(
-                            b"src/admin.c\0" as *const u8 as *const ::core::ffi::c_char,
+                            c"src/admin.c".as_ptr(),
                             1959 as ::core::ffi::c_int,
-                            b"admin_pause_done\0" as *const u8 as *const ::core::ffi::c_char,
-                            false_0 != 0,
+                            c"admin_pause_done".as_ptr(),
+                            false,
                             _log_ctx,
-                            b"admin_pause_done: bad state\0" as *const u8
-                                as *const ::core::ffi::c_char,
+                            c"admin_pause_done: bad state".as_ptr(),
                         );
                         exit(1 as ::core::ffi::c_int);
                     }
                 }
             }
             if !res {
-                disconnect_client(
-                    admin,
-                    false_0 != 0,
-                    b"dead admin\0" as *const u8 as *const ::core::ffi::c_char,
-                );
+                disconnect_client(admin, false, c"dead admin".as_ptr());
             } else {
-                (*admin).set_wait_for_response(false_0 != 0);
+                (*admin).set_wait_for_response(false);
             }
         }
         item = tmp;
@@ -5600,8 +5025,7 @@ pub unsafe extern "C" fn admin_pause_done() {
         log_generic(
             LG_INFO,
             _log_ctx_0,
-            b"admin disappeared when suspended, doing RESUME\0" as *const u8
-                as *const ::core::ffi::c_char,
+            c"admin disappeared when suspended, doing RESUME".as_ptr(),
         );
         cf_pause_mode = P_NONE as ::core::ffi::c_int;
         resume_all();
@@ -5620,18 +5044,11 @@ pub unsafe extern "C" fn admin_wait_close_done() {
         admin = (item as *mut ::core::ffi::c_char).offset(-(0 as ::core::ffi::c_ulong as isize))
             as *mut PgSocket;
         if (*admin).wait_for_response() {
-            res = admin_ready(
-                admin,
-                b"WAIT_CLOSE\0" as *const u8 as *const ::core::ffi::c_char,
-            );
+            res = admin_ready(admin, c"WAIT_CLOSE".as_ptr());
             if !res {
-                disconnect_client(
-                    admin,
-                    false_0 != 0,
-                    b"dead admin\0" as *const u8 as *const ::core::ffi::c_char,
-                );
+                disconnect_client(admin, false, c"dead admin".as_ptr());
             } else {
-                (*admin).set_wait_for_response(false_0 != 0);
+                (*admin).set_wait_for_response(false);
             }
         }
         item = tmp;
@@ -5645,8 +5062,7 @@ pub unsafe extern "C" fn admin_handle_cancel(mut admin: *mut PgSocket) {
         log_generic(
             LG_WARNING,
             admin as *mut ::core::ffi::c_void,
-            b"admin cancel request for non-waiting client?\0" as *const u8
-                as *const ::core::ffi::c_char,
+            c"admin cancel request for non-waiting client?".as_ptr(),
         );
     }
     if cf_shutdown != 0 {
@@ -5656,7 +5072,6 @@ pub unsafe extern "C" fn admin_handle_cancel(mut admin: *mut PgSocket) {
         full_resume();
     }
 }
-
 
 extern "C" {
     pub fn get_cached_time() -> usec_t;

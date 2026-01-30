@@ -22,6 +22,18 @@ pub type __uint32_t = u32;
 pub type __int64_t = i64;
 pub type __uint64_t = u64;
 
+// Darwin-specific type aliases
+pub type __darwin_size_t = usize;
+pub type __darwin_ssize_t = isize;
+pub type __darwin_ptrdiff_t = isize;
+pub type __darwin_time_t = ::core::ffi::c_long;
+pub type __darwin_socklen_t = __uint32_t;
+pub type __darwin_wchar_t = libc::wchar_t;
+pub type __darwin_rune_t = __darwin_wchar_t;
+pub type __darwin_ct_rune_t = ::core::ffi::c_int;
+pub type __builtin_va_list = *mut ::core::ffi::c_char;
+pub type __darwin_va_list = __builtin_va_list;
+
 // Standard C types - use libc types
 pub type uintptr_t = libc::uintptr_t;
 pub type in_addr_t = libc::in_addr_t;
@@ -324,7 +336,12 @@ extern "C" {
     pub fn aatree_destroy(tree: *mut AATree);
     pub fn aatree_search(tree: *mut AATree, value: uintptr_t) -> *mut AANode;
     pub fn aatree_insert(tree: *mut AATree, value: uintptr_t, node: *mut AANode);
-    pub fn aatree_walk(tree: *mut AATree, wtype: AATreeWalkType, walker: aatree_walker_f, arg: *mut ::core::ffi::c_void);
+    pub fn aatree_walk(
+        tree: *mut AATree,
+        wtype: AATreeWalkType,
+        walker: aatree_walker_f,
+        arg: *mut ::core::ffi::c_void,
+    );
 }
 
 #[derive(Copy, Clone)]

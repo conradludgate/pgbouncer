@@ -1,52 +1,51 @@
-
 pub mod _uintptr_t_h {
-    
+
     pub type uintptr_t = usize;
 }
 
 pub mod aatree_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct AATree {
         pub root: *mut AANode,
         pub count: ::core::ffi::c_int,
         pub node_cmp: aatree_cmp_f,
         pub release_cb: aatree_walker_f,
     }
-    
+
     pub type aatree_walker_f =
         Option<unsafe extern "C" fn(*mut AANode, *mut ::core::ffi::c_void) -> ()>;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct AANode {
         pub left: *mut AANode,
         pub right: *mut AANode,
         pub level: ::core::ffi::c_int,
     }
-    
+
     pub type aatree_cmp_f =
         Option<unsafe extern "C" fn(uintptr_t, *mut AANode) -> ::core::ffi::c_int>;
-    
+
     pub type AATreeWalkType = ::core::ffi::c_uint;
-    
+
     pub const AA_WALK_POST_ORDER: AATreeWalkType = 2;
-    
+
     pub const AA_WALK_PRE_ORDER: AATreeWalkType = 1;
-    
+
     pub const AA_WALK_IN_ORDER: AATreeWalkType = 0;
     use super::_uintptr_t_h::uintptr_t;
 }
 
 pub mod _null_h {
-    
+
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
     use super::_types_h::__DARWIN_NULL;
 }
 
 pub mod _types_h {
-    
+
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
 }

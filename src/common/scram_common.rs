@@ -182,7 +182,7 @@ pub unsafe extern "C" fn scram_ClientKey(
         || pg_hmac_update(
             ctx,
             b"Client Key\0" as *const u8 as *mut uint8_t,
-            strlen(b"Client Key\0" as *const u8 as *const ::core::ffi::c_char),
+            strlen(c"Client Key".as_ptr()),
         ) < 0
         || pg_hmac_final(ctx, result, key_length as size_t) < 0
     {
@@ -211,7 +211,7 @@ pub unsafe extern "C" fn scram_ServerKey(
         || pg_hmac_update(
             ctx,
             b"Server Key\0" as *const u8 as *mut uint8_t,
-            strlen(b"Server Key\0" as *const u8 as *const ::core::ffi::c_char),
+            strlen(c"Server Key".as_ptr()),
         ) < 0
         || pg_hmac_final(ctx, result, key_length as size_t) < 0
     {
@@ -282,7 +282,7 @@ pub unsafe extern "C" fn scram_build_secret(
     encoded_salt_len = pg_b64_enc_len(saltlen);
     encoded_stored_len = pg_b64_enc_len(key_length);
     encoded_server_len = pg_b64_enc_len(key_length);
-    maxlen = strlen(b"SCRAM-SHA-256\0" as *const u8 as *const ::core::ffi::c_char)
+    maxlen = strlen(c"SCRAM-SHA-256".as_ptr())
         .wrapping_add(1)
         .wrapping_add(10)
         .wrapping_add(1)
@@ -295,19 +295,15 @@ pub unsafe extern "C" fn scram_build_secret(
 
     result = malloc(maxlen as size_t) as *mut ::core::ffi::c_char;
     if result.is_null() {
-        *errstr = b"out of memory\0" as *const u8 as *const ::core::ffi::c_char;
+        *errstr = c"out of memory".as_ptr();
         return ::core::ptr::null_mut::<::core::ffi::c_char>();
     }
 
-    p = result.offset(sprintf(
-        result,
-        b"SCRAM-SHA-256$%d:\0" as *const u8 as *const ::core::ffi::c_char,
-        iterations,
-    ) as isize);
+    p = result.offset(sprintf(result, c"SCRAM-SHA-256$%d:".as_ptr(), iterations) as isize);
 
     encoded_result = pg_b64_encode(salt, saltlen, p, encoded_salt_len);
     if encoded_result < 0 {
-        *errstr = b"could not encode salt\0" as *const u8 as *const ::core::ffi::c_char;
+        *errstr = c"could not encode salt".as_ptr();
         free(result as *mut ::core::ffi::c_void);
         return ::core::ptr::null_mut::<::core::ffi::c_char>();
     }
@@ -323,7 +319,7 @@ pub unsafe extern "C" fn scram_build_secret(
         encoded_stored_len,
     );
     if encoded_result < 0 {
-        *errstr = b"could not encode stored key\0" as *const u8 as *const ::core::ffi::c_char;
+        *errstr = c"could not encode stored key".as_ptr();
         free(result as *mut ::core::ffi::c_void);
         return ::core::ptr::null_mut::<::core::ffi::c_char>();
     }
@@ -339,7 +335,7 @@ pub unsafe extern "C" fn scram_build_secret(
         encoded_server_len,
     );
     if encoded_result < 0 {
-        *errstr = b"could not encode server key\0" as *const u8 as *const ::core::ffi::c_char;
+        *errstr = c"could not encode server key".as_ptr();
         free(result as *mut ::core::ffi::c_void);
         return ::core::ptr::null_mut::<::core::ffi::c_char>();
     }

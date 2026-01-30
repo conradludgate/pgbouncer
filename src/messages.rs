@@ -1,81 +1,43 @@
-
-pub mod _types_h {
-    
-    pub type __uint8_t = u8;
-    
-    pub type __uint16_t = u16;
-    
-    pub type __int32_t = i32;
-    
-    pub type __uint32_t = u32;
-    
-    pub type __darwin_ptrdiff_t = isize;
-    
-    pub type __darwin_size_t = usize;
-    
-    pub type __darwin_ssize_t = isize;
-    
-    pub type __darwin_time_t = ::core::ffi::c_long;
-}
-
-
 pub mod sys__types_h {
-    
+
     pub type __darwin_pid_t = __int32_t;
-    
+
     pub type __darwin_suseconds_t = __int32_t;
-    
+
     pub type __darwin_uid_t = __uint32_t;
-    use super::_types_h::{__int32_t, __uint32_t};
+    use crate::types::{__int32_t, __uint32_t};
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 pub mod tls_h {
     extern "C" {
-        
+
         pub type tls;
     }
 }
 
-
-
-
-
-
 pub mod socket_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr {
         pub sa_len: __uint8_t,
         pub sa_family: sa_family_t,
         pub sa_data: [::core::ffi::c_char; 14],
     }
+    use crate::types::__uint8_t;
     use crate::types::sa_family_t;
-    use super::_types_h::__uint8_t;
 }
 
 pub mod in_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct in_addr {
         pub s_addr: in_addr_t,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr_in {
         pub sin_len: __uint8_t,
         pub sin_family: sa_family_t,
@@ -83,22 +45,22 @@ pub mod in_h {
         pub sin_addr: in_addr,
         pub sin_zero: [::core::ffi::c_char; 8],
     }
+    use crate::types::__uint8_t;
     use crate::types::in_addr_t;
     use crate::types::in_port_t;
     use crate::types::sa_family_t;
-    use super::_types_h::__uint8_t;
 }
 
 pub mod in6_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct in6_addr {
         pub __u6_addr: C2RustUnnamed,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed {
         pub __u6_addr8: [__uint8_t; 16],
         pub __u6_addr16: [__uint16_t; 8],
@@ -106,7 +68,7 @@ pub mod in6_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr_in6 {
         pub sin6_len: __uint8_t,
         pub sin6_family: sa_family_t,
@@ -117,12 +79,12 @@ pub mod in6_h {
     }
     use crate::types::in_port_t;
     use crate::types::sa_family_t;
-    use super::_types_h::{__uint16_t, __uint32_t, __uint8_t};
+    use crate::types::{__uint16_t, __uint32_t, __uint8_t};
 }
 
 pub mod event_h {
     extern "C" {
-        
+
         pub type event_base;
     }
 }
@@ -130,7 +92,7 @@ pub mod event_h {
 pub mod event_struct_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct event {
         pub ev_evcallback: event_callback,
         pub ev_timeout_pos: C2RustUnnamed_5,
@@ -143,14 +105,14 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_0 {
         pub ev_io: C2RustUnnamed_3,
         pub ev_signal: C2RustUnnamed_1,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_1 {
         pub ev_signal_next: C2RustUnnamed_2,
         pub ev_ncalls: ::core::ffi::c_short,
@@ -158,42 +120,42 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_2 {
         pub le_next: *mut event,
         pub le_prev: *mut *mut event,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_3 {
         pub ev_io_next: C2RustUnnamed_4,
         pub ev_timeout: timeval,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_4 {
         pub le_next: *mut event,
         pub le_prev: *mut *mut event,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_5 {
         pub ev_next_with_common_timeout: C2RustUnnamed_6,
         pub min_heap_idx: ::core::ffi::c_int,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_6 {
         pub tqe_next: *mut event,
         pub tqe_prev: *mut *mut event,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct event_callback {
         pub evcb_active_next: C2RustUnnamed_8,
         pub evcb_flags: ::core::ffi::c_short,
@@ -204,7 +166,7 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_7 {
         pub evcb_callback: Option<
             unsafe extern "C" fn(
@@ -222,72 +184,70 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_8 {
         pub tqe_next: *mut event_callback,
         pub tqe_prev: *mut *mut event_callback,
     }
+    use super::event_h::event_base;
     use crate::types::timeval;
     use crate::types::uint8_t;
-    use super::event_h::event_base;
 }
 
-
-
 pub mod bouncer_h {
-    
+
     pub type SocketState = ::core::ffi::c_uint;
-    
+
     pub const SV_TESTED: SocketState = 16;
-    
+
     pub const SV_USED: SocketState = 15;
-    
+
     pub const SV_ACTIVE_CANCEL: SocketState = 14;
-    
+
     pub const SV_ACTIVE: SocketState = 13;
-    
+
     pub const SV_IDLE: SocketState = 12;
-    
+
     pub const SV_BEING_CANCELED: SocketState = 11;
-    
+
     pub const SV_LOGIN: SocketState = 10;
-    
+
     pub const SV_JUSTFREE: SocketState = 9;
-    
+
     pub const SV_FREE: SocketState = 8;
-    
+
     pub const CL_ACTIVE_CANCEL: SocketState = 7;
-    
+
     pub const CL_WAITING_CANCEL: SocketState = 6;
-    
+
     pub const CL_ACTIVE: SocketState = 5;
-    
+
     pub const CL_WAITING_LOGIN: SocketState = 4;
-    
+
     pub const CL_WAITING: SocketState = 3;
-    
+
     pub const CL_LOGIN: SocketState = 2;
-    
+
     pub const CL_JUSTFREE: SocketState = 1;
-    
+
     pub const CL_FREE: SocketState = 0;
-    
+
     pub type PacketCallbackFlag = ::core::ffi::c_uint;
-    
+
     pub const CB_HANDLE_COMPLETE_PACKET: PacketCallbackFlag = 2;
-    
+
     pub const CB_WANT_COMPLETE_PACKET: PacketCallbackFlag = 1;
-    
+
     pub const CB_NONE: PacketCallbackFlag = 0;
-    
+
     pub type LoadBalanceHosts = ::core::ffi::c_uint;
-    
+
     pub const LOAD_BALANCE_HOSTS_ROUND_ROBIN: LoadBalanceHosts = 1;
-    
+
     pub const LOAD_BALANCE_HOSTS_DISABLE: LoadBalanceHosts = 0;
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    
+
     pub struct PgSocket {
         pub head: List,
         pub cancel_head: List,
@@ -344,7 +304,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    
+
     pub struct CallbackState {
         #[bitfield(name = "flag", ty = "PacketCallbackFlag", bits = "0..=7")]
         pub flag: [u8; 1],
@@ -354,7 +314,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct ScramState {
         pub client_nonce: *mut ::core::ffi::c_char,
         pub client_first_message_bare: *mut ::core::ffi::c_char,
@@ -376,14 +336,14 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_9 {
         pub dns_token: *mut DNSToken,
         pub db: *mut PgDatabase,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct PgDatabase {
         pub head: List,
         pub name: [::core::ffi::c_char; 64],
@@ -421,7 +381,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct PgCredentials {
         pub tree_node: AANode,
         pub name: [::core::ffi::c_char; 128],
@@ -439,7 +399,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct PgGlobalUser {
         pub credentials: PgCredentials,
         pub head: List,
@@ -458,7 +418,7 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    
+
     pub struct PgPool {
         pub head: List,
         pub map_head: List,
@@ -494,7 +454,7 @@ pub mod bouncer_h {
     pub use super::super::common::types::PgStats;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union PgAddr {
         pub sa: sockaddr,
         pub sin: sockaddr_in,
@@ -503,46 +463,46 @@ pub mod bouncer_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr_ucreds {
         pub sin: sockaddr_in,
         pub uid: uid_t,
         pub pid: pid_t,
     }
-    
+
     pub type ReplicationType = ::core::ffi::c_uint;
-    
+
     pub const REPLICATION_PHYSICAL: ReplicationType = 2;
-    
+
     pub const REPLICATION_LOGICAL: ReplicationType = 1;
-    
+
     pub const REPLICATION_NONE: ReplicationType = 0;
+    use super::dnslookup_h::DNSToken;
+    use super::in6_h::sockaddr_in6;
+    use super::in_h::sockaddr_in;
+    use super::pktbuf_h::PktBuf;
+    use super::sbuf_h::SBuf;
+    use super::socket_h::sockaddr;
+    use crate::types::pg_cryptohash_type;
     use crate::types::pid_t;
     use crate::types::uid_t;
     use crate::types::uint16_t;
     use crate::types::uint64_t;
     use crate::types::uint8_t;
-    use crate::types::{AANode, AATree};
-    use crate::types::pg_cryptohash_type;
-    use super::dnslookup_h::DNSToken;
-    use super::in6_h::sockaddr_in6;
-    use super::in_h::sockaddr_in;
-    use crate::types::List;
-    use super::pktbuf_h::PktBuf;
-    use crate::types::{PgClientPreparedStatement, PgServerPreparedStatement};
-    use crate::types::PktHdr;
-    use super::sbuf_h::SBuf;
-    use super::socket_h::sockaddr;
-    use crate::types::StatList;
     use crate::types::usec_t;
+    use crate::types::List;
+    use crate::types::PktHdr;
+    use crate::types::StatList;
     use crate::types::VarCache;
+    use crate::types::{AANode, AATree};
+    use crate::types::{PgClientPreparedStatement, PgServerPreparedStatement};
     extern "C" {}
 }
 
 pub mod sbuf_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct SBuf {
         pub ev: event,
         pub wait_type: uint8_t,
@@ -562,7 +522,7 @@ pub mod sbuf_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct SBufIO {
         pub sbufio_peek:
             Option<unsafe extern "C" fn(*mut SBuf, *mut ::core::ffi::c_void, size_t) -> ssize_t>,
@@ -572,41 +532,41 @@ pub mod sbuf_h {
             Option<unsafe extern "C" fn(*mut SBuf, *const ::core::ffi::c_void, size_t) -> ssize_t>,
         pub sbufio_close: Option<unsafe extern "C" fn(*mut SBuf) -> ::core::ffi::c_int>,
     }
-    
+
     pub type sbuf_cb_t = Option<unsafe extern "C" fn(*mut SBuf, SBufEvent, *mut MBuf) -> bool>;
-    
+
     pub type SBufEvent = ::core::ffi::c_uint;
-    
+
     pub const SBUF_EV_TLS_READY: SBufEvent = 7;
-    
+
     pub const SBUF_EV_PKT_CALLBACK: SBufEvent = 6;
-    
+
     pub const SBUF_EV_FLUSH: SBufEvent = 5;
-    
+
     pub const SBUF_EV_CONNECT_OK: SBufEvent = 4;
-    
+
     pub const SBUF_EV_CONNECT_FAILED: SBufEvent = 3;
-    
+
     pub const SBUF_EV_SEND_FAILED: SBufEvent = 2;
-    
+
     pub const SBUF_EV_RECV_FAILED: SBufEvent = 1;
-    
+
     pub const SBUF_EV_READ: SBufEvent = 0;
-    use crate::types::size_t;
-    use crate::types::ssize_t;
-    use crate::types::uint8_t;
     use super::event_struct_h::event;
     use super::iobuf_h::IOBuf;
     use super::tls_h::tls;
+    use crate::types::size_t;
+    use crate::types::ssize_t;
+    use crate::types::uint8_t;
     use crate::types::MBuf;
 }
 
 pub mod iobuf_h {
-    
+
     pub type IOBuf = iobuf;
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct iobuf {
         pub done_pos: ::core::ffi::c_uint,
         pub parse_pos: ::core::ffi::c_uint,
@@ -616,12 +576,10 @@ pub mod iobuf_h {
     use crate::types::uint8_t;
 }
 
-
-
 pub mod pktbuf_h {
     #[derive(Copy, Clone, BitfieldStruct)]
     #[repr(C)]
-    
+
     pub struct PktBuf {
         pub buf: *mut uint8_t,
         pub buf_len: ::core::ffi::c_int,
@@ -637,39 +595,39 @@ pub mod pktbuf_h {
         #[bitfield(padding)]
         pub c2rust_padding: [u8; 7],
     }
-    use crate::types::uint8_t;
     use super::bouncer_h::PgSocket;
     use super::event_struct_h::event;
+    use crate::types::uint8_t;
 }
 
 pub mod dnslookup_h {
     extern "C" {
-        
+
         pub type DNSToken;
     }
 }
 
 pub mod logging_h {
-    
+
     pub type LogLevel = ::core::ffi::c_uint;
-    
+
     pub const LG_NOISE: LogLevel = 6;
-    
+
     pub const LG_DEBUG: LogLevel = 5;
-    
+
     pub const LG_INFO: LogLevel = 4;
-    
+
     pub const LG_STATS: LogLevel = 3;
-    
+
     pub const LG_WARNING: LogLevel = 2;
-    
+
     pub const LG_ERROR: LogLevel = 1;
-    
+
     pub const LG_FATAL: LogLevel = 0;
     extern "C" {
-        
+
         pub static mut cf_verbose: ::core::ffi::c_int;
-        
+
         pub fn log_generic(
             level: LogLevel,
             ctx: *mut ::core::ffi::c_void,
@@ -682,7 +640,7 @@ pub mod logging_h {
 pub mod messages_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct PgParsePacket {
         pub len: ::core::ffi::c_uint,
         pub name: *const ::core::ffi::c_char,
@@ -691,7 +649,7 @@ pub mod messages_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct PgBindPacket {
         pub len: ::core::ffi::c_uint,
         pub portal: *const ::core::ffi::c_char,
@@ -699,27 +657,27 @@ pub mod messages_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct PgDescribePacket {
         pub type_0: ::core::ffi::c_char,
         pub name: *const ::core::ffi::c_char,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct PgClosePacket {
         pub type_0: ::core::ffi::c_char,
         pub name: *const ::core::ffi::c_char,
     }
-    
+
     pub type PreparedStatementAction = ::core::ffi::c_uint;
-    
+
     pub const PS_INSPECT_FAILED: PreparedStatementAction = 3;
-    
+
     pub const PS_HANDLE_FULL_PACKET: PreparedStatementAction = 2;
-    
+
     pub const PS_HANDLE: PreparedStatementAction = 1;
-    
+
     pub const PS_IGNORE: PreparedStatementAction = 0;
     use crate::types::size_t;
 }
@@ -727,13 +685,13 @@ pub mod messages_h {
 pub mod _string_h {
     use crate::types::size_t;
     extern "C" {
-        
+
         pub fn memchr(
             __s: *const ::core::ffi::c_void,
             __c: ::core::ffi::c_int,
             __n: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn strlen(__s: *const ::core::ffi::c_char) -> size_t;
     }
 }
@@ -741,7 +699,7 @@ pub mod _string_h {
 pub mod objects_h {
     use super::bouncer_h::PgSocket;
     extern "C" {
-        
+
         pub fn disconnect_client(
             client: *mut PgSocket,
             notify: bool,
@@ -751,26 +709,7 @@ pub mod objects_h {
     }
 }
 
-pub use crate::types::in_addr_t;
-pub use crate::types::in_port_t;
-pub use crate::types::pid_t;
-pub use crate::types::ptrdiff_t;
-pub use crate::types::sa_family_t;
-pub use crate::types::size_t;
-pub use crate::types::ssize_t;
 use self::_string_h::strlen;
-pub use crate::types::timeval;
-pub use self::_types_h::{
-    __darwin_ptrdiff_t, __darwin_size_t, __darwin_ssize_t, __darwin_time_t, __int32_t, __uint16_t,
-    __uint32_t, __uint8_t,
-};
-pub use crate::types::uid_t;
-pub use crate::types::uint16_t;
-pub use crate::types::uint32_t;
-pub use crate::types::uint64_t;
-pub use crate::types::uint8_t;
-pub use crate::types::uintptr_t;
-pub use crate::types::{aatree_cmp_f, aatree_walker_f, AANode, AATree};
 pub use self::bouncer_h::{
     sockaddr_ucreds, C2RustUnnamed_9, CallbackState, LoadBalanceHosts, PacketCallbackFlag, PgAddr,
     PgCredentials, PgDatabase, PgGlobalUser, PgPool, PgSocket, PgStats, ReplicationType,
@@ -780,6 +719,25 @@ pub use self::bouncer_h::{
     REPLICATION_LOGICAL, REPLICATION_NONE, REPLICATION_PHYSICAL, SV_ACTIVE, SV_ACTIVE_CANCEL,
     SV_BEING_CANCELED, SV_FREE, SV_IDLE, SV_JUSTFREE, SV_LOGIN, SV_TESTED, SV_USED,
 };
+pub use crate::types::in_addr_t;
+pub use crate::types::in_port_t;
+pub use crate::types::pid_t;
+pub use crate::types::ptrdiff_t;
+pub use crate::types::sa_family_t;
+pub use crate::types::size_t;
+pub use crate::types::ssize_t;
+pub use crate::types::timeval;
+pub use crate::types::uid_t;
+pub use crate::types::uint16_t;
+pub use crate::types::uint32_t;
+pub use crate::types::uint64_t;
+pub use crate::types::uint8_t;
+pub use crate::types::uintptr_t;
+pub use crate::types::{
+    __darwin_ptrdiff_t, __darwin_size_t, __darwin_ssize_t, __darwin_time_t, __int32_t, __uint16_t,
+    __uint32_t, __uint8_t,
+};
+pub use crate::types::{aatree_cmp_f, aatree_walker_f, AANode, AATree};
 pub use crate::types::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
 
 pub use self::event_struct_h::{
@@ -789,40 +747,38 @@ pub use self::event_struct_h::{
 pub use self::in6_h::{in6_addr, sockaddr_in6, C2RustUnnamed};
 pub use self::in_h::{in_addr, sockaddr_in};
 pub use self::iobuf_h::{iobuf, IOBuf};
-pub use crate::types::List;
 pub use self::logging_h::{
     cf_verbose, log_generic, LogLevel, LG_DEBUG, LG_ERROR, LG_FATAL, LG_INFO, LG_NOISE, LG_STATS,
     LG_WARNING,
 };
-pub use crate::lib::usual::mbuf::{
-    mbuf_avail_for_read, mbuf_get_bytes, mbuf_get_char, mbuf_get_string, mbuf_get_uint16be,
-    mbuf_written,
-};
-pub use crate::types::MBuf;
 pub use self::messages_h::{
     PgBindPacket, PgClosePacket, PgDescribePacket, PgParsePacket, PreparedStatementAction,
     PS_HANDLE, PS_HANDLE_FULL_PACKET, PS_IGNORE, PS_INSPECT_FAILED,
 };
 use self::objects_h::disconnect_client;
 pub use self::pktbuf_h::PktBuf;
-pub use crate::types::{
-    PgClientPreparedStatement, PgPreparedStatement, PgServerPreparedStatement,
-};
-pub use crate::types::{incomplete_pkt, PktHdr};
 pub use self::sbuf_h::{
     sbuf_cb_t, SBuf, SBufEvent, SBufIO, SBUF_EV_CONNECT_FAILED, SBUF_EV_CONNECT_OK, SBUF_EV_FLUSH,
     SBUF_EV_PKT_CALLBACK, SBUF_EV_READ, SBUF_EV_RECV_FAILED, SBUF_EV_SEND_FAILED,
     SBUF_EV_TLS_READY,
 };
 pub use self::socket_h::sockaddr;
+pub use self::sys__types_h::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t};
+pub use crate::lib::usual::mbuf::{
+    mbuf_avail_for_read, mbuf_get_bytes, mbuf_get_char, mbuf_get_string, mbuf_get_uint16be,
+    mbuf_written,
+};
+pub use crate::types::usec_t;
+pub use crate::types::List;
+pub use crate::types::MBuf;
 pub use crate::types::StatList;
 pub use crate::types::{false_0, true_0};
+pub use crate::types::{incomplete_pkt, PktHdr};
 pub use crate::types::{PStr, StrPool};
-pub use self::sys__types_h::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t};
-pub use crate::types::usec_t;
+pub use crate::types::{PgClientPreparedStatement, PgPreparedStatement, PgServerPreparedStatement};
 
-pub use crate::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 pub use crate::types::VarCache;
+pub use crate::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 #[no_mangle]
 
 pub unsafe extern "C" fn inspect_parse_packet(
@@ -839,8 +795,7 @@ pub unsafe extern "C" fn inspect_parse_packet(
             log_generic(
                 LG_NOISE,
                 client as *mut ::core::ffi::c_void,
-                b"inspect_parse_packet: type=%c, len=%d, statement=<empty>\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"inspect_parse_packet: type=%c, len=%d, statement=<empty>".as_ptr(),
                 (*pkt).type_0,
                 (*pkt).len,
             );
@@ -851,8 +806,7 @@ pub unsafe extern "C" fn inspect_parse_packet(
         log_generic(
             LG_NOISE,
             client as *mut ::core::ffi::c_void,
-            b"inspect_parse_packet: type=%c, len=%d, statement=%s\0" as *const u8
-                as *const ::core::ffi::c_char,
+            c"inspect_parse_packet: type=%c, len=%d, statement=%s".as_ptr(),
             (*pkt).type_0,
             (*pkt).len,
             statement,
@@ -880,8 +834,7 @@ pub unsafe extern "C" fn inspect_bind_packet(
             log_generic(
                 LG_NOISE,
                 client as *mut ::core::ffi::c_void,
-                b"inspect_bind_packet: type=%c, len=%d, statement=<empty>\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"inspect_bind_packet: type=%c, len=%d, statement=<empty>".as_ptr(),
                 (*pkt).type_0,
                 (*pkt).len,
             );
@@ -892,8 +845,7 @@ pub unsafe extern "C" fn inspect_bind_packet(
         log_generic(
             LG_NOISE,
             client as *mut ::core::ffi::c_void,
-            b"inspect_bind_packet: type=%c, len=%d, statement=%s\0" as *const u8
-                as *const ::core::ffi::c_char,
+            c"inspect_bind_packet: type=%c, len=%d, statement=%s".as_ptr(),
             (*pkt).type_0,
             (*pkt).len,
             statement,
@@ -918,8 +870,7 @@ pub unsafe extern "C" fn inspect_describe_or_close_packet(
             log_generic(
                 LG_NOISE,
                 client as *mut ::core::ffi::c_void,
-                b"inspect_describe_or_close_packet: type=%c, len=%d, P/S=%c\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"inspect_describe_or_close_packet: type=%c, len=%d, P/S=%c".as_ptr(),
                 (*pkt).type_0,
                 (*pkt).len,
                 describe as ::core::ffi::c_int,
@@ -936,8 +887,8 @@ pub unsafe extern "C" fn inspect_describe_or_close_packet(
             log_generic(
                 LG_NOISE,
                 client as *mut ::core::ffi::c_void,
-                b"inspect_describe_or_close_packet: type=%c, len=%d, P/S=%c, statement=<empty>\0"
-                    as *const u8 as *const ::core::ffi::c_char,
+                c"inspect_describe_or_close_packet: type=%c, len=%d, P/S=%c, statement=<empty>"
+                    .as_ptr(),
                 (*pkt).type_0,
                 (*pkt).len,
                 describe as ::core::ffi::c_int,
@@ -949,8 +900,7 @@ pub unsafe extern "C" fn inspect_describe_or_close_packet(
         log_generic(
             LG_NOISE,
             client as *mut ::core::ffi::c_void,
-            b"inspect_describe_or_close_packet: type=%c, len=%d, P/S=%c, statement=%s\0"
-                as *const u8 as *const ::core::ffi::c_char,
+            c"inspect_describe_or_close_packet: type=%c, len=%d, P/S=%c, statement=%s".as_ptr(),
             (*pkt).type_0,
             (*pkt).len,
             describe as ::core::ffi::c_int,
@@ -988,15 +938,11 @@ pub unsafe extern "C" fn unmarshall_parse_packet(
                 .wrapping_add(::core::mem::size_of::<uint16_t>() as size_t)
                 .wrapping_add(parameters_length);
             (*parse_packet).query_and_parameters = query;
-            return true_0 != 0;
+            return true;
         }
     }
-    disconnect_client(
-        client,
-        true_0 != 0,
-        b"broken Parse packet\0" as *const u8 as *const ::core::ffi::c_char,
-    );
-    false_0 != 0
+    disconnect_client(client, true, c"broken Parse packet".as_ptr());
+    false
 }
 #[no_mangle]
 
@@ -1013,14 +959,10 @@ pub unsafe extern "C" fn unmarshall_bind_packet(
         (*bind_packet).len = (*pkt).len;
         (*bind_packet).portal = portal;
         (*bind_packet).name = statement;
-        return true_0 != 0;
+        return true;
     }
-    disconnect_client(
-        client,
-        true_0 != 0,
-        b"broken Bind packet\0" as *const u8 as *const ::core::ffi::c_char,
-    );
-    false_0 != 0
+    disconnect_client(client, true, c"broken Bind packet".as_ptr());
+    false
 }
 #[no_mangle]
 
@@ -1032,21 +974,17 @@ pub unsafe extern "C" fn unmarshall_describe_packet(
     let mut describe: ::core::ffi::c_char = 0;
     let mut statement = ::core::ptr::null::<::core::ffi::c_char>();
     if incomplete_pkt(pkt) {
-        return false_0 != 0;
+        return false;
     }
     if mbuf_get_char(&raw mut (*pkt).data, &raw mut describe)
         && mbuf_get_string(&raw mut (*pkt).data, &raw mut statement)
     {
         (*describe_packet).type_0 = describe;
         (*describe_packet).name = statement;
-        return true_0 != 0;
+        return true;
     }
-    disconnect_client(
-        client,
-        true_0 != 0,
-        b"broken Describe packet\0" as *const u8 as *const ::core::ffi::c_char,
-    );
-    false_0 != 0
+    disconnect_client(client, true, c"broken Describe packet".as_ptr());
+    false
 }
 #[no_mangle]
 
@@ -1058,7 +996,7 @@ pub unsafe extern "C" fn unmarshall_close_packet(
     let mut type_0: ::core::ffi::c_char = 0;
     let mut name = ::core::ptr::null::<::core::ffi::c_char>();
     if incomplete_pkt(pkt) {
-        return false_0 != 0;
+        return false;
     }
     if mbuf_get_char(&raw mut (*pkt).data, &raw mut type_0)
         && mbuf_get_string(&raw mut (*pkt).data, &raw mut name)
@@ -1070,22 +1008,17 @@ pub unsafe extern "C" fn unmarshall_close_packet(
             log_generic(
                 LG_NOISE,
                 client as *mut ::core::ffi::c_void,
-                b"unmarshall_close_packet: type=%c, len=%d, S/P=%c, name=%s\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"unmarshall_close_packet: type=%c, len=%d, S/P=%c, name=%s".as_ptr(),
                 (*pkt).type_0,
                 (*pkt).len,
                 type_0 as ::core::ffi::c_int,
                 name,
             );
         }
-        return true_0 != 0;
+        return true;
     }
-    disconnect_client(
-        client,
-        true_0 != 0,
-        b"broken Close packet\0" as *const u8 as *const ::core::ffi::c_char,
-    );
-    false_0 != 0
+    disconnect_client(client, true, c"broken Close packet".as_ptr());
+    false
 }
 #[no_mangle]
 

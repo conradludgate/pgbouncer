@@ -1,19 +1,18 @@
-
 pub mod _types_h {
-    
+
     pub type __uint32_t = u32;
-    
+
     pub type __darwin_ct_rune_t = ::core::ffi::c_int;
-    
+
     pub type __darwin_size_t = usize;
-    
+
     pub type __darwin_wchar_t = ::libc::wchar_t;
-    
+
     pub type __darwin_rune_t = __darwin_wchar_t;
 }
 
 pub mod _size_t_h {
-    
+
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
@@ -21,7 +20,7 @@ pub mod _size_t_h {
 pub mod cxalloc_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct CxOps {
         pub c_alloc: Option<
             unsafe extern "C" fn(*mut ::core::ffi::c_void, size_t) -> *mut ::core::ffi::c_void,
@@ -39,16 +38,16 @@ pub mod cxalloc_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct CxMem {
         pub ops: *const CxOps,
         pub ctx: *mut ::core::ffi::c_void,
     }
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn cx_alloc(cx: *const CxMem, len: size_t) -> *mut ::core::ffi::c_void;
-        
+
         pub fn cx_free(cx: *const CxMem, ptr: *mut ::core::ffi::c_void);
     }
 }
@@ -56,13 +55,13 @@ pub mod cxalloc_h {
 pub mod string_h {
     use super::cxalloc_h::CxMem;
     extern "C" {
-        
+
         pub type StrList;
-        
+
         pub fn strlist_new(ca: *const CxMem) -> *mut StrList;
-        
+
         pub fn strlist_free(slist: *mut StrList);
-        
+
         pub fn strlist_append_ref(slist: *mut StrList, str: *mut ::core::ffi::c_char) -> bool;
     }
 }
@@ -70,7 +69,7 @@ pub mod string_h {
 pub mod pgutil_kwlookup_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct pgkw_t {
         pub pgkw_str16: [::core::ffi::c_char; 6],
         pub pgkw_str22: [::core::ffi::c_char; 5],
@@ -221,19 +220,19 @@ pub mod pgutil_kwlookup_h {
         pub pgkw_str289: [::core::ffi::c_char; 7],
         pub pgkw_str311: [::core::ffi::c_char; 7],
     }
-    
+
     pub const MAX_HASH_VALUE: C2RustUnnamed = 311;
-    
+
     pub const MIN_WORD_LENGTH: C2RustUnnamed = 2;
-    
+
     pub const MAX_WORD_LENGTH: C2RustUnnamed = 17;
-    
+
     pub type C2RustUnnamed = ::core::ffi::c_uint;
-    
+
     pub const MIN_HASH_VALUE: C2RustUnnamed = 16;
-    
+
     pub const TOTAL_KEYWORDS: C2RustUnnamed = 148;
-    
+
     pub unsafe extern "C" fn pg_keyword_lookup_hash(
         mut str: *const ::core::ffi::c_char,
         mut len: size_t,
@@ -543,7 +542,7 @@ pub mod pgutil_kwlookup_h {
         )
     }
     #[no_mangle]
-    
+
     pub unsafe extern "C" fn pg_keyword_lookup_real(
         mut str: *const ::core::ffi::c_char,
         mut len: size_t,
@@ -951,7 +950,7 @@ pub mod pgutil_kwlookup_h {
 pub mod runetype_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct _RuneLocale {
         pub __magic: [::core::ffi::c_char; 8],
         pub __encoding: [::core::ffi::c_char; 32],
@@ -984,21 +983,21 @@ pub mod runetype_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct _RuneCharClass {
         pub __name: [::core::ffi::c_char; 14],
         pub __mask: __uint32_t,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct _RuneRange {
         pub __nranges: ::core::ffi::c_int,
         pub __ranges: *mut _RuneEntry,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct _RuneEntry {
         pub __min: __darwin_rune_t,
         pub __max: __darwin_rune_t,
@@ -1007,7 +1006,7 @@ pub mod runetype_h {
     }
     use super::_types_h::{__darwin_rune_t, __darwin_size_t, __uint32_t};
     extern "C" {
-        
+
         pub static mut _DefaultRuneLocale: _RuneLocale;
     }
 }
@@ -1015,23 +1014,23 @@ pub mod runetype_h {
 pub mod _string_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn memcpy(
             __dst: *mut ::core::ffi::c_void,
             __src: *const ::core::ffi::c_void,
             __n: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn strchr(
             __s: *const ::core::ffi::c_char,
             __c: ::core::ffi::c_int,
         ) -> *mut ::core::ffi::c_char;
-        
+
         pub fn strcmp(
             __s1: *const ::core::ffi::c_char,
             __s2: *const ::core::ffi::c_char,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn strlen(__s: *const ::core::ffi::c_char) -> size_t;
     }
 }
@@ -1039,7 +1038,7 @@ pub mod _string_h {
 pub mod _strings_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn strncasecmp(
             _: *const ::core::ffi::c_char,
             _: *const ::core::ffi::c_char,
@@ -1049,14 +1048,14 @@ pub mod _strings_h {
 }
 
 pub mod _null_h {
-    
+
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
     use super::sys__types_h::__DARWIN_NULL;
 }
 
 pub mod ctype_h {
     #[inline]
-    
+
     pub unsafe extern "C" fn safe_isspace(mut c: ::core::ffi::c_int) -> ::core::ffi::c_int {
         isspace(c as ::core::ffi::c_uchar as ::core::ffi::c_int)
     }
@@ -1064,15 +1063,15 @@ pub mod ctype_h {
 }
 
 pub mod _ctype_h {
-    
+
     pub const _CTYPE_S: ::core::ffi::c_long = 0x4000 as ::core::ffi::c_long;
     #[inline]
-    
+
     pub unsafe extern "C" fn isascii(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
         (_c & !(0x7f as ::core::ffi::c_int) == 0 as ::core::ffi::c_int) as ::core::ffi::c_int
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn __istype(
         mut _c: __darwin_ct_rune_t,
         mut _f: ::core::ffi::c_ulong,
@@ -1085,28 +1084,28 @@ pub mod _ctype_h {
         }
     }
     #[inline]
-    
+
     pub unsafe extern "C" fn isspace(mut _c: ::core::ffi::c_int) -> ::core::ffi::c_int {
         __istype(_c as __darwin_ct_rune_t, _CTYPE_S as ::core::ffi::c_ulong)
     }
     use super::_types_h::__darwin_ct_rune_t;
     use super::runetype_h::_DefaultRuneLocale;
     extern "C" {
-        
+
         pub fn __maskrune(_: __darwin_ct_rune_t, _: ::core::ffi::c_ulong) -> ::core::ffi::c_int;
     }
 }
 
 pub mod sys__types_h {
-    
+
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
 }
 
 pub mod stdbool_h {
-    
+
     pub const true_0: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    
+
     pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 }
 pub use self::_ctype_h::{__istype, __maskrune, isascii, isspace, _CTYPE_S};

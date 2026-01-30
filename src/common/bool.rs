@@ -6,7 +6,7 @@ use super::types::{false_0, size_t, strlen, true_0};
 
 // pg_strncasecmp is defined in pgstrcasecmp.rs within this module
 extern "C" {
-    
+
     pub fn pg_strncasecmp(
         s1: *const ::core::ffi::c_char,
         s2: *const ::core::ffi::c_char,
@@ -32,100 +32,80 @@ pub unsafe extern "C" fn parse_bool_with_len(
 ) -> bool {
     match *value as ::core::ffi::c_int {
         116 | 84 => {
-            if pg_strncasecmp(
-                value,
-                b"true\0" as *const u8 as *const ::core::ffi::c_char,
-                len,
-            ) == 0 as ::core::ffi::c_int
-            {
+            if pg_strncasecmp(value, c"true".as_ptr(), len) == 0 as ::core::ffi::c_int {
                 if !result.is_null() {
-                    *result = true_0 != 0;
+                    *result = true;
                 }
-                return true_0 != 0;
+                return true;
             }
         }
         102 | 70 => {
-            if pg_strncasecmp(
-                value,
-                b"false\0" as *const u8 as *const ::core::ffi::c_char,
-                len,
-            ) == 0 as ::core::ffi::c_int
-            {
+            if pg_strncasecmp(value, c"false".as_ptr(), len) == 0 as ::core::ffi::c_int {
                 if !result.is_null() {
-                    *result = false_0 != 0;
+                    *result = false;
                 }
-                return true_0 != 0;
+                return true;
             }
         }
         121 | 89 => {
-            if pg_strncasecmp(
-                value,
-                b"yes\0" as *const u8 as *const ::core::ffi::c_char,
-                len,
-            ) == 0 as ::core::ffi::c_int
-            {
+            if pg_strncasecmp(value, c"yes".as_ptr(), len) == 0 as ::core::ffi::c_int {
                 if !result.is_null() {
-                    *result = true_0 != 0;
+                    *result = true;
                 }
-                return true_0 != 0;
+                return true;
             }
         }
         110 | 78 => {
-            if pg_strncasecmp(
-                value,
-                b"no\0" as *const u8 as *const ::core::ffi::c_char,
-                len,
-            ) == 0 as ::core::ffi::c_int
-            {
+            if pg_strncasecmp(value, c"no".as_ptr(), len) == 0 as ::core::ffi::c_int {
                 if !result.is_null() {
-                    *result = false_0 != 0;
+                    *result = false;
                 }
-                return true_0 != 0;
+                return true;
             }
         }
         111 | 79 => {
             if pg_strncasecmp(
                 value,
-                b"on\0" as *const u8 as *const ::core::ffi::c_char,
+                c"on".as_ptr(),
                 if len > 2 as size_t { len } else { 2 as size_t },
             ) == 0 as ::core::ffi::c_int
             {
                 if !result.is_null() {
-                    *result = true_0 != 0;
+                    *result = true;
                 }
-                return true_0 != 0;
+                return true;
             } else if pg_strncasecmp(
                 value,
-                b"off\0" as *const u8 as *const ::core::ffi::c_char,
+                c"off".as_ptr(),
                 if len > 2 as size_t { len } else { 2 as size_t },
             ) == 0 as ::core::ffi::c_int
             {
                 if !result.is_null() {
-                    *result = false_0 != 0;
+                    *result = false;
                 }
-                return true_0 != 0;
+                return true;
             }
         }
         49 => {
             if len == 1 as size_t {
                 if !result.is_null() {
-                    *result = true_0 != 0;
+                    *result = true;
                 }
-                return true_0 != 0;
+                return true;
             }
         }
         48 => {
             if len == 1 as size_t {
                 if !result.is_null() {
-                    *result = false_0 != 0;
+                    *result = false;
                 }
-                return true_0 != 0;
+                return true;
             }
         }
         _ => {}
     }
     if !result.is_null() {
-        *result = false_0 != 0;
+        *result = false;
     }
-    false_0 != 0
+    false
 }

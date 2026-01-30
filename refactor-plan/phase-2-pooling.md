@@ -2,12 +2,12 @@
 
 Core infrastructure for connection management and socket I/O.
 
-## Modules
+## Current Metrics (2026-01-30)
 
-| Module | Unsafe Fns | #[no_mangle] | Static Mut | Lines |
-|--------|------------|--------------|------------|-------|
-| pooler.rs | 46 | 9 | 22 | ~3,300 |
-| sbuf.rs | 97 | 22 | 33 | ~4,000 |
+| Module | Lines | Unsafe Fns | #[no_mangle] | Static Mut | Duplicate Modules |
+|--------|-------|------------|--------------|------------|-------------------|
+| pooler.rs | 3,300 | 38 | 9 | 22 | 39 |
+| sbuf.rs | 4,000 | 90 | 22 | 33 | 25 |
 
 ## pooler.rs
 
@@ -33,10 +33,11 @@ Connection pool management:
 - Integrates with libevent
 
 ### Strategy
-1. Clean up c2rust artifacts
-2. Convert pool lists to safe Rust collections (eventually)
-3. Replace pointer-based iteration with iterators
-4. Keep libevent integration as-is initially
+1. ~~Clean up c2rust artifacts~~ ✅ Done
+2. Consolidate type modules (depends on bouncer_h)
+3. Convert pool lists to safe Rust collections (eventually)
+4. Replace pointer-based iteration with iterators
+5. Keep libevent integration as-is initially
 
 ## sbuf.rs
 
@@ -53,7 +54,7 @@ Socket buffer abstraction — the core I/O layer:
 - `SBufIO` — I/O operations vtable
 
 ### This is Complex
-sbuf.rs has the most unsafe functions (97) and is performance-critical. It interfaces with:
+sbuf.rs has 90 unsafe functions and is performance-critical. It interfaces with:
 - libevent for async I/O
 - OpenSSL/TLS for encryption
 - Raw socket syscalls
@@ -65,10 +66,11 @@ sbuf.rs has the most unsafe functions (97) and is performance-critical. It inter
 4. `sbuf_connect()` — initiate connection
 
 ### Strategy
-1. Clean up c2rust artifacts (careful, lots of them)
-2. Keep core I/O unsafe initially — this is low-level
-3. Focus on making the interface safer (better types)
-4. TLS integration can be swapped later (rustls)
+1. ~~Clean up c2rust artifacts~~ ✅ Done
+2. Consolidate type modules (depends on bouncer_h, sbuf_h, iobuf_h)
+3. Keep core I/O unsafe initially — this is low-level
+4. Focus on making the interface safer (better types)
+5. TLS integration can be swapped later (rustls)
 
 ## Checklist
 
@@ -78,13 +80,31 @@ sbuf.rs has the most unsafe functions (97) and is performance-critical. It inter
 - [x] sbuf.rs: Remove c2rust::src_loc and c2rust::header_src attributes
 - [x] sbuf.rs: Consolidate PgStats, List, StatList, AATree to common/types.rs
 
-### Pending 📋
-- [ ] pooler.rs: Remove remaining c2rust type modules
-- [ ] pooler.rs: Import all types from common/types.rs
-- [ ] pooler.rs: Convert static mut to thread-local
+### Blocked 🚧 (Waiting on Type Consolidation)
+- [ ] **Consolidate bouncer_h** first (Phase 1 blocker)
+- [ ] Consolidate sbuf_h (20 files) — SBuf, SBufIO types
+- [ ] Consolidate iobuf_h (20 files) — IOBuf type
+
+### Pending 📋 (After Type Consolidation)
+- [ ] pooler.rs: Remove remaining type modules (~39 modules)
+- [ ] pooler.rs: Import all types from crate::types::*
+- [ ] pooler.rs: Convert static mut to thread-local (22 occurrences)
 - [ ] pooler.rs: Identify safe vs unsafe boundaries
-- [ ] sbuf.rs: Remove remaining c2rust type modules
-- [ ] sbuf.rs: Import all types from common/types.rs
+- [ ] pooler.rs: Apply function cleanup patterns
+- [ ] sbuf.rs: Remove remaining type modules (~25 modules)
+- [ ] sbuf.rs: Import all types from crate::types::*
 - [ ] sbuf.rs: Document unsafe invariants
 - [ ] sbuf.rs: Make SBuf interface safer (not internals)
 - [ ] All: Run integration tests after changes
+
+### Notes
+
+**sbuf.rs is the most complex module** — don't try to make it safe all at once. Focus on:
+1. Type consolidation first
+2. Document what invariants the unsafe code relies on
+3. Make the public interface safer
+4. Keep internals unsafe until we understand them fully
+
+**Dependencies:**
+- pooler.rs depends on: bouncer_h (PgPool, PgSocket), objects.rs
+- sbuf.rs depends on: bouncer_h, iobuf_h, sbuf_h, TLS/OpenSSL

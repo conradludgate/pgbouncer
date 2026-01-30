@@ -1,34 +1,33 @@
-
 pub mod _types_h {
-    
+
     pub type __darwin_size_t = usize;
 }
 
 pub mod _size_t_h {
-    
+
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
 
 pub mod _uint8_t_h {
-    
+
     pub type uint8_t = u8;
 }
 
 pub mod _uint32_t_h {
-    
+
     pub type uint32_t = u32;
 }
 
 pub mod _uint64_t_h {
-    
+
     pub type uint64_t = u64;
 }
 
 pub mod md5_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct md5_ctx {
         pub nbytes: uint64_t,
         pub a: uint32_t,
@@ -37,28 +36,28 @@ pub mod md5_h {
         pub d: uint32_t,
         pub buf: [uint32_t; 16],
     }
-    
+
     pub const MD5_BLOCK_LENGTH: ::core::ffi::c_int = 64 as ::core::ffi::c_int;
-    
+
     pub const MD5_DIGEST_LENGTH: ::core::ffi::c_int = 16 as ::core::ffi::c_int;
     use super::_uint32_t_h::uint32_t;
     use super::_uint64_t_h::uint64_t;
 }
 
 pub mod digest_h {
-    
+
     pub type DigestInitFunc = unsafe extern "C" fn(*mut ::core::ffi::c_void) -> ();
-    
+
     pub type DigestUpdateFunc = unsafe extern "C" fn(
         *mut ::core::ffi::c_void,
         *const ::core::ffi::c_void,
         ::core::ffi::c_uint,
     ) -> ();
-    
+
     pub type DigestFinalFunc = unsafe extern "C" fn(*mut ::core::ffi::c_void, *mut uint8_t) -> ();
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct DigestInfo {
         pub init: Option<DigestInitFunc>,
         pub update: Option<DigestUpdateFunc>,
@@ -72,7 +71,7 @@ pub mod digest_h {
 
 pub mod bits_h {
     #[inline]
-    
+
     pub unsafe extern "C" fn rol32(mut v: uint32_t, mut s: ::core::ffi::c_int) -> uint32_t {
         v << s | v >> (32 as ::core::ffi::c_int - s)
     }
@@ -82,7 +81,7 @@ pub mod bits_h {
 pub mod _string_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn memcpy(
             __dst: *mut ::core::ffi::c_void,
             __src: *const ::core::ffi::c_void,
@@ -93,7 +92,7 @@ pub mod _string_h {
 
 pub mod endian_h {
     #[inline]
-    
+
     pub unsafe extern "C" fn usual_le32enc(mut p: *mut ::core::ffi::c_void, mut x: uint32_t) {
         let mut tmp: uint32_t = x;
         memcpy(

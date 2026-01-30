@@ -1,17 +1,16 @@
-
 pub mod _types_h {
-    
+
     pub type __darwin_size_t = usize;
 }
 
 pub mod _size_t_h {
-    
+
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
 
 pub mod _uint32_t_h {
-    
+
     pub type uint32_t = u32;
 }
 
@@ -19,11 +18,11 @@ pub mod _stdlib_h {
     use super::_size_t_h::size_t;
     use super::_uint32_t_h::uint32_t;
     extern "C" {
-        
+
         pub fn arc4random() -> uint32_t;
-        
+
         pub fn arc4random_buf(__buf: *mut ::core::ffi::c_void, __nbytes: size_t);
-        
+
         pub fn arc4random_uniform(__upper_bound: uint32_t) -> uint32_t;
     }
 }

@@ -1,69 +1,42 @@
-
-pub mod _types_h {
-    
-    pub type __uint8_t = u8;
-    
-    pub type __int32_t = i32;
-    
-    pub type __uint32_t = u32;
-    
-    pub type __darwin_size_t = usize;
-    
-    pub type __darwin_socklen_t = __uint32_t;
-    
-    pub type __darwin_time_t = ::core::ffi::c_long;
-}
-
 pub mod _int32_t_h {
-    
+
     pub type int32_t = i32;
 }
 
-
 pub mod sys__types_h {
-    
+
     pub type __darwin_suseconds_t = __int32_t;
-    
+
     pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
         ::core::ptr::null_mut::<::core::ffi::c_void>();
-    use super::_types_h::__int32_t;
+    use crate::types::__int32_t;
 }
 
-
-
-
-
-
-
-
-
-
-
 pub mod _socklen_t_h {
-    
+
     pub type socklen_t = __darwin_socklen_t;
-    use super::_types_h::__darwin_socklen_t;
+    use crate::types::__darwin_socklen_t;
 }
 
 pub mod socket_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct sockaddr {
         pub sa_len: __uint8_t,
         pub sa_family: sa_family_t,
         pub sa_data: [::core::ffi::c_char; 14],
     }
-    
+
     pub const SOCK_STREAM: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
+    use crate::types::__uint8_t;
     use crate::types::sa_family_t;
-    use super::_types_h::__uint8_t;
 }
 
 pub mod netdb_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct addrinfo {
         pub ai_flags: ::core::ffi::c_int,
         pub ai_family: ::core::ffi::c_int,
@@ -79,7 +52,7 @@ pub mod netdb_h {
 }
 
 pub mod event_h {
-    
+
     pub type event_callback_fn = Option<
         unsafe extern "C" fn(
             ::core::ffi::c_int,
@@ -89,9 +62,9 @@ pub mod event_h {
     >;
     use super::event_struct_h::event;
     extern "C" {
-        
+
         pub type event_base;
-        
+
         pub fn event_assign(
             _: *mut event,
             _: *mut event_base,
@@ -100,7 +73,7 @@ pub mod event_h {
             _: event_callback_fn,
             _: *mut ::core::ffi::c_void,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn event_del(_: *mut event) -> ::core::ffi::c_int;
     }
 }
@@ -108,7 +81,7 @@ pub mod event_h {
 pub mod event_struct_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct event {
         pub ev_evcallback: event_callback,
         pub ev_timeout_pos: C2RustUnnamed_4,
@@ -121,14 +94,14 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed {
         pub ev_io: C2RustUnnamed_2,
         pub ev_signal: C2RustUnnamed_0,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_0 {
         pub ev_signal_next: C2RustUnnamed_1,
         pub ev_ncalls: ::core::ffi::c_short,
@@ -136,42 +109,42 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_1 {
         pub le_next: *mut event,
         pub le_prev: *mut *mut event,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_2 {
         pub ev_io_next: C2RustUnnamed_3,
         pub ev_timeout: timeval,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_3 {
         pub le_next: *mut event,
         pub le_prev: *mut *mut event,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_4 {
         pub ev_next_with_common_timeout: C2RustUnnamed_5,
         pub min_heap_idx: ::core::ffi::c_int,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_5 {
         pub tqe_next: *mut event,
         pub tqe_prev: *mut *mut event,
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct event_callback {
         pub evcb_active_next: C2RustUnnamed_7,
         pub evcb_flags: ::core::ffi::c_short,
@@ -182,7 +155,7 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed_6 {
         pub evcb_callback: Option<
             unsafe extern "C" fn(
@@ -200,22 +173,22 @@ pub mod event_struct_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct C2RustUnnamed_7 {
         pub tqe_next: *mut event_callback,
         pub tqe_prev: *mut *mut event_callback,
     }
+    use super::event_h::event_base;
     use crate::types::timeval;
     use crate::types::uint8_t;
-    use super::event_h::event_base;
 }
 
 pub mod dnslookup_h {
-    
+
     pub type adns_callback_f = Option<
         unsafe extern "C" fn(*mut ::core::ffi::c_void, *const sockaddr, ::core::ffi::c_int) -> (),
     >;
-    
+
     pub type adns_walk_name_f = Option<
         unsafe extern "C" fn(
             *mut ::core::ffi::c_void,
@@ -224,7 +197,7 @@ pub mod dnslookup_h {
             usec_t,
         ) -> (),
     >;
-    
+
     pub type adns_walk_zone_f = Option<
         unsafe extern "C" fn(
             *mut ::core::ffi::c_void,
@@ -233,33 +206,33 @@ pub mod dnslookup_h {
             ::core::ffi::c_int,
         ) -> (),
     >;
-    use crate::types::uint32_t;
     use super::netdb_h::addrinfo;
     use super::socket_h::sockaddr;
+    use crate::types::uint32_t;
     use crate::types::usec_t;
 }
 
 pub mod logging_h {
-    
+
     pub type LogLevel = ::core::ffi::c_uint;
-    
+
     pub const LG_NOISE: LogLevel = 6;
-    
+
     pub const LG_DEBUG: LogLevel = 5;
-    
+
     pub const LG_INFO: LogLevel = 4;
-    
+
     pub const LG_STATS: LogLevel = 3;
-    
+
     pub const LG_WARNING: LogLevel = 2;
-    
+
     pub const LG_ERROR: LogLevel = 1;
-    
+
     pub const LG_FATAL: LogLevel = 0;
     extern "C" {
-        
+
         pub static mut cf_verbose: ::core::ffi::c_int;
-        
+
         pub fn log_generic(
             level: LogLevel,
             ctx: *mut ::core::ffi::c_void,
@@ -270,19 +243,19 @@ pub mod logging_h {
 }
 
 pub mod dns_h {
-    
+
     pub type evdns_getaddrinfo_cb = Option<
         unsafe extern "C" fn(::core::ffi::c_int, *mut addrinfo, *mut ::core::ffi::c_void) -> (),
     >;
-    
+
     pub const DNS_OPTION_SEARCH: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    
+
     pub const DNS_OPTION_NAMESERVERS: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
-    
+
     pub const DNS_OPTION_MISC: ::core::ffi::c_int = 4 as ::core::ffi::c_int;
-    
+
     pub const DNS_OPTION_HOSTSFILE: ::core::ffi::c_int = 8 as ::core::ffi::c_int;
-    
+
     pub const DNS_OPTIONS_ALL: ::core::ffi::c_int = DNS_OPTION_SEARCH
         | DNS_OPTION_NAMESERVERS
         | DNS_OPTION_MISC
@@ -291,24 +264,24 @@ pub mod dns_h {
     use super::event_h::event_base;
     use super::netdb_h::addrinfo;
     extern "C" {
-        
+
         pub type evdns_base;
-        
+
         pub type evdns_getaddrinfo_request;
-        
+
         pub fn evdns_base_new(
             event_base: *mut event_base,
             initialize_nameservers: ::core::ffi::c_int,
         ) -> *mut evdns_base;
-        
+
         pub fn evdns_base_free(base: *mut evdns_base, fail_requests: ::core::ffi::c_int);
-        
+
         pub fn evdns_base_resolv_conf_parse(
             base: *mut evdns_base,
             flags: ::core::ffi::c_int,
             filename: *const ::core::ffi::c_char,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn evdns_getaddrinfo(
             dns_base: *mut evdns_base,
             nodename: *const ::core::ffi::c_char,
@@ -323,19 +296,18 @@ pub mod dns_h {
 pub mod _malloc_h {
     use crate::types::size_t;
     extern "C" {
-        
+
         pub fn calloc(__count: size_t, __size: size_t) -> *mut ::core::ffi::c_void;
-        
+
         pub fn free(_: *mut ::core::ffi::c_void);
     }
 }
 
-
 pub mod usual_socket_h {
-    use crate::types::size_t;
     use super::socket_h::sockaddr;
+    use crate::types::size_t;
     extern "C" {
-        
+
         pub fn sa2str(
             sa: *const sockaddr,
             buf: *mut ::core::ffi::c_char,
@@ -347,7 +319,7 @@ pub mod usual_socket_h {
 pub mod util_h {
     use super::netdb_h::addrinfo;
     extern "C" {
-        
+
         pub fn evutil_freeaddrinfo(ai: *mut addrinfo);
     }
 }
@@ -355,31 +327,31 @@ pub mod util_h {
 pub mod _string_h {
     use crate::types::size_t;
     extern "C" {
-        
+
         pub fn memcmp(
             __s1: *const ::core::ffi::c_void,
             __s2: *const ::core::ffi::c_void,
             __n: size_t,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn memset(
             __b: *mut ::core::ffi::c_void,
             __c: ::core::ffi::c_int,
             __len: size_t,
         ) -> *mut ::core::ffi::c_void;
-        
+
         pub fn strchr(
             __s: *const ::core::ffi::c_char,
             __c: ::core::ffi::c_int,
         ) -> *mut ::core::ffi::c_char;
-        
+
         pub fn strcmp(
             __s1: *const ::core::ffi::c_char,
             __s2: *const ::core::ffi::c_char,
         ) -> ::core::ffi::c_int;
-        
+
         pub fn strlen(__s: *const ::core::ffi::c_char) -> size_t;
-        
+
         pub fn strdup(__s1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
     }
 }
@@ -388,22 +360,22 @@ pub mod bouncer_h {
     use super::event_h::event_base;
     use crate::types::usec_t;
     extern "C" {
-        
+
         pub static mut pgb_event_base: *mut event_base;
-        
+
         pub static mut cf_dns_max_ttl: usec_t;
-        
+
         pub static mut cf_dns_nxdomain_ttl: usec_t;
-        
+
         pub static mut cf_resolv_conf: *mut ::core::ffi::c_char;
     }
 }
 
 pub mod include_util_h {
-    use crate::types::timeval;
     use super::event_struct_h::event;
+    use crate::types::timeval;
     extern "C" {
-        
+
         pub fn safe_evtimer_add(ev: *mut event, tv: *mut timeval);
     }
 }
@@ -411,15 +383,14 @@ pub mod include_util_h {
 pub mod objects_h {
     use super::socket_h::sockaddr;
     extern "C" {
-        
+
         pub fn tag_host_addr_dirty(host: *const ::core::ffi::c_char, sa: *const sockaddr);
     }
 }
 
-
 pub mod _strings_h {
     extern "C" {
-        
+
         pub fn strcasecmp(
             _: *const ::core::ffi::c_char,
             _: *const ::core::ffi::c_char,
@@ -428,21 +399,9 @@ pub mod _strings_h {
 }
 pub use self::_int32_t_h::int32_t;
 use self::_malloc_h::{calloc, free};
-pub use crate::types::NULL;
-pub use crate::types::sa_family_t;
-pub use crate::types::size_t;
 pub use self::_socklen_t_h::socklen_t;
 use self::_string_h::{memcmp, memset, strchr, strcmp, strdup, strlen};
 use self::_strings_h::strcasecmp;
-pub use crate::types::timeval;
-pub use self::_types_h::{
-    __darwin_size_t, __darwin_socklen_t, __darwin_time_t, __int32_t, __uint32_t, __uint8_t,
-};
-pub use crate::types::uint32_t;
-pub use crate::types::uint64_t;
-pub use crate::types::uint8_t;
-pub use crate::types::uintptr_t;
-pub use crate::types::{aatree_cmp_f, aatree_destroy, aatree_init, aatree_insert, aatree_search, aatree_walk, aatree_walker_f, AANode, AATree, AATreeWalkType, AA_WALK_IN_ORDER, AA_WALK_POST_ORDER, AA_WALK_PRE_ORDER};
 use self::bouncer_h::{cf_dns_max_ttl, cf_dns_nxdomain_ttl, cf_resolv_conf, pgb_event_base};
 pub use self::dns_h::{
     evdns_base, evdns_base_free, evdns_base_new, evdns_base_resolv_conf_parse, evdns_getaddrinfo,
@@ -456,7 +415,6 @@ pub use self::event_struct_h::{
     C2RustUnnamed_3, C2RustUnnamed_4, C2RustUnnamed_5, C2RustUnnamed_6, C2RustUnnamed_7,
 };
 use self::include_util_h::safe_evtimer_add;
-pub use crate::types::{list_append, list_del, list_empty, list_first, list_init, list_pop, List};
 pub use self::logging_h::{
     cf_verbose, log_generic, LogLevel, LG_DEBUG, LG_ERROR, LG_FATAL, LG_INFO, LG_NOISE, LG_STATS,
     LG_WARNING,
@@ -464,12 +422,29 @@ pub use self::logging_h::{
 pub use self::netdb_h::addrinfo;
 use self::objects_h::tag_host_addr_dirty;
 pub use self::socket_h::{sockaddr, SOCK_STREAM};
-pub use crate::types::{statlist_append, statlist_count, statlist_init, statlist_remove, StatList};
-pub use crate::types::{false_0, true_0};
 pub use self::sys__types_h::{__darwin_suseconds_t, __DARWIN_NULL};
-pub use crate::types::{usec_t, USEC};
 use self::usual_socket_h::sa2str;
 use self::util_h::evutil_freeaddrinfo;
+pub use crate::types::sa_family_t;
+pub use crate::types::size_t;
+pub use crate::types::timeval;
+pub use crate::types::uint32_t;
+pub use crate::types::uint64_t;
+pub use crate::types::uint8_t;
+pub use crate::types::uintptr_t;
+pub use crate::types::NULL;
+pub use crate::types::{
+    __darwin_size_t, __darwin_socklen_t, __darwin_time_t, __int32_t, __uint32_t, __uint8_t,
+};
+pub use crate::types::{
+    aatree_cmp_f, aatree_destroy, aatree_init, aatree_insert, aatree_search, aatree_walk,
+    aatree_walker_f, AANode, AATree, AATreeWalkType, AA_WALK_IN_ORDER, AA_WALK_POST_ORDER,
+    AA_WALK_PRE_ORDER,
+};
+pub use crate::types::{false_0, true_0};
+pub use crate::types::{list_append, list_del, list_empty, list_first, list_init, list_pop, List};
+pub use crate::types::{statlist_append, statlist_count, statlist_init, statlist_remove, StatList};
+pub use crate::types::{usec_t, USEC};
 #[derive(Copy, Clone)]
 #[repr(C)]
 
@@ -531,21 +506,21 @@ pub const cf_dns_zone_check_period: ::core::ffi::c_int = 0 as ::core::ffi::c_int
 #[no_mangle]
 
 pub unsafe extern "C" fn adns_get_backend() -> *const ::core::ffi::c_char {
-    b"evdns2\0" as *const u8 as *const ::core::ffi::c_char
+    c"evdns2".as_ptr()
 }
 
 unsafe extern "C" fn _evdns_base_resolv_conf_parse_err_to_string(
     mut err: ::core::ffi::c_int,
 ) -> *const ::core::ffi::c_char {
     match err {
-        0 => b"no error\0" as *const u8 as *const ::core::ffi::c_char,
-        1 => b"failed to open file\0" as *const u8 as *const ::core::ffi::c_char,
-        2 => b"failed to stat file\0" as *const u8 as *const ::core::ffi::c_char,
-        3 => b"file too large\0" as *const u8 as *const ::core::ffi::c_char,
-        4 => b"out of memory\0" as *const u8 as *const ::core::ffi::c_char,
-        5 => b"short read from file\0" as *const u8 as *const ::core::ffi::c_char,
-        6 => b"no nameservers listed in the file\0" as *const u8 as *const ::core::ffi::c_char,
-        _ => b"[Unknown error code]\0" as *const u8 as *const ::core::ffi::c_char,
+        0 => c"no error".as_ptr(),
+        1 => c"failed to open file".as_ptr(),
+        2 => c"failed to stat file".as_ptr(),
+        3 => c"file too large".as_ptr(),
+        4 => c"out of memory".as_ptr(),
+        5 => c"short read from file".as_ptr(),
+        6 => c"no nameservers listed in the file".as_ptr(),
+        _ => c"[Unknown error code]".as_ptr(),
     }
 }
 
@@ -558,12 +533,8 @@ unsafe extern "C" fn impl_init(mut ctx: *mut DNSContext) -> bool {
             evdns_base_new(pgb_event_base, 0 as ::core::ffi::c_int) as *mut ::core::ffi::c_void;
         if (*ctx).edns.is_null() {
             let mut _log_ctx = NULL;
-            log_generic(
-                LG_ERROR,
-                _log_ctx,
-                b"evdns_base_new failed\0" as *const u8 as *const ::core::ffi::c_char,
-            );
-            return false_0 != 0;
+            log_generic(LG_ERROR, _log_ctx, c"evdns_base_new failed".as_ptr());
+            return false;
         }
         err = evdns_base_resolv_conf_parse(
             (*ctx).edns as *mut evdns_base,
@@ -579,22 +550,18 @@ unsafe extern "C" fn impl_init(mut ctx: *mut DNSContext) -> bool {
                 cf_resolv_conf,
                 _evdns_base_resolv_conf_parse_err_to_string(err),
             );
-            return false_0 != 0;
+            return false;
         }
     } else {
         (*ctx).edns =
             evdns_base_new(pgb_event_base, 1 as ::core::ffi::c_int) as *mut ::core::ffi::c_void;
         if (*ctx).edns.is_null() {
             let mut _log_ctx_1 = NULL;
-            log_generic(
-                LG_ERROR,
-                _log_ctx_1,
-                b"evdns_base_new failed\0" as *const u8 as *const ::core::ffi::c_char,
-            );
-            return false_0 != 0;
+            log_generic(LG_ERROR, _log_ctx_1, c"evdns_base_new failed".as_ptr());
+            return false;
         }
     }
-    true_0 != 0
+    true
 }
 
 unsafe extern "C" fn impl_launch_query(mut req: *mut DNSRequest) {
@@ -630,7 +597,7 @@ unsafe extern "C" fn impl_launch_query(mut req: *mut DNSRequest) {
         log_generic(
             LG_NOISE,
             _log_ctx,
-            b"dns: evdns_getaddrinfo(%s)=%p\0" as *const u8 as *const ::core::ffi::c_char,
+            c"dns: evdns_getaddrinfo(%s)=%p".as_ptr(),
             (*req).name,
             gai_req,
         );
@@ -662,7 +629,7 @@ unsafe extern "C" fn deliver_info(mut req: *mut DNSRequest) {
             log_generic(
                 LG_NOISE,
                 _log_ctx,
-                b"dns: deliver_info(%s) addr=%s\0" as *const u8 as *const ::core::ffi::c_char,
+                c"dns: deliver_info(%s) addr=%s".as_ptr(),
                 (*req).name,
                 if !ai.is_null() {
                     sa2str(
@@ -671,7 +638,7 @@ unsafe extern "C" fn deliver_info(mut req: *mut DNSRequest) {
                         ::core::mem::size_of::<[::core::ffi::c_char; 128]>() as size_t,
                     )
                 } else {
-                    b"NULL\0" as *const u8 as *const ::core::ffi::c_char
+                    c"NULL".as_ptr()
                 },
             );
         }
@@ -706,7 +673,7 @@ unsafe extern "C" fn req_cmp(mut arg: uintptr_t, mut node: *mut AANode) -> ::cor
 }
 
 unsafe extern "C" fn req_reset(mut req: *mut DNSRequest) {
-    (*req).done = false_0 != 0;
+    (*req).done = false;
     if !(*req).result.is_null() {
         if !(*req).oldres.is_null() {
             evutil_freeaddrinfo((*req).oldres);
@@ -752,7 +719,7 @@ pub unsafe extern "C" fn adns_create_context() -> *mut DNSContext {
         log_generic(
             LG_DEBUG,
             _log_ctx,
-            b"adns_create_context: %s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"adns_create_context: %s".as_ptr(),
             adns_get_backend(),
         );
     }
@@ -804,12 +771,7 @@ pub unsafe extern "C" fn adns_resolve(
         let mut _log_ctx = NULL;
         if (cf_verbose > 1 as ::core::ffi::c_int) as ::core::ffi::c_int as ::core::ffi::c_long != 0
         {
-            log_generic(
-                LG_NOISE,
-                _log_ctx,
-                b"dns: new req: %s\0" as *const u8 as *const ::core::ffi::c_char,
-                name,
-            );
+            log_generic(LG_NOISE, _log_ctx, c"dns: new req: %s".as_ptr(), name);
         }
         req =
             calloc(1 as size_t, ::core::mem::size_of::<DNSRequest>() as size_t) as *mut DNSRequest;
@@ -854,7 +816,7 @@ pub unsafe extern "C" fn adns_resolve(
                         log_generic(
                             LG_NOISE,
                             _log_ctx_0,
-                            b"dns: ttl over: %s\0" as *const u8 as *const ::core::ffi::c_char,
+                            c"dns: ttl over: %s".as_ptr(),
                             (*req).name,
                         );
                     }
@@ -876,7 +838,7 @@ pub unsafe extern "C" fn adns_resolve(
     log_generic(
         LG_WARNING,
         _log_ctx_1,
-        b"dns(%s): req failed, no mem\0" as *const u8 as *const ::core::ffi::c_char,
+        c"dns(%s): req failed, no mem".as_ptr(),
         name,
     );
     cb_func.expect("non-null function pointer")(
@@ -909,11 +871,11 @@ unsafe extern "C" fn check_req_result_changes(mut req: *mut DNSRequest) {
     let mut aj = ::core::ptr::null_mut::<addrinfo>();
     ai = (*req).oldres;
     while !ai.is_null() {
-        let mut found = false_0 != 0;
+        let mut found = false;
         aj = (*req).result;
         while !aj.is_null() {
             if cmp_addrinfo(ai, aj) == 0 as ::core::ffi::c_int {
-                found = true_0 != 0;
+                found = true;
                 break;
             } else {
                 aj = (*aj).ai_next;
@@ -954,7 +916,7 @@ unsafe extern "C" fn got_result_gai(
                     log_generic(
                         LG_NOISE,
                         _log_ctx,
-                        b"DNS: %s[%d] = %s [%s]\0" as *const u8 as *const ::core::ffi::c_char,
+                        c"DNS: %s[%d] = %s [%s]".as_ptr(),
                         (*req).name,
                         fresh0,
                         sa2str(
@@ -963,9 +925,9 @@ unsafe extern "C" fn got_result_gai(
                             ::core::mem::size_of::<[::core::ffi::c_char; 128]>() as size_t,
                         ),
                         if (*ai).ai_socktype == 1 as ::core::ffi::c_int {
-                            b"STREAM\0" as *const u8 as *const ::core::ffi::c_char
+                            c"STREAM".as_ptr()
                         } else {
-                            b"OTHER\0" as *const u8 as *const ::core::ffi::c_char
+                            c"OTHER".as_ptr()
                         },
                     );
                 }
@@ -978,13 +940,13 @@ unsafe extern "C" fn got_result_gai(
         log_generic(
             LG_WARNING,
             _log_ctx_0,
-            b"DNS lookup failed: %s: result=%d\0" as *const u8 as *const ::core::ffi::c_char,
+            c"DNS lookup failed: %s: result=%d".as_ptr(),
             (*req).name,
             result,
         );
         (*req).res_ttl = get_cached_time().wrapping_add(cf_dns_nxdomain_ttl);
     }
-    (*req).done = true_0 != 0;
+    (*req).done = true;
     deliver_info(req);
 }
 #[no_mangle]
@@ -1050,7 +1012,7 @@ unsafe extern "C" fn zone_register(mut ctx: *mut DNSContext, mut req: *mut DNSRe
         log_generic(
             LG_DEBUG,
             _log_ctx,
-            b"zone_register(%s)\0" as *const u8 as *const ::core::ffi::c_char,
+            c"zone_register(%s)".as_ptr(),
             (*req).name,
         );
     }
@@ -1067,7 +1029,7 @@ unsafe extern "C" fn zone_register(mut ctx: *mut DNSContext, mut req: *mut DNSRe
         log_generic(
             LG_DEBUG,
             _log_ctx_0,
-            b"zone_register(%s): name=%s\0" as *const u8 as *const ::core::ffi::c_char,
+            c"zone_register(%s): name=%s".as_ptr(),
             (*req).name,
             name,
         );
@@ -1089,10 +1051,7 @@ unsafe extern "C" fn zone_register(mut ctx: *mut DNSContext, mut req: *mut DNSRe
         free(z as *mut ::core::ffi::c_void);
         return;
     }
-    statlist_init(
-        &raw mut (*z).host_list,
-        b"host_list\0" as *const u8 as *const ::core::ffi::c_char,
-    );
+    statlist_init(&raw mut (*z).host_list, c"host_list".as_ptr());
     list_init(&raw mut (*z).lnode);
     aatree_insert(
         &raw mut (*ctx).zone_tree,
@@ -1174,7 +1133,7 @@ unsafe extern "C" fn zone_requeue(mut ctx: *mut DNSContext, mut z: *mut DNSZone)
         req = (el as *mut ::core::ffi::c_char).offset(-(24 as ::core::ffi::c_ulong as isize))
             as *mut DNSRequest;
         if (*req).done {
-            (*req).res_ttl = 0 as usec_t;
+            (*req).res_ttl = 0;
             (*ctx).active += 1;
             impl_launch_query(req);
         }
@@ -1193,13 +1152,12 @@ unsafe extern "C" fn got_zone_serial(mut ctx: *mut DNSContext, mut serial: *mut 
         let mut s1: int32_t = (*z).serial as int32_t;
         let mut s2: int32_t = *serial as int32_t;
         let mut ds: int32_t = s2 - s1;
-        if ds > 0 as int32_t {
+        if ds > 0 {
             let mut _log_ctx = NULL;
             log_generic(
                 LG_INFO,
                 _log_ctx,
-                b"zone '%s' serial changed: old=%u new=%u\0" as *const u8
-                    as *const ::core::ffi::c_char,
+                c"zone '%s' serial changed: old=%u new=%u".as_ptr(),
                 (*z).zonename,
                 (*z).serial,
                 *serial,
@@ -1214,7 +1172,7 @@ unsafe extern "C" fn got_zone_serial(mut ctx: *mut DNSContext, mut serial: *mut 
                 log_generic(
                     LG_DEBUG,
                     _log_ctx_0,
-                    b"zone '%s' unchanged: serial=%u\0" as *const u8 as *const ::core::ffi::c_char,
+                    c"zone '%s' unchanged: serial=%u".as_ptr(),
                     (*z).zonename,
                     *serial,
                 );
@@ -1227,7 +1185,7 @@ unsafe extern "C" fn got_zone_serial(mut ctx: *mut DNSContext, mut serial: *mut 
             log_generic(
                 LG_DEBUG,
                 _log_ctx_1,
-                b"failure to get zone '%s' serial\0" as *const u8 as *const ::core::ffi::c_char,
+                c"failure to get zone '%s' serial".as_ptr(),
                 (*z).zonename,
             );
         }
@@ -1311,7 +1269,6 @@ pub unsafe extern "C" fn adns_walk_zones(
 #[no_mangle]
 
 pub unsafe extern "C" fn adns_per_loop(mut _ctx: *mut DNSContext) {}
-
 
 extern "C" {
     pub fn get_cached_time() -> usec_t;

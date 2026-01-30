@@ -1,29 +1,28 @@
-
 pub mod _types_h {
-    
+
     pub type __darwin_size_t = usize;
 }
 
 pub mod _size_t_h {
-    
+
     pub type size_t = __darwin_size_t;
     use super::_types_h::__darwin_size_t;
 }
 
 pub mod _uint8_t_h {
-    
+
     pub type uint8_t = u8;
 }
 
 pub mod _uint32_t_h {
-    
+
     pub type uint32_t = u32;
 }
 
 pub mod chacha_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub struct ChaCha {
         pub state: [uint32_t; 16],
         pub u: C2RustUnnamed,
@@ -31,12 +30,12 @@ pub mod chacha_h {
     }
     #[derive(Copy, Clone)]
     #[repr(C)]
-    
+
     pub union C2RustUnnamed {
         pub output32: [uint32_t; 16],
         pub output8: [uint8_t; 64],
     }
-    
+
     pub const CHACHA_BLOCK_SIZE: ::core::ffi::c_int = 64 as ::core::ffi::c_int;
     use super::_uint32_t_h::uint32_t;
     use super::_uint8_t_h::uint8_t;
@@ -45,7 +44,7 @@ pub mod chacha_h {
 pub mod _string_h {
     use super::_size_t_h::size_t;
     extern "C" {
-        
+
         pub fn memcpy(
             __dst: *mut ::core::ffi::c_void,
             __src: *const ::core::ffi::c_void,
@@ -56,7 +55,7 @@ pub mod _string_h {
 
 pub mod endian_h {
     #[inline]
-    
+
     pub unsafe extern "C" fn usual_le32dec(mut p: *const ::core::ffi::c_void) -> uint32_t {
         let mut tmp: uint32_t = 0;
         memcpy(
@@ -73,7 +72,7 @@ pub mod endian_h {
 
 pub mod bits_h {
     #[inline]
-    
+
     pub unsafe extern "C" fn rol32(mut v: uint32_t, mut s: ::core::ffi::c_int) -> uint32_t {
         v << s | v >> (32 as ::core::ffi::c_int - s)
     }
