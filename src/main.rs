@@ -1159,29 +1159,13 @@ pub mod varcache_h {
     pub struct VarCache {
         pub var_list: *mut *mut PStr,
     }
-    use super::strpool_h::PStr;
+    use pgbouncer::types::PStr;
     extern "C" {
         
         pub fn init_var_lookup(cf_track_extra_parameters_0: *const ::core::ffi::c_char);
     }
 }
 
-pub mod strpool_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct PStr {
-        pub pool: *mut StrPool,
-        pub len: size_t,
-        pub refcnt: ::core::ffi::c_int,
-        pub str_0: [::core::ffi::c_char; 0],
-    }
-    use super::_size_t_h::size_t;
-    extern "C" {
-        
-        pub type StrPool;
-    }
-}
 
 pub mod pktbuf_h {
     #[derive(Copy, Clone, BitfieldStruct)]
@@ -1808,7 +1792,7 @@ pub use self::statlist_h::{statlist_count, StatList};
 use self::stats_h::stats_setup;
 pub use self::stdbool_h::{false_0, true_0};
 use self::string_h::{strcmpeq, usual_basename};
-pub use self::strpool_h::{PStr, StrPool};
+pub use pgbouncer::types::{PStr, StrPool};
 pub use self::sys__types_h::{
     __darwin_off_t, __darwin_pid_t, __darwin_sigset_t, __darwin_suseconds_t, __darwin_uid_t,
     __DARWIN_NULL,

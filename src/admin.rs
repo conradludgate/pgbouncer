@@ -1073,25 +1073,9 @@ pub mod varcache_h {
     pub const VClientEncoding: VarCacheIdx = 1;
     
     pub const VDateStyle: VarCacheIdx = 0;
-    use super::strpool_h::PStr;
+    use crate::types::PStr;
 }
 
-pub mod strpool_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct PStr {
-        pub pool: *mut StrPool,
-        pub len: size_t,
-        pub refcnt: ::core::ffi::c_int,
-        pub str_0: [::core::ffi::c_char; 0],
-    }
-    use super::_size_t_h::size_t;
-    extern "C" {
-        
-        pub type StrPool;
-    }
-}
 
 pub mod pktbuf_h {
     #[derive(Copy, Clone, BitfieldStruct)]
@@ -1785,7 +1769,7 @@ use self::stats_h::{
     show_stat_totals,
 };
 pub use self::stdbool_h::{false_0, true_0};
-pub use self::strpool_h::{PStr, StrPool};
+pub use crate::types::{PStr, StrPool};
 pub use self::sys__types_h::{
     __darwin_gid_t, __darwin_off_t, __darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t,
     __DARWIN_NULL,

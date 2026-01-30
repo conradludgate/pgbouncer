@@ -775,41 +775,9 @@ pub mod varcache_h {
     pub struct VarCache {
         pub var_list: *mut *mut PStr,
     }
-    use super::strpool_h::PStr;
+    use crate::types::PStr;
 }
 
-pub mod strpool_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-    
-    pub struct PStr {
-        pub pool: *mut StrPool,
-        pub len: size_t,
-        pub refcnt: ::core::ffi::c_int,
-        pub str_0: [::core::ffi::c_char; 0],
-    }
-    use super::_size_t_h::size_t;
-    use super::_ssize_t_h::ssize_t;
-    use super::cxalloc_h::CxMem;
-    extern "C" {
-        
-        pub type StrPool;
-        
-        pub fn strpool_create(ca: *const CxMem) -> *mut StrPool;
-        
-        pub fn strpool_free(sp: *mut StrPool);
-        
-        pub fn strpool_get(
-            sp: *mut StrPool,
-            str: *const ::core::ffi::c_char,
-            len: ssize_t,
-        ) -> *mut PStr;
-        
-        pub fn strpool_incref(str: *mut PStr);
-        
-        pub fn strpool_decref(str: *mut PStr);
-    }
-}
 
 pub mod pktbuf_h {
     #[derive(Copy, Clone, BitfieldStruct)]
@@ -1156,9 +1124,7 @@ pub use self::string_h::{
     parse_word_list, str_cb, strlist_append, strlist_empty, strlist_free, strlist_new, strlist_pop,
     StrList,
 };
-pub use self::strpool_h::{
-    strpool_create, strpool_decref, strpool_free, strpool_get, strpool_incref, PStr, StrPool,
-};
+pub use crate::types::{PStr, StrPool};
 pub use self::sys__types_h::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
 pub use self::time_h::usec_t;
 
@@ -3273,4 +3239,17 @@ pub unsafe extern "C" fn varcache_add_params(mut pkt: *mut PktBuf, mut vars: *mu
 pub unsafe extern "C" fn varcache_deinit() {
     strpool_free(vpool);
     vpool = ::core::ptr::null_mut::<StrPool>();
+}
+
+
+extern "C" {
+    pub fn strpool_create(ca: *const CxMem) -> *mut StrPool;
+    pub fn strpool_free(sp: *mut StrPool);
+    pub fn strpool_get(
+    sp: *mut StrPool,
+    str: *const ::core::ffi::c_char,
+    len: ssize_t,
+    ) -> *mut PStr;
+    pub fn strpool_incref(str: *mut PStr);
+    pub fn strpool_decref(str: *mut PStr);
 }
