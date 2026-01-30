@@ -2142,7 +2142,7 @@ pub unsafe extern "C" fn hba_eval(
             current_block_4 = 10680521327981672866;
         } else if (*rule).rule_type as ::core::ffi::c_uint
             == RULE_HOSTNOSSL as ::core::ffi::c_int as ::core::ffi::c_uint
-            && is_tls as ::core::ffi::c_int != 0
+            && is_tls
         {
             current_block_4 = 10680521327981672866;
         } else if !address_match(&raw mut (*rule).address, addr) {

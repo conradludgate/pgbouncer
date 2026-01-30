@@ -2030,7 +2030,7 @@ unsafe extern "C" fn auth_loaded(mut fn_0: *const ::core::ffi::c_char) -> bool {
             ::core::mem::size_of::<stat>() as size_t,
         );
     }
-    if cache_set as ::core::ffi::c_int != 0
+    if cache_set
         && cache.st_dev == cur.st_dev
         && cache.st_ino == cur.st_ino
         && cache.st_mode as ::core::ffi::c_int == cur.st_mode as ::core::ffi::c_int

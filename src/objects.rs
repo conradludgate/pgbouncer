@@ -2881,7 +2881,7 @@ unsafe extern "C" fn reuse_on_release(mut server: *mut PgSocket) -> bool {
     client = first_socket(&raw mut (*pool).waiting_client_list);
     if !client.is_null()
         && ((*client).replication as u64 == 0
-            || sending_auth_query(client) as ::core::ffi::c_int != 0)
+            || sending_auth_query(client))
     {
         activate_client(client);
         if (*server).state() as ::core::ffi::c_int == SV_FREE as ::core::ffi::c_int
@@ -3304,7 +3304,7 @@ pub unsafe extern "C" fn release_server(mut server: *mut PgSocket) -> bool {
         tmp = (*tmp).next;
     }
     if (*server).state() as ::core::ffi::c_int != SV_LOGIN as ::core::ffi::c_int
-        && life_over(server) as ::core::ffi::c_int != 0
+        && life_over(server)
     {
         disconnect_server(server, true, c"server lifetime over".as_ptr());
         (*pool).last_lifetime_disconnect = get_cached_time();

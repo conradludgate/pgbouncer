@@ -1848,8 +1848,7 @@ unsafe extern "C" fn send_client_authreq(mut client: *mut PgSocket) -> bool {
 #[no_mangle]
 
 pub unsafe extern "C" fn sending_auth_query(mut client: *mut PgSocket) -> bool {
-    (*client).wait_for_user_conn() as ::core::ffi::c_int != 0
-        || (*client).wait_for_user() as ::core::ffi::c_int != 0
+    (*client).wait_for_user_conn() || (*client).wait_for_user()
 }
 
 unsafe extern "C" fn start_auth_query(
@@ -2421,7 +2420,7 @@ pub unsafe extern "C" fn set_pool(
             return false;
         }
         if (*client).login_user_credentials.is_null()
-            || (*(*client).login_user_credentials).dynamic_passwd as ::core::ffi::c_int != 0
+            || (*(*client).login_user_credentials).dynamic_passwd
         {
             let mut global_user = ::core::ptr::null_mut::<PgGlobalUser>();
             if (*(*client).c2rust_unnamed.db)
@@ -2950,7 +2949,7 @@ unsafe extern "C" fn set_replication(
     if !parse_bool(replicationString, &raw mut replicationBool) {
         return false;
     }
-    (*client).replication = (if replicationBool as ::core::ffi::c_int != 0 {
+    (*client).replication = (if replicationBool {
         REPLICATION_PHYSICAL as ::core::ffi::c_int
     } else {
         REPLICATION_NONE as ::core::ffi::c_int
@@ -3226,7 +3225,7 @@ unsafe extern "C" fn scram_client_first(
                 if !build_server_first_message(
                     &raw mut (*client).scram_state,
                     user,
-                    if (*user).mock_auth as ::core::ffi::c_int != 0 {
+                    if (*user).mock_auth {
                         ::core::ptr::null_mut::<::core::ffi::c_char>()
                     } else {
                         &raw mut (*user).passwd as *mut ::core::ffi::c_char
@@ -3412,7 +3411,7 @@ unsafe extern "C" fn handle_client_startup(
         }
     }
     if (*client).wait_for_welcome()
-        || (*client).wait_for_auth() as ::core::ffi::c_int != 0
+        || (*client).wait_for_auth()
     {
         if finish_client_login(client) {
             if (*client).packet_cb_state.flag() as ::core::ffi::c_int
@@ -3769,7 +3768,7 @@ unsafe extern "C" fn handle_client_work(mut client: *mut PgSocket, mut pkt: *mut
     }
     if ps_action as ::core::ffi::c_uint
         == PS_HANDLE_FULL_PACKET as ::core::ffi::c_int as ::core::ffi::c_uint
-        && incomplete_pkt(pkt) as ::core::ffi::c_int != 0
+        && incomplete_pkt(pkt)
     {
         if (*pkt).len > cf_sbuf_len as ::core::ffi::c_uint {
             (*client)
@@ -4063,7 +4062,6 @@ pub unsafe extern "C" fn client_proto(
                                     as ::core::ffi::c_int,
                                 (*client).packet_cb_state.pkt.len,
                                 if incomplete_pkt(&raw mut (*client).packet_cb_state.pkt)
-                                    as ::core::ffi::c_int != 0
                                 {
                                     c"true".as_ptr()
                                 } else {

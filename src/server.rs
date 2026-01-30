@@ -1297,7 +1297,7 @@ unsafe extern "C" fn handle_server_startup(
                     (*server).set_ready(true);
                     finish_welcome_msg(server);
                     res = release_server(server);
-                    if res as ::core::ffi::c_int != 0
+                    if res
                         && (*(*(*server).pool).db).admin
                     {
                         res = takeover_login(server);
@@ -1721,7 +1721,7 @@ unsafe extern "C" fn handle_server_work(mut server: *mut PgSocket, mut pkt: *mut
         } else {
             sbuf_prepare_send(sbuf, &raw mut (*client).sbuf, (*pkt).len);
             if statlist_count(&raw mut (*server).outstanding_requests) == 0 as ::core::ffi::c_int {
-                if ready as ::core::ffi::c_int != 0 || idle_tx as ::core::ffi::c_int != 0 {
+                if ready || idle_tx {
                     if (*client).query_start != 0 {
                         let mut total: usec_t = 0;
                         total = get_cached_time().wrapping_sub((*client).query_start);

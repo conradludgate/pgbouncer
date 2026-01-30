@@ -1066,7 +1066,7 @@ pub unsafe extern "C" fn get_header(mut data: *mut MBuf, mut pkt: *mut PktHdr) -
         if !mbuf_get_byte(&raw mut hdr, &raw mut type8) {
             return false;
         }
-        if type8 as ::core::ffi::c_int != 0 as ::core::ffi::c_int {
+        if type8 != 0 {
             let mut _log_ctx_0 = NULL;
             if cf_verbose > 1 as ::core::ffi::c_int
             {
@@ -1186,7 +1186,7 @@ pub unsafe extern "C" fn send_pooler_error(
         PqMsg_ErrorResponse,
         c"cscscsc".as_ptr(),
         'S' as i32,
-        if level_fatal as ::core::ffi::c_int != 0 {
+        if level_fatal {
             c"FATAL".as_ptr()
         } else {
             c"ERROR".as_ptr()

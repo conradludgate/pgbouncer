@@ -2086,7 +2086,7 @@ unsafe extern "C" fn sbuf_process_pending(mut sbuf: *mut SBuf) -> bool {
         }
         avail = iobuf_amount_parse(io);
         if avail == 0 as ::core::ffi::c_uint
-            || full as ::core::ffi::c_int != 0 && avail <= SBUF_SMALL_PKT as ::core::ffi::c_uint
+            || full && avail <= SBUF_SMALL_PKT as ::core::ffi::c_uint
         {
             current_block = 2706659501864706830;
             break;
@@ -3129,7 +3129,7 @@ unsafe extern "C" fn handle_possible_direct_tls_startup(
     mut is_unix: bool,
 ) -> bool {
     if client_accept_sslmode == SSLMODE_DISABLED as ::core::ffi::c_int
-        || is_unix as ::core::ffi::c_int != 0
+        || is_unix
     {
         return true;
     }
