@@ -35,9 +35,11 @@ We start from the entry point (`main.rs`) and core connection handling (`client.
 | Consolidate uthash_h types | ✅ Complete |
 | Consolidate cryptohash_h types | ✅ Complete |
 | Consolidate stdbool_h types | ✅ Complete |
+| Consolidate varcache_h types | ✅ Complete |
+| Remove list_h re-export modules | ✅ Complete |
 | Remove duplicate type modules | 📋 In Progress |
 
-**Lines saved from type consolidation: ~5,200** (3,920 + 836 from uthash_h + 250 from cryptohash_h + 122 from stdbool_h)
+**Lines saved from type consolidation: ~5,500** (5,200 + 211 from varcache_h + 66 from list_h)
 
 ## Current State Metrics
 
