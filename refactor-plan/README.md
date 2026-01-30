@@ -43,22 +43,38 @@ We start from the entry point (`main.rs`) and core connection handling (`client.
 | **Consolidate iobuf_h types** | 🔴 **Not Started** (20 files) |
 | **Consolidate sbuf_h types** | 🔴 **Not Started** (20 files) |
 | Remove primitive type modules | 🔴 **Not Started** (665 modules) |
-| Apply function cleanup patterns | 🟡 Partial (stats.rs done) |
-| Convert static mut to RefCell | 🔴 **Not Started** (430 occurrences) |
+| Apply function cleanup patterns | ✅ **Complete** (11,000+ changes) |
+| Convert static mut to RefCell | 🔴 **Blocked** (requires C→Rust module migration) |
 
-**Lines saved from type consolidation: ~7,400+** (previous + ~1,900 from C type aliases)
+**Lines saved from refactoring: ~9,800+** (type consolidation + cleanup patterns)
+
+### Recent Session (2026-01-30): Cleanup Patterns Applied
+
+**8 commits** applying automated and manual cleanup:
+1. Byte string casts: `b"...\0" as *const...` → `c"...".as_ptr()` (~2,000 changes)
+2. Boolean patterns: `true_0 != 0` → `true` (1,200+ changes)
+3. Verbose bool checks: `(expr) as c_int as c_long != 0` → `expr` (200+ changes)
+4. Offset removal: `.offset(0 as c_int as isize)` → removed (150+ changes)
+5. Manual bool simplification: `bool_fn() as c_int != 0` → `bool_fn()` (60+ changes)
+
+**Scripts created:**
+- `scripts/cleanup_functions.py` - Automated cleanup transformations
+- `scripts/convert_static_mut.py` - Analysis tool for static mut conversion
+
+**Key finding:** `static mut` conversion is blocked because all variables are shared between C and Rust code. Must migrate modules fully to Rust before converting.
 
 ## Current State Metrics (as of 2026-01-30)
 
 | Metric | Original | Current | Target |
 |--------|----------|---------|--------|
-| Total Rust lines (src/*.rs) | ~126,000 | **60,039** | <30,000 |
+| Total Rust lines (src/*.rs) | ~126,000 | **57,259** | <30,000 |
 | Total Rust lines (src/common/) | - | **58,377** | - |
 | `static mut` occurrences (src/) | 430 | **430** | 0 |
 | `unsafe extern "C" fn` (src/) | 1,787 | **1,632** | <500 |
 | `#[no_mangle]` (src/) | 450 | **450** | <100 |
 | `#[c2rust::...]` attributes | 7,150 | **0** ✅ | 0 |
 | Duplicate `pub mod *_h` modules | ~800 | **642** | 0 |
+| `as c_int != 0` patterns | ~100+ | **40** ✅ | ~40 (char comparisons) |
 
 ### Biggest Blocker: Duplicate Type Modules
 
@@ -75,6 +91,12 @@ Each file has 20-40+ `pub mod *_h { }` blocks duplicating types. This is ~5x cod
 **Consolidating these is the highest-impact next step.**
 
 ## Recommended Next Actions
+
+### Priority Order
+
+1. **Type Consolidation** - Remove duplicate `*_h` modules (highest code reduction impact)
+2. **C→Rust Module Migration** - Pick one small module to fully migrate (enables `static mut` conversion)
+3. **Continue Cleanup Patterns** - Run `cleanup_functions.py` on new files if added
 
 ### 1. Consolidate `bouncer_h` (HIGH IMPACT) — **COMPLEX**
 
