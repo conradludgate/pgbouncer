@@ -1519,12 +1519,6 @@ pub mod errno_h {
     }
 }
 
-pub mod stdbool_h {
-    
-    pub const true_0: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    
-    pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
-}
 
 pub mod _strings_h {
     extern "C" {
@@ -1697,7 +1691,7 @@ use self::stats_h::{
     admin_database_stats, admin_database_stats_averages, admin_database_stats_totals,
     show_stat_totals,
 };
-pub use self::stdbool_h::{false_0, true_0};
+pub use crate::types::{false_0, true_0};
 pub use crate::types::{PStr, StrPool};
 pub use self::sys__types_h::{
     __darwin_gid_t, __darwin_off_t, __darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t,

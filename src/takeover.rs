@@ -1157,12 +1157,6 @@ pub mod errno_h {
     }
 }
 
-pub mod stdbool_h {
-    
-    pub const true_0: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    
-    pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
-}
 
 pub mod usual_socket_h {
     extern "C" {
@@ -1297,7 +1291,7 @@ pub use self::sbuf_h::{
 pub use self::socket_h::{cmsghdr, msghdr, sockaddr, AF_UNIX, SCM_RIGHTS, SOL_SOCKET};
 pub use self::stat_h::stat;
 pub use crate::types::StatList;
-pub use self::stdbool_h::{false_0, true_0};
+pub use crate::types::{false_0, true_0};
 pub use crate::types::{PStr, StrPool};
 pub use self::sys__types_h::{
     __darwin_blkcnt_t, __darwin_blksize_t, __darwin_dev_t, __darwin_gid_t, __darwin_ino64_t,

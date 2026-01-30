@@ -170,10 +170,6 @@ pub mod errno_h {
     }
 }
 
-pub mod stdbool_h {
-    
-    pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
-}
 
 pub mod _string_h {
     extern "C" {
@@ -200,7 +196,7 @@ pub use self::logging_h::{
 };
 pub use self::pwd_h::{getpwnam, getpwuid, passwd};
 use self::stat_h::chmod;
-pub use self::stdbool_h::false_0;
+pub use crate::types::false_0;
 pub use self::sys__types_h::{__darwin_gid_t, __darwin_mode_t, __darwin_uid_t, __DARWIN_NULL};
 use self::unistd_h::{chown, geteuid, getpeereid, getuid, setgid, setgroups, setuid};
 #[no_mangle]

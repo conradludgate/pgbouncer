@@ -943,12 +943,6 @@ pub mod _stdlib_h {
     }
 }
 
-pub mod stdbool_h {
-    
-    pub const true_0: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    
-    pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
-}
 
 pub mod _strings_h {
     extern "C" {
@@ -1046,7 +1040,7 @@ pub use self::sbuf_h::{
 };
 pub use self::socket_h::sockaddr;
 pub use crate::types::StatList;
-pub use self::stdbool_h::{false_0, true_0};
+pub use crate::types::{false_0, true_0};
 pub use self::string_h::{
     parse_word_list, str_cb, strlist_append, strlist_empty, strlist_free, strlist_new, strlist_pop,
     StrList,

@@ -843,10 +843,6 @@ pub mod errno_h {
     }
 }
 
-pub mod stdbool_h {
-    
-    pub const true_0: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-}
 
 pub mod _string_h {
     extern "C" {
@@ -917,7 +913,7 @@ pub use self::sbuf_h::{
 };
 pub use self::socket_h::sockaddr;
 pub use crate::types::StatList;
-pub use self::stdbool_h::true_0;
+pub use crate::types::true_0;
 pub use crate::types::{PStr, StrPool};
 pub use self::sys__types_h::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
 pub use crate::types::{usec_t, USEC};

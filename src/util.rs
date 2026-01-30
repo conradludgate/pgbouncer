@@ -1177,12 +1177,6 @@ pub mod errno_h {
     }
 }
 
-pub mod stdbool_h {
-    
-    pub const true_0: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    
-    pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
-}
 
 pub mod tcp_h {
     
@@ -1283,7 +1277,7 @@ pub use self::socket_h::{
     SO_RCVBUF, SO_SNDBUF,
 };
 pub use crate::types::StatList;
-pub use self::stdbool_h::{false_0, true_0};
+pub use crate::types::{false_0, true_0};
 pub use crate::types::{PStr, StrPool};
 pub use self::sys__types_h::{
     __darwin_gid_t, __darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL,

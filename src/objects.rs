@@ -1329,12 +1329,6 @@ pub mod errno_h {
     }
 }
 
-pub mod stdbool_h {
-    
-    pub const true_0: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    
-    pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
-}
 
 pub mod inet_h {
     extern "C" {
@@ -1516,7 +1510,7 @@ pub use self::slab_h::{
 };
 pub use self::socket_h::{sockaddr, AF_INET, AF_INET6, AF_UNIX};
 pub use crate::types::{statlist_append, statlist_count, statlist_empty, statlist_first, statlist_init, statlist_pop, statlist_prepend, statlist_put_before, statlist_remove, StatList};
-pub use self::stdbool_h::{false_0, true_0};
+pub use crate::types::{false_0, true_0};
 pub use crate::types::{PStr, StrPool};
 pub use self::sys__types_h::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
 pub use crate::types::{usec_t, USEC};

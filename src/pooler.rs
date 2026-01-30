@@ -1236,12 +1236,6 @@ pub mod unistd_h {
     }
 }
 
-pub mod stdbool_h {
-    
-    pub const true_0: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    
-    pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
-}
 pub use self::_blkcnt_t_h::blkcnt_t;
 pub use self::_blksize_t_h::blksize_t;
 pub use self::_dev_t_h::dev_t;
@@ -1327,7 +1321,7 @@ pub use self::socket_h::{
 };
 pub use self::stat_h::{lstat, stat};
 pub use crate::types::{statlist_append, statlist_count, statlist_remove, StatList};
-pub use self::stdbool_h::{false_0, true_0};
+pub use crate::types::{false_0, true_0};
 pub use self::string_h::{parse_word_list, str_cb};
 pub use crate::types::{PStr, StrPool};
 pub use self::sys__types_h::{

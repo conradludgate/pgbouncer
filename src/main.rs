@@ -1472,12 +1472,6 @@ pub mod errno_h {
     }
 }
 
-pub mod stdbool_h {
-    
-    pub const true_0: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    
-    pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
-}
 
 pub mod system_h {
     extern "C" {
@@ -1721,7 +1715,7 @@ pub use self::signal_h::{SIG_BLOCK, __DARWIN_NSIG};
 pub use self::socket_h::{sockaddr, socket, AF_UNIX, SOCK_STREAM};
 pub use pgbouncer::types::{statlist_count, StatList};
 use self::stats_h::stats_setup;
-pub use self::stdbool_h::{false_0, true_0};
+pub use pgbouncer::types::{false_0, true_0};
 use self::string_h::{strcmpeq, usual_basename};
 pub use pgbouncer::types::{PStr, StrPool};
 pub use self::sys__types_h::{

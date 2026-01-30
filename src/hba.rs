@@ -721,12 +721,6 @@ pub mod errno_h {
     }
 }
 
-pub mod stdbool_h {
-    
-    pub const true_0: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    
-    pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
-}
 
 pub mod string_h {
     extern "C" {
@@ -782,7 +776,7 @@ pub use self::runetype_h::{
     _DefaultRuneLocale, _RuneCharClass, _RuneEntry, _RuneLocale, _RuneRange,
 };
 pub use self::socket_h::{sockaddr, AF_INET, AF_INET6, AF_UNIX};
-pub use self::stdbool_h::{false_0, true_0};
+pub use crate::types::{false_0, true_0};
 use self::string_h::usual_dirname;
 pub use self::sys__types_h::{__darwin_off_t, __darwin_pid_t, __darwin_uid_t, __DARWIN_NULL};
 #[derive(Copy, Clone)]
