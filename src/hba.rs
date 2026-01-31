@@ -135,29 +135,6 @@ pub mod runetype_h {
     }
 }
 
-pub mod in_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct in_addr {
-        pub s_addr: in_addr_t,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct sockaddr_in {
-        pub sin_len: __uint8_t,
-        pub sin_family: sa_family_t,
-        pub sin_port: in_port_t,
-        pub sin_addr: in_addr,
-        pub sin_zero: [::core::ffi::c_char; 8],
-    }
-    use crate::types::__uint8_t;
-    use crate::types::in_addr_t;
-    use crate::types::in_port_t;
-    use crate::types::sa_family_t;
-}
-
 pub mod in6_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -252,7 +229,7 @@ pub mod bouncer_h {
     use crate::types::pid_t;
 
     use super::in6_h::sockaddr_in6;
-    use super::in_h::sockaddr_in;
+    use crate::types::sockaddr_in;
     use crate::types::{sockaddr, AF_UNIX};
     use crate::types::uid_t;
     extern "C" {}
@@ -597,7 +574,7 @@ pub use self::hba_h::{
     NAME_REPLICATION, NAME_SAMEUSER, RULE_HOST, RULE_HOSTNOSSL, RULE_HOSTSSL, RULE_LOCAL,
 };
 pub use self::in6_h::{in6_addr, sockaddr_in6, C2RustUnnamed};
-pub use self::in_h::{in_addr, sockaddr_in};
+pub use crate::types::{in_addr, sockaddr_in};
 use self::inet_h::{inet_ntop, inet_pton};
 pub use crate::types::{
     log_generic, LogLevel, LG_DEBUG, LG_ERROR, LG_FATAL, LG_INFO, LG_NOISE, LG_STATS, LG_WARNING,

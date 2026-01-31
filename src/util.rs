@@ -79,31 +79,6 @@ pub mod cfparser_h {
     }
 }
 
-pub mod in_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct in_addr {
-        pub s_addr: in_addr_t,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct sockaddr_in {
-        pub sin_len: __uint8_t,
-        pub sin_family: sa_family_t,
-        pub sin_port: in_port_t,
-        pub sin_addr: in_addr,
-        pub sin_zero: [::core::ffi::c_char; 8],
-    }
-
-    pub const IPPROTO_TCP: ::core::ffi::c_int = 6 as ::core::ffi::c_int;
-    use crate::types::__uint8_t;
-    use crate::types::in_addr_t;
-    use crate::types::in_port_t;
-    use crate::types::sa_family_t;
-}
-
 pub mod in6_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -548,7 +523,7 @@ pub mod bouncer_h {
 
     use super::dnslookup_h::DNSToken;
     use super::in6_h::sockaddr_in6;
-    use super::in_h::sockaddr_in;
+    use crate::types::sockaddr_in;
     use super::pktbuf_h::PktBuf;
     use super::sbuf_h::SBuf;
     use crate::types::{sockaddr, AF_UNIX};
@@ -983,7 +958,7 @@ use self::evp_h::{
     EVP_DigestFinal_ex, EVP_DigestInit, EVP_DigestUpdate, EVP_MD_CTX_free, EVP_MD_CTX_new, EVP_md5,
 };
 pub use self::in6_h::{in6_addr, sockaddr_in6, C2RustUnnamed};
-pub use self::in_h::{in_addr, sockaddr_in, IPPROTO_TCP};
+pub use crate::types::{in_addr, sockaddr_in, IPPROTO_TCP};
 use self::inet_h::{inet_ntop, inet_pton};
 pub use self::iobuf_h::{iobuf, IOBuf};
 pub use crate::types::{

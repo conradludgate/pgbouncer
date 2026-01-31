@@ -239,29 +239,6 @@ pub mod un_h {
     use pgbouncer::types::sa_family_t;
 }
 
-pub mod in_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct in_addr {
-        pub s_addr: in_addr_t,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct sockaddr_in {
-        pub sin_len: __uint8_t,
-        pub sin_family: sa_family_t,
-        pub sin_port: in_port_t,
-        pub sin_addr: in_addr,
-        pub sin_zero: [::core::ffi::c_char; 8],
-    }
-    use pgbouncer::types::__uint8_t;
-    use pgbouncer::types::in_addr_t;
-    use pgbouncer::types::in_port_t;
-    use pgbouncer::types::sa_family_t;
-}
-
 pub mod in6_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -789,7 +766,7 @@ pub mod bouncer_h {
     pub const POOL_STMT: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
     use super::dnslookup_h::DNSToken;
     use super::in6_h::sockaddr_in6;
-    use super::in_h::sockaddr_in;
+    use pgbouncer::types::sockaddr_in;
     use super::pktbuf_h::PktBuf;
     use super::sbuf_h::SBuf;
     use pgbouncer::types::sockaddr;
@@ -1385,7 +1362,7 @@ pub use self::fcntl_h::{open, O_CREAT, O_EXCL, O_RDONLY, O_RDWR, O_WRONLY};
 pub use self::getopt_h::{getopt_long, no_argument, option, required_argument};
 pub use self::hba_h::{hba_free, hba_load_rules, ident_free, ident_load_map, Ident, HBA};
 pub use self::in6_h::{in6_addr, sockaddr_in6, C2RustUnnamed};
-pub use self::in_h::{in_addr, sockaddr_in};
+pub use pgbouncer::types::{in_addr, sockaddr_in};
 pub use self::include_signal_h::{__sigbits, kill, sigprocmask};
 pub use self::iobuf_h::{iobuf, IOBuf};
 use self::janitor_h::{config_postprocess, janitor_setup, per_loop_maint, resume_all};

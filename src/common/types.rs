@@ -1284,6 +1284,13 @@ extern "C" {
 }
 
 // =============================================================================
+// in_h (merged from all files)
+// =============================================================================
+
+pub const IPPROTO_IPV6: ::core::ffi::c_int = 41 as ::core::ffi::c_int;
+pub const IPPROTO_TCP: ::core::ffi::c_int = 6 as ::core::ffi::c_int;
+
+// =============================================================================
 // pgbouncer-specific forward declarations
 // These are declared but not fully defined here to break circular dependencies
 // =============================================================================

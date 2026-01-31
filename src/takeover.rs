@@ -39,29 +39,6 @@ pub mod stat_h {
     }
 }
 
-pub mod in_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct in_addr {
-        pub s_addr: in_addr_t,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct sockaddr_in {
-        pub sin_len: __uint8_t,
-        pub sin_family: sa_family_t,
-        pub sin_port: in_port_t,
-        pub sin_addr: in_addr,
-        pub sin_zero: [::core::ffi::c_char; 8],
-    }
-    use crate::types::__uint8_t;
-    use crate::types::in_addr_t;
-    use crate::types::in_port_t;
-    use crate::types::sa_family_t;
-}
-
 pub mod in6_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -505,7 +482,7 @@ pub mod bouncer_h {
 
     use super::dnslookup_h::DNSToken;
     use super::in6_h::sockaddr_in6;
-    use super::in_h::sockaddr_in;
+    use crate::types::sockaddr_in;
     use super::pktbuf_h::PktBuf;
     use super::sbuf_h::SBuf;
     use crate::types::{sockaddr, AF_UNIX};
@@ -916,7 +893,7 @@ pub use self::event_struct_h::{
     C2RustUnnamed_4, C2RustUnnamed_5, C2RustUnnamed_6, C2RustUnnamed_7, C2RustUnnamed_8,
 };
 pub use self::in6_h::{in6_addr, sockaddr_in6, C2RustUnnamed};
-pub use self::in_h::{in_addr, sockaddr_in};
+pub use crate::types::{in_addr, sockaddr_in};
 pub use self::iobuf_h::{iobuf, IOBuf};
 use self::janitor_h::resume_all;
 pub use crate::types::{
