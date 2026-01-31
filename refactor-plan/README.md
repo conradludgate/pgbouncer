@@ -22,114 +22,65 @@ We start from the entry point (`main.rs`) and core connection handling (`client.
 |-----------|--------|
 | Remove c2rust attributes from src/ | ✅ Complete |
 | Remove c2rust attributes from lib/usual/ | ✅ Complete |
-| Consolidate PgStats type | ✅ Complete |
-| Consolidate List/StatList types | ✅ Complete |
-| Consolidate AATree types | ✅ Complete |
-| Consolidate MBuf type | ✅ Complete |
-| Consolidate proto_h (PktHdr) type | ✅ Complete |
-| Consolidate prepare_h (prepared statement) types | ✅ Complete |
-| Consolidate strpool_h types | ✅ Complete |
-| Consolidate statlist_h types | ✅ Complete |
-| Consolidate aatree_h types | ✅ Complete |
-| Consolidate time_h types | ✅ Complete |
-| Consolidate uthash_h types | ✅ Complete |
-| Consolidate cryptohash_h types | ✅ Complete |
-| Consolidate stdbool_h types | ✅ Complete |
-| Consolidate varcache_h types | ✅ Complete |
-| Remove list_h re-export modules | ✅ Complete |
-| Consolidate C type alias modules | ✅ Complete |
-| **Consolidate _types_h module** | ✅ Complete (23 files, -470 lines) |
-| **Consolidate sys__types_h module** | ✅ Complete (26 files, -350 lines) |
-| **Consolidate type wrapper modules** | ✅ Complete (_gid_t_h, _socklen_t_h, etc., 13 files, -241 lines) |
-| **Consolidate bouncer_h types** | 🔴 **Complex** (22 files, needs manual approach) |
-| **Consolidate iobuf_h types** | 🔴 **Complex** (20 files, has extern static deps) |
-| **Consolidate sbuf_h types** | 🔴 **Not Started** (20 files) |
-| Remove primitive type modules | 🟡 **Partial** (530 remaining) |
+| Consolidate core type modules (PgStats, List, MBuf, etc.) | ✅ Complete |
+| Consolidate C type alias modules (_types_h, sys__types_h) | ✅ Complete |
+| **Consolidate libc function modules** | ✅ Complete (tls_h, socket_h, in_h, _string_h, etc.) |
+| **Consolidate event modules** | ✅ Complete (event_h, event_struct_h + C2RustUnnamed aliases) |
+| **Consolidate stdio modules** | ✅ Complete (_stdio_h, FILE→libc::FILE) |
+| **Migrate Darwin-specific types** | ✅ Complete (in6_h, __stderrp) |
+| **Consolidate bouncer_h types** | 🔴 **Complex** (22 files, mixes types with extern statics) |
+| **Consolidate iobuf_h/sbuf_h/pktbuf_h** | 🔴 **Complex** (have inline functions with extern deps) |
+| Remove remaining duplicate modules | 🟡 **Partial** (~290 remaining, down from ~800) |
 | Apply function cleanup patterns | ✅ **Complete** (11,000+ changes) |
 | Convert static mut to RefCell | 🔴 **Blocked** (requires C→Rust module migration) |
 
-**Lines saved from refactoring: ~10,400+** (type consolidation + cleanup patterns)
+**Lines saved from refactoring: ~15,000+** (type consolidation + cleanup patterns)
 
-### Recent Session (2026-01-31): Variable Content Module Consolidation
+### Recent Session (2026-01-31): Module Consolidation
 
-**Created `scripts/merge_module.py`** — a smart consolidation script that:
-- Collects ALL items from ALL instances of a module across all files
-- Merges types, constants, functions into a single definition
-- Detects existing symbols to avoid duplicates
-- Handles `super::module_name::` patterns inside nested modules
+**Scripts created:**
+- `scripts/merge_module.py` — Collects and merges all items from all instances of a module
+- `scripts/remove_module.py` — Removes modules when types already exist in types.rs
 
-**Successfully consolidated variable content modules:**
-| Module | Files | Lines Saved |
-|--------|-------|-------------|
-| `tls_h` | 20 | ~200 |
-| `logging_h` | 23 | ~760 |
-| `socket_h` | 22 | ~410 |
-| `in_h` | 21 | ~480 |
-| `_string_h` | 23 | ~610 |
-| `_stdlib_h` | 21 | ~180 |
-| `_malloc_h` | 17 | ~160 |
-| `safeio_h` | 6 | ~70 |
-| `usual_socket_h` | 7 | ~65 |
+**Successfully consolidated modules:**
+| Module | Files | Status |
+|--------|-------|--------|
+| `tls_h` | 20 | ✅ Complete |
+| `logging_h` | 23 | ✅ Complete |
+| `socket_h` | 22 | ✅ Complete |
+| `in_h` | 21 | ✅ Complete |
+| `in6_h` | 21 | ✅ Complete (fixed `__u6_addr` → `s6_addr`) |
+| `_string_h` | 23 | ✅ Complete |
+| `_stdlib_h` | 21 | ✅ Complete |
+| `_malloc_h` | 17 | ✅ Complete |
+| `safeio_h` | 6 | ✅ Complete |
+| `usual_socket_h` | 7 | ✅ Complete |
+| `event_struct_h` | 21 | ✅ Complete (added C2RustUnnamed aliases) |
+| `event_h` | 21 | ✅ Complete |
+| `_stdio_h` | 12 | ✅ Complete (changed FILE to libc::FILE) |
 
-**Total lines saved this session: ~2,935 lines** (net: -2,235 lines after adding to types.rs)
+**Platform-specific migrations completed:**
+- ✅ Replaced Darwin `__u6_addr.__u6_addr8` → portable `s6_addr`
+- ✅ Replaced Darwin `__stderrp` → portable `libc::write(libc::STDERR_FILENO, ...)`
+- ✅ Changed `FILE` from custom `__sFILE` → `libc::FILE`
+- ✅ Removed `__stderrp`, `__stdoutp`, `__stdinp` from types.rs
 
-**Modules needing manual migration:**
-- `in6_h` — ✅ **DONE** - Replaced Darwin `__u6_addr` with portable `s6_addr`
-- `event_h` / `event_struct_h` — See "C2RustUnnamed Type Migration" below
-- `_stdio_h` — See "Portable stderr Migration" below
-- `dnslookup_h` — Use `libc::addrinfo`
-- `protocol_h` — Deduplicate auth constants
+**C2RustUnnamed type aliases added to types.rs:**
+| C2RustUnnamed | Named Type |
+|---|---|
+| `C2RustUnnamed_0` | `event_union` |
+| `C2RustUnnamed_1` | `event_signal` |
+| `C2RustUnnamed_2` | `event_signal_next` |
+| `C2RustUnnamed_3` | `event_io` |
+| `C2RustUnnamed_4` | `event_io_next` |
+| `C2RustUnnamed_5` | `event_timeout_pos` |
+| `C2RustUnnamed_6` | `event_next_with_common_timeout` |
+| `C2RustUnnamed_7` | `event_callback_union` |
+| `C2RustUnnamed_8` | `event_callback_active_next` |
 
-### C2RustUnnamed Type Migration
-
-The c2rust translation created anonymous types (`C2RustUnnamed*`) for C's anonymous unions/structs. These need to be mapped to named types already defined in `types.rs`:
-
-| C2RustUnnamed | Named Type | Source (libevent) |
-|---|---|---|
-| `C2RustUnnamed` (in event) | `event_union` | union of ev_io/ev_signal |
-| `C2RustUnnamed_0` | `event_signal` | signal event data |
-| `C2RustUnnamed_1` | `event_signal_next` | `LIST_ENTRY(event)` |
-| `C2RustUnnamed_2` | `event_io` | io event data |
-| `C2RustUnnamed_3` | `event_io_next` | `LIST_ENTRY(event)` |
-| `C2RustUnnamed_4` | `event_io_next` | `LIST_ENTRY(event)` (alias) |
-| `C2RustUnnamed_5` | `event_timeout_pos` | union with TAILQ_ENTRY or int |
-| `C2RustUnnamed_6` | `event_next_with_common_timeout` | `TAILQ_ENTRY(event)` |
-| `C2RustUnnamed_7` | `event_callback_union` | callback function union |
-| `C2RustUnnamed_8` | `event_callback_struct` | callback struct |
-
-**Migration steps:**
-1. Add type aliases in `types.rs`: `pub type C2RustUnnamed_4 = event_io_next;`
-2. Gradually update struct definitions to use named types
-3. Remove the aliases once all usages are updated
-
-### Portable stderr Migration
-
-The Darwin-specific `__stderrp` should be replaced with portable file descriptor writes:
-
-**Current (Darwin-specific):**
-```rust
-extern "C" {
-    #[link_name = "__stderrp"]
-    pub static mut __stderrp: *mut FILE;
-}
-fprintf(__stderrp, "error: %s\n", msg);
-```
-
-**Target (portable):**
-```rust
-use libc::{write, STDERR_FILENO};
-
-// Direct write to stderr file descriptor
-unsafe {
-    libc::write(libc::STDERR_FILENO, msg.as_ptr() as *const c_void, msg.len());
-}
-```
-
-**Migration steps:**
-1. Create a portable `write_stderr()` helper function
-2. Replace `fprintf(__stderrp, ...)` calls with the helper or direct `libc::write()`
-3. Remove `__stderrp` from types.rs
-4. Consolidate `_stdio_h` modules
+**Modules still needing migration:**
+- `dnslookup_h` (21 files) — Uses `addrinfo` type that varies across files
+- `protocol_h` (10 files) — Has auth constants that conflict with existing definitions
 
 ### Type Migration Guidelines
 
@@ -137,28 +88,14 @@ unsafe {
 
 2. **Prefer specific struct definitions over opaque types** — Use full struct definitions when available, not just `extern { pub type X; }`.
 
-3. **Use libc definitions when available** — Prefer `libc::in6_addr`, `libc::addrinfo`, etc. over custom definitions. Remove any duplicates.
+3. **Use libc definitions when available** — Prefer `libc::in6_addr`, `libc::addrinfo`, `libc::FILE` etc. over custom definitions. Remove any duplicates.
 
 4. **Update code that uses platform-specific fields** — When switching to libc types, update field accesses (e.g., `.__u6_addr.__u6_addr8` → `.s6_addr`).
 
 **Key findings:**
 - `iobuf_h` has inline functions depending on extern statics (`cf_sbuf_len`), making it complex to consolidate. Same issue as `bouncer_h`.
 - **Module content varies across files** — SOLVED with `merge_module.py` which collects ALL items from all files and merges them.
-
-### Remaining Duplicate Modules Analysis
-
-After consolidation, remaining complex modules:
-
-**2. Complex struct modules (need careful migration):**
-- `bouncer_h` (22 files) — Core types, mixes types with extern statics
-- `event_struct_h` (21 files) — libevent structures with C2RustUnnamed unions
-- `sbuf_h` (20 files), `iobuf_h` (20 files), `pktbuf_h` (20 files) — Have inline functions
-
-**3. Extern function modules (could consolidate if content was uniform):**
-- `_string_h` (21), `_stdlib_h` (19), `_malloc_h` (15) — Declare libc functions
-- But different files import different subsets of functions
-
-**Recommended approach:** Manual per-file migration or use the existing consolidate_module.py with `--analyze` to understand each module's content before attempting consolidation.
+- **C2RustUnnamed types** — SOLVED by adding type aliases mapping to named types in types.rs.
 
 ### Previous Session (2026-01-30): Cleanup Patterns Applied
 
@@ -175,32 +112,34 @@ After consolidation, remaining complex modules:
 
 **Key finding:** `static mut` conversion is blocked because all variables are shared between C and Rust code. Must migrate modules fully to Rust before converting.
 
-## Current State Metrics (as of 2026-01-31)
+## Current State Metrics (as of 2026-01-31, end of session)
 
 | Metric | Original | Current | Target |
 |--------|----------|---------|--------|
-| Total Rust lines (src/*.rs) | ~126,000 | **56,580** | <30,000 |
-| Total Rust lines (src/common/) | - | **58,376** | - |
+| Total Rust lines (src/*.rs) | ~126,000 | **~49,850** | <30,000 |
 | `static mut` occurrences (src/) | 430 | **430** | 0 |
-| `unsafe extern "C" fn` (src/) | 1,787 | **1,632** | <500 |
+| `unsafe extern "C" fn` (src/) | 1,787 | **~1,500** | <500 |
 | `#[no_mangle]` (src/) | 450 | **450** | <100 |
 | `#[c2rust::...]` attributes | 7,150 | **0** ✅ | 0 |
-| Duplicate `pub mod *_h` modules | ~800 | **521** | 0 |
-| `as c_int != 0` patterns | ~100+ | **40** ✅ | ~40 (char comparisons) |
+| Duplicate `pub mod *_h` modules | ~800 | **~290** | 0 |
+| `as c_int != 0` patterns | ~100+ | **~40** ✅ | ~40 (char comparisons) |
 
-### Biggest Blocker: Duplicate Type Modules
+### Remaining Duplicate Type Modules
 
-Each file has 20-40+ `pub mod *_h { }` blocks duplicating types. This is ~5x code bloat:
+| Module | Files | Notes |
+|--------|-------|-------|
+| `bouncer_h` | 22 | Core types + extern statics (complex) |
+| `dnslookup_h` | 21 | Uses addrinfo that varies |
+| `sbuf_h` | 20 | Has inline functions |
+| `pktbuf_h` | 20 | Has inline functions |
+| `iobuf_h` | 20 | Depends on extern statics |
+| `objects_h` | 15 | Function declarations |
+| `errno_h` | 14 | Platform-specific errno constants |
+| `util_h` | 11 | Mixed types and functions |
+| `protocol_h` | 10 | Auth constants conflict |
+| Others | ~137 | Various smaller modules |
 
-| Module | Files Affected | Types Defined |
-|--------|---------------|---------------|
-| `bouncer_h` | 22 files | PgSocket, PgPool, PgDatabase, PgCredentials, etc. |
-| `iobuf_h` | 20 files | IOBuf |
-| `sbuf_h` | 20 files | SBuf, SBufIO |
-| `_types_h` | 27 files | u8, u16, i32 aliases (unnecessary) |
-| `socket_h` | 20+ files | sockaddr, msghdr |
-
-**Consolidating these is the highest-impact next step.**
+**Priority for next session:** `bouncer_h` (22 files) — core types, but requires separating type definitions from extern statics.
 
 ## Recommended Next Actions
 
