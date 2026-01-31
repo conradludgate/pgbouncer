@@ -73,18 +73,26 @@ We start from the entry point (`main.rs`) and core connection handling (`client.
 
 **Total lines saved this session: ~2,935 lines** (net: -2,235 lines after adding to types.rs)
 
-**Modules that failed consolidation (require manual fixes):**
-- `in6_h` — Darwin-specific `__u6_addr` field incompatible with `libc::in6_addr`
-- `event_h` — Different struct definitions cause type mismatches
-- `_stdio_h` — `__stderrp` already defined
-- `dnslookup_h` — Uses `addrinfo` type that has different definitions across files
-- `protocol_h` — Auth constants already defined elsewhere
-- `slab_h` — Depends on bouncer_h types
+**Modules needing manual migration:**
+- `in6_h` — Must replace Darwin `__u6_addr` field access with portable `s6_addr`
+- `event_h` / `event_struct_h` — Use libevent's actual struct definitions
+- `_stdio_h` — Use libc re-exports, remove duplicates
+- `dnslookup_h` — Use `libc::addrinfo`
+- `protocol_h` — Deduplicate auth constants
+
+### Type Migration Guidelines
+
+1. **Replace Darwin-specific types with portable definitions** — All Darwin-specific types (`__darwin_*`, `__u6_addr`, etc.) are temporary from c2rust and must be replaced with POSIX/portable equivalents.
+
+2. **Prefer specific struct definitions over opaque types** — Use full struct definitions when available, not just `extern { pub type X; }`.
+
+3. **Use libc definitions when available** — Prefer `libc::in6_addr`, `libc::addrinfo`, etc. over custom definitions. Remove any duplicates.
+
+4. **Update code that uses platform-specific fields** — When switching to libc types, update field accesses (e.g., `.__u6_addr.__u6_addr8` → `.s6_addr`).
 
 **Key findings:**
 - `iobuf_h` has inline functions depending on extern statics (`cf_sbuf_len`), making it complex to consolidate. Same issue as `bouncer_h`.
 - **Module content varies across files** — SOLVED with `merge_module.py` which collects ALL items from all files and merges them.
-- Some modules (in6_h, event_h) have struct definitions that are incompatible across files or with libc.
 
 ### Remaining Duplicate Modules Analysis
 

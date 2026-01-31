@@ -239,37 +239,6 @@ pub mod un_h {
     use pgbouncer::types::sa_family_t;
 }
 
-pub mod in6_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct in6_addr {
-        pub __u6_addr: C2RustUnnamed,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub union C2RustUnnamed {
-        pub __u6_addr8: [__uint8_t; 16],
-        pub __u6_addr16: [__uint16_t; 8],
-        pub __u6_addr32: [__uint32_t; 4],
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct sockaddr_in6 {
-        pub sin6_len: __uint8_t,
-        pub sin6_family: sa_family_t,
-        pub sin6_port: in_port_t,
-        pub sin6_flowinfo: __uint32_t,
-        pub sin6_addr: in6_addr,
-        pub sin6_scope_id: __uint32_t,
-    }
-    use pgbouncer::types::in_port_t;
-    use pgbouncer::types::sa_family_t;
-    use pgbouncer::types::{__uint16_t, __uint32_t, __uint8_t};
-}
-
 pub mod event_h {
 
     pub type event_callback_fn = Option<
@@ -765,7 +734,7 @@ pub mod bouncer_h {
 
     pub const POOL_STMT: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
     use super::dnslookup_h::DNSToken;
-    use super::in6_h::sockaddr_in6;
+    use pgbouncer::types::sockaddr_in6;
     use pgbouncer::types::sockaddr_in;
     use super::pktbuf_h::PktBuf;
     use super::sbuf_h::SBuf;
@@ -1298,7 +1267,7 @@ pub use self::event_struct_h::{
 pub use self::fcntl_h::{open, O_CREAT, O_EXCL, O_RDONLY, O_RDWR, O_WRONLY};
 pub use self::getopt_h::{getopt_long, no_argument, option, required_argument};
 pub use self::hba_h::{hba_free, hba_load_rules, ident_free, ident_load_map, Ident, HBA};
-pub use self::in6_h::{in6_addr, sockaddr_in6, C2RustUnnamed};
+pub use pgbouncer::types::{in6_addr, sockaddr_in6, C2RustUnnamed};
 pub use pgbouncer::types::{in_addr, sockaddr_in};
 pub use self::include_signal_h::{__sigbits, kill, sigprocmask};
 pub use self::iobuf_h::{iobuf, IOBuf};

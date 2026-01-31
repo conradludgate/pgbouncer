@@ -1,34 +1,3 @@
-pub mod in6_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct in6_addr {
-        pub __u6_addr: C2RustUnnamed,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub union C2RustUnnamed {
-        pub __u6_addr8: [__uint8_t; 16],
-        pub __u6_addr16: [__uint16_t; 8],
-        pub __u6_addr32: [__uint32_t; 4],
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct sockaddr_in6 {
-        pub sin6_len: __uint8_t,
-        pub sin6_family: sa_family_t,
-        pub sin6_port: in_port_t,
-        pub sin6_flowinfo: __uint32_t,
-        pub sin6_addr: in6_addr,
-        pub sin6_scope_id: __uint32_t,
-    }
-    use crate::types::in_port_t;
-    use crate::types::sa_family_t;
-    use crate::types::{__uint16_t, __uint32_t, __uint8_t};
-}
-
 pub mod event_h {
     extern "C" {
 
@@ -425,7 +394,7 @@ pub mod bouncer_h {
 
     pub const REPLICATION_NONE: ReplicationType = 0;
     use super::dnslookup_h::DNSToken;
-    use super::in6_h::sockaddr_in6;
+    use crate::types::sockaddr_in6;
     use crate::types::sockaddr_in;
     use super::pktbuf_h::PktBuf;
     use super::sbuf_h::SBuf;
@@ -783,7 +752,7 @@ use self::hmac_h::{
     pg_hmac_create, pg_hmac_ctx, pg_hmac_error, pg_hmac_final, pg_hmac_free, pg_hmac_init,
     pg_hmac_update,
 };
-pub use self::in6_h::{in6_addr, sockaddr_in6, C2RustUnnamed};
+pub use crate::types::{in6_addr, sockaddr_in6, C2RustUnnamed};
 pub use crate::types::{in_addr, sockaddr_in};
 pub use self::iobuf_h::{iobuf, IOBuf};
 pub use self::limits_h::INT_MAX;

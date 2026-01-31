@@ -1423,6 +1423,21 @@ extern "C" {
 }
 
 // =============================================================================
+// in6_h (merged from all files)
+// =============================================================================
+
+pub const IPV6_V6ONLY: ::core::ffi::c_int = 27 as ::core::ffi::c_int;
+
+#[derive(Copy, Clone)]
+    #[repr(C)]
+
+    pub union C2RustUnnamed {
+        pub __u6_addr8: [__uint8_t; 16],
+        pub __u6_addr16: [__uint16_t; 8],
+        pub __u6_addr32: [__uint32_t; 4],
+    }
+
+// =============================================================================
 // pgbouncer-specific forward declarations
 // These are declared but not fully defined here to break circular dependencies
 // =============================================================================

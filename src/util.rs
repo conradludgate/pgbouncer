@@ -79,37 +79,6 @@ pub mod cfparser_h {
     }
 }
 
-pub mod in6_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct in6_addr {
-        pub __u6_addr: C2RustUnnamed,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub union C2RustUnnamed {
-        pub __u6_addr8: [__uint8_t; 16],
-        pub __u6_addr16: [__uint16_t; 8],
-        pub __u6_addr32: [__uint32_t; 4],
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct sockaddr_in6 {
-        pub sin6_len: __uint8_t,
-        pub sin6_family: sa_family_t,
-        pub sin6_port: in_port_t,
-        pub sin6_flowinfo: __uint32_t,
-        pub sin6_addr: in6_addr,
-        pub sin6_scope_id: __uint32_t,
-    }
-    use crate::types::in_port_t;
-    use crate::types::sa_family_t;
-    use crate::types::{__uint16_t, __uint32_t, __uint8_t};
-}
-
 pub mod event_h {
     use super::event_struct_h::event;
     use crate::types::timeval;
@@ -522,7 +491,7 @@ pub mod bouncer_h {
     use crate::types::pid_t;
 
     use super::dnslookup_h::DNSToken;
-    use super::in6_h::sockaddr_in6;
+    use crate::types::sockaddr_in6;
     use crate::types::sockaddr_in;
     use super::pktbuf_h::PktBuf;
     use super::sbuf_h::SBuf;
@@ -877,7 +846,7 @@ pub use self::event_struct_h::{
 use self::evp_h::{
     EVP_DigestFinal_ex, EVP_DigestInit, EVP_DigestUpdate, EVP_MD_CTX_free, EVP_MD_CTX_new, EVP_md5,
 };
-pub use self::in6_h::{in6_addr, sockaddr_in6, C2RustUnnamed};
+pub use crate::types::{in6_addr, sockaddr_in6, C2RustUnnamed};
 pub use crate::types::{in_addr, sockaddr_in, IPPROTO_TCP};
 use self::inet_h::{inet_ntop, inet_pton};
 pub use self::iobuf_h::{iobuf, IOBuf};
