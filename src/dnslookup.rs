@@ -1,8 +1,3 @@
-pub mod _int32_t_h {
-
-    pub type int32_t = i32;
-}
-
 pub mod socket_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -382,7 +377,7 @@ pub mod _strings_h {
         ) -> ::core::ffi::c_int;
     }
 }
-pub use self::_int32_t_h::int32_t;
+pub use crate::types::int32_t;
 use self::_malloc_h::{calloc, free};
 pub use crate::types::socklen_t;
 use self::_string_h::{memcmp, memset, strchr, strcmp, strdup, strlen};

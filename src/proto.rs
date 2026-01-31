@@ -3,11 +3,6 @@ pub mod internal {
     pub type __builtin_va_list = *mut ::core::ffi::c_char;
 }
 
-pub mod _int32_t_h {
-
-    pub type int32_t = i32;
-}
-
 pub mod tls_h {
     extern "C" {
 
@@ -906,7 +901,7 @@ pub mod _stdlib_h {
     }
 }
 
-pub use self::_int32_t_h::int32_t;
+pub use crate::types::int32_t;
 use self::_malloc_h::{free, malloc};
 use self::_stdio_h::sscanf;
 use self::_stdlib_h::{atoi, atoll, exit};

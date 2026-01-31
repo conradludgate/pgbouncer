@@ -13,12 +13,6 @@ extern crate c2rust_bitfields;
 #[allow(unused_imports)]
 use ::pgbouncer;
 
-pub mod _sigset_t_h {
-
-    pub type sigset_t = __darwin_sigset_t;
-    use pgbouncer::types::__darwin_sigset_t;
-}
-
 pub mod _stdio_h {
 
     pub type fpos_t = __darwin_off_t;
@@ -1192,7 +1186,7 @@ pub mod include_signal_h {
             (1 as ::core::ffi::c_int) << (__signo - 1 as ::core::ffi::c_int)
         }
     }
-    use super::_sigset_t_h::sigset_t;
+    use pgbouncer::types::sigset_t;
     use super::signal_h::__DARWIN_NSIG;
     use pgbouncer::types::pid_t;
     extern "C" {
@@ -1443,7 +1437,7 @@ pub mod err_h {
 }
 use self::_malloc_h::free;
 use self::_printf_h::printf;
-pub use self::_sigset_t_h::sigset_t;
+pub use pgbouncer::types::sigset_t;
 pub use pgbouncer::types::socklen_t;
 pub use self::_stdio_h::{__sFILE, __sFILEX, __sbuf, __stderrp, fpos_t, fprintf, snprintf, FILE};
 use self::_stdlib_h::{atexit, atol, exit, getenv, setprogname, srandom};

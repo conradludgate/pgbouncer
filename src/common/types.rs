@@ -126,6 +126,8 @@ pub type timeval = libc::timeval;
 
 pub type timespec = libc::timespec;
 
+pub type iovec = libc::iovec;
+
 pub type rlimit = libc::rlimit;
 
 // Socket address structures - use libc types

@@ -18,17 +18,6 @@ pub mod tls_h {
     }
 }
 
-pub mod _iovec_t_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct iovec {
-        pub iov_base: *mut ::core::ffi::c_void,
-        pub iov_len: size_t,
-    }
-    use crate::types::size_t;
-}
-
 pub mod cfparser_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -88,7 +77,7 @@ pub mod socket_h {
     pub const AF_UNIX: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
 
     pub const SCM_RIGHTS: ::core::ffi::c_int = 0x1 as ::core::ffi::c_int;
-    use super::_iovec_t_h::iovec;
+    use crate::types::iovec;
     use crate::types::socklen_t;
     use crate::types::__uint8_t;
     use crate::types::sa_family_t;
@@ -1375,7 +1364,7 @@ pub mod protocol_h {
     pub const PqMsg_ReadyForQuery: ::core::ffi::c_int = 'Z' as i32;
 }
 pub use crate::types::gid_t;
-pub use self::_iovec_t_h::iovec;
+pub use crate::types::iovec;
 pub use self::_param_h::__DARWIN_ALIGNBYTES32;
 pub use self::_regex_h::{
     re_guts, regcomp, regex_t, regexec, regfree, regmatch_t, regoff_t, REG_EXTENDED, REG_ICASE,

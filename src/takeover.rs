@@ -1,14 +1,3 @@
-pub mod _timespec_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct timespec {
-        pub tv_sec: __darwin_time_t,
-        pub tv_nsec: ::core::ffi::c_long,
-    }
-    use crate::types::__darwin_time_t;
-}
-
 pub mod stat_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -40,7 +29,7 @@ pub mod stat_h {
     use crate::types::mode_t;
     use crate::types::nlink_t;
     use crate::types::off_t;
-    use super::_timespec_h::timespec;
+    use crate::types::timespec;
     use crate::types::__darwin_ino64_t;
     use crate::types::uid_t;
     use crate::types::{__int32_t, __int64_t, __uint32_t};
@@ -55,17 +44,6 @@ pub mod tls_h {
 
         pub type tls;
     }
-}
-
-pub mod _iovec_t_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct iovec {
-        pub iov_base: *mut ::core::ffi::c_void,
-        pub iov_len: size_t,
-    }
-    use crate::types::size_t;
 }
 
 pub mod socket_h {
@@ -103,7 +81,7 @@ pub mod socket_h {
     pub const AF_UNIX: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
 
     pub const SCM_RIGHTS: ::core::ffi::c_int = 0x1 as ::core::ffi::c_int;
-    use super::_iovec_t_h::iovec;
+    use crate::types::iovec;
     use crate::types::socklen_t;
     use crate::types::__uint8_t;
     use crate::types::sa_family_t;
@@ -976,7 +954,7 @@ pub use crate::types::blkcnt_t;
 pub use crate::types::blksize_t;
 pub use crate::types::dev_t;
 pub use crate::types::gid_t;
-pub use self::_iovec_t_h::iovec;
+pub use crate::types::iovec;
 use self::_malloc_h::free;
 pub use crate::types::mode_t;
 pub use crate::types::nlink_t;
@@ -985,7 +963,7 @@ pub use self::_param_h::__DARWIN_ALIGNBYTES32;
 pub use crate::types::socklen_t;
 use self::_stdlib_h::exit;
 use self::_string_h::{memcpy, memset, strcmp, strerror, strncmp};
-pub use self::_timespec_h::timespec;
+pub use crate::types::timespec;
 pub use crate::types::useconds_t;
 pub use self::bouncer_h::{
     cf_listen_port, cf_pidfile, cf_reboot, pga_is_unix, pga_pton, pga_set, sockaddr_ucreds,

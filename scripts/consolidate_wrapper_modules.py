@@ -24,6 +24,13 @@ SIMPLE_WRAPPERS = {
     '_socklen_t_h': 'socklen_t',
     '_va_list_h': 'va_list',
     '_u_int32_t_h': 'u_int32_t',
+    # Primitive integer types (already in types.rs)
+    '_int32_t_h': 'int32_t',
+    '_int64_t_h': 'int64_t',
+    '_sigset_t_h': 'sigset_t',
+    # Struct types (have libc equivalents in types.rs)
+    '_timespec_h': 'timespec',
+    '_iovec_t_h': 'iovec',
 }
 
 def find_matching_brace(content: str, start: int) -> int:

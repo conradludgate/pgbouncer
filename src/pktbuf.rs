@@ -3,11 +3,6 @@ pub mod internal {
     pub type __builtin_va_list = *mut ::core::ffi::c_char;
 }
 
-pub mod _int64_t_h {
-
-    pub type int64_t = i64;
-}
-
 pub mod tls_h {
     extern "C" {
 
@@ -788,7 +783,7 @@ pub mod protocol_h {
 
     pub const PqMsg_RowDescription: ::core::ffi::c_int = 'T' as i32;
 }
-pub use self::_int64_t_h::int64_t;
+pub use crate::types::int64_t;
 use self::_malloc_h::{free, malloc, realloc};
 use self::_stdio_h::{snprintf, sprintf};
 use self::_stdlib_h::exit;

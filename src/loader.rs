@@ -1,14 +1,3 @@
-pub mod _timespec_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct timespec {
-        pub tv_sec: __darwin_time_t,
-        pub tv_nsec: ::core::ffi::c_long,
-    }
-    use crate::types::__darwin_time_t;
-}
-
 pub mod runetype_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -104,7 +93,7 @@ pub mod stat_h {
     use crate::types::mode_t;
     use crate::types::nlink_t;
     use crate::types::off_t;
-    use super::_timespec_h::timespec;
+    use crate::types::timespec;
     use crate::types::__darwin_ino64_t;
     use crate::types::uid_t;
     use crate::types::{__int32_t, __int64_t, __uint32_t};
@@ -975,7 +964,7 @@ pub use crate::types::nlink_t;
 pub use crate::types::off_t;
 use self::_stdlib_h::{atoi, exit, strtonum};
 use self::_string_h::{memset, strcmp, strdup, strerror};
-pub use self::_timespec_h::timespec;
+pub use crate::types::timespec;
 pub use self::bouncer_h::{
     cf_auth_file, cf_autodb_connstr, cstr_skip_ws, load_balance_hosts_map, pool_mode_map,
     sockaddr_ucreds, C2RustUnnamed_9, CallbackState, LoadBalanceHosts, PacketCallbackFlag, PgAddr,
