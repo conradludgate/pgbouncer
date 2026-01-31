@@ -652,43 +652,6 @@ pub mod unistd_h {
     }
 }
 
-pub mod _string_h {
-    use crate::types::size_t;
-    extern "C" {
-
-        pub fn memchr(
-            __s: *const ::core::ffi::c_void,
-            __c: ::core::ffi::c_int,
-            __n: size_t,
-        ) -> *mut ::core::ffi::c_void;
-
-        pub fn memcpy(
-            __dst: *mut ::core::ffi::c_void,
-            __src: *const ::core::ffi::c_void,
-            __n: size_t,
-        ) -> *mut ::core::ffi::c_void;
-
-        pub fn memset(
-            __b: *mut ::core::ffi::c_void,
-            __c: ::core::ffi::c_int,
-            __len: size_t,
-        ) -> *mut ::core::ffi::c_void;
-
-        pub fn strcmp(
-            __s1: *const ::core::ffi::c_char,
-            __s2: *const ::core::ffi::c_char,
-        ) -> ::core::ffi::c_int;
-
-        pub fn strerror(__errnum: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;
-
-        pub fn strncmp(
-            __s1: *const ::core::ffi::c_char,
-            __s2: *const ::core::ffi::c_char,
-            __n: size_t,
-        ) -> ::core::ffi::c_int;
-    }
-}
-
 pub mod objects_h {
     use super::bouncer_h::{PgAddr, PgCredentials, PgDatabase, PgPool, PgSocket};
     use crate::types::uint64_t;
@@ -851,7 +814,7 @@ pub use crate::types::off_t;
 pub use self::_param_h::__DARWIN_ALIGNBYTES32;
 pub use crate::types::socklen_t;
 use self::_stdlib_h::exit;
-use self::_string_h::{memcpy, memset, strcmp, strerror, strncmp};
+use crate::types::{memcpy, memset, strcmp, strerror, strncmp};
 pub use crate::types::timespec;
 pub use crate::types::useconds_t;
 pub use self::bouncer_h::{

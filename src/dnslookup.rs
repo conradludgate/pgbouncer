@@ -259,38 +259,6 @@ pub mod util_h {
     }
 }
 
-pub mod _string_h {
-    use crate::types::size_t;
-    extern "C" {
-
-        pub fn memcmp(
-            __s1: *const ::core::ffi::c_void,
-            __s2: *const ::core::ffi::c_void,
-            __n: size_t,
-        ) -> ::core::ffi::c_int;
-
-        pub fn memset(
-            __b: *mut ::core::ffi::c_void,
-            __c: ::core::ffi::c_int,
-            __len: size_t,
-        ) -> *mut ::core::ffi::c_void;
-
-        pub fn strchr(
-            __s: *const ::core::ffi::c_char,
-            __c: ::core::ffi::c_int,
-        ) -> *mut ::core::ffi::c_char;
-
-        pub fn strcmp(
-            __s1: *const ::core::ffi::c_char,
-            __s2: *const ::core::ffi::c_char,
-        ) -> ::core::ffi::c_int;
-
-        pub fn strlen(__s: *const ::core::ffi::c_char) -> size_t;
-
-        pub fn strdup(__s1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
-    }
-}
-
 pub mod bouncer_h {
     use super::event_h::event_base;
     use crate::types::usec_t;
@@ -335,7 +303,7 @@ pub mod _strings_h {
 pub use crate::types::int32_t;
 use self::_malloc_h::{calloc, free};
 pub use crate::types::socklen_t;
-use self::_string_h::{memcmp, memset, strchr, strcmp, strdup, strlen};
+use crate::types::{memcmp, memset, strchr, strcmp, strdup, strlen};
 use self::_strings_h::strcasecmp;
 use self::bouncer_h::{cf_dns_max_ttl, cf_dns_nxdomain_ttl, cf_resolv_conf, pgb_event_base};
 pub use self::dns_h::{

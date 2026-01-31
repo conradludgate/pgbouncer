@@ -599,20 +599,6 @@ pub mod messages_h {
     use crate::types::size_t;
 }
 
-pub mod _string_h {
-    use crate::types::size_t;
-    extern "C" {
-
-        pub fn memchr(
-            __s: *const ::core::ffi::c_void,
-            __c: ::core::ffi::c_int,
-            __n: size_t,
-        ) -> *mut ::core::ffi::c_void;
-
-        pub fn strlen(__s: *const ::core::ffi::c_char) -> size_t;
-    }
-}
-
 pub mod objects_h {
     use super::bouncer_h::PgSocket;
     extern "C" {
@@ -626,7 +612,7 @@ pub mod objects_h {
     }
 }
 
-use self::_string_h::strlen;
+use crate::types::strlen;
 pub use self::bouncer_h::{
     sockaddr_ucreds, C2RustUnnamed_9, CallbackState, LoadBalanceHosts, PacketCallbackFlag, PgAddr,
     PgCredentials, PgDatabase, PgGlobalUser, PgPool, PgSocket, PgStats, ReplicationType,

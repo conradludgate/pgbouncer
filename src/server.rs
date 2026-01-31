@@ -705,29 +705,6 @@ pub mod objects_h {
     }
 }
 
-pub mod _string_h {
-    use crate::types::size_t;
-    extern "C" {
-
-        pub fn memchr(
-            __s: *const ::core::ffi::c_void,
-            __c: ::core::ffi::c_int,
-            __n: size_t,
-        ) -> *mut ::core::ffi::c_void;
-
-        pub fn memcpy(
-            __dst: *mut ::core::ffi::c_void,
-            __src: *const ::core::ffi::c_void,
-            __n: size_t,
-        ) -> *mut ::core::ffi::c_void;
-
-        pub fn strcmp(
-            __s1: *const ::core::ffi::c_char,
-            __s2: *const ::core::ffi::c_char,
-        ) -> ::core::ffi::c_int;
-    }
-}
-
 pub mod util_h {
     use super::bouncer_h::PgSocket;
     extern "C" {
@@ -837,7 +814,7 @@ pub mod protocol_h {
     pub const PqMsg_CopyData: ::core::ffi::c_uint = 100 as ::core::ffi::c_uint;
 }
 use self::_stdlib_h::exit;
-use self::_string_h::{memcpy, strcmp};
+use crate::types::{memcpy, strcmp};
 pub use self::bouncer_h::{
     cf_default_pool_size, cf_log_connections, cf_max_db_client_connections, cf_max_db_connections,
     cf_max_prepared_statements, cf_max_user_client_connections, cf_max_user_connections,

@@ -807,13 +807,6 @@ pub mod errno_h {
     }
 }
 
-pub mod _string_h {
-    extern "C" {
-
-        pub fn strerror(__errnum: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;
-    }
-}
-
 pub mod protocol_h {
 
     pub const PqMsg_Query: ::core::ffi::c_int = 'Q' as i32;
@@ -840,7 +833,7 @@ pub mod pooler_h {
 }
 use self::_malloc_h::free;
 use self::_stdlib_h::exit;
-use self::_string_h::strerror;
+use crate::types::strerror;
 use self::admin_h::{admin_pause_done, admin_wait_close_done};
 pub use self::bouncer_h::{
     adns, any_user_level_client_timeout_set, any_user_level_timeout_set, cf_autodb_idle_timeout,

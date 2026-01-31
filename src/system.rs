@@ -95,21 +95,10 @@ pub mod errno_h {
     }
 }
 
-pub mod _string_h {
-    extern "C" {
-
-        pub fn strcmp(
-            __s1: *const ::core::ffi::c_char,
-            __s2: *const ::core::ffi::c_char,
-        ) -> ::core::ffi::c_int;
-
-        pub fn strerror(__errnum: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;
-    }
-}
 pub use crate::types::gid_t;
 pub use crate::types::mode_t;
 use self::_stdlib_h::{exit, strtoul};
-use self::_string_h::{strcmp, strerror};
+use crate::types::{strcmp, strerror};
 use self::errno_h::__error;
 pub use self::grp_h::{getgrnam, group};
 pub use crate::types::{

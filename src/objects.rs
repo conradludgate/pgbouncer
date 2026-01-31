@@ -902,55 +902,6 @@ pub mod usual_socket_h {
     }
 }
 
-pub mod _string_h {
-    use crate::types::size_t;
-    extern "C" {
-
-        pub fn memcmp(
-            __s1: *const ::core::ffi::c_void,
-            __s2: *const ::core::ffi::c_void,
-            __n: size_t,
-        ) -> ::core::ffi::c_int;
-
-        pub fn memcpy(
-            __dst: *mut ::core::ffi::c_void,
-            __src: *const ::core::ffi::c_void,
-            __n: size_t,
-        ) -> *mut ::core::ffi::c_void;
-
-        pub fn memset(
-            __b: *mut ::core::ffi::c_void,
-            __c: ::core::ffi::c_int,
-            __len: size_t,
-        ) -> *mut ::core::ffi::c_void;
-
-        pub fn strchr(
-            __s: *const ::core::ffi::c_char,
-            __c: ::core::ffi::c_int,
-        ) -> *mut ::core::ffi::c_char;
-
-        pub fn strcmp(
-            __s1: *const ::core::ffi::c_char,
-            __s2: *const ::core::ffi::c_char,
-        ) -> ::core::ffi::c_int;
-
-        pub fn strerror(__errnum: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;
-
-        pub fn strlen(__s: *const ::core::ffi::c_char) -> size_t;
-
-        pub fn strtok(
-            __str: *mut ::core::ffi::c_char,
-            __sep: *const ::core::ffi::c_char,
-        ) -> *mut ::core::ffi::c_char;
-
-        pub fn strlcpy(
-            __dst: *mut ::core::ffi::c_char,
-            __source: *const ::core::ffi::c_char,
-            __size: size_t,
-        ) -> ::core::ffi::c_ulong;
-    }
-}
-
 pub mod util_h {
     use super::bouncer_h::PgSocket;
     extern "C" {
@@ -1109,7 +1060,7 @@ use self::_malloc_h::free;
 pub use crate::types::socklen_t;
 use self::_stdio_h::{snprintf, vsnprintf};
 use self::_stdlib_h::exit;
-use self::_string_h::{memcmp, memcpy, memset, strchr, strcmp, strerror, strlcpy, strlen, strtok};
+use crate::types::{memcmp, memcpy, memset, strchr, strcmp, strerror, strlcpy, strlen, strtok};
 pub use crate::types::time_t;
 pub use crate::types::va_list;
 use self::admin_h::admin_handle_cancel;

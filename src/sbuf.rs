@@ -780,7 +780,7 @@ pub mod iobuf_h {
         (*io).parse_pos = (*io).done_pos;
         (*io).recv_pos = (*io).parse_pos;
     }
-    use super::_string_h::memmove;
+    use crate::types::memmove;
     use super::bouncer_h::cf_sbuf_len;
     use crate::lib::usual::mbuf::mbuf_init_fixed_reader;
     use crate::types::size_t;
@@ -856,32 +856,6 @@ pub mod usual_socket_h {
             buf: *mut ::core::ffi::c_char,
             buflen: size_t,
         ) -> *const ::core::ffi::c_char;
-    }
-}
-
-pub mod _string_h {
-    use crate::types::size_t;
-    extern "C" {
-
-        pub fn memcpy(
-            __dst: *mut ::core::ffi::c_void,
-            __src: *const ::core::ffi::c_void,
-            __n: size_t,
-        ) -> *mut ::core::ffi::c_void;
-
-        pub fn memmove(
-            __dst: *mut ::core::ffi::c_void,
-            __src: *const ::core::ffi::c_void,
-            __len: size_t,
-        ) -> *mut ::core::ffi::c_void;
-
-        pub fn memset(
-            __b: *mut ::core::ffi::c_void,
-            __c: ::core::ffi::c_int,
-            __len: size_t,
-        ) -> *mut ::core::ffi::c_void;
-
-        pub fn strerror(__errnum: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;
     }
 }
 
@@ -964,7 +938,7 @@ pub use crate::types::in_port_t;
 
 pub use crate::types::socklen_t;
 use self::_stdlib_h::exit;
-use self::_string_h::{memset, strerror};
+use crate::types::{memset, strerror};
 pub use crate::types::time_t;
 pub use self::bouncer_h::{
     auth_type, cf_auth_type, cf_client_tls13_ciphers, cf_client_tls_ca_file,

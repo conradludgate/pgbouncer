@@ -274,20 +274,6 @@ pub mod simd_h {
     pub use ::core::arch::aarch64::uint8x16_t;
 }
 
-pub mod _string_h {
-    use super::_size_t_h::size_t;
-    extern "C" {
-
-        pub fn memchr(
-            __s: *const ::core::ffi::c_void,
-            __c: ::core::ffi::c_int,
-            __n: size_t,
-        ) -> *mut ::core::ffi::c_void;
-
-        pub fn strnlen(__s1: *const ::core::ffi::c_char, __n: size_t) -> size_t;
-    }
-}
-
 pub mod _null_h {
 
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
@@ -322,7 +308,7 @@ use crate::src::common::ascii::is_valid_ascii;
 
 pub use self::_null_h::NULL;
 pub use self::_size_t_h::size_t;
-use self::_string_h::{memchr, strnlen};
+use crate::types::{memchr, strnlen};
 pub use self::_types_h::__darwin_size_t;
 pub use self::_uint32_t_h::uint32_t;
 pub use self::_uint8_t_h::uint8_t;

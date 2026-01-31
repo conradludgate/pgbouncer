@@ -641,33 +641,6 @@ pub mod base_h {
     use crate::types::size_t;
 }
 
-pub mod _string_h {
-    use crate::types::size_t;
-    extern "C" {
-
-        pub fn memcpy(
-            __dst: *mut ::core::ffi::c_void,
-            __src: *const ::core::ffi::c_void,
-            __n: size_t,
-        ) -> *mut ::core::ffi::c_void;
-
-        pub fn memset(
-            __b: *mut ::core::ffi::c_void,
-            __c: ::core::ffi::c_int,
-            __len: size_t,
-        ) -> *mut ::core::ffi::c_void;
-
-        pub fn strcpy(
-            __dst: *mut ::core::ffi::c_char,
-            __src: *const ::core::ffi::c_char,
-        ) -> *mut ::core::ffi::c_char;
-
-        pub fn strerror(__errnum: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;
-
-        pub fn strlen(__s: *const ::core::ffi::c_char) -> size_t;
-    }
-}
-
 pub mod _stdlib_h {
     extern "C" {
 
@@ -704,7 +677,7 @@ pub use crate::types::int64_t;
 use self::_malloc_h::{free, malloc, realloc};
 use self::_stdio_h::{snprintf, sprintf};
 use self::_stdlib_h::exit;
-use self::_string_h::{memcpy, memset, strcpy, strerror, strlen};
+use crate::types::{memcpy, memset, strcpy, strerror, strlen};
 pub use crate::types::va_list;
 pub use self::base_h::zmalloc;
 pub use self::bouncer_h::{

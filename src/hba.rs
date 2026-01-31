@@ -467,52 +467,6 @@ pub mod inet_h {
     }
 }
 
-pub mod _string_h {
-    use crate::types::size_t;
-    extern "C" {
-
-        pub fn memcmp(
-            __s1: *const ::core::ffi::c_void,
-            __s2: *const ::core::ffi::c_void,
-            __n: size_t,
-        ) -> ::core::ffi::c_int;
-
-        pub fn memcpy(
-            __dst: *mut ::core::ffi::c_void,
-            __src: *const ::core::ffi::c_void,
-            __n: size_t,
-        ) -> *mut ::core::ffi::c_void;
-
-        pub fn memset(
-            __b: *mut ::core::ffi::c_void,
-            __c: ::core::ffi::c_int,
-            __len: size_t,
-        ) -> *mut ::core::ffi::c_void;
-
-        pub fn strchr(
-            __s: *const ::core::ffi::c_char,
-            __c: ::core::ffi::c_int,
-        ) -> *mut ::core::ffi::c_char;
-
-        pub fn strcmp(
-            __s1: *const ::core::ffi::c_char,
-            __s2: *const ::core::ffi::c_char,
-        ) -> ::core::ffi::c_int;
-
-        pub fn strerror(__errnum: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;
-
-        pub fn strlen(__s: *const ::core::ffi::c_char) -> size_t;
-
-        pub fn strncmp(
-            __s1: *const ::core::ffi::c_char,
-            __s2: *const ::core::ffi::c_char,
-            __n: size_t,
-        ) -> ::core::ffi::c_int;
-
-        pub fn strdup(__s1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
-    }
-}
-
 pub mod cxextra_h {
     use super::cxalloc_h::CxMem;
     use crate::types::size_t;
@@ -555,7 +509,7 @@ use self::_malloc_h::{calloc, free, malloc, realloc};
 pub use crate::types::socklen_t;
 pub use self::_stdio_h::{__sFILE, __sFILEX, __sbuf, fclose, fopen, fpos_t, getline, FILE};
 use self::_stdlib_h::strtoul;
-use self::_string_h::{memcmp, memcpy, memset, strchr, strcmp, strdup, strerror, strlen, strncmp};
+use crate::types::{memcmp, memcpy, memset, strchr, strcmp, strdup, strerror, strlen, strncmp};
 pub use self::bouncer_h::{
     auth_type, pga_family, pga_is_unix, sockaddr_ucreds, PgAddr, ReplicationType, AUTH_TYPE_ANY,
     AUTH_TYPE_CERT, AUTH_TYPE_HBA, AUTH_TYPE_LDAP, AUTH_TYPE_MD5, AUTH_TYPE_PAM, AUTH_TYPE_PEER,

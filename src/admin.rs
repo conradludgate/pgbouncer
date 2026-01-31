@@ -1039,49 +1039,6 @@ pub mod usual_socket_h {
     }
 }
 
-pub mod _string_h {
-    use crate::types::size_t;
-    extern "C" {
-
-        pub fn memchr(
-            __s: *const ::core::ffi::c_void,
-            __c: ::core::ffi::c_int,
-            __n: size_t,
-        ) -> *mut ::core::ffi::c_void;
-
-        pub fn memcpy(
-            __dst: *mut ::core::ffi::c_void,
-            __src: *const ::core::ffi::c_void,
-            __n: size_t,
-        ) -> *mut ::core::ffi::c_void;
-
-        pub fn memset(
-            __b: *mut ::core::ffi::c_void,
-            __c: ::core::ffi::c_int,
-            __len: size_t,
-        ) -> *mut ::core::ffi::c_void;
-
-        pub fn strchr(
-            __s: *const ::core::ffi::c_char,
-            __c: ::core::ffi::c_int,
-        ) -> *mut ::core::ffi::c_char;
-
-        pub fn strcmp(
-            __s1: *const ::core::ffi::c_char,
-            __s2: *const ::core::ffi::c_char,
-        ) -> ::core::ffi::c_int;
-
-        pub fn strerror(__errnum: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;
-
-        pub fn strlen(__s: *const ::core::ffi::c_char) -> size_t;
-
-        pub fn strstr(
-            __big: *const ::core::ffi::c_char,
-            __little: *const ::core::ffi::c_char,
-        ) -> *mut ::core::ffi::c_char;
-    }
-}
-
 pub mod stats_h {
     use super::bouncer_h::PgSocket;
     use crate::types::StatList;
@@ -1136,7 +1093,7 @@ pub mod endian_h {
         );
         usual_bswap32(tmp)
     }
-    use super::_string_h::memcpy;
+    use crate::types::memcpy;
     use crate::types::size_t;
     use crate::types::uint32_t;
 }
@@ -1253,7 +1210,7 @@ pub use self::_regex_h::{
 pub use crate::types::socklen_t;
 use self::_stdio_h::{snprintf, sscanf, vsnprintf};
 use self::_stdlib_h::exit;
-use self::_string_h::{memcpy, memset, strchr, strcmp, strerror, strlen, strstr};
+use crate::types::{memcpy, memset, strchr, strcmp, strerror, strlen, strstr};
 use self::_strings_h::strcasecmp;
 pub use crate::types::va_list;
 pub use self::bouncer_h::{

@@ -646,61 +646,6 @@ pub mod _malloc_h {
     }
 }
 
-pub mod _string_h {
-    use crate::types::size_t;
-    extern "C" {
-
-        pub fn memcmp(
-            __s1: *const ::core::ffi::c_void,
-            __s2: *const ::core::ffi::c_void,
-            __n: size_t,
-        ) -> ::core::ffi::c_int;
-
-        pub fn memcpy(
-            __dst: *mut ::core::ffi::c_void,
-            __src: *const ::core::ffi::c_void,
-            __n: size_t,
-        ) -> *mut ::core::ffi::c_void;
-
-        pub fn memset(
-            __b: *mut ::core::ffi::c_void,
-            __c: ::core::ffi::c_int,
-            __len: size_t,
-        ) -> *mut ::core::ffi::c_void;
-
-        pub fn strcmp(
-            __s1: *const ::core::ffi::c_char,
-            __s2: *const ::core::ffi::c_char,
-        ) -> ::core::ffi::c_int;
-
-        pub fn strlen(__s: *const ::core::ffi::c_char) -> size_t;
-
-        pub fn strncmp(
-            __s1: *const ::core::ffi::c_char,
-            __s2: *const ::core::ffi::c_char,
-            __n: size_t,
-        ) -> ::core::ffi::c_int;
-
-        pub fn strspn(
-            __s: *const ::core::ffi::c_char,
-            __charset: *const ::core::ffi::c_char,
-        ) -> ::core::ffi::c_ulong;
-
-        pub fn strtok(
-            __str: *mut ::core::ffi::c_char,
-            __sep: *const ::core::ffi::c_char,
-        ) -> *mut ::core::ffi::c_char;
-
-        pub fn strdup(__s1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
-
-        pub fn strlcat(
-            __dst: *mut ::core::ffi::c_char,
-            __source: *const ::core::ffi::c_char,
-            __size: size_t,
-        ) -> ::core::ffi::c_ulong;
-    }
-}
-
 pub mod util_h {
 
     pub const MD5_PASSWD_LEN: ::core::ffi::c_int = 35 as ::core::ffi::c_int;
@@ -814,7 +759,7 @@ pub mod sha2_h {
 use self::_malloc_h::{free, malloc};
 use self::_stdio_h::snprintf;
 use self::_stdlib_h::strtol;
-use self::_string_h::{
+use crate::types::{
     memcmp, memcpy, memset, strcmp, strdup, strlcat, strlen, strncmp, strspn, strtok,
 };
 use self::base64_h::{pg_b64_dec_len, pg_b64_decode, pg_b64_enc_len, pg_b64_encode};

@@ -686,27 +686,6 @@ pub mod ctype_h {
     use super::_ctype_h::tolower;
 }
 
-pub mod _string_h {
-    use crate::types::size_t;
-    extern "C" {
-
-        pub fn memset(
-            __b: *mut ::core::ffi::c_void,
-            __c: ::core::ffi::c_int,
-            __len: size_t,
-        ) -> *mut ::core::ffi::c_void;
-
-        pub fn strcmp(
-            __s1: *const ::core::ffi::c_char,
-            __s2: *const ::core::ffi::c_char,
-        ) -> ::core::ffi::c_int;
-
-        pub fn strlen(__s: *const ::core::ffi::c_char) -> size_t;
-
-        pub fn strdup(__s1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
-    }
-}
-
 pub mod _stdlib_h {
     extern "C" {
 
@@ -745,7 +724,7 @@ pub use self::_ctype_h::{__tolower, tolower};
 use self::_malloc_h::{free, malloc};
 use self::_stdio_h::snprintf;
 use self::_stdlib_h::exit;
-use self::_string_h::{memset, strcmp, strdup, strlen};
+use crate::types::{memset, strcmp, strdup, strlen};
 use self::_strings_h::strcasecmp;
 pub use self::bouncer_h::{
     sockaddr_ucreds, C2RustUnnamed_9, CallbackState, LoadBalanceHosts, PacketCallbackFlag, PgAddr,

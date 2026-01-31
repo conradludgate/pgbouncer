@@ -760,27 +760,6 @@ pub mod ctype_h {
     use super::_ctype_h::isspace;
 }
 
-pub mod _string_h {
-    use crate::types::size_t;
-    extern "C" {
-
-        pub fn memset(
-            __b: *mut ::core::ffi::c_void,
-            __c: ::core::ffi::c_int,
-            __len: size_t,
-        ) -> *mut ::core::ffi::c_void;
-
-        pub fn strcmp(
-            __s1: *const ::core::ffi::c_char,
-            __s2: *const ::core::ffi::c_char,
-        ) -> ::core::ffi::c_int;
-
-        pub fn strerror(__errnum: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;
-
-        pub fn strdup(__s1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
-    }
-}
-
 pub mod objects_h {
     use super::bouncer_h::{PgCredentials, PgDatabase, PgGlobalUser};
 
@@ -890,7 +869,7 @@ pub use crate::types::mode_t;
 pub use crate::types::nlink_t;
 pub use crate::types::off_t;
 use self::_stdlib_h::{atoi, exit, strtonum};
-use self::_string_h::{memset, strcmp, strdup, strerror};
+use crate::types::{memset, strcmp, strdup, strerror};
 pub use crate::types::timespec;
 pub use self::bouncer_h::{
     cf_auth_file, cf_autodb_connstr, cstr_skip_ws, load_balance_hosts_map, pool_mode_map,

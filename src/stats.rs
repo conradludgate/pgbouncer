@@ -628,13 +628,7 @@ pub mod errno_h {
     }
 }
 
-pub mod _string_h {
-    extern "C" {
-
-        pub fn strerror(__errnum: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;
-    }
-}
-use self::_string_h::strerror;
+use crate::types::strerror;
 use self::admin_h::{admin_error, admin_flush};
 pub use self::bouncer_h::{
     cf_log_stats, cf_stats_period, pgb_event_base, sockaddr_ucreds, C2RustUnnamed_9, CallbackState,

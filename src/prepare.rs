@@ -730,32 +730,6 @@ pub mod _malloc_h {
     }
 }
 
-pub mod _string_h {
-    use crate::types::size_t;
-    extern "C" {
-
-        pub fn memcmp(
-            __s1: *const ::core::ffi::c_void,
-            __s2: *const ::core::ffi::c_void,
-            __n: size_t,
-        ) -> ::core::ffi::c_int;
-
-        pub fn memcpy(
-            __dst: *mut ::core::ffi::c_void,
-            __src: *const ::core::ffi::c_void,
-            __n: size_t,
-        ) -> *mut ::core::ffi::c_void;
-
-        pub fn memset(
-            __b: *mut ::core::ffi::c_void,
-            __c: ::core::ffi::c_int,
-            __len: size_t,
-        ) -> *mut ::core::ffi::c_void;
-
-        pub fn strlen(__s: *const ::core::ffi::c_char) -> size_t;
-    }
-}
-
 pub mod slab_h {
     use super::objects_h::Slab;
     extern "C" {
@@ -780,7 +754,7 @@ pub mod protocol_h {
 }
 use self::_malloc_h::{free, malloc};
 use self::_stdio_h::snprintf;
-use self::_string_h::{memcmp, memcpy, memset, strlen};
+use crate::types::{memcmp, memcpy, memset, strlen};
 pub use self::bouncer_h::{
     cf_max_prepared_statements, sockaddr_ucreds, C2RustUnnamed_9, CallbackState, LoadBalanceHosts,
     OutstandingRequest, PacketCallbackFlag, PgAddr, PgCredentials, PgDatabase, PgGlobalUser,

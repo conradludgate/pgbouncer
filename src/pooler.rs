@@ -799,27 +799,6 @@ pub mod usual_socket_h {
     }
 }
 
-pub mod _string_h {
-    use crate::types::size_t;
-    extern "C" {
-
-        pub fn memset(
-            __b: *mut ::core::ffi::c_void,
-            __c: ::core::ffi::c_int,
-            __len: size_t,
-        ) -> *mut ::core::ffi::c_void;
-
-        pub fn strcmp(
-            __s1: *const ::core::ffi::c_char,
-            __s2: *const ::core::ffi::c_char,
-        ) -> ::core::ffi::c_int;
-
-        pub fn strerror(__errnum: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;
-
-        pub fn strlen(__s: *const ::core::ffi::c_char) -> size_t;
-    }
-}
-
 pub mod util_h {
     use super::event_struct_h::event;
     use crate::types::timeval;
@@ -894,7 +873,7 @@ pub use crate::types::off_t;
 pub use crate::types::socklen_t;
 use self::_stdio_h::snprintf;
 use self::_stdlib_h::{atexit, exit};
-use self::_string_h::{memset, strcmp, strerror, strlen};
+use crate::types::{memset, strcmp, strerror, strlen};
 pub use crate::types::timespec;
 pub use self::bouncer_h::{
     cf_listen_addr, cf_listen_backlog, cf_listen_port, cf_pause_mode, cf_so_reuseport,

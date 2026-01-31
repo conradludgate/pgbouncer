@@ -1039,56 +1039,6 @@ pub mod ctype_h {
     use super::_ctype_h::isspace;
 }
 
-pub mod _string_h {
-    use crate::types::size_t;
-    extern "C" {
-
-        pub fn memchr(
-            __s: *const ::core::ffi::c_void,
-            __c: ::core::ffi::c_int,
-            __n: size_t,
-        ) -> *mut ::core::ffi::c_void;
-
-        pub fn memcpy(
-            __dst: *mut ::core::ffi::c_void,
-            __src: *const ::core::ffi::c_void,
-            __n: size_t,
-        ) -> *mut ::core::ffi::c_void;
-
-        pub fn memset(
-            __b: *mut ::core::ffi::c_void,
-            __c: ::core::ffi::c_int,
-            __len: size_t,
-        ) -> *mut ::core::ffi::c_void;
-
-        pub fn strchr(
-            __s: *const ::core::ffi::c_char,
-            __c: ::core::ffi::c_int,
-        ) -> *mut ::core::ffi::c_char;
-
-        pub fn strcmp(
-            __s1: *const ::core::ffi::c_char,
-            __s2: *const ::core::ffi::c_char,
-        ) -> ::core::ffi::c_int;
-
-        pub fn strlen(__s: *const ::core::ffi::c_char) -> size_t;
-
-        pub fn strncmp(
-            __s1: *const ::core::ffi::c_char,
-            __s2: *const ::core::ffi::c_char,
-            __n: size_t,
-        ) -> ::core::ffi::c_int;
-
-        pub fn strdup(__s1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
-
-        pub fn strlcpy(
-            __dst: *mut ::core::ffi::c_char,
-            __source: *const ::core::ffi::c_char,
-            __size: size_t,
-        ) -> ::core::ffi::c_ulong;
-    }
-}
-
 pub mod util_h {
 
     pub const MD5_PASSWD_LEN: ::core::ffi::c_int = 35 as ::core::ffi::c_int;
@@ -1316,7 +1266,7 @@ pub use self::_ctype_h::{__istype, __maskrune, isascii, isspace, _CTYPE_S};
 use self::_malloc_h::{calloc, free, malloc};
 use self::_stdio_h::snprintf;
 use self::_stdlib_h::exit;
-use self::_string_h::{memcpy, memset, strchr, strcmp, strdup, strlcpy, strlen, strncmp};
+use crate::types::{memcpy, memset, strchr, strcmp, strdup, strlcpy, strlen, strncmp};
 use self::admin_h::{admin_handle_client, admin_post_login, admin_pre_login};
 pub use self::bouncer_h::{
     auth_type, cf_admin_users, cf_application_name_add_host, cf_auth_dbname, cf_auth_query,

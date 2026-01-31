@@ -676,43 +676,6 @@ pub mod _malloc_h {
     }
 }
 
-pub mod _string_h {
-    use crate::types::size_t;
-    extern "C" {
-
-        pub fn memchr(
-            __s: *const ::core::ffi::c_void,
-            __c: ::core::ffi::c_int,
-            __n: size_t,
-        ) -> *mut ::core::ffi::c_void;
-
-        pub fn memcpy(
-            __dst: *mut ::core::ffi::c_void,
-            __src: *const ::core::ffi::c_void,
-            __n: size_t,
-        ) -> *mut ::core::ffi::c_void;
-
-        pub fn memmove(
-            __dst: *mut ::core::ffi::c_void,
-            __src: *const ::core::ffi::c_void,
-            __len: size_t,
-        ) -> *mut ::core::ffi::c_void;
-
-        pub fn strcmp(
-            __s1: *const ::core::ffi::c_char,
-            __s2: *const ::core::ffi::c_char,
-        ) -> ::core::ffi::c_int;
-
-        pub fn strlen(__s: *const ::core::ffi::c_char) -> size_t;
-
-        pub fn strncmp(
-            __s1: *const ::core::ffi::c_char,
-            __s2: *const ::core::ffi::c_char,
-            __n: size_t,
-        ) -> ::core::ffi::c_int;
-    }
-}
-
 pub mod util_h {
     use crate::types::size_t;
     use crate::types::uint8_t;
@@ -822,7 +785,7 @@ pub use crate::types::int32_t;
 use self::_malloc_h::{free, malloc};
 use self::_stdio_h::sscanf;
 use self::_stdlib_h::{atoi, atoll, exit};
-use self::_string_h::{memcpy, memmove, strcmp, strlen, strncmp};
+use crate::types::{memcpy, memmove, strcmp, strlen, strncmp};
 pub use crate::types::va_list;
 pub use self::bouncer_h::{
     cf_log_pooler_errors, cf_max_packet_size, cf_peer_id, first_socket,

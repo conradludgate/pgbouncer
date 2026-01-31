@@ -166,16 +166,6 @@ pub mod _stdlib_h {
     }
 }
 
-pub mod _string_h {
-    use super::_size_t_h::size_t;
-    extern "C" {
-
-        pub fn strlen(__s: *const ::core::ffi::c_char) -> size_t;
-
-        pub fn strdup(__s1: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
-    }
-}
-
 pub mod _null_h {
 
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
@@ -205,7 +195,7 @@ use self::_malloc_h::{free, malloc};
 pub use self::_null_h::NULL;
 pub use self::_size_t_h::size_t;
 use self::_stdlib_h::bsearch;
-use self::_string_h::{strdup, strlen};
+use crate::types::{strdup, strlen};
 pub use self::_types_h::__darwin_size_t;
 pub use self::pg_wchar_h::{
     pg_utf8_islegal, pg_utf_mblen, pg_wchar, unicode_to_utf8, utf8_to_unicode,

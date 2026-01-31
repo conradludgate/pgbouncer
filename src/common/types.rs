@@ -1291,6 +1291,32 @@ pub const IPPROTO_IPV6: ::core::ffi::c_int = 41 as ::core::ffi::c_int;
 pub const IPPROTO_TCP: ::core::ffi::c_int = 6 as ::core::ffi::c_int;
 
 // =============================================================================
+// _string_h (merged from all files)
+// =============================================================================
+
+extern "C" {
+    pub fn strlcat(
+                __dst: *mut ::core::ffi::c_char,
+                __source: *const ::core::ffi::c_char,
+                __size: size_t,
+            ) -> ::core::ffi::c_ulong;
+    pub fn strlcpy(
+                __dst: *mut ::core::ffi::c_char,
+                __source: *const ::core::ffi::c_char,
+                __size: size_t,
+            ) -> ::core::ffi::c_ulong;
+    pub fn strnlen(__s1: *const ::core::ffi::c_char, __n: size_t) -> size_t;
+    pub fn strspn(
+                __s: *const ::core::ffi::c_char,
+                __charset: *const ::core::ffi::c_char,
+            ) -> ::core::ffi::c_ulong;
+    pub fn strtok(
+                __str: *mut ::core::ffi::c_char,
+                __sep: *const ::core::ffi::c_char,
+            ) -> *mut ::core::ffi::c_char;
+}
+
+// =============================================================================
 // pgbouncer-specific forward declarations
 // These are declared but not fully defined here to break circular dependencies
 // =============================================================================
