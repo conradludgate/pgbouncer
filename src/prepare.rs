@@ -720,16 +720,6 @@ pub mod _stdio_h {
     }
 }
 
-pub mod _malloc_h {
-    use crate::types::size_t;
-    extern "C" {
-
-        pub fn malloc(__size: size_t) -> *mut ::core::ffi::c_void;
-
-        pub fn free(_: *mut ::core::ffi::c_void);
-    }
-}
-
 pub mod slab_h {
     use super::objects_h::Slab;
     extern "C" {
@@ -752,7 +742,7 @@ pub mod protocol_h {
 
     pub const PqMsg_CloseComplete: ::core::ffi::c_int = '3' as i32;
 }
-use self::_malloc_h::{free, malloc};
+use crate::types::{free, malloc};
 use self::_stdio_h::snprintf;
 use crate::types::{memcmp, memcpy, memset, strlen};
 pub use self::bouncer_h::{

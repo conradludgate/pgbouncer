@@ -137,16 +137,6 @@ pub mod unicode_norm_h {
     }
 }
 
-pub mod _malloc_h {
-    use super::_size_t_h::size_t;
-    extern "C" {
-
-        pub fn malloc(__size: size_t) -> *mut ::core::ffi::c_void;
-
-        pub fn free(_: *mut ::core::ffi::c_void);
-    }
-}
-
 pub mod _null_h {
 
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
@@ -172,7 +162,7 @@ pub mod string_h {
         pub fn pg_is_ascii(str: *const ::core::ffi::c_char) -> bool;
     }
 }
-use self::_malloc_h::{free, malloc};
+use crate::types::{free, malloc};
 pub use self::_null_h::NULL;
 pub use self::_size_t_h::size_t;
 use crate::types::bsearch;

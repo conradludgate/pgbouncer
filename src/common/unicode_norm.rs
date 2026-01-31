@@ -46265,16 +46265,6 @@ pub mod unicode_norm_table_h {
     use super::_uint8_t_h::uint8_t;
 }
 
-pub mod _malloc_h {
-    use super::_size_t_h::size_t;
-    extern "C" {
-
-        pub fn malloc(__size: size_t) -> *mut ::core::ffi::c_void;
-
-        pub fn free(_: *mut ::core::ffi::c_void);
-    }
-}
-
 pub mod _null_h {
 
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
@@ -46287,7 +46277,7 @@ pub mod stdbool_h {
 
     pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 }
-use self::_malloc_h::{free, malloc};
+use crate::types::{free, malloc};
 pub use self::_null_h::NULL;
 pub use self::_size_t_h::size_t;
 use crate::types::bsearch;

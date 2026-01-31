@@ -616,28 +616,13 @@ pub mod _stdio_h {
     }
 }
 
-pub mod _malloc_h {
-    use crate::types::size_t;
-    extern "C" {
-
-        pub fn malloc(__size: size_t) -> *mut ::core::ffi::c_void;
-
-        pub fn calloc(__count: size_t, __size: size_t) -> *mut ::core::ffi::c_void;
-
-        pub fn free(_: *mut ::core::ffi::c_void);
-
-        pub fn realloc(__ptr: *mut ::core::ffi::c_void, __size: size_t)
-            -> *mut ::core::ffi::c_void;
-    }
-}
-
 pub mod base_h {
     #[inline]
 
     pub unsafe extern "C" fn zmalloc(mut len: size_t) -> *mut ::core::ffi::c_void {
         calloc(1 as size_t, len)
     }
-    use super::_malloc_h::calloc;
+    use crate::types::calloc;
     use crate::types::size_t;
 }
 
@@ -667,7 +652,7 @@ pub mod protocol_h {
     pub const PqMsg_RowDescription: ::core::ffi::c_int = 'T' as i32;
 }
 pub use crate::types::int64_t;
-use self::_malloc_h::{free, malloc, realloc};
+use crate::types::{free, malloc, realloc};
 use self::_stdio_h::{snprintf, sprintf};
 use crate::types::exit;
 use crate::types::{memcpy, memset, strcpy, strerror, strlen};

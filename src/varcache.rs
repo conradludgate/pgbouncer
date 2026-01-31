@@ -654,16 +654,6 @@ pub mod _stdio_h {
     }
 }
 
-pub mod _malloc_h {
-    use crate::types::size_t;
-    extern "C" {
-
-        pub fn malloc(__size: size_t) -> *mut ::core::ffi::c_void;
-
-        pub fn free(_: *mut ::core::ffi::c_void);
-    }
-}
-
 pub mod _ctype_h {
     #[inline]
 
@@ -714,7 +704,7 @@ pub mod pgutil_h {
     }
 }
 pub use self::_ctype_h::{__tolower, tolower};
-use self::_malloc_h::{free, malloc};
+use crate::types::{free, malloc};
 use self::_stdio_h::snprintf;
 use crate::types::exit;
 use crate::types::{memset, strcmp, strdup, strlen};

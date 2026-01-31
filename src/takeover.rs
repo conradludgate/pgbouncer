@@ -742,13 +742,6 @@ pub mod safeio_h {
     }
 }
 
-pub mod _malloc_h {
-    extern "C" {
-
-        pub fn free(_: *mut ::core::ffi::c_void);
-    }
-}
-
 pub mod errno_h {
 
     pub const ENOENT: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
@@ -800,7 +793,7 @@ pub use crate::types::blksize_t;
 pub use crate::types::dev_t;
 pub use crate::types::gid_t;
 pub use crate::types::iovec;
-use self::_malloc_h::free;
+use crate::types::free;
 pub use crate::types::mode_t;
 pub use crate::types::nlink_t;
 pub use crate::types::off_t;

@@ -636,16 +636,6 @@ pub mod _stdio_h {
     }
 }
 
-pub mod _malloc_h {
-    use crate::types::size_t;
-    extern "C" {
-
-        pub fn malloc(__size: size_t) -> *mut ::core::ffi::c_void;
-
-        pub fn free(_: *mut ::core::ffi::c_void);
-    }
-}
-
 pub mod util_h {
 
     pub const MD5_PASSWD_LEN: ::core::ffi::c_int = 35 as ::core::ffi::c_int;
@@ -745,7 +735,7 @@ pub mod sha2_h {
 
     pub const PG_SHA256_DIGEST_LENGTH: ::core::ffi::c_int = 32 as ::core::ffi::c_int;
 }
-use self::_malloc_h::{free, malloc};
+use crate::types::{free, malloc};
 use self::_stdio_h::snprintf;
 use crate::types::strtol;
 use crate::types::{

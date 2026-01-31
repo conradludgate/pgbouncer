@@ -228,16 +228,6 @@ pub mod dns_h {
     }
 }
 
-pub mod _malloc_h {
-    use crate::types::size_t;
-    extern "C" {
-
-        pub fn calloc(__count: size_t, __size: size_t) -> *mut ::core::ffi::c_void;
-
-        pub fn free(_: *mut ::core::ffi::c_void);
-    }
-}
-
 pub mod usual_socket_h {
     use crate::types::sockaddr;
     use crate::types::size_t;
@@ -301,7 +291,7 @@ pub mod _strings_h {
     }
 }
 pub use crate::types::int32_t;
-use self::_malloc_h::{calloc, free};
+use crate::types::{calloc, free};
 pub use crate::types::socklen_t;
 use crate::types::{memcmp, memset, strchr, strcmp, strdup, strlen};
 use self::_strings_h::strcasecmp;

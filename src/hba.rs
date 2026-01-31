@@ -390,21 +390,6 @@ pub mod cbtree_h {
     }
 }
 
-pub mod _malloc_h {
-    use crate::types::size_t;
-    extern "C" {
-
-        pub fn malloc(__size: size_t) -> *mut ::core::ffi::c_void;
-
-        pub fn calloc(__count: size_t, __size: size_t) -> *mut ::core::ffi::c_void;
-
-        pub fn free(_: *mut ::core::ffi::c_void);
-
-        pub fn realloc(__ptr: *mut ::core::ffi::c_void, __size: size_t)
-            -> *mut ::core::ffi::c_void;
-    }
-}
-
 pub mod _ctype_h {
 
     pub const _CTYPE_S: ::core::ffi::c_long = 0x4000 as ::core::ffi::c_long;
@@ -494,7 +479,7 @@ pub mod string_h {
     }
 }
 pub use self::_ctype_h::{__istype, __maskrune, isascii, isspace, _CTYPE_S};
-use self::_malloc_h::{calloc, free, malloc, realloc};
+use crate::types::{calloc, free, malloc, realloc};
 pub use crate::types::socklen_t;
 pub use self::_stdio_h::{__sFILE, __sFILEX, __sbuf, fclose, fopen, fpos_t, getline, FILE};
 use crate::types::strtoul;

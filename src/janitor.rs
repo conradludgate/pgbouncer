@@ -786,13 +786,6 @@ pub mod slab_h {
     }
 }
 
-pub mod _malloc_h {
-    extern "C" {
-
-        pub fn free(_: *mut ::core::ffi::c_void);
-    }
-}
-
 pub mod errno_h {
     extern "C" {
 
@@ -824,7 +817,7 @@ pub mod pooler_h {
         pub fn cleanup_unix_sockets();
     }
 }
-use self::_malloc_h::free;
+use crate::types::free;
 use crate::types::exit;
 use crate::types::strerror;
 use self::admin_h::{admin_pause_done, admin_wait_close_done};

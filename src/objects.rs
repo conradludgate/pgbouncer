@@ -984,13 +984,6 @@ pub mod janitor_h {
     }
 }
 
-pub mod _malloc_h {
-    extern "C" {
-
-        pub fn free(_: *mut ::core::ffi::c_void);
-    }
-}
-
 pub mod errno_h {
     extern "C" {
 
@@ -1049,7 +1042,7 @@ pub mod safeio_h {
     }
 }
 pub use self::_OSByteOrder_h::_OSSwapInt16;
-use self::_malloc_h::free;
+use crate::types::free;
 pub use crate::types::socklen_t;
 use self::_stdio_h::{snprintf, vsnprintf};
 use crate::types::exit;

@@ -900,13 +900,6 @@ pub mod slab_h {
     }
 }
 
-pub mod _malloc_h {
-    extern "C" {
-
-        pub fn free(_: *mut ::core::ffi::c_void);
-    }
-}
-
 pub mod errno_h {
 
     pub const EIO: ::core::ffi::c_int = 5 as ::core::ffi::c_int;

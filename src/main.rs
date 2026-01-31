@@ -1124,13 +1124,6 @@ pub mod _printf_h {
     }
 }
 
-pub mod _malloc_h {
-    extern "C" {
-
-        pub fn free(_: *mut ::core::ffi::c_void);
-    }
-}
-
 pub mod errno_h {
 
     pub const ENOENT: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
@@ -1282,7 +1275,7 @@ pub mod err_h {
         pub fn xstrdup(s: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
     }
 }
-use self::_malloc_h::free;
+use pgbouncer::types::free;
 use self::_printf_h::printf;
 pub use pgbouncer::types::sigset_t;
 pub use pgbouncer::types::socklen_t;

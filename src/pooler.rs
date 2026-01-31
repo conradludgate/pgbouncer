@@ -763,16 +763,6 @@ pub mod _stdio_h {
     }
 }
 
-pub mod _malloc_h {
-    use crate::types::size_t;
-    extern "C" {
-
-        pub fn calloc(__count: size_t, __size: size_t) -> *mut ::core::ffi::c_void;
-
-        pub fn free(_: *mut ::core::ffi::c_void);
-    }
-}
-
 pub mod system_h {
     use crate::types::mode_t;
     extern "C" {
@@ -857,7 +847,7 @@ pub use crate::types::blkcnt_t;
 pub use crate::types::blksize_t;
 pub use crate::types::dev_t;
 pub use crate::types::gid_t;
-use self::_malloc_h::{calloc, free};
+use crate::types::{calloc, free};
 pub use crate::types::mode_t;
 pub use crate::types::nlink_t;
 pub use crate::types::off_t;

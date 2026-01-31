@@ -666,16 +666,6 @@ pub mod scram_h {
     }
 }
 
-pub mod _malloc_h {
-    use crate::types::size_t;
-    extern "C" {
-
-        pub fn malloc(__size: size_t) -> *mut ::core::ffi::c_void;
-
-        pub fn free(_: *mut ::core::ffi::c_void);
-    }
-}
-
 pub mod util_h {
     use crate::types::size_t;
     use crate::types::uint8_t;
@@ -771,7 +761,7 @@ pub mod _stdio_h {
 }
 
 pub use crate::types::int32_t;
-use self::_malloc_h::{free, malloc};
+use crate::types::{free, malloc};
 use self::_stdio_h::sscanf;
 use crate::types::{atoi, atoll, exit};
 use crate::types::{memcpy, memmove, strcmp, strlen, strncmp};
