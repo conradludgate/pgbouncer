@@ -63,72 +63,13 @@ pub mod runetype_h {
 }
 
 pub mod bouncer_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
 
-    pub union PgAddr {
-        pub sa: sockaddr,
-        pub sin: sockaddr_in,
-        pub sin6: sockaddr_in6,
-        pub scred: sockaddr_ucreds,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
+    pub use crate::types::*;
 
-    pub struct sockaddr_ucreds {
-        pub sin: sockaddr_in,
-        pub uid: uid_t,
-        pub pid: pid_t,
-    }
+    pub use c2rust_bitfields::BitfieldStruct;
 
-    pub type ReplicationType = ::core::ffi::c_uint;
-
-    pub const REPLICATION_PHYSICAL: ReplicationType = 2;
-
-    pub const REPLICATION_LOGICAL: ReplicationType = 1;
-
-    pub const REPLICATION_NONE: ReplicationType = 0;
-
-    pub const AUTH_TYPE_LDAP: auth_type = 6;
-
-    pub const AUTH_TYPE_SCRAM_SHA_256: auth_type = 8;
-
-    pub const AUTH_TYPE_CERT: auth_type = 4;
-
-    pub const AUTH_TYPE_PEER: auth_type = 9;
-
-    pub const AUTH_TYPE_PLAIN: auth_type = 2;
-
-    pub const AUTH_TYPE_MD5: auth_type = 3;
-
-    pub const AUTH_TYPE_REJECT: auth_type = 10;
-
-    pub const AUTH_TYPE_TRUST: auth_type = 1;
-
-    pub type auth_type = ::core::ffi::c_uint;
-
-    pub const AUTH_TYPE_PAM: auth_type = 7;
-
-    pub const AUTH_TYPE_HBA: auth_type = 5;
-
-    pub const AUTH_TYPE_ANY: auth_type = 0;
-    #[inline]
-
-    pub unsafe extern "C" fn pga_family(mut a: *const PgAddr) -> ::core::ffi::c_uint {
-        (*a).sa.sa_family as ::core::ffi::c_uint
-    }
-    #[inline]
-
-    pub unsafe extern "C" fn pga_is_unix(mut a: *const PgAddr) -> bool {
-        (*a).sa.sa_family as ::core::ffi::c_int == AF_UNIX
-    }
-    use crate::types::pid_t;
-
-    use crate::types::sockaddr_in6;
-    use crate::types::sockaddr_in;
-    use crate::types::{sockaddr, AF_UNIX};
-    use crate::types::uid_t;
     extern "C" {}
+
 }
 
 pub mod cxalloc_h {

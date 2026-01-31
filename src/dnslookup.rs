@@ -1,48 +1,19 @@
 pub mod netdb_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
+    pub use crate::types::*;
+    pub use crate::types::*;
 
-    pub struct addrinfo {
-        pub ai_flags: ::core::ffi::c_int,
-        pub ai_family: ::core::ffi::c_int,
-        pub ai_socktype: ::core::ffi::c_int,
-        pub ai_protocol: ::core::ffi::c_int,
-        pub ai_addrlen: socklen_t,
-        pub ai_canonname: *mut ::core::ffi::c_char,
-        pub ai_addr: *mut sockaddr,
-        pub ai_next: *mut addrinfo,
-    }
-    use crate::types::socklen_t;
-    use crate::types::sockaddr;
+
 }
 
 pub mod dnslookup_h {
 
-    pub type adns_callback_f = Option<
-        unsafe extern "C" fn(*mut ::core::ffi::c_void, *const sockaddr, ::core::ffi::c_int) -> (),
-    >;
+    pub use crate::types::*;
 
-    pub type adns_walk_name_f = Option<
-        unsafe extern "C" fn(
-            *mut ::core::ffi::c_void,
-            *const ::core::ffi::c_char,
-            *const addrinfo,
-            usec_t,
-        ) -> (),
-    >;
+    pub use crate::types::*;
 
-    pub type adns_walk_zone_f = Option<
-        unsafe extern "C" fn(
-            *mut ::core::ffi::c_void,
-            *const ::core::ffi::c_char,
-            uint32_t,
-            ::core::ffi::c_int,
-        ) -> (),
-    >;
-    use super::netdb_h::addrinfo;
-    use crate::types::sockaddr;
-    use crate::types::uint32_t;
-    use crate::types::usec_t;
+
+
+
 }
 
 pub mod dns_h {
@@ -105,18 +76,32 @@ pub mod util_h {
 }
 
 pub mod bouncer_h {
-    use crate::types::event_base;
-    use crate::types::usec_t;
+
+    pub use crate::types::*;
+
+    pub use c2rust_bitfields::BitfieldStruct;
+
     extern "C" {
 
-        pub static mut pgb_event_base: *mut event_base;
 
-        pub static mut cf_dns_max_ttl: usec_t;
 
-        pub static mut cf_dns_nxdomain_ttl: usec_t;
+    pub static mut pgb_event_base: *mut event_base;
 
-        pub static mut cf_resolv_conf: *mut ::core::ffi::c_char;
+
+
+    pub static mut cf_dns_max_ttl: usec_t;
+
+
+
+    pub static mut cf_dns_nxdomain_ttl: usec_t;
+
+
+
+    pub static mut cf_resolv_conf: *mut ::core::ffi::c_char;
+
+
     }
+
 }
 
 pub mod include_util_h {

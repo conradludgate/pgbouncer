@@ -693,6 +693,22 @@ pub struct iobuf {
 
 pub type IOBuf = iobuf;
 
+// IOBuf inline functions
+#[inline]
+pub unsafe fn iobuf_empty(io: *const IOBuf) -> bool {
+    io.is_null() || (*io).done_pos == (*io).recv_pos
+}
+
+#[inline]
+pub unsafe fn iobuf_amount_pending(buf: *const IOBuf) -> ::core::ffi::c_uint {
+    (*buf).parse_pos.wrapping_sub((*buf).done_pos)
+}
+
+#[inline]
+pub unsafe fn iobuf_amount_parse(buf: *const IOBuf) -> ::core::ffi::c_uint {
+    (*buf).recv_pos.wrapping_sub((*buf).parse_pos)
+}
+
 pub type sbuf_cb_t = Option<unsafe extern "C" fn(*mut SBuf, SBufEvent, *mut MBuf) -> bool>;
 
 #[derive(Copy, Clone)]
@@ -874,6 +890,62 @@ pub struct PgServerPreparedStatement {
     pub hh: UT_hash_handle,
     pub ps: *mut PgPreparedStatement,
 }
+
+// =============================================================================
+// netdb_h types (DNS/network info)
+// =============================================================================
+
+pub const AI_PASSIVE: ::core::ffi::c_int = 0x1;
+
+#[derive(Copy, Clone)]
+#[repr(C)]
+pub struct addrinfo {
+    pub ai_flags: ::core::ffi::c_int,
+    pub ai_family: ::core::ffi::c_int,
+    pub ai_socktype: ::core::ffi::c_int,
+    pub ai_protocol: ::core::ffi::c_int,
+    pub ai_addrlen: socklen_t,
+    pub ai_canonname: *mut ::core::ffi::c_char,
+    pub ai_addr: *mut sockaddr,
+    pub ai_next: *mut addrinfo,
+}
+
+extern "C" {
+    pub fn freeaddrinfo(_: *mut addrinfo);
+    pub fn gai_strerror(_: ::core::ffi::c_int) -> *const ::core::ffi::c_char;
+    pub fn getaddrinfo(
+        _: *const ::core::ffi::c_char,
+        _: *const ::core::ffi::c_char,
+        _: *const addrinfo,
+        _: *mut *mut addrinfo,
+    ) -> ::core::ffi::c_int;
+}
+
+// =============================================================================
+// dnslookup_h type aliases
+// =============================================================================
+
+pub type adns_callback_f = Option<
+    unsafe extern "C" fn(*mut ::core::ffi::c_void, *const sockaddr, ::core::ffi::c_int) -> (),
+>;
+
+pub type adns_walk_name_f = Option<
+    unsafe extern "C" fn(
+        *mut ::core::ffi::c_void,
+        *const ::core::ffi::c_char,
+        *const addrinfo,
+        usec_t,
+    ) -> (),
+>;
+
+pub type adns_walk_zone_f = Option<
+    unsafe extern "C" fn(
+        *mut ::core::ffi::c_void,
+        *const ::core::ffi::c_char,
+        uint32_t,
+        ::core::ffi::c_int,
+    ) -> (),
+>;
 
 // =============================================================================
 // Extern type declarations (opaque types)
@@ -1828,7 +1900,7 @@ pub const PKT_STARTUP_V2: ::core::ffi::c_uint = 131072;
 pub const PKT_STARTUP_V3: ::core::ffi::c_int = 0x30000;
 pub const PKT_STARTUP_V3_UNSUPPORTED: ::core::ffi::c_int = 0x30001;
 pub const PKT_STARTUP_V4: ::core::ffi::c_int = 0x40000;
-pub const PKT_CANCEL: ::core::ffi::c_uint = 80877102;
+pub const PKT_CANCEL: ::core::ffi::c_int = 80877102;
 pub const PKT_SSLREQ: ::core::ffi::c_int = 80877103;
 pub const PKT_GSSENCREQ: ::core::ffi::c_int = 80877104;
 pub const RAW_IOBUF_SIZE: ::core::ffi::c_ulong = 12;
@@ -1884,7 +1956,7 @@ extern "C" {
 
 #[inline]
 pub unsafe fn sbuf_is_empty(sbuf: *mut SBuf) -> bool {
-    (*(*sbuf).io).done_pos == (*(*sbuf).io).recv_pos
+    iobuf_empty((*sbuf).io) && (*sbuf).pkt_remain == 0
 }
 
 #[inline]
@@ -1892,8 +1964,47 @@ pub unsafe fn sbuf_is_closed(sbuf: *mut SBuf) -> bool {
     (*sbuf).sock == 0
 }
 
+#[inline]
+pub unsafe fn sbuf_op_send(
+    sbuf: *mut SBuf,
+    buf: *const ::core::ffi::c_void,
+    len: size_t,
+) -> ssize_t {
+    (*(*sbuf).ops)
+        .sbufio_send
+        .expect("non-null function pointer")(sbuf, buf, len)
+}
+
 // =============================================================================
 // sbuf_h constants
 // =============================================================================
 
 pub const SBUF_SMALL_PKT: ::core::ffi::c_int = 64;
+
+// =============================================================================
+// cfparser_h types
+// =============================================================================
+
+#[derive(Copy, Clone)]
+#[repr(C)]
+pub struct CfLookup {
+    pub name: *const ::core::ffi::c_char,
+    pub value: ::core::ffi::c_int,
+}
+
+// =============================================================================
+// hba_h types
+// =============================================================================
+
+#[derive(Copy, Clone)]
+#[repr(C)]
+pub struct HBA {
+    pub rules: List,
+}
+
+// =============================================================================
+// bouncer constants
+// =============================================================================
+
+pub const DEFAULT_UNIX_SOCKET_DIR: [::core::ffi::c_char; 5] =
+    unsafe { ::core::mem::transmute::<[u8; 5], [::core::ffi::c_char; 5]>(*b"/tmp\0") };
