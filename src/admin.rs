@@ -392,12 +392,9 @@ pub mod slab_h {
 }
 
 pub mod objects_h {
-    use super::bouncer_h::{PgCredentials, PgDatabase, PgGlobalUser, PgPool, PgSocket};
 
-    use crate::types::StatList;
+    pub use crate::types::*;
     extern "C" {
-
-        pub type Slab;
 
         pub static mut user_list: StatList;
 
@@ -448,6 +445,8 @@ pub mod objects_h {
 
         pub fn tag_database_dirty(db: *mut PgDatabase);
     }
+
+
 }
 
 pub mod pooler_h {

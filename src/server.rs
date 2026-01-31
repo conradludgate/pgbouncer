@@ -121,10 +121,9 @@ pub mod dnslookup_h {
 }
 
 pub mod objects_h {
-    use super::bouncer_h::PgSocket;
-    extern "C" {
 
-        pub type Slab;
+    pub use crate::types::*;
+    extern "C" {
 
         pub static mut outstanding_request_cache: *mut Slab;
 
@@ -169,6 +168,8 @@ pub mod objects_h {
 
         pub fn forward_cancel_request(server: *mut PgSocket);
     }
+
+
 }
 
 pub mod util_h {

@@ -303,10 +303,12 @@ pub mod cxalloc_h {
 }
 
 pub mod objects_h {
-    extern "C" {
 
-        pub type Slab;
+    pub use crate::types::*;
+    extern "C" {
     }
+
+
 }
 
 pub mod slab_h {

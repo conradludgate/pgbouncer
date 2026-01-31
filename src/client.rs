@@ -473,9 +473,8 @@ pub mod admin_h {
 }
 
 pub mod objects_h {
-    use super::bouncer_h::{
-        PgCredentials, PgDatabase, PgGlobalUser, PgPool, PgSocket, ResponseAction,
-    };
+
+    pub use crate::types::*;
     extern "C" {
 
         pub fn find_or_register_database(
@@ -535,6 +534,8 @@ pub mod objects_h {
 
         pub fn get_active_client_count() -> ::core::ffi::c_int;
     }
+
+
 }
 
 pub mod server_h {

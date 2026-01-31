@@ -102,11 +102,13 @@ pub mod admin_h {
 
 pub mod objects_h {
 
-    use crate::types::StatList;
+    pub use crate::types::*;
     extern "C" {
 
         pub static mut pool_list: StatList;
     }
+
+
 }
 
 use crate::types::strerror;

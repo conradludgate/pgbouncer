@@ -348,6 +348,8 @@ pub mod util_h {
 
 pub mod objects_h {
 
+    pub use pgbouncer::types::*;
+
     use pgbouncer::types::StatList;
     extern "C" {
 
@@ -363,6 +365,8 @@ pub mod objects_h {
 
         pub fn init_caches();
     }
+
+
 }
 
 pub mod include_signal_h {

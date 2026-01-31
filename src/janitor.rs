@@ -154,12 +154,9 @@ pub mod dnslookup_h {
 }
 
 pub mod objects_h {
-    use super::bouncer_h::{PgCredentials, PgDatabase, PgPool, PgSocket, SocketState};
 
-    use crate::types::StatList;
+    pub use crate::types::*;
     extern "C" {
-
-        pub type Slab;
 
         pub static mut pool_list: StatList;
 
@@ -215,6 +212,8 @@ pub mod objects_h {
 
         pub fn get_active_server_count() -> ::core::ffi::c_int;
     }
+
+
 }
 
 pub mod server_h {

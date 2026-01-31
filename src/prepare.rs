@@ -111,11 +111,9 @@ pub mod dnslookup_h {
 }
 
 pub mod objects_h {
-    use super::bouncer_h::{PgSocket, ResponseAction};
-    use crate::types::PgPreparedStatement;
-    extern "C" {
 
-        pub type Slab;
+    pub use crate::types::*;
+    extern "C" {
 
         pub static mut server_prepared_statement_cache: *mut Slab;
 
@@ -141,6 +139,8 @@ pub mod objects_h {
             action: ResponseAction,
         ) -> bool;
     }
+
+
 }
 
 pub mod messages_h {

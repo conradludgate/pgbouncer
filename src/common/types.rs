@@ -959,6 +959,7 @@ extern "C" {
     pub type StrPool;
     pub type DNSToken;
     pub type DNSContext;
+    pub type Slab;
 }
 
 // =============================================================================

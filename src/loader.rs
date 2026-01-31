@@ -275,9 +275,8 @@ pub mod ctype_h {
 }
 
 pub mod objects_h {
-    use super::bouncer_h::{PgCredentials, PgDatabase, PgGlobalUser};
 
-    use crate::types::StatList;
+    pub use crate::types::*;
     extern "C" {
 
         pub static mut user_list: StatList;
@@ -314,6 +313,8 @@ pub mod objects_h {
 
         pub fn tag_autodb_dirty();
     }
+
+
 }
 
 pub mod fileutil_h {

@@ -208,7 +208,8 @@ pub mod server_h {
 }
 
 pub mod objects_h {
-    use super::bouncer_h::{PgCredentials, PgSocket};
+
+    pub use crate::types::*;
     extern "C" {
 
         pub fn find_global_credentials(name: *const ::core::ffi::c_char) -> *mut PgCredentials;
@@ -220,6 +221,8 @@ pub mod objects_h {
             ...
         );
     }
+
+
 }
 
 pub mod protocol_h {

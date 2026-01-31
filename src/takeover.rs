@@ -184,10 +184,8 @@ pub mod unistd_h {
 }
 
 pub mod objects_h {
-    use super::bouncer_h::{PgAddr, PgCredentials, PgDatabase, PgPool, PgSocket};
-    use crate::types::uint64_t;
 
-    use crate::types::StatList;
+    pub use crate::types::*;
     extern "C" {
 
         pub static mut pool_list: StatList;
@@ -243,6 +241,8 @@ pub mod objects_h {
             scram_server_key_len: ::core::ffi::c_int,
         ) -> bool;
     }
+
+
 }
 
 pub mod _param_h {

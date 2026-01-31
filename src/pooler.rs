@@ -305,11 +305,14 @@ pub mod util_h {
 }
 
 pub mod objects_h {
-    use super::bouncer_h::PgSocket;
+
+    pub use crate::types::*;
     extern "C" {
 
         pub fn accept_client(sock: ::core::ffi::c_int, is_unix: bool) -> *mut PgSocket;
     }
+
+
 }
 
 pub mod unistd_h {

@@ -112,7 +112,8 @@ pub mod messages_h {
 }
 
 pub mod objects_h {
-    use super::bouncer_h::PgSocket;
+
+    pub use crate::types::*;
     extern "C" {
 
         pub fn disconnect_client(
@@ -122,6 +123,8 @@ pub mod objects_h {
             ...
         );
     }
+
+
 }
 
 use crate::types::strlen;

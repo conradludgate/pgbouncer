@@ -255,12 +255,9 @@ pub mod dnslookup_h {
 }
 
 pub mod objects_h {
-    use super::bouncer_h::{PgPool, PgSocket};
 
-    use crate::types::StatList;
+    pub use crate::types::*;
     extern "C" {
-
-        pub type Slab;
 
         pub static mut pool_list: StatList;
 
@@ -275,6 +272,8 @@ pub mod objects_h {
 
         pub fn tag_pool_dirty(pool: *mut PgPool);
     }
+
+
 }
 
 pub mod slab_h {

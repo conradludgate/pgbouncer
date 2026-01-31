@@ -114,11 +114,14 @@ pub mod include_util_h {
 }
 
 pub mod objects_h {
-    use crate::types::sockaddr;
+
+    pub use crate::types::*;
     extern "C" {
 
         pub fn tag_host_addr_dirty(host: *const ::core::ffi::c_char, sa: *const sockaddr);
     }
+
+
 }
 
 pub mod _strings_h {
