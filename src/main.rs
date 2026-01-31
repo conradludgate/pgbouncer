@@ -70,10 +70,6 @@ pub mod _stdio_h {
 
         pub type __sFILEX;
 
-        pub static mut __stderrp: *mut FILE;
-
-        pub fn fprintf(_: *mut FILE, _: *const ::core::ffi::c_char, ...) -> ::core::ffi::c_int;
-
         pub fn snprintf(
             __str: *mut ::core::ffi::c_char,
             __size: size_t,
@@ -1076,7 +1072,7 @@ use pgbouncer::types::free;
 use self::_printf_h::printf;
 pub use pgbouncer::types::sigset_t;
 pub use pgbouncer::types::socklen_t;
-pub use self::_stdio_h::{__sFILE, __sFILEX, __sbuf, __stderrp, fpos_t, fprintf, snprintf, FILE};
+pub use self::_stdio_h::{__sFILE, __sFILEX, __sbuf, fpos_t, snprintf, FILE};
 use pgbouncer::types::{atexit, atol, exit, getenv, setprogname, srandom};
 use pgbouncer::types::{memset, strerror, strlen};
 use self::_time_h::time;
@@ -3039,28 +3035,27 @@ unsafe fn main_0(
                 usage(*argv);
             }
             _ => {
-                fprintf(
-                    __stderrp,
-                    b"Try \"%s --help\" for more information.\n\0" as *const u8
-                        as *const ::core::ffi::c_char,
-                    *argv,
-                );
+                // Portable stderr write using file descriptor
+                let prefix = b"Try \"";
+                let suffix = b" --help\" for more information.\n";
+                libc::write(libc::STDERR_FILENO, prefix.as_ptr() as *const _, prefix.len());
+                libc::write(libc::STDERR_FILENO, *argv as *const _, libc::strlen(*argv));
+                libc::write(libc::STDERR_FILENO, suffix.as_ptr() as *const _, suffix.len());
                 exit(1 as ::core::ffi::c_int);
             }
         }
     }
     if optind + 1 as ::core::ffi::c_int != argc {
-        fprintf(
-            __stderrp,
-            c"%s: no configuration file specified\n".as_ptr(),
-            *argv,
-        );
-        fprintf(
-            __stderrp,
-            b"Try \"%s --help\" for more information.\n\0" as *const u8
-                as *const ::core::ffi::c_char,
-            *argv,
-        );
+        // Portable stderr write using file descriptor
+        libc::write(libc::STDERR_FILENO, (*argv) as *const _, libc::strlen(*argv));
+        let msg1 = b": no configuration file specified\n";
+        libc::write(libc::STDERR_FILENO, msg1.as_ptr() as *const _, msg1.len());
+        
+        let prefix = b"Try \"";
+        let suffix = b" --help\" for more information.\n";
+        libc::write(libc::STDERR_FILENO, prefix.as_ptr() as *const _, prefix.len());
+        libc::write(libc::STDERR_FILENO, *argv as *const _, libc::strlen(*argv));
+        libc::write(libc::STDERR_FILENO, suffix.as_ptr() as *const _, suffix.len());
         exit(1 as ::core::ffi::c_int);
     }
     cf_config_file = xstrdup(*argv.offset(optind as isize));

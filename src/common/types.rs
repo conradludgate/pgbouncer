@@ -890,14 +890,7 @@ extern "C" {
 // Re-exports from libc crate
 // =============================================================================
 
-// Standard I/O streams (macOS-specific)
 extern "C" {
-    #[link_name = "__stderrp"]
-    pub static mut __stderrp: *mut FILE;
-    #[link_name = "__stdoutp"]
-    pub static mut __stdoutp: *mut FILE;
-    #[link_name = "__stdinp"]
-    pub static mut __stdinp: *mut FILE;
 }
 
 // errno access (macOS-specific)
