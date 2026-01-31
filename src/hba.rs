@@ -135,25 +135,6 @@ pub mod runetype_h {
     }
 }
 
-pub mod socket_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct sockaddr {
-        pub sa_len: __uint8_t,
-        pub sa_family: sa_family_t,
-        pub sa_data: [::core::ffi::c_char; 14],
-    }
-
-    pub const AF_UNIX: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-
-    pub const AF_INET: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
-
-    pub const AF_INET6: ::core::ffi::c_int = 30 as ::core::ffi::c_int;
-    use crate::types::__uint8_t;
-    use crate::types::sa_family_t;
-}
-
 pub mod in_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -272,7 +253,7 @@ pub mod bouncer_h {
 
     use super::in6_h::sockaddr_in6;
     use super::in_h::sockaddr_in;
-    use super::socket_h::{sockaddr, AF_UNIX};
+    use crate::types::{sockaddr, AF_UNIX};
     use crate::types::uid_t;
     extern "C" {}
 }
@@ -624,7 +605,7 @@ pub use crate::types::{
 pub use self::runetype_h::{
     _DefaultRuneLocale, _RuneCharClass, _RuneEntry, _RuneLocale, _RuneRange,
 };
-pub use self::socket_h::{sockaddr, AF_INET, AF_INET6, AF_UNIX};
+pub use crate::types::{sockaddr, AF_INET, AF_INET6, AF_UNIX};
 use self::string_h::usual_dirname;
 pub use crate::types::{__darwin_off_t, __darwin_pid_t, __darwin_uid_t, __DARWIN_NULL};
 pub use crate::types::in_addr_t;

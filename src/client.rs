@@ -62,21 +62,6 @@ pub mod runetype_h {
     }
 }
 
-pub mod socket_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct sockaddr {
-        pub sa_len: __uint8_t,
-        pub sa_family: sa_family_t,
-        pub sa_data: [::core::ffi::c_char; 14],
-    }
-
-    pub const AF_UNIX: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    use crate::types::__uint8_t;
-    use crate::types::sa_family_t;
-}
-
 pub mod in_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -615,7 +600,7 @@ pub mod bouncer_h {
     use super::in_h::sockaddr_in;
     use super::pktbuf_h::PktBuf;
     use super::sbuf_h::SBuf;
-    use super::socket_h::{sockaddr, AF_UNIX};
+    use crate::types::{sockaddr, AF_UNIX};
     use crate::types::pg_cryptohash_type;
     use crate::types::uid_t;
     use crate::types::uint16_t;
@@ -1488,7 +1473,7 @@ pub use self::scram_h::{
 use self::server_h::{
     connection_pool_mode, database_max_client_connections, user_client_max_connections,
 };
-pub use self::socket_h::{sockaddr, AF_UNIX};
+pub use crate::types::{sockaddr, AF_UNIX};
 pub use crate::types::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
 use self::system_h::check_unix_peer_name;
 use crate::types::{

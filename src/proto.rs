@@ -3,19 +3,6 @@ pub mod internal {
     pub type __builtin_va_list = *mut ::core::ffi::c_char;
 }
 
-pub mod socket_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct sockaddr {
-        pub sa_len: __uint8_t,
-        pub sa_family: sa_family_t,
-        pub sa_data: [::core::ffi::c_char; 14],
-    }
-    use crate::types::__uint8_t;
-    use crate::types::sa_family_t;
-}
-
 pub mod in_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -496,7 +483,7 @@ pub mod bouncer_h {
     use super::in_h::sockaddr_in;
     use super::pktbuf_h::PktBuf;
     use super::sbuf_h::SBuf;
-    use super::socket_h::sockaddr;
+    use crate::types::sockaddr;
     use crate::types::pg_cryptohash_type;
     use crate::types::pid_t;
     use crate::types::uid_t;
@@ -930,7 +917,7 @@ pub use self::scram_h::{
     PASSWORD_TYPE_MD5, PASSWORD_TYPE_PLAINTEXT, PASSWORD_TYPE_SCRAM_SHA_256,
 };
 use self::server_h::kill_pool_logins;
-pub use self::socket_h::sockaddr;
+pub use crate::types::sockaddr;
 pub use crate::types::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
 pub use crate::lib::usual::mbuf::{
     mbuf_avail_for_read, mbuf_copy, mbuf_get_byte, mbuf_get_bytes, mbuf_get_chars, mbuf_get_string,

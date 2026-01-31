@@ -1,18 +1,3 @@
-pub mod socket_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct sockaddr {
-        pub sa_len: __uint8_t,
-        pub sa_family: sa_family_t,
-        pub sa_data: [::core::ffi::c_char; 14],
-    }
-
-    pub const SOCK_STREAM: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    use crate::types::__uint8_t;
-    use crate::types::sa_family_t;
-}
-
 pub mod netdb_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -28,7 +13,7 @@ pub mod netdb_h {
         pub ai_next: *mut addrinfo,
     }
     use crate::types::socklen_t;
-    use super::socket_h::sockaddr;
+    use crate::types::sockaddr;
 }
 
 pub mod event_h {
@@ -187,7 +172,7 @@ pub mod dnslookup_h {
         ) -> (),
     >;
     use super::netdb_h::addrinfo;
-    use super::socket_h::sockaddr;
+    use crate::types::sockaddr;
     use crate::types::uint32_t;
     use crate::types::usec_t;
 }
@@ -254,7 +239,7 @@ pub mod _malloc_h {
 }
 
 pub mod usual_socket_h {
-    use super::socket_h::sockaddr;
+    use crate::types::sockaddr;
     use crate::types::size_t;
     extern "C" {
 
@@ -331,7 +316,7 @@ pub mod include_util_h {
 }
 
 pub mod objects_h {
-    use super::socket_h::sockaddr;
+    use crate::types::sockaddr;
     extern "C" {
 
         pub fn tag_host_addr_dirty(host: *const ::core::ffi::c_char, sa: *const sockaddr);
@@ -371,7 +356,7 @@ pub use crate::types::{
 };
 pub use self::netdb_h::addrinfo;
 use self::objects_h::tag_host_addr_dirty;
-pub use self::socket_h::{sockaddr, SOCK_STREAM};
+pub use crate::types::{sockaddr, SOCK_STREAM};
 pub use crate::types::{__darwin_suseconds_t, __DARWIN_NULL};
 use self::usual_socket_h::sa2str;
 use self::util_h::evutil_freeaddrinfo;

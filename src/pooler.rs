@@ -39,72 +39,6 @@ pub mod stat_h {
     }
 }
 
-pub mod socket_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct sockaddr {
-        pub sa_len: __uint8_t,
-        pub sa_family: sa_family_t,
-        pub sa_data: [::core::ffi::c_char; 14],
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct sockaddr_storage {
-        pub ss_len: __uint8_t,
-        pub ss_family: sa_family_t,
-        pub __ss_pad1: [::core::ffi::c_char; 6],
-        pub __ss_align: __int64_t,
-        pub __ss_pad2: [::core::ffi::c_char; 112],
-    }
-
-    pub const SOCK_STREAM: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-
-    pub const SO_REUSEADDR: ::core::ffi::c_int = 0x4 as ::core::ffi::c_int;
-
-    pub const SO_REUSEPORT: ::core::ffi::c_int = 0x200 as ::core::ffi::c_int;
-
-    pub const SOL_SOCKET: ::core::ffi::c_int = 0xffff as ::core::ffi::c_int;
-
-    pub const AF_UNSPEC: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
-
-    pub const AF_UNIX: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-
-    pub const AF_INET: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
-
-    pub const AF_INET6: ::core::ffi::c_int = 30 as ::core::ffi::c_int;
-    use crate::types::socklen_t;
-    use crate::types::sa_family_t;
-    use crate::types::{__int64_t, __uint8_t};
-    extern "C" {
-
-        pub fn bind(_: ::core::ffi::c_int, _: *const sockaddr, _: socklen_t) -> ::core::ffi::c_int;
-
-        pub fn getsockname(
-            _: ::core::ffi::c_int,
-            _: *mut sockaddr,
-            _: *mut socklen_t,
-        ) -> ::core::ffi::c_int;
-
-        pub fn listen(_: ::core::ffi::c_int, _: ::core::ffi::c_int) -> ::core::ffi::c_int;
-
-        pub fn setsockopt(
-            _: ::core::ffi::c_int,
-            _: ::core::ffi::c_int,
-            _: ::core::ffi::c_int,
-            _: *const ::core::ffi::c_void,
-            _: socklen_t,
-        ) -> ::core::ffi::c_int;
-
-        pub fn socket(
-            _: ::core::ffi::c_int,
-            _: ::core::ffi::c_int,
-            _: ::core::ffi::c_int,
-        ) -> ::core::ffi::c_int;
-    }
-}
-
 pub mod un_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -194,7 +128,7 @@ pub mod netdb_h {
 
     pub const AI_PASSIVE: ::core::ffi::c_int = 0x1 as ::core::ffi::c_int;
     use crate::types::socklen_t;
-    use super::socket_h::sockaddr;
+    use crate::types::sockaddr;
     extern "C" {
 
         pub fn freeaddrinfo(_: *mut addrinfo);
@@ -658,7 +592,7 @@ pub mod bouncer_h {
     use super::in_h::sockaddr_in;
     use super::pktbuf_h::PktBuf;
     use super::sbuf_h::SBuf;
-    use super::socket_h::{sockaddr, AF_UNIX};
+    use crate::types::{sockaddr, AF_UNIX};
     use crate::types::pg_cryptohash_type;
     use crate::types::uid_t;
     use crate::types::uint16_t;
@@ -880,7 +814,7 @@ pub mod system_h {
 }
 
 pub mod usual_socket_h {
-    use super::socket_h::sockaddr;
+    use crate::types::sockaddr;
     use crate::types::size_t;
     extern "C" {
 
@@ -926,7 +860,7 @@ pub mod util_h {
 
 pub mod safeio_h {
     use crate::types::socklen_t;
-    use super::socket_h::sockaddr;
+    use crate::types::sockaddr;
     extern "C" {
 
         pub fn safe_close(fd: ::core::ffi::c_int) -> ::core::ffi::c_int;
@@ -1049,7 +983,7 @@ pub use self::sbuf_h::{
     SBUF_EV_PKT_CALLBACK, SBUF_EV_READ, SBUF_EV_RECV_FAILED, SBUF_EV_SEND_FAILED,
     SBUF_EV_TLS_READY,
 };
-pub use self::socket_h::{
+pub use crate::types::{
     bind, getsockname, listen, setsockopt, sockaddr, sockaddr_storage, socket, AF_INET, AF_INET6,
     AF_UNIX, AF_UNSPEC, SOCK_STREAM, SOL_SOCKET, SO_REUSEADDR, SO_REUSEPORT,
 };

@@ -1,41 +1,3 @@
-pub mod socket_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct sockaddr {
-        pub sa_len: __uint8_t,
-        pub sa_family: sa_family_t,
-        pub sa_data: [::core::ffi::c_char; 14],
-    }
-
-    pub const SOCK_STREAM: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-
-    pub const SO_ERROR: ::core::ffi::c_int = 0x1007 as ::core::ffi::c_int;
-
-    pub const SOL_SOCKET: ::core::ffi::c_int = 0xffff as ::core::ffi::c_int;
-
-    pub const AF_UNIX: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    use crate::types::socklen_t;
-    use crate::types::__uint8_t;
-    use crate::types::sa_family_t;
-    extern "C" {
-
-        pub fn getsockopt(
-            _: ::core::ffi::c_int,
-            _: ::core::ffi::c_int,
-            _: ::core::ffi::c_int,
-            _: *mut ::core::ffi::c_void,
-            _: *mut socklen_t,
-        ) -> ::core::ffi::c_int;
-
-        pub fn socket(
-            _: ::core::ffi::c_int,
-            _: ::core::ffi::c_int,
-            _: ::core::ffi::c_int,
-        ) -> ::core::ffi::c_int;
-    }
-}
-
 pub mod in_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -566,7 +528,7 @@ pub mod bouncer_h {
     use super::in_h::sockaddr_in;
     use super::pktbuf_h::PktBuf;
     use super::sbuf_h::SBuf;
-    use super::socket_h::sockaddr;
+    use crate::types::sockaddr;
     use crate::types::pg_cryptohash_type;
     use crate::types::pid_t;
     use crate::types::uid_t;
@@ -908,7 +870,7 @@ pub mod objects_h {
 }
 
 pub mod usual_socket_h {
-    use super::socket_h::sockaddr;
+    use crate::types::sockaddr;
     use crate::types::size_t;
     extern "C" {
 
@@ -948,7 +910,7 @@ pub mod _string_h {
 
 pub mod safeio_h {
     use crate::types::socklen_t;
-    use super::socket_h::sockaddr;
+    use crate::types::sockaddr;
     use crate::types::size_t;
     use crate::types::ssize_t;
     extern "C" {
@@ -1097,7 +1059,7 @@ pub use self::sbuf_h::{
     SBUF_EV_TLS_READY, SBUF_SMALL_PKT,
 };
 use self::slab_h::{slab_alloc, slab_free};
-pub use self::socket_h::{
+pub use crate::types::{
     getsockopt, sockaddr, socket, AF_UNIX, SOCK_STREAM, SOL_SOCKET, SO_ERROR,
 };
 pub use crate::types::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};

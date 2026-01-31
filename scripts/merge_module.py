@@ -180,8 +180,16 @@ def get_existing_symbols(types_file: Path) -> set:
     for match in re.finditer(r'pub\s+const\s+(\w+)\s*:', content):
         symbols.add(match.group(1))
     
-    # Find functions
+    # Find functions (extern declarations)
     for match in re.finditer(r'pub\s+fn\s+(\w+)\s*\(', content):
+        symbols.add(match.group(1))
+    
+    # Find structs
+    for match in re.finditer(r'pub\s+struct\s+(\w+)', content):
+        symbols.add(match.group(1))
+    
+    # Find pub use re-exports (e.g., pub use libc::socket;)
+    for match in re.finditer(r'pub\s+use\s+\w+::(\w+)\s*;', content):
         symbols.add(match.group(1))
     
     return symbols
@@ -406,6 +414,13 @@ def main():
             )
             content = re.sub(
                 rf'use self::{re.escape(module_name)}::',
+                f'use {types_prefix}::',
+                content
+            )
+            
+            # Also update super::module_name:: patterns inside nested modules
+            content = re.sub(
+                rf'use super::{re.escape(module_name)}::',
                 f'use {types_prefix}::',
                 content
             )

@@ -3,25 +3,6 @@ pub mod internal {
     pub type __builtin_va_list = *mut ::core::ffi::c_char;
 }
 
-pub mod socket_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct sockaddr {
-        pub sa_len: __uint8_t,
-        pub sa_family: sa_family_t,
-        pub sa_data: [::core::ffi::c_char; 14],
-    }
-
-    pub const AF_UNIX: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-
-    pub const AF_INET: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
-
-    pub const AF_INET6: ::core::ffi::c_int = 30 as ::core::ffi::c_int;
-    use crate::types::__uint8_t;
-    use crate::types::sa_family_t;
-}
-
 pub mod un_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -584,7 +565,7 @@ pub mod bouncer_h {
     use super::in_h::sockaddr_in;
     use super::pktbuf_h::PktBuf;
     use super::sbuf_h::SBuf;
-    use super::socket_h::{sockaddr, AF_UNIX};
+    use crate::types::{sockaddr, AF_UNIX};
     use crate::types::pg_cryptohash_type;
     use crate::types::uid_t;
     use crate::types::uint16_t;
@@ -712,7 +693,7 @@ pub mod sbuf_h {
     use super::event_struct_h::event;
     use super::iobuf_h::{iobuf_empty, IOBuf};
     use super::pktbuf_h::PktBuf;
-    use super::socket_h::sockaddr;
+    use crate::types::sockaddr;
     use crate::types::tls;
     use crate::types::size_t;
     use crate::types::ssize_t;
@@ -817,7 +798,7 @@ pub mod dnslookup_h {
     pub type adns_callback_f = Option<
         unsafe extern "C" fn(*mut ::core::ffi::c_void, *const sockaddr, ::core::ffi::c_int) -> (),
     >;
-    use super::socket_h::sockaddr;
+    use crate::types::sockaddr;
     extern "C" {
 
         pub type DNSToken;
@@ -932,7 +913,7 @@ pub mod _stdio_h {
 }
 
 pub mod usual_socket_h {
-    use super::socket_h::sockaddr;
+    use crate::types::sockaddr;
     use crate::types::size_t;
     extern "C" {
 
@@ -1274,7 +1255,7 @@ use self::server_h::{
 pub use self::slab_h::{
     slab_active_count, slab_alloc, slab_create, slab_destroy, slab_free, slab_init_fn,
 };
-pub use self::socket_h::{sockaddr, AF_INET, AF_INET6, AF_UNIX};
+pub use crate::types::{sockaddr, AF_INET, AF_INET6, AF_UNIX};
 pub use crate::types::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
 pub use crate::types::{false_0, true_0};
 pub use crate::types::{

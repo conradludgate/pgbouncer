@@ -3,19 +3,6 @@ pub mod internal {
     pub type __builtin_va_list = *mut ::core::ffi::c_char;
 }
 
-pub mod socket_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct sockaddr {
-        pub sa_len: __uint8_t,
-        pub sa_family: sa_family_t,
-        pub sa_data: [::core::ffi::c_char; 14],
-    }
-    use crate::types::__uint8_t;
-    use crate::types::sa_family_t;
-}
-
 pub mod in_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -494,7 +481,7 @@ pub mod bouncer_h {
     use super::in_h::sockaddr_in;
     use super::pktbuf_h::PktBuf;
     use super::sbuf_h::SBuf;
-    use super::socket_h::sockaddr;
+    use crate::types::sockaddr;
     use crate::types::pg_cryptohash_type;
     use crate::types::pid_t;
     use crate::types::uid_t;
@@ -814,7 +801,7 @@ pub use self::sbuf_h::{
     SBUF_EV_FLUSH, SBUF_EV_PKT_CALLBACK, SBUF_EV_READ, SBUF_EV_RECV_FAILED, SBUF_EV_SEND_FAILED,
     SBUF_EV_TLS_READY,
 };
-pub use self::socket_h::sockaddr;
+pub use crate::types::sockaddr;
 pub use crate::types::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
 pub use crate::types::usec_t;
 pub use crate::types::StatList;

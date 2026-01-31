@@ -1225,6 +1225,65 @@ extern "C" {
 }
 
 // =============================================================================
+// socket_h (merged from all files)
+// =============================================================================
+
+pub const AF_UNSPEC: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
+pub const SCM_RIGHTS: ::core::ffi::c_int = 0x1 as ::core::ffi::c_int;
+pub const SOL_SOCKET: ::core::ffi::c_int = 0xffff as ::core::ffi::c_int;
+pub const SO_ERROR: ::core::ffi::c_int = 0x1007 as ::core::ffi::c_int;
+pub const SO_RCVBUF: ::core::ffi::c_int = 0x1002 as ::core::ffi::c_int;
+pub const SO_REUSEADDR: ::core::ffi::c_int = 0x4 as ::core::ffi::c_int;
+pub const SO_REUSEPORT: ::core::ffi::c_int = 0x200 as ::core::ffi::c_int;
+pub const SO_SNDBUF: ::core::ffi::c_int = 0x1001 as ::core::ffi::c_int;
+
+#[derive(Copy, Clone)]
+    #[repr(C)]
+
+    pub struct cmsghdr {
+        pub cmsg_len: socklen_t,
+        pub cmsg_level: ::core::ffi::c_int,
+        pub cmsg_type: ::core::ffi::c_int,
+    }
+
+#[derive(Copy, Clone)]
+    #[repr(C)]
+
+    pub struct msghdr {
+        pub msg_name: *mut ::core::ffi::c_void,
+        pub msg_namelen: socklen_t,
+        pub msg_iov: *mut iovec,
+        pub msg_iovlen: ::core::ffi::c_int,
+        pub msg_control: *mut ::core::ffi::c_void,
+        pub msg_controllen: socklen_t,
+        pub msg_flags: ::core::ffi::c_int,
+    }
+
+#[derive(Copy, Clone)]
+    #[repr(C)]
+
+    pub struct sockaddr_storage {
+        pub ss_len: __uint8_t,
+        pub ss_family: sa_family_t,
+        pub __ss_pad1: [::core::ffi::c_char; 6],
+        pub __ss_align: __int64_t,
+        pub __ss_pad2: [::core::ffi::c_char; 112],
+    }
+
+extern "C" {
+    pub fn getpeername(
+                _: ::core::ffi::c_int,
+                _: *mut sockaddr,
+                _: *mut socklen_t,
+            ) -> ::core::ffi::c_int;
+    pub fn getsockname(
+                _: ::core::ffi::c_int,
+                _: *mut sockaddr,
+                _: *mut socklen_t,
+            ) -> ::core::ffi::c_int;
+}
+
+// =============================================================================
 // pgbouncer-specific forward declarations
 // These are declared but not fully defined here to break circular dependencies
 // =============================================================================

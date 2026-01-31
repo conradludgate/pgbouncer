@@ -1,18 +1,3 @@
-pub mod socket_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct sockaddr {
-        pub sa_len: __uint8_t,
-        pub sa_family: sa_family_t,
-        pub sa_data: [::core::ffi::c_char; 14],
-    }
-
-    pub const AF_UNIX: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    use crate::types::__uint8_t;
-    use crate::types::sa_family_t;
-}
-
 pub mod in_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -514,7 +499,7 @@ pub mod bouncer_h {
     use super::in_h::sockaddr_in;
     use super::pktbuf_h::PktBuf;
     use super::sbuf_h::SBuf;
-    use super::socket_h::{sockaddr, AF_UNIX};
+    use crate::types::{sockaddr, AF_UNIX};
     use crate::types::pg_cryptohash_type;
     use crate::types::uid_t;
     use crate::types::uint16_t;
@@ -984,7 +969,7 @@ pub use self::sbuf_h::{
     SBUF_EV_TLS_READY,
 };
 use self::slab_h::slab_free;
-pub use self::socket_h::{sockaddr, AF_UNIX};
+pub use crate::types::{sockaddr, AF_UNIX};
 pub use crate::types::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
 use self::takeover_h::{takeover_login, takeover_login_failed};
 use crate::types::tls_get_connection_info;

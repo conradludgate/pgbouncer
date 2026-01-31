@@ -39,47 +39,6 @@ pub mod stat_h {
     }
 }
 
-pub mod socket_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct sockaddr {
-        pub sa_len: __uint8_t,
-        pub sa_family: sa_family_t,
-        pub sa_data: [::core::ffi::c_char; 14],
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct msghdr {
-        pub msg_name: *mut ::core::ffi::c_void,
-        pub msg_namelen: socklen_t,
-        pub msg_iov: *mut iovec,
-        pub msg_iovlen: ::core::ffi::c_int,
-        pub msg_control: *mut ::core::ffi::c_void,
-        pub msg_controllen: socklen_t,
-        pub msg_flags: ::core::ffi::c_int,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct cmsghdr {
-        pub cmsg_len: socklen_t,
-        pub cmsg_level: ::core::ffi::c_int,
-        pub cmsg_type: ::core::ffi::c_int,
-    }
-
-    pub const SOL_SOCKET: ::core::ffi::c_int = 0xffff as ::core::ffi::c_int;
-
-    pub const AF_UNIX: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-
-    pub const SCM_RIGHTS: ::core::ffi::c_int = 0x1 as ::core::ffi::c_int;
-    use crate::types::iovec;
-    use crate::types::socklen_t;
-    use crate::types::__uint8_t;
-    use crate::types::sa_family_t;
-}
-
 pub mod in_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -549,7 +508,7 @@ pub mod bouncer_h {
     use super::in_h::sockaddr_in;
     use super::pktbuf_h::PktBuf;
     use super::sbuf_h::SBuf;
-    use super::socket_h::{sockaddr, AF_UNIX};
+    use crate::types::{sockaddr, AF_UNIX};
     use crate::types::pg_cryptohash_type;
     use crate::types::uid_t;
     use crate::types::uint16_t;
@@ -823,7 +782,7 @@ pub mod _param_h {
 }
 
 pub mod safeio_h {
-    use super::socket_h::msghdr;
+    use crate::types::msghdr;
     use crate::types::size_t;
     use crate::types::ssize_t;
     extern "C" {
@@ -996,7 +955,7 @@ pub use self::sbuf_h::{
     SBUF_EV_CONNECT_FAILED, SBUF_EV_CONNECT_OK, SBUF_EV_FLUSH, SBUF_EV_PKT_CALLBACK, SBUF_EV_READ,
     SBUF_EV_RECV_FAILED, SBUF_EV_SEND_FAILED, SBUF_EV_TLS_READY,
 };
-pub use self::socket_h::{cmsghdr, msghdr, sockaddr, AF_UNIX, SCM_RIGHTS, SOL_SOCKET};
+pub use crate::types::{cmsghdr, msghdr, sockaddr, AF_UNIX, SCM_RIGHTS, SOL_SOCKET};
 pub use self::stat_h::stat;
 pub use crate::types::{
     __darwin_blkcnt_t, __darwin_blksize_t, __darwin_dev_t, __darwin_gid_t, __darwin_ino64_t,

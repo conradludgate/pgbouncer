@@ -79,54 +79,6 @@ pub mod cfparser_h {
     }
 }
 
-pub mod socket_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct sockaddr {
-        pub sa_len: __uint8_t,
-        pub sa_family: sa_family_t,
-        pub sa_data: [::core::ffi::c_char; 14],
-    }
-
-    pub const SO_SNDBUF: ::core::ffi::c_int = 0x1001 as ::core::ffi::c_int;
-
-    pub const SO_RCVBUF: ::core::ffi::c_int = 0x1002 as ::core::ffi::c_int;
-
-    pub const SOL_SOCKET: ::core::ffi::c_int = 0xffff as ::core::ffi::c_int;
-
-    pub const AF_UNIX: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-
-    pub const AF_INET: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
-
-    pub const AF_INET6: ::core::ffi::c_int = 30 as ::core::ffi::c_int;
-    use crate::types::socklen_t;
-    use crate::types::__uint8_t;
-    use crate::types::sa_family_t;
-    extern "C" {
-
-        pub fn getpeername(
-            _: ::core::ffi::c_int,
-            _: *mut sockaddr,
-            _: *mut socklen_t,
-        ) -> ::core::ffi::c_int;
-
-        pub fn getsockname(
-            _: ::core::ffi::c_int,
-            _: *mut sockaddr,
-            _: *mut socklen_t,
-        ) -> ::core::ffi::c_int;
-
-        pub fn setsockopt(
-            _: ::core::ffi::c_int,
-            _: ::core::ffi::c_int,
-            _: ::core::ffi::c_int,
-            _: *const ::core::ffi::c_void,
-            _: socklen_t,
-        ) -> ::core::ffi::c_int;
-    }
-}
-
 pub mod in_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -599,7 +551,7 @@ pub mod bouncer_h {
     use super::in_h::sockaddr_in;
     use super::pktbuf_h::PktBuf;
     use super::sbuf_h::SBuf;
-    use super::socket_h::{sockaddr, AF_UNIX};
+    use crate::types::{sockaddr, AF_UNIX};
     use crate::types::pg_cryptohash_type;
     use crate::types::uid_t;
     use crate::types::uint16_t;
@@ -1048,7 +1000,7 @@ pub use self::sbuf_h::{
     SBUF_EV_PKT_CALLBACK, SBUF_EV_READ, SBUF_EV_RECV_FAILED, SBUF_EV_SEND_FAILED,
     SBUF_EV_TLS_READY,
 };
-pub use self::socket_h::{
+pub use crate::types::{
     getpeername, getsockname, setsockopt, sockaddr, AF_INET, AF_INET6, AF_UNIX, SOL_SOCKET,
     SO_RCVBUF, SO_SNDBUF,
 };

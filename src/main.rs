@@ -227,31 +227,6 @@ pub mod cfparser_h {
     }
 }
 
-pub mod socket_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct sockaddr {
-        pub sa_len: __uint8_t,
-        pub sa_family: sa_family_t,
-        pub sa_data: [::core::ffi::c_char; 14],
-    }
-
-    pub const SOCK_STREAM: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-
-    pub const AF_UNIX: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    use pgbouncer::types::__uint8_t;
-    use pgbouncer::types::sa_family_t;
-    extern "C" {
-
-        pub fn socket(
-            _: ::core::ffi::c_int,
-            _: ::core::ffi::c_int,
-            _: ::core::ffi::c_int,
-        ) -> ::core::ffi::c_int;
-    }
-}
-
 pub mod un_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -817,7 +792,7 @@ pub mod bouncer_h {
     use super::in_h::sockaddr_in;
     use super::pktbuf_h::PktBuf;
     use super::sbuf_h::SBuf;
-    use super::socket_h::sockaddr;
+    use pgbouncer::types::sockaddr;
     use pgbouncer::types::pg_cryptohash_type;
     use pgbouncer::types::pid_t;
     use pgbouncer::types::uid_t;
@@ -1131,7 +1106,7 @@ pub mod include_signal_h {
 
 pub mod safeio_h {
     use pgbouncer::types::socklen_t;
-    use super::socket_h::sockaddr;
+    use pgbouncer::types::sockaddr;
     use pgbouncer::types::size_t;
     use pgbouncer::types::ssize_t;
     extern "C" {
@@ -1437,7 +1412,7 @@ pub use self::sbuf_h::{
     SBUF_EV_TLS_READY,
 };
 pub use self::signal_h::{SIG_BLOCK, __DARWIN_NSIG};
-pub use self::socket_h::{sockaddr, socket, AF_UNIX, SOCK_STREAM};
+pub use pgbouncer::types::{sockaddr, socket, AF_UNIX, SOCK_STREAM};
 use self::stats_h::stats_setup;
 use self::string_h::{strcmpeq, usual_basename};
 pub use pgbouncer::types::{
