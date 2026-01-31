@@ -1,16 +1,3 @@
-pub mod sys__types_h {
-
-    pub type __darwin_off_t = __int64_t;
-
-    pub type __darwin_pid_t = __int32_t;
-
-    pub type __darwin_uid_t = __uint32_t;
-
-    pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
-        ::core::ptr::null_mut::<::core::ffi::c_void>();
-    use crate::types::{__int32_t, __int64_t, __uint32_t};
-}
-
 pub mod _stdio_h {
 
     pub type fpos_t = __darwin_off_t;
@@ -62,7 +49,7 @@ pub mod _stdio_h {
     }
 
     pub type FILE = __sFILE;
-    use super::sys__types_h::__darwin_off_t;
+    use crate::types::__darwin_off_t;
     use crate::types::size_t;
     use crate::types::ssize_t;
     extern "C" {
@@ -673,7 +660,7 @@ pub use self::runetype_h::{
 };
 pub use self::socket_h::{sockaddr, AF_INET, AF_INET6, AF_UNIX};
 use self::string_h::usual_dirname;
-pub use self::sys__types_h::{__darwin_off_t, __darwin_pid_t, __darwin_uid_t, __DARWIN_NULL};
+pub use crate::types::{__darwin_off_t, __darwin_pid_t, __darwin_uid_t, __DARWIN_NULL};
 pub use crate::types::in_addr_t;
 pub use crate::types::in_port_t;
 pub use crate::types::pid_t;

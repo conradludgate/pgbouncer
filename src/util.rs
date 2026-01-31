@@ -3,25 +3,10 @@ pub mod _u_int32_t_h {
     pub type u_int32_t = ::core::ffi::c_uint;
 }
 
-pub mod sys__types_h {
-
-    pub type __darwin_gid_t = __uint32_t;
-
-    pub type __darwin_pid_t = __int32_t;
-
-    pub type __darwin_suseconds_t = __int32_t;
-
-    pub type __darwin_uid_t = __uint32_t;
-
-    pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
-        ::core::ptr::null_mut::<::core::ffi::c_void>();
-    use crate::types::{__int32_t, __uint32_t};
-}
-
 pub mod _gid_t_h {
 
     pub type gid_t = __darwin_gid_t;
-    use super::sys__types_h::__darwin_gid_t;
+    use crate::types::__darwin_gid_t;
 }
 
 pub mod runetype_h {
@@ -1130,7 +1115,7 @@ pub use self::socket_h::{
     getpeername, getsockname, setsockopt, sockaddr, AF_INET, AF_INET6, AF_UNIX, SOL_SOCKET,
     SO_RCVBUF, SO_SNDBUF,
 };
-pub use self::sys__types_h::{
+pub use crate::types::{
     __darwin_gid_t, __darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL,
 };
 pub use self::tcp_h::TCP_NODELAY;

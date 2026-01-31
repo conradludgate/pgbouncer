@@ -3,15 +3,6 @@ pub mod _int32_t_h {
     pub type int32_t = i32;
 }
 
-pub mod sys__types_h {
-
-    pub type __darwin_suseconds_t = __int32_t;
-
-    pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
-        ::core::ptr::null_mut::<::core::ffi::c_void>();
-    use crate::types::__int32_t;
-}
-
 pub mod _socklen_t_h {
 
     pub type socklen_t = __darwin_socklen_t;
@@ -422,7 +413,7 @@ pub use self::logging_h::{
 pub use self::netdb_h::addrinfo;
 use self::objects_h::tag_host_addr_dirty;
 pub use self::socket_h::{sockaddr, SOCK_STREAM};
-pub use self::sys__types_h::{__darwin_suseconds_t, __DARWIN_NULL};
+pub use crate::types::{__darwin_suseconds_t, __DARWIN_NULL};
 use self::usual_socket_h::sa2str;
 use self::util_h::evutil_freeaddrinfo;
 pub use crate::types::sa_family_t;

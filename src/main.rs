@@ -13,23 +13,6 @@ extern crate c2rust_bitfields;
 #[allow(unused_imports)]
 use ::pgbouncer;
 
-pub mod sys__types_h {
-
-    pub type __darwin_off_t = __int64_t;
-
-    pub type __darwin_pid_t = __int32_t;
-
-    pub type __darwin_sigset_t = __uint32_t;
-
-    pub type __darwin_suseconds_t = __int32_t;
-
-    pub type __darwin_uid_t = __uint32_t;
-
-    pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
-        ::core::ptr::null_mut::<::core::ffi::c_void>();
-    use pgbouncer::types::{__int32_t, __int64_t, __uint32_t};
-}
-
 pub mod _time_t_h {
 
     pub type time_t = __darwin_time_t;
@@ -39,7 +22,7 @@ pub mod _time_t_h {
 pub mod _sigset_t_h {
 
     pub type sigset_t = __darwin_sigset_t;
-    use super::sys__types_h::__darwin_sigset_t;
+    use pgbouncer::types::__darwin_sigset_t;
 }
 
 pub mod _stdio_h {
@@ -93,7 +76,7 @@ pub mod _stdio_h {
     }
 
     pub type FILE = __sFILE;
-    use super::sys__types_h::__darwin_off_t;
+    use pgbouncer::types::__darwin_off_t;
     use pgbouncer::types::size_t;
     extern "C" {
 
@@ -1547,7 +1530,7 @@ pub use self::signal_h::{SIG_BLOCK, __DARWIN_NSIG};
 pub use self::socket_h::{sockaddr, socket, AF_UNIX, SOCK_STREAM};
 use self::stats_h::stats_setup;
 use self::string_h::{strcmpeq, usual_basename};
-pub use self::sys__types_h::{
+pub use pgbouncer::types::{
     __darwin_off_t, __darwin_pid_t, __darwin_sigset_t, __darwin_suseconds_t, __darwin_uid_t,
     __DARWIN_NULL,
 };

@@ -1,16 +1,3 @@
-pub mod sys__types_h {
-
-    pub type __darwin_pid_t = __int32_t;
-
-    pub type __darwin_suseconds_t = __int32_t;
-
-    pub type __darwin_uid_t = __uint32_t;
-
-    pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
-        ::core::ptr::null_mut::<::core::ffi::c_void>();
-    use crate::types::{__int32_t, __uint32_t};
-}
-
 pub mod runetype_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -1566,7 +1553,7 @@ use self::server_h::{
     connection_pool_mode, database_max_client_connections, user_client_max_connections,
 };
 pub use self::socket_h::{sockaddr, AF_UNIX};
-pub use self::sys__types_h::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
+pub use crate::types::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
 use self::system_h::check_unix_peer_name;
 use self::tls_h::{
     tls_get_connection_info, tls_peer_cert_contains_name, tls_peer_cert_provided,

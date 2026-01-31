@@ -1,16 +1,3 @@
-pub mod sys__types_h {
-
-    pub type __darwin_pid_t = __int32_t;
-
-    pub type __darwin_suseconds_t = __int32_t;
-
-    pub type __darwin_uid_t = __uint32_t;
-
-    pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
-        ::core::ptr::null_mut::<::core::ffi::c_void>();
-    use crate::types::{__int32_t, __uint32_t};
-}
-
 pub mod _time_t_h {
 
     pub type time_t = __darwin_time_t;
@@ -1298,7 +1285,7 @@ use self::slab_h::{slab_alloc, slab_free};
 pub use self::socket_h::{
     getsockopt, sockaddr, socket, AF_UNIX, SOCK_STREAM, SOL_SOCKET, SO_ERROR,
 };
-pub use self::sys__types_h::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
+pub use crate::types::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
 pub use self::tls_h::{
     tls, tls_accept_fds, tls_client, tls_close, tls_config, tls_config_equal, tls_config_free,
     tls_config_insecure_noverifycert, tls_config_insecure_noverifyname, tls_config_new,

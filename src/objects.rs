@@ -3,19 +3,6 @@ pub mod internal {
     pub type __builtin_va_list = *mut ::core::ffi::c_char;
 }
 
-pub mod sys__types_h {
-
-    pub type __darwin_pid_t = __int32_t;
-
-    pub type __darwin_suseconds_t = __int32_t;
-
-    pub type __darwin_uid_t = __uint32_t;
-
-    pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
-        ::core::ptr::null_mut::<::core::ffi::c_void>();
-    use crate::types::{__int32_t, __uint32_t};
-}
-
 pub mod _time_t_h {
 
     pub type time_t = __darwin_time_t;
@@ -1353,7 +1340,7 @@ pub use self::slab_h::{
     slab_active_count, slab_alloc, slab_create, slab_destroy, slab_free, slab_init_fn,
 };
 pub use self::socket_h::{sockaddr, AF_INET, AF_INET6, AF_UNIX};
-pub use self::sys__types_h::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
+pub use crate::types::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
 pub use crate::types::{false_0, true_0};
 pub use crate::types::{
     statlist_append, statlist_count, statlist_empty, statlist_first, statlist_init, statlist_pop,

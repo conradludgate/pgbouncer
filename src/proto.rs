@@ -8,19 +8,6 @@ pub mod _int32_t_h {
     pub type int32_t = i32;
 }
 
-pub mod sys__types_h {
-
-    pub type __darwin_pid_t = __int32_t;
-
-    pub type __darwin_suseconds_t = __int32_t;
-
-    pub type __darwin_uid_t = __uint32_t;
-
-    pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
-        ::core::ptr::null_mut::<::core::ffi::c_void>();
-    use crate::types::{__int32_t, __uint32_t};
-}
-
 pub mod _va_list_h {
 
     pub type va_list = __darwin_va_list;
@@ -1002,7 +989,7 @@ pub use self::scram_h::{
 };
 use self::server_h::kill_pool_logins;
 pub use self::socket_h::sockaddr;
-pub use self::sys__types_h::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
+pub use crate::types::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
 pub use crate::lib::usual::mbuf::{
     mbuf_avail_for_read, mbuf_copy, mbuf_get_byte, mbuf_get_bytes, mbuf_get_chars, mbuf_get_string,
     mbuf_get_uint16be, mbuf_get_uint32be, mbuf_init_fixed_reader, mbuf_slice,

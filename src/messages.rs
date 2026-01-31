@@ -1,13 +1,3 @@
-pub mod sys__types_h {
-
-    pub type __darwin_pid_t = __int32_t;
-
-    pub type __darwin_suseconds_t = __int32_t;
-
-    pub type __darwin_uid_t = __uint32_t;
-    use crate::types::{__int32_t, __uint32_t};
-}
-
 pub mod tls_h {
     extern "C" {
 
@@ -763,7 +753,7 @@ pub use self::sbuf_h::{
     SBUF_EV_TLS_READY,
 };
 pub use self::socket_h::sockaddr;
-pub use self::sys__types_h::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t};
+pub use crate::types::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t};
 pub use crate::lib::usual::mbuf::{
     mbuf_avail_for_read, mbuf_get_bytes, mbuf_get_char, mbuf_get_string, mbuf_get_uint16be,
     mbuf_written,

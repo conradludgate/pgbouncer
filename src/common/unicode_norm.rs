@@ -46297,13 +46297,7 @@ pub mod _stdlib_h {
 pub mod _null_h {
 
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
-    use super::sys__types_h::__DARWIN_NULL;
-}
-
-pub mod sys__types_h {
-
-    pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
-        ::core::ptr::null_mut::<::core::ffi::c_void>();
+    use crate::types::__DARWIN_NULL;
 }
 
 pub mod stdbool_h {
@@ -46322,7 +46316,7 @@ pub use self::_uint32_t_h::uint32_t;
 pub use self::_uint8_t_h::uint8_t;
 pub use self::pg_wchar_h::pg_wchar;
 pub use self::stdbool_h::{false_0, true_0};
-pub use self::sys__types_h::__DARWIN_NULL;
+pub use crate::types::__DARWIN_NULL;
 pub use self::unicode_norm_h::{
     UnicodeNormalizationForm, UNICODE_NFC, UNICODE_NFD, UNICODE_NFKC, UNICODE_NFKD,
 };

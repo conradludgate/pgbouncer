@@ -179,19 +179,13 @@ pub mod _string_h {
 pub mod _null_h {
 
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
-    use super::sys__types_h::__DARWIN_NULL;
+    use crate::types::__DARWIN_NULL;
 }
 
 pub mod postgres_compat_h {
 
     pub const MaxAllocSize: size_t = 0x3fffffff as ::core::ffi::c_int as size_t;
     use super::_size_t_h::size_t;
-}
-
-pub mod sys__types_h {
-
-    pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
-        ::core::ptr::null_mut::<::core::ffi::c_void>();
 }
 
 pub mod stdbool_h {
@@ -222,7 +216,7 @@ pub use self::saslprep_h::{
 };
 pub use self::stdbool_h::{false_0, true_0};
 use self::string_h::pg_is_ascii;
-pub use self::sys__types_h::__DARWIN_NULL;
+pub use crate::types::__DARWIN_NULL;
 pub use self::unicode_norm_h::{
     unicode_normalize, UnicodeNormalizationForm, UNICODE_NFC, UNICODE_NFD, UNICODE_NFKC,
     UNICODE_NFKD,

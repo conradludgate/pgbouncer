@@ -3,27 +3,10 @@ pub mod internal {
     pub type __builtin_va_list = *mut ::core::ffi::c_char;
 }
 
-pub mod sys__types_h {
-
-    pub type __darwin_gid_t = __uint32_t;
-
-    pub type __darwin_off_t = __int64_t;
-
-    pub type __darwin_pid_t = __int32_t;
-
-    pub type __darwin_suseconds_t = __int32_t;
-
-    pub type __darwin_uid_t = __uint32_t;
-
-    pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
-        ::core::ptr::null_mut::<::core::ffi::c_void>();
-    use crate::types::{__int32_t, __int64_t, __uint32_t};
-}
-
 pub mod _gid_t_h {
 
     pub type gid_t = __darwin_gid_t;
-    use super::sys__types_h::__darwin_gid_t;
+    use crate::types::__darwin_gid_t;
 }
 
 pub mod _va_list_h {
@@ -1026,7 +1009,7 @@ pub mod _regex_h {
     pub const REG_EXTENDED: ::core::ffi::c_int = 0o1 as ::core::ffi::c_int;
 
     pub const REG_ICASE: ::core::ffi::c_int = 0o2 as ::core::ffi::c_int;
-    use super::sys__types_h::__darwin_off_t;
+    use crate::types::__darwin_off_t;
     use crate::types::size_t;
     extern "C" {
 
@@ -1535,7 +1518,7 @@ use self::stats_h::{
     admin_database_stats, admin_database_stats_averages, admin_database_stats_totals,
     show_stat_totals,
 };
-pub use self::sys__types_h::{
+pub use crate::types::{
     __darwin_gid_t, __darwin_off_t, __darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t,
     __DARWIN_NULL,
 };

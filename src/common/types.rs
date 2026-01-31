@@ -34,6 +34,20 @@ pub type __darwin_ct_rune_t = ::core::ffi::c_int;
 pub type __builtin_va_list = *mut ::core::ffi::c_char;
 pub type __darwin_va_list = __builtin_va_list;
 
+// Darwin system types (consolidating sys__types_h modules)
+pub type __darwin_blkcnt_t = __int64_t;
+pub type __darwin_blksize_t = __int32_t;
+pub type __darwin_dev_t = __int32_t;
+pub type __darwin_gid_t = __uint32_t;
+pub type __darwin_ino64_t = __uint64_t;
+pub type __darwin_mode_t = __uint16_t;
+pub type __darwin_off_t = __int64_t;
+pub type __darwin_pid_t = __int32_t;
+pub type __darwin_sigset_t = __uint32_t;
+pub type __darwin_suseconds_t = __int32_t;
+pub type __darwin_uid_t = __uint32_t;
+pub type __darwin_useconds_t = __uint32_t;
+
 // Standard C types - use libc types
 pub type uintptr_t = libc::uintptr_t;
 pub type in_addr_t = libc::in_addr_t;

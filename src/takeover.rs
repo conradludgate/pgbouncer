@@ -1,60 +1,31 @@
-pub mod sys__types_h {
-
-    pub type __darwin_blkcnt_t = __int64_t;
-
-    pub type __darwin_blksize_t = __int32_t;
-
-    pub type __darwin_dev_t = __int32_t;
-
-    pub type __darwin_gid_t = __uint32_t;
-
-    pub type __darwin_ino64_t = __uint64_t;
-
-    pub type __darwin_mode_t = __uint16_t;
-
-    pub type __darwin_off_t = __int64_t;
-
-    pub type __darwin_pid_t = __int32_t;
-
-    pub type __darwin_suseconds_t = __int32_t;
-
-    pub type __darwin_uid_t = __uint32_t;
-
-    pub type __darwin_useconds_t = __uint32_t;
-
-    pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
-        ::core::ptr::null_mut::<::core::ffi::c_void>();
-    use crate::types::{__int32_t, __int64_t, __uint16_t, __uint32_t, __uint64_t};
-}
-
 pub mod _dev_t_h {
 
     pub type dev_t = __darwin_dev_t;
-    use super::sys__types_h::__darwin_dev_t;
+    use crate::types::__darwin_dev_t;
 }
 
 pub mod _blkcnt_t_h {
 
     pub type blkcnt_t = __darwin_blkcnt_t;
-    use super::sys__types_h::__darwin_blkcnt_t;
+    use crate::types::__darwin_blkcnt_t;
 }
 
 pub mod _blksize_t_h {
 
     pub type blksize_t = __darwin_blksize_t;
-    use super::sys__types_h::__darwin_blksize_t;
+    use crate::types::__darwin_blksize_t;
 }
 
 pub mod _gid_t_h {
 
     pub type gid_t = __darwin_gid_t;
-    use super::sys__types_h::__darwin_gid_t;
+    use crate::types::__darwin_gid_t;
 }
 
 pub mod _mode_t_h {
 
     pub type mode_t = __darwin_mode_t;
-    use super::sys__types_h::__darwin_mode_t;
+    use crate::types::__darwin_mode_t;
 }
 
 pub mod _nlink_t_h {
@@ -66,13 +37,13 @@ pub mod _nlink_t_h {
 pub mod _off_t_h {
 
     pub type off_t = __darwin_off_t;
-    use super::sys__types_h::__darwin_off_t;
+    use crate::types::__darwin_off_t;
 }
 
 pub mod _useconds_t_h {
 
     pub type useconds_t = __darwin_useconds_t;
-    use super::sys__types_h::__darwin_useconds_t;
+    use crate::types::__darwin_useconds_t;
 }
 
 pub mod _timespec_h {
@@ -118,7 +89,7 @@ pub mod stat_h {
     use super::_nlink_t_h::nlink_t;
     use super::_off_t_h::off_t;
     use super::_timespec_h::timespec;
-    use super::sys__types_h::__darwin_ino64_t;
+    use crate::types::__darwin_ino64_t;
     use crate::types::uid_t;
     use crate::types::{__int32_t, __int64_t, __uint32_t};
     extern "C" {
@@ -1150,7 +1121,7 @@ pub use self::sbuf_h::{
 };
 pub use self::socket_h::{cmsghdr, msghdr, sockaddr, AF_UNIX, SCM_RIGHTS, SOL_SOCKET};
 pub use self::stat_h::stat;
-pub use self::sys__types_h::{
+pub use crate::types::{
     __darwin_blkcnt_t, __darwin_blksize_t, __darwin_dev_t, __darwin_gid_t, __darwin_ino64_t,
     __darwin_mode_t, __darwin_off_t, __darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t,
     __darwin_useconds_t, __DARWIN_NULL,

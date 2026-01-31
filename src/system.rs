@@ -1,26 +1,13 @@
-pub mod sys__types_h {
-
-    pub type __darwin_gid_t = __uint32_t;
-
-    pub type __darwin_mode_t = __uint16_t;
-
-    pub type __darwin_uid_t = __uint32_t;
-
-    pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
-        ::core::ptr::null_mut::<::core::ffi::c_void>();
-    use crate::types::{__uint16_t, __uint32_t};
-}
-
 pub mod _gid_t_h {
 
     pub type gid_t = __darwin_gid_t;
-    use super::sys__types_h::__darwin_gid_t;
+    use crate::types::__darwin_gid_t;
 }
 
 pub mod _mode_t_h {
 
     pub type mode_t = __darwin_mode_t;
-    use super::sys__types_h::__darwin_mode_t;
+    use crate::types::__darwin_mode_t;
 }
 
 pub mod pwd_h {
@@ -170,7 +157,7 @@ pub use self::logging_h::{
 };
 pub use self::pwd_h::{getpwnam, getpwuid, passwd};
 use self::stat_h::chmod;
-pub use self::sys__types_h::{__darwin_gid_t, __darwin_mode_t, __darwin_uid_t, __DARWIN_NULL};
+pub use crate::types::{__darwin_gid_t, __darwin_mode_t, __darwin_uid_t, __DARWIN_NULL};
 use self::unistd_h::{chown, geteuid, getpeereid, getuid, setgid, setgroups, setuid};
 pub use crate::types::false_0;
 pub use crate::types::uid_t;

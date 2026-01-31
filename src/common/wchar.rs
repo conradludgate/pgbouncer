@@ -291,7 +291,7 @@ pub mod _string_h {
 pub mod _null_h {
 
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
-    use super::sys__types_h::__DARWIN_NULL;
+    use crate::types::__DARWIN_NULL;
 }
 
 pub mod ascii_h {}
@@ -300,12 +300,6 @@ pub mod arm_neon_h {
 
     pub use ::core::arch::aarch64::uint8x16_t;
     pub use ::core::arch::aarch64::{vceqq_u8, vdupq_n_u8, vmaxvq_u8, vorrq_u8};
-}
-
-pub mod sys__types_h {
-
-    pub const __DARWIN_NULL: *mut ::core::ffi::c_void =
-        ::core::ptr::null_mut::<::core::ffi::c_void>();
 }
 
 pub mod limits_h {
@@ -349,7 +343,7 @@ pub use self::simd_h::{
     vector8_broadcast, vector8_eq, vector8_is_highbit_set, vector8_or, Vector8,
 };
 pub use self::stdbool_h::{false_0, true_0};
-pub use self::sys__types_h::__DARWIN_NULL;
+pub use crate::types::__DARWIN_NULL;
 #[derive(Copy, Clone)]
 #[repr(C)]
 
