@@ -734,17 +734,6 @@ pub mod limits_h {
     pub const INT_MAX: ::core::ffi::c_int = 2147483647 as ::core::ffi::c_int;
 }
 
-pub mod _stdlib_h {
-    extern "C" {
-
-        pub fn strtol(
-            __str: *const ::core::ffi::c_char,
-            __endptr: *mut *mut ::core::ffi::c_char,
-            __base: ::core::ffi::c_int,
-        ) -> ::core::ffi::c_long;
-    }
-}
-
 pub mod errno_h {
     extern "C" {
 
@@ -758,7 +747,7 @@ pub mod sha2_h {
 }
 use self::_malloc_h::{free, malloc};
 use self::_stdio_h::snprintf;
-use self::_stdlib_h::strtol;
+use crate::types::strtol;
 use crate::types::{
     memcmp, memcpy, memset, strcmp, strdup, strlcat, strlen, strncmp, strspn, strtok,
 };

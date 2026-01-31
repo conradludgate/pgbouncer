@@ -907,13 +907,6 @@ pub mod _malloc_h {
     }
 }
 
-pub mod _stdlib_h {
-    extern "C" {
-
-        pub fn exit(_: ::core::ffi::c_int) -> !;
-    }
-}
-
 pub mod errno_h {
 
     pub const EIO: ::core::ffi::c_int = 5 as ::core::ffi::c_int;
@@ -937,7 +930,7 @@ pub use crate::types::in_addr_t;
 pub use crate::types::in_port_t;
 
 pub use crate::types::socklen_t;
-use self::_stdlib_h::exit;
+use crate::types::exit;
 use crate::types::{memset, strerror};
 pub use crate::types::time_t;
 pub use self::bouncer_h::{

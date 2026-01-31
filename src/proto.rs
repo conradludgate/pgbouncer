@@ -770,21 +770,10 @@ pub mod _stdio_h {
     }
 }
 
-pub mod _stdlib_h {
-    extern "C" {
-
-        pub fn atoi(_: *const ::core::ffi::c_char) -> ::core::ffi::c_int;
-
-        pub fn atoll(_: *const ::core::ffi::c_char) -> ::core::ffi::c_longlong;
-
-        pub fn exit(_: ::core::ffi::c_int) -> !;
-    }
-}
-
 pub use crate::types::int32_t;
 use self::_malloc_h::{free, malloc};
 use self::_stdio_h::sscanf;
-use self::_stdlib_h::{atoi, atoll, exit};
+use crate::types::{atoi, atoll, exit};
 use crate::types::{memcpy, memmove, strcmp, strlen, strncmp};
 pub use crate::types::va_list;
 pub use self::bouncer_h::{

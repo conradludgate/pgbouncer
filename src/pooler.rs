@@ -833,15 +833,6 @@ pub mod objects_h {
     }
 }
 
-pub mod _stdlib_h {
-    extern "C" {
-
-        pub fn atexit(_: Option<unsafe extern "C" fn() -> ()>) -> ::core::ffi::c_int;
-
-        pub fn exit(_: ::core::ffi::c_int) -> !;
-    }
-}
-
 pub mod errno_h {
 
     pub const EINVAL: ::core::ffi::c_int = 22 as ::core::ffi::c_int;
@@ -872,7 +863,7 @@ pub use crate::types::nlink_t;
 pub use crate::types::off_t;
 pub use crate::types::socklen_t;
 use self::_stdio_h::snprintf;
-use self::_stdlib_h::{atexit, exit};
+use crate::types::{atexit, exit};
 use crate::types::{memset, strcmp, strerror, strlen};
 pub use crate::types::timespec;
 pub use self::bouncer_h::{

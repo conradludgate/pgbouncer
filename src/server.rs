@@ -740,13 +740,6 @@ pub mod takeover_h {
     }
 }
 
-pub mod _stdlib_h {
-    extern "C" {
-
-        pub fn exit(_: ::core::ffi::c_int) -> !;
-    }
-}
-
 pub mod protocol_h {
 
     pub const PqMsg_Bind: ::core::ffi::c_int = 'B' as i32;
@@ -813,7 +806,7 @@ pub mod protocol_h {
 
     pub const PqMsg_CopyData: ::core::ffi::c_uint = 100 as ::core::ffi::c_uint;
 }
-use self::_stdlib_h::exit;
+use crate::types::exit;
 use crate::types::{memcpy, strcmp};
 pub use self::bouncer_h::{
     cf_default_pool_size, cf_log_connections, cf_max_db_client_connections, cf_max_db_connections,

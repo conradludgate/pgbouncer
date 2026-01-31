@@ -1317,6 +1317,36 @@ extern "C" {
 }
 
 // =============================================================================
+// _stdlib_h (merged from all files)
+// =============================================================================
+
+extern "C" {
+    pub fn atexit(_: Option<unsafe extern "C" fn() -> ()>) -> ::core::ffi::c_int;
+    pub fn atoll(_: *const ::core::ffi::c_char) -> ::core::ffi::c_longlong;
+    pub fn bsearch(
+                __key: *const ::core::ffi::c_void,
+                __base: *const ::core::ffi::c_void,
+                __nel: size_t,
+                __width: size_t,
+                __compar: Option<
+                    unsafe extern "C" fn(
+                        *const ::core::ffi::c_void,
+                        *const ::core::ffi::c_void,
+                    ) -> ::core::ffi::c_int,
+                >,
+            ) -> *mut ::core::ffi::c_void;
+    pub fn getenv(_: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
+    pub fn setprogname(_: *const ::core::ffi::c_char);
+    pub fn srandom(_: ::core::ffi::c_uint);
+    pub fn strtonum(
+                __numstr: *const ::core::ffi::c_char,
+                __minval: ::core::ffi::c_longlong,
+                __maxval: ::core::ffi::c_longlong,
+                __errstrp: *mut *const ::core::ffi::c_char,
+            ) -> ::core::ffi::c_longlong;
+}
+
+// =============================================================================
 // pgbouncer-specific forward declarations
 // These are declared but not fully defined here to break circular dependencies
 // =============================================================================

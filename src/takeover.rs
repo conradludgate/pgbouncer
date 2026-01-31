@@ -749,13 +749,6 @@ pub mod _malloc_h {
     }
 }
 
-pub mod _stdlib_h {
-    extern "C" {
-
-        pub fn exit(_: ::core::ffi::c_int) -> !;
-    }
-}
-
 pub mod errno_h {
 
     pub const ENOENT: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
@@ -813,7 +806,7 @@ pub use crate::types::nlink_t;
 pub use crate::types::off_t;
 pub use self::_param_h::__DARWIN_ALIGNBYTES32;
 pub use crate::types::socklen_t;
-use self::_stdlib_h::exit;
+use crate::types::exit;
 use crate::types::{memcpy, memset, strcmp, strerror, strncmp};
 pub use crate::types::timespec;
 pub use crate::types::useconds_t;

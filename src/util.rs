@@ -821,13 +821,6 @@ pub mod csrandom_h {
     }
 }
 
-pub mod _stdlib_h {
-    extern "C" {
-
-        pub fn exit(_: ::core::ffi::c_int) -> !;
-    }
-}
-
 pub mod errno_h {
 
     pub const EINVAL: ::core::ffi::c_int = 22 as ::core::ffi::c_int;
@@ -859,7 +852,7 @@ pub use self::_ctype_h::{__istype, __maskrune, isascii, isspace, _CTYPE_S};
 pub use crate::types::gid_t;
 pub use crate::types::socklen_t;
 use self::_stdio_h::snprintf;
-use self::_stdlib_h::exit;
+use crate::types::exit;
 use crate::types::{memcmp, memcpy, memset, strchr, strcmp, strerror, strlcpy, strlen, strstr};
 pub use crate::types::u_int32_t;
 pub use self::bouncer_h::{

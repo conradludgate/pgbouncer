@@ -1131,23 +1131,6 @@ pub mod _malloc_h {
     }
 }
 
-pub mod _stdlib_h {
-    extern "C" {
-
-        pub fn atexit(_: Option<unsafe extern "C" fn() -> ()>) -> ::core::ffi::c_int;
-
-        pub fn atol(_: *const ::core::ffi::c_char) -> ::core::ffi::c_long;
-
-        pub fn exit(_: ::core::ffi::c_int) -> !;
-
-        pub fn getenv(_: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
-
-        pub fn srandom(_: ::core::ffi::c_uint);
-
-        pub fn setprogname(_: *const ::core::ffi::c_char);
-    }
-}
-
 pub mod errno_h {
 
     pub const ENOENT: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
@@ -1304,7 +1287,7 @@ use self::_printf_h::printf;
 pub use pgbouncer::types::sigset_t;
 pub use pgbouncer::types::socklen_t;
 pub use self::_stdio_h::{__sFILE, __sFILEX, __sbuf, __stderrp, fpos_t, fprintf, snprintf, FILE};
-use self::_stdlib_h::{atexit, atol, exit, getenv, setprogname, srandom};
+use pgbouncer::types::{atexit, atol, exit, getenv, setprogname, srandom};
 use pgbouncer::types::{memset, strerror, strlen};
 use self::_time_h::time;
 pub use pgbouncer::types::time_t;

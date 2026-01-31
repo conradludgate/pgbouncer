@@ -46275,25 +46275,6 @@ pub mod _malloc_h {
     }
 }
 
-pub mod _stdlib_h {
-    use super::_size_t_h::size_t;
-    extern "C" {
-
-        pub fn bsearch(
-            __key: *const ::core::ffi::c_void,
-            __base: *const ::core::ffi::c_void,
-            __nel: size_t,
-            __width: size_t,
-            __compar: Option<
-                unsafe extern "C" fn(
-                    *const ::core::ffi::c_void,
-                    *const ::core::ffi::c_void,
-                ) -> ::core::ffi::c_int,
-            >,
-        ) -> *mut ::core::ffi::c_void;
-    }
-}
-
 pub mod _null_h {
 
     pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
@@ -46309,7 +46290,7 @@ pub mod stdbool_h {
 use self::_malloc_h::{free, malloc};
 pub use self::_null_h::NULL;
 pub use self::_size_t_h::size_t;
-use self::_stdlib_h::bsearch;
+use crate::types::bsearch;
 pub use self::_types_h::__darwin_size_t;
 pub use self::_uint16_t_h::uint16_t;
 pub use self::_uint32_t_h::uint32_t;

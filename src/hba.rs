@@ -480,17 +480,6 @@ pub mod cxextra_h {
     }
 }
 
-pub mod _stdlib_h {
-    extern "C" {
-
-        pub fn strtoul(
-            __str: *const ::core::ffi::c_char,
-            __endptr: *mut *mut ::core::ffi::c_char,
-            __base: ::core::ffi::c_int,
-        ) -> ::core::ffi::c_ulong;
-    }
-}
-
 pub mod errno_h {
     extern "C" {
 
@@ -508,7 +497,7 @@ pub use self::_ctype_h::{__istype, __maskrune, isascii, isspace, _CTYPE_S};
 use self::_malloc_h::{calloc, free, malloc, realloc};
 pub use crate::types::socklen_t;
 pub use self::_stdio_h::{__sFILE, __sFILEX, __sbuf, fclose, fopen, fpos_t, getline, FILE};
-use self::_stdlib_h::strtoul;
+use crate::types::strtoul;
 use crate::types::{memcmp, memcpy, memset, strchr, strcmp, strdup, strerror, strlen, strncmp};
 pub use self::bouncer_h::{
     auth_type, pga_family, pga_is_unix, sockaddr_ucreds, PgAddr, ReplicationType, AUTH_TYPE_ANY,

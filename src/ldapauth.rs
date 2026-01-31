@@ -554,13 +554,7 @@ pub mod dnslookup_h {
     }
 }
 
-pub mod _stdlib_h {
-    extern "C" {
-
-        pub fn exit(_: ::core::ffi::c_int) -> !;
-    }
-}
-use self::_stdlib_h::exit;
+use crate::types::exit;
 pub use self::bouncer_h::{
     sockaddr_ucreds, C2RustUnnamed_9, CallbackState, LoadBalanceHosts, PacketCallbackFlag, PgAddr,
     PgCredentials, PgDatabase, PgGlobalUser, PgPool, PgSocket, PgStats, ReplicationType,

@@ -1176,13 +1176,6 @@ pub mod ldapauth_h {
     }
 }
 
-pub mod _stdlib_h {
-    extern "C" {
-
-        pub fn exit(_: ::core::ffi::c_int) -> !;
-    }
-}
-
 pub mod protocol_h {
 
     pub const PqMsg_Bind: ::core::ffi::c_uint = 66 as ::core::ffi::c_uint;
@@ -1265,7 +1258,7 @@ pub mod builtins_h {
 pub use self::_ctype_h::{__istype, __maskrune, isascii, isspace, _CTYPE_S};
 use self::_malloc_h::{calloc, free, malloc};
 use self::_stdio_h::snprintf;
-use self::_stdlib_h::exit;
+use crate::types::exit;
 use crate::types::{memcpy, memset, strchr, strcmp, strdup, strlcpy, strlen, strncmp};
 use self::admin_h::{admin_handle_client, admin_post_login, admin_pre_login};
 pub use self::bouncer_h::{

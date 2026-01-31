@@ -793,13 +793,6 @@ pub mod _malloc_h {
     }
 }
 
-pub mod _stdlib_h {
-    extern "C" {
-
-        pub fn exit(_: ::core::ffi::c_int) -> !;
-    }
-}
-
 pub mod errno_h {
     extern "C" {
 
@@ -832,7 +825,7 @@ pub mod pooler_h {
     }
 }
 use self::_malloc_h::free;
-use self::_stdlib_h::exit;
+use crate::types::exit;
 use crate::types::strerror;
 use self::admin_h::{admin_pause_done, admin_wait_close_done};
 pub use self::bouncer_h::{

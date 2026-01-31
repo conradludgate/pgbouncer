@@ -641,13 +641,6 @@ pub mod base_h {
     use crate::types::size_t;
 }
 
-pub mod _stdlib_h {
-    extern "C" {
-
-        pub fn exit(_: ::core::ffi::c_int) -> !;
-    }
-}
-
 pub mod errno_h {
 
     pub const EAGAIN: ::core::ffi::c_int = 35 as ::core::ffi::c_int;
@@ -676,7 +669,7 @@ pub mod protocol_h {
 pub use crate::types::int64_t;
 use self::_malloc_h::{free, malloc, realloc};
 use self::_stdio_h::{snprintf, sprintf};
-use self::_stdlib_h::exit;
+use crate::types::exit;
 use crate::types::{memcpy, memset, strcpy, strerror, strlen};
 pub use crate::types::va_list;
 pub use self::base_h::zmalloc;

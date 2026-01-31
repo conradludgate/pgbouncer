@@ -75,19 +75,6 @@ pub mod stat_h {
     }
 }
 
-pub mod _stdlib_h {
-    extern "C" {
-
-        pub fn exit(_: ::core::ffi::c_int) -> !;
-
-        pub fn strtoul(
-            __str: *const ::core::ffi::c_char,
-            __endptr: *mut *mut ::core::ffi::c_char,
-            __base: ::core::ffi::c_int,
-        ) -> ::core::ffi::c_ulong;
-    }
-}
-
 pub mod errno_h {
     extern "C" {
 
@@ -97,7 +84,7 @@ pub mod errno_h {
 
 pub use crate::types::gid_t;
 pub use crate::types::mode_t;
-use self::_stdlib_h::{exit, strtoul};
+use crate::types::{exit, strtoul};
 use crate::types::{strcmp, strerror};
 use self::errno_h::__error;
 pub use self::grp_h::{getgrnam, group};

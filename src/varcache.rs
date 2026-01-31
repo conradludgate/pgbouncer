@@ -686,13 +686,6 @@ pub mod ctype_h {
     use super::_ctype_h::tolower;
 }
 
-pub mod _stdlib_h {
-    extern "C" {
-
-        pub fn exit(_: ::core::ffi::c_int) -> !;
-    }
-}
-
 pub mod _strings_h {
     extern "C" {
 
@@ -723,7 +716,7 @@ pub mod pgutil_h {
 pub use self::_ctype_h::{__tolower, tolower};
 use self::_malloc_h::{free, malloc};
 use self::_stdio_h::snprintf;
-use self::_stdlib_h::exit;
+use crate::types::exit;
 use crate::types::{memset, strcmp, strdup, strlen};
 use self::_strings_h::strcasecmp;
 pub use self::bouncer_h::{

@@ -991,13 +991,6 @@ pub mod _malloc_h {
     }
 }
 
-pub mod _stdlib_h {
-    extern "C" {
-
-        pub fn exit(_: ::core::ffi::c_int) -> !;
-    }
-}
-
 pub mod errno_h {
     extern "C" {
 
@@ -1059,7 +1052,7 @@ pub use self::_OSByteOrder_h::_OSSwapInt16;
 use self::_malloc_h::free;
 pub use crate::types::socklen_t;
 use self::_stdio_h::{snprintf, vsnprintf};
-use self::_stdlib_h::exit;
+use crate::types::exit;
 use crate::types::{memcmp, memcpy, memset, strchr, strcmp, strerror, strlcpy, strlen, strtok};
 pub use crate::types::time_t;
 pub use crate::types::va_list;

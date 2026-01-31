@@ -820,22 +820,6 @@ pub mod _malloc_h {
     }
 }
 
-pub mod _stdlib_h {
-    extern "C" {
-
-        pub fn atoi(_: *const ::core::ffi::c_char) -> ::core::ffi::c_int;
-
-        pub fn exit(_: ::core::ffi::c_int) -> !;
-
-        pub fn strtonum(
-            __numstr: *const ::core::ffi::c_char,
-            __minval: ::core::ffi::c_longlong,
-            __maxval: ::core::ffi::c_longlong,
-            __errstrp: *mut *const ::core::ffi::c_char,
-        ) -> ::core::ffi::c_longlong;
-    }
-}
-
 pub mod errno_h {
     extern "C" {
 
@@ -868,7 +852,7 @@ use self::_malloc_h::free;
 pub use crate::types::mode_t;
 pub use crate::types::nlink_t;
 pub use crate::types::off_t;
-use self::_stdlib_h::{atoi, exit, strtonum};
+use crate::types::{atoi, exit, strtonum};
 use crate::types::{memset, strcmp, strdup, strerror};
 pub use crate::types::timespec;
 pub use self::bouncer_h::{
