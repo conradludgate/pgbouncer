@@ -16,138 +16,6 @@ pub mod netdb_h {
     use crate::types::sockaddr;
 }
 
-pub mod event_h {
-
-    pub type event_callback_fn = Option<
-        unsafe extern "C" fn(
-            ::core::ffi::c_int,
-            ::core::ffi::c_short,
-            *mut ::core::ffi::c_void,
-        ) -> (),
-    >;
-    use super::event_struct_h::event;
-    extern "C" {
-
-        pub type event_base;
-
-        pub fn event_assign(
-            _: *mut event,
-            _: *mut event_base,
-            _: ::core::ffi::c_int,
-            _: ::core::ffi::c_short,
-            _: event_callback_fn,
-            _: *mut ::core::ffi::c_void,
-        ) -> ::core::ffi::c_int;
-
-        pub fn event_del(_: *mut event) -> ::core::ffi::c_int;
-    }
-}
-
-pub mod event_struct_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct event {
-        pub ev_evcallback: event_callback,
-        pub ev_timeout_pos: C2RustUnnamed_4,
-        pub ev_fd: ::core::ffi::c_int,
-        pub ev_base: *mut event_base,
-        pub ev_: C2RustUnnamed,
-        pub ev_events: ::core::ffi::c_short,
-        pub ev_res: ::core::ffi::c_short,
-        pub ev_timeout: timeval,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub union C2RustUnnamed {
-        pub ev_io: C2RustUnnamed_2,
-        pub ev_signal: C2RustUnnamed_0,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct C2RustUnnamed_0 {
-        pub ev_signal_next: C2RustUnnamed_1,
-        pub ev_ncalls: ::core::ffi::c_short,
-        pub ev_pncalls: *mut ::core::ffi::c_short,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct C2RustUnnamed_1 {
-        pub le_next: *mut event,
-        pub le_prev: *mut *mut event,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct C2RustUnnamed_2 {
-        pub ev_io_next: C2RustUnnamed_3,
-        pub ev_timeout: timeval,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct C2RustUnnamed_3 {
-        pub le_next: *mut event,
-        pub le_prev: *mut *mut event,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub union C2RustUnnamed_4 {
-        pub ev_next_with_common_timeout: C2RustUnnamed_5,
-        pub min_heap_idx: ::core::ffi::c_int,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct C2RustUnnamed_5 {
-        pub tqe_next: *mut event,
-        pub tqe_prev: *mut *mut event,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct event_callback {
-        pub evcb_active_next: C2RustUnnamed_7,
-        pub evcb_flags: ::core::ffi::c_short,
-        pub evcb_pri: uint8_t,
-        pub evcb_closure: uint8_t,
-        pub evcb_cb_union: C2RustUnnamed_6,
-        pub evcb_arg: *mut ::core::ffi::c_void,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub union C2RustUnnamed_6 {
-        pub evcb_callback: Option<
-            unsafe extern "C" fn(
-                ::core::ffi::c_int,
-                ::core::ffi::c_short,
-                *mut ::core::ffi::c_void,
-            ) -> (),
-        >,
-        pub evcb_selfcb:
-            Option<unsafe extern "C" fn(*mut event_callback, *mut ::core::ffi::c_void) -> ()>,
-        pub evcb_evfinalize:
-            Option<unsafe extern "C" fn(*mut event, *mut ::core::ffi::c_void) -> ()>,
-        pub evcb_cbfinalize:
-            Option<unsafe extern "C" fn(*mut event_callback, *mut ::core::ffi::c_void) -> ()>,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct C2RustUnnamed_7 {
-        pub tqe_next: *mut event_callback,
-        pub tqe_prev: *mut *mut event_callback,
-    }
-    use super::event_h::event_base;
-    use crate::types::timeval;
-    use crate::types::uint8_t;
-}
-
 pub mod dnslookup_h {
 
     pub type adns_callback_f = Option<
@@ -196,7 +64,7 @@ pub mod dns_h {
         | DNS_OPTION_MISC
         | DNS_OPTION_HOSTSFILE
         | 0 as ::core::ffi::c_int;
-    use super::event_h::event_base;
+    use crate::types::event_base;
     use super::netdb_h::addrinfo;
     extern "C" {
 
@@ -237,7 +105,7 @@ pub mod util_h {
 }
 
 pub mod bouncer_h {
-    use super::event_h::event_base;
+    use crate::types::event_base;
     use crate::types::usec_t;
     extern "C" {
 
@@ -252,7 +120,7 @@ pub mod bouncer_h {
 }
 
 pub mod include_util_h {
-    use super::event_struct_h::event;
+    use crate::types::event;
     use crate::types::timeval;
     extern "C" {
 
@@ -289,8 +157,8 @@ pub use self::dns_h::{
     DNS_OPTION_MISC, DNS_OPTION_NAMESERVERS, DNS_OPTION_SEARCH,
 };
 pub use self::dnslookup_h::{adns_callback_f, adns_walk_name_f, adns_walk_zone_f};
-pub use self::event_h::{event_assign, event_base, event_callback_fn, event_del};
-pub use self::event_struct_h::{
+pub use crate::types::{event_assign, event_base, event_callback_fn, event_del};
+pub use crate::types::{
     event, event_callback, C2RustUnnamed, C2RustUnnamed_0, C2RustUnnamed_1, C2RustUnnamed_2,
     C2RustUnnamed_3, C2RustUnnamed_4, C2RustUnnamed_5, C2RustUnnamed_6, C2RustUnnamed_7,
 };

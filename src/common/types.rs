@@ -548,6 +548,23 @@ pub struct event_callback_active_next {
 }
 
 // =============================================================================
+// C2RustUnnamed type aliases for libevent structs
+// These map the anonymous types from c2rust to proper named types
+// =============================================================================
+pub type C2RustUnnamed_0 = event_union;
+pub type C2RustUnnamed_1 = event_signal;
+pub type C2RustUnnamed_2 = event_signal_next;
+pub type C2RustUnnamed_3 = event_io;
+pub type C2RustUnnamed_4 = event_io_next;
+pub type C2RustUnnamed_5 = event_timeout_pos;
+pub type C2RustUnnamed_6 = event_next_with_common_timeout;
+pub type C2RustUnnamed_7 = event_callback_union;
+pub type C2RustUnnamed_8 = event_callback_active_next;
+
+// event_callback is an alias for event_callback_struct (c2rust used shorter name)
+pub type event_callback = event_callback_struct;
+
+// =============================================================================
 // pgbouncer core types - enums
 // =============================================================================
 

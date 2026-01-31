@@ -1,144 +1,3 @@
-pub mod event_h {
-
-    pub type event_callback_fn = Option<
-        unsafe extern "C" fn(
-            ::core::ffi::c_int,
-            ::core::ffi::c_short,
-            *mut ::core::ffi::c_void,
-        ) -> (),
-    >;
-
-    pub const EV_READ: ::core::ffi::c_int = 0x2 as ::core::ffi::c_int;
-
-    pub const EV_WRITE: ::core::ffi::c_int = 0x4 as ::core::ffi::c_int;
-
-    pub const EV_PERSIST: ::core::ffi::c_int = 0x10 as ::core::ffi::c_int;
-    use super::event_struct_h::event;
-    use crate::types::timeval;
-    extern "C" {
-
-        pub type event_base;
-
-        pub fn event_assign(
-            _: *mut event,
-            _: *mut event_base,
-            _: ::core::ffi::c_int,
-            _: ::core::ffi::c_short,
-            _: event_callback_fn,
-            _: *mut ::core::ffi::c_void,
-        ) -> ::core::ffi::c_int;
-
-        pub fn event_add(ev: *mut event, timeout: *const timeval) -> ::core::ffi::c_int;
-
-        pub fn event_del(_: *mut event) -> ::core::ffi::c_int;
-    }
-}
-
-pub mod event_struct_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct event {
-        pub ev_evcallback: event_callback,
-        pub ev_timeout_pos: C2RustUnnamed_5,
-        pub ev_fd: ::core::ffi::c_int,
-        pub ev_base: *mut event_base,
-        pub ev_: C2RustUnnamed_0,
-        pub ev_events: ::core::ffi::c_short,
-        pub ev_res: ::core::ffi::c_short,
-        pub ev_timeout: timeval,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub union C2RustUnnamed_0 {
-        pub ev_io: C2RustUnnamed_3,
-        pub ev_signal: C2RustUnnamed_1,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct C2RustUnnamed_1 {
-        pub ev_signal_next: C2RustUnnamed_2,
-        pub ev_ncalls: ::core::ffi::c_short,
-        pub ev_pncalls: *mut ::core::ffi::c_short,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct C2RustUnnamed_2 {
-        pub le_next: *mut event,
-        pub le_prev: *mut *mut event,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct C2RustUnnamed_3 {
-        pub ev_io_next: C2RustUnnamed_4,
-        pub ev_timeout: timeval,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct C2RustUnnamed_4 {
-        pub le_next: *mut event,
-        pub le_prev: *mut *mut event,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub union C2RustUnnamed_5 {
-        pub ev_next_with_common_timeout: C2RustUnnamed_6,
-        pub min_heap_idx: ::core::ffi::c_int,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct C2RustUnnamed_6 {
-        pub tqe_next: *mut event,
-        pub tqe_prev: *mut *mut event,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct event_callback {
-        pub evcb_active_next: C2RustUnnamed_8,
-        pub evcb_flags: ::core::ffi::c_short,
-        pub evcb_pri: uint8_t,
-        pub evcb_closure: uint8_t,
-        pub evcb_cb_union: C2RustUnnamed_7,
-        pub evcb_arg: *mut ::core::ffi::c_void,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub union C2RustUnnamed_7 {
-        pub evcb_callback: Option<
-            unsafe extern "C" fn(
-                ::core::ffi::c_int,
-                ::core::ffi::c_short,
-                *mut ::core::ffi::c_void,
-            ) -> (),
-        >,
-        pub evcb_selfcb:
-            Option<unsafe extern "C" fn(*mut event_callback, *mut ::core::ffi::c_void) -> ()>,
-        pub evcb_evfinalize:
-            Option<unsafe extern "C" fn(*mut event, *mut ::core::ffi::c_void) -> ()>,
-        pub evcb_cbfinalize:
-            Option<unsafe extern "C" fn(*mut event_callback, *mut ::core::ffi::c_void) -> ()>,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct C2RustUnnamed_8 {
-        pub tqe_next: *mut event_callback,
-        pub tqe_prev: *mut *mut event_callback,
-    }
-    use super::event_h::event_base;
-    use crate::types::timeval;
-    use crate::types::uint8_t;
-}
-
 pub mod bouncer_h {
 
     pub type SocketState = ::core::ffi::c_uint;
@@ -469,7 +328,7 @@ pub mod bouncer_h {
 
     pub const AUTH_TYPE_ANY: auth_type = 0;
     use super::dnslookup_h::DNSToken;
-    use super::event_h::event_base;
+    use crate::types::event_base;
     use crate::types::sockaddr_in6;
     use crate::types::sockaddr_in;
     use super::pktbuf_h::PktBuf;
@@ -639,7 +498,7 @@ pub mod sbuf_h {
             .sbufio_close
             .expect("non-null function pointer")(sbuf)
     }
-    use super::event_struct_h::event;
+    use crate::types::event;
     use super::iobuf_h::{iobuf_empty, IOBuf};
     use crate::types::tls;
     use crate::types::size_t;
@@ -777,7 +636,7 @@ pub mod pktbuf_h {
         pub c2rust_padding: [u8; 7],
     }
     use super::bouncer_h::PgSocket;
-    use super::event_struct_h::event;
+    use crate::types::event;
     use crate::types::uint8_t;
     extern "C" {
 
@@ -892,11 +751,11 @@ pub use crate::types::{aatree_cmp_f, aatree_walker_f, AANode, AATree};
 pub use crate::types::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
 
 pub use self::errno_h::{__error, EAGAIN, EINPROGRESS, EIO};
-pub use self::event_h::{
+pub use crate::types::{
     event_add, event_assign, event_base, event_callback_fn, event_del, EV_PERSIST, EV_READ,
     EV_WRITE,
 };
-pub use self::event_struct_h::{
+pub use crate::types::{
     event, event_callback, C2RustUnnamed_0, C2RustUnnamed_1, C2RustUnnamed_2, C2RustUnnamed_3,
     C2RustUnnamed_4, C2RustUnnamed_5, C2RustUnnamed_6, C2RustUnnamed_7, C2RustUnnamed_8,
 };
