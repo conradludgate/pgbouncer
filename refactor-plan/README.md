@@ -67,6 +67,27 @@ We start from the entry point (`main.rs`) and core connection handling (`client.
 **Key findings:**
 - `iobuf_h` has inline functions depending on extern statics (`cf_sbuf_len`), making it complex to consolidate. Same issue as `bouncer_h`.
 - `socket_h` defines custom struct types (sockaddr_ucreds) used in unions — cannot directly replace with libc types.
+- **Module content varies across files** — the same module name (e.g., `tls_h`) has different content in different files. Some files define just `pub type tls;` while others define 20+ functions. This prevents automated consolidation.
+
+### Remaining Duplicate Modules Analysis
+
+After analysis, the remaining 521 duplicate modules fall into these categories:
+
+**1. Variable content modules (CANNOT auto-consolidate):**
+- `tls_h` (20 files) — Content varies: some have just `pub type tls;`, others have 20+ TLS functions
+- `socket_h` (22 files) — Some have just sockaddr, others include AF_* constants
+- `logging_h` (23 files) — Some have just log functions, others have different LogLevel constants
+
+**2. Complex struct modules (need careful migration):**
+- `bouncer_h` (22 files) — Core types, mixes types with extern statics
+- `event_struct_h` (21 files) — libevent structures with C2RustUnnamed unions
+- `sbuf_h` (20 files), `iobuf_h` (20 files), `pktbuf_h` (20 files) — Have inline functions
+
+**3. Extern function modules (could consolidate if content was uniform):**
+- `_string_h` (21), `_stdlib_h` (19), `_malloc_h` (15) — Declare libc functions
+- But different files import different subsets of functions
+
+**Recommended approach:** Manual per-file migration or use the existing consolidate_module.py with `--analyze` to understand each module's content before attempting consolidation.
 
 ### Previous Session (2026-01-30): Cleanup Patterns Applied
 
