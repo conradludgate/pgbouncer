@@ -1,9 +1,3 @@
-pub mod _time_t_h {
-
-    pub type time_t = __darwin_time_t;
-    use crate::types::__darwin_time_t;
-}
-
 pub mod tls_h {
 
     pub const TLS_PROTOCOL_TLSv1_0: ::core::ffi::c_int =
@@ -137,12 +131,6 @@ pub mod tls_h {
     }
 }
 
-pub mod _socklen_t_h {
-
-    pub type socklen_t = __darwin_socklen_t;
-    use crate::types::__darwin_socklen_t;
-}
-
 pub mod socket_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -160,7 +148,7 @@ pub mod socket_h {
     pub const SOL_SOCKET: ::core::ffi::c_int = 0xffff as ::core::ffi::c_int;
 
     pub const AF_UNIX: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-    use super::_socklen_t_h::socklen_t;
+    use crate::types::socklen_t;
     use crate::types::__uint8_t;
     use crate::types::sa_family_t;
     extern "C" {
@@ -1132,7 +1120,7 @@ pub mod _string_h {
 }
 
 pub mod safeio_h {
-    use super::_socklen_t_h::socklen_t;
+    use crate::types::socklen_t;
     use super::socket_h::sockaddr;
     use crate::types::size_t;
     use crate::types::ssize_t;
@@ -1208,10 +1196,10 @@ pub mod util_h {
 pub use crate::types::in_addr_t;
 pub use crate::types::in_port_t;
 
-pub use self::_socklen_t_h::socklen_t;
+pub use crate::types::socklen_t;
 use self::_stdlib_h::exit;
 use self::_string_h::{memset, strerror};
-pub use self::_time_t_h::time_t;
+pub use crate::types::time_t;
 pub use self::bouncer_h::{
     auth_type, cf_auth_type, cf_client_tls13_ciphers, cf_client_tls_ca_file,
     cf_client_tls_cert_file, cf_client_tls_ciphers, cf_client_tls_dheparams,

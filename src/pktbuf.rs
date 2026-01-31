@@ -8,12 +8,6 @@ pub mod _int64_t_h {
     pub type int64_t = i64;
 }
 
-pub mod _va_list_h {
-
-    pub type va_list = __darwin_va_list;
-    use crate::types::__darwin_va_list;
-}
-
 pub mod tls_h {
     extern "C" {
 
@@ -799,7 +793,7 @@ use self::_malloc_h::{free, malloc, realloc};
 use self::_stdio_h::{snprintf, sprintf};
 use self::_stdlib_h::exit;
 use self::_string_h::{memcpy, memset, strcpy, strerror, strlen};
-pub use self::_va_list_h::va_list;
+pub use crate::types::va_list;
 pub use self::base_h::zmalloc;
 pub use self::bouncer_h::{
     pgb_event_base, sockaddr_ucreds, C2RustUnnamed_9, CallbackState, LoadBalanceHosts,

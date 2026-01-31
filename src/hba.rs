@@ -135,12 +135,6 @@ pub mod runetype_h {
     }
 }
 
-pub mod _socklen_t_h {
-
-    pub type socklen_t = __darwin_socklen_t;
-    use crate::types::__darwin_socklen_t;
-}
-
 pub mod socket_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -525,7 +519,7 @@ pub mod ctype_h {
 }
 
 pub mod inet_h {
-    use super::_socklen_t_h::socklen_t;
+    use crate::types::socklen_t;
     extern "C" {
 
         pub fn inet_ntop(
@@ -628,7 +622,7 @@ pub mod string_h {
 }
 pub use self::_ctype_h::{__istype, __maskrune, isascii, isspace, _CTYPE_S};
 use self::_malloc_h::{calloc, free, malloc, realloc};
-pub use self::_socklen_t_h::socklen_t;
+pub use crate::types::socklen_t;
 pub use self::_stdio_h::{__sFILE, __sFILEX, __sbuf, fclose, fopen, fpos_t, getline, FILE};
 use self::_stdlib_h::strtoul;
 use self::_string_h::{memcmp, memcpy, memset, strchr, strcmp, strdup, strerror, strlen, strncmp};

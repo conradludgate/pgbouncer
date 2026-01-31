@@ -1,45 +1,3 @@
-pub mod _dev_t_h {
-
-    pub type dev_t = __darwin_dev_t;
-    use crate::types::__darwin_dev_t;
-}
-
-pub mod _blkcnt_t_h {
-
-    pub type blkcnt_t = __darwin_blkcnt_t;
-    use crate::types::__darwin_blkcnt_t;
-}
-
-pub mod _blksize_t_h {
-
-    pub type blksize_t = __darwin_blksize_t;
-    use crate::types::__darwin_blksize_t;
-}
-
-pub mod _gid_t_h {
-
-    pub type gid_t = __darwin_gid_t;
-    use crate::types::__darwin_gid_t;
-}
-
-pub mod _mode_t_h {
-
-    pub type mode_t = __darwin_mode_t;
-    use crate::types::__darwin_mode_t;
-}
-
-pub mod _nlink_t_h {
-
-    pub type nlink_t = __uint16_t;
-    use crate::types::__uint16_t;
-}
-
-pub mod _off_t_h {
-
-    pub type off_t = __darwin_off_t;
-    use crate::types::__darwin_off_t;
-}
-
 pub mod _timespec_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -139,13 +97,13 @@ pub mod stat_h {
         pub st_lspare: __int32_t,
         pub st_qspare: [__int64_t; 2],
     }
-    use super::_blkcnt_t_h::blkcnt_t;
-    use super::_blksize_t_h::blksize_t;
-    use super::_dev_t_h::dev_t;
-    use super::_gid_t_h::gid_t;
-    use super::_mode_t_h::mode_t;
-    use super::_nlink_t_h::nlink_t;
-    use super::_off_t_h::off_t;
+    use crate::types::blkcnt_t;
+    use crate::types::blksize_t;
+    use crate::types::dev_t;
+    use crate::types::gid_t;
+    use crate::types::mode_t;
+    use crate::types::nlink_t;
+    use crate::types::off_t;
     use super::_timespec_h::timespec;
     use crate::types::__darwin_ino64_t;
     use crate::types::uid_t;
@@ -1006,15 +964,15 @@ pub mod util_h {
         pub fn check_reserved_database(value: *const ::core::ffi::c_char) -> bool;
     }
 }
-pub use self::_blkcnt_t_h::blkcnt_t;
-pub use self::_blksize_t_h::blksize_t;
+pub use crate::types::blkcnt_t;
+pub use crate::types::blksize_t;
 pub use self::_ctype_h::{__istype, __maskrune, isascii, isspace, _CTYPE_S};
-pub use self::_dev_t_h::dev_t;
-pub use self::_gid_t_h::gid_t;
+pub use crate::types::dev_t;
+pub use crate::types::gid_t;
 use self::_malloc_h::free;
-pub use self::_mode_t_h::mode_t;
-pub use self::_nlink_t_h::nlink_t;
-pub use self::_off_t_h::off_t;
+pub use crate::types::mode_t;
+pub use crate::types::nlink_t;
+pub use crate::types::off_t;
 use self::_stdlib_h::{atoi, exit, strtonum};
 use self::_string_h::{memset, strcmp, strdup, strerror};
 pub use self::_timespec_h::timespec;

@@ -8,12 +8,6 @@ pub mod _int32_t_h {
     pub type int32_t = i32;
 }
 
-pub mod _va_list_h {
-
-    pub type va_list = __darwin_va_list;
-    use crate::types::__darwin_va_list;
-}
-
 pub mod tls_h {
     extern "C" {
 
@@ -917,7 +911,7 @@ use self::_malloc_h::{free, malloc};
 use self::_stdio_h::sscanf;
 use self::_stdlib_h::{atoi, atoll, exit};
 use self::_string_h::{memcpy, memmove, strcmp, strlen, strncmp};
-pub use self::_va_list_h::va_list;
+pub use crate::types::va_list;
 pub use self::bouncer_h::{
     cf_log_pooler_errors, cf_max_packet_size, cf_peer_id, first_socket,
     replication_type_parameters, sockaddr_ucreds, C2RustUnnamed_9, CallbackState, LoadBalanceHosts,

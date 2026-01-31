@@ -1,15 +1,3 @@
-pub mod _gid_t_h {
-
-    pub type gid_t = __darwin_gid_t;
-    use crate::types::__darwin_gid_t;
-}
-
-pub mod _mode_t_h {
-
-    pub type mode_t = __darwin_mode_t;
-    use crate::types::__darwin_mode_t;
-}
-
 pub mod pwd_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -26,7 +14,7 @@ pub mod pwd_h {
         pub pw_shell: *mut ::core::ffi::c_char,
         pub pw_expire: __darwin_time_t,
     }
-    use super::_gid_t_h::gid_t;
+    use crate::types::gid_t;
     use crate::types::__darwin_time_t;
     use crate::types::uid_t;
     extern "C" {
@@ -75,7 +63,7 @@ pub mod grp_h {
         pub gr_gid: gid_t,
         pub gr_mem: *mut *mut ::core::ffi::c_char,
     }
-    use super::_gid_t_h::gid_t;
+    use crate::types::gid_t;
     extern "C" {
 
         pub fn getgrnam(_: *const ::core::ffi::c_char) -> *mut group;
@@ -83,7 +71,7 @@ pub mod grp_h {
 }
 
 pub mod unistd_h {
-    use super::_gid_t_h::gid_t;
+    use crate::types::gid_t;
     use crate::types::uid_t;
     extern "C" {
 
@@ -108,7 +96,7 @@ pub mod unistd_h {
 }
 
 pub mod stat_h {
-    use super::_mode_t_h::mode_t;
+    use crate::types::mode_t;
     extern "C" {
 
         pub fn chmod(_: *const ::core::ffi::c_char, _: mode_t) -> ::core::ffi::c_int;
@@ -146,8 +134,8 @@ pub mod _string_h {
         pub fn strerror(__errnum: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;
     }
 }
-pub use self::_gid_t_h::gid_t;
-pub use self::_mode_t_h::mode_t;
+pub use crate::types::gid_t;
+pub use crate::types::mode_t;
 use self::_stdlib_h::{exit, strtoul};
 use self::_string_h::{strcmp, strerror};
 use self::errno_h::__error;

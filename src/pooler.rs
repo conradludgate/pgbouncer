@@ -1,45 +1,3 @@
-pub mod _dev_t_h {
-
-    pub type dev_t = __darwin_dev_t;
-    use crate::types::__darwin_dev_t;
-}
-
-pub mod _blkcnt_t_h {
-
-    pub type blkcnt_t = __darwin_blkcnt_t;
-    use crate::types::__darwin_blkcnt_t;
-}
-
-pub mod _blksize_t_h {
-
-    pub type blksize_t = __darwin_blksize_t;
-    use crate::types::__darwin_blksize_t;
-}
-
-pub mod _gid_t_h {
-
-    pub type gid_t = __darwin_gid_t;
-    use crate::types::__darwin_gid_t;
-}
-
-pub mod _mode_t_h {
-
-    pub type mode_t = __darwin_mode_t;
-    use crate::types::__darwin_mode_t;
-}
-
-pub mod _nlink_t_h {
-
-    pub type nlink_t = __uint16_t;
-    use crate::types::__uint16_t;
-}
-
-pub mod _off_t_h {
-
-    pub type off_t = __darwin_off_t;
-    use crate::types::__darwin_off_t;
-}
-
 pub mod _timespec_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -75,13 +33,13 @@ pub mod stat_h {
         pub st_lspare: __int32_t,
         pub st_qspare: [__int64_t; 2],
     }
-    use super::_blkcnt_t_h::blkcnt_t;
-    use super::_blksize_t_h::blksize_t;
-    use super::_dev_t_h::dev_t;
-    use super::_gid_t_h::gid_t;
-    use super::_mode_t_h::mode_t;
-    use super::_nlink_t_h::nlink_t;
-    use super::_off_t_h::off_t;
+    use crate::types::blkcnt_t;
+    use crate::types::blksize_t;
+    use crate::types::dev_t;
+    use crate::types::gid_t;
+    use crate::types::mode_t;
+    use crate::types::nlink_t;
+    use crate::types::off_t;
     use super::_timespec_h::timespec;
     use crate::types::__darwin_ino64_t;
     use crate::types::uid_t;
@@ -97,12 +55,6 @@ pub mod tls_h {
 
         pub type tls;
     }
-}
-
-pub mod _socklen_t_h {
-
-    pub type socklen_t = __darwin_socklen_t;
-    use crate::types::__darwin_socklen_t;
 }
 
 pub mod socket_h {
@@ -140,7 +92,7 @@ pub mod socket_h {
     pub const AF_INET: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
 
     pub const AF_INET6: ::core::ffi::c_int = 30 as ::core::ffi::c_int;
-    use super::_socklen_t_h::socklen_t;
+    use crate::types::socklen_t;
     use crate::types::sa_family_t;
     use crate::types::{__int64_t, __uint8_t};
     extern "C" {
@@ -259,7 +211,7 @@ pub mod netdb_h {
     }
 
     pub const AI_PASSIVE: ::core::ffi::c_int = 0x1 as ::core::ffi::c_int;
-    use super::_socklen_t_h::socklen_t;
+    use crate::types::socklen_t;
     use super::socket_h::sockaddr;
     extern "C" {
 
@@ -963,7 +915,7 @@ pub mod _malloc_h {
 }
 
 pub mod system_h {
-    use super::_mode_t_h::mode_t;
+    use crate::types::mode_t;
     extern "C" {
 
         pub fn change_file_mode(
@@ -1021,7 +973,7 @@ pub mod util_h {
 }
 
 pub mod safeio_h {
-    use super::_socklen_t_h::socklen_t;
+    use crate::types::socklen_t;
     use super::socket_h::sockaddr;
     extern "C" {
 
@@ -1072,15 +1024,15 @@ pub mod unistd_h {
     }
 }
 
-pub use self::_blkcnt_t_h::blkcnt_t;
-pub use self::_blksize_t_h::blksize_t;
-pub use self::_dev_t_h::dev_t;
-pub use self::_gid_t_h::gid_t;
+pub use crate::types::blkcnt_t;
+pub use crate::types::blksize_t;
+pub use crate::types::dev_t;
+pub use crate::types::gid_t;
 use self::_malloc_h::{calloc, free};
-pub use self::_mode_t_h::mode_t;
-pub use self::_nlink_t_h::nlink_t;
-pub use self::_off_t_h::off_t;
-pub use self::_socklen_t_h::socklen_t;
+pub use crate::types::mode_t;
+pub use crate::types::nlink_t;
+pub use crate::types::off_t;
+pub use crate::types::socklen_t;
 use self::_stdio_h::snprintf;
 use self::_stdlib_h::{atexit, exit};
 use self::_string_h::{memset, strcmp, strerror, strlen};

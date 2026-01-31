@@ -3,18 +3,6 @@ pub mod internal {
     pub type __builtin_va_list = *mut ::core::ffi::c_char;
 }
 
-pub mod _gid_t_h {
-
-    pub type gid_t = __darwin_gid_t;
-    use crate::types::__darwin_gid_t;
-}
-
-pub mod _va_list_h {
-
-    pub type va_list = __darwin_va_list;
-    use crate::types::__darwin_va_list;
-}
-
 pub mod tls_h {
     use crate::types::size_t;
     use crate::types::ssize_t;
@@ -65,12 +53,6 @@ pub mod cfparser_h {
     }
 }
 
-pub mod _socklen_t_h {
-
-    pub type socklen_t = __darwin_socklen_t;
-    use crate::types::__darwin_socklen_t;
-}
-
 pub mod socket_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -107,7 +89,7 @@ pub mod socket_h {
 
     pub const SCM_RIGHTS: ::core::ffi::c_int = 0x1 as ::core::ffi::c_int;
     use super::_iovec_t_h::iovec;
-    use super::_socklen_t_h::socklen_t;
+    use crate::types::socklen_t;
     use crate::types::__uint8_t;
     use crate::types::sa_family_t;
 }
@@ -180,7 +162,7 @@ pub mod netdb_h {
         pub ai_addr: *mut sockaddr,
         pub ai_next: *mut addrinfo,
     }
-    use super::_socklen_t_h::socklen_t;
+    use crate::types::socklen_t;
     use super::socket_h::sockaddr;
 }
 
@@ -1158,7 +1140,7 @@ pub mod _stdio_h {
 }
 
 pub mod unistd_h {
-    use super::_gid_t_h::gid_t;
+    use crate::types::gid_t;
     use crate::types::uid_t;
     extern "C" {
 
@@ -1392,18 +1374,18 @@ pub mod protocol_h {
 
     pub const PqMsg_ReadyForQuery: ::core::ffi::c_int = 'Z' as i32;
 }
-pub use self::_gid_t_h::gid_t;
+pub use crate::types::gid_t;
 pub use self::_iovec_t_h::iovec;
 pub use self::_param_h::__DARWIN_ALIGNBYTES32;
 pub use self::_regex_h::{
     re_guts, regcomp, regex_t, regexec, regfree, regmatch_t, regoff_t, REG_EXTENDED, REG_ICASE,
 };
-pub use self::_socklen_t_h::socklen_t;
+pub use crate::types::socklen_t;
 use self::_stdio_h::{snprintf, sscanf, vsnprintf};
 use self::_stdlib_h::exit;
 use self::_string_h::{memcpy, memset, strchr, strcmp, strerror, strlen, strstr};
 use self::_strings_h::strcasecmp;
-pub use self::_va_list_h::va_list;
+pub use crate::types::va_list;
 pub use self::bouncer_h::{
     adns, auth_type, cf_admin_users, cf_auth_type, cf_default_pool_size, cf_listen_port,
     cf_log_connections, cf_min_pool_size, cf_pause_mode, cf_res_pool_size, cf_server_lifetime,

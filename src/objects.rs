@@ -3,29 +3,11 @@ pub mod internal {
     pub type __builtin_va_list = *mut ::core::ffi::c_char;
 }
 
-pub mod _time_t_h {
-
-    pub type time_t = __darwin_time_t;
-    use crate::types::__darwin_time_t;
-}
-
-pub mod _va_list_h {
-
-    pub type va_list = __darwin_va_list;
-    use crate::types::__darwin_va_list;
-}
-
 pub mod tls_h {
     extern "C" {
 
         pub type tls;
     }
-}
-
-pub mod _socklen_t_h {
-
-    pub type socklen_t = __darwin_socklen_t;
-    use crate::types::__darwin_socklen_t;
 }
 
 pub mod socket_h {
@@ -732,8 +714,8 @@ pub mod sbuf_h {
     pub unsafe extern "C" fn sbuf_is_closed(mut sbuf: *mut SBuf) -> bool {
         (*sbuf).sock == 0 as ::core::ffi::c_int
     }
-    use super::_socklen_t_h::socklen_t;
-    use super::_time_t_h::time_t;
+    use crate::types::socklen_t;
+    use crate::types::time_t;
     use super::event_struct_h::event;
     use super::iobuf_h::{iobuf_empty, IOBuf};
     use super::pktbuf_h::PktBuf;
@@ -1213,12 +1195,12 @@ pub mod safeio_h {
 }
 pub use self::_OSByteOrder_h::_OSSwapInt16;
 use self::_malloc_h::free;
-pub use self::_socklen_t_h::socklen_t;
+pub use crate::types::socklen_t;
 use self::_stdio_h::{snprintf, vsnprintf};
 use self::_stdlib_h::exit;
 use self::_string_h::{memcmp, memcpy, memset, strchr, strcmp, strerror, strlcpy, strlen, strtok};
-pub use self::_time_t_h::time_t;
-pub use self::_va_list_h::va_list;
+pub use crate::types::time_t;
+pub use crate::types::va_list;
 use self::admin_h::admin_handle_cancel;
 pub use self::bouncer_h::{
     adns, auth_type, cf_auth_type, cf_autodb_connstr, cf_log_connections, cf_log_disconnections,

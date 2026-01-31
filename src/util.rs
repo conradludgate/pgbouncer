@@ -1,14 +1,3 @@
-pub mod _u_int32_t_h {
-
-    pub type u_int32_t = ::core::ffi::c_uint;
-}
-
-pub mod _gid_t_h {
-
-    pub type gid_t = __darwin_gid_t;
-    use crate::types::__darwin_gid_t;
-}
-
 pub mod runetype_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -97,12 +86,6 @@ pub mod cfparser_h {
     }
 }
 
-pub mod _socklen_t_h {
-
-    pub type socklen_t = __darwin_socklen_t;
-    use crate::types::__darwin_socklen_t;
-}
-
 pub mod socket_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -124,7 +107,7 @@ pub mod socket_h {
     pub const AF_INET: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
 
     pub const AF_INET6: ::core::ffi::c_int = 30 as ::core::ffi::c_int;
-    use super::_socklen_t_h::socklen_t;
+    use crate::types::socklen_t;
     use crate::types::__uint8_t;
     use crate::types::sa_family_t;
     extern "C" {
@@ -896,7 +879,7 @@ pub mod ctype_h {
 }
 
 pub mod inet_h {
-    use super::_socklen_t_h::socklen_t;
+    use crate::types::socklen_t;
     extern "C" {
 
         pub fn inet_ntop(
@@ -915,7 +898,7 @@ pub mod inet_h {
 }
 
 pub mod usual_socket_h {
-    use super::_gid_t_h::gid_t;
+    use crate::types::gid_t;
     use crate::types::pid_t;
     use crate::types::uid_t;
     extern "C" {
@@ -1040,12 +1023,12 @@ pub mod err_h {
 }
 pub use self::_OSByteOrder_h::{_OSSwapInt16, _OSSwapInt32};
 pub use self::_ctype_h::{__istype, __maskrune, isascii, isspace, _CTYPE_S};
-pub use self::_gid_t_h::gid_t;
-pub use self::_socklen_t_h::socklen_t;
+pub use crate::types::gid_t;
+pub use crate::types::socklen_t;
 use self::_stdio_h::snprintf;
 use self::_stdlib_h::exit;
 use self::_string_h::{memcmp, memcpy, memset, strchr, strcmp, strerror, strlcpy, strlen, strstr};
-pub use self::_u_int32_t_h::u_int32_t;
+pub use crate::types::u_int32_t;
 pub use self::bouncer_h::{
     cf_listen_port, cf_tcp_keepalive, cf_tcp_keepcnt, cf_tcp_keepidle, cf_tcp_keepintvl,
     cf_tcp_socket_buffer, cf_tcp_user_timeout, pga_family, pga_is_unix, sockaddr_ucreds,

@@ -13,12 +13,6 @@ extern crate c2rust_bitfields;
 #[allow(unused_imports)]
 use ::pgbouncer;
 
-pub mod _time_t_h {
-
-    pub type time_t = __darwin_time_t;
-    use pgbouncer::types::__darwin_time_t;
-}
-
 pub mod _sigset_t_h {
 
     pub type sigset_t = __darwin_sigset_t;
@@ -246,12 +240,6 @@ pub mod cfparser_h {
             val: *const ::core::ffi::c_char,
         ) -> bool;
     }
-}
-
-pub mod _socklen_t_h {
-
-    pub type socklen_t = __darwin_socklen_t;
-    use pgbouncer::types::__darwin_socklen_t;
 }
 
 pub mod socket_h {
@@ -1134,7 +1122,7 @@ pub mod unistd_h {
 }
 
 pub mod _time_h {
-    use super::_time_t_h::time_t;
+    use pgbouncer::types::time_t;
     extern "C" {
 
         pub fn time(_: *mut time_t) -> time_t;
@@ -1220,7 +1208,7 @@ pub mod include_signal_h {
 }
 
 pub mod safeio_h {
-    use super::_socklen_t_h::socklen_t;
+    use pgbouncer::types::socklen_t;
     use super::socket_h::sockaddr;
     use pgbouncer::types::size_t;
     use pgbouncer::types::ssize_t;
@@ -1456,12 +1444,12 @@ pub mod err_h {
 use self::_malloc_h::free;
 use self::_printf_h::printf;
 pub use self::_sigset_t_h::sigset_t;
-pub use self::_socklen_t_h::socklen_t;
+pub use pgbouncer::types::socklen_t;
 pub use self::_stdio_h::{__sFILE, __sFILEX, __sbuf, __stderrp, fpos_t, fprintf, snprintf, FILE};
 use self::_stdlib_h::{atexit, atol, exit, getenv, setprogname, srandom};
 use self::_string_h::{memset, strerror, strlen};
 use self::_time_h::time;
-pub use self::_time_t_h::time_t;
+pub use pgbouncer::types::time_t;
 use self::admin_h::admin_setup;
 pub use self::bouncer_h::{
     any_user_level_client_timeout_set, any_user_level_timeout_set, auth_type, sockaddr_ucreds,

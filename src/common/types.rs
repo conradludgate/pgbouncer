@@ -54,6 +54,7 @@ pub type in_addr_t = libc::in_addr_t;
 pub type in_port_t = libc::in_port_t;
 pub type pid_t = libc::pid_t;
 pub type uid_t = libc::uid_t;
+pub type gid_t = libc::gid_t;
 pub type size_t = libc::size_t;
 pub type ssize_t = libc::ssize_t;
 pub type time_t = libc::time_t;
@@ -64,6 +65,17 @@ pub type sa_family_t = libc::sa_family_t;
 pub type rlim_t = libc::rlim_t;
 pub type fpos_t = libc::fpos_t;
 
+// File system types
+pub type blkcnt_t = libc::blkcnt_t;
+pub type blksize_t = libc::blksize_t;
+pub type dev_t = libc::dev_t;
+pub type ino_t = libc::ino_t;
+pub type ino64_t = __darwin_ino64_t;  // Not in libc on macOS
+pub type mode_t = libc::mode_t;
+pub type nlink_t = libc::nlink_t;
+pub type off_t = libc::off_t;
+pub type useconds_t = libc::useconds_t;
+
 // Fixed-width integers - use Rust primitive types directly
 pub type int8_t = i8;
 pub type int16_t = i16;
@@ -73,6 +85,10 @@ pub type uint8_t = u8;
 pub type uint16_t = u16;
 pub type uint32_t = u32;
 pub type uint64_t = u64;
+pub type u_int32_t = ::core::ffi::c_uint;
+
+// Variadic argument type
+pub type va_list = __darwin_va_list;
 
 // NULL constant
 pub const NULL: *mut ::core::ffi::c_void = ::core::ptr::null_mut();

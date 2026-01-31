@@ -3,12 +3,6 @@ pub mod _int32_t_h {
     pub type int32_t = i32;
 }
 
-pub mod _socklen_t_h {
-
-    pub type socklen_t = __darwin_socklen_t;
-    use crate::types::__darwin_socklen_t;
-}
-
 pub mod socket_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -38,7 +32,7 @@ pub mod netdb_h {
         pub ai_addr: *mut sockaddr,
         pub ai_next: *mut addrinfo,
     }
-    use super::_socklen_t_h::socklen_t;
+    use crate::types::socklen_t;
     use super::socket_h::sockaddr;
 }
 
@@ -390,7 +384,7 @@ pub mod _strings_h {
 }
 pub use self::_int32_t_h::int32_t;
 use self::_malloc_h::{calloc, free};
-pub use self::_socklen_t_h::socklen_t;
+pub use crate::types::socklen_t;
 use self::_string_h::{memcmp, memset, strchr, strcmp, strdup, strlen};
 use self::_strings_h::strcasecmp;
 use self::bouncer_h::{cf_dns_max_ttl, cf_dns_nxdomain_ttl, cf_resolv_conf, pgb_event_base};
