@@ -13,72 +13,6 @@ extern crate c2rust_bitfields;
 #[allow(unused_imports)]
 use ::pgbouncer;
 
-pub mod _stdio_h {
-
-    pub type fpos_t = __darwin_off_t;
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct __sbuf {
-        pub _base: *mut ::core::ffi::c_uchar,
-        pub _size: ::core::ffi::c_int,
-    }
-    #[derive(Copy, Clone)]
-    #[repr(C)]
-
-    pub struct __sFILE {
-        pub _p: *mut ::core::ffi::c_uchar,
-        pub _r: ::core::ffi::c_int,
-        pub _w: ::core::ffi::c_int,
-        pub _flags: ::core::ffi::c_short,
-        pub _file: ::core::ffi::c_short,
-        pub _bf: __sbuf,
-        pub _lbfsize: ::core::ffi::c_int,
-        pub _cookie: *mut ::core::ffi::c_void,
-        pub _close: Option<unsafe extern "C" fn(*mut ::core::ffi::c_void) -> ::core::ffi::c_int>,
-        pub _read: Option<
-            unsafe extern "C" fn(
-                *mut ::core::ffi::c_void,
-                *mut ::core::ffi::c_char,
-                ::core::ffi::c_int,
-            ) -> ::core::ffi::c_int,
-        >,
-        pub _seek: Option<
-            unsafe extern "C" fn(*mut ::core::ffi::c_void, fpos_t, ::core::ffi::c_int) -> fpos_t,
-        >,
-        pub _write: Option<
-            unsafe extern "C" fn(
-                *mut ::core::ffi::c_void,
-                *const ::core::ffi::c_char,
-                ::core::ffi::c_int,
-            ) -> ::core::ffi::c_int,
-        >,
-        pub _ub: __sbuf,
-        pub _extra: *mut __sFILEX,
-        pub _ur: ::core::ffi::c_int,
-        pub _ubuf: [::core::ffi::c_uchar; 3],
-        pub _nbuf: [::core::ffi::c_uchar; 1],
-        pub _lb: __sbuf,
-        pub _blksize: ::core::ffi::c_int,
-        pub _offset: fpos_t,
-    }
-
-    pub type FILE = __sFILE;
-    use pgbouncer::types::__darwin_off_t;
-    use pgbouncer::types::size_t;
-    extern "C" {
-
-        pub type __sFILEX;
-
-        pub fn snprintf(
-            __str: *mut ::core::ffi::c_char,
-            __size: size_t,
-            __format: *const ::core::ffi::c_char,
-            ...
-        ) -> ::core::ffi::c_int;
-    }
-}
-
 pub mod resource_h {
 
     pub type rlim_t = __uint64_t;
@@ -1072,7 +1006,7 @@ use pgbouncer::types::free;
 use self::_printf_h::printf;
 pub use pgbouncer::types::sigset_t;
 pub use pgbouncer::types::socklen_t;
-pub use self::_stdio_h::{__sFILE, __sFILEX, __sbuf, fpos_t, snprintf, FILE};
+pub use pgbouncer::types::{__sFILE, __sFILEX, __sbuf, fpos_t, snprintf, FILE};
 use pgbouncer::types::{atexit, atol, exit, getenv, setprogname, srandom};
 use pgbouncer::types::{memset, strerror, strlen};
 use self::_time_h::time;

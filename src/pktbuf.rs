@@ -431,25 +431,6 @@ pub mod dnslookup_h {
     }
 }
 
-pub mod _stdio_h {
-    use crate::types::size_t;
-    extern "C" {
-
-        pub fn sprintf(
-            _: *mut ::core::ffi::c_char,
-            _: *const ::core::ffi::c_char,
-            ...
-        ) -> ::core::ffi::c_int;
-
-        pub fn snprintf(
-            __str: *mut ::core::ffi::c_char,
-            __size: size_t,
-            __format: *const ::core::ffi::c_char,
-            ...
-        ) -> ::core::ffi::c_int;
-    }
-}
-
 pub mod base_h {
     #[inline]
 
@@ -487,7 +468,7 @@ pub mod protocol_h {
 }
 pub use crate::types::int64_t;
 use crate::types::{free, malloc, realloc};
-use self::_stdio_h::{snprintf, sprintf};
+use crate::types::{snprintf, sprintf};
 use crate::types::exit;
 use crate::types::{memcpy, memset, strcpy, strerror, strlen};
 pub use crate::types::va_list;

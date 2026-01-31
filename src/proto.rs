@@ -606,20 +606,9 @@ pub mod protocol_h {
     use crate::types::uint32_t;
 }
 
-pub mod _stdio_h {
-    extern "C" {
-
-        pub fn sscanf(
-            _: *const ::core::ffi::c_char,
-            _: *const ::core::ffi::c_char,
-            ...
-        ) -> ::core::ffi::c_int;
-    }
-}
-
 pub use crate::types::int32_t;
 use crate::types::{free, malloc};
-use self::_stdio_h::sscanf;
+use crate::types::sscanf;
 use crate::types::{atoi, atoll, exit};
 use crate::types::{memcpy, memmove, strcmp, strlen, strncmp};
 pub use crate::types::va_list;

@@ -725,27 +725,6 @@ pub mod _OSByteOrder_h {
     use crate::types::__uint16_t;
 }
 
-pub mod _stdio_h {
-    use crate::types::size_t;
-
-    extern "C" {
-
-        pub fn snprintf(
-            __str: *mut ::core::ffi::c_char,
-            __size: size_t,
-            __format: *const ::core::ffi::c_char,
-            ...
-        ) -> ::core::ffi::c_int;
-
-        pub fn vsnprintf(
-            __str: *mut ::core::ffi::c_char,
-            __size: size_t,
-            __format: *const ::core::ffi::c_char,
-            _: ::core::ffi::VaList,
-        ) -> ::core::ffi::c_int;
-    }
-}
-
 pub mod util_h {
     use super::bouncer_h::PgSocket;
     extern "C" {
@@ -882,7 +861,7 @@ pub mod err_h {
 pub use self::_OSByteOrder_h::_OSSwapInt16;
 use crate::types::free;
 pub use crate::types::socklen_t;
-use self::_stdio_h::{snprintf, vsnprintf};
+use crate::types::{snprintf, vsnprintf};
 use crate::types::exit;
 use crate::types::{memcmp, memcpy, memset, strchr, strcmp, strerror, strlcpy, strlen, strtok};
 pub use crate::types::time_t;

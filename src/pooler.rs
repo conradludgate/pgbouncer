@@ -578,19 +578,6 @@ pub mod pooler_h {
     use super::bouncer_h::PgAddr;
 }
 
-pub mod _stdio_h {
-    use crate::types::size_t;
-    extern "C" {
-
-        pub fn snprintf(
-            __str: *mut ::core::ffi::c_char,
-            __size: size_t,
-            __format: *const ::core::ffi::c_char,
-            ...
-        ) -> ::core::ffi::c_int;
-    }
-}
-
 pub mod system_h {
     use crate::types::mode_t;
     extern "C" {
@@ -652,7 +639,7 @@ pub use crate::types::mode_t;
 pub use crate::types::nlink_t;
 pub use crate::types::off_t;
 pub use crate::types::socklen_t;
-use self::_stdio_h::snprintf;
+use crate::types::snprintf;
 use crate::types::{atexit, exit};
 use crate::types::{memset, strcmp, strerror, strlen};
 pub use crate::types::timespec;

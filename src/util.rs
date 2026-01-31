@@ -542,19 +542,6 @@ pub mod _OSByteOrder_h {
     use crate::types::{__uint16_t, __uint32_t};
 }
 
-pub mod _stdio_h {
-    use crate::types::size_t;
-    extern "C" {
-
-        pub fn snprintf(
-            __str: *mut ::core::ffi::c_char,
-            __size: size_t,
-            __format: *const ::core::ffi::c_char,
-            ...
-        ) -> ::core::ffi::c_int;
-    }
-}
-
 pub mod unistd_h {
     use crate::types::pid_t;
     use crate::types::size_t;
@@ -679,7 +666,7 @@ pub use self::_OSByteOrder_h::{_OSSwapInt16, _OSSwapInt32};
 pub use self::_ctype_h::{__istype, __maskrune, isascii, isspace, _CTYPE_S};
 pub use crate::types::gid_t;
 pub use crate::types::socklen_t;
-use self::_stdio_h::snprintf;
+use crate::types::snprintf;
 use crate::types::exit;
 use crate::types::{memcmp, memcpy, memset, strchr, strcmp, strerror, strlcpy, strlen, strstr};
 pub use crate::types::u_int32_t;

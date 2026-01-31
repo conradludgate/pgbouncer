@@ -480,19 +480,6 @@ pub mod saslprep_h {
     }
 }
 
-pub mod _stdio_h {
-    use crate::types::size_t;
-    extern "C" {
-
-        pub fn snprintf(
-            __str: *mut ::core::ffi::c_char,
-            __size: size_t,
-            __format: *const ::core::ffi::c_char,
-            ...
-        ) -> ::core::ffi::c_int;
-    }
-}
-
 pub mod util_h {
 
     pub const MD5_PASSWD_LEN: ::core::ffi::c_int = 35 as ::core::ffi::c_int;
@@ -593,7 +580,7 @@ pub mod sha2_h {
     pub const PG_SHA256_DIGEST_LENGTH: ::core::ffi::c_int = 32 as ::core::ffi::c_int;
 }
 use crate::types::{free, malloc};
-use self::_stdio_h::snprintf;
+use crate::types::snprintf;
 use crate::types::strtol;
 use crate::types::{
     memcmp, memcpy, memset, strcmp, strdup, strlcat, strlen, strncmp, strspn, strtok,

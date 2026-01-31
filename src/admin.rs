@@ -837,33 +837,6 @@ pub mod pooler_h {
     }
 }
 
-pub mod _stdio_h {
-    use crate::types::size_t;
-
-    extern "C" {
-
-        pub fn sscanf(
-            _: *const ::core::ffi::c_char,
-            _: *const ::core::ffi::c_char,
-            ...
-        ) -> ::core::ffi::c_int;
-
-        pub fn snprintf(
-            __str: *mut ::core::ffi::c_char,
-            __size: size_t,
-            __format: *const ::core::ffi::c_char,
-            ...
-        ) -> ::core::ffi::c_int;
-
-        pub fn vsnprintf(
-            __str: *mut ::core::ffi::c_char,
-            __size: size_t,
-            __format: *const ::core::ffi::c_char,
-            _: ::core::ffi::VaList,
-        ) -> ::core::ffi::c_int;
-    }
-}
-
 pub mod unistd_h {
     use crate::types::gid_t;
     use crate::types::uid_t;
@@ -1028,7 +1001,7 @@ pub use self::_regex_h::{
     re_guts, regcomp, regex_t, regexec, regfree, regmatch_t, regoff_t, REG_EXTENDED, REG_ICASE,
 };
 pub use crate::types::socklen_t;
-use self::_stdio_h::{snprintf, sscanf, vsnprintf};
+use crate::types::{snprintf, sscanf, vsnprintf};
 use crate::types::exit;
 use crate::types::{memcpy, memset, strchr, strcmp, strerror, strlen, strstr};
 use self::_strings_h::strcasecmp;

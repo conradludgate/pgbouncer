@@ -185,7 +185,8 @@ pub struct __sFILE {
     pub _offset: fpos_t,
 }
 
-pub type FILE = __sFILE;
+// Use libc::FILE for compatibility with libc functions (fopen, fclose, etc.)
+pub type FILE = libc::FILE;
 
 // =============================================================================
 // usual library types
@@ -1446,6 +1447,24 @@ pub const IPV6_V6ONLY: ::core::ffi::c_int = 27 as ::core::ffi::c_int;
         pub __u6_addr16: [__uint16_t; 8],
         pub __u6_addr32: [__uint32_t; 4],
     }
+
+// =============================================================================
+// _stdio_h (merged from all files)
+// =============================================================================
+
+extern "C" {
+    pub fn getline(
+                __linep: *mut *mut ::core::ffi::c_char,
+                __linecapp: *mut size_t,
+                __stream: *mut FILE,
+            ) -> ssize_t;
+    pub fn vsnprintf(
+                __str: *mut ::core::ffi::c_char,
+                __size: size_t,
+                __format: *const ::core::ffi::c_char,
+                _: ::core::ffi::VaList,
+            ) -> ::core::ffi::c_int;
+}
 
 // =============================================================================
 // pgbouncer-specific forward declarations

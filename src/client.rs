@@ -828,19 +828,6 @@ pub mod hba_h {
     }
 }
 
-pub mod _stdio_h {
-    use crate::types::size_t;
-    extern "C" {
-
-        pub fn snprintf(
-            __str: *mut ::core::ffi::c_char,
-            __size: size_t,
-            __format: *const ::core::ffi::c_char,
-            ...
-        ) -> ::core::ffi::c_int;
-    }
-}
-
 pub mod _ctype_h {
 
     pub const _CTYPE_S: ::core::ffi::c_long = 0x4000 as ::core::ffi::c_long;
@@ -1102,7 +1089,7 @@ pub mod builtins_h {
 }
 pub use self::_ctype_h::{__istype, __maskrune, isascii, isspace, _CTYPE_S};
 use crate::types::{calloc, free, malloc};
-use self::_stdio_h::snprintf;
+use crate::types::snprintf;
 use crate::types::exit;
 use crate::types::{memcpy, memset, strchr, strcmp, strdup, strlcpy, strlen, strncmp};
 use self::admin_h::{admin_handle_client, admin_post_login, admin_pre_login};

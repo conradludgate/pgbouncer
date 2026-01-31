@@ -564,19 +564,6 @@ pub mod messages_h {
     }
 }
 
-pub mod _stdio_h {
-    use crate::types::size_t;
-    extern "C" {
-
-        pub fn snprintf(
-            __str: *mut ::core::ffi::c_char,
-            __size: size_t,
-            __format: *const ::core::ffi::c_char,
-            ...
-        ) -> ::core::ffi::c_int;
-    }
-}
-
 pub mod slab_h {
     use super::objects_h::Slab;
     extern "C" {
@@ -600,7 +587,7 @@ pub mod protocol_h {
     pub const PqMsg_CloseComplete: ::core::ffi::c_int = '3' as i32;
 }
 use crate::types::{free, malloc};
-use self::_stdio_h::snprintf;
+use crate::types::snprintf;
 use crate::types::{memcmp, memcpy, memset, strlen};
 pub use self::bouncer_h::{
     cf_max_prepared_statements, sockaddr_ucreds, C2RustUnnamed_9, CallbackState, LoadBalanceHosts,
