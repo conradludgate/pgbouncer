@@ -52,15 +52,21 @@ We start from the entry point (`main.rs`) and core connection handling (`client.
 
 ### Recent Session (2026-01-31): Type Module Consolidation
 
-**2 commits** consolidating darwin type modules:
+**4 commits** consolidating darwin type modules:
 1. `sys__types_h` modules removed from 26 files (-350 lines)
    - Added 12 darwin type aliases to `types.rs`
    - Script: `scripts/consolidate_sys_types.py`
 2. Type wrapper modules (`_gid_t_h`, `_socklen_t_h`, `_va_list_h`, etc.) from 13 files (-241 lines)
    - Added libc types (gid_t, mode_t, off_t, etc.) to `types.rs`
    - Script: `scripts/consolidate_wrapper_modules.py`
+3. Additional wrapper modules (`_int32_t_h`, `_int64_t_h`, `_sigset_t_h`) from 4 files
+4. Struct wrapper modules (`_timespec_h`, `_iovec_t_h`) from 4 files (-67 lines)
 
-**Key finding:** `iobuf_h` has inline functions depending on extern statics (`cf_sbuf_len`), making it complex to consolidate. Same issue as `bouncer_h`.
+**Total lines saved this session: ~660 lines**
+
+**Key findings:**
+- `iobuf_h` has inline functions depending on extern statics (`cf_sbuf_len`), making it complex to consolidate. Same issue as `bouncer_h`.
+- `socket_h` defines custom struct types (sockaddr_ucreds) used in unions — cannot directly replace with libc types.
 
 ### Previous Session (2026-01-30): Cleanup Patterns Applied
 
@@ -81,13 +87,13 @@ We start from the entry point (`main.rs`) and core connection handling (`client.
 
 | Metric | Original | Current | Target |
 |--------|----------|---------|--------|
-| Total Rust lines (src/*.rs) | ~126,000 | **56,656** | <30,000 |
+| Total Rust lines (src/*.rs) | ~126,000 | **56,580** | <30,000 |
 | Total Rust lines (src/common/) | - | **58,376** | - |
 | `static mut` occurrences (src/) | 430 | **430** | 0 |
 | `unsafe extern "C" fn` (src/) | 1,787 | **1,632** | <500 |
 | `#[no_mangle]` (src/) | 450 | **450** | <100 |
 | `#[c2rust::...]` attributes | 7,150 | **0** ✅ | 0 |
-| Duplicate `pub mod *_h` modules | ~800 | **530** | 0 |
+| Duplicate `pub mod *_h` modules | ~800 | **521** | 0 |
 | `as c_int != 0` patterns | ~100+ | **40** ✅ | ~40 (char comparisons) |
 
 ### Biggest Blocker: Duplicate Type Modules
