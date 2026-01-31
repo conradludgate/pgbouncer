@@ -192,36 +192,6 @@ pub mod dnslookup_h {
     use crate::types::usec_t;
 }
 
-pub mod logging_h {
-
-    pub type LogLevel = ::core::ffi::c_uint;
-
-    pub const LG_NOISE: LogLevel = 6;
-
-    pub const LG_DEBUG: LogLevel = 5;
-
-    pub const LG_INFO: LogLevel = 4;
-
-    pub const LG_STATS: LogLevel = 3;
-
-    pub const LG_WARNING: LogLevel = 2;
-
-    pub const LG_ERROR: LogLevel = 1;
-
-    pub const LG_FATAL: LogLevel = 0;
-    extern "C" {
-
-        pub static mut cf_verbose: ::core::ffi::c_int;
-
-        pub fn log_generic(
-            level: LogLevel,
-            ctx: *mut ::core::ffi::c_void,
-            s: *const ::core::ffi::c_char,
-            ...
-        );
-    }
-}
-
 pub mod dns_h {
 
     pub type evdns_getaddrinfo_cb = Option<
@@ -395,7 +365,7 @@ pub use self::event_struct_h::{
     C2RustUnnamed_3, C2RustUnnamed_4, C2RustUnnamed_5, C2RustUnnamed_6, C2RustUnnamed_7,
 };
 use self::include_util_h::safe_evtimer_add;
-pub use self::logging_h::{
+pub use crate::types::{
     cf_verbose, log_generic, LogLevel, LG_DEBUG, LG_ERROR, LG_FATAL, LG_INFO, LG_NOISE, LG_STATS,
     LG_WARNING,
 };

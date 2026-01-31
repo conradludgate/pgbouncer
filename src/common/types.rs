@@ -1178,6 +1178,53 @@ extern "C" {
 }
 
 // =============================================================================
+// logging_h (merged from all files)
+// =============================================================================
+
+pub type logging_prefix_fn_t = Option<
+        unsafe extern "C" fn(
+            LogLevel,
+            *mut ::core::ffi::c_void,
+            *mut ::core::ffi::c_char,
+            ::core::ffi::c_uint,
+        ) -> ::core::ffi::c_int,
+    >;
+
+pub const LG_DEBUG: LogLevel = 5;
+pub const LG_ERROR: LogLevel = 1;
+pub const LG_FATAL: LogLevel = 0;
+pub const LG_INFO: LogLevel = 4;
+pub const LG_NOISE: LogLevel = 6;
+pub const LG_STATS: LogLevel = 3;
+pub const LG_WARNING: LogLevel = 2;
+
+extern "C" {
+    pub static mut cf_logfile: *const ::core::ffi::c_char;
+    pub static mut cf_quiet: ::core::ffi::c_int;
+    pub static mut cf_syslog: ::core::ffi::c_int;
+    pub static mut cf_syslog_facility: *const ::core::ffi::c_char;
+    pub static mut cf_syslog_ident: *const ::core::ffi::c_char;
+    pub static mut cf_verbose: ::core::ffi::c_int;
+    pub static mut logging_prefix_cb: logging_prefix_fn_t;
+    pub fn log_fatal(
+                file: *const ::core::ffi::c_char,
+                line: ::core::ffi::c_int,
+                func: *const ::core::ffi::c_char,
+                show_perror: bool,
+                ctx: *mut ::core::ffi::c_void,
+                s: *const ::core::ffi::c_char,
+                ...
+            );
+    pub fn log_generic(
+                level: LogLevel,
+                ctx: *mut ::core::ffi::c_void,
+                s: *const ::core::ffi::c_char,
+                ...
+            );
+    pub fn reset_logging();
+}
+
+// =============================================================================
 // pgbouncer-specific forward declarations
 // These are declared but not fully defined here to break circular dependencies
 // =============================================================================

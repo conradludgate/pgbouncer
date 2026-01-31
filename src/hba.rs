@@ -277,34 +277,6 @@ pub mod bouncer_h {
     extern "C" {}
 }
 
-pub mod logging_h {
-
-    pub type LogLevel = ::core::ffi::c_uint;
-
-    pub const LG_NOISE: LogLevel = 6;
-
-    pub const LG_DEBUG: LogLevel = 5;
-
-    pub const LG_INFO: LogLevel = 4;
-
-    pub const LG_STATS: LogLevel = 3;
-
-    pub const LG_WARNING: LogLevel = 2;
-
-    pub const LG_ERROR: LogLevel = 1;
-
-    pub const LG_FATAL: LogLevel = 0;
-    extern "C" {
-
-        pub fn log_generic(
-            level: LogLevel,
-            ctx: *mut ::core::ffi::c_void,
-            s: *const ::core::ffi::c_char,
-            ...
-        );
-    }
-}
-
 pub mod cxalloc_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -646,7 +618,7 @@ pub use self::hba_h::{
 pub use self::in6_h::{in6_addr, sockaddr_in6, C2RustUnnamed};
 pub use self::in_h::{in_addr, sockaddr_in};
 use self::inet_h::{inet_ntop, inet_pton};
-pub use self::logging_h::{
+pub use crate::types::{
     log_generic, LogLevel, LG_DEBUG, LG_ERROR, LG_FATAL, LG_INFO, LG_NOISE, LG_STATS, LG_WARNING,
 };
 pub use self::runetype_h::{
