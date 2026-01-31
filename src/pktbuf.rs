@@ -3,13 +3,6 @@ pub mod internal {
     pub type __builtin_va_list = *mut ::core::ffi::c_char;
 }
 
-pub mod tls_h {
-    extern "C" {
-
-        pub type tls;
-    }
-}
-
 pub mod socket_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -587,7 +580,7 @@ pub mod sbuf_h {
     }
     use super::event_struct_h::event;
     use super::iobuf_h::IOBuf;
-    use super::tls_h::tls;
+    use crate::types::tls;
     use crate::types::size_t;
     use crate::types::ssize_t;
     use crate::types::uint8_t;

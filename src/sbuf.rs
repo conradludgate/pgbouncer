@@ -1,136 +1,3 @@
-pub mod tls_h {
-
-    pub const TLS_PROTOCOL_TLSv1_0: ::core::ffi::c_int =
-        (1 as ::core::ffi::c_int) << 1 as ::core::ffi::c_int;
-
-    pub const TLS_PROTOCOL_TLSv1_1: ::core::ffi::c_int =
-        (1 as ::core::ffi::c_int) << 2 as ::core::ffi::c_int;
-
-    pub const TLS_PROTOCOL_TLSv1_2: ::core::ffi::c_int =
-        (1 as ::core::ffi::c_int) << 3 as ::core::ffi::c_int;
-
-    pub const TLS_PROTOCOL_TLSv1_3: ::core::ffi::c_int =
-        (1 as ::core::ffi::c_int) << 4 as ::core::ffi::c_int;
-
-    pub const TLS_PROTOCOL_TLSv1: ::core::ffi::c_int =
-        TLS_PROTOCOL_TLSv1_0 | TLS_PROTOCOL_TLSv1_1 | TLS_PROTOCOL_TLSv1_2 | TLS_PROTOCOL_TLSv1_3;
-
-    pub const TLS_PROTOCOLS_ALL: ::core::ffi::c_int = TLS_PROTOCOL_TLSv1;
-
-    pub const TLS_WANT_POLLIN: ::core::ffi::c_int = -(2 as ::core::ffi::c_int);
-
-    pub const TLS_WANT_POLLOUT: ::core::ffi::c_int = -(3 as ::core::ffi::c_int);
-    use crate::types::size_t;
-    use crate::types::ssize_t;
-    use crate::types::uint32_t;
-    extern "C" {
-
-        pub type tls;
-
-        pub type tls_config;
-
-        pub fn tls_init() -> ::core::ffi::c_int;
-
-        pub fn tls_error(_ctx: *mut tls) -> *const ::core::ffi::c_char;
-
-        pub fn tls_config_new() -> *mut tls_config;
-
-        pub fn tls_config_free(_config: *mut tls_config);
-
-        pub fn tls_config_set_ca_file(
-            _config: *mut tls_config,
-            _ca_file: *const ::core::ffi::c_char,
-        ) -> ::core::ffi::c_int;
-
-        pub fn tls_config_set_cert_file(
-            _config: *mut tls_config,
-            _cert_file: *const ::core::ffi::c_char,
-        ) -> ::core::ffi::c_int;
-
-        pub fn tls_config_set_ciphers(
-            _config: *mut tls_config,
-            _ciphers: *const ::core::ffi::c_char,
-        ) -> ::core::ffi::c_int;
-
-        pub fn tls_config_set_ciphers_v13(
-            _config: *mut tls_config,
-            _ciphers: *const ::core::ffi::c_char,
-        ) -> ::core::ffi::c_int;
-
-        pub fn tls_config_set_dheparams(
-            _config: *mut tls_config,
-            _params: *const ::core::ffi::c_char,
-        ) -> ::core::ffi::c_int;
-
-        pub fn tls_config_set_ecdhecurve(
-            _config: *mut tls_config,
-            _name: *const ::core::ffi::c_char,
-        ) -> ::core::ffi::c_int;
-
-        pub fn tls_config_set_key_file(
-            _config: *mut tls_config,
-            _key_file: *const ::core::ffi::c_char,
-        ) -> ::core::ffi::c_int;
-
-        pub fn tls_config_set_protocols(_config: *mut tls_config, _protocols: uint32_t);
-
-        pub fn tls_config_insecure_noverifycert(_config: *mut tls_config);
-
-        pub fn tls_config_insecure_noverifyname(_config: *mut tls_config);
-
-        pub fn tls_config_verify(_config: *mut tls_config);
-
-        pub fn tls_config_verify_client(_config: *mut tls_config);
-
-        pub fn tls_config_verify_client_optional(_config: *mut tls_config);
-
-        pub fn tls_config_parse_protocols(
-            _protocols: *mut uint32_t,
-            _protostr: *const ::core::ffi::c_char,
-        ) -> ::core::ffi::c_int;
-
-        pub fn tls_client() -> *mut tls;
-
-        pub fn tls_server() -> *mut tls;
-
-        pub fn tls_configure(_ctx: *mut tls, _config: *mut tls_config) -> ::core::ffi::c_int;
-
-        pub fn usual_tls_free(_ctx: *mut tls);
-
-        pub fn tls_accept_fds(
-            _ctx: *mut tls,
-            _cctx: *mut *mut tls,
-            _fd_read: ::core::ffi::c_int,
-            _fd_write: ::core::ffi::c_int,
-        ) -> ::core::ffi::c_int;
-
-        pub fn tls_connect_fds(
-            _ctx: *mut tls,
-            _fd_read: ::core::ffi::c_int,
-            _fd_write: ::core::ffi::c_int,
-            _servername: *const ::core::ffi::c_char,
-        ) -> ::core::ffi::c_int;
-
-        pub fn tls_handshake(_ctx: *mut tls) -> ::core::ffi::c_int;
-
-        pub fn tls_read(_ctx: *mut tls, _buf: *mut ::core::ffi::c_void, _buflen: size_t)
-            -> ssize_t;
-
-        pub fn tls_write(
-            _ctx: *mut tls,
-            _buf: *const ::core::ffi::c_void,
-            _buflen: size_t,
-        ) -> ssize_t;
-
-        pub fn tls_close(_ctx: *mut tls) -> ::core::ffi::c_int;
-
-        pub fn tls_config_equal(
-            server_connect_conf_left: *mut tls_config,
-            server_connect_conf_right: *mut tls_config,
-        ) -> bool;
-    }
-}
-
 pub mod socket_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -866,7 +733,7 @@ pub mod sbuf_h {
     }
     use super::event_struct_h::event;
     use super::iobuf_h::{iobuf_empty, IOBuf};
-    use super::tls_h::tls;
+    use crate::types::tls;
     use crate::types::size_t;
     use crate::types::ssize_t;
     use crate::types::uint8_t;
@@ -1274,7 +1141,7 @@ pub use self::socket_h::{
     getsockopt, sockaddr, socket, AF_UNIX, SOCK_STREAM, SOL_SOCKET, SO_ERROR,
 };
 pub use crate::types::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
-pub use self::tls_h::{
+pub use crate::types::{
     tls, tls_accept_fds, tls_client, tls_close, tls_config, tls_config_equal, tls_config_free,
     tls_config_insecure_noverifycert, tls_config_insecure_noverifyname, tls_config_new,
     tls_config_parse_protocols, tls_config_set_ca_file, tls_config_set_cert_file,

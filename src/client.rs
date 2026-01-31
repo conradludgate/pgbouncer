@@ -62,30 +62,6 @@ pub mod runetype_h {
     }
 }
 
-pub mod tls_h {
-    use crate::types::size_t;
-    use crate::types::ssize_t;
-    extern "C" {
-
-        pub type tls;
-
-        pub fn tls_peer_cert_provided(_ctx: *mut tls) -> ::core::ffi::c_int;
-
-        pub fn tls_peer_cert_contains_name(
-            _ctx: *mut tls,
-            _name: *const ::core::ffi::c_char,
-        ) -> ::core::ffi::c_int;
-
-        pub fn tls_peer_cert_subject(_ctx: *mut tls) -> *const ::core::ffi::c_char;
-
-        pub fn tls_get_connection_info(
-            ctx: *mut tls,
-            buf: *mut ::core::ffi::c_char,
-            buflen: size_t,
-        ) -> ssize_t;
-    }
-}
-
 pub mod socket_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -745,7 +721,7 @@ pub mod sbuf_h {
     pub const SBUF_EV_READ: SBufEvent = 0;
     use super::event_struct_h::event;
     use super::iobuf_h::IOBuf;
-    use super::tls_h::tls;
+    use crate::types::tls;
     use crate::types::size_t;
     use crate::types::ssize_t;
     use crate::types::uint8_t;
@@ -1555,7 +1531,7 @@ use self::server_h::{
 pub use self::socket_h::{sockaddr, AF_UNIX};
 pub use crate::types::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
 use self::system_h::check_unix_peer_name;
-use self::tls_h::{
+use crate::types::{
     tls_get_connection_info, tls_peer_cert_contains_name, tls_peer_cert_provided,
     tls_peer_cert_subject,
 };

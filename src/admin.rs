@@ -3,21 +3,6 @@ pub mod internal {
     pub type __builtin_va_list = *mut ::core::ffi::c_char;
 }
 
-pub mod tls_h {
-    use crate::types::size_t;
-    use crate::types::ssize_t;
-    extern "C" {
-
-        pub type tls;
-
-        pub fn tls_get_connection_info(
-            ctx: *mut tls,
-            buf: *mut ::core::ffi::c_char,
-            buflen: size_t,
-        ) -> ssize_t;
-    }
-}
-
 pub mod cfparser_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -771,7 +756,7 @@ pub mod sbuf_h {
     }
     use super::event_struct_h::event;
     use super::iobuf_h::{iobuf_empty, IOBuf};
-    use super::tls_h::tls;
+    use crate::types::tls;
     use crate::types::size_t;
     use crate::types::ssize_t;
     use crate::types::uint8_t;
@@ -1493,7 +1478,7 @@ pub use crate::types::{
     __darwin_gid_t, __darwin_off_t, __darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t,
     __DARWIN_NULL,
 };
-use self::tls_h::tls_get_connection_info;
+use crate::types::tls_get_connection_info;
 use self::unistd_h::{getpeereid, getuid};
 use self::usual_socket_h::{sa2str, socket_set_nonblocking};
 use self::util_h::strlist_contains;

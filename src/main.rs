@@ -102,15 +102,6 @@ pub mod resource_h {
     }
 }
 
-pub mod tls_h {
-    extern "C" {
-
-        pub type tls;
-
-        pub fn tls_backend_version() -> *const ::core::ffi::c_char;
-    }
-}
-
 pub mod cfparser_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -903,7 +894,7 @@ pub mod sbuf_h {
     pub const SBUF_EV_READ: SBufEvent = 0;
     use super::event_struct_h::event;
     use super::iobuf_h::IOBuf;
-    use super::tls_h::tls;
+    use pgbouncer::types::tls;
     use pgbouncer::types::size_t;
     use pgbouncer::types::ssize_t;
     use pgbouncer::types::uint8_t;
@@ -1518,7 +1509,7 @@ pub use pgbouncer::types::{
 };
 use self::system_h::change_user;
 use self::takeover_h::{takeover_finish, takeover_init};
-use self::tls_h::tls_backend_version;
+use pgbouncer::types::tls_backend_version;
 pub use self::un_h::sockaddr_un;
 use self::unistd_h::{
     _exit, close, dup2, fork, getpid, getuid, optarg, optind, read, setsid, unlink,

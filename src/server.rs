@@ -1,18 +1,3 @@
-pub mod tls_h {
-    use crate::types::size_t;
-    use crate::types::ssize_t;
-    extern "C" {
-
-        pub type tls;
-
-        pub fn tls_get_connection_info(
-            ctx: *mut tls,
-            buf: *mut ::core::ffi::c_char,
-            buflen: size_t,
-        ) -> ssize_t;
-    }
-}
-
 pub mod socket_h {
     #[derive(Copy, Clone)]
     #[repr(C)]
@@ -629,7 +614,7 @@ pub mod sbuf_h {
     pub const SBUF_EV_READ: SBufEvent = 0;
     use super::event_struct_h::event;
     use super::iobuf_h::IOBuf;
-    use super::tls_h::tls;
+    use crate::types::tls;
     use crate::types::size_t;
     use crate::types::ssize_t;
     use crate::types::uint8_t;
@@ -1042,7 +1027,7 @@ use self::slab_h::slab_free;
 pub use self::socket_h::{sockaddr, AF_UNIX};
 pub use crate::types::{__darwin_pid_t, __darwin_suseconds_t, __darwin_uid_t, __DARWIN_NULL};
 use self::takeover_h::{takeover_login, takeover_login_failed};
-use self::tls_h::tls_get_connection_info;
+use crate::types::tls_get_connection_info;
 use self::util_h::fill_local_addr;
 pub use crate::types::usec_t;
 pub use crate::types::VarCache;
