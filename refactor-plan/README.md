@@ -87,10 +87,22 @@ This approach maintains backward compatibility - code using `super::bouncer_h::P
 
 ## Next Steps
 
-1. **Consolidate objects_h** — 15 files, mostly extern function declarations
-2. **Consolidate util_h** — 11 files, extern functions
-3. **Consolidate protocol_h** — 10 files, may need constants added to types.rs
-4. **Convert static mut** — Blocked until modules fully migrated to Rust
+1. **Consolidate protocol_h** — 🔴 Blocked: Constants have conflicting types (`c_int` vs `c_uint` vs `uint32_t`)
+2. **Consolidate util_h** — 🔴 Blocked: References `cfparser_h::CfValue` creating type conflicts
+3. **Consolidate cfparser_h** — 🔴 Blocked: Complex types (`CfContext`, `CfKey`, `CfOps`, `CfSect`)
+4. **Consolidate objects_h** — 🟡 Possible: Mostly extern declarations, needs `Slab` opaque type
+5. **Convert static mut** — Blocked until modules fully migrated to Rust
+
+### Blockers Found
+
+The rewrite approach works well for modules with:
+- Uniform type definitions across files
+- No conflicting types (same name, different underlying type)
+- Inline functions that can reference `types.rs`
+
+It does **not** work for:
+- `protocol_h`: `PqMsg_*` constants defined as both `c_int` and `c_uint`
+- `util_h`/`cfparser_h`: Cross-module type dependencies
 
 ## Refactoring Phases
 
