@@ -75,10 +75,61 @@ We start from the entry point (`main.rs`) and core connection handling (`client.
 
 **Modules needing manual migration:**
 - `in6_h` — ✅ **DONE** - Replaced Darwin `__u6_addr` with portable `s6_addr`
-- `event_h` / `event_struct_h` — **BLOCKED** on bouncer_h - event struct is embedded in PgSocket using `C2RustUnnamed*` types that differ from named types in types.rs
-- `_stdio_h` — **BLOCKED** - `__stderrp` already defined with `#[link_name]` attribute
+- `event_h` / `event_struct_h` — See "C2RustUnnamed Type Migration" below
+- `_stdio_h` — See "Portable stderr Migration" below
 - `dnslookup_h` — Use `libc::addrinfo`
 - `protocol_h` — Deduplicate auth constants
+
+### C2RustUnnamed Type Migration
+
+The c2rust translation created anonymous types (`C2RustUnnamed*`) for C's anonymous unions/structs. These need to be mapped to named types already defined in `types.rs`:
+
+| C2RustUnnamed | Named Type | Source (libevent) |
+|---|---|---|
+| `C2RustUnnamed` (in event) | `event_union` | union of ev_io/ev_signal |
+| `C2RustUnnamed_0` | `event_signal` | signal event data |
+| `C2RustUnnamed_1` | `event_signal_next` | `LIST_ENTRY(event)` |
+| `C2RustUnnamed_2` | `event_io` | io event data |
+| `C2RustUnnamed_3` | `event_io_next` | `LIST_ENTRY(event)` |
+| `C2RustUnnamed_4` | `event_io_next` | `LIST_ENTRY(event)` (alias) |
+| `C2RustUnnamed_5` | `event_timeout_pos` | union with TAILQ_ENTRY or int |
+| `C2RustUnnamed_6` | `event_next_with_common_timeout` | `TAILQ_ENTRY(event)` |
+| `C2RustUnnamed_7` | `event_callback_union` | callback function union |
+| `C2RustUnnamed_8` | `event_callback_struct` | callback struct |
+
+**Migration steps:**
+1. Add type aliases in `types.rs`: `pub type C2RustUnnamed_4 = event_io_next;`
+2. Gradually update struct definitions to use named types
+3. Remove the aliases once all usages are updated
+
+### Portable stderr Migration
+
+The Darwin-specific `__stderrp` should be replaced with portable file descriptor writes:
+
+**Current (Darwin-specific):**
+```rust
+extern "C" {
+    #[link_name = "__stderrp"]
+    pub static mut __stderrp: *mut FILE;
+}
+fprintf(__stderrp, "error: %s\n", msg);
+```
+
+**Target (portable):**
+```rust
+use libc::{write, STDERR_FILENO};
+
+// Direct write to stderr file descriptor
+unsafe {
+    libc::write(libc::STDERR_FILENO, msg.as_ptr() as *const c_void, msg.len());
+}
+```
+
+**Migration steps:**
+1. Create a portable `write_stderr()` helper function
+2. Replace `fprintf(__stderrp, ...)` calls with the helper or direct `libc::write()`
+3. Remove `__stderrp` from types.rs
+4. Consolidate `_stdio_h` modules
 
 ### Type Migration Guidelines
 
