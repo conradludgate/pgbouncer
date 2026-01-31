@@ -732,6 +732,12 @@ pub type pooler_cb = Option<
 pub type str_cb =
     Option<unsafe extern "C" fn(*mut ::core::ffi::c_void, *const ::core::ffi::c_char) -> bool>;
 
+// SCRAM password types
+pub type PasswordType = ::core::ffi::c_uint;
+pub const PASSWORD_TYPE_PLAINTEXT: PasswordType = 0;
+pub const PASSWORD_TYPE_MD5: PasswordType = 1;
+pub const PASSWORD_TYPE_SCRAM_SHA_256: PasswordType = 2;
+
 #[derive(Copy, Clone)]
 #[repr(C)]
 pub struct SBufIO {

@@ -40,15 +40,10 @@ pub mod stat_h {
 }
 
 pub mod un_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
 
-    pub struct sockaddr_un {
-        pub sun_len: ::core::ffi::c_uchar,
-        pub sun_family: sa_family_t,
-        pub sun_path: [::core::ffi::c_char; 104],
-    }
-    use crate::types::sa_family_t;
+    pub use crate::types::*;
+
+
 }
 
 pub mod netdb_h {

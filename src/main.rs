@@ -158,15 +158,11 @@ pub mod cfparser_h {
 }
 
 pub mod un_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
 
-    pub struct sockaddr_un {
-        pub sun_len: ::core::ffi::c_uchar,
-        pub sun_family: sa_family_t,
-        pub sun_path: [::core::ffi::c_char; 104],
-    }
+    pub use pgbouncer::types::*;
     use pgbouncer::types::sa_family_t;
+
+
 }
 
 pub mod bouncer_h {

@@ -252,15 +252,7 @@ pub mod messages_h {
 
 pub mod scram_h {
 
-    pub const PASSWORD_TYPE_PLAINTEXT: PasswordType = 0;
-
-    pub type PasswordType = ::core::ffi::c_uint;
-
-    pub const PASSWORD_TYPE_SCRAM_SHA_256: PasswordType = 2;
-
-    pub const PASSWORD_TYPE_MD5: PasswordType = 1;
-    use super::bouncer_h::{PgCredentials, PgSocket, ScramState};
-    use crate::types::uint8_t;
+    pub use crate::types::*;
     extern "C" {
 
         pub fn free_scram_state(state: *mut ScramState);
@@ -305,6 +297,8 @@ pub mod scram_h {
             secret: *const ::core::ffi::c_char,
         ) -> bool;
     }
+
+
 }
 
 pub mod hba_h {

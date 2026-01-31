@@ -4,15 +4,10 @@ pub mod internal {
 }
 
 pub mod un_h {
-    #[derive(Copy, Clone)]
-    #[repr(C)]
 
-    pub struct sockaddr_un {
-        pub sun_len: ::core::ffi::c_uchar,
-        pub sun_family: sa_family_t,
-        pub sun_path: [::core::ffi::c_char; 104],
-    }
-    use crate::types::sa_family_t;
+    pub use crate::types::*;
+
+
 }
 
 pub mod bouncer_h {
@@ -412,11 +407,14 @@ pub mod server_h {
 }
 
 pub mod scram_h {
-    use super::bouncer_h::ScramState;
+
+    pub use crate::types::*;
     extern "C" {
 
         pub fn free_scram_state(state: *mut ScramState);
     }
+
+
 }
 
 pub mod janitor_h {

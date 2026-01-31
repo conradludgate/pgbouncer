@@ -68,17 +68,13 @@ pub mod dnslookup_h {
 
 pub mod scram_h {
 
-    pub type PasswordType = ::core::ffi::c_uint;
-
-    pub const PASSWORD_TYPE_SCRAM_SHA_256: PasswordType = 2;
-
-    pub const PASSWORD_TYPE_MD5: PasswordType = 1;
-
-    pub const PASSWORD_TYPE_PLAINTEXT: PasswordType = 0;
+    pub use crate::types::*;
     extern "C" {
 
         pub static mut cf_scram_iterations: ::core::ffi::c_int;
     }
+
+
 }
 
 pub mod hmac_h {
