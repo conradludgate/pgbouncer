@@ -13,11 +13,14 @@ Refactoring the c2rust-translated PgBouncer codebase into idiomatic, safe Rust.
 | Metric | Original | Current | Target |
 |--------|----------|---------|--------|
 | Total Rust lines (src/*.rs) | ~126,000 | **~49,850** | <30,000 |
-| Duplicate `pub mod *_h` modules | ~800 | **~290** | 0 |
+| Duplicate `pub mod *_h` modules | ~800 | **~278** | 0 |
 | `#[c2rust::...]` attributes | 7,150 | **0** ✅ | 0 |
 | `static mut` occurrences | 430 | 430 | 0 |
 
 **Lines saved so far: ~15,000+**
+
+### Latest Changes
+- ✅ Consolidated `errno_h` from 14 files (EAGAIN, EINTR, etc. use libc; added ECONNABORTED, EINVAL, EIO, ENOENT, ENOSYS, ESRCH)
 
 ## Priority: Remaining Duplicate Modules
 
@@ -45,9 +48,19 @@ cargo build && cd test && pytest --timeout=120
 
 ## Next Steps
 
-1. **Consolidate bouncer_h** — Requires separating type definitions from extern statics
-2. **Consolidate remaining simple modules** — Use `merge_module.py` for uniform modules
-3. **Convert static mut** — Blocked until modules fully migrated to Rust
+1. **Consolidate bouncer_h** — Requires manual approach: add types to types.rs, keep extern statics in each file
+2. **Fix merge_module.py** — Script has issues with duplicate constants and cross-file type references
+3. **Consolidate simpler modules** — Only modules with uniform definitions across files work well
+4. **Convert static mut** — Blocked until modules fully migrated to Rust
+
+## Script Limitations Found
+
+The `merge_module.py` script has limitations:
+- Doesn't deduplicate constants with same name but different types (e.g., `c_int` vs `uint32_t`)
+- Adds extern function declarations that reference types not yet in types.rs
+- Doesn't handle modules that mix types with extern statics well
+
+**Recommended approach for complex modules**: Manual migration of types to types.rs, then script removal of local type definitions.
 
 ## Refactoring Phases
 

@@ -2,6 +2,35 @@
 
 Session-by-session progress log for the PgBouncer Rust refactoring effort.
 
+## 2026-01-31: Module Consolidation (Session 3)
+
+### Modules Consolidated
+
+| Module | Files | Notes |
+|--------|-------|-------|
+| `errno_h` | 14 | Added ECONNABORTED, EINVAL, EIO, ENOENT, ENOSYS, ESRCH |
+
+### Metrics Change
+- Duplicate modules: ~290 → ~278 (down 12)
+
+### Attempted Consolidations (Failed/Reverted)
+- `util_h` — Extern functions reference types not in types.rs (CfValue, addrinfo, PgSocket)
+- `protocol_h` — Duplicate constants with different types (c_int vs uint32_t)
+- `unistd_h` — Type mismatches in getpeereid signature
+- `ctype_h` — Script didn't detect inline functions
+
+### Findings
+The `merge_module.py` script works well for simple modules with only constants/type aliases,
+but has issues with:
+1. Constants defined with different types across files
+2. Extern functions referencing types not yet in types.rs
+3. Inline function detection
+
+The `bouncer_h` consolidation remains the critical blocker. Types like PgSocket, PgPool,
+PgDatabase need to be in types.rs before other modules can reference them from types.rs.
+
+---
+
 ## 2026-01-31: Module Consolidation (Session 2)
 
 ### Scripts Created
