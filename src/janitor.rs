@@ -217,8 +217,8 @@ pub mod objects_h {
 }
 
 pub mod server_h {
-    use super::bouncer_h::{PgDatabase, PgPool};
-    use crate::types::usec_t;
+
+    pub use crate::types::*;
     extern "C" {
 
         pub fn pool_pool_size(pool: *mut PgPool) -> ::core::ffi::c_int;
@@ -231,6 +231,8 @@ pub mod server_h {
 
         pub fn pool_res_pool_size(pool: *mut PgPool) -> ::core::ffi::c_int;
     }
+
+
 }
 
 pub mod slab_h {
@@ -249,21 +251,29 @@ pub mod protocol_h {
 }
 
 pub mod admin_h {
+
+    pub use crate::types::*;
     extern "C" {
 
         pub fn admin_pause_done();
 
         pub fn admin_wait_close_done();
     }
+
+
 }
 
 pub mod pooler_h {
+
+    pub use crate::types::*;
     extern "C" {
 
         pub fn resume_pooler();
 
         pub fn cleanup_unix_sockets();
     }
+
+
 }
 use crate::types::free;
 use crate::types::exit;

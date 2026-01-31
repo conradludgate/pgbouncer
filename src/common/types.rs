@@ -711,6 +711,27 @@ pub unsafe fn iobuf_amount_parse(buf: *const IOBuf) -> ::core::ffi::c_uint {
 
 pub type sbuf_cb_t = Option<unsafe extern "C" fn(*mut SBuf, SBufEvent, *mut MBuf) -> bool>;
 
+// Slab allocator function pointer types
+pub type slab_init_fn = Option<unsafe extern "C" fn(*mut ::core::ffi::c_void) -> ()>;
+pub type slab_stat_fn = Option<
+    unsafe extern "C" fn(
+        *mut ::core::ffi::c_void,
+        *const ::core::ffi::c_char,
+        ::core::ffi::c_uint,
+        ::core::ffi::c_uint,
+        ::core::ffi::c_uint,
+    ) -> (),
+>;
+
+// Pooler callback type
+pub type pooler_cb = Option<
+    unsafe extern "C" fn(*mut ::core::ffi::c_void, ::core::ffi::c_int, *const PgAddr) -> bool,
+>;
+
+// String callback type
+pub type str_cb =
+    Option<unsafe extern "C" fn(*mut ::core::ffi::c_void, *const ::core::ffi::c_char) -> bool>;
+
 #[derive(Copy, Clone)]
 #[repr(C)]
 pub struct SBufIO {

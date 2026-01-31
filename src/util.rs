@@ -215,9 +215,8 @@ pub mod _OSByteOrder_h {
 }
 
 pub mod unistd_h {
-    use crate::types::pid_t;
-    use crate::types::size_t;
-    use crate::types::uid_t;
+
+    pub use crate::types::*;
     extern "C" {
 
         pub fn geteuid() -> uid_t;
@@ -226,6 +225,8 @@ pub mod unistd_h {
 
         pub fn gethostname(_: *mut ::core::ffi::c_char, __namelen: size_t) -> ::core::ffi::c_int;
     }
+
+
 }
 
 pub mod _ctype_h {

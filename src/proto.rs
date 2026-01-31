@@ -188,15 +188,19 @@ pub mod util_h {
 }
 
 pub mod client_h {
-    use super::bouncer_h::PgSocket;
+
+    pub use crate::types::*;
     extern "C" {
 
         pub fn sending_auth_query(client: *mut PgSocket) -> bool;
     }
+
+
 }
 
 pub mod server_h {
-    use super::bouncer_h::PgPool;
+
+    pub use crate::types::*;
     extern "C" {
 
         pub fn kill_pool_logins(
@@ -205,6 +209,8 @@ pub mod server_h {
             msg: *const ::core::ffi::c_char,
         );
     }
+
+
 }
 
 pub mod objects_h {

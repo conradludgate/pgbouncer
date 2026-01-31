@@ -181,12 +181,14 @@ pub mod util_h {
 }
 
 pub mod client_h {
-    use super::bouncer_h::PgSocket;
-    use crate::types::PktHdr;
+
+    pub use crate::types::*;
     extern "C" {
 
         pub fn handle_auth_query_response(client: *mut PgSocket, pkt: *mut PktHdr) -> bool;
     }
+
+
 }
 
 pub mod slab_h {
@@ -198,13 +200,16 @@ pub mod slab_h {
 }
 
 pub mod takeover_h {
-    use super::bouncer_h::PgSocket;
+
+    pub use crate::types::*;
     extern "C" {
 
         pub fn takeover_login(bouncer: *mut PgSocket) -> bool;
 
         pub fn takeover_login_failed();
     }
+
+
 }
 
 pub mod protocol_h {

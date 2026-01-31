@@ -451,10 +451,7 @@ pub mod objects_h {
 
 pub mod pooler_h {
 
-    pub type pooler_cb = Option<
-        unsafe extern "C" fn(*mut ::core::ffi::c_void, ::core::ffi::c_int, *const PgAddr) -> bool,
-    >;
-    use super::bouncer_h::PgAddr;
+    pub use crate::types::*;
     extern "C" {
 
         pub fn suspend_pooler();
@@ -463,11 +460,13 @@ pub mod pooler_h {
 
         pub fn for_each_pooler_fd(cb: pooler_cb, arg: *mut ::core::ffi::c_void) -> bool;
     }
+
+
 }
 
 pub mod unistd_h {
-    use crate::types::gid_t;
-    use crate::types::uid_t;
+
+    pub use crate::types::*;
     extern "C" {
 
         pub fn getuid() -> uid_t;
@@ -478,11 +477,13 @@ pub mod unistd_h {
             _: *mut gid_t,
         ) -> ::core::ffi::c_int;
     }
+
+
 }
 
 pub mod stats_h {
-    use super::bouncer_h::PgSocket;
-    use crate::types::StatList;
+
+    pub use crate::types::*;
     extern "C" {
 
         pub fn admin_database_stats(client: *mut PgSocket, pool_list_0: *mut StatList) -> bool;
@@ -499,10 +500,13 @@ pub mod stats_h {
 
         pub fn show_stat_totals(client: *mut PgSocket, pool_list_0: *mut StatList) -> bool;
     }
+
+
 }
 
 pub mod server_h {
-    use super::bouncer_h::{PgDatabase, PgGlobalUser, PgPool};
+
+    pub use crate::types::*;
     extern "C" {
 
         pub fn probably_wrong_pool_pool_mode(pool: *mut PgPool) -> ::core::ffi::c_int;
@@ -515,6 +519,8 @@ pub mod server_h {
 
         pub fn user_client_max_connections(user: *mut PgGlobalUser) -> ::core::ffi::c_int;
     }
+
+
 }
 
 pub mod endian_h {
@@ -547,23 +553,29 @@ pub mod _param_h {
 }
 
 pub mod janitor_h {
-    use super::bouncer_h::PgPool;
+
+    pub use crate::types::*;
     extern "C" {
 
         pub fn resume_all();
 
         pub fn kill_pool(pool: *mut PgPool);
     }
+
+
 }
 
 pub mod client_h {
-    use super::bouncer_h::PgSocket;
+
+    pub use crate::types::*;
     extern "C" {
 
         pub fn check_db_connection_count(client: *mut PgSocket) -> bool;
 
         pub fn check_user_connection_count(client: *mut PgSocket) -> bool;
     }
+
+
 }
 
 pub mod config_h {

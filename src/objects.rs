@@ -357,17 +357,19 @@ pub mod util_h {
 }
 
 pub mod admin_h {
-    use super::bouncer_h::PgSocket;
+
+    pub use crate::types::*;
     extern "C" {
 
         pub fn admin_handle_cancel(client: *mut PgSocket);
     }
+
+
 }
 
 pub mod client_h {
-    use super::bouncer_h::PgSocket;
-    use super::sbuf_h::{SBuf, SBufEvent};
-    use crate::types::MBuf;
+
+    pub use crate::types::*;
     extern "C" {
 
         pub fn client_proto(sbuf: *mut SBuf, evtype: SBufEvent, pkt: *mut MBuf) -> bool;
@@ -382,13 +384,13 @@ pub mod client_h {
 
         pub fn sending_auth_query(client: *mut PgSocket) -> bool;
     }
+
+
 }
 
 pub mod server_h {
-    use super::bouncer_h::{PgDatabase, PgGlobalUser, PgPool, PgSocket};
-    use super::sbuf_h::{SBuf, SBufEvent};
-    use crate::types::usec_t;
-    use crate::types::MBuf;
+
+    pub use crate::types::*;
     extern "C" {
 
         pub fn server_proto(sbuf: *mut SBuf, evtype: SBufEvent, pkt: *mut MBuf) -> bool;
@@ -405,6 +407,8 @@ pub mod server_h {
 
         pub fn user_max_connections(user: *mut PgGlobalUser) -> ::core::ffi::c_int;
     }
+
+
 }
 
 pub mod scram_h {
@@ -416,8 +420,8 @@ pub mod scram_h {
 }
 
 pub mod janitor_h {
-    use super::bouncer_h::PgDatabase;
-    use crate::types::AATree;
+
+    pub use crate::types::*;
     extern "C" {
 
         pub fn kill_database(db: *mut PgDatabase);
@@ -426,6 +430,8 @@ pub mod janitor_h {
 
         pub fn clear_user_tree_cached_scram_keys(tree: *mut AATree);
     }
+
+
 }
 
 pub mod inet_h {
@@ -455,6 +461,8 @@ pub mod protocol_h {
 }
 
 pub mod loader_h {
+
+    pub use crate::types::*;
     extern "C" {
 
         pub fn parse_database(
@@ -463,6 +471,8 @@ pub mod loader_h {
             connstr: *const ::core::ffi::c_char,
         ) -> bool;
     }
+
+
 }
 
 pub mod err_h {

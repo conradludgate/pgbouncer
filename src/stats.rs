@@ -86,8 +86,8 @@ pub mod dnslookup_h {
 }
 
 pub mod admin_h {
-    use super::bouncer_h::PgSocket;
-    use super::pktbuf_h::PktBuf;
+
+    pub use crate::types::*;
     extern "C" {
 
         pub fn admin_error(console: *mut PgSocket, fmt: *const ::core::ffi::c_char, ...) -> bool;
@@ -98,6 +98,8 @@ pub mod admin_h {
             desc: *const ::core::ffi::c_char,
         ) -> bool;
     }
+
+
 }
 
 pub mod objects_h {

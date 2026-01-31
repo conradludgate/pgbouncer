@@ -43,8 +43,8 @@ pub mod grp_h {
 }
 
 pub mod unistd_h {
-    use crate::types::gid_t;
-    use crate::types::uid_t;
+
+    pub use crate::types::*;
     extern "C" {
 
         pub fn chown(_: *const ::core::ffi::c_char, _: uid_t, _: gid_t) -> ::core::ffi::c_int;
@@ -65,6 +65,8 @@ pub mod unistd_h {
 
         pub fn setgroups(_: ::core::ffi::c_int, _: *const gid_t) -> ::core::ffi::c_int;
     }
+
+
 }
 
 pub mod stat_h {

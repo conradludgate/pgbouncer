@@ -176,11 +176,14 @@ pub mod dnslookup_h {
 }
 
 pub mod unistd_h {
-    use crate::types::useconds_t;
+
+    pub use crate::types::*;
     extern "C" {
 
         pub fn usleep(_: useconds_t) -> ::core::ffi::c_int;
     }
+
+
 }
 
 pub mod objects_h {
@@ -268,17 +271,25 @@ pub mod protocol_h {
 }
 
 pub mod pooler_h {
+
+    pub use crate::types::*;
     extern "C" {
 
         pub fn use_pooler_socket(fd: ::core::ffi::c_int, is_unix: bool) -> bool;
     }
+
+
 }
 
 pub mod janitor_h {
+
+    pub use crate::types::*;
     extern "C" {
 
         pub fn resume_all();
     }
+
+
 }
 pub use crate::types::blkcnt_t;
 pub use crate::types::blksize_t;

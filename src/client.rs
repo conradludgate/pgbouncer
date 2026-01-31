@@ -459,8 +459,8 @@ pub mod util_h {
 }
 
 pub mod admin_h {
-    use super::bouncer_h::PgSocket;
-    use crate::types::PktHdr;
+
+    pub use crate::types::*;
     extern "C" {
 
         pub fn admin_handle_client(client: *mut PgSocket, pkt: *mut PktHdr) -> bool;
@@ -470,6 +470,8 @@ pub mod admin_h {
 
         pub fn admin_post_login(client: *mut PgSocket) -> bool;
     }
+
+
 }
 
 pub mod objects_h {
@@ -539,7 +541,8 @@ pub mod objects_h {
 }
 
 pub mod server_h {
-    use super::bouncer_h::{PgDatabase, PgGlobalUser, PgSocket};
+
+    pub use crate::types::*;
     extern "C" {
 
         pub fn connection_pool_mode(connection: *mut PgSocket) -> ::core::ffi::c_int;
@@ -548,6 +551,8 @@ pub mod server_h {
 
         pub fn user_client_max_connections(user: *mut PgGlobalUser) -> ::core::ffi::c_int;
     }
+
+
 }
 
 pub mod pam_h {
@@ -630,6 +635,8 @@ pub mod protocol_h {
 }
 
 pub mod system_h {
+
+    pub use crate::types::*;
     extern "C" {
 
         pub fn check_unix_peer_name(
@@ -637,6 +644,8 @@ pub mod system_h {
             username: *const ::core::ffi::c_char,
         ) -> bool;
     }
+
+
 }
 
 pub mod builtins_h {
