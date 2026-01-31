@@ -39,16 +39,30 @@ We start from the entry point (`main.rs`) and core connection handling (`client.
 | Remove list_h re-export modules | ✅ Complete |
 | Consolidate C type alias modules | ✅ Complete |
 | **Consolidate _types_h module** | ✅ Complete (23 files, -470 lines) |
+| **Consolidate sys__types_h module** | ✅ Complete (26 files, -350 lines) |
+| **Consolidate type wrapper modules** | ✅ Complete (_gid_t_h, _socklen_t_h, etc., 13 files, -241 lines) |
 | **Consolidate bouncer_h types** | 🔴 **Complex** (22 files, needs manual approach) |
-| **Consolidate iobuf_h types** | 🔴 **Not Started** (20 files) |
+| **Consolidate iobuf_h types** | 🔴 **Complex** (20 files, has extern static deps) |
 | **Consolidate sbuf_h types** | 🔴 **Not Started** (20 files) |
-| Remove primitive type modules | 🔴 **Not Started** (665 modules) |
+| Remove primitive type modules | 🟡 **Partial** (530 remaining) |
 | Apply function cleanup patterns | ✅ **Complete** (11,000+ changes) |
 | Convert static mut to RefCell | 🔴 **Blocked** (requires C→Rust module migration) |
 
-**Lines saved from refactoring: ~9,800+** (type consolidation + cleanup patterns)
+**Lines saved from refactoring: ~10,400+** (type consolidation + cleanup patterns)
 
-### Recent Session (2026-01-30): Cleanup Patterns Applied
+### Recent Session (2026-01-31): Type Module Consolidation
+
+**2 commits** consolidating darwin type modules:
+1. `sys__types_h` modules removed from 26 files (-350 lines)
+   - Added 12 darwin type aliases to `types.rs`
+   - Script: `scripts/consolidate_sys_types.py`
+2. Type wrapper modules (`_gid_t_h`, `_socklen_t_h`, `_va_list_h`, etc.) from 13 files (-241 lines)
+   - Added libc types (gid_t, mode_t, off_t, etc.) to `types.rs`
+   - Script: `scripts/consolidate_wrapper_modules.py`
+
+**Key finding:** `iobuf_h` has inline functions depending on extern statics (`cf_sbuf_len`), making it complex to consolidate. Same issue as `bouncer_h`.
+
+### Previous Session (2026-01-30): Cleanup Patterns Applied
 
 **8 commits** applying automated and manual cleanup:
 1. Byte string casts: `b"...\0" as *const...` → `c"...".as_ptr()` (~2,000 changes)
@@ -63,17 +77,17 @@ We start from the entry point (`main.rs`) and core connection handling (`client.
 
 **Key finding:** `static mut` conversion is blocked because all variables are shared between C and Rust code. Must migrate modules fully to Rust before converting.
 
-## Current State Metrics (as of 2026-01-30)
+## Current State Metrics (as of 2026-01-31)
 
 | Metric | Original | Current | Target |
 |--------|----------|---------|--------|
-| Total Rust lines (src/*.rs) | ~126,000 | **57,259** | <30,000 |
-| Total Rust lines (src/common/) | - | **58,377** | - |
+| Total Rust lines (src/*.rs) | ~126,000 | **56,656** | <30,000 |
+| Total Rust lines (src/common/) | - | **58,376** | - |
 | `static mut` occurrences (src/) | 430 | **430** | 0 |
 | `unsafe extern "C" fn` (src/) | 1,787 | **1,632** | <500 |
 | `#[no_mangle]` (src/) | 450 | **450** | <100 |
 | `#[c2rust::...]` attributes | 7,150 | **0** ✅ | 0 |
-| Duplicate `pub mod *_h` modules | ~800 | **642** | 0 |
+| Duplicate `pub mod *_h` modules | ~800 | **530** | 0 |
 | `as c_int != 0` patterns | ~100+ | **40** ✅ | ~40 (char comparisons) |
 
 ### Biggest Blocker: Duplicate Type Modules
@@ -186,7 +200,25 @@ thread_local! {
 
 Scripts can be created or improved to help with refactoring. See `scripts/` directory.
 
-### Existing: consolidate_module.py
+### consolidate_sys_types.py ✅
+
+Removes `sys__types_h` modules and updates imports to `crate::types`:
+
+```bash
+python3 scripts/consolidate_sys_types.py --dry-run  # Preview
+python3 scripts/consolidate_sys_types.py            # Apply
+```
+
+### consolidate_wrapper_modules.py ✅
+
+Removes simple type wrapper modules (`_gid_t_h`, `_socklen_t_h`, etc.):
+
+```bash
+python3 scripts/consolidate_wrapper_modules.py --dry-run  # Preview
+python3 scripts/consolidate_wrapper_modules.py            # Apply
+```
+
+### consolidate_module.py (Original)
 
 Use `scripts/consolidate_module.py` to automate module consolidation:
 
