@@ -12,14 +12,28 @@ Refactoring the c2rust-translated PgBouncer codebase into idiomatic, safe Rust.
 
 | Metric | Original | Current | Target |
 |--------|----------|---------|--------|
-| Total Rust lines (src/*.rs) | ~126,000 | **~42,700** | <30,000 |
+| Total Rust lines (src/*.rs) | ~126,000 | **~42,500** | <30,000 |
 | Duplicate `pub mod *_h` modules | ~800 | **~248** | 0 |
 | `#[c2rust::...]` attributes | 7,150 | **0** ✅ | 0 |
 | `static mut` occurrences | 430 | 430 | 0 |
 
 **Lines saved so far: ~22,000+**
 
-### Latest Changes (Session 4)
+### Latest Changes (Session 5)
+- ✅ **Consolidated additional modules**:
+  - `objects_h` (15 files) - Added Slab opaque type to types.rs
+  - `takeover_h`, `admin_h`, `janitor_h`, `pooler_h` (16 files total)
+  - `server_h`, `client_h`, `stats_h`, `loader_h`, `system_h` (16 files total)
+  - `unistd_h` (6 files), `scram_h` (4 files), `un_h` (3 files)
+  - `stdbool_h`, `postgres_compat_h`, `_size_t_h`, `_types_h`, etc.
+
+- ✅ Added to `types.rs`:
+  - `Slab` opaque type
+  - `slab_init_fn`, `slab_stat_fn`, `pooler_cb`, `str_cb` function pointer types
+  - `PasswordType` and `PASSWORD_TYPE_*` constants
+  - `HIGHBIT`, `MaxAllocSize`, `INT_MAX` constants
+
+### Previous Changes (Session 4)
 - ✅ **Consolidated major modules** (~7,200 lines removed):
   - `bouncer_h` (22 files) - Core types (PgSocket, PgPool, PgDatabase, etc.)
   - `sbuf_h` (20 files) - SBuf, SBufIO, sbuf_cb_t, SBufEvent + inline functions
@@ -53,9 +67,9 @@ Refactoring the c2rust-translated PgBouncer codebase into idiomatic, safe Rust.
 | `sbuf_h` | 20 | ✅ Done | Now uses pub use crate::types::* |
 | `pktbuf_h` | 20 | ✅ Done | Now uses pub use crate::types::* |
 | `iobuf_h` | 20 | ✅ Done | Now uses pub use crate::types::* |
-| `objects_h` | 15 | 🟡 Medium | Next target |
-| `util_h` | 11 | 🟡 Medium | Extern functions only |
-| `protocol_h` | 10 | 🟡 Medium | Constants + functions |
+| `objects_h` | 15 | ✅ Done | Now uses pub use crate::types::* |
+| `util_h` | 11 | 🔴 Blocked | References cfparser_h::CfValue |
+| `protocol_h` | 10 | 🔴 Blocked | Constants have conflicting types |
 | Others | ~120 | 🟢 Low | Various smaller modules |
 
 ## Quick Commands
