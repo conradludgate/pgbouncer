@@ -10,6 +10,8 @@
     non_upper_case_globals
 )]
 
+use c2rust_bitfields::BitfieldStruct;
+
 // =============================================================================
 // Primitive C types (re-exported from libc)
 // =============================================================================
@@ -1478,9 +1480,420 @@ pub const ENOSYS: ::core::ffi::c_int = 78 as ::core::ffi::c_int;
 pub const ESRCH: ::core::ffi::c_int = 3 as ::core::ffi::c_int;
 
 // =============================================================================
-// pgbouncer-specific forward declarations
-// These are declared but not fully defined here to break circular dependencies
+// bouncer_h types - ResponseAction enum
 // =============================================================================
 
-// Forward declarations for complex types that have bitfields
-// (PgSocket, PgPool, etc. need c2rust_bitfields and are defined in their modules)
+pub type ResponseAction = ::core::ffi::c_uint;
+pub const RA_FORWARD: ResponseAction = 0;
+pub const RA_SKIP: ResponseAction = 1;
+pub const RA_FAKE: ResponseAction = 2;
+
+// =============================================================================
+// bouncer_h types - PgAddr union and sockaddr_ucreds
+// =============================================================================
+
+#[derive(Copy, Clone)]
+#[repr(C)]
+pub union PgAddr {
+    pub sa: sockaddr,
+    pub sin: sockaddr_in,
+    pub sin6: sockaddr_in6,
+    pub scred: sockaddr_ucreds,
+}
+
+#[derive(Copy, Clone)]
+#[repr(C)]
+pub struct sockaddr_ucreds {
+    pub sin: sockaddr_in,
+    pub uid: uid_t,
+    pub pid: pid_t,
+}
+
+// =============================================================================
+// bouncer_h types - ScramState
+// =============================================================================
+
+#[derive(Copy, Clone)]
+#[repr(C)]
+pub struct ScramState {
+    pub client_nonce: *mut ::core::ffi::c_char,
+    pub client_first_message_bare: *mut ::core::ffi::c_char,
+    pub client_final_message_without_proof: *mut ::core::ffi::c_char,
+    pub server_nonce: *mut ::core::ffi::c_char,
+    pub server_first_message: *mut ::core::ffi::c_char,
+    pub iterations: ::core::ffi::c_int,
+    pub hash_type: pg_cryptohash_type,
+    pub key_length: ::core::ffi::c_int,
+    pub salt: *mut uint8_t,
+    pub saltlen: ::core::ffi::c_int,
+    pub SaltedPassword: *mut uint8_t,
+    pub cbind_flag: ::core::ffi::c_char,
+    pub adhoc: bool,
+    pub encoded_salt: *mut ::core::ffi::c_char,
+    pub ClientKey: [uint8_t; 32],
+    pub StoredKey: [uint8_t; 32],
+    pub ServerKey: [uint8_t; 32],
+}
+
+// =============================================================================
+// bouncer_h types - PgCredentials and PgGlobalUser
+// =============================================================================
+
+#[derive(Copy, Clone)]
+#[repr(C)]
+pub struct PgCredentials {
+    pub tree_node: AANode,
+    pub name: [::core::ffi::c_char; 128],
+    pub passwd: [::core::ffi::c_char; 2048],
+    pub mock_auth: bool,
+    pub dynamic_passwd: bool,
+    pub global_user: *mut PgGlobalUser,
+    pub scram_ClientKey: [uint8_t; 32],
+    pub scram_ServerKey: [uint8_t; 32],
+    pub scram_StoredKey: [uint8_t; 32],
+    pub scram_Iiterations: ::core::ffi::c_int,
+    pub scram_SaltKey: *mut ::core::ffi::c_char,
+    pub use_scram_keys: bool,
+    pub adhoc_scram_secrets_cached: bool,
+}
+
+#[derive(Copy, Clone)]
+#[repr(C)]
+pub struct PgGlobalUser {
+    pub credentials: PgCredentials,
+    pub head: List,
+    pub pool_list: List,
+    pub pool_mode: ::core::ffi::c_int,
+    pub pool_size: ::core::ffi::c_int,
+    pub res_pool_size: ::core::ffi::c_int,
+    pub transaction_timeout: usec_t,
+    pub idle_transaction_timeout: usec_t,
+    pub query_timeout: usec_t,
+    pub client_idle_timeout: usec_t,
+    pub max_user_connections: ::core::ffi::c_int,
+    pub max_user_client_connections: ::core::ffi::c_int,
+    pub connection_count: ::core::ffi::c_int,
+    pub client_connection_count: ::core::ffi::c_int,
+}
+
+// =============================================================================
+// pktbuf_h types - PktBuf
+// =============================================================================
+
+#[derive(Copy, Clone, BitfieldStruct)]
+#[repr(C)]
+pub struct PktBuf {
+    pub buf: *mut uint8_t,
+    pub buf_len: ::core::ffi::c_int,
+    pub write_pos: ::core::ffi::c_int,
+    pub pktlen_pos: ::core::ffi::c_int,
+    pub send_pos: ::core::ffi::c_int,
+    pub ev: *mut event,
+    pub queued_dst: *mut PgSocket,
+    #[bitfield(name = "failed", ty = "bool", bits = "0..=0")]
+    #[bitfield(name = "sending", ty = "bool", bits = "1..=1")]
+    #[bitfield(name = "fixed_buf", ty = "bool", bits = "2..=2")]
+    pub failed_sending_fixed_buf: [u8; 1],
+    #[bitfield(padding)]
+    pub c2rust_padding: [u8; 7],
+}
+
+// =============================================================================
+// bouncer_h types - PgDatabase
+// =============================================================================
+
+#[derive(Copy, Clone)]
+#[repr(C)]
+pub struct PgDatabase {
+    pub head: List,
+    pub name: [::core::ffi::c_char; 64],
+    pub peer_id: ::core::ffi::c_int,
+    pub pool: *mut PgPool,
+    pub host: *mut ::core::ffi::c_char,
+    pub port: ::core::ffi::c_int,
+    pub pool_size: ::core::ffi::c_int,
+    pub min_pool_size: ::core::ffi::c_int,
+    pub res_pool_size: ::core::ffi::c_int,
+    pub pool_mode: ::core::ffi::c_int,
+    pub max_db_client_connections: ::core::ffi::c_int,
+    pub max_db_connections: ::core::ffi::c_int,
+    pub server_lifetime: usec_t,
+    pub connect_query: *mut ::core::ffi::c_char,
+    pub load_balance_hosts: LoadBalanceHosts,
+    pub startup_params: *mut PktBuf,
+    pub dbname: *const ::core::ffi::c_char,
+    pub auth_dbname: *mut ::core::ffi::c_char,
+    pub forced_user_credentials: *mut PgCredentials,
+    pub auth_user_credentials: *mut PgCredentials,
+    pub auth_query: *mut ::core::ffi::c_char,
+    pub db_paused: bool,
+    pub db_wait_close: bool,
+    pub db_dead: bool,
+    pub db_auto: bool,
+    pub db_disabled: bool,
+    pub admin: bool,
+    pub fake: bool,
+    pub inactive_time: usec_t,
+    pub active_stamp: ::core::ffi::c_uint,
+    pub connection_count: ::core::ffi::c_int,
+    pub client_connection_count: ::core::ffi::c_int,
+    pub user_tree: AATree,
+}
+
+// =============================================================================
+// bouncer_h types - PgPool
+// =============================================================================
+
+#[derive(Copy, Clone, BitfieldStruct)]
+#[repr(C)]
+pub struct PgPool {
+    pub head: List,
+    pub map_head: List,
+    pub db: *mut PgDatabase,
+    pub user_credentials: *mut PgCredentials,
+    pub active_client_list: StatList,
+    pub waiting_client_list: StatList,
+    pub waiting_cancel_req_list: StatList,
+    pub active_cancel_req_list: StatList,
+    pub active_server_list: StatList,
+    pub active_cancel_server_list: StatList,
+    pub being_canceled_server_list: StatList,
+    pub idle_server_list: StatList,
+    pub used_server_list: StatList,
+    pub tested_server_list: StatList,
+    pub new_server_list: StatList,
+    pub stats: PgStats,
+    pub newer_stats: PgStats,
+    pub older_stats: PgStats,
+    pub welcome_msg: *mut PktBuf,
+    pub orig_vars: VarCache,
+    pub last_lifetime_disconnect: usec_t,
+    pub last_connect_time: usec_t,
+    #[bitfield(name = "last_connect_failed", ty = "bool", bits = "0..=0")]
+    pub last_connect_failed: [u8; 1],
+    pub last_connect_failed_message: [::core::ffi::c_char; 100],
+    #[bitfield(name = "last_login_failed", ty = "bool", bits = "0..=0")]
+    #[bitfield(name = "welcome_msg_ready", ty = "bool", bits = "1..=1")]
+    pub last_login_failed_welcome_msg_ready: [u8; 1],
+    pub rrcounter: uint16_t,
+}
+
+// =============================================================================
+// bouncer_h types - CallbackState
+// =============================================================================
+
+#[derive(Copy, Clone, BitfieldStruct)]
+#[repr(C)]
+pub struct CallbackState {
+    #[bitfield(name = "flag", ty = "PacketCallbackFlag", bits = "0..=7")]
+    pub flag: [u8; 1],
+    #[bitfield(padding)]
+    pub c2rust_padding: [u8; 7],
+    pub pkt: PktHdr,
+}
+
+// =============================================================================
+// bouncer_h types - OutstandingRequest
+// =============================================================================
+
+#[derive(Copy, Clone)]
+#[repr(C)]
+pub struct OutstandingRequest {
+    pub node: List,
+    pub type_0: ::core::ffi::c_char,
+    pub action: ResponseAction,
+    pub server_ps: *mut PgServerPreparedStatement,
+    pub server_ps_query_id: uint64_t,
+}
+
+// =============================================================================
+// bouncer_h types - C2RustUnnamed_9 (socket-specific union)
+// =============================================================================
+
+#[derive(Copy, Clone)]
+#[repr(C)]
+pub union C2RustUnnamed_9 {
+    pub dns_token: *mut DNSToken,
+    pub db: *mut PgDatabase,
+}
+
+// =============================================================================
+// bouncer_h types - PgSocket (main socket struct)
+// =============================================================================
+
+#[derive(Copy, Clone, BitfieldStruct)]
+#[repr(C)]
+pub struct PgSocket {
+    pub head: List,
+    pub cancel_head: List,
+    pub link: *mut PgSocket,
+    pub pool: *mut PgPool,
+    pub login_user_credentials: *mut PgCredentials,
+    pub id: ::core::ffi::c_ulonglong,
+    pub client_auth_type: ::core::ffi::c_int,
+    pub outstanding_requests: StatList,
+    #[bitfield(name = "state", ty = "SocketState", bits = "0..=7")]
+    #[bitfield(name = "contributes_db_client_count", ty = "bool", bits = "8..=8")]
+    #[bitfield(name = "user_connection_counted", ty = "bool", bits = "9..=9")]
+    #[bitfield(name = "ready", ty = "bool", bits = "10..=10")]
+    #[bitfield(name = "idle_tx", ty = "bool", bits = "11..=11")]
+    #[bitfield(name = "close_needed", ty = "bool", bits = "12..=12")]
+    #[bitfield(name = "setting_vars", ty = "bool", bits = "13..=13")]
+    #[bitfield(name = "exec_on_connect", ty = "bool", bits = "14..=14")]
+    #[bitfield(name = "resetting", ty = "bool", bits = "15..=15")]
+    #[bitfield(name = "copy_mode", ty = "bool", bits = "16..=16")]
+    #[bitfield(name = "wait_for_welcome", ty = "bool", bits = "17..=17")]
+    #[bitfield(name = "welcome_sent", ty = "bool", bits = "18..=18")]
+    #[bitfield(name = "wait_for_user_conn", ty = "bool", bits = "19..=19")]
+    #[bitfield(name = "wait_for_user", ty = "bool", bits = "20..=20")]
+    #[bitfield(name = "wait_for_auth", ty = "bool", bits = "21..=21")]
+    #[bitfield(name = "suspended", ty = "bool", bits = "22..=22")]
+    #[bitfield(name = "sent_wait_notification", ty = "bool", bits = "23..=23")]
+    #[bitfield(name = "admin_user", ty = "bool", bits = "24..=24")]
+    #[bitfield(name = "own_user", ty = "bool", bits = "25..=25")]
+    #[bitfield(name = "wait_for_response", ty = "bool", bits = "26..=26")]
+    #[bitfield(name = "wait_sslchar", ty = "bool", bits = "27..=27")]
+    #[bitfield(name = "query_failed", ty = "bool", bits = "28..=28")]
+    pub state_contributes_db_client_count_user_connection_counted_ready_idle_tx_close_needed_setting_vars_exec_on_connect_resetting_copy_mode_wait_for_welcome_welcome_sent_wait_for_user_conn_wait_for_user_wait_for_auth_suspended_sent_wait_notification_admin_user_own_user_wait_for_response_wait_sslchar_query_failed:
+        [u8; 4],
+    pub replication: ReplicationType,
+    pub startup_options: *mut ::core::ffi::c_char,
+    pub connect_time: usec_t,
+    pub request_time: usec_t,
+    pub query_start: usec_t,
+    pub xact_start: usec_t,
+    pub wait_start: usec_t,
+    pub cancel_key: [uint8_t; 8],
+    pub canceling_clients: StatList,
+    pub canceled_server: *mut PgSocket,
+    pub remote_addr: PgAddr,
+    pub local_addr: PgAddr,
+    pub host: *mut ::core::ffi::c_char,
+    pub c2rust_unnamed: C2RustUnnamed_9,
+    pub scram_state: ScramState,
+    pub vars: VarCache,
+    pub client_prepared_statements: *mut PgClientPreparedStatement,
+    pub server_prepared_statements: *mut PgServerPreparedStatement,
+    pub packet_cb_state: CallbackState,
+    pub sbuf: SBuf,
+}
+
+// =============================================================================
+// bouncer_h inline functions
+// =============================================================================
+
+#[inline]
+pub unsafe fn first_socket(slist: *mut StatList) -> *mut PgSocket {
+    if statlist_empty(slist) {
+        return ::core::ptr::null_mut::<PgSocket>();
+    }
+    (*slist).head.next as *mut PgSocket
+}
+
+#[inline]
+pub unsafe fn last_socket(slist: *mut StatList) -> *mut PgSocket {
+    if statlist_empty(slist) {
+        return ::core::ptr::null_mut::<PgSocket>();
+    }
+    (*slist).head.prev as *mut PgSocket
+}
+
+#[inline]
+pub unsafe fn pga_is_unix(a: *const PgAddr) -> bool {
+    (*a).sa.sa_family as ::core::ffi::c_int == AF_UNIX
+}
+
+#[inline]
+pub unsafe fn pga_family(a: *const PgAddr) -> ::core::ffi::c_uint {
+    (*a).sa.sa_family as ::core::ffi::c_uint
+}
+
+#[inline]
+pub unsafe fn cstr_skip_ws(mut p: *mut ::core::ffi::c_char) -> *mut ::core::ffi::c_char {
+    while *p as ::core::ffi::c_int != 0 && *p as ::core::ffi::c_int == ' ' as i32 {
+        p = p.offset(1);
+    }
+    p
+}
+
+// =============================================================================
+// bouncer_h constants
+// =============================================================================
+
+pub const BACKENDKEY_LEN: ::core::ffi::c_int = 8;
+pub const MAX_USERNAME: ::core::ffi::c_int = 128;
+pub const MAX_PASSWORD: ::core::ffi::c_int = 2048;
+pub const CANCELLATION_TTL_MASK: ::core::ffi::c_int = 0x3;
+pub const PKT_STARTUP_V2: ::core::ffi::c_uint = 131072;
+pub const PKT_STARTUP_V3: ::core::ffi::c_int = 0x30000;
+pub const PKT_STARTUP_V3_UNSUPPORTED: ::core::ffi::c_int = 0x30001;
+pub const PKT_STARTUP_V4: ::core::ffi::c_int = 0x40000;
+pub const PKT_CANCEL: ::core::ffi::c_uint = 80877102;
+pub const PKT_SSLREQ: ::core::ffi::c_int = 80877103;
+pub const PKT_GSSENCREQ: ::core::ffi::c_int = 80877104;
+pub const RAW_IOBUF_SIZE: ::core::ffi::c_ulong = 12;
+pub const SD_LISTEN_FDS_START: ::core::ffi::c_int = 3;
+
+// =============================================================================
+// bouncer_h extern functions (pga_* functions defined in util.c)
+// =============================================================================
+
+extern "C" {
+    pub fn pga_port(a: *const PgAddr) -> ::core::ffi::c_int;
+    pub fn pga_set(a: *mut PgAddr, fam: ::core::ffi::c_int, port: ::core::ffi::c_int);
+    pub fn pga_copy(a: *mut PgAddr, sa: *const sockaddr);
+    pub fn pga_cmp_addr(a: *const PgAddr, b: *const PgAddr) -> ::core::ffi::c_int;
+    pub fn pga_ntop(
+        a: *const PgAddr,
+        dst: *mut ::core::ffi::c_char,
+        dstlen: ::core::ffi::c_int,
+    ) -> *const ::core::ffi::c_char;
+    pub fn pga_str(
+        a: *const PgAddr,
+        dst: *mut ::core::ffi::c_char,
+        dstlen: ::core::ffi::c_int,
+    ) -> *const ::core::ffi::c_char;
+    pub fn pga_details(
+        a: *const PgAddr,
+        dst: *mut ::core::ffi::c_char,
+        dstlen: ::core::ffi::c_int,
+    ) -> *const ::core::ffi::c_char;
+}
+
+// =============================================================================
+// pktbuf_h extern functions
+// =============================================================================
+
+extern "C" {
+    pub fn pktbuf_dynamic(start_len: ::core::ffi::c_int) -> *mut PktBuf;
+    pub fn pktbuf_free(buf: *mut PktBuf);
+    pub fn pktbuf_static(buf: *mut PktBuf, data: *mut uint8_t, len: ::core::ffi::c_int);
+    pub fn pktbuf_temp() -> *mut PktBuf;
+}
+
+// =============================================================================
+// sbuf_h extern functions
+// =============================================================================
+
+extern "C" {
+    pub fn sbuf_init(sbuf: *mut SBuf, proto_fn: sbuf_cb_t);
+    pub fn sbuf_pause(sbuf: *mut SBuf) -> bool;
+    pub fn sbuf_prepare_skip(sbuf: *mut SBuf, amount: ::core::ffi::c_uint);
+    pub fn sbuf_tls_accept(sbuf: *mut SBuf) -> bool;
+}
+
+#[inline]
+pub unsafe fn sbuf_is_empty(sbuf: *mut SBuf) -> bool {
+    (*(*sbuf).io).done_pos == (*(*sbuf).io).recv_pos
+}
+
+#[inline]
+pub unsafe fn sbuf_is_closed(sbuf: *mut SBuf) -> bool {
+    (*sbuf).sock == 0
+}
+
+// =============================================================================
+// sbuf_h constants
+// =============================================================================
+
+pub const SBUF_SMALL_PKT: ::core::ffi::c_int = 64;
