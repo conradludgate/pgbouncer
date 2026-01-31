@@ -12,66 +12,97 @@ Refactoring the c2rust-translated PgBouncer codebase into idiomatic, safe Rust.
 
 | Metric | Original | Current | Target |
 |--------|----------|---------|--------|
-| Total Rust lines (src/*.rs) | ~126,000 | **~49,850** | <30,000 |
-| Duplicate `pub mod *_h` modules | ~800 | **~278** | 0 |
+| Total Rust lines (src/*.rs) | ~126,000 | **~42,700** | <30,000 |
+| Duplicate `pub mod *_h` modules | ~800 | **~248** | 0 |
 | `#[c2rust::...]` attributes | 7,150 | **0** ✅ | 0 |
 | `static mut` occurrences | 430 | 430 | 0 |
 
-**Lines saved so far: ~15,000+**
+**Lines saved so far: ~22,000+**
 
-### Latest Changes
-- ✅ Consolidated `errno_h` from 14 files (EAGAIN, EINTR, etc. use libc; added ECONNABORTED, EINVAL, EIO, ENOENT, ENOSYS, ESRCH)
+### Latest Changes (Session 4)
+- ✅ **Consolidated major modules** (~7,200 lines removed):
+  - `bouncer_h` (22 files) - Core types (PgSocket, PgPool, PgDatabase, etc.)
+  - `sbuf_h` (20 files) - SBuf, SBufIO, sbuf_cb_t, SBufEvent + inline functions
+  - `iobuf_h` (20 files) - iobuf/IOBuf + inline functions
+  - `pktbuf_h` (20 files) - PktBuf, PktHdr types
+  - `dnslookup_h` (21 files) - DNSContext, DNSToken, adns_* types
+  - `netdb_h` (3 files) - addrinfo struct
+
+- ✅ Created rewrite scripts for module consolidation:
+  - `scripts/rewrite_bouncer_h.py` - Specialized for bouncer_h
+  - `scripts/rewrite_sbuf_h.py` - Specialized for sbuf_h with inline functions
+  - `scripts/rewrite_iobuf_h.py` - Specialized for iobuf_h with inline functions
+  - `scripts/rewrite_h_module.py` - General purpose for any module
+
+- ✅ Added to `types.rs`:
+  - iobuf_empty, iobuf_amount_pending, iobuf_amount_parse (inline functions)
+  - sbuf_op_send (inline function)
+  - addrinfo, AI_PASSIVE, freeaddrinfo, gai_strerror, getaddrinfo
+  - adns_callback_f, adns_walk_name_f, adns_walk_zone_f
+  - CfLookup, HBA, DEFAULT_UNIX_SOCKET_DIR
+
+### Previous Changes (Session 3)
+- ✅ Consolidated `errno_h` from 14 files
 
 ## Priority: Remaining Duplicate Modules
 
 | Module | Files | Complexity | Notes |
 |--------|-------|------------|-------|
-| `bouncer_h` | 22 | 🔴 High | Core types + extern statics |
-| `dnslookup_h` | 21 | 🟡 Medium | addrinfo varies |
-| `sbuf_h` | 20 | 🔴 High | Inline functions |
-| `pktbuf_h` | 20 | 🔴 High | Inline functions |
-| `iobuf_h` | 20 | 🔴 High | Extern static deps |
-| Others | ~187 | 🟢 Low | Various smaller modules |
+| `bouncer_h` | 22 | ✅ Done | Now uses pub use crate::types::* |
+| `dnslookup_h` | 21 | ✅ Done | Now uses pub use crate::types::* |
+| `sbuf_h` | 20 | ✅ Done | Now uses pub use crate::types::* |
+| `pktbuf_h` | 20 | ✅ Done | Now uses pub use crate::types::* |
+| `iobuf_h` | 20 | ✅ Done | Now uses pub use crate::types::* |
+| `objects_h` | 15 | 🟡 Medium | Next target |
+| `util_h` | 11 | 🟡 Medium | Extern functions only |
+| `protocol_h` | 10 | 🟡 Medium | Constants + functions |
+| Others | ~120 | 🟢 Low | Various smaller modules |
 
 ## Quick Commands
 
 ```bash
-# Merge module (collects all items, adds to types.rs)
-python3 scripts/merge_module.py MODULE_NAME --apply
+# Rewrite module to use types.rs (preserves inline functions and externs)
+python3 scripts/rewrite_h_module.py MODULE_NAME
 
-# Remove module (when types already in types.rs)
-python3 scripts/remove_module.py MODULE_NAME --apply
+# Specific module scripts
+python3 scripts/rewrite_bouncer_h.py
+python3 scripts/rewrite_sbuf_h.py
+python3 scripts/rewrite_iobuf_h.py
 
 # Build and test
 cargo build && cd test && pytest --timeout=120
 ```
 
+## Rewrite Script Strategy
+
+The rewrite scripts:
+1. Add `pub use crate::types::*;` at the beginning of the module
+2. Remove struct/type definitions (moved to types.rs)
+3. Remove const definitions (moved to types.rs)
+4. Remove use statements for types.rs (now handled by pub use)
+5. **Preserve inline functions** (they use the types from types.rs)
+6. **Preserve extern "C" blocks** (but strip `pub type Name;` declarations)
+
+This approach maintains backward compatibility - code using `super::bouncer_h::PgSocket` still works because the module re-exports `crate::types::PgSocket`.
+
 ## Next Steps
 
-1. **Consolidate bouncer_h** — Requires manual approach: add types to types.rs, keep extern statics in each file
-2. **Fix merge_module.py** — Script has issues with duplicate constants and cross-file type references
-3. **Consolidate simpler modules** — Only modules with uniform definitions across files work well
+1. **Consolidate objects_h** — 15 files, mostly extern function declarations
+2. **Consolidate util_h** — 11 files, extern functions
+3. **Consolidate protocol_h** — 10 files, may need constants added to types.rs
 4. **Convert static mut** — Blocked until modules fully migrated to Rust
-
-## Script Limitations Found
-
-The `merge_module.py` script has limitations:
-- Doesn't deduplicate constants with same name but different types (e.g., `c_int` vs `uint32_t`)
-- Adds extern function declarations that reference types not yet in types.rs
-- Doesn't handle modules that mix types with extern statics well
-
-**Recommended approach for complex modules**: Manual migration of types to types.rs, then script removal of local type definitions.
 
 ## Refactoring Phases
 
 | Phase | Modules | Status |
 |-------|---------|--------|
-| 1 | main.rs, client.rs, server.rs | 🟡 Types pending |
-| 2 | pooler.rs, sbuf.rs | 🟡 Types pending |
-| 3 | proto.rs, admin.rs, messages.rs | 🟡 Types pending |
-| 4 | scram.rs, hba.rs | 🟡 Types pending |
-| 5 | objects.rs, loader.rs, janitor.rs | 🟡 Types pending |
-| 6 | src/common/, lib/usual/ | 🟡 Types pending |
+| 1 | Core types consolidated | ✅ Done |
+| 2 | main.rs, client.rs, server.rs | 🟡 Types consolidated |
+| 3 | pooler.rs, sbuf.rs | 🟡 Types consolidated |
+| 4 | proto.rs, admin.rs, messages.rs | 🟡 Types consolidated |
+| 5 | scram.rs, hba.rs | 🟡 Types consolidated |
+| 6 | objects.rs, loader.rs, janitor.rs | 🟡 Types consolidated |
+| 7 | static mut conversion | 🔴 Pending |
 
 ## Documentation
 
