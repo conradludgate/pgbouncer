@@ -742,6 +742,9 @@ pub const PASSWORD_TYPE_SCRAM_SHA_256: PasswordType = 2;
 pub const HIGHBIT: ::core::ffi::c_int = 0x80;
 pub const MaxAllocSize: size_t = 0x3fffffff;
 
+// C limits constants
+pub const INT_MAX: ::core::ffi::c_int = i32::MAX;
+
 #[derive(Copy, Clone)]
 #[repr(C)]
 pub struct SBufIO {

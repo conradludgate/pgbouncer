@@ -19,7 +19,9 @@ pub mod _uint8_t_h {
 
 pub mod _uint32_t_h {
 
-    pub type uint32_t = u32;
+    pub use crate::types::*;
+
+
 }
 
 pub mod pg_wchar_h {
@@ -294,7 +296,9 @@ pub mod arm_neon_h {
 
 pub mod limits_h {
 
-    pub const INT_MAX: ::core::ffi::c_int = 2147483647 as ::core::ffi::c_int;
+    pub use crate::types::*;
+
+
 }
 
 pub mod stdbool_h {

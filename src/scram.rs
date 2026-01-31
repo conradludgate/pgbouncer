@@ -216,7 +216,9 @@ pub mod base64_h {
 
 pub mod limits_h {
 
-    pub const INT_MAX: ::core::ffi::c_int = 2147483647 as ::core::ffi::c_int;
+    pub use crate::types::*;
+
+
 }
 
 pub mod sha2_h {

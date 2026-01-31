@@ -24,7 +24,9 @@ pub mod _uint16_t_h {
 
 pub mod _uint32_t_h {
 
-    pub type uint32_t = u32;
+    pub use crate::types::*;
+
+
 }
 
 pub mod pg_wchar_h {
