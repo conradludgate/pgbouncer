@@ -846,50 +846,6 @@ pub mod objects_h {
     }
 }
 
-pub mod usual_socket_h {
-    use crate::types::sockaddr;
-    use crate::types::size_t;
-    extern "C" {
-
-        pub fn sa2str(
-            sa: *const sockaddr,
-            buf: *mut ::core::ffi::c_char,
-            buflen: size_t,
-        ) -> *const ::core::ffi::c_char;
-    }
-}
-
-pub mod safeio_h {
-    use crate::types::socklen_t;
-    use crate::types::sockaddr;
-    use crate::types::size_t;
-    use crate::types::ssize_t;
-    extern "C" {
-
-        pub fn safe_recv(
-            fd: ::core::ffi::c_int,
-            buf: *mut ::core::ffi::c_void,
-            len: size_t,
-            flags: ::core::ffi::c_int,
-        ) -> ssize_t;
-
-        pub fn safe_send(
-            fd: ::core::ffi::c_int,
-            buf: *const ::core::ffi::c_void,
-            len: size_t,
-            flags: ::core::ffi::c_int,
-        ) -> ssize_t;
-
-        pub fn safe_close(fd: ::core::ffi::c_int) -> ::core::ffi::c_int;
-
-        pub fn safe_connect(
-            fd: ::core::ffi::c_int,
-            sa: *const sockaddr,
-            sa_len: socklen_t,
-        ) -> ::core::ffi::c_int;
-    }
-}
-
 pub mod slab_h {
     use super::objects_h::Slab;
     extern "C" {
@@ -988,7 +944,7 @@ pub use crate::types::{
 };
 use self::objects_h::{disconnect_client, iobuf_cache, pool_list, tag_pool_dirty};
 pub use self::pktbuf_h::{pktbuf_free, PktBuf};
-use self::safeio_h::{safe_close, safe_connect, safe_recv, safe_send};
+use crate::types::{safe_close, safe_connect, safe_recv, safe_send};
 pub use self::sbuf_h::{
     sbuf_cb_t, sbuf_is_empty, sbuf_op_close, sbuf_op_peek, sbuf_op_recv, sbuf_op_send, SBuf,
     SBufEvent, SBufIO, SBUF_EV_CONNECT_FAILED, SBUF_EV_CONNECT_OK, SBUF_EV_FLUSH,
@@ -1012,7 +968,7 @@ pub use crate::types::{
     TLS_PROTOCOL_TLSv1_2, TLS_PROTOCOL_TLSv1_3, TLS_PROTOCOLS_ALL, TLS_WANT_POLLIN,
     TLS_WANT_POLLOUT,
 };
-use self::usual_socket_h::sa2str;
+use crate::types::sa2str;
 use self::util_h::tune_socket;
 pub use crate::lib::usual::mbuf::{
     mbuf_avail_for_read, mbuf_free, mbuf_init_fixed_reader, mbuf_make_room, mbuf_rewind_writer,

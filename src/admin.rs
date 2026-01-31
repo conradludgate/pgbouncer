@@ -1024,21 +1024,6 @@ pub mod unistd_h {
     }
 }
 
-pub mod usual_socket_h {
-    use crate::types::sockaddr;
-    use crate::types::size_t;
-    extern "C" {
-
-        pub fn socket_set_nonblocking(sock: ::core::ffi::c_int, non_block: bool) -> bool;
-
-        pub fn sa2str(
-            sa: *const sockaddr,
-            buf: *mut ::core::ffi::c_char,
-            buflen: size_t,
-        ) -> *const ::core::ffi::c_char;
-    }
-}
-
 pub mod stats_h {
     use super::bouncer_h::PgSocket;
     use crate::types::StatList;
@@ -1096,19 +1081,6 @@ pub mod endian_h {
     use crate::types::memcpy;
     use crate::types::size_t;
     use crate::types::uint32_t;
-}
-
-pub mod safeio_h {
-    use crate::types::msghdr;
-    use crate::types::ssize_t;
-    extern "C" {
-
-        pub fn safe_sendmsg(
-            fd: ::core::ffi::c_int,
-            msg: *const msghdr,
-            flags: ::core::ffi::c_int,
-        ) -> ssize_t;
-    }
 }
 
 pub mod _param_h {
@@ -1304,7 +1276,7 @@ pub use self::protocol_h::{
     PqMsg_NoticeResponse, PqMsg_ParameterStatus, PqMsg_Parse, PqMsg_Query, PqMsg_ReadyForQuery,
     PqMsg_Terminate,
 };
-use self::safeio_h::safe_sendmsg;
+use crate::types::safe_sendmsg;
 pub use self::sbuf_h::{
     sbuf_cb_t, sbuf_is_empty, sbuf_op_send, sbuf_prepare_skip, sbuf_tls_setup, SBuf, SBufEvent,
     SBufIO, SBUF_EV_CONNECT_FAILED, SBUF_EV_CONNECT_OK, SBUF_EV_FLUSH, SBUF_EV_PKT_CALLBACK,
@@ -1326,7 +1298,7 @@ pub use crate::types::{
 };
 use crate::types::tls_get_connection_info;
 use self::unistd_h::{getpeereid, getuid};
-use self::usual_socket_h::{sa2str, socket_set_nonblocking};
+use crate::types::{sa2str, socket_set_nonblocking};
 use self::util_h::strlist_contains;
 pub use crate::types::{false_0, true_0};
 pub use crate::types::{statlist_count, statlist_empty, StatList};

@@ -228,19 +228,6 @@ pub mod dns_h {
     }
 }
 
-pub mod usual_socket_h {
-    use crate::types::sockaddr;
-    use crate::types::size_t;
-    extern "C" {
-
-        pub fn sa2str(
-            sa: *const sockaddr,
-            buf: *mut ::core::ffi::c_char,
-            buflen: size_t,
-        ) -> *const ::core::ffi::c_char;
-    }
-}
-
 pub mod util_h {
     use super::netdb_h::addrinfo;
     extern "C" {
@@ -316,7 +303,7 @@ pub use self::netdb_h::addrinfo;
 use self::objects_h::tag_host_addr_dirty;
 pub use crate::types::{sockaddr, SOCK_STREAM};
 pub use crate::types::{__darwin_suseconds_t, __DARWIN_NULL};
-use self::usual_socket_h::sa2str;
+use crate::types::sa2str;
 use self::util_h::evutil_freeaddrinfo;
 pub use crate::types::sa_family_t;
 pub use crate::types::size_t;

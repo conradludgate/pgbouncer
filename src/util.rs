@@ -778,31 +778,6 @@ pub mod inet_h {
     }
 }
 
-pub mod usual_socket_h {
-    use crate::types::gid_t;
-    use crate::types::pid_t;
-    use crate::types::uid_t;
-    extern "C" {
-
-        pub fn socket_setup(sock: ::core::ffi::c_int, non_block: bool) -> bool;
-
-        pub fn socket_set_keepalive(
-            fd: ::core::ffi::c_int,
-            onoff: ::core::ffi::c_int,
-            keepidle: ::core::ffi::c_int,
-            keepintvl: ::core::ffi::c_int,
-            keepcnt: ::core::ffi::c_int,
-        ) -> bool;
-
-        pub fn usual_getpeercreds(
-            fd: ::core::ffi::c_int,
-            uid_p: *mut uid_t,
-            gid_p: *mut gid_t,
-            pid_p: *mut pid_t,
-        ) -> ::core::ffi::c_int;
-    }
-}
-
 // OpenSSL EVP functions - use openssl-sys crate
 pub mod evp_h {
     pub use openssl_sys::EVP_DigestFinal_ex;
@@ -939,7 +914,7 @@ pub use crate::types::{PgClientPreparedStatement, PgPreparedStatement, PgServerP
 
 pub use self::types_h::{evp_md_ctx_st, evp_md_st, EVP_MD, EVP_MD_CTX};
 use self::unistd_h::{geteuid, gethostname, getpid};
-use self::usual_socket_h::{socket_set_keepalive, socket_setup, usual_getpeercreds};
+use crate::types::{socket_set_keepalive, socket_setup, usual_getpeercreds};
 pub use crate::types::VarCache;
 pub use crate::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 #[derive(Copy, Clone)]

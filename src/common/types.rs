@@ -1351,6 +1351,78 @@ extern "C" {
 // =============================================================================
 
 // =============================================================================
+// safeio_h (merged from all files)
+// =============================================================================
+
+extern "C" {
+    pub fn safe_accept(
+                fd: ::core::ffi::c_int,
+                sa: *mut sockaddr,
+                sa_len: *mut socklen_t,
+            ) -> ::core::ffi::c_int;
+    pub fn safe_close(fd: ::core::ffi::c_int) -> ::core::ffi::c_int;
+    pub fn safe_connect(
+                fd: ::core::ffi::c_int,
+                sa: *const sockaddr,
+                sa_len: socklen_t,
+            ) -> ::core::ffi::c_int;
+    pub fn safe_recv(
+                fd: ::core::ffi::c_int,
+                buf: *mut ::core::ffi::c_void,
+                len: size_t,
+                flags: ::core::ffi::c_int,
+            ) -> ssize_t;
+    pub fn safe_recvmsg(
+                fd: ::core::ffi::c_int,
+                msg: *mut msghdr,
+                flags: ::core::ffi::c_int,
+            ) -> ssize_t;
+    pub fn safe_send(
+                fd: ::core::ffi::c_int,
+                buf: *const ::core::ffi::c_void,
+                len: size_t,
+                flags: ::core::ffi::c_int,
+            ) -> ssize_t;
+    pub fn safe_sendmsg(
+                fd: ::core::ffi::c_int,
+                msg: *const msghdr,
+                flags: ::core::ffi::c_int,
+            ) -> ssize_t;
+    pub fn safe_write(
+                fd: ::core::ffi::c_int,
+                buf: *const ::core::ffi::c_void,
+                len: size_t,
+            ) -> ssize_t;
+}
+
+// =============================================================================
+// usual_socket_h (merged from all files)
+// =============================================================================
+
+extern "C" {
+    pub fn sa2str(
+                sa: *const sockaddr,
+                buf: *mut ::core::ffi::c_char,
+                buflen: size_t,
+            ) -> *const ::core::ffi::c_char;
+    pub fn socket_set_keepalive(
+                fd: ::core::ffi::c_int,
+                onoff: ::core::ffi::c_int,
+                keepidle: ::core::ffi::c_int,
+                keepintvl: ::core::ffi::c_int,
+                keepcnt: ::core::ffi::c_int,
+            ) -> bool;
+    pub fn socket_set_nonblocking(sock: ::core::ffi::c_int, non_block: bool) -> bool;
+    pub fn socket_setup(sock: ::core::ffi::c_int, non_block: bool) -> bool;
+    pub fn usual_getpeercreds(
+                fd: ::core::ffi::c_int,
+                uid_p: *mut uid_t,
+                gid_p: *mut gid_t,
+                pid_p: *mut pid_t,
+            ) -> ::core::ffi::c_int;
+}
+
+// =============================================================================
 // pgbouncer-specific forward declarations
 // These are declared but not fully defined here to break circular dependencies
 // =============================================================================

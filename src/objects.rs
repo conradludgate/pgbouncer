@@ -889,19 +889,6 @@ pub mod _stdio_h {
     }
 }
 
-pub mod usual_socket_h {
-    use crate::types::sockaddr;
-    use crate::types::size_t;
-    extern "C" {
-
-        pub fn sa2str(
-            sa: *const sockaddr,
-            buf: *mut ::core::ffi::c_char,
-            buflen: size_t,
-        ) -> *const ::core::ffi::c_char;
-    }
-}
-
 pub mod util_h {
     use super::bouncer_h::PgSocket;
     extern "C" {
@@ -1035,12 +1022,6 @@ pub mod err_h {
     }
 }
 
-pub mod safeio_h {
-    extern "C" {
-
-        pub fn safe_close(fd: ::core::ffi::c_int) -> ::core::ffi::c_int;
-    }
-}
 pub use self::_OSByteOrder_h::_OSSwapInt16;
 use crate::types::free;
 pub use crate::types::socklen_t;
@@ -1154,7 +1135,7 @@ pub use self::protocol_h::{
     PqMsg_Close, PqMsg_CloseComplete, PqMsg_Parse, PqMsg_ParseComplete, PqMsg_Query,
     PqMsg_Terminate,
 };
-use self::safeio_h::safe_close;
+use crate::types::safe_close;
 pub use self::sbuf_h::{
     sbuf_accept, sbuf_answer, sbuf_cb_t, sbuf_close, sbuf_connect, sbuf_continue, sbuf_init,
     sbuf_is_closed, sbuf_is_empty, sbuf_pause, sbuf_queue_packet, SBuf, SBufEvent, SBufIO,
@@ -1180,7 +1161,7 @@ pub use crate::types::{usec_t, USEC};
 pub use crate::types::{PStr, StrPool};
 
 pub use self::un_h::sockaddr_un;
-use self::usual_socket_h::sa2str;
+use crate::types::sa2str;
 use self::util_h::{fill_local_addr, fill_remote_addr};
 pub use crate::types::VarCache;
 pub use crate::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table};

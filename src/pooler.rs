@@ -776,19 +776,6 @@ pub mod system_h {
     }
 }
 
-pub mod usual_socket_h {
-    use crate::types::sockaddr;
-    use crate::types::size_t;
-    extern "C" {
-
-        pub fn sa2str(
-            sa: *const sockaddr,
-            buf: *mut ::core::ffi::c_char,
-            buflen: size_t,
-        ) -> *const ::core::ffi::c_char;
-    }
-}
-
 pub mod util_h {
     use super::event_struct_h::event;
     use crate::types::timeval;
@@ -797,21 +784,6 @@ pub mod util_h {
         pub fn tune_socket(sock: ::core::ffi::c_int, is_unix: bool) -> bool;
 
         pub fn safe_evtimer_add(ev: *mut event, tv: *mut timeval);
-    }
-}
-
-pub mod safeio_h {
-    use crate::types::socklen_t;
-    use crate::types::sockaddr;
-    extern "C" {
-
-        pub fn safe_close(fd: ::core::ffi::c_int) -> ::core::ffi::c_int;
-
-        pub fn safe_accept(
-            fd: ::core::ffi::c_int,
-            sa: *mut sockaddr,
-            sa_len: *mut socklen_t,
-        ) -> ::core::ffi::c_int;
     }
 }
 
@@ -910,7 +882,7 @@ pub use self::netdb_h::{addrinfo, freeaddrinfo, gai_strerror, getaddrinfo, AI_PA
 use self::objects_h::accept_client;
 pub use self::pktbuf_h::PktBuf;
 pub use self::pooler_h::pooler_cb;
-use self::safeio_h::{safe_accept, safe_close};
+use crate::types::{safe_accept, safe_close};
 pub use self::sbuf_h::{
     sbuf_cb_t, SBuf, SBufEvent, SBufIO, SBUF_EV_CONNECT_FAILED, SBUF_EV_CONNECT_OK, SBUF_EV_FLUSH,
     SBUF_EV_PKT_CALLBACK, SBUF_EV_READ, SBUF_EV_RECV_FAILED, SBUF_EV_SEND_FAILED,
@@ -939,7 +911,7 @@ pub use crate::types::{PgClientPreparedStatement, PgPreparedStatement, PgServerP
 
 pub use self::un_h::sockaddr_un;
 use self::unistd_h::unlink;
-use self::usual_socket_h::sa2str;
+use crate::types::sa2str;
 use self::util_h::{safe_evtimer_add, tune_socket};
 pub use crate::types::VarCache;
 pub use crate::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table};

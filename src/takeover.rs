@@ -721,27 +721,6 @@ pub mod _param_h {
     use crate::types::__uint32_t;
 }
 
-pub mod safeio_h {
-    use crate::types::msghdr;
-    use crate::types::size_t;
-    use crate::types::ssize_t;
-    extern "C" {
-
-        pub fn safe_recv(
-            fd: ::core::ffi::c_int,
-            buf: *mut ::core::ffi::c_void,
-            len: size_t,
-            flags: ::core::ffi::c_int,
-        ) -> ssize_t;
-
-        pub fn safe_recvmsg(
-            fd: ::core::ffi::c_int,
-            msg: *mut msghdr,
-            flags: ::core::ffi::c_int,
-        ) -> ssize_t;
-    }
-}
-
 pub mod errno_h {
 
     pub const ENOENT: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
@@ -750,13 +729,6 @@ pub mod errno_h {
     extern "C" {
 
         pub fn __error() -> *mut ::core::ffi::c_int;
-    }
-}
-
-pub mod usual_socket_h {
-    extern "C" {
-
-        pub fn socket_set_nonblocking(sock: ::core::ffi::c_int, non_block: bool) -> bool;
     }
 }
 
@@ -875,7 +847,7 @@ pub use self::protocol_h::{
     PqMsg_CommandComplete, PqMsg_DataRow, PqMsg_ErrorResponse, PqMsg_Query, PqMsg_ReadyForQuery,
     PqMsg_RowDescription,
 };
-use self::safeio_h::{safe_recv, safe_recvmsg};
+use crate::types::{safe_recv, safe_recvmsg};
 pub use self::sbuf_h::{
     sbuf_cb_t, sbuf_continue_with_callback, sbuf_pause, SBuf, SBufEvent, SBufIO,
     SBUF_EV_CONNECT_FAILED, SBUF_EV_CONNECT_OK, SBUF_EV_FLUSH, SBUF_EV_PKT_CALLBACK, SBUF_EV_READ,
@@ -894,7 +866,7 @@ pub use crate::types::{usec_t, USEC};
 pub use crate::types::{PStr, StrPool};
 
 use self::unistd_h::usleep;
-use self::usual_socket_h::socket_set_nonblocking;
+use crate::types::socket_set_nonblocking;
 pub use crate::types::VarCache;
 pub use crate::types::{UT_hash_bucket, UT_hash_handle, UT_hash_table};
 

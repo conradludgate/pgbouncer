@@ -1065,29 +1065,6 @@ pub mod include_signal_h {
     }
 }
 
-pub mod safeio_h {
-    use pgbouncer::types::socklen_t;
-    use pgbouncer::types::sockaddr;
-    use pgbouncer::types::size_t;
-    use pgbouncer::types::ssize_t;
-    extern "C" {
-
-        pub fn safe_write(
-            fd: ::core::ffi::c_int,
-            buf: *const ::core::ffi::c_void,
-            len: size_t,
-        ) -> ssize_t;
-
-        pub fn safe_close(fd: ::core::ffi::c_int) -> ::core::ffi::c_int;
-
-        pub fn safe_connect(
-            fd: ::core::ffi::c_int,
-            sa: *const sockaddr,
-            sa_len: socklen_t,
-        ) -> ::core::ffi::c_int;
-    }
-}
-
 pub mod config_h {
 
     pub const PACKAGE_BUGREPORT: [::core::ffi::c_char; 46] = unsafe {
@@ -1342,7 +1319,7 @@ use self::pooler_h::{
     cleanup_tcp_sockets, per_loop_pooler_maint, pooler_setup, pooler_tune_accept,
 };
 pub use self::resource_h::{getrlimit, rlim_t, rlimit, RLIMIT_NOFILE};
-use self::safeio_h::{safe_close, safe_connect, safe_write};
+use pgbouncer::types::{safe_close, safe_connect, safe_write};
 pub use self::sbuf_h::{
     sbuf_cb_t, sbuf_tls_setup, SBuf, SBufEvent, SBufIO, SBUF_EV_CONNECT_FAILED, SBUF_EV_CONNECT_OK,
     SBUF_EV_FLUSH, SBUF_EV_PKT_CALLBACK, SBUF_EV_READ, SBUF_EV_RECV_FAILED, SBUF_EV_SEND_FAILED,
