@@ -1,12 +1,13 @@
 pub mod _types_h {
+    pub use crate::types::*;
 
-    pub type __darwin_size_t = usize;
 }
 
 pub mod _size_t_h {
 
-    pub type size_t = __darwin_size_t;
-    use super::_types_h::__darwin_size_t;
+    pub use crate::types::*;
+
+
 }
 
 pub mod saslprep_h {
@@ -139,21 +140,23 @@ pub mod unicode_norm_h {
 
 pub mod _null_h {
 
-    pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
-    use crate::types::__DARWIN_NULL;
+    pub use crate::types::*;
+
+
 }
 
 pub mod postgres_compat_h {
 
-    pub const MaxAllocSize: size_t = 0x3fffffff as ::core::ffi::c_int as size_t;
-    use super::_size_t_h::size_t;
+    pub use crate::types::*;
+
+
 }
 
 pub mod stdbool_h {
 
-    pub const true_0: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
+    pub use crate::types::*;
 
-    pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
+
 }
 
 pub mod string_h {

@@ -738,6 +738,10 @@ pub const PASSWORD_TYPE_PLAINTEXT: PasswordType = 0;
 pub const PASSWORD_TYPE_MD5: PasswordType = 1;
 pub const PASSWORD_TYPE_SCRAM_SHA_256: PasswordType = 2;
 
+// Postgres compatibility constants
+pub const HIGHBIT: ::core::ffi::c_int = 0x80;
+pub const MaxAllocSize: size_t = 0x3fffffff;
+
 #[derive(Copy, Clone)]
 #[repr(C)]
 pub struct SBufIO {

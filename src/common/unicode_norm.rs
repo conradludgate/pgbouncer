@@ -1,17 +1,20 @@
 pub mod _types_h {
+    pub use crate::types::*;
 
-    pub type __darwin_size_t = usize;
 }
 
 pub mod _size_t_h {
 
-    pub type size_t = __darwin_size_t;
-    use super::_types_h::__darwin_size_t;
+    pub use crate::types::*;
+
+
 }
 
 pub mod _uint8_t_h {
 
-    pub type uint8_t = u8;
+    pub use crate::types::*;
+
+
 }
 
 pub mod _uint16_t_h {
@@ -46267,15 +46270,16 @@ pub mod unicode_norm_table_h {
 
 pub mod _null_h {
 
-    pub const NULL: *mut ::core::ffi::c_void = __DARWIN_NULL;
-    use crate::types::__DARWIN_NULL;
+    pub use crate::types::*;
+
+
 }
 
 pub mod stdbool_h {
 
-    pub const true_0: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
+    pub use crate::types::*;
 
-    pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
+
 }
 use crate::types::{free, malloc};
 pub use self::_null_h::NULL;

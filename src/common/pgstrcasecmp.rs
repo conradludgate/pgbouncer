@@ -1,20 +1,13 @@
 pub mod _types_h {
+    pub use crate::types::*;
 
-    pub type __uint32_t = u32;
-
-    pub type __darwin_ct_rune_t = ::core::ffi::c_int;
-
-    pub type __darwin_size_t = usize;
-
-    pub type __darwin_wchar_t = ::libc::wchar_t;
-
-    pub type __darwin_rune_t = __darwin_wchar_t;
 }
 
 pub mod _size_t_h {
 
-    pub type size_t = __darwin_size_t;
-    use super::_types_h::__darwin_size_t;
+    pub use crate::types::*;
+
+
 }
 
 pub mod runetype_h {
@@ -140,7 +133,9 @@ pub mod ctype_h {
 
 pub mod postgres_compat_h {
 
-    pub const HIGHBIT: ::core::ffi::c_int = 0x80 as ::core::ffi::c_int;
+    pub use crate::types::*;
+
+
 }
 pub use self::_ctype_h::{__istype, __maskrune, __tolower, isascii, isupper, tolower, _CTYPE_U};
 pub use self::_size_t_h::size_t;
