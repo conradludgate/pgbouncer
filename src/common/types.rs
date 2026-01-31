@@ -1467,6 +1467,17 @@ extern "C" {
 }
 
 // =============================================================================
+// errno_h (merged from all files)
+// =============================================================================
+
+pub const ECONNABORTED: ::core::ffi::c_int = 53 as ::core::ffi::c_int;
+pub const EINVAL: ::core::ffi::c_int = 22 as ::core::ffi::c_int;
+pub const EIO: ::core::ffi::c_int = 5 as ::core::ffi::c_int;
+pub const ENOENT: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
+pub const ENOSYS: ::core::ffi::c_int = 78 as ::core::ffi::c_int;
+pub const ESRCH: ::core::ffi::c_int = 3 as ::core::ffi::c_int;
+
+// =============================================================================
 // pgbouncer-specific forward declarations
 // These are declared but not fully defined here to break circular dependencies
 // =============================================================================

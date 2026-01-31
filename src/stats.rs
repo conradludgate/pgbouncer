@@ -455,13 +455,6 @@ pub mod objects_h {
     }
 }
 
-pub mod errno_h {
-    extern "C" {
-
-        pub fn __error() -> *mut ::core::ffi::c_int;
-    }
-}
-
 use crate::types::strerror;
 use self::admin_h::{admin_error, admin_flush};
 pub use self::bouncer_h::{
@@ -496,7 +489,7 @@ pub use crate::types::{
 pub use crate::types::{aatree_cmp_f, aatree_walker_f, AANode, AATree};
 pub use crate::types::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
 
-use self::errno_h::__error;
+use crate::types::__error;
 pub use crate::types::{event_add, event_assign, event_base, event_callback_fn, EV_PERSIST};
 pub use crate::types::{
     event, event_callback, C2RustUnnamed_0, C2RustUnnamed_1, C2RustUnnamed_2, C2RustUnnamed_3,

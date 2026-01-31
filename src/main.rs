@@ -851,19 +851,6 @@ pub mod _printf_h {
     }
 }
 
-pub mod errno_h {
-
-    pub const ENOENT: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
-
-    pub const ESRCH: ::core::ffi::c_int = 3 as ::core::ffi::c_int;
-
-    pub const EINTR: ::core::ffi::c_int = 4 as ::core::ffi::c_int;
-    extern "C" {
-
-        pub fn __error() -> *mut ::core::ffi::c_int;
-    }
-}
-
 pub mod system_h {
     extern "C" {
 
@@ -1036,7 +1023,7 @@ pub use self::cfparser_h::{
 pub use self::config_h::{PACKAGE_BUGREPORT, PACKAGE_NAME, PACKAGE_STRING, PACKAGE_URL};
 use self::dnslookup_h::{adns_create_context, adns_get_backend, adns_per_loop, DNSContext};
 use self::err_h::xstrdup;
-pub use self::errno_h::{__error, EINTR, ENOENT, ESRCH};
+pub use pgbouncer::types::{__error, EINTR, ENOENT, ESRCH};
 pub use pgbouncer::types::{
     event_add, event_assign, event_base, event_base_free, event_base_get_method, event_base_loop,
     event_base_new, event_callback_fn, event_get_version, EVLOOP_ONCE, EV_PERSIST, EV_SIGNAL,

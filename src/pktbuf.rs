@@ -441,15 +441,6 @@ pub mod base_h {
     use crate::types::size_t;
 }
 
-pub mod errno_h {
-
-    pub const EAGAIN: ::core::ffi::c_int = 35 as ::core::ffi::c_int;
-    extern "C" {
-
-        pub fn __error() -> *mut ::core::ffi::c_int;
-    }
-}
-
 pub mod protocol_h {
 
     pub const PqMsg_Bind: ::core::ffi::c_int = 'B' as i32;
@@ -505,7 +496,7 @@ pub use crate::types::{
 pub use crate::types::{aatree_cmp_f, aatree_walker_f, AANode, AATree};
 pub use crate::types::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
 
-pub use self::errno_h::{__error, EAGAIN};
+pub use crate::types::{__error, EAGAIN};
 pub use crate::types::{event_add, event_assign, event_base, event_callback_fn, EV_WRITE};
 pub use crate::types::{
     event, event_callback, C2RustUnnamed_0, C2RustUnnamed_1, C2RustUnnamed_2, C2RustUnnamed_3,

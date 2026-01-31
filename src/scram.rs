@@ -568,13 +568,6 @@ pub mod limits_h {
     pub const INT_MAX: ::core::ffi::c_int = 2147483647 as ::core::ffi::c_int;
 }
 
-pub mod errno_h {
-    extern "C" {
-
-        pub fn __error() -> *mut ::core::ffi::c_int;
-    }
-}
-
 pub mod sha2_h {
 
     pub const PG_SHA256_DIGEST_LENGTH: ::core::ffi::c_int = 32 as ::core::ffi::c_int;
@@ -617,7 +610,7 @@ pub use crate::types::{
 pub use crate::types::{aatree_cmp_f, aatree_walker_f, AANode, AATree};
 pub use crate::types::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
 
-use self::errno_h::__error;
+use crate::types::__error;
 
 pub use crate::types::{
     event, event_callback, C2RustUnnamed_0, C2RustUnnamed_1, C2RustUnnamed_2, C2RustUnnamed_3,

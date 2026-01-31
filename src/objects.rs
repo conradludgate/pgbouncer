@@ -807,13 +807,6 @@ pub mod janitor_h {
     }
 }
 
-pub mod errno_h {
-    extern "C" {
-
-        pub fn __error() -> *mut ::core::ffi::c_int;
-    }
-}
-
 pub mod inet_h {
     extern "C" {
 
@@ -891,7 +884,7 @@ use self::client_h::{client_proto, sending_auth_query, set_pool};
 pub use self::cxalloc_h::{cx_libc_allocator, CxMem, CxOps};
 pub use self::dnslookup_h::{adns_callback_f, adns_cancel, adns_resolve, DNSContext, DNSToken};
 use self::err_h::xstrdup;
-use self::errno_h::__error;
+use crate::types::__error;
 pub use crate::types::in_addr_t;
 pub use crate::types::in_port_t;
 pub use crate::types::pid_t;

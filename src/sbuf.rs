@@ -684,19 +684,6 @@ pub mod slab_h {
     }
 }
 
-pub mod errno_h {
-
-    pub const EIO: ::core::ffi::c_int = 5 as ::core::ffi::c_int;
-
-    pub const EAGAIN: ::core::ffi::c_int = 35 as ::core::ffi::c_int;
-
-    pub const EINPROGRESS: ::core::ffi::c_int = 36 as ::core::ffi::c_int;
-    extern "C" {
-
-        pub fn __error() -> *mut ::core::ffi::c_int;
-    }
-}
-
 pub mod util_h {
     extern "C" {
 
@@ -750,7 +737,7 @@ pub use crate::types::{
 pub use crate::types::{aatree_cmp_f, aatree_walker_f, AANode, AATree};
 pub use crate::types::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
 
-pub use self::errno_h::{__error, EAGAIN, EINPROGRESS, EIO};
+pub use crate::types::{__error, EAGAIN, EINPROGRESS, EIO};
 pub use crate::types::{
     event_add, event_assign, event_base, event_callback_fn, event_del, EV_PERSIST, EV_READ,
     EV_WRITE,

@@ -361,13 +361,6 @@ pub mod cxextra_h {
     }
 }
 
-pub mod errno_h {
-    extern "C" {
-
-        pub fn __error() -> *mut ::core::ffi::c_int;
-    }
-}
-
 pub mod string_h {
     extern "C" {
 
@@ -392,7 +385,7 @@ pub use self::cbtree_h::{
 pub use self::ctype_h::safe_isspace;
 pub use self::cxalloc_h::{cx_alloc, cx_alloc0, cx_destroy, CxMem, CxOps};
 use self::cxextra_h::cx_new_pool;
-use self::errno_h::__error;
+use crate::types::__error;
 pub use self::hba_h::{
     HBAAddress, HBAName, HBARule, Ident, IdentMap, Mapping, RuleType, ADDRESS_ALL, HBA, NAME_ALL,
     NAME_REPLICATION, NAME_SAMEUSER, RULE_HOST, RULE_HOSTNOSSL, RULE_HOSTSSL, RULE_LOCAL,

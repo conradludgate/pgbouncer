@@ -618,13 +618,6 @@ pub mod slab_h {
     }
 }
 
-pub mod errno_h {
-    extern "C" {
-
-        pub fn __error() -> *mut ::core::ffi::c_int;
-    }
-}
-
 pub mod protocol_h {
 
     pub const PqMsg_Query: ::core::ffi::c_int = 'Q' as i32;
@@ -672,7 +665,7 @@ pub use self::bouncer_h::{
     SV_USED,
 };
 use self::dnslookup_h::adns_zone_cache_maint;
-use self::errno_h::__error;
+use crate::types::__error;
 pub use crate::types::{
     event_add, event_assign, event_base, event_base_loopbreak, event_callback_fn, EV_PERSIST,
 };

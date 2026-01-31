@@ -945,13 +945,6 @@ pub mod config_h {
     };
 }
 
-pub mod errno_h {
-    extern "C" {
-
-        pub fn __error() -> *mut ::core::ffi::c_int;
-    }
-}
-
 pub mod _strings_h {
     extern "C" {
 
@@ -1032,7 +1025,7 @@ pub use self::dnslookup_h::{
     DNSToken,
 };
 pub use self::endian_h::{usual_be32dec, usual_bswap32};
-use self::errno_h::__error;
+use crate::types::__error;
 use crate::types::event_base_loopbreak;
 pub use crate::types::{
     event, event_callback, C2RustUnnamed_0, C2RustUnnamed_1, C2RustUnnamed_2, C2RustUnnamed_3,

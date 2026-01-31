@@ -636,17 +636,6 @@ pub mod csrandom_h {
     }
 }
 
-pub mod errno_h {
-
-    pub const EINVAL: ::core::ffi::c_int = 22 as ::core::ffi::c_int;
-
-    pub const ENOSYS: ::core::ffi::c_int = 78 as ::core::ffi::c_int;
-    extern "C" {
-
-        pub fn __error() -> *mut ::core::ffi::c_int;
-    }
-}
-
 pub mod tcp_h {
 
     pub const TCP_NODELAY: ::core::ffi::c_int = 0x1 as ::core::ffi::c_int;
@@ -708,7 +697,7 @@ pub use crate::types::{aatree_cmp_f, aatree_walker_f, AANode, AATree};
 pub use crate::types::{pg_cryptohash_type, PG_SHA224, PG_SHA256, PG_SHA384, PG_SHA512};
 
 use self::err_h::{ERR_clear_error, ERR_get_error, ERR_reason_error_string};
-pub use self::errno_h::{__error, EINVAL, ENOSYS};
+pub use crate::types::{__error, EINVAL, ENOSYS};
 use crate::types::event_add;
 pub use crate::types::{
     event, event_callback, C2RustUnnamed_0, C2RustUnnamed_1, C2RustUnnamed_2, C2RustUnnamed_3,

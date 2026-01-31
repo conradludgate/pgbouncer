@@ -75,18 +75,11 @@ pub mod stat_h {
     }
 }
 
-pub mod errno_h {
-    extern "C" {
-
-        pub fn __error() -> *mut ::core::ffi::c_int;
-    }
-}
-
 pub use crate::types::gid_t;
 pub use crate::types::mode_t;
 use crate::types::{exit, strtoul};
 use crate::types::{strcmp, strerror};
-use self::errno_h::__error;
+use crate::types::__error;
 pub use self::grp_h::{getgrnam, group};
 pub use crate::types::{
     log_generic, LogLevel, LG_DEBUG, LG_ERROR, LG_FATAL, LG_INFO, LG_NOISE, LG_STATS, LG_WARNING,
