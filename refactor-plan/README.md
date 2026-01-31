@@ -74,9 +74,9 @@ We start from the entry point (`main.rs`) and core connection handling (`client.
 **Total lines saved this session: ~2,935 lines** (net: -2,235 lines after adding to types.rs)
 
 **Modules needing manual migration:**
-- `in6_h` — Must replace Darwin `__u6_addr` field access with portable `s6_addr`
-- `event_h` / `event_struct_h` — Use libevent's actual struct definitions
-- `_stdio_h` — Use libc re-exports, remove duplicates
+- `in6_h` — ✅ **DONE** - Replaced Darwin `__u6_addr` with portable `s6_addr`
+- `event_h` / `event_struct_h` — **BLOCKED** on bouncer_h - event struct is embedded in PgSocket using `C2RustUnnamed*` types that differ from named types in types.rs
+- `_stdio_h` — **BLOCKED** - `__stderrp` already defined with `#[link_name]` attribute
 - `dnslookup_h` — Use `libc::addrinfo`
 - `protocol_h` — Deduplicate auth constants
 
