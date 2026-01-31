@@ -50,33 +50,45 @@ We start from the entry point (`main.rs`) and core connection handling (`client.
 
 **Lines saved from refactoring: ~10,400+** (type consolidation + cleanup patterns)
 
-### Recent Session (2026-01-31): Type Module Consolidation
+### Recent Session (2026-01-31): Variable Content Module Consolidation
 
-**4 commits** consolidating darwin type modules:
-1. `sys__types_h` modules removed from 26 files (-350 lines)
-   - Added 12 darwin type aliases to `types.rs`
-   - Script: `scripts/consolidate_sys_types.py`
-2. Type wrapper modules (`_gid_t_h`, `_socklen_t_h`, `_va_list_h`, etc.) from 13 files (-241 lines)
-   - Added libc types (gid_t, mode_t, off_t, etc.) to `types.rs`
-   - Script: `scripts/consolidate_wrapper_modules.py`
-3. Additional wrapper modules (`_int32_t_h`, `_int64_t_h`, `_sigset_t_h`) from 4 files
-4. Struct wrapper modules (`_timespec_h`, `_iovec_t_h`) from 4 files (-67 lines)
+**Created `scripts/merge_module.py`** — a smart consolidation script that:
+- Collects ALL items from ALL instances of a module across all files
+- Merges types, constants, functions into a single definition
+- Detects existing symbols to avoid duplicates
+- Handles `super::module_name::` patterns inside nested modules
 
-**Total lines saved this session: ~660 lines**
+**Successfully consolidated variable content modules:**
+| Module | Files | Lines Saved |
+|--------|-------|-------------|
+| `tls_h` | 20 | ~200 |
+| `logging_h` | 23 | ~760 |
+| `socket_h` | 22 | ~410 |
+| `in_h` | 21 | ~480 |
+| `_string_h` | 23 | ~610 |
+| `_stdlib_h` | 21 | ~180 |
+| `_malloc_h` | 17 | ~160 |
+| `safeio_h` | 6 | ~70 |
+| `usual_socket_h` | 7 | ~65 |
+
+**Total lines saved this session: ~2,935 lines** (net: -2,235 lines after adding to types.rs)
+
+**Modules that failed consolidation (require manual fixes):**
+- `in6_h` — Darwin-specific `__u6_addr` field incompatible with `libc::in6_addr`
+- `event_h` — Different struct definitions cause type mismatches
+- `_stdio_h` — `__stderrp` already defined
+- `dnslookup_h` — Uses `addrinfo` type that has different definitions across files
+- `protocol_h` — Auth constants already defined elsewhere
+- `slab_h` — Depends on bouncer_h types
 
 **Key findings:**
 - `iobuf_h` has inline functions depending on extern statics (`cf_sbuf_len`), making it complex to consolidate. Same issue as `bouncer_h`.
-- `socket_h` defines custom struct types (sockaddr_ucreds) used in unions — cannot directly replace with libc types.
-- **Module content varies across files** — the same module name (e.g., `tls_h`) has different content in different files. Some files define just `pub type tls;` while others define 20+ functions. This prevents automated consolidation.
+- **Module content varies across files** — SOLVED with `merge_module.py` which collects ALL items from all files and merges them.
+- Some modules (in6_h, event_h) have struct definitions that are incompatible across files or with libc.
 
 ### Remaining Duplicate Modules Analysis
 
-After analysis, the remaining 521 duplicate modules fall into these categories:
-
-**1. Variable content modules (CANNOT auto-consolidate):**
-- `tls_h` (20 files) — Content varies: some have just `pub type tls;`, others have 20+ TLS functions
-- `socket_h` (22 files) — Some have just sockaddr, others include AF_* constants
-- `logging_h` (23 files) — Some have just log functions, others have different LogLevel constants
+After consolidation, remaining complex modules:
 
 **2. Complex struct modules (need careful migration):**
 - `bouncer_h` (22 files) — Core types, mixes types with extern statics
